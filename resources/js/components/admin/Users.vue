@@ -149,7 +149,7 @@
             getResults(page = 1) {
 
                   this.$Progress.start();
-
+                    console.log('get Results');
                   axios.get('/api/user?page=' + page).then(({ data }) => (this.users = data.data));
 
                   this.$Progress.finish();
@@ -214,16 +214,13 @@
             },
           loadUsers(){
             this.$Progress.start();
-
             if(this.$gate.isAdmin()){
-              axios.get("/api/user").then(({ data }) => (this.users = data.data));
+                axios.get("/api/user").then(({ data }) => (this.users = data.data));
             }
-
             this.$Progress.finish();
           },
 
           createUser(){
-
               this.form.post('/api/user')
               .then((response)=>{
                   $('#addNew').modal('hide');
@@ -235,7 +232,6 @@
 
                   this.$Progress.finish();
                   this.loadUsers();
-
               })
               .catch(()=>{
 
@@ -251,8 +247,8 @@
             console.log('User Component mounted.')
         },
         created() {
-
             this.$Progress.start();
+            console.log('created')
             this.loadUsers();
             this.$Progress.finish();
         }

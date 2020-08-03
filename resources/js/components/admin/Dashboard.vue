@@ -1,12 +1,12 @@
 <template>
-    <!-- Page Header -->
-    <div class="page-header row no-gutters py-4">
-        <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-            <h3 class="page-title">Dashboard</h3>
-        </div>
-    </div>
-    <!-- End Page Header -->
     <div class="row">
+        <!-- Page Header -->
+        <div class="page-header row no-gutters py-4">
+            <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
+                <h3 class="page-title">Dashboard</h3>
+            </div>
+        </div>
+        <!-- End Page Header -->
         <div class="col-12 col-md-6 col-lg-3 mb-4">
             <div class="stats-small card card-small">
                 <div class="card-body px-0 pb-0">

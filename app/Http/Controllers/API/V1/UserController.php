@@ -25,9 +25,10 @@ class UserController extends BaseController
      */
     public function index()
     {
-        if (!Gate::allows('isAdmin')) {
-            return $this->unauthorizedResponse();
-        }
+//        if (!Gate::allows('isAdmin')) {
+//            return $this->unauthorizedResponse();
+//        }
+//        dd($this->authorize('isAdmin'));
         // $this->authorize('isAdmin');
 
         $users = User::latest()->paginate(10);

@@ -13,8 +13,15 @@ require('./library/extras.1.3.1.min')
 window.Vue = require('vue');
 import Vuex from 'vuex'
 import moment from 'moment';
+import auth from './auth'
 
 Vue.use(Vuex)
+
+export default new Vuex.Store({
+    modules: {
+        auth
+    }
+})
 
 import { Form, HasError, AlertError } from 'vform';
 window.Form = Form;
@@ -77,21 +84,6 @@ const router = new VueRouter({
 // Components
 Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('admin-dashboard', require('./components/admin/Dashboard.vue'));
-
-Vue.component(
-    'passport-clients',
-    require('./components/passport/Clients.vue').default
-);
-
-Vue.component(
-    'passport-authorized-clients',
-    require('./components/passport/AuthorizedClients.vue').default
-);
-
-Vue.component(
-    'passport-personal-access-tokens',
-    require('./components/passport/PersonalAccessTokens.vue').default
-);
 
 Vue.component(
     'not-found',
