@@ -134,6 +134,13 @@ export default {
                 }
             },
             "attributes": []
+        },
+        "blog": {
+            "title_page_create": 'Create Blog',
+            "title_page_edit": 'Edit Blog',
+            "title_form": 'Article Content',
+            'title': 'Title',
+            'content': 'Content'
         }
     },
     "ja": {
@@ -271,6 +278,13 @@ export default {
                 }
             },
             "attributes": []
+        },
+        "blog": {
+            "title_page_create": 'Thêm mới',
+            "title_page_edit": 'Edit Blog',
+            "title_form": 'Article Content',
+            'title': 'Title',
+            'content': 'Content'
         }
     }
 }

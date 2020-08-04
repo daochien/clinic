@@ -22,6 +22,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         'product' => 'API\V1\ProductController',
         'category' => 'API\V1\CategoryController',
         'tag' => 'API\V1\TagController',
+        'blog' => 'API\V1\BlogController',
     ]);
 });
 
