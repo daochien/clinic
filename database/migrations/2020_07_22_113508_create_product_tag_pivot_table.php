@@ -14,8 +14,8 @@ class CreateProductTagPivotTable extends Migration
     public function up()
     {
         Schema::create('product_tag', function (Blueprint $table) {
-            $table->increments('product_id');
-            $table->increments('tag_id');
+            $table->unsignedInteger('product_id');
+            $table->unsignedInteger('tag_id');
         });
     }
 

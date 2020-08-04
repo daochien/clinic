@@ -16,7 +16,6 @@ class CreateInquiryTable extends Migration
         Schema::create('inquiry', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('created_by')->index();
-            $table->unsignedInteger('receiver_id');
             $table->unsignedInteger('category_id')->index();
             $table->text('question');
             $table->timestamps();

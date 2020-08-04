@@ -15,7 +15,7 @@ class CreateInquiryUsersTable extends Migration
     {
         Schema::create('inquiry_users', function (Blueprint $table) {
             $table->unsignedInteger('inquiry_id')->index();
-            $table->unsignedInteger('user_id')->index();
+            $table->unsignedBigInteger('user_id')->index();
         });
     }
 
