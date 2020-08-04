@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLevelsTable extends Migration
+class CreateDocumentAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateLevelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('levels', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 100)->index();
-            $table->text('description');
-            $table->timestamps();
+        Schema::create('document_attachments', function (Blueprint $table) {
+            $table->unsignedInteger('attachment_id');
+            $table->unsignedInteger('document_id')->index();
         });
     }
 
@@ -28,6 +26,6 @@ class CreateLevelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('levels');
+        Schema::dropIfExists('document_attachments');
     }
 }

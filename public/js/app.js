@@ -3160,7 +3160,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$Progress.start(); // console.log('Editing data');
 
-      this.form.put('api/user/' + this.form.id).then(function (response) {
+      this.form.put('/api/user/' + this.form.id).then(function (response) {
         // success
         $('#addNew').modal('hide');
         Toast.fire({
@@ -3200,7 +3200,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         // Send request to the server
         if (result.value) {
-          _this3.form["delete"]('api/user/' + id).then(function () {
+          _this3.form["delete"]('/api/user/' + id).then(function () {
             Swal.fire('Deleted!', 'Your file has been deleted.', 'success'); // Fire.$emit('AfterCreate');
 
             _this3.loadUsers();

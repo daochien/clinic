@@ -15,7 +15,7 @@ class CreateDocumentGroupsTable extends Migration
     {
         Schema::create('document_groups', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('document_id');
+            $table->unsignedInteger('document_id')->index();
             $table->unsignedInteger('group_id');
             $table->timestamps();
         });

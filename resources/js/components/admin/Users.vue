@@ -157,7 +157,7 @@
             updateUser(){
                 this.$Progress.start();
                 // console.log('Editing data');
-                this.form.put('api/user/'+this.form.id)
+                this.form.put('/api/user/'+this.form.id)
                 .then((response) => {
                     // success
                     $('#addNew').modal('hide');
@@ -198,7 +198,7 @@
 
                         // Send request to the server
                          if (result.value) {
-                                this.form.delete('api/user/'+id).then(()=>{
+                                this.form.delete('/api/user/'+id).then(()=>{
                                         Swal.fire(
                                         'Deleted!',
                                         'Your file has been deleted.',

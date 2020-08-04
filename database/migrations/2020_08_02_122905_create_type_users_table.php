@@ -14,7 +14,7 @@ class CreateTypeUsersTable extends Migration
     public function up()
     {
         Schema::create('type_users', function (Blueprint $table) {
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->index();
             $table->unsignedInteger('type_id');
         });
     }

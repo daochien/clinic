@@ -17,10 +17,10 @@ class CreateNotificationUsersTable extends Migration
             $table->increments('id');
             $table->tinyInteger('status')->default(0)->comment('1:waiting|2:read|3:rejected');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('notification_id');
+            $table->unsignedInteger('notification_id')->index();
             $table->timestamps();
 
-            $table->index(['user_id', 'notification_id'], 'idx_user_notification');
+            $table->index(['notification_id', 'user_id'], 'idx_notification_user');
         });
     }
 

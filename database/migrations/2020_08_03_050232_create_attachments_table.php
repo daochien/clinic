@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDocumentsTable extends Migration
+class CreateAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateDocumentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('documents', function (Blueprint $table) {
+        Schema::create('attachments', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('owner_id');
-            $table->unsignedInteger('category_id')->index();
-            $table->text('title');
-            $table->text('description');
+            $table->text('title' );
             $table->text('url');
+            $table->tinyInteger('type')->comment('1:image|2:doc|3:video')->index();
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('documents');
+        Schema::dropIfExists('attachments');
     }
 }

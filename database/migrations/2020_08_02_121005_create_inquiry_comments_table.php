@@ -16,7 +16,7 @@ class CreateInquiryCommentsTable extends Migration
         Schema::create('inquiry_comments', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('inquiry_id');
+            $table->unsignedInteger('inquiry_id')->index();
             $table->text('message');
             $table->timestamps();
         });

@@ -18,6 +18,8 @@ class CreateClinicUsersTable extends Migration
             $table->unsignedInteger('clinic_id');
             $table->unsignedInteger('user_id');
             $table->timestamps();
+
+            $table->index(['clinic_id', 'user_id'], 'idx_clinic_user');
         });
     }
 
