@@ -30,11 +30,11 @@
                                            name="password" required autocomplete="current-password" id="exampleInputPassword1"
                                            placeholder="{{ __('auth.password_holder') }}">
                                 </div>
-                                <button type="submit" class="col-12 btn btn-primary">
+                                <button type="submit" class="col-12 btn btn-primary mt-3">
                                     {{ __('auth.btn_login') }}
                                 </button>
-                                <div class="form-group row mb-0">
-                                    <div class="col-md-8">
+                                <div class="form-group mb-0 row">
+                                    <div class="col-md-12">
                                         @if (Route::has('password.request'))
                                             <a class="btn btn-link pl-0" href="{{ route('password.request') }}">
                                                 {{ __('auth.forgot_password') }}

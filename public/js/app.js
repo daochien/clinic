@@ -3127,6 +3127,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -64629,16 +64634,26 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("section", { staticClass: "content" }, [
+    _c("div", { staticClass: "page-header row no-gutters py-4" }, [
+      _c(
+        "div",
+        {
+          staticClass: "col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0"
+        },
+        [
+          _c("h3", { staticClass: "page-title" }, [
+            _vm._v(_vm._s(_vm.$t("sidebar.staff")))
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "container-fluid" }, [
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-12" }, [
           _vm.$gate.isAdmin()
             ? _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-header" }, [
-                  _c("h3", { staticClass: "card-title" }, [
-                    _vm._v("User List")
-                  ]),
-                  _vm._v(" "),
                   _c("div", { staticClass: "card-tools" }, [
                     _c(
                       "button",
@@ -82653,15 +82668,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./auth */ "./resources/js/auth.js");
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
-/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Gate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Gate */ "./resources/js/Gate.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-progressbar */ "./node_modules/vue-progressbar/dist/vue-progressbar.js");
-/* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_progressbar__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
-/* harmony import */ var _vue_i18n_locales_generated__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./vue-i18n-locales.generated */ "./resources/js/vue-i18n-locales.generated.js");
+/* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
+/* harmony import */ var _vue_i18n_locales_generated__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./vue-i18n-locales.generated */ "./resources/js/vue-i18n-locales.generated.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _Gate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Gate */ "./resources/js/Gate.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-progressbar */ "./node_modules/vue-progressbar/dist/vue-progressbar.js");
+/* harmony import */ var vue_progressbar__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(vue_progressbar__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./routes */ "./resources/js/routes.js");
 /**
@@ -82690,33 +82705,38 @@ Vue.use(vuex__WEBPACK_IMPORTED_MODULE_0__["default"]);
   }
 }));
 
-window.Form = vform__WEBPACK_IMPORTED_MODULE_3__["Form"];
 
-Vue.prototype.$gate = new _Gate__WEBPACK_IMPORTED_MODULE_4__["default"](window.user);
+Vue.use(vue_i18n__WEBPACK_IMPORTED_MODULE_3__["default"]);
+var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_3__["default"]({
+  locale: document.head.querySelector('meta[name="locale"]').content,
+  messages: _vue_i18n_locales_generated__WEBPACK_IMPORTED_MODULE_4__["default"]
+});
 
-var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.mixin({
+window.Form = vform__WEBPACK_IMPORTED_MODULE_5__["Form"];
+
+Vue.prototype.$gate = new _Gate__WEBPACK_IMPORTED_MODULE_6__["default"](window.user);
+
+var Toast = sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a.mixin({
   toast: true,
   position: 'top-end',
   showConfirmButton: false,
   timer: 3000,
   timerProgressBar: true,
   onOpen: function onOpen(toast) {
-    toast.addEventListener('mouseenter', sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.stopTimer);
-    toast.addEventListener('mouseleave', sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a.resumeTimer);
+    toast.addEventListener('mouseenter', sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a.stopTimer);
+    toast.addEventListener('mouseleave', sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a.resumeTimer);
   }
 });
-window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_5___default.a;
+window.Swal = sweetalert2__WEBPACK_IMPORTED_MODULE_7___default.a;
 window.Toast = Toast;
 
-Vue.use(vue_progressbar__WEBPACK_IMPORTED_MODULE_6___default.a, {
+Vue.use(vue_progressbar__WEBPACK_IMPORTED_MODULE_8___default.a, {
   color: 'rgb(143, 255, 199)',
   failedColor: 'red',
   height: '3px'
 });
-
-
-Vue.component(vform__WEBPACK_IMPORTED_MODULE_3__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_3__["HasError"]);
-Vue.component(vform__WEBPACK_IMPORTED_MODULE_3__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_3__["AlertError"]);
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_5__["HasError"].name, vform__WEBPACK_IMPORTED_MODULE_5__["HasError"]);
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_5__["AlertError"].name, vform__WEBPACK_IMPORTED_MODULE_5__["AlertError"]);
 /**
  * Routes imports and assigning
  */
@@ -82749,6 +82769,7 @@ Vue.filter('yesno', function (value) {
 
 var app = new Vue({
   el: '#app',
+  i18n: i18n,
   router: router
 });
 
@@ -91786,6 +91807,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   "en": {
+    "app": {
+      "name": "Clinic portal",
+      "setting": "Setting"
+    },
     "auth": {
       "failed": "These credentials do not match our records.",
       "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
@@ -91808,6 +91833,22 @@ __webpack_require__.r(__webpack_exports__);
       "token": "This password reset token is invalid.",
       "user": "We can't find a user with that e-mail address.",
       "throttled": "Please wait before retrying."
+    },
+    "sidebar": {
+      "user": "User",
+      "admin_manage": "Admin management",
+      "staff_manage": "Staff Manage",
+      "staff": "Staff list",
+      "notification": "Notification",
+      "request_inquiry": "Request/inquiry",
+      "blog": "Blog",
+      "manual": "Manual",
+      "clinics": "Clinics",
+      "templates": "Templates",
+      "request": "Request",
+      "inquiry": "Inquiry",
+      "setting": "Common setting",
+      "contact": "Contact"
     },
     "validation": {
       "accepted": "The {attribute} must be accepted.",
@@ -91923,6 +91964,9 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   "ja": {
+    "app": {
+      "name": "社内ポータルサイト"
+    },
     "auth": {
       "failed": "Ja_These credentials do not match our records.",
       "throttle": "Ja_Too many login attempts. Please try again in {seconds} seconds.",
@@ -91945,6 +91989,21 @@ __webpack_require__.r(__webpack_exports__);
       "token": "This password reset token is invalid.",
       "user": "We can't find a user with that e-mail address.",
       "throttled": "Please wait before retrying."
+    },
+    "sidebar": {
+      "user": "管理者アカウント管理",
+      "staff_manage": "スタッフ管理",
+      "staff": "スタッフ一覧",
+      "notification": "お知らせ管理",
+      "request_inquiry": "申請・問合せ管理",
+      "blog": "記事管理",
+      "manual": "マニュアル管理 ",
+      "clinics": "クリニック一覧",
+      "templates": "申請テンプレート",
+      "request": "スタッフ管理担当",
+      "inquiry": "問合せ管理",
+      "setting": "Setting",
+      "contact": "問い合わせ担当"
     },
     "validation": {
       "accepted": "The {attribute} must be accepted.",
