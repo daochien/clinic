@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDocumentAttachmentsTable extends Migration
+class CreateRequestCommentAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateDocumentAttachmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('document_attachments', function (Blueprint $table) {
+        Schema::create('request_comment_attachments', function (Blueprint $table) {
             $table->unsignedInteger('attachment_id');
-            $table->unsignedInteger('document_id')->index();
+            $table->unsignedInteger('request_comment_id')->index();
         });
     }
 
@@ -26,6 +26,6 @@ class CreateDocumentAttachmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('document_attachments');
+        Schema::dropIfExists('request_comment_attachments');
     }
 }

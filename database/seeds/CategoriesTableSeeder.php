@@ -20,26 +20,32 @@ class CategoriesTableSeeder extends Seeder
                 [
                     'name' => 'Electrical Vehicle/e-Power',
                     'description' => Str::words(50),
+                    'type' => 1
                 ],
                 [
                     'name' => 'Compact Car',
                     'description' => Str::words(50),
+                    'type' => 1
                 ],
                 [
                     'name' => 'Light Car',
                     'description' => Str::words(50),
+                    'type' => 1
                 ],
                 [
                     'name' => 'Minivan',
                     'description' => Str::words(50),
+                    'type' => 2
                 ],
                 [
                     'name' => 'Sports & Specialty',
                     'description' => Str::words(50),
+                    'type' => 2
                 ],
                 [
                     'name' => 'Sedan',
                     'description' => Str::words(50),
+                    'type' => 3
                 ],
             ]
         );
