@@ -91832,7 +91832,8 @@ __webpack_require__.r(__webpack_exports__);
       "sent": "We have e-mailed your password reset link!",
       "token": "This password reset token is invalid.",
       "user": "We can't find a user with that e-mail address.",
-      "throttled": "Please wait before retrying."
+      "throttled": "Please wait before retrying.",
+      "failed": "Password reset failed."
     },
     "sidebar": {
       "user": "User",
@@ -91985,10 +91986,14 @@ __webpack_require__.r(__webpack_exports__);
     },
     "passwords": {
       "reset": "Your password has been reset!",
-      "sent": "We have e-mailed your password reset link!",
+      "failed": "パスワード再設定に失敗しました。",
+      "sent": "パスワード再設定のメールを送信しました。",
       "token": "This password reset token is invalid.",
-      "user": "We can't find a user with that e-mail address.",
-      "throttled": "Please wait before retrying."
+      "user": "※メールアドレスを必ず入力してください。",
+      "throttled": "Please wait before retrying.",
+      "form_title": "社内ポータルサイト",
+      "submit_btn": "送信",
+      "back_to_login": "ログインページへ戻す"
     },
     "sidebar": {
       "user": "管理者アカウント管理",

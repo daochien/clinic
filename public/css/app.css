@@ -1,5 +1,31 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);@charset "UTF-8";
 
+.h-100 #toast-container div {
+  width: 350px;
+}
+
+.h-100 #toast-container .toast-success {
+  background-color: rgba(0, 123, 255, 0.2);
+  color: #3D5170;
+  background-image: none !important;
+  padding: 15px;
+  border: 1px solid #007BFF;
+  border-radius: 10px;
+}
+
+.h-100 #toast-container .toast-error {
+  background-color: rgba(235, 87, 87, 0.2);
+  color: #3D5170;
+  background-image: none !important;
+  padding: 15px;
+  border: 1px solid #EB5757;
+  border-radius: 10px;
+}
+
+.h-100 #toast-container .toast-close-button {
+  color: rgba(0, 0, 0, 0.54);
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors

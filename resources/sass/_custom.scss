@@ -1,0 +1,27 @@
+.h-100{
+    #toast-container {
+        div {
+            width: 350px;
+        }
+        .toast-success {
+            background-color: rgba(0, 123, 255, 0.2);
+            color: #3D5170;
+            background-image: none !important;
+            padding: 15px;
+            border: 1px solid #007BFF;
+            border-radius: 10px;
+        }
+        .toast-error {
+            background-color: rgba(235, 87, 87, 0.2);
+            color: #3D5170;
+            background-image: none !important;
+            padding: 15px;
+            border: 1px solid #EB5757;
+            border-radius: 10px;
+        }
+        .toast-close-button {
+            color: rgba(0, 0, 0, 0.54);
+        }
+    }
+}
+
