@@ -23,5 +23,9 @@ return [
     'btn_login' => 'ログイン',
     'title_login' => 'ログイン',
     'forgot_password' => 'パスワードを忘れた方はこちら?',
+    'title_reset' => 'パスワードを忘れた方はこちら?',
+    'confirm_password' => 'パスワードを認証する',
+    'new_password' => '新しいパスワード',
+    'reset_btn' => 'リセット',
 
 ];

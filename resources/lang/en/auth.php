@@ -23,5 +23,9 @@ return [
     'btn_login' => 'Login',
     'title_login' => 'Login',
     'forgot_password' => 'Forgot Your Password',
+    'title_reset' => 'Reset password',
+    'confirm_password' => 'Confirm password',
+    'new_password' => 'New Password',
+    'reset_btn' => 'Reset',
 
 ];

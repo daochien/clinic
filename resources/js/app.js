@@ -23,6 +23,16 @@ export default new Vuex.Store({
     }
 })
 
+
+import VueInternationalization from 'vue-i18n';
+import Locale from './vue-i18n-locales.generated';
+
+Vue.use(VueInternationalization);
+const i18n = new VueInternationalization({
+    locale: document.head.querySelector('meta[name="locale"]').content,
+    messages: Locale
+});
+
 import { Form, HasError, AlertError } from 'vform';
 window.Form = Form;
 
@@ -52,9 +62,6 @@ Vue.use(VueProgressBar, {
     failedColor: 'red',
     height: '3px'
   });
-
-import VueInternationalization from 'vue-i18n';
-import Locale from './vue-i18n-locales.generated';
 
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
@@ -103,5 +110,6 @@ Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i
 
 const app = new Vue({
     el: '#app',
+    i18n,
     router
 });

@@ -1,5 +1,13 @@
 <template>
   <section class="content">
+
+      <!-- Page Header -->
+      <div class="page-header row no-gutters py-4">
+          <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
+              <h3 class="page-title">{{ $t('sidebar.staff') }}</h3>
+          </div>
+      </div>
+      <!-- End Page Header -->
     <div class="container-fluid">
         <div class="row">
 
@@ -7,10 +15,7 @@
 
             <div class="card" v-if="$gate.isAdmin()">
               <div class="card-header">
-                <h3 class="card-title">User List</h3>
-
                 <div class="card-tools">
-
                   <button type="button" class="btn btn-sm btn-primary" @click="newModal">
                       <i class="fa fa-plus-square"></i>
                       Add New

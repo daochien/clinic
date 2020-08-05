@@ -1,5 +1,9 @@
 export default {
     "en": {
+        "app": {
+            "name": "Clinic portal",
+            "setting": "Setting"
+        },
         "auth": {
             "failed": "These credentials do not match our records.",
             "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
@@ -21,7 +25,24 @@ export default {
             "sent": "We have e-mailed your password reset link!",
             "token": "This password reset token is invalid.",
             "user": "We can't find a user with that e-mail address.",
-            "throttled": "Please wait before retrying."
+            "throttled": "Please wait before retrying.",
+            "failed": "Password reset failed."
+        },
+        "sidebar": {
+            "user": "User",
+            "admin_manage": "Admin management",
+            "staff_manage": "Staff Manage",
+            "staff": "Staff list",
+            "notification": "Notification",
+            "request_inquiry": "Request/inquiry",
+            "blog": "Blog",
+            "manual": "Manual",
+            "clinics": "Clinics",
+            "templates": "Templates",
+            "request": "Request",
+            "inquiry": "Inquiry",
+            "setting": "Common setting",
+            "contact": "Contact"
         },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
@@ -137,6 +158,9 @@ export default {
         }
     },
     "ja": {
+        "app": {
+            "name": "社内ポータルサイト"
+        },
         "auth": {
             "failed": "Ja_These credentials do not match our records.",
             "throttle": "Ja_Too many login attempts. Please try again in {seconds} seconds.",
@@ -155,10 +179,29 @@ export default {
         },
         "passwords": {
             "reset": "Your password has been reset!",
-            "sent": "We have e-mailed your password reset link!",
+            "failed": "パスワード再設定に失敗しました。",
+            "sent": "パスワード再設定のメールを送信しました。",
             "token": "This password reset token is invalid.",
-            "user": "We can't find a user with that e-mail address.",
-            "throttled": "Please wait before retrying."
+            "user": "※メールアドレスを必ず入力してください。",
+            "throttled": "Please wait before retrying.",
+            "form_title": "社内ポータルサイト",
+            "submit_btn": "送信",
+            "back_to_login": "ログインページへ戻す"
+        },
+        "sidebar": {
+            "user": "管理者アカウント管理",
+            "staff_manage": "スタッフ管理",
+            "staff": "スタッフ一覧",
+            "notification": "お知らせ管理",
+            "request_inquiry": "申請・問合せ管理",
+            "blog": "記事管理",
+            "manual": "マニュアル管理 ",
+            "clinics": "クリニック一覧",
+            "templates": "申請テンプレート",
+            "request": "スタッフ管理担当",
+            "inquiry": "問合せ管理",
+            "setting": "Setting",
+            "contact": "問い合わせ担当"
         },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
