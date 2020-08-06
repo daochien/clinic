@@ -162,6 +162,35 @@ export default {
             "title_form": 'Article Content',
             'title': 'Title',
             'content': 'Content'
+        },
+        "manager": {
+            "title_page_list": "Admin account management",
+            "title_page_create": "Create Account Admin",
+            "button_create": "Sign Up",
+            "form_filter": {
+                "select_roles": "Role",
+                "input_text_search": "Keyword",
+                "button_clear": "Clear",
+                "button_search": "Search"
+            },
+            "table": {
+                "name": "Name",
+                "email": "Email",
+                "role": "Role",
+                "note": "Note",
+                "last_login": "Last Login",
+                "action": "Action",
+                "action_edit": "Edit",
+                "action_delete": "Remove"
+            },
+            "form_create": {
+                "title": "Account Info",
+                "input_name": "Name",
+                "input_email": "Email",
+                "role": "Role",
+                "note": "Note",
+                "button_create": "Register"
+            }
         }
     },
     "ja": {
@@ -328,6 +357,35 @@ export default {
             "title_form": 'Article Content',
             'title': 'Title',
             'content': 'Content'
+        },
+        "manager": {
+            "title_page_list": "管理者アカウント管理",
+            "title_page_create": "管理者アカウント発行",
+            "button_create": "新規登録",
+            "form_filter": {
+                "select_roles": "担当者の役割",
+                "input_text_search": "キーワード",
+                "button_clear": "条件をクリアする",
+                "button_search": "この条件で検索"
+            },
+            "table": {
+                "name": "アカウント名",
+                "email": "メールアドレス",
+                "role": "役割",
+                "note": "メモ",
+                "last_login": "最終ログイン日時",
+                "action": "操作",
+                "action_edit": "編集する",
+                "action_delete": "削除する"
+            },
+            "form_create": {
+                "title": "アカウント情報",
+                "input_name": "アカウント名",
+                "input_email": "メールアドレス",
+                "role": "役割",
+                "note": "メモ",
+                "button_create": "登録"
+            }
         }
     }
 }
