@@ -3,7 +3,7 @@
         <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
             <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
                 <div class="d-table m-auto">
-                   <span class="d-none d-md-inline ml-1">{{ config('app.name', 'Clinic Portal') }}</span>
+                   <span class="d-none d-md-inline ml-1">{{ __('app.name') }}</span>
                 </div>
             </a>
             <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
@@ -27,28 +27,84 @@
             <li class="nav-item">
                 <router-link to="/admin/users" class="nav-link">
                     <i class="fa fa-users nav-icon blue"></i>
-                    <span>Users</span>
+                    <span>{{ __('sidebar.admin_manage') }}</span>
                 </router-link>
             </li>
-            <li class="nav-item">
-                <router-link to="/admin/products" class="nav-link">
-                    <i class="nav-icon fas fa-list orange"></i>
-                    <span>
-                        Product
-                    </span>
-                </router-link>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                    <i class="far fa-address-book"></i>
+                    <span>{{ __('sidebar.staff_manage') }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-small">
+                    <router-link to="/admin/clinics" class="dropdown-item">
+                        {{ __('sidebar.clinics') }}
+                    </router-link>
+                    <router-link to="/admin/users" class="dropdown-item">
+                        {{ __('sidebar.staff') }}
+                    </router-link>
+                </div>
             </li>
             <li class="nav-item">
-                <router-link to="/admin/product/category" class="nav-link">
+                <router-link to="/admin/notifications" class="nav-link">
+                    <i class="far fa-bell"></i>
+                    <span>{{ __('sidebar.notification') }}</span>
+                </router-link>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                    <i class="fas fa-clipboard-list"></i>
+                    <span>{{ __('sidebar.request') }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-small">
+                    <router-link to="/admin/templates" class="dropdown-item">
+                        {{ __('sidebar.templates') }}
+                    </router-link>
+                    <router-link to="/admin/requests" class="dropdown-item">
+                        {{ __('sidebar.request') }}
+                    </router-link>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                    <i class="far fa-question-circle"></i>
+                    <span>{{ __('sidebar.inquiry') }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-small">
+                    <router-link to="/admin/inquiry" class="dropdown-item">
+                        {{ __('sidebar.templates') }}
+                    </router-link>
+                    <router-link to="/admin/request" class="dropdown-item">
+                        {{ __('sidebar.request') }}
+                    </router-link>
+                    <router-link to="/admin/inquiry" class="dropdown-item">
+                        {{ __('sidebar.inquiry') }}
+                    </router-link>
+                </div>
+            </li>
+            <li class="nav-item">
+                <router-link to="/admin/blogs" class="nav-link">
+                    <i class="fas fa-stream"></i>
+                    <span>{{ __('sidebar.blog') }}</span>
+                </router-link>
+            </li>
+           {{-- <li class="nav-item">
+                <router-link to="/admin/manuals" class="nav-link">
                     <i class="fa fa-users nav-icon blue"></i>
-                    <span>Category</span>
+                    <span>{{ __('sidebar.manual') }}</span>
                 </router-link>
-            </li>
-            <li class="nav-item">
-                <router-link to="/admin/product/tag" class="nav-link">
-                    <i class="fa fa-users nav-icon blue"></i>
-                    <span>Tags</span>
-                </router-link>
+            </li>--}}
+        </ul>
+        <ul class="nav nav--no-borders flex-column">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                    <i class="fas fa-cog"></i>
+                    <span>{{ __('app.setting') }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-small">
+                    <router-link to="/admin/product/products" class="nav-link">Product</router-link>
+                    <router-link to="/admin/product/category" class="nav-link">Category</router-link>
+                    <router-link to="/admin/product/tag" class="nav-link">Tags</router-link>
+                </div>
             </li>
         </ul>
         @endcan

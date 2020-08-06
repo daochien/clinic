@@ -49,11 +49,11 @@ class ProductController extends BaseController
         $product = $this->productRepository->create($request->validated());
 
         // update pivot table
-        $tag_ids = [];
+        $tagIds = [];
         foreach ($request->get('tags') as $tag) {
-            $tag_ids[] = $tag['id'];
+            $tagIds[] = $tag['id'];
         }
-        $product->tags()->sync($tag_ids);
+        $product->tags()->sync($tagIds);
 
         return $this->sendResponse($product, 'Product Created Successfully');
     }
@@ -75,7 +75,7 @@ class ProductController extends BaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
+     * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
     public function update(ProductRequest $request, $id)

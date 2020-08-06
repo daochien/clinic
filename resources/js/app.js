@@ -15,18 +15,23 @@ import Vuex from 'vuex'
 import moment from 'moment';
 import auth from './auth'
 
-import CKEditor from '@ckeditor/ckeditor5-vue';
-import Vuelidate from 'vuelidate';
-
 Vue.use(Vuex)
-Vue.use(CKEditor);
-Vue.use(Vuelidate);
 
 export default new Vuex.Store({
     modules: {
         auth
     }
 })
+
+
+import VueInternationalization from 'vue-i18n';
+import Locale from './vue-i18n-locales.generated';
+
+Vue.use(VueInternationalization);
+const i18n = new VueInternationalization({
+    locale: document.head.querySelector('meta[name="locale"]').content,
+    messages: Locale
+});
 
 import { Form, HasError, AlertError } from 'vform';
 window.Form = Form;
@@ -57,15 +62,6 @@ Vue.use(VueProgressBar, {
     failedColor: 'red',
     height: '3px'
   });
-
-import VueInternationalization from 'vue-i18n';
-import Locale from './vue-i18n-locales.generated';
-
-Vue.use(VueInternationalization);
-const i18n = new VueInternationalization({
-    locale: document.head.querySelector('meta[name="locale"]').content,
-    messages: Locale
-});
 
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
@@ -114,6 +110,6 @@ Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i
 
 const app = new Vue({
     el: '#app',
-    router,
-    i18n
+    i18n,
+    router
 });

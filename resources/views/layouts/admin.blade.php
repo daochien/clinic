@@ -4,16 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-    <meta name="locale" content="{{ \Illuminate\Support\Facades\App::getLocale() }}" />
-
+    <meta name="locale" content="{{ App::getLocale() }}"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Clinic') }}</title>
+    <title>{{ __('app.name') }}</title>
 
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link href="{{ asset('css/shards-dashboards.1.3.1.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </head>
 <body class="h-100">
 <div class="container-fluid" id="app">
@@ -39,7 +37,7 @@
                         </div>
                     </form>
                     <ul class="navbar-nav border-left flex-row ">
-                        <li class="nav-item border-right dropdown notifications">
+                        {{--<li class="nav-item border-right dropdown notifications">
                             <a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <div class="nav-link-icon__wrapper">
@@ -77,7 +75,7 @@
                                 <a class="dropdown-item notification__all text-center" href="#"> View all
                                     Notifications </a>
                             </div>
-                        </li>
+                        </li>--}}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#"
                                role="button" aria-haspopup="true" aria-expanded="false">
@@ -110,6 +108,7 @@
                     </nav>
                 </nav>
             </div> <!-- / .main-navbar -->
+
             <div class="main-content-container container-fluid px-4">
                 <router-view></router-view>
                 <vue-progress-bar></vue-progress-bar>
@@ -133,5 +132,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
 <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+{!! Toastr::message() !!}
 </body>
 </html>
