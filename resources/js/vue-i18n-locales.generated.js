@@ -2,7 +2,14 @@ export default {
     "en": {
         "app": {
             "name": "Clinic portal",
-            "setting": "Setting"
+            "setting": "Setting",
+            "notifications": "Notifications",
+            "singup": "Sign Up",
+            "target_person": "対象者",
+            "keyword": "キーワード",
+            "keyword_placeholder": "キーワードを入力してください",
+            "clear_condition": "条件をクリアする",
+            "search_condition": "この条件で検索",
         },
         "auth": {
             "failed": "These credentials do not match our records.",
@@ -159,7 +166,25 @@ export default {
     },
     "ja": {
         "app": {
-            "name": "社内ポータルサイト"
+            "name": "社内ポータルサイト",
+            "notifications": "お知らせ一覧",
+            "singup": "新規登録",
+            "target_person": "対象者",
+            "keyword": "キーワード",
+            "keyword_placeholder": "キーワードを入力してください",
+            "clear_condition": "条件をクリアする",
+            "search_condition": "この条件で検索",
+            "title": "タイトル",
+            "total_number_diliveries": "配送総数",
+            "exist_number": "既読数",
+            "number_people_confirm": "確認済人数",
+            "release_date": "公開日時",
+            "status": "ステータス",
+            "operating": "操作",
+            "publish_announcement": "お知らせを公開する",
+            "edit": "編集する",
+            "delete": "削除する",
+            "check_details": "詳細を確認する",
         },
         "auth": {
             "failed": "Ja_These credentials do not match our records.",

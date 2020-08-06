@@ -5,5 +5,6 @@ export default [
     { path: '/admin/products', component: require('./components/admin/product/Products.vue').default },
     { path: '/admin/product/tag', component: require('./components/admin/product/Tag.vue').default },
     { path: '/admin/product/category', component: require('./components/admin/product/Category.vue').default },
-    { path: '*', component: require('./components/NotFound.vue').default }
+    { path: '*', component: require('./components/NotFound.vue').default },
+    { path: '/admin/notifications', component: require('./components/admin/notifications/Index.vue').default },
 ];
