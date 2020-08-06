@@ -56,9 +56,10 @@
                     <span>{{ __('sidebar.request') }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-small">
-                    <router-link to="/admin/templates" class="dropdown-item">
+                    <a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>
+                    {{--<router-link to="/admin/templates" class="dropdown-item">
                         {{ __('sidebar.templates') }}
-                    </router-link>
+                    </router-link>--}}
                     <router-link to="/admin/requests" class="dropdown-item">
                         {{ __('sidebar.request') }}
                     </router-link>

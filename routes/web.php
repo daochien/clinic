@@ -9,11 +9,28 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
+//Route::get('/admin', 'Admin\HomeController@index')->name('admin_dashboard');
+//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('/admin/template', 'Admin\Template\FormController');
+Route::prefix('/admin/template')
+    ->namespace('Admin\Template')
+    ->name('template.')
+    ->group(function () {
+        Route::get('/{identifier}', 'RenderFormController@render')->name('render');
+        Route::post('/{identifier}', 'RenderFormController@submit')->name('submit');
+        Route::get('/{identifier}/feedback', 'RenderFormController@feedback')->name('feedback');
+
+        Route::resource('/my-request', 'MySubmissionController');
+
+        Route::prefix('/{fid}')
+            ->group(function () {
+                Route::resource('/requests', 'SubmissionController');
+            });
+
+    });
+
+
 Route::get('/{vue_capture?}', function () {
     return view('home');
 })->where('vue_capture', '[\/\w\.-]*')->middleware('auth');
-
-Auth::routes();
-
-//Route::get('/admin', 'Admin\HomeController@index')->name('admin_dashboard');
-Route::get('/home', 'HomeController@index')->name('home');

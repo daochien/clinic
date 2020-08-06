@@ -1,4 +1,4 @@
-@extends('formbuilder::layout')
+@extends('layouts.template')
 
 @section('content')
 <div class="">

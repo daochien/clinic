@@ -1,4 +1,4 @@
-@extends('formbuilder::layout')
+@extends('layouts.template')
 
 @section('content')
 <div class="container">
@@ -10,11 +10,11 @@
                         Forms
                         <div class="btn-toolbar float-md-right" role="toolbar">
                             <div class="btn-group" role="group" aria-label="Third group">
-                                <a href="{{ route('template::template.create') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ route('template.create') }}" class="btn btn-primary btn-sm">
                                     <i class="fa fa-plus-circle"></i> Create a New Form
                                 </a>
 
-                                <a href="{{ route('template::my-request.index') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ route('template.my-request.index') }}" class="btn btn-primary btn-sm">
                                     <i class="fa fa-th-list"></i> My Submissions
                                 </a>
                             </div>
@@ -44,20 +44,20 @@
                                         <td>{{ $form->allowsEdit() ? 'YES' : 'NO' }}</td>
                                         <td>{{ $form->submissions_count }}</td>
                                         <td>
-                                            <a href="{{ route('template::template.requests.index', $form) }}" class="btn btn-primary btn-sm" title="View submissions for form '{{ $form->name }}'">
+                                            <a href="{{ route('template.requests.index', $form) }}" class="btn btn-primary btn-sm" title="View submissions for form '{{ $form->name }}'">
                                                 <i class="fa fa-th-list"></i> Data
                                             </a>
-                                            <a href="{{ route('template::template.show', $form) }}" class="btn btn-primary btn-sm" title="Preview form '{{ $form->name }}'">
+                                            <a href="{{ route('template.show', $form) }}" class="btn btn-primary btn-sm" title="Preview form '{{ $form->name }}'">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <a href="{{ route('template::template.edit', $form) }}" class="btn btn-primary btn-sm" title="Edit form">
+                                            <a href="{{ route('template.edit', $form) }}" class="btn btn-primary btn-sm" title="Edit form">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <button class="btn btn-primary btn-sm clipboard" data-clipboard-text="{{ route('template::template.render', $form->identifier) }}" data-message="" data-original="" title="Copy form URL to clipboard">
+                                            <button class="btn btn-primary btn-sm clipboard" data-clipboard-text="{{ route('template.render', $form->identifier) }}" data-message="" data-original="" title="Copy form URL to clipboard">
                                                 <i class="fa fa-clipboard"></i>
                                             </button>
 
-                                            <form action="{{ route('template::template.destroy', $form) }}" method="POST" id="deleteFormForm_{{ $form->id }}" class="d-inline-block">
+                                            <form action="{{ route('template.destroy', $form) }}" method="POST" id="deleteFormForm_{{ $form->id }}" class="d-inline-block">
                                                 @csrf
                                                 @method('DELETE')
 

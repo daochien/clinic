@@ -1,6 +1,22 @@
+.form-wrap.form-builder .form-group.access-wrap,
+.form-wrap.form-builder .form-group.value-wrap,
+.form-wrap.form-builder .form-group.placeholder-wrap,
+.form-wrap.form-builder .form-group.className-wrap,
+.form-wrap.form-builder .form-group.name-wrap,
+.form-wrap.form-builder .form-group.rows-wrap,
+.form-wrap.form-builder .form-group.description-wrap
+{
+    display: none !important;
+}
+
+.form-wrap.form-builder .frmb li.frmb-placeholder,
+.form-wrap.form-builder .frmb li.ui-state-highlight {
+    /*background: radial-gradient(ellipse at center,#545454 0,transparent 75%);*/
+    background-image: none !important;
+}
+
 .fb-editor {
-	background-image: #f2f2f2; 
-	/*background: url('http://formbuilder.readthedocs.io/en/latest/img/noise.png');*/
+	background-image: #f2f2f2;
 }
 .five {
 	width: 5% !important;
