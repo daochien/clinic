@@ -8,5 +8,6 @@ export default [
     { path: '/admin/blog/create', component: require('./components/admin/blog/Create.vue').default },
     { path: '/admin/managers', component: require('./components/admin/manager/Managers.vue').default },
     { path: '/admin/manager/create', component: require('./components/admin/manager/Manager.vue').default },
+    { path: '/admin/manager/edit/:id(\\d+)', component: require('./components/admin/manager/Manager.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ];

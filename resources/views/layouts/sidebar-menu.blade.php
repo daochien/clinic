@@ -25,7 +25,7 @@
         @can('isAdmin')
         <ul class="nav nav--no-borders flex-column">
             <li class="nav-item">
-                <router-link to="/admin/users" class="nav-link">
+                <router-link to="/admin/managers" class="nav-link">
                     <i class="fa fa-users nav-icon blue"></i>
                     <span>{{ __('sidebar.admin_manage') }}</span>
                 </router-link>

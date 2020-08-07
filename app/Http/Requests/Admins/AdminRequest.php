@@ -52,7 +52,9 @@ class AdminRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-
+            'name' => 'required|string|max:191',
+            'email' => 'sometimes|string|email|max:191|unique:users,email,' . $this->get('id'),
+            'role_ids' => 'required|array'
         ];
     }
 }

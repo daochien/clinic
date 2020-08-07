@@ -166,6 +166,7 @@ export default {
         "manager": {
             "title_page_list": "Admin account management",
             "title_page_create": "Create Account Admin",
+            "title_page_edit": "Account Infomation",
             "button_create": "Sign Up",
             "form_filter": {
                 "select_roles": "Role",
@@ -189,7 +190,9 @@ export default {
                 "input_email": "Email",
                 "role": "Role",
                 "note": "Note",
-                "button_create": "Register"
+                "button_create": "Register",
+                "button_edit": "Save",
+                "button_remove": "Remove account"
             }
         }
     },
@@ -361,6 +364,7 @@ export default {
         "manager": {
             "title_page_list": "管理者アカウント管理",
             "title_page_create": "管理者アカウント発行",
+            "title_page_edit": "管理者アカウント発行",
             "button_create": "新規登録",
             "form_filter": {
                 "select_roles": "担当者の役割",
@@ -384,7 +388,9 @@ export default {
                 "input_email": "メールアドレス",
                 "role": "役割",
                 "note": "メモ",
-                "button_create": "登録"
+                "button_create": "登録",
+                "button_edit": "保存",
+                "button_remove": "アカウントを削除"
             }
         }
     }

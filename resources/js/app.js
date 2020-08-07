@@ -80,6 +80,11 @@ const router = new VueRouter({
 });
 // Routes End
 
+/**
+ * import Vuelidate form
+*/
+import Vuelidate from 'vuelidate';
+Vue.use(Vuelidate);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

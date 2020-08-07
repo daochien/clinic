@@ -20,25 +20,22 @@
                             <div class="col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="feInputTitle">{{ $t('manager.form_filter.select_roles') }}</label>
-                                    <select class="form-control">
-                                        <option value="">Super Admin</option>
-                                        <option value="">Admin</option>
-                                        <option value="">Manager</option>
-                                        <option value="">Quest</option>
+                                    <select class="form-control" v-model="form_filter.role_id">                                        
+                                        <option v-for="(role, index) in roles" :key="index" :value="index">{{ role }}</option>                                        
                                     </select>
                                 </div>                            
                             </div>
                             <div class="col-sm-6 col-12">                           
                                 <div class="form-group">
                                     <label for="feInputTitle">{{ $t('manager.form_filter.input_text_search') }}</label>
-                                    <input type="text" class="form-control">
+                                    <input v-model="form_filter.keyword" type="text" class="form-control">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <button type="button" class="mb-2 btn btn-outline-dark mr-2">{{ $t('manager.form_filter.button_clear') }}</button>
-                                <button type="button" class="mb-2 btn btn-outline-info">{{ $t('manager.form_filter.button_search') }}</button>
+                                <button @click="clearFilter()" type="button" class="mb-2 btn btn-outline-dark mr-2">{{ $t('manager.form_filter.button_clear') }}</button>
+                                <button @click="searchAdmin()" type="button" class="mb-2 btn btn-outline-info">{{ $t('manager.form_filter.button_search') }}</button>
                             </div>                            
                         </div>
                     </div>
@@ -62,25 +59,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Ali</td>
-                                    <td>Kerry</td>
-                                    <td>Russian Federation</td>
-                                    <td>Gdańsk</td>
-                                    <td>107-0339</td>
+                                <tr v-for="(item, index) in admins.data" :key="index">
+                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.email }}</td>
                                     <td>
-                                        <a href="#">
+                                        <span class="card-post__category badge badge-pill badge-info mr-2" v-for="(role, roleIndex) in item.get_roles" :key="roleIndex">
+                                            {{ role.name }}
+                                        </span>
+                                    </td>
+                                    <td>{{ item.note }}</td>
+                                    <td>{{ item.created_at }}</td>
+                                    <td>
+                                        <router-link :to="{path: `/admin/manager/edit/${item.id}`}">
                                             <i class="fa fa-edit blue"></i>
-                                        </a>
+                                        </router-link>
                                         /
-                                        <a href="#">
+                                        <a href="javascript:void(0)" @click="removeAdmin(item.id)">
                                             <i class="fa fa-trash red"></i>
-                                            </a>
+                                        </a>
                                     </td>
                                 </tr>                            
                             </tbody>
                         </table>
+                    </div>
+                    <div class="card-footer">
+                        <pagination :data="admins" @pagination-change-page="getResults"></pagination>
                     </div>
                 </div>
             </div>
@@ -90,7 +94,91 @@
 
 <script>
 export default {
-    
+    data () {
+        return {
+            admins: {},
+            roles: [],
+            form_filter: {
+                role_id: '',
+                keyword: ''
+            }
+        }
+    },
+
+    created () {
+        this.loadRoles();
+        this.loadListAdmin();
+    },
+
+    methods: {
+        loadRoles () {
+            axios.get("/api/role/list").then(({ data }) => (this.roles = data.data));
+        },
+        getResults(page = 1) {
+            this.$Progress.start();
+            
+            axios.get('/api/manager', {
+                params: {
+                    page: page,
+                    role_id: this.form_filter.role_id,
+                    keyword: this.form_filter.keyword
+                }
+            }).then(({ data }) => (this.admins = data.data));
+            this.$Progress.finish();
+        },
+        searchAdmin () {
+            this.$Progress.start();
+            
+            axios.get('/api/manager', {
+                params: {
+                    page: 1,
+                    role_id: this.form_filter.role_id,
+                    keyword: this.form_filter.keyword
+                }               
+            }).then(({ data }) => (this.admins = data.data));
+            this.$Progress.finish();
+        },
+        loadListAdmin () {
+            axios.get("/api/manager")
+            .then(({ data }) => {
+                this.admins = data.data;
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        removeAdmin (id) {
+            this.$Progress.start();
+                axios.delete('/api/manager/'+id)
+                .then( (data) => {
+                    if(data.data.success) {
+                        this.loadListAdmin();                        
+                        Toast.fire({
+                            icon: 'success',
+                            title: data.data.message
+                        });
+                        this.$Progress.finish();                
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Some error occured! Please try again'
+                        });
+
+                        this.$Progress.failed();
+                    }
+                })
+                .catch(()=>{
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Some error occured! Please try again'
+                    });
+                })
+        },
+        clearFilter () {
+            this.form_filter.role_id = '';
+            this.form_filter.keyword = '';
+        }
+    }
 }
 </script>
 

@@ -2,6 +2,7 @@
 
 return [
     'user' => '管理者アカウント管理',
+    'admin_manage' => '管理者アカウント管理',
     'staff_manage' => 'スタッフ管理',
     'staff' => 'スタッフ一覧',
     'notification' => 'お知らせ管理',
