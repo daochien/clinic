@@ -3,7 +3,7 @@
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-8 text-center text-sm-left mb-0">
                 <h3 class="page-title">{{ $t('manager.title_page_create') }}</h3>
-            </div>            
+            </div>
         </div>
         <div class="row">
             <div class="col-12 col-sm-10 offset-sm-1">
@@ -15,11 +15,11 @@
                         <div class="row">
                             <div class="form-group col-12 col-sm-6">
                                 <label for="feInputTitle">{{ $t('manager.form_create.input_name') }} <span style="color:#c4183c;">*</span></label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" v-model.trim="manager.name">
                             </div>
                             <div class="form-group col-12 col-sm-6">
                                 <label for="feInputTitle">{{ $t('manager.form_create.input_email') }} <span style="color:#c4183c;">*</span></label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" v-model.trim="manager.email">
                             </div>
                         </div>
                         <div class="row">
@@ -27,37 +27,27 @@
                                 {{ $t('manager.form_create.role') }} <span style="color:#c4183c;">*</span>
                             </div>
                             <div class="col-12">
-                                <div class="custom-control custom-checkbox mb-3 mr-4 float-left">
-                                    <input type="checkbox" class="custom-control-input" id="formsCheckboxChecked" checked="">
-                                    <label class="custom-control-label" for="formsCheckboxChecked">Checked</label>
+                                <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index">
+                                    <input
+                                    type="checkbox"
+                                    class="custom-control-input"
+                                    v-model="manager.role_ids"
+                                    :id="'formsCheckboxChecked_'+index"
+                                    :value="index">
+                                    <label class="custom-control-label" :for="'formsCheckboxChecked_'+index">{{ role }}</label>
                                 </div>
-                                <div class="custom-control custom-checkbox mb-3 mr-4 float-left">
-                                    <input type="checkbox" class="custom-control-input" id="formsCheckboxChecked" checked="">
-                                    <label class="custom-control-label" for="formsCheckboxChecked">Checked</label>
-                                </div>
-                                <div class="custom-control custom-checkbox mb-3 mr-4 float-left">
-                                    <input type="checkbox" class="custom-control-input" id="formsCheckboxChecked" checked="">
-                                    <label class="custom-control-label" for="formsCheckboxChecked">Checked</label>
-                                </div>
-                                <div class="custom-control custom-checkbox mb-3 mr-4 float-left">
-                                    <input type="checkbox" class="custom-control-input" id="formsCheckboxChecked" checked="">
-                                    <label class="custom-control-label" for="formsCheckboxChecked">Checked</label>
-                                </div>
-                                <div class="custom-control custom-checkbox mb-3 mr-4 float-left">
-                                    <input type="checkbox" class="custom-control-input" id="formsCheckboxChecked" checked="">
-                                    <label class="custom-control-label" for="formsCheckboxChecked">Checked</label>
-                                </div>                                
+
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-12">
                                 <label for="feInputTitle">{{ $t('manager.form_create.note') }}</label>
-                                <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                                <textarea v-model="manager.note" class="form-control" name="" id="" cols="30" rows="10"></textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 text-right">
-                                <button class="mb-2 btn btn-sm btn-primary"> {{ $t('manager.form_create.button_create') }}</button>
+                                <button class="mb-2 btn btn-sm btn-primary" @click="createAdmin()"> {{ $t('manager.form_create.button_create') }}</button>
                             </div>
                         </div>
                     </div>
@@ -69,7 +59,58 @@
 
 <script>
 export default {
-    
+    data () {
+        return {
+            manager: {
+                name: 'dao chien',
+                email: 'daochien@gmail.com',
+                role_ids: [1, 2],
+                note: ''
+            },
+            roles: []
+        }
+    },
+
+    created () {
+        this.loadRoles();
+    },
+
+    methods: {
+        loadRoles () {
+            axios.get("/api/role/list").then(({ data }) => (this.roles = data.data));
+        },
+        createAdmin() {
+            this.$Progress.start();
+
+            axios.post('/api/manager', this.manager)
+            .then( (data) => {
+                if(data.data.success){
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.data.message
+                    });
+                    this.$Progress.finish();
+
+
+                } else {
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Some error occured! Please try again'
+                    });
+
+                    this.$Progress.failed();
+                }
+            })
+            .catch(()=>{
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Some error occured! Please try again'
+                });
+            })
+        },
+    }
+
 }
 </script>
 
