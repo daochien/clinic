@@ -15,6 +15,7 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('title', 255);
             $table->text('content');
             $table->boolean('confirm')->comment('0: not require | 1: Must confirm');
             $table->boolean('draft')->comment('0: false | 1: true');

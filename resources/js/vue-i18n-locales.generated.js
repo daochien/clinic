@@ -185,6 +185,8 @@ export default {
             "edit": "編集する",
             "delete": "削除する",
             "check_details": "詳細を確認する",
+            "unpublish": "未公開",
+            "publish": "公開済"
         },
         "auth": {
             "failed": "Ja_These credentials do not match our records.",

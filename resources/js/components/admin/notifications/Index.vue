@@ -82,7 +82,40 @@
                     <th scope="col">{{ $t('app.operating')}}</th>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                  <tr v-for="(entity, index) in notifications.data" :key="entity.id">
+                    <td>{{ index }}</td>
+                    <td>{{ entity.title }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ entity.created_at }}</td>
+                    <td>
+                      <label class="text-secondary" v-if="entity.draft === 1">{{ $t('app.publish')}}</label>
+                      <label class="text-warning" v-else>{{ $t('app.unpublish')}}</label>
+                    </td>
+                    <td>
+                      <div class="dropdown">
+                        <i
+                          class="fa fa-ellipsis-v"
+                          id="operatingAction"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        ></i>
+                        <div class="dropdown-menu" aria-labelledby="operatingAction">
+                          <a
+                            class="dropdown-item text-primary"
+                            href="#"
+                          >{{ $t('app.publish_announcement')}}</a>
+                          <a class="dropdown-item text-primary" href="#">{{ $t('app.edit')}}</a>
+                          <a class="dropdown-item text-danger" href="#">{{ $t('app.delete')}}</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
             <!-- /.card-body -->
@@ -110,11 +143,20 @@ export default {
     };
   },
   methods: {
+    getResults(page = 1) {
+      this.$Progress.start();
+      console.log("get Results");
+      axios
+        .get("/api/notification?page=" + page)
+        .then(({ data }) => (this.notifications = data.data));
+
+      this.$Progress.finish();
+    },
     loadNotification() {
       this.$Progress.start();
       if (this.$gate.isAdmin()) {
         axios
-          .get("/api/notifications")
+          .get("/api/notification")
           .then(({ data }) => (this.notifications = data.data));
       }
       this.$Progress.finish();
