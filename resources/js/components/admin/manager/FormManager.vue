@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="form-group col-12 col-sm-6">
                             <label for="feInputTitle">{{ $t('manager.form_create.input_name') }} <span style="color:#c4183c;">*</span></label>
-                            <input 
+                            <input
                             :class="['form-control', {'is-invalid': $v.manager.name.$error}]"
                             type="text"
                             v-model.trim="$v.manager.name.$model">
@@ -18,8 +18,8 @@
                         <div class="form-group col-12 col-sm-6">
                             <label for="feInputTitle">{{ $t('manager.form_create.input_email') }} <span style="color:#c4183c;">*</span></label>
                             <input
-                            
-                            :class="['form-control', {'is-invalid': $v.manager.email.$error}]" 
+
+                            :class="['form-control', {'is-invalid': $v.manager.email.$error}]"
                             type="text" v-model.trim="$v.manager.email.$model">
                             <div class="invalid-feedback" v-if="!$v.manager.email.required">{{ $t('validation.required') }}</div>
                             <div class="invalid-feedback" v-if="!$v.manager.email.email">{{ $t('validation.email') }}</div>
@@ -33,33 +33,34 @@
                             <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index">
                                 <input
                                 type="checkbox"
-                                :class="['custom-control-input', {'is-invalid': $v.manager.role_ids.$error}]" 
+                                :class="['custom-control-input', {'is-invalid': $v.manager.role_ids.$error}]"
                                 class="custom-control-input"
                                 v-model="$v.manager.role_ids.$model"
                                 :id="'formsCheckboxChecked_'+index"
                                 :value="index">
                                 <label class="custom-control-label" :for="'formsCheckboxChecked_'+index">{{ role }}</label>
-                            </div>                                
-                        </div>                            
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-12">
                             <label for="feInputTitle">{{ $t('manager.form_create.note') }}</label>
                             <textarea
-                            :class="['form-control', {'is-invalid': $v.manager.note.$error}]"  
-                            v-model="$v.manager.note.$model" 
-                            class="form-control" 
+                            :class="['form-control', {'is-invalid': $v.manager.note.$error}]"
+                            v-model="$v.manager.note.$model"
+                            class="form-control"
                             cols="30" rows="10"></textarea>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-12 text-right">
                             <span v-if="isEdit" class="mr-2" style="color:#EB5757; cursor: pointer;" @click="removeAdmin()">{{ $t('manager.form_create.button_remove') }}</span>
-                            <button class="mb-2 btn btn-sm btn-primary" v-if="!isEdit" @click="createAdmin()"> {{ $t('manager.form_create.button_create') }}</button>                            
-                            <button class="mb-2 btn btn-sm btn-primary" v-else @click="updateAdmin()"> {{ $t('manager.form_create.button_edit') }}</button>                            
+                            <button class="mb-2 btn btn-sm btn-primary" v-if="!isEdit" @click="createAdmin()"> {{ $t('manager.form_create.button_create') }}</button>
+                            <button class="mb-2 btn btn-sm btn-primary" v-else @click="updateAdmin()"> {{ $t('manager.form_create.button_edit') }}</button>
                         </div>
                     </div>
                 </div>
+                <confirm-remove v-if="isEdit" :id="manager.id" @remove-success="removeSuccess" />
             </div>
         </div>
     </div>
@@ -67,11 +68,15 @@
 
 <script>
 
+import ConfirmRemove from './ConfirmRemove';
 import { required, minLength, between, requiredIf, email, maxLength, numeric, minValue } from 'vuelidate/lib/validators';
 
 export default {
     props: {
         isEdit: Boolean
+    },
+    components: {
+        ConfirmRemove
     },
     data () {
         return {
@@ -81,7 +86,7 @@ export default {
                 role_ids: [],
                 note: ''
             },
-            roles: [],            
+            roles: [],
         }
     },
 
@@ -101,9 +106,9 @@ export default {
             },
             note: {
                 maxLength: maxLength(500)
-            },           
+            },
         },
-        
+
     },
 
     created () {
@@ -116,19 +121,19 @@ export default {
             axios.get("/api/role/list").then(({ data }) => (this.roles = data.data));
         },
         createAdmin() {
-            this.$v.manager.$touch();            
+            this.$v.manager.$touch();
             if (!this.$v.manager.$invalid) {
 
                 this.$Progress.start();
                 axios.post('/api/manager', this.manager)
                 .then( (data) => {
                     if(data.data.success) {
-                        this.$router.push({path: '/admin/managers'});                        
+                        this.$router.push({path: '/admin/managers'});
                         Toast.fire({
                             icon: 'success',
                             title: data.data.message
                         });
-                        this.$Progress.finish();                
+                        this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
@@ -146,7 +151,7 @@ export default {
                     });
                 })
             }
-            
+
         },
         infoAdmin () {
             if (this.isEdit) {
@@ -161,7 +166,7 @@ export default {
                     console.log(error);
                 });
             }
-            
+
         },
         syncRespone (data) {
             this.manager.id = data.id;
@@ -175,19 +180,19 @@ export default {
             }
         },
         updateAdmin () {
-            this.$v.manager.$touch();            
+            this.$v.manager.$touch();
             if (!this.$v.manager.$invalid) {
 
                 this.$Progress.start();
                 axios.put('/api/manager/'+this.manager.id, this.manager)
                 .then( (data) => {
                     if(data.data.success) {
-                        // this.$router.push({path: '/admin/managers'});                        
+                        // this.$router.push({path: '/admin/managers'});
                         Toast.fire({
                             icon: 'success',
                             title: data.data.message
                         });
-                        this.$Progress.finish();                
+                        this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
@@ -205,33 +210,14 @@ export default {
                 })
             }
         },
-        removeAdmin () {
-            this.$Progress.start();
-                axios.delete('/api/manager/'+this.manager.id)
-                .then( (data) => {
-                    if(data.data.success) {
-                        this.$router.push({path: '/admin/managers'});                        
-                        Toast.fire({
-                            icon: 'success',
-                            title: data.data.message
-                        });
-                        this.$Progress.finish();                
-                    } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: 'Some error occured! Please try again'
-                        });
-
-                        this.$Progress.failed();
-                    }
-                })
-                .catch(()=>{
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Some error occured! Please try again'
-                    });
-                })
-        }
+        removeAdmin (id) {
+            this.idRemove = id;
+            $('#removeAdmin').modal('show');
+        },
+        removeSuccess () {
+            $('#removeAdmin').modal('hide');
+            this.$router.push({path: '/admin/managers'});
+        },
     }
 
 }

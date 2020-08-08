@@ -8,24 +8,24 @@
                 <router-link :to="{path: '/admin/manager/create'}">
                     <button class="btn btn-primary float-right">
                         {{ $t('manager.button_create') }}
-                    </button>                
-                </router-link>                
+                    </button>
+                </router-link>
             </div>
         </div>
         <div class="row page-filter">
             <div class="col-12 col-sm-8 offset-sm-2">
-                <div class="card card-small mb-3">                    
+                <div class="card card-small mb-3">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="feInputTitle">{{ $t('manager.form_filter.select_roles') }}</label>
-                                    <select class="form-control" v-model="form_filter.role_id">                                        
-                                        <option v-for="(role, index) in roles" :key="index" :value="index">{{ role }}</option>                                        
+                                    <select class="form-control" v-model="form_filter.role_id">
+                                        <option v-for="(role, index) in roles" :key="index" :value="index">{{ role }}</option>
                                     </select>
-                                </div>                            
+                                </div>
                             </div>
-                            <div class="col-sm-6 col-12">                           
+                            <div class="col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="feInputTitle">{{ $t('manager.form_filter.input_text_search') }}</label>
                                     <input v-model="form_filter.keyword" type="text" class="form-control">
@@ -36,7 +36,7 @@
                             <div class="col-md-12 text-center">
                                 <button @click="clearFilter()" type="button" class="mb-2 btn btn-outline-dark mr-2">{{ $t('manager.form_filter.button_clear') }}</button>
                                 <button @click="searchAdmin()" type="button" class="mb-2 btn btn-outline-info">{{ $t('manager.form_filter.button_search') }}</button>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
         </div>
         <div class="row table-list">
             <div class="col-12 col-sm-12">
-                <div class="card card-small mb-4">                  
+                <div class="card card-small mb-4">
                     <div class="card-body p-0 pb-3 text-center">
                         <table class="table mb-0">
                             <thead class="bg-light">
@@ -79,7 +79,7 @@
                                             <i class="fa fa-trash red"></i>
                                         </a>
                                     </td>
-                                </tr>                            
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -89,11 +89,18 @@
                 </div>
             </div>
         </div>
+        <confirm-remove :id="idRemove" @remove-success="removeSuccess"/>
     </div>
 </template>
 
 <script>
+
+import ConfirmRemove from './ConfirmRemove';
+
 export default {
+    components: {
+        ConfirmRemove
+    },
     data () {
         return {
             admins: {},
@@ -101,7 +108,8 @@ export default {
             form_filter: {
                 role_id: '',
                 keyword: ''
-            }
+            },
+            idRemove: ''
         }
     },
 
@@ -116,7 +124,7 @@ export default {
         },
         getResults(page = 1) {
             this.$Progress.start();
-            
+
             axios.get('/api/manager', {
                 params: {
                     page: page,
@@ -128,13 +136,13 @@ export default {
         },
         searchAdmin () {
             this.$Progress.start();
-            
+
             axios.get('/api/manager', {
                 params: {
                     page: 1,
                     role_id: this.form_filter.role_id,
                     keyword: this.form_filter.keyword
-                }               
+                }
             }).then(({ data }) => (this.admins = data.data));
             this.$Progress.finish();
         },
@@ -148,31 +156,12 @@ export default {
             });
         },
         removeAdmin (id) {
-            this.$Progress.start();
-                axios.delete('/api/manager/'+id)
-                .then( (data) => {
-                    if(data.data.success) {
-                        this.loadListAdmin();                        
-                        Toast.fire({
-                            icon: 'success',
-                            title: data.data.message
-                        });
-                        this.$Progress.finish();                
-                    } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: 'Some error occured! Please try again'
-                        });
-
-                        this.$Progress.failed();
-                    }
-                })
-                .catch(()=>{
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Some error occured! Please try again'
-                    });
-                })
+            this.idRemove = id;
+            $('#removeAdmin').modal('show');
+        },
+        removeSuccess () {
+            $('#removeAdmin').modal('hide');
+            this.loadListAdmin();
         },
         clearFilter () {
             this.form_filter.role_id = '';

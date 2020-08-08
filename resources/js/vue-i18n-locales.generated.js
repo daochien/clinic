@@ -193,6 +193,12 @@ export default {
                 "button_create": "Register",
                 "button_edit": "Save",
                 "button_remove": "Remove account"
+            },
+            "confirm_remove": {
+                "title_remove": "Are you sure？",
+                "content": "If you delete your account, all information such as email address and application data will be deleted.",
+                "button_cancel": "Cancel",
+                "button_success": "Delete account"
             }
         }
     },
@@ -391,6 +397,12 @@ export default {
                 "button_create": "登録",
                 "button_edit": "保存",
                 "button_remove": "アカウントを削除"
+            },
+            "confirm_remove": {
+                "title_remove": "管理者アカウントを削除しますか？",
+                "content": "のアカウントを削除すると、メールアドレスとか申請データなどすべての情報が削除されます。",
+                "button_cancel": "キャンセル",
+                "button_success": "アカウントを削除"
             }
         }
     }
