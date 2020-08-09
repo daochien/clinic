@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\GroupUser;
+use App\Models\NotificationGroup;
 
-class Notification extends Model
+class Group extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -13,7 +13,7 @@ class Notification extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'content', 'confirm', 'draft'
+        'name', 'description'
     ];
 
     /**
@@ -33,8 +33,13 @@ class Notification extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function groups()
+    public function notificationGroups()
     {
-        return $this->belongsToMany(GroupUser::class, 'notification_groups', 'group_id', 'id');
+        return $this->hasMany(NotificationGroup::class, 'group_id', 'id');
+    }
+
+    public function groupUsers()
+    {
+        return $this->hasMany(GroupUser::class, 'group_id', 'id');
     }
 }

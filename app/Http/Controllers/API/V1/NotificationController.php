@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\Notifications\NotificationRequest;
+use App\Models\GroupUser;
 use App\Models\Notification;
+use App\Models\NotificationGroup;
 
 class NotificationController extends BaseController
 {
@@ -23,7 +25,7 @@ class NotificationController extends BaseController
      */
     public function index()
     {
-        $data = Notification::latest()->paginate(10);
+        $data = Notification::with('groups.group')->latest()->paginate(10);
         return $this->sendResponse($data, 'Notifications list');
     }
 
@@ -83,5 +85,20 @@ class NotificationController extends BaseController
         $entity->delete();
 
         return $this->sendResponse([$entity], 'Notification has been Deleted');
+    }
+
+    public function members($id)
+    {
+        // get all notification groups
+        $entities  = NotificationGroup::where('notification_id', $id)->get();
+        if ($entities->count() > 0) {
+            $arrUser = [];
+            foreach ($entities as $group) {
+                $entity = GroupUser::where('group_id', $group->group_id)->first();
+                $arrUser = array_merge($arrUser, $entity->users()->get()->toArray());
+            }
+            return response()->json(['data' => ['data' => $arrUser]]);
+        }
+        return response()->json(['data' => ['data' => []]]);
     }
 }

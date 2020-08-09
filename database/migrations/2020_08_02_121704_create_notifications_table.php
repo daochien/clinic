@@ -14,7 +14,7 @@ class CreateNotificationsTable extends Migration
     public function up()
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('title', 255);
             $table->text('content');
             $table->boolean('confirm')->comment('0: not require | 1: Must confirm');

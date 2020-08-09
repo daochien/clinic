@@ -12,7 +12,6 @@ class NotificationsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('notifications')->truncate();
         DB::table('notifications')->insert([
             [
                 'title' => 'こコロナウイルスの影響',

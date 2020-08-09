@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\GroupUser;
 
 class User extends Authenticatable // implements MustVerifyEmail
 {
@@ -68,5 +69,10 @@ class User extends Authenticatable // implements MustVerifyEmail
     public function isUser()
     {
         return $this->roles()->where('name', 'User')->exists();
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany(GroupUser::class, 'group_users', 'user_id', 'id');
     }
 }
