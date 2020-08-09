@@ -33,11 +33,11 @@
                             <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index">
                                 <input
                                 type="checkbox"
-                                :class="['custom-control-input', {'is-invalid': $v.manager.role_ids.$error}]"
+                                :class="['custom-control-input', {'is-invalid': $v.manager.roles.$error}]"
                                 class="custom-control-input"
-                                v-model="$v.manager.role_ids.$model"
+                                v-model="$v.manager.roles.$model"
                                 :id="'formsCheckboxChecked_'+index"
-                                :value="index">
+                                :value="role">
                                 <label class="custom-control-label" :for="'formsCheckboxChecked_'+index">{{ role }}</label>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ export default {
             manager: {
                 name: '',
                 email: '',
-                role_ids: [],
+                roles: [],
                 note: ''
             },
             roles: [],
@@ -101,7 +101,7 @@ export default {
                 email,
                 maxLength: maxLength(191)
             },
-            role_ids: {
+            roles: {
                 required
             },
             note: {
@@ -175,7 +175,7 @@ export default {
             this.manager.note = data.note;
             if (data.get_roles.length > 0) {
                 data.get_roles.forEach(item => {
-                    this.manager.role_ids.push(item.id);
+                    this.manager.roles.push(item.name);
                 });
             }
         },

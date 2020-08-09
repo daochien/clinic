@@ -15,20 +15,20 @@ class UserRepository
         $this->model = $user;
     }
 
-    public function listAdmin($params = [], $limit = 10)
+    public function listAdmin($roles, $params = [], $limit = 10)
     {
-        $query = $this->model->join('role_user', 'users.id', '=', 'role_user.user_id');        
-        if (!empty($params['role_id'])) {
-            $query->where('role_id', $params['role_id']);
+        if (!empty($params['role'])) {
+            $roles = is_array($params['role']) ? $params['role'] : [$params['role']];
         }
-        $userIds = $query->select('users.id')->distinct('users.id')->pluck('id')->toArray();
-
-        $adminQuery =  $this->model->with('getRoles')->whereIn('id', $userIds);
+        
+        $query = $this->model->role($roles);
+        
+        
         if (!empty($params['keyword'])) {
-            $adminQuery->where('name', 'like', '%'.$params['keyword'].'%');
+            $query->where('name', 'like', '%'.$params['keyword'].'%');
         }
 
-        return $adminQuery->paginate($limit);
+        return $query->with('roles')->latest()->paginate($limit);
     }
 
     public function get()

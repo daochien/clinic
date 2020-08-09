@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Model;
 
 class RoleRepository
@@ -15,9 +15,16 @@ class RoleRepository
         $this->model = $role;
     }
 
+    public function pluckName()
+    {
+        return $this->model->pluck('name')->toArray();
+    }
+
     public function get()
     {
-        return $this->model->latest()->paginate(10);
+        return $this->model->with(['permissions' => function ($q) {
+            $q->select('name', 'id');
+        }])->latest()->paginate(10);
     }
 
     /**

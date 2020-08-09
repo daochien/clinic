@@ -18,6 +18,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('product/upload', 'API\V1\ProductController@upload');
 
     Route::get('role/list', 'API\V1\RoleController@list');
+    Route::get('permission/list', 'API\V1\PermissionController@list');
 
     Route::apiResources([
         'user' => 'API\V1\UserController',
@@ -26,6 +27,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         'tag' => 'API\V1\TagController',
         'blog' => 'API\V1\BlogController',
         'role' => 'API\V1\RoleController',
+        'permission' => 'API\V1\PermissionController',
         'manager' => 'API\V1\AdminController',
     ]);
 });

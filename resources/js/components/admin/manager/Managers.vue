@@ -20,15 +20,16 @@
                             <div class="col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="feInputTitle">{{ $t('manager.form_filter.select_roles') }}</label>
-                                    <select class="form-control" v-model="form_filter.role_id">
-                                        <option v-for="(role, index) in roles" :key="index" :value="index">{{ role }}</option>
+                                    <select class="form-control" v-model="form_filter.role">
+                                        <option value="">{{ $t('manager.form_filter.select_all_roles') }}</option>
+                                        <option v-for="(role, index) in roles" :key="index" :value="role">{{ role }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-12">
                                 <div class="form-group">
                                     <label for="feInputTitle">{{ $t('manager.form_filter.input_text_search') }}</label>
-                                    <input v-model="form_filter.keyword" type="text" class="form-control">
+                                    <input :placeholder="$t('manager.form_filter.placeholder_input_keyword')" v-model="form_filter.keyword" type="text" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -64,7 +65,7 @@
                                     <td>{{ item.name }}</td>
                                     <td>{{ item.email }}</td>
                                     <td>
-                                        <span class="card-post__category badge badge-pill badge-info mr-2" v-for="(role, roleIndex) in item.get_roles" :key="roleIndex">
+                                        <span class="card-post__category badge badge-pill badge-info mr-2" v-for="(role, roleIndex) in item.roles" :key="roleIndex">
                                             {{ role.name }}
                                         </span>
                                     </td>
@@ -106,10 +107,10 @@ export default {
             admins: {},
             roles: [],
             form_filter: {
-                role_id: '',
+                role: '',
                 keyword: ''
             },
-            idRemove: ''
+            idRemove: 0
         }
     },
 
@@ -128,7 +129,7 @@ export default {
             axios.get('/api/manager', {
                 params: {
                     page: page,
-                    role_id: this.form_filter.role_id,
+                    role: this.form_filter.role,
                     keyword: this.form_filter.keyword
                 }
             }).then(({ data }) => (this.admins = data.data));
@@ -140,7 +141,7 @@ export default {
             axios.get('/api/manager', {
                 params: {
                     page: 1,
-                    role_id: this.form_filter.role_id,
+                    role: this.form_filter.role,
                     keyword: this.form_filter.keyword
                 }
             }).then(({ data }) => (this.admins = data.data));
@@ -164,8 +165,9 @@ export default {
             this.loadListAdmin();
         },
         clearFilter () {
-            this.form_filter.role_id = '';
+            this.form_filter.role = '';
             this.form_filter.keyword = '';
+            this.loadListAdmin();
         }
     }
 }

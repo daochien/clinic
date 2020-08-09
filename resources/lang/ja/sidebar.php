@@ -15,4 +15,6 @@ return [
     'inquiry' => '問合せ管理',
     'setting' => 'Setting',
     'contact' => '問い合わせ担当',
+    'role' => '役割',
+    'permission' => '権限',
 ];

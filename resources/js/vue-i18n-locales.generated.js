@@ -169,6 +169,8 @@ export default {
             "title_page_edit": "Account Infomation",
             "button_create": "Sign Up",
             "form_filter": {
+                "placeholder_input_keyword": "Please enter a keyword",
+                "select_all_roles": "All role",
                 "select_roles": "Role",
                 "input_text_search": "Keyword",
                 "button_clear": "Clear",
@@ -199,6 +201,21 @@ export default {
                 "content": "If you delete your account, all information such as email address and application data will be deleted.",
                 "button_cancel": "Cancel",
                 "button_success": "Delete account"
+            }
+        },
+        "permission": {
+            "title_page": "Permission Management",
+            "button_create": "Create",
+            "table": {
+                "name": "Name"
+            }
+        },
+        "role": {
+            "title_page": "Role Management",
+            "button_create": "Create",
+            "table": {
+                "name": "Name",
+                "permissions": "Permissions"
             }
         }
     },
@@ -373,6 +390,8 @@ export default {
             "title_page_edit": "管理者アカウント発行",
             "button_create": "新規登録",
             "form_filter": {
+                "placeholder_input_keyword": "キーワードを入力してください",
+                "select_all_roles": "全ての役割",
                 "select_roles": "担当者の役割",
                 "input_text_search": "キーワード",
                 "button_clear": "条件をクリアする",
@@ -403,6 +422,21 @@ export default {
                 "content": "のアカウントを削除すると、メールアドレスとか申請データなどすべての情報が削除されます。",
                 "button_cancel": "キャンセル",
                 "button_success": "アカウントを削除"
+            }
+        },
+        "permission": {
+            "title_page": "Permission Management",
+            "button_create": "Create",
+            "table": {
+                "name": "Name"
+            }
+        },
+        "role": {
+            "title_page": "Role Management",
+            "button_create": "Create",
+            "table": {
+                "name": "Name",
+                "permissions": "Permissions"
             }
         }
     }

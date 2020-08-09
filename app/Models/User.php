@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable // implements MustVerifyEmail
 {
     use Notifiable, HasApiTokens, HasRoles;
+
+    protected $guard_name = 'api';
 
     /**
      * The attributes that are mass assignable.
@@ -50,15 +51,20 @@ class User extends Authenticatable // implements MustVerifyEmail
         return 'https://www.gravatar.com/avatar/' . md5(strtolower($this->email)) . '.jpg?s=200&d=mm';
     }
 
-    /**
-     * Assigning User role
-     *
-     * @param \App\Models\Role $role
-     */
-    public function assignRole(Role $role)
-    {
-        return $this->roles()->save($role);
-    }
+    // /**
+    //  * Assigning User role
+    //  *
+    //  * @param \App\Models\Role $role
+    //  */
+    // public function assignRole(Role $role)
+    // {
+    //     return $this->roles()->save($role);
+    // }
+
+    // public function role()
+    // {
+    //     return $this->belongsToMany(Role::class, 'role_user');
+    // }
 
     public function isAdmin()
     {

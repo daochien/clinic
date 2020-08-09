@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Admins;
+namespace App\Http\Requests\Permissions;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AdminRequest extends FormRequest
+class PermissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -38,9 +38,7 @@ class AdminRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'name' => 'required|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users',
-            'roles' => 'required|array'
+            'name' => 'required|string|max:191',            
         ];
     }
 
@@ -52,9 +50,7 @@ class AdminRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'name' => 'required|string|max:191',
-            'email' => 'sometimes|string|email|max:191|unique:users,email,' . $this->get('id'),
-            'roles' => 'required|array'
+            'name' => 'required|string|max:191',            
         ];
     }
 }

@@ -7,43 +7,51 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admins\AdminRequest;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use App\Repositories\RoleRepository;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends BaseController
 {
     protected $user;
     protected $userRepo;
+    protected $roleRepo;
 
-    public function __construct(User $user, UserRepository $userRepo)
+    public function __construct(User $user, UserRepository $userRepo, RoleRepository $roleRepo)
     {
         $this->user = $user;
         $this->userRepo = $userRepo;
+        $this->roleRepo = $roleRepo;
     }
 
     public function index(Request $request)
     {
-        $admins = $this->userRepo->listAdmin($request->only('role_id', 'keyword'));
+        $roles = $this->roleRepo->pluckName();        
+        $admins = $this->userRepo->listAdmin($roles, $request->only('role', 'keyword'));
 
         return $this->sendResponse($admins, 'Admin list');      
     }
 
     public function store(AdminRequest $request)
-    {
-        $admin = $this->user->create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'type' => 'admin',
-            'password' => Hash::make('123123'),
-        ]);
-
-        $roleIds = array();
-        foreach ($request->role_ids as $role) {
-            $roleIds[] = $role;
+    {   
+        DB::beginTransaction();
+        try {
+            $admin = $this->user->create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'type' => 'admin',
+                'password' => Hash::make('123123'),
+            ]);
+            
+            $roles = $request->roles ? $request->roles : [];
+            $admin->assignRole($roles);
+            DB::commit();
+            return $this->sendResponse($admin, 'Admin Created Successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e->getMessage());
         }
-
-        $admin->getRoles()->sync($roleIds);
-
-        return $this->sendResponse($admin, 'Admin Created Successfully');
+        
     }
 
     public function show($id)
