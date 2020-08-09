@@ -16,12 +16,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('tag/list', 'API\V1\TagController@list');
     Route::get('category/list', 'API\V1\CategoryController@list');
     Route::post('product/upload', 'API\V1\ProductController@upload');
+    Route::get('group/list', 'API\V1\GroupController@list');
 
     Route::apiResources([
         'user' => 'API\V1\UserController',
         'product' => 'API\V1\ProductController',
         'category' => 'API\V1\CategoryController',
         'tag' => 'API\V1\TagController',
+        'group' => 'API\V1\GroupController',
     ]);
 });
 
