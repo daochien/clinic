@@ -132,7 +132,7 @@ class Form extends Model
         return static::where('user_id', $user->id)
                     ->withCount('submissions')
                     ->latest()
-                    ->paginate(100);
+                    ->paginate(20);
     }
 
     /**

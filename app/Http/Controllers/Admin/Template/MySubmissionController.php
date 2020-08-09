@@ -94,7 +94,7 @@ class MySubmissionController extends Controller
             DB::commit();
 
             return redirect()
-                        ->route('formbuilder::my-submissions.index')
+                        ->route('template.my-request.index')
                         ->with('success', 'Submission updated.');
         } catch (Throwable $e) {
             info($e);
@@ -112,7 +112,7 @@ class MySubmissionController extends Controller
         $submission->delete();
 
         return redirect()
-                    ->route('formbuilder::my-submissions.index')
+                    ->route('template.my-request.index')
                     ->with('success', 'Submission deleted!');
     }
 }

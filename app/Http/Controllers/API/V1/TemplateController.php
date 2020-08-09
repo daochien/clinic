@@ -6,7 +6,7 @@ use App\Http\Requests\Products\ProductRequest;
 use App\Models\Product;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
-use jazmy\FormBuilder\Models\Form;
+use App\Models\Form;
 
 class TemplateController extends BaseController
 {
@@ -36,6 +36,6 @@ class TemplateController extends BaseController
     {
         $templates = Form::getForUser(auth()->user());
 
-        return $this->sendResponse(compact('templates'), 'Templates list');
+        return $this->sendResponse($templates, 'Templates list');
     }
 }
