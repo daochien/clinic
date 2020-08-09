@@ -1,19 +1,14 @@
 <?php
-/*--------------------
-https://github.com/jazmy/laravelformbuilder
-Licensed under the GNU General Public License v3.0
-Author: Jasmine Robinson (jazmy.com)
-Last Updated: 12/29/2018
-----------------------*/
+
 namespace App\Http\Controllers\Admin\Template;
 
 use App\Http\Controllers\Controller;
-use jazmy\FormBuilder\Events\Form\FormCreated;
-use jazmy\FormBuilder\Events\Form\FormDeleted;
-use jazmy\FormBuilder\Events\Form\FormUpdated;
-use jazmy\FormBuilder\Helper;
-use jazmy\FormBuilder\Models\Form;
-use jazmy\FormBuilder\Requests\SaveFormRequest;
+use App\Events\Form\FormCreated;
+use App\Events\Form\FormDeleted;
+use App\Events\Form\FormUpdated;
+use App\Helper\FormBuilderHelper;
+use App\Models\Form;
+use App\Http\Requests\SaveFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -30,11 +25,6 @@ class FormController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $pageTitle = "Forms";
@@ -44,11 +34,6 @@ class FormController extends Controller
         return view('template.forms.index', compact('pageTitle', 'forms'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $pageTitle = "Create New Form";
@@ -56,17 +41,11 @@ class FormController extends Controller
         $saveURL = route('template.store');
 
         // get the roles to use to populate the make the 'Access' section of the form builder work
-        $form_roles = Helper::getConfiguredRoles();
+        $form_roles = FormBuilderHelper::getConfiguredRoles();
 
         return view('template.forms.create', compact('pageTitle', 'saveURL', 'form_roles'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  jazmy\FormBuilder\Requests\SaveFormRequest $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(SaveFormRequest $request)
     {
         $user = $request->user();
@@ -76,7 +55,7 @@ class FormController extends Controller
         DB::beginTransaction();
 
         // generate a random identifier
-        $input['identifier'] = $user->id.'-'.Helper::randomString(20);
+        $input['identifier'] = $user->id.'-'.FormBuilderHelper::randomString(20);
         $created = Form::create($input);
 
         try {
@@ -100,12 +79,6 @@ class FormController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $user = auth()->user();
@@ -116,15 +89,9 @@ class FormController extends Controller
 
         $pageTitle = "Preview Form";
 
-        return view('template.form.show', compact('pageTitle', 'form'));
+        return view('template.forms.show', compact('pageTitle', 'form'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $user = auth()->user();
@@ -136,18 +103,11 @@ class FormController extends Controller
         $saveURL = route('template.update', $form);
 
         // get the roles to use to populate the make the 'Access' section of the form builder work
-        $form_roles = Helper::getConfiguredRoles();
+        $form_roles = FormBuilderHelper::getConfiguredRoles();
 
-        return view('template.form.edit', compact('form', 'pageTitle', 'saveURL', 'form_roles'));
+        return view('template.forms.edit', compact('form', 'pageTitle', 'saveURL', 'form_roles'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  jazmy\FormBuilder\Requests\SaveFormRequest $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(SaveFormRequest $request, $id)
     {
         $user = auth()->user();
@@ -170,12 +130,6 @@ class FormController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $user = auth()->user();

@@ -1,4 +1,4 @@
-@extends('formbuilder::layout')
+@extends('layouts.template')
 
 @section('content')
 <div class="container">
@@ -6,18 +6,25 @@
         <div class="col-md-8">
             <div class="card rounded-0">
                 <div class="card-header">
-                    <h5 class="card-title">{{ $pageTitle }}</h5>
+                    <h5 class="card-title">
+                        {{ $pageTitle }}
+
+                        <a href="{{ route('template.my-request.index') }}" class="btn btn-primary float-md-right btn-sm" title="Back To My Submissions">
+                            <i class="fa fa-arrow-left"></i>
+                        </a>
+                    </h5>
                 </div>
 
-                <form action="{{ route('formbuilder::form.submit', $form->identifier) }}" method="POST" id="submitForm" enctype="multipart/form-data">
+                <form action="{{ route('template.my-request.update', $submission->id) }}" method="POST" id="submitForm" enctype="multipart/form-data">
                     @csrf
-                    
+                    @method('PUT')
+
                     <div class="card-body">
                         <div id="fb-render"></div>
                     </div>
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-primary confirm-form" data-form="submitForm" data-message="Submit your entry for '{{ $form->name }}'?">
+                        <button type="submit" class="btn btn-primary confirm-form" data-form="submitForm" data-message="Submit update to your entry for '{{ $submission->form->name }}'?">
                             <i class="fa fa-submit"></i> Submit Form
                         </button>
                     </div>
@@ -30,7 +37,7 @@
 
 @push(config('formbuilder.layout_js_stack', 'scripts'))
     <script type="text/javascript">
-        window._form_builder_content = {!! json_encode($form->form_builder_json) !!}
+        window._form_builder_content = {!! json_encode($submission->form->form_builder_json) !!}
     </script>
     <script src="{{ asset('vendor/formbuilder/js/render-form.js') }}{{ jazmy\FormBuilder\Helper::bustCache() }}" defer></script>
 @endpush

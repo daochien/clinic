@@ -1,4 +1,4 @@
-@extends('formbuilder::layout')
+@extends('layouts.template')
 
 @section('content')
 <div class="container">
@@ -9,9 +9,9 @@
                     <h5 class="card-title">{{ $pageTitle }}</h5>
                 </div>
 
-                <form action="{{ route('formbuilder::form.submit', $form->identifier) }}" method="POST" id="submitForm" enctype="multipart/form-data">
+                <form action="{{ route('template.submit', $form->identifier) }}" method="POST" id="submitForm" enctype="multipart/form-data">
                     @csrf
-                    
+
                     <div class="card-body">
                         <div id="fb-render"></div>
                     </div>

@@ -44,7 +44,7 @@
                                         <td>{{ $form->allowsEdit() ? 'YES' : 'NO' }}</td>
                                         <td>{{ $form->submissions_count }}</td>
                                         <td>
-                                            <a href="{{ route('template.requests.index', $form) }}" class="btn btn-primary btn-sm" title="View submissions for form '{{ $form->name }}'">
+                                            <a href="{{ route('template.request.index', $form) }}" class="btn btn-primary btn-sm" title="View submissions for form '{{ $form->name }}'">
                                                 <i class="fa fa-th-list"></i> Data
                                             </a>
                                             <a href="{{ route('template.show', $form) }}" class="btn btn-primary btn-sm" title="Preview form '{{ $form->name }}'">

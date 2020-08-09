@@ -39,7 +39,7 @@
 
                                     <select name="visibility" id="visibility" class="form-control" required="required">
                                         <option value="">Select Form Visibility</option>
-                                        @foreach(jazmy\FormBuilder\Models\Form::$visibility_options as $option)
+                                        @foreach(App\Models\Form::$visibility_options as $option)
                                             <option value="{{ $option['id'] }}">{{ $option['name'] }}</option>
                                         @endforeach
                                     </select>

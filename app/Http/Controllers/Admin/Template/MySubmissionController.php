@@ -1,14 +1,9 @@
 <?php
-/*--------------------
-https://github.com/jazmy/laravelformbuilder
-Licensed under the GNU General Public License v3.0
-Author: Jasmine Robinson (jazmy.com)
-Last Updated: 12/29/2018
-----------------------*/
+
 namespace App\Http\Controllers\Admin\Template;
 
 use App\Http\Controllers\Controller;
-use jazmy\FormBuilder\Models\Submission;
+use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -28,11 +23,6 @@ class MySubmissionController extends Controller
         $this->middleware('submisson-editable')->only(['edit', 'update']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $user = auth()->user();
@@ -41,15 +31,9 @@ class MySubmissionController extends Controller
 
         $pageTitle = "My Submissions";
 
-        return view('formbuilder::my_submissions.index', compact('submissions', 'pageTitle'));
+        return view('template.my-request.index', compact('submissions', 'pageTitle'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $user = auth()->user();
@@ -61,15 +45,9 @@ class MySubmissionController extends Controller
 
         $pageTitle = "View Submission";
 
-        return view('formbuilder::my_submissions.show', compact('submission', 'pageTitle', 'form_headers'));
+        return view('template.my-request.show', compact('submission', 'pageTitle', 'form_headers'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $user = auth()->user();
@@ -83,7 +61,7 @@ class MySubmissionController extends Controller
 
         $pageTitle = "Edit My Submission for '{$submission->form->name}'";
 
-        return view('formbuilder::my_submissions.edit', compact('submission', 'pageTitle'));
+        return view('template.my-request.edit', compact('submission', 'pageTitle'));
     }
 
     /**
@@ -91,7 +69,6 @@ class MySubmissionController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -128,12 +105,6 @@ class MySubmissionController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $user = auth()->user();
