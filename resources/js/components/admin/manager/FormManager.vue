@@ -173,8 +173,8 @@ export default {
             this.manager.name = data.name;
             this.manager.email = data.email;
             this.manager.note = data.note;
-            if (data.get_roles.length > 0) {
-                data.get_roles.forEach(item => {
+            if (data.roles.length > 0) {
+                data.roles.forEach(item => {
                     this.manager.roles.push(item.name);
                 });
             }

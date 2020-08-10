@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Route;
 use App\Http\Requests\Permissions\PermissionRequest;
 
 class PermissionController extends BaseController
@@ -19,6 +20,7 @@ class PermissionController extends BaseController
 
     public function index()
     {
+                       
         $permissions = $this->permission->latest()->paginate(10);
 
         return $this->sendResponse($permissions, 'Permissions list');
@@ -29,7 +31,8 @@ class PermissionController extends BaseController
 
         $permission = $this->permission->create([
             'name' => $request->name,
-            'guard_name' => 'api'
+            'guard_name' => 'api',
+            'route_name' => $request->route_name
         ]);
 
         return $this->sendResponse($permission, 'Permission Created Successfully');
@@ -63,4 +66,20 @@ class PermissionController extends BaseController
         return $this->sendResponse($permissions, 'Permissions list');
     }
 
+    public function listRoutes()
+    {
+        $routes = collect(Route::getRoutes())->map(function ($route) { 
+            if ($route->getPrefix() == 'api') {
+                $name = $route->getName();
+                $arrName = explode('.', $name);
+                if (isset($arrName[1]) && !empty($arrName[1])) {
+                    return $name;
+                }
+            }            
+        })->toArray();
+
+        $routes = array_filter($routes);
+        
+        return $this->sendResponse($routes, 'Route list');
+    }
 }

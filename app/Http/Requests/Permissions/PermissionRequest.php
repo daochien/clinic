@@ -38,7 +38,8 @@ class PermissionRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'name' => 'required|string|max:191',            
+            'name' => 'required|string|max:191',
+            'route_name' => 'required'            
         ];
     }
 
@@ -50,7 +51,8 @@ class PermissionRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'name' => 'required|string|max:191',            
+            'name' => 'required|string|max:191',
+            'route_name' => 'required'            
         ];
     }
 }

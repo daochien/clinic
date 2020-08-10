@@ -48,8 +48,7 @@ class AdminController extends BaseController
             DB::commit();
             return $this->sendResponse($admin, 'Admin Created Successfully');
         } catch (\Exception $e) {
-            DB::rollBack();
-            dd($e->getMessage());
+            DB::rollBack();            
         }
         
     }
@@ -67,12 +66,8 @@ class AdminController extends BaseController
 
         $admin->update($request->all());
 
-        $roleIds = array();
-        foreach ($request->role_ids as $role) {
-            $roleIds[] = $role;
-        }
-
-        $admin->getRoles()->sync($roleIds);
+        $roles = $request->roles ? $request->roles : [];
+        $admin->syncRoles($roles);
 
         return $this->sendResponse($admin, 'Admin Information has been updated');
     }

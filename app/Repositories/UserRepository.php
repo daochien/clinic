@@ -122,7 +122,7 @@ class UserRepository
      */
     public function show($id)
     {
-        return $this->model->with('getRoles')->findOrFail($id);
+        return $this->model->with('roles')->findOrFail($id);
     }
 
     /**

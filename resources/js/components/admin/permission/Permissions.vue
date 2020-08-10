@@ -54,7 +54,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <pagination :data="roles" @pagination-change-page="getResults"></pagination>
+                            <pagination :data="permissions" @pagination-change-page="getResults"></pagination>
                         </div>
                     </div>
                     <!-- /.card -->
@@ -87,6 +87,18 @@
                                 <input v-model="permission.name" type="text" name="name"
                                     class="form-control" :class="{ 'is-invalid': permission.errors.has('name') }">
                                 <has-error :form="permission" field="name"></has-error>
+                            </div>
+                            <div class="form-group">
+                                <label>Route</label>
+                                <select
+                                v-model="permission.route_name" 
+                                class="form-control" :class="{ 'is-invalid': permission.errors.has('route_name') }"
+                                name="route" 
+                                id="">
+                                    <option value="">--Select route--</option>
+                                    <option v-for="(route, index) in list_routes" :key="index" :value="route">{{ route }}</option>
+                                </select>                                
+                                <has-error :form="permission" field="route_name"></has-error>
                             </div>                                                                        
                         </div>
                         <div class="modal-footer">
@@ -109,14 +121,22 @@ export default {
             permissions: {},
             permission: new Form ({
                 id: '',
-                name: ''
-            })
+                name: '',
+                route_name: ''
+            }),
+            list_routes: []
         }
     },
     created () {
         this.getResults();
+        this.loadRoutes();
     },
     methods: {
+        loadRoutes () {
+            this.$Progress.start();            
+            axios.get('/api/permission/routes').then(({ data }) => (this.list_routes = data.data));
+            this.$Progress.finish();
+        },
         getResults(page = 1) {
 
             this.$Progress.start();
@@ -137,6 +157,7 @@ export default {
             this.permission.fill(permission);
         },
         createPermission () {
+            console.log('xx');
             this.permission.post('/api/permission')
             .then((response)=>{
                 $('#addNew').modal('hide');
