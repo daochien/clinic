@@ -9,12 +9,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
-    Route::get('profile', 'API\V1\ProfileController@profile');
-    Route::put('profile', 'API\V1\ProfileController@updateProfile');
-    Route::post('change-password', 'API\V1\ProfileController@changePassword');
+    Route::get('profile', 'API\V1\ProfileController@profile')->name('profile.index');
+    Route::put('profile', 'API\V1\ProfileController@updateProfile')->name('profile.update');
+    Route::post('change-password', 'API\V1\ProfileController@changePassword')->name('profile.change.password');
     Route::get('tag/list', 'API\V1\TagController@list');
     Route::get('category/list', 'API\V1\CategoryController@list');
     Route::post('product/upload', 'API\V1\ProductController@upload');
+
+    Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
 
     Route::apiResources([
         'user' => 'API\V1\UserController',

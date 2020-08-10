@@ -41,16 +41,6 @@ class User extends Authenticatable // implements MustVerifyEmail
     ];
 
     /**
-     * Get the profile photo URL attribute.
-     *
-     * @return string
-     */
-    public function getPhotoAttribute()
-    {
-        return 'https://www.gravatar.com/avatar/' . md5(strtolower($this->email)) . '.jpg?s=200&d=mm';
-    }
-
-    /**
      * Assigning User role
      *
      * @param \App\Models\Role $role
@@ -68,5 +58,54 @@ class User extends Authenticatable // implements MustVerifyEmail
     public function isUser()
     {
         return $this->roles()->where('name', 'User')->exists();
+    }
+
+    public function clinicUsers()
+    {
+        return $this->hasMany(ClinicUser::class);
+    }
+
+    public function groupUsers()
+    {
+        return $this->hasMany(GroupUser::class);
+    }
+
+    public function inquiryUsers()
+    {
+        return $this->hasMany(InquiryUser::class);
+    }
+
+    public function levelUsers()
+    {
+        return $this->hasOne(LevelUser::class);
+    }
+
+    public function notificationUsers()
+    {
+        return $this->hasMany(NotificationUser::class);
+    }
+
+    public function roleUsers()
+    {
+        return $this->hasMany(RoleUser::class);
+    }
+
+    public function typeUsers()
+    {
+        return $this->hasOne(TypeUser::class);
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+        static::deleting(function (self $clinic): void {
+            $clinic->clinicUsers()->delete();
+            $clinic->groupUsers()->delete();
+            $clinic->inquiryUsers()->delete();
+            $clinic->levelUsers()->delete();
+            $clinic->notificationUsers()->delete();
+            $clinic->roleUsers()->delete();
+            $clinic->typeUsers()->delete();
+        });
     }
 }

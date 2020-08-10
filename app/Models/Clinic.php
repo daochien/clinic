@@ -15,8 +15,16 @@ class Clinic extends Model
         'name', 'post_code', 'address',
     ];
 
-    public function users()
+    public function clinicUsers()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(ClinicUser::class)->with('users');
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+        static::deleting(function (self $clinic): void {
+            $clinic->clinicUsers()->delete();
+        });
     }
 }

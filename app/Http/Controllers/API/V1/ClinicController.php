@@ -5,13 +5,14 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Requests\ClinicRequest;
 use App\Models\Clinic;
 use App\Repositories\ClinicRepository;
+use App\Services\ClinicService;
+use Illuminate\Http\Request;
 
 class ClinicController extends BaseController
 {
-
-    protected $clinic = '';
-
     protected $repository;
+
+    protected $service;
 
     /**
      * Create a new controller instance.
@@ -19,10 +20,10 @@ class ClinicController extends BaseController
      * @param Clinic $clinic
      * @param ClinicRepository $clinicRepository
      */
-    public function __construct(Clinic $clinic, ClinicRepository $clinicRepository)
+    public function __construct(Clinic $clinic, ClinicRepository $clinicRepository, ClinicService $clinicService)
     {
-        $this->clinic = $clinic;
         $this->repository = $clinicRepository;
+        $this->service = $clinicService;
     }
 
     /**
@@ -45,9 +46,13 @@ class ClinicController extends BaseController
      */
     public function store(ClinicRequest $request)
     {
-        $clinic = $this->repository->create($request->validated());
+        try {
+            $clinic = $this->service->createClinic($request->validated());
 
-        return $this->sendResponse($clinic, 'Successfully');
+            return $this->sendResponse($clinic);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
     }
 
     /**
@@ -60,7 +65,7 @@ class ClinicController extends BaseController
     {
         $clinic = $this->repository->show($id);
 
-        return $this->sendResponse($clinic, 'Item details');
+        return $this->sendResponse($clinic);
     }
 
     /**
@@ -72,12 +77,27 @@ class ClinicController extends BaseController
      */
     public function update(ClinicRequest $request, $id)
     {
-        $product = $this->clinic->findOrFail($id);
-        $product->update($request->all());
+        try {
+            $result = $this->repository->update($id, $request->validated());
 
-        return $this->sendResponse($product, 'Item information has been updated');
+            return $this->sendResponse($result);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
     }
 
+    public function addUsers(Request $request, $clinicId)
+    {
+        try {
+            $userIds = $request->get('user_ids');
+            $this->service->addRelationUser($clinicId, $userIds);
+
+            return $this->sendResponse([]);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
+
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -85,10 +105,13 @@ class ClinicController extends BaseController
      */
     public function destroy($id)
     {
-        $this->authorize('isAdmin');
-        $clinic = $this->clinic->findOrFail($id);
-        $clinic->delete();
+        try {
+            $this->authorize('isAdmin');
+            $result = $this->service->delete($id);
 
-        return $this->sendResponse($clinic, 'Item has been Deleted');
+            return $this->sendResponse($result);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
     }
 }

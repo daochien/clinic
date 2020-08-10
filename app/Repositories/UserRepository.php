@@ -3,23 +3,24 @@
 namespace App\Repositories;
 
 use App\Models\Clinic;
-use App\Models\ClinicUser;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
-class ClinicRepository
+class UserRepository
 {
 
     protected $model;
 
-    public function __construct(Clinic $clinic)
+    public function __construct(Clinic $product)
     {
-        $this->model = $clinic;
+        $this->model = $product;
     }
 
     public function get()
     {
-        return $this->model->latest()->withCount('clinicUsers')->paginate(10);
+        return $this->model->latest()->paginate(10);
     }
 
     /**
@@ -29,7 +30,9 @@ class ClinicRepository
      */
     public function find($id)
     {
-        return $this->model->find($id);
+        $result = $this->model->find($id);
+
+        return $result;
     }
 
     /**
@@ -37,9 +40,16 @@ class ClinicRepository
      * @param array $attributes
      * @return mixed
      */
-    public function create(array $attributes)
+    public function createUser(array $attributes)
     {
-        return $this->model->create($attributes);
+        $user = User::create([
+            'name' => $attributes['name'],
+            'email' => $attributes['email'],
+            'password' => Hash::make($attributes['password']),
+            'type' => $attributes['type'],
+        ]);
+
+        return $user;
     }
 
     /**
@@ -67,22 +77,12 @@ class ClinicRepository
      */
     public function delete($id)
     {
-
-            $result = $this->find($id);
-            if ($result) {
-                try {
-                    DB::beginTransaction();
-                    $result->clinicUsers()->delete();
-                    $result->delete();
-                    DB::commit();
-                } catch(\Exception $exception) {
-                    DB::rollBack();
-                }
-            }
+        $result = $this->find($id);
+        if ($result) {
+            $result->delete();
 
             return true;
-
-
+        }
 
         return false;
     }
@@ -115,7 +115,7 @@ class ClinicRepository
      */
     public function show($id)
     {
-        return $this->model->with('clinicUsers')->findOrFail($id);
+        return $this->model->findOrFail($id);
     }
 
     /**
