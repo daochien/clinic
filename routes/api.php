@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/user', function (Request $request) {
-        dd(123);
         return $request->user();
     });
 
@@ -19,6 +18,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::apiResources([
         'user' => 'API\V1\UserController',
+        'clinic' => 'API\V1\ClinicController',
         'product' => 'API\V1\ProductController',
         'category' => 'API\V1\CategoryController',
         'tag' => 'API\V1\TagController',

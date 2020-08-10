@@ -14,7 +14,11 @@ export default {
             "password_holder": "Enter password",
             "btn_login": "Login",
             "title_login": "Login",
-            "forgot_password": "Forgot Your Password"
+            "forgot_password": "Forgot Your Password",
+            "title_reset": "Reset password",
+            "confirm_password": "Confirm password",
+            "new_password": "New Password",
+            "reset_btn": "Reset"
         },
         "pagination": {
             "previous": "&laquo; Previous",
@@ -159,7 +163,35 @@ export default {
     },
     "ja": {
         "app": {
-            "name": "社内ポータルサイト"
+            "name": "社内ポータルサイト",
+            "btn": {
+                "create": "新規登録",
+                "edit": "編集する",
+                "update": "Update",
+                "delete": "削除する",
+                "submit": "登録"
+            },
+            "label": {
+                "description": "メモ"
+            },
+            "clinic": {
+                "header": {
+                    "create": "クリニック登録",
+                    "info": "クリニック情報"
+                },
+                "place_holder": {
+                    "name": "クリニック名を入力してください",
+                    "post_code": "郵便番号を入力してください",
+                    "address": "住所を入力してください",
+                    "description": "メモを入力してください"
+                },
+                "name": "クリニック名",
+                "post_code": "郵便番号",
+                "address": "住所",
+                "description": "メモ",
+                "manage_user": "ユーザーを管理する",
+                "users_count": "社員数"
+            }
         },
         "auth": {
             "failed": "Ja_These credentials do not match our records.",
@@ -171,7 +203,11 @@ export default {
             "password_holder": "パスワードを入力してください",
             "btn_login": "ログイン",
             "title_login": "ログイン",
-            "forgot_password": "パスワードを忘れた方はこちら?"
+            "forgot_password": "パスワードを忘れた方はこちら?",
+            "title_reset": "パスワードを忘れた方はこちら?",
+            "confirm_password": "パスワードを認証する",
+            "new_password": "新しいパスワード",
+            "reset_btn": "リセット"
         },
         "pagination": {
             "previous": "&laquo; Previous",
@@ -184,7 +220,7 @@ export default {
             "token": "This password reset token is invalid.",
             "user": "※メールアドレスを必ず入力してください。",
             "throttled": "Please wait before retrying.",
-            "form_title": "社内ポータルサイト",
+            "form_title": "パスワード再設定",
             "submit_btn": "送信",
             "back_to_login": "ログインページへ戻す"
         },
