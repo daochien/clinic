@@ -2,43 +2,24 @@
 
 namespace App\Repositories;
 
-use App\Models\Clinic;
-use App\Models\Role;
-use App\Models\User;
+use App\Models\Blog;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
+use Auth;
+use DB;
 
-class UserRepository
+class BlogRepository
 {
 
     protected $model;
 
-    public function __construct(User $user)
+    public function __construct(Blog $product)
     {
-        $this->model = $user;
-    }
-
-    public function listAdmin($roles, $params = [], $limit = 10)
-    {
-        if (!empty($params['role'])) {
-            $roles = is_array($params['role']) ? $params['role'] : [$params['role']];
-        }
-
-        $query = $this->model->role($roles);
-
-
-        if (!empty($params['keyword'])) {
-            $query->where('name', 'like', '%'.$params['keyword'].'%');
-        }
-
-        return $query->with('roles')->latest()->paginate($limit);
+        $this->model = $product;
     }
 
     public function get()
     {
-        return $this->model->latest()->paginate(10);
+        return $this->model->latest()->with('category', 'tags')->paginate(10);
     }
 
     /**
@@ -58,28 +39,36 @@ class UserRepository
      * @param array $attributes
      * @return mixed
      */
-    public function createUser(array $attributes)
-    {
-        $user = User::create([
-            'name' => $attributes['name'],
-            'email' => $attributes['email'],
-            'password' => Hash::make($attributes['password']),
-            'type' => $attributes['type'],
-        ]);
-
-        return $user;
-    }
-
-    /**
-     * Create
-     * @param array $attributes
-     * @return mixed
-     */
     public function create(array $attributes)
     {
+        DB::beginTransaction();
+        try {
 
-        return $this->model->create($attributes);
+            $attributes['owner_id'] = Auth::user()->id;
+            $pathImage = $this->uploadImage($attributes['image']);
+            
+            $attributes['image'] = $pathImage;
+            
+            $blog = $this->model->create($attributes);
+
+            // update pivot table
+            $cate_ids = [];
+            foreach ($attributes['category_ids'] as $cate) {
+                $cate_ids[] = $cate;
+            }
+
+            $blog->categorys()->sync($cate_ids);
+
+            DB::commit();
+
+            return $blog;
+        } catch (\Exception $e) {
+            DB::rollback();            
+            return false;
+        }
+        
     }
+
     /**
      * Update
      * @param $id
@@ -143,7 +132,7 @@ class UserRepository
      */
     public function show($id)
     {
-        return $this->model->with('roles')->findOrFail($id);
+        return $this->model->with(['category', 'tags'])->findOrFail($id);
     }
 
     /**
@@ -179,6 +168,15 @@ class UserRepository
     {
         return $this->model->with($relations);
     }
+
+    public function uploadImage($file)
+    {
+        $extension = $file->getClientOriginalExtension();
+        $filename  = 'profile-photo-' . time() . '.' . $extension;
+        $path      = $file->storeAs('blogs', $filename);
+        return $path;
+    }
+
 
     /**
      * On method call

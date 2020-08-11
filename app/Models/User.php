@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\GroupUser;
@@ -13,6 +12,8 @@ use App\Models\GroupUser;
 class User extends Authenticatable // implements MustVerifyEmail
 {
     use Notifiable, HasApiTokens, HasRoles;
+
+    protected $guard_name = 'api';
 
     /**
      * The attributes that are mass assignable.
@@ -113,5 +114,10 @@ class User extends Authenticatable // implements MustVerifyEmail
     public function groups()
     {
         return $this->belongsToMany(GroupUser::class, 'group_users', 'user_id', 'id');
+    }
+
+    public function getRoles()
+    {
+        return $this->belongsToMany(Role::class)->select('roles.id', 'name');
     }
 }

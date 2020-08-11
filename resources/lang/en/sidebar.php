@@ -16,4 +16,6 @@ return [
     'inquiry' => 'Inquiry',
     'setting' => 'Common setting',
     'contact' => 'Contact',
+    'role' => 'Role',
+    'permission' => 'Permission',
 ];

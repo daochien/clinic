@@ -2,43 +2,29 @@
 
 namespace App\Repositories;
 
-use App\Models\Clinic;
-use App\Models\Role;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Model;
 
-class UserRepository
+class RoleRepository
 {
 
     protected $model;
 
-    public function __construct(User $user)
+    public function __construct(Role $role)
     {
-        $this->model = $user;
+        $this->model = $role;
     }
 
-    public function listAdmin($roles, $params = [], $limit = 10)
+    public function pluckName()
     {
-        if (!empty($params['role'])) {
-            $roles = is_array($params['role']) ? $params['role'] : [$params['role']];
-        }
-
-        $query = $this->model->role($roles);
-
-
-        if (!empty($params['keyword'])) {
-            $query->where('name', 'like', '%'.$params['keyword'].'%');
-        }
-
-        return $query->with('roles')->latest()->paginate($limit);
+        return $this->model->pluck('name')->toArray();
     }
 
     public function get()
     {
-        return $this->model->latest()->paginate(10);
+        return $this->model->with(['permissions' => function ($q) {
+            $q->select('name', 'id');
+        }])->latest()->paginate(10);
     }
 
     /**
@@ -58,28 +44,12 @@ class UserRepository
      * @param array $attributes
      * @return mixed
      */
-    public function createUser(array $attributes)
-    {
-        $user = User::create([
-            'name' => $attributes['name'],
-            'email' => $attributes['email'],
-            'password' => Hash::make($attributes['password']),
-            'type' => $attributes['type'],
-        ]);
-
-        return $user;
-    }
-
-    /**
-     * Create
-     * @param array $attributes
-     * @return mixed
-     */
     public function create(array $attributes)
     {
 
         return $this->model->create($attributes);
     }
+
     /**
      * Update
      * @param $id
@@ -143,7 +113,7 @@ class UserRepository
      */
     public function show($id)
     {
-        return $this->model->with('roles')->findOrFail($id);
+        return $this->model->findOrFail($id);
     }
 
     /**

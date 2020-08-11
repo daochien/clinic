@@ -8,6 +8,7 @@ export default [
     { path: '/admin/clinic/create', component: require('./components/admin/clinic/Create.vue').default, name: 'clinic_create'},
 
     { path: '/admin/users', component: require('./components/admin/Users.vue').default },
+
     { path: '/admin/templates', component: require('./components/admin/template/Index.vue').default },
     { path: '/admin/templates/create', component: require('./components/admin/template/Create.vue').default },
 
@@ -20,4 +21,14 @@ export default [
     { path: '/admin/notifications', component: require('./components/admin/notifications/Index.vue').default },
     { path: '/admin/notification/details', component: require('./components/admin/notifications/Details.vue').default, name: 'details_notification' },
     { path: '/admin/notification/edit', component: require('./components/admin/notifications/Edit.vue').default, name: 'edit_notification' },
+
+    { path: '/admin/blog/create', component: require('./components/admin/blog/Create.vue').default },
+
+    { path: '/admin/managers', component: require('./components/admin/manager/Managers.vue').default },
+    { path: '/admin/manager/create', component: require('./components/admin/manager/Manager.vue').default },
+    { path: '/admin/manager/edit/:id(\\d+)', component: require('./components/admin/manager/Manager.vue').default },
+    { path: '/admin/permissions', component: require('./components/admin/permission/Permissions.vue').default },
+    { path: '/admin/roles', component: require('./components/admin/role/Roles.vue').default },
+
+    { path: '*', component: require('./components/NotFound.vue').default }
 ];

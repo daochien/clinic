@@ -24,11 +24,31 @@
     <div class="nav-wrapper" style="overflow-y: auto;">
         @can('isAdmin')
         <ul class="nav nav--no-borders flex-column">
-            <li class="nav-item">
-                <router-link to="/admin/users" class="nav-link">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
                     <i class="fa fa-users nav-icon blue"></i>
                     <span>{{ __('sidebar.admin_manage') }}</span>
-                </router-link>
+                </a>
+                <div class="dropdown-menu dropdown-menu-small">
+                   
+                    <router-link to="/admin/managers" class="dropdown-item">
+                        
+                        <span>{{ __('sidebar.admin_manage') }}</span>
+                    </router-link>
+                
+                
+                    <router-link to="/admin/roles" class="dropdown-item">
+                        
+                        <span>{{ __('sidebar.role') }}</span>
+                    </router-link>
+                
+                
+                    <router-link to="/admin/permissions" class="dropdown-item">
+                        
+                        <span>{{ __('sidebar.permission') }}</span>
+                    </router-link>
+                    
+                </div>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
