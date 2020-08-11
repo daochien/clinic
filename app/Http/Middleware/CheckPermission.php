@@ -17,9 +17,10 @@ class CheckPermission
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
-        if ($user->isAdmin()) {
+        if ($user->type == 'admin') {
             return $next($request);
         }
+
 
         $routeName = $request->route()->getName();
 
