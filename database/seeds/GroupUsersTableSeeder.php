@@ -27,5 +27,6 @@ class GroupUsersTableSeeder extends Seeder
                 'group_id' => $group2->id
             ]
         ]);
+
     }
 }

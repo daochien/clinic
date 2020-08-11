@@ -18,10 +18,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('tag/list', 'API\V1\TagController@list');
         Route::get('category/list', 'API\V1\CategoryController@list');
         Route::post('product/upload', 'API\V1\ProductController@upload');
-        Route::get('group/{id}/members', 'API\V1\GroupController@members');
         Route::get('notification/{id}/members', 'API\V1\NotificationController@members');
 
         Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
+
+        Route::get('group/{id}/members', 'API\V1\GroupController@members');
+        Route::get('group/list', 'API\V1\GroupController@list');
+        Route::get('group/edit/{id}', 'API\V1\GroupController@find');
+        Route::post('group/update/{id}', 'API\V1\GroupController@update');
 
         Route::apiResources([
             'user' => 'API\V1\UserController',

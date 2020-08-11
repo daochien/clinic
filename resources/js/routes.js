@@ -30,5 +30,7 @@ export default [
     { path: '/admin/permissions', component: require('./components/admin/permission/Permissions.vue').default },
     { path: '/admin/roles', component: require('./components/admin/role/Roles.vue').default },
 
-    { path: '*', component: require('./components/NotFound.vue').default }
+    { path: '/admin/group', component: require('./components/admin/group/Index.vue').default },
+    { path: '/admin/group/add', component: require('./components/admin/group/Add.vue').default, name:'add_group' },
+    { path: '/admin/group/edit', component: require('./components/admin/group/Edit.vue').default, name:'edit_group' },
 ];

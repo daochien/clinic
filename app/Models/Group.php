@@ -12,9 +12,8 @@ class Group extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'name', 'description'
-    ];
+    protected $fillable = ['name', 'description','postal_code','address'];
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -41,5 +40,10 @@ class Group extends Model
     public function groupUsers()
     {
         return $this->hasMany(GroupUser::class, 'group_id', 'id');
+    }
+
+    public function group_users()
+    {
+        return $this->hasMany(GroupUsers::class,'group_id');
     }
 }
