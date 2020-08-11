@@ -3537,6 +3537,7 @@ __webpack_require__.r(__webpack_exports__);
       editmode: false,
       clinic: {},
       form: new Form({
+        id: '',
         name: '',
         post_code: '',
         address: '',
@@ -66142,6 +66143,27 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("hr", { staticClass: "mt-2 mb-4" }),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.id,
+                            expression: "form.id"
+                          }
+                        ],
+                        attrs: { type: "hidden", name: "id" },
+                        domProps: { value: _vm.form.id },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "id", $event.target.value)
+                          }
+                        }
+                      }),
                       _vm._v(" "),
                       _c("div", { staticClass: "row" }, [
                         _c("div", { staticClass: "col-6" }, [

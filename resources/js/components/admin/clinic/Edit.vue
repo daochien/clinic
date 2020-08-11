@@ -24,7 +24,7 @@
                                           </div>
                                       </div>
                                       <hr class="mt-2 mb-4" />
-
+                                      <input type="hidden" name="id" v-model="form.id">
                                       <div class="row">
                                           <div class="col-6">
                                               <div class="form-group">
@@ -103,6 +103,7 @@
                 editmode: false,
                 clinic: {},
                 form: new Form({
+                    id: '',
                     name: '',
                     post_code: '',
                     address: '',
