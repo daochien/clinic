@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Users;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
+class ClinicRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +29,6 @@ class UserRequest extends FormRequest
             return $this->updateRules();
         }
     }
-
     /**
      * Define validation rules to store method for resource creation
      *
@@ -38,9 +37,10 @@ class UserRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'name' => 'required|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users',
-            'password' => 'required|string|min:6'
+            'name' => 'required|string|max:200|unique:clinics',
+            'post_code' => 'required|string|max:50',
+            'address' => 'required|string|max:200',
+            'description' => '|max:1000',
         ];
     }
 
@@ -52,8 +52,10 @@ class UserRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'name' => 'sometimes|string|max:191',
-            'email' => 'sometimes|string|email|max:191|unique:users,email,' . $this->get('id')
+            'name' => 'required|string|max:200|unique:clinics',
+            'post_code' => 'required|string|max:50',
+            'address' => 'required|string|max:200',
+            'description' => 'max:1000',
         ];
     }
 }

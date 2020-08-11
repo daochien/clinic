@@ -4,18 +4,42 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\Users\UserRequest;
 use App\Models\User;
+use App\Repositories\UserRepository;
+use App\Services\UserServices;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends BaseController
 {
+    protected $repository = '';
+    protected $service = '';
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $repository, UserServices $userServices)
     {
+        $this->repository = $repository;
+        $this->service = $userServices;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = $this->repository->show($id);
+
+        return $this->sendResponse($user);
     }
 
     /**
@@ -26,7 +50,7 @@ class UserController extends BaseController
     public function index()
     {
         $users = User::latest()->paginate(10);
-        return $this->sendResponse($users, 'Users list');
+        return $this->sendResponse($users);
     }
 
     /**
@@ -41,14 +65,10 @@ class UserController extends BaseController
      */
     public function store(UserRequest $request)
     {
-        $user = User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'type' => $request['type'],
-        ]);
+        $attributes = $request->validated();
+        $user = $this->service->createUser($attributes);
 
-        return $this->sendResponse($user, 'User Created Successfully');
+        return $this->sendResponse($user);
     }
 
     /**
@@ -67,10 +87,9 @@ class UserController extends BaseController
         if (!empty($request->password)) {
             $request->merge(['password' => Hash::make($request['password'])]);
         }
-
         $user->update($request->all());
 
-        return $this->sendResponse($user, 'User Information has been updated');
+        return $this->sendResponse($user);
     }
 
     /**
@@ -81,14 +100,11 @@ class UserController extends BaseController
      */
     public function destroy($id)
     {
-
         $this->authorize('isAdmin');
-
         $user = User::findOrFail($id);
         // delete the user
-
         $user->delete();
 
-        return $this->sendResponse([$user], 'User has been Deleted');
+        return $this->sendResponse([$user]);
     }
 }
