@@ -16,4 +16,8 @@ export default [
     { path: '/admin/product/category', component: require('./components/admin/product/Category.vue').default },
 
     { path: '*', component: require('./components/NotFound.vue').default },
+
+    { path: '/admin/notifications', component: require('./components/admin/notifications/Index.vue').default },
+    { path: '/admin/notification/details', component: require('./components/admin/notifications/Details.vue').default, name: 'details_notification' },
+    { path: '/admin/notification/edit', component: require('./components/admin/notifications/Edit.vue').default, name: 'edit_notification' },
 ];

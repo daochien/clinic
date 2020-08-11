@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\GroupUser;
 
 class User extends Authenticatable // implements MustVerifyEmail
 {
@@ -107,5 +108,10 @@ class User extends Authenticatable // implements MustVerifyEmail
             $clinic->roleUsers()->delete();
             $clinic->typeUsers()->delete();
         });
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany(GroupUser::class, 'group_users', 'user_id', 'id');
     }
 }
