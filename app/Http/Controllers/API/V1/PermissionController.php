@@ -77,9 +77,17 @@ class PermissionController extends BaseController
                 }
             }            
         })->toArray();
-
+        
         $routes = array_filter($routes);
         
-        return $this->sendResponse($routes, 'Route list');
+        $routeGroup = [];
+        foreach ($routes as $name) {
+            $arrName = explode('.', $name);
+            if (isset($arrName[1]) && !empty($arrName[1])) {
+                $routeGroup[$arrName[0]][] = $arrName[1];
+            }
+        }
+        //dd($routeGroup);
+        return $this->sendResponse($routeGroup, 'Route list');
     }
 }
