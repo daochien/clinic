@@ -25,13 +25,6 @@ class CheckPermission
 
         $permissions = Permission::where('route_name', $routeName)->pluck('name')->toArray();
 
-        if (!empty($permissions)) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Permission not access'
-            ], 403);
-        }
-
         if ($user->hasAnyPermission($permissions)) {
             return $next($request);
         }
