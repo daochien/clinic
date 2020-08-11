@@ -32,7 +32,7 @@ class CheckPermission
             ], 403);
         }
 
-        if ($user->hasAllPermissions($permissions)) {
+        if ($user->hasAnyPermission($permissions)) {
             return $next($request);
         }
 
