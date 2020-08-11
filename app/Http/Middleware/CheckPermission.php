@@ -18,21 +18,21 @@ class CheckPermission
     {
         $user = Auth::user();
         if ($user->isAdmin()) {
-            return $next($request);    
+            return $next($request);
         }
-        
+
         $routeName = $request->route()->getName();
-        
-        $permission = Permission::where('route_name', $routeName)->first();
-        
-        if (!$permission) {
+
+        $permissions = Permission::where('route_name', $routeName)->pluck('name')->toArray();
+
+        if (!empty($permissions)) {
             return response()->json([
                 'status' => false,
                 'message' => 'Permission not access'
             ], 403);
         }
 
-        if ($user->can($permission->name)) {
+        if ($user->hasAllPermissions($permissions)) {
             return $next($request);
         }
 
