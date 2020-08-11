@@ -59,6 +59,7 @@
                     <router-link to="/admin/templates" class="dropdown-item">
                         {{ __('sidebar.templates') }}
                     </router-link>
+                    <a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>
                     <router-link to="/admin/requests" class="dropdown-item">
                         {{ __('sidebar.request') }}
                     </router-link>
