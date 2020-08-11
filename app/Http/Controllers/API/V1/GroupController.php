@@ -86,7 +86,7 @@ class GroupController extends BaseController
     public function find($id)
     {
         // get a groups by id
-        $group  = $this->group->where('id', $id)->get();
+        $group  = $this->group->findOrFail($id);
         return $this->sendResponse($group, 'Group information');
     }
 

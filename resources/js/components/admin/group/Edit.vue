@@ -8,8 +8,8 @@
                 </div>
                 <div class="col-6 text-center text-sm-right mb-0">
                     <div class="card-tools">
-                        <button type="button" class="btn btn-sm btn-primary" @click="createGroup()">
-                            Đăng ký
+                        <button type="button" class="btn btn-sm btn-primary" @click="updateGroup()">
+                            Lưu lại
                         </button>
                     </div>
                 </div>
@@ -93,33 +93,24 @@
                 axios.get("/api/group/edit/"+this.id).then(({ data }) =>
                 {
                     this.group = data.data;
-                    this.form.fill(data.data);
-                    console.log(this.form);
+                    let group = JSON.parse(JSON.stringify(this.group))
+                    this.form.fill(group);
                 }
                 );
                 // }
                 this.$Progress.finish();
             },
 
-            setFormData(){
-                this.form.clear();
-                this.form.reset();
-                this.form.fill(this.group);
-                console.log(this.form);
-            },
-
             updateGroup(){
                 this.$Progress.start();
 
-                this.form.post('/api/group')
+                this.form.post('/api/group/update/'+this.id)
                     .then((data)=>{
                         Toast.fire({
                             icon: 'success',
                             title: data.data.message
                         });
                         this.$Progress.finish();
-                        this.loadGroup();
-
                     })
                     .catch(()=>{
 
@@ -135,7 +126,6 @@
         },
         created() {
             this.$Progress.start();
-            console.log(this.$Progress.start());
             this.id = this.$route.params.id;
             this.loadGroup();
             this.$Progress.finish();
