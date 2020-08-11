@@ -10,7 +10,8 @@ return [
         'submit' => '登録',
     ],
     'label' => [
-        'description' => 'メモ'
+        'description' => 'メモ',
+        'operator' => '操作',
     ],
     'clinic' => [
         'header' => [

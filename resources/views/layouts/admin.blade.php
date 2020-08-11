@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link href="{{ asset('css/shards-dashboards.1.3.1.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
 </head>
 <body class="h-100">
 <div class="container-fluid" id="app">

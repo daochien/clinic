@@ -3413,7 +3413,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log("Notification Component mounted.");
+    console.log("Component mounted.");
   },
   created: function created() {
     this.$Progress.start();
@@ -3523,48 +3523,64 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       editmode: false,
-      notifications: {}
+      clinic: {},
+      form: new Form({
+        name: '',
+        post_code: '',
+        address: '',
+        description: ''
+      })
     };
   },
   methods: {
-    getResults: function getResults() {
+    update: function update() {
       var _this = this;
 
-      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$Progress.start();
-      console.log("get Results");
-      axios.get("/api/notification?page=" + page).then(function (_ref) {
-        var data = _ref.data;
-        return _this.notifications = data.data;
+      this.form.put('/api/clinic/' + this.$route.params.id).then(function (response) {
+        // success
+        $('#addNew').modal('hide');
+        Toast.fire({
+          icon: 'success',
+          title: 'success'
+        });
+
+        _this.$Progress.finish();
+
+        _this.$router.push('/admin/clinics');
+      })["catch"](function () {
+        _this.$Progress.fail();
       });
-      this.$Progress.finish();
     },
-    loadNotification: function loadNotification() {
+    loadData: function loadData() {
       var _this2 = this;
 
       this.$Progress.start();
+      axios.get("/api/clinic/" + this.$route.params.id).then(function (_ref) {
+        var data = _ref.data;
+        _this2.clinic = data.data;
 
-      if (this.$gate.isAdmin()) {
-        axios.get("/api/notification").then(function (_ref2) {
-          var data = _ref2.data;
-          return _this2.notifications = data.data;
-        });
-      }
-
+        _this2.form.fill(_this2.clinic);
+      });
       this.$Progress.finish();
     }
   },
-  mounted: function mounted() {
-    console.log("Notification Component mounted.");
-  },
+  mounted: function mounted() {},
   created: function created() {
     this.$Progress.start();
-    console.log("created");
-    this.loadNotification();
+    this.loadData();
     this.$Progress.finish();
   }
 });
@@ -3657,33 +3673,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      clinics: []
+      clinics: {}
     };
   },
   methods: {
-    loadClinic: function loadClinic() {
+    getResults: function getResults() {
       var _this = this;
+
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      this.$Progress.start();
+      axios.get('/api/clinic?page=' + page).then(function (_ref) {
+        var data = _ref.data;
+        return _this.clinics = data.data;
+      });
+      this.$Progress.finish();
+    },
+    loadClinics: function loadClinics() {
+      var _this2 = this;
 
       this.$Progress.start();
 
       if (this.$gate.isAdmin()) {
-        axios.get("/api/clinic").then(function (_ref) {
-          var data = _ref.data;
-          return _this.clinics = data.data;
+        axios.get("/api/clinic").then(function (_ref2) {
+          var data = _ref2.data;
+          return _this2.clinics = data.data;
         });
       }
 
       this.$Progress.finish();
+    },
+    deleteClinic: function deleteClinic(id) {
+      var _this3 = this;
+
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"]("/api/clinic/" + id).then(function () {
+            Swal.fire('Deleted!', 'Your file has been deleted.', 'success'); // Fire.$emit('AfterCreate');
+
+            _this3.loadClinics();
+          })["catch"](function (data) {
+            Swal.fire("Failed!", data.message, "warning");
+          });
+        }
+      });
     }
   },
   mounted: function mounted() {},
   created: function created() {
     this.$Progress.start();
-    this.loadClinic();
+    this.loadClinics();
     this.$Progress.finish();
   }
 });
@@ -66040,7 +66088,7 @@ var render = function() {
         },
         [
           _c("h3", { staticClass: "page-title" }, [
-            _vm._v(_vm._s(_vm.$t("app.notification_management")))
+            _vm._v(_vm._s(_vm.$t("app.clinic.header.create")))
           ])
         ]
       ),
@@ -66051,17 +66099,18 @@ var render = function() {
           staticClass: "col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0"
         },
         [
-          _c("label", { staticClass: "pt-2 mr-4" }, [
-            _vm._v(_vm._s(_vm.$t("app.save_draft")))
-          ]),
-          _vm._v(" "),
           _c(
             "button",
             {
               staticClass: "btn btn-primary pl-5 pr-5",
-              attrs: { type: "button" }
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.update()
+                }
+              }
             },
-            [_vm._v(_vm._s(_vm.$t("app.singup")))]
+            [_vm._v(_vm._s(_vm.$t("app.btn.create")))]
           )
         ]
       )
@@ -66074,91 +66123,262 @@ var render = function() {
             _c("div", { staticClass: "col-12" }, [
               _c("div", { staticClass: "card" }, [
                 _c("div", { staticClass: "card-body" }, [
-                  _c("form", [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-12" }, [
-                        _c("label", [
-                          _vm._v(_vm._s(_vm.$t("app.notice_information")))
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("hr", { staticClass: "mt-2 mb-4" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-12" }, [
-                        _c("div", { staticClass: "form-group" }, [
+                  _c(
+                    "form",
+                    {
+                      on: {
+                        submit: function($event) {
+                          return _vm.saveForm()
+                        }
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-12" }, [
                           _c("label", [
-                            _vm._v(
-                              "\n                          " +
-                                _vm._s(_vm.$t("app.title_info")) +
-                                "\n                          "
-                            ),
-                            _c("span", { staticClass: "text-danger" }, [
-                              _vm._v("*")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: _vm.$t("app.please_enter_title")
-                            }
-                          })
+                            _vm._v(_vm._s(_vm.$t("app.clinic.header.info")))
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("hr", { staticClass: "mt-2 mb-4" }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-6" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [
+                                _vm._v(
+                                  "\n                                                    " +
+                                    _vm._s(_vm.$t("app.clinic.name")) +
+                                    "\n                                                    "
+                                ),
+                                _c("span", { staticClass: "text-danger" }, [
+                                  _vm._v("*")
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.name,
+                                    expression: "form.name"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                class: {
+                                  "is-invalid": _vm.form.errors.has("name")
+                                },
+                                attrs: {
+                                  type: "text",
+                                  name: "name",
+                                  placeholder: _vm.$t(
+                                    "app.clinic.place_holder.name"
+                                  )
+                                },
+                                domProps: { value: _vm.form.name },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "name",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: { form: _vm.form, field: "name" }
+                              })
+                            ],
+                            1
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-6" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [
+                                _vm._v(
+                                  "\n                                                    " +
+                                    _vm._s(_vm.$t("app.clinic.post_code")) +
+                                    "\n                                                    "
+                                ),
+                                _c("span", { staticClass: "text-danger" }, [
+                                  _vm._v("*")
+                                ]),
+                                _vm._v(" "),
+                                _c("br")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.post_code,
+                                    expression: "form.post_code"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                class: {
+                                  "is-invalid": _vm.form.errors.has("post_code")
+                                },
+                                attrs: {
+                                  type: "text",
+                                  name: "post_code",
+                                  placeholder: _vm.$t(
+                                    "app.clinic.place_holder.post_code"
+                                  )
+                                },
+                                domProps: { value: _vm.form.post_code },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "post_code",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: { form: _vm.form, field: "post_code" }
+                              })
+                            ],
+                            1
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row mt-3" }, [
+                        _c("div", { staticClass: "col-12" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [
+                                _vm._v(
+                                  "\n                                                    " +
+                                    _vm._s(_vm.$t("app.clinic.address")) +
+                                    "\n                                                    "
+                                ),
+                                _c("span", { staticClass: "text-danger" }, [
+                                  _vm._v("*")
+                                ]),
+                                _vm._v(" "),
+                                _c("br")
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.address,
+                                    expression: "form.address"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                class: {
+                                  "is-invalid": _vm.form.errors.has("address")
+                                },
+                                attrs: {
+                                  type: "text",
+                                  name: "address",
+                                  placeholder: _vm.$t(
+                                    "app.clinic.place_holder.address"
+                                  )
+                                },
+                                domProps: { value: _vm.form.address },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "address",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: { form: _vm.form, field: "address" }
+                              })
+                            ],
+                            1
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row mt-3" }, [
+                        _c("div", { staticClass: "col-12" }, [
+                          _c(
+                            "div",
+                            { staticClass: "form-group" },
+                            [
+                              _c("label", [
+                                _vm._v(_vm._s(_vm.$t("app.clinic.description")))
+                              ]),
+                              _vm._v(" "),
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.form.description,
+                                    expression: "form.description"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                class: {
+                                  "is-invalid": _vm.form.errors.has(
+                                    "description"
+                                  )
+                                },
+                                attrs: { rows: "12", name: "description" },
+                                domProps: { value: _vm.form.description },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.form,
+                                      "description",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("has-error", {
+                                attrs: { form: _vm.form, field: "description" }
+                              })
+                            ],
+                            1
+                          )
                         ])
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row mt-3" }, [
-                      _c("div", { staticClass: "col-12" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", [
-                            _vm._v(
-                              "\n                          " +
-                                _vm._s(_vm.$t("app.target_audience")) +
-                                "\n                          "
-                            ),
-                            _c("span", { staticClass: "text-danger" }, [
-                              _vm._v("*")
-                            ]),
-                            _vm._v(" "),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("small", [
-                              _vm._v(_vm._s(_vm.$t("app.target_help")))
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: _vm.$t("app.please_enter_target")
-                            }
-                          })
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row mt-3" }, [
-                      _c("div", { staticClass: "col-12" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", [
-                            _vm._v(_vm._s(_vm.$t("app.notice_content")))
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: _vm.$t("app.please_enter_title")
-                            }
-                          })
-                        ])
-                      ])
-                    ])
-                  ])
+                    ]
+                  )
                 ])
               ])
             ])
@@ -66216,19 +66436,15 @@ var render = function() {
             },
             [
               _c(
-                "button",
+                "router-link",
                 {
                   staticClass: "btn btn-primary pl-5 pr-5",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      return _vm.create()
-                    }
-                  }
+                  attrs: { type: "button", to: "/admin/clinic/create" }
                 },
-                [_vm._v(_vm._s(_vm.$t("app.btn.create")))]
+                [_vm._v(_vm._s(_vm.$t("app.btn.create")) + "\n            ")]
               )
-            ]
+            ],
+            1
           )
         ]),
         _vm._v(" "),
@@ -66244,25 +66460,54 @@ var render = function() {
                         _c("table", { staticClass: "table table-hover" }, [
                           _c("thead", [
                             _c("tr", [
-                              _c("th", { attrs: { scope: "col" } }, [
-                                _vm._v("#")
-                              ]),
+                              _c(
+                                "th",
+                                {
+                                  staticClass: "col-auto",
+                                  attrs: { scope: "col" }
+                                },
+                                [_vm._v("#")]
+                              ),
                               _vm._v(" "),
-                              _c("th", { attrs: { scope: "col" } }, [
-                                _vm._v(_vm._s(_vm.$t("app.clinic.name")))
-                              ]),
+                              _c(
+                                "th",
+                                {
+                                  staticClass: "col-auto",
+                                  attrs: { scope: "col" }
+                                },
+                                [_vm._v(_vm._s(_vm.$t("app.clinic.name")))]
+                              ),
                               _vm._v(" "),
-                              _c("th", { attrs: { scope: "col" } }, [
-                                _vm._v(_vm._s(_vm.$t("app.clinic.address")))
-                              ]),
+                              _c(
+                                "th",
+                                {
+                                  staticClass: "col-auto",
+                                  attrs: { scope: "col" }
+                                },
+                                [_vm._v(_vm._s(_vm.$t("app.clinic.address")))]
+                              ),
                               _vm._v(" "),
-                              _c("th", { attrs: { scope: "col" } }, [
-                                _vm._v(_vm._s(_vm.$t("app.clinic.users_count")))
-                              ]),
+                              _c(
+                                "th",
+                                {
+                                  staticClass: "col-auto",
+                                  attrs: { scope: "col" }
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(_vm.$t("app.clinic.users_count"))
+                                  )
+                                ]
+                              ),
                               _vm._v(" "),
-                              _c("th", { attrs: { scope: "col" } }, [
-                                _vm._v(_vm._s(_vm.$t("app.operating")))
-                              ])
+                              _c(
+                                "th",
+                                {
+                                  staticClass: "col-auto",
+                                  attrs: { scope: "col" }
+                                },
+                                [_vm._v(_vm._s(_vm.$t("app.label.operator")))]
+                              )
                             ])
                           ]),
                           _vm._v(" "),
@@ -66272,28 +66517,13 @@ var render = function() {
                               return _c("tr", { key: entity.id }, [
                                 _c("td", [_vm._v(_vm._s(index + 1))]),
                                 _vm._v(" "),
-                                _c(
-                                  "td",
-                                  [
-                                    _c(
-                                      "router-link",
-                                      {
-                                        attrs: {
-                                          to: {
-                                            name: "clinic_user",
-                                            params: { id: entity.id }
-                                          }
-                                        }
-                                      },
-                                      [_vm._v(_vm._s(entity.name))]
-                                    )
-                                  ],
-                                  1
-                                ),
+                                _c("td", [_vm._v(_vm._s(entity.name))]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(entity.address))]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v("0")]),
+                                _c("td", [
+                                  _vm._v(_vm._s(entity.clinic_users_count))
+                                ]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _c("div", { staticClass: "dropdown" }, [
@@ -66317,19 +66547,26 @@ var render = function() {
                                       },
                                       [
                                         _c(
-                                          "a",
+                                          "router-link",
                                           {
                                             staticClass:
                                               "dropdown-item text-primary",
-                                            attrs: { href: "#" }
+                                            attrs: {
+                                              to: {
+                                                name: "clinic_user",
+                                                params: { id: entity.id }
+                                              }
+                                            }
                                           },
                                           [
                                             _vm._v(
-                                              _vm._s(
-                                                _vm.$t(
-                                                  "app.publish_announcement"
-                                                )
-                                              )
+                                              "\n                                                " +
+                                                _vm._s(
+                                                  _vm.$t(
+                                                    "app.clinic.manage_user"
+                                                  )
+                                                ) +
+                                                "\n                                            "
                                             )
                                           ]
                                         ),
@@ -66337,15 +66574,22 @@ var render = function() {
                                         _c(
                                           "router-link",
                                           {
-                                            class: "dropdown-item text-primary",
+                                            staticClass:
+                                              "dropdown-item text-primary",
                                             attrs: {
                                               to: {
-                                                name: "edit_notification",
+                                                name: "clinic_edit",
                                                 params: { id: entity.id }
                                               }
                                             }
                                           },
-                                          [_vm._v(_vm._s(_vm.$t("app.edit")))]
+                                          [
+                                            _vm._v(
+                                              "\n                                                " +
+                                                _vm._s(_vm.$t("app.btn.edit")) +
+                                                "\n                                            "
+                                            )
+                                          ]
                                         ),
                                         _vm._v(" "),
                                         _c(
@@ -66353,9 +66597,24 @@ var render = function() {
                                           {
                                             staticClass:
                                               "dropdown-item text-danger",
-                                            attrs: { href: "#" }
+                                            attrs: { href: "#" },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.deleteClinic(
+                                                  entity.id
+                                                )
+                                              }
+                                            }
                                           },
-                                          [_vm._v(_vm._s(_vm.$t("app.delete")))]
+                                          [
+                                            _vm._v(
+                                              "\n                                                " +
+                                                _vm._s(
+                                                  _vm.$t("app.btn.delete")
+                                                ) +
+                                                "\n                                            "
+                                            )
+                                          ]
                                         )
                                       ],
                                       1
@@ -93510,7 +93769,7 @@ __webpack_require__.r(__webpack_exports__);
   component: __webpack_require__(/*! ./components/admin/clinic/Users.vue */ "./resources/js/components/admin/clinic/Users.vue")["default"],
   name: 'clinic_user'
 }, {
-  path: '/admin/clinic/edit/:id',
+  path: '/admin/clinic/:id/edit',
   component: __webpack_require__(/*! ./components/admin/clinic/Edit.vue */ "./resources/js/components/admin/clinic/Edit.vue")["default"],
   name: 'clinic_edit'
 }, {
@@ -93719,7 +93978,8 @@ __webpack_require__.r(__webpack_exports__);
         "submit": "登録"
       },
       "label": {
-        "description": "メモ"
+        "description": "メモ",
+        "operator": "操作"
       },
       "clinic": {
         "header": {
@@ -93787,110 +94047,81 @@ __webpack_require__.r(__webpack_exports__);
       "contact": "問い合わせ担当"
     },
     "validation": {
-      "accepted": "The {attribute} must be accepted.",
-      "active_url": "The {attribute} is not a valid URL.",
-      "after": "The {attribute} must be a date after {date}.",
-      "after_or_equal": "The {attribute} must be a date after or equal to {date}.",
-      "alpha": "The {attribute} may only contain letters.",
-      "alpha_dash": "The {attribute} may only contain letters, numbers, dashes and underscores.",
-      "alpha_num": "The {attribute} may only contain letters and numbers.",
-      "array": "The {attribute} must be an array.",
-      "before": "The {attribute} must be a date before {date}.",
-      "before_or_equal": "The {attribute} must be a date before or equal to {date}.",
+      "accepted": "{attribute}を承認してください。",
+      "active_url": "{attribute}は、有効なURLではありません。",
+      "after": "{attribute}には、{date}以降の日付を指定してください。",
+      "after_or_equal": "{attribute}には、{date}以降もしくは同日時を指定してください。",
+      "alpha": "{attribute}には、アルファベッドのみ使用できます。",
+      "alpha_dash": "{attribute}には、英数字('A-Z','a-z','0-9')とハイフンと下線('-','_')が使用できます。",
+      "alpha_num": "{attribute}には、英数字('A-Z','a-z','0-9')が使用できます。",
+      "array": "{attribute}には、配列を指定してください。",
+      "before": "{attribute}には、{date}以前の日付を指定してください。",
+      "before_or_equal": "{attribute}には、{date}以前もしくは同日時を指定してください。",
       "between": {
-        "numeric": "The {attribute} must be between {min} and {max}.",
-        "file": "The {attribute} must be between {min} and {max} kilobytes.",
-        "string": "The {attribute} must be between {min} and {max} characters.",
-        "array": "The {attribute} must have between {min} and {max} items."
+        "numeric": "{attribute}には、{min}から、{max}までの数字を指定してください。",
+        "file": "{attribute}には、{min} KBから{max} KBまでのサイズのファイルを指定してください。",
+        "string": "{attribute}は、{min}文字から{max}文字にしてください。",
+        "array": "{attribute}の項目は、{min}個から{max}個にしてください。"
       },
-      "boolean": "The {attribute} field must be true or false.",
-      "confirmed": "The {attribute} confirmation does not match.",
-      "date": "The {attribute} is not a valid date.",
-      "date_equals": "The {attribute} must be a date equal to {date}.",
-      "date_format": "The {attribute} does not match the format {format}.",
-      "different": "The {attribute} and {other} must be different.",
-      "digits": "The {attribute} must be {digits} digits.",
-      "digits_between": "The {attribute} must be between {min} and {max} digits.",
-      "dimensions": "The {attribute} has invalid image dimensions.",
-      "distinct": "The {attribute} field has a duplicate value.",
-      "email": "The {attribute} must be a valid email address.",
-      "ends_with": "The {attribute} must end with one of the following: {values}",
-      "exists": "The selected {attribute} is invalid.",
-      "file": "The {attribute} must be a file.",
-      "filled": "The {attribute} field must have a value.",
-      "gt": {
-        "numeric": "The {attribute} must be greater than {value}.",
-        "file": "The {attribute} must be greater than {value} kilobytes.",
-        "string": "The {attribute} must be greater than {value} characters.",
-        "array": "The {attribute} must have more than {value} items."
-      },
-      "gte": {
-        "numeric": "The {attribute} must be greater than or equal {value}.",
-        "file": "The {attribute} must be greater than or equal {value} kilobytes.",
-        "string": "The {attribute} must be greater than or equal {value} characters.",
-        "array": "The {attribute} must have {value} items or more."
-      },
-      "image": "The {attribute} must be an image.",
-      "in": "The selected {attribute} is invalid.",
-      "in_array": "The {attribute} field does not exist in {other}.",
-      "integer": "The {attribute} must be an integer.",
-      "ip": "The {attribute} must be a valid IP address.",
-      "ipv4": "The {attribute} must be a valid IPv4 address.",
-      "ipv6": "The {attribute} must be a valid IPv6 address.",
-      "json": "The {attribute} must be a valid JSON string.",
-      "lt": {
-        "numeric": "The {attribute} must be less than {value}.",
-        "file": "The {attribute} must be less than {value} kilobytes.",
-        "string": "The {attribute} must be less than {value} characters.",
-        "array": "The {attribute} must have less than {value} items."
-      },
-      "lte": {
-        "numeric": "The {attribute} must be less than or equal {value}.",
-        "file": "The {attribute} must be less than or equal {value} kilobytes.",
-        "string": "The {attribute} must be less than or equal {value} characters.",
-        "array": "The {attribute} must not have more than {value} items."
-      },
+      "boolean": "{attribute}には、'true'か'false'を指定してください。",
+      "confirmed": "{attribute}と{attribute}確認が一致しません。",
+      "date": "{attribute}は、正しい日付ではありません。",
+      "date_format": "{attribute}の形式は、'{format}'と合いません。",
+      "different": "{attribute}と{other}には、異なるものを指定してください。",
+      "digits": "{attribute}は、{digits}桁にしてください。",
+      "digits_between": "{attribute}は、{min}桁から{max}桁にしてください。",
+      "dimensions": "{attribute}は、正しい縦横比ではありません。",
+      "distinct": "{attribute}に重複した値があります。",
+      "email": "{attribute}は、有効なメールアドレス形式で指定してください。",
+      "exists": "選択された{attribute}は、有効ではありません。",
+      "file": "{attribute}はファイルでなければいけません。",
+      "filled": "{attribute}は必須です。",
+      "image": "{attribute}には、画像を指定してください。",
+      "in": "選択された{attribute}は、有効ではありません。",
+      "in_array": "{attribute}は、{other}に存在しません。",
+      "integer": "{attribute}には、整数を指定してください。",
+      "ip": "{attribute}には、有効なIPアドレスを指定してください。",
+      "ipv4": "{attribute}はIPv4アドレスを指定してください。",
+      "ipv6": "{attribute}はIPv6アドレスを指定してください。",
+      "json": "{attribute}には、有効なJSON文字列を指定してください。",
       "max": {
-        "numeric": "The {attribute} may not be greater than {max}.",
-        "file": "The {attribute} may not be greater than {max} kilobytes.",
-        "string": "The {attribute} may not be greater than {max} characters.",
-        "array": "The {attribute} may not have more than {max} items."
+        "numeric": "{attribute}には、{max}以下の数字を指定してください。",
+        "file": "{attribute}には、{max} KB以下のファイルを指定してください。",
+        "string": "{attribute}は、{max}文字以下にしてください。",
+        "array": "{attribute}の項目は、{max}個以下にしてください。"
       },
-      "mimes": "The {attribute} must be a file of type: {values}.",
-      "mimetypes": "The {attribute} must be a file of type: {values}.",
+      "mimes": "{attribute}には、{values}タイプのファイルを指定してください。",
+      "mimetypes": "{attribute}には、{values}タイプのファイルを指定してください。",
       "min": {
-        "numeric": "The {attribute} must be at least {min}.",
-        "file": "The {attribute} must be at least {min} kilobytes.",
-        "string": "The {attribute} must be at least {min} characters.",
-        "array": "The {attribute} must have at least {min} items."
+        "numeric": "{attribute}には、{min}以上の数字を指定してください。",
+        "file": "{attribute}には、{min} KB以上のファイルを指定してください。",
+        "string": "{attribute}は、{min}文字以上にしてください。",
+        "array": "{attribute}の項目は、{max}個以上にしてください。"
       },
-      "not_in": "The selected {attribute} is invalid.",
-      "not_regex": "The {attribute} format is invalid.",
-      "numeric": "The {attribute} must be a number.",
-      "password": "The password is incorrect.",
-      "present": "The {attribute} field must be present.",
-      "regex": "The {attribute} format is invalid.",
-      "required": "The {attribute} field is required.",
-      "required_if": "The {attribute} field is required when {other} is {value}.",
-      "required_unless": "The {attribute} field is required unless {other} is in {values}.",
-      "required_with": "The {attribute} field is required when {values} is present.",
-      "required_with_all": "The {attribute} field is required when {values} are present.",
-      "required_without": "The {attribute} field is required when {values} is not present.",
-      "required_without_all": "The {attribute} field is required when none of {values} are present.",
-      "same": "The {attribute} and {other} must match.",
+      "not_in": "選択された{attribute}は、有効ではありません。",
+      "not_regex": "{attribute} は整数で入力してください",
+      "numeric": "{attribute}には、数字を指定してください。",
+      "present": "{attribute}は、必ず存在しなくてはいけません。",
+      "regex": "{attribute}には、有効な正規表現を指定してください。",
+      "required": "必ず入力してください。",
+      "required_if": "{other}が{value}の場合、{attribute}を指定してください。",
+      "required_unless": "{other}が{value}以外の場合、{attribute}を指定してください。",
+      "required_with": "{values}が指定されている場合、{attribute}も指定してください。",
+      "required_with_all": "{values}が全て指定されている場合、{attribute}も指定してください。",
+      "required_without": "{values}が指定されていない場合、{attribute}を指定してください。",
+      "required_without_all": "{values}が全て指定されていない場合、{attribute}を指定してください。",
+      "same": "{attribute}と{other}が一致しません。",
       "size": {
-        "numeric": "The {attribute} must be {size}.",
-        "file": "The {attribute} must be {size} kilobytes.",
-        "string": "The {attribute} must be {size} characters.",
-        "array": "The {attribute} must contain {size} items."
+        "numeric": "{attribute}には、{size}を指定してください。",
+        "file": "{attribute}には、{size} KBのファイルを指定してください。",
+        "string": "{attribute}は、{size}文字にしてください。",
+        "array": "{attribute}の項目は、{size}個にしてください。"
       },
-      "starts_with": "The {attribute} must start with one of the following: {values}",
-      "string": "The {attribute} must be a string.",
-      "timezone": "The {attribute} must be a valid zone.",
-      "unique": "The {attribute} has already been taken.",
-      "uploaded": "The {attribute} failed to upload.",
-      "url": "The {attribute} format is invalid.",
-      "uuid": "The {attribute} must be a valid UUID.",
+      "string": "{attribute}には、文字を指定してください。",
+      "timezone": "{attribute}には、有効なタイムゾーンを指定してください。",
+      "unique": "指定の{attribute}は既に使用されています。",
+      "uploaded": "{attribute}のアップロードに失敗しました。",
+      "url": "{attribute}は、有効なURL形式で指定してください。",
       "custom": {
         "attribute-name": {
           "rule-name": "custom-message"

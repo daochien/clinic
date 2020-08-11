@@ -140,7 +140,7 @@ export default {
       },
   },
   mounted() {
-    console.log("Notification Component mounted.");
+    console.log("Component mounted.");
   },
   created() {
     this.$Progress.start();
