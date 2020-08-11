@@ -17,6 +17,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('category/list', 'API\V1\CategoryController@list');
     Route::post('product/upload', 'API\V1\ProductController@upload');
     Route::get('group/list', 'API\V1\GroupController@list');
+    Route::get('group/edit/{id}', 'API\V1\GroupController@find');
 
     Route::apiResources([
         'user' => 'API\V1\UserController',

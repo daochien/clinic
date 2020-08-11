@@ -7,5 +7,7 @@ export default [
     { path: '/admin/product/category', component: require('./components/admin/product/Category.vue').default },
 
     { path: '*', component: require('./components/NotFound.vue').default },
-    { path: '/admin/group', component: require('./components/admin/Group.vue').default },
+    { path: '/admin/group', component: require('./components/admin/group/Index.vue').default },
+    { path: '/admin/group/add', component: require('./components/admin/group/Add.vue').default, name:'add_group' },
+    { path: '/admin/group/edit', component: require('./components/admin/group/Edit.vue').default, name:'edit_group' },
 ];

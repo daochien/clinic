@@ -17,6 +17,8 @@ class CreateGroupsTable extends Migration
             $table->increments('id');
             $table->string('name', 100);
             $table->text('description', 100);
+            $table->text('postal_code', 100);
+            $table->text('address', 255);
             $table->timestamps();
         });
     }
