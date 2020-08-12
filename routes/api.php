@@ -19,7 +19,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResources([
         'user' => 'API\V1\UserController',
         'product' => 'API\V1\ProductController',
-        'template' => 'API\V1\TemplateController',
+//        'template' => 'API\V1\TemplateController',
         'category' => 'API\V1\CategoryController',
         'tag' => 'API\V1\TagController',
     ]);

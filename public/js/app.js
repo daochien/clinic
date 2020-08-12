@@ -92445,10 +92445,10 @@ __webpack_require__.r(__webpack_exports__);
   path: '/admin/users',
   component: __webpack_require__(/*! ./components/admin/Users.vue */ "./resources/js/components/admin/Users.vue")["default"]
 }, {
-  path: '/admin/templates',
+  path: '/admin/template',
   component: __webpack_require__(/*! ./components/admin/template/Index.vue */ "./resources/js/components/admin/template/Index.vue")["default"]
 }, {
-  path: '/admin/templates/create',
+  path: '/admin/template/create',
   component: __webpack_require__(/*! ./components/admin/template/Create.vue */ "./resources/js/components/admin/template/Create.vue")["default"]
 }, {
   path: '/admin/products',
@@ -92815,8 +92815,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\www\clinic\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\www\clinic\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/atb/www/clinic/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/atb/www/clinic/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
