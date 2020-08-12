@@ -21,7 +21,7 @@ class ClinicService
     {
         $clinic = $this->clinicRepository->create($data);
 
-        Group::inserOrIgnore([
+        Group::insertOrIgnore([
            'name' => $clinic->name
         ]);
 

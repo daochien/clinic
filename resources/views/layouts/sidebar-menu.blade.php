@@ -22,7 +22,7 @@
         </div>
     </form>
     <div class="nav-wrapper" style="overflow-y: auto;">
-        @can('isAdmin')
+
         <ul class="nav nav--no-borders flex-column">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
@@ -128,7 +128,5 @@
                 </div>
             </li>
         </ul>
-        @endcan
-
     </div>
 </aside>

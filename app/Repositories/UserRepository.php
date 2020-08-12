@@ -2,8 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Models\Clinic;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
@@ -41,6 +39,17 @@ class UserRepository
         return $this->model->latest()->paginate(10);
     }
 
+    public function getInfo($id)
+    {
+        return User::from('users as u')
+            ->join('role_user as ru', 'ru.user_id', 'u.id')
+            ->join('roles as r', 'r.id', 'ru.role_id')
+            ->join('type_users as tu', 'tu.user_id', 'u.id')
+            ->join('types as t', 't.id', 'tu.type_id')
+            ->select('u.*', 't.name as user_type', 'r.name as user_role')
+            ->get();
+    }
+
     /**
      * Get one
      * @param $id
@@ -64,7 +73,6 @@ class UserRepository
             'name' => $attributes['name'],
             'email' => $attributes['email'],
             'password' => Hash::make($attributes['password']),
-            'type' => $attributes['type'],
         ]);
 
         return $user;

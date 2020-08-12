@@ -52,7 +52,7 @@ class ClinicRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'name' => 'required|string|max:200|unique:clinics',
+            'name' => 'required|string|max:200|unique:clinics,name,' . $this->get('id'),
             'post_code' => 'required|string|max:50',
             'address' => 'required|string|max:200',
             'description' => 'max:1000',

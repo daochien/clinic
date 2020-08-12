@@ -12,7 +12,7 @@ class ClinicUser extends Model
         return $this->hasMany(User::class, 'id', 'user_id');
     }
 
-    public function clinic()
+    public function clinics()
     {
         return $this->hasMany(Clinic::class, 'id', 'clinic_id');
     }

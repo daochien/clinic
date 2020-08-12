@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -21,7 +22,7 @@ class User extends Authenticatable // implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'type'
+        'name', 'email', 'password'
     ];
 
     /**
@@ -94,7 +95,7 @@ class User extends Authenticatable // implements MustVerifyEmail
 
     public function typeUsers()
     {
-        return $this->hasOne(TypeUser::class);
+        return $this->hasMany(TypeUser::class);
     }
 
     protected static function boot(): void
