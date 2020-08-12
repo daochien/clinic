@@ -10,6 +10,11 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable // implements MustVerifyEmail
 {
+
+    CONST ROOT_EMAIL_ADMIN = [
+        'admin@gmail.com'
+    ];
+
     use Notifiable, HasApiTokens, HasRoles;
 
     protected $guard_name = 'api';
@@ -20,7 +25,7 @@ class User extends Authenticatable // implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'type'
+        'name', 'email', 'password', 'type', 'note'
     ];
 
     /**

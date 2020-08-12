@@ -4,6 +4,7 @@ return [
 
     'user' => 'User',
     'admin_manage' => 'Admin management',
+    'admin_list_manage' => 'List admin',
     'staff_manage' => 'Staff Manage',
     'staff' => 'Staff list',
     'notification' => 'Notification',

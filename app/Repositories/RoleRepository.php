@@ -41,8 +41,11 @@ class RoleRepository
         $pers = array();
         foreach ($pemissions as $permission) {
             if (!empty($permission['pers'])) {
-                foreach ($permission['pers'] as $router) {
-                    $pers[] = $router;
+                foreach ($permission['pers'] as $routes) {
+                    $names = config('router.'.$routes);                    
+                    if (!empty($names)) {
+                        $pers = array_merge($pers, $names['routes']);
+                    }
                 }
             }
         }

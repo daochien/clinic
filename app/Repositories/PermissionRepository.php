@@ -28,7 +28,7 @@ class PermissionRepository
                 ];
             }
         }
-
+        
         $this->model->insert($insertPermissions);
 
     }

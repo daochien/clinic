@@ -12,62 +12,20 @@
                 <label class="custom-control-label" :for="'checkbox_all_'+idx"></label>
             </div>
         </td>
-        <td class="text-capitalize">
-            <div v-for="(item, index) in dataRoute.groups" :key="index">
-                <div class="custom-control custom-checkbox mr-4 float-left" v-if="index == 'view'">
+        <td class="text-capitalize"  v-for="(item, index) in dataRoute.groups" :key="index">
+            <div>
+                <div class="custom-control custom-checkbox mr-4 float-left">
                     <input
                     type="checkbox"
                     :class="['custom-control-input']"
-                    :id="'checkbox_view_'+idx"
+                    :id="`checkbox_${idx}_${index}`"
                     v-model="selected"
-                    :value="item.route_name"
+                    :value="`${idx}.groups.${index}`"
                     >
-                    <label class="custom-control-label" :for="'checkbox_view_'+idx"></label>
+                    <label class="custom-control-label" :for="`checkbox_${idx}_${index}`"></label>
                 </div>
             </div>
-        </td>
-        <td class="text-capitalize">
-            <div v-for="(item, index) in dataRoute.groups" :key="index">
-                <div class="custom-control custom-checkbox mr-4 float-left" v-if="index == 'create'">
-                    <input
-                    type="checkbox"
-                    :class="['custom-control-input']"
-                    :id="'checkbox_create_'+idx"
-                    v-model="selected"
-                    :value="item.route_name"
-                    >
-                    <label class="custom-control-label" :for="'checkbox_create_'+idx"></label>
-                </div>
-            </div>
-        </td>
-        <td class="text-capitalize">
-            <div v-for="(item, index) in dataRoute.groups" :key="index">
-                <div class="custom-control custom-checkbox mr-4 float-left" v-if="index == 'update'">
-                    <input
-                    type="checkbox"
-                    :class="['custom-control-input']"
-                    :id="'checkbox_update_'+idx"
-                    v-model="selected"
-                    :value="item.route_name"
-                    >
-                    <label class="custom-control-label" :for="'checkbox_update_'+idx"></label>
-                </div>
-            </div>
-        </td>
-        <td class="text-capitalize">
-            <div v-for="(item, index) in dataRoute.groups" :key="index">
-                <div class="custom-control custom-checkbox mr-4 float-left" v-if="index == 'delete'">
-                    <input
-                    type="checkbox"
-                    :class="['custom-control-input']"
-                    :id="'checkbox_destroy_'+idx"
-                    v-model="selected"
-                    :value="item.route_name"
-                    >
-                    <label class="custom-control-label" :for="'checkbox_destroy_'+idx"></label>
-                </div>
-            </div>
-        </td>
+        </td>        
 </tr>
 </template>
 <script>
@@ -75,8 +33,7 @@ export default {
     props: {
         dataRoute: Object,
         idx: String,
-
-
+        hasPers: Array
     },
     data () {
         return {
@@ -84,21 +41,21 @@ export default {
         }
     },
     created () {
-
-    },
-
+        
+    },    
     computed : {
         selectAll: {
             get: function () {
                 return this.dataRoute.groups ? this.selected.length == Object.keys(this.dataRoute.groups).length : false;
             },
             set: function (value) {
-                var selected = [];
+                let selected = [];
 
                 if (value) {
+                    
                     let that = this;
-                    Object.entries(this.dataRoute.groups).forEach(([key, value]) => {
-                        selected.push(value.route_name);
+                    Object.entries(this.dataRoute.groups).forEach(([key, value]) => {                                               
+                        selected.push(`${this.idx}.groups.${key}`);
                     });
                 }
 
@@ -108,10 +65,26 @@ export default {
     },
     watch: {
         selected (val, oldVal) {
+            // let unique = [...new Set(val)];
             this.$emit('select-permission', {
                 type: this.idx,
                 pers: val
             })
+        },
+        hasPers (val, oldVal) {
+            let that = this;
+            let selected = [];
+            val.forEach ((item) => {
+                Object.entries(this.dataRoute.groups).forEach(([key, value]) => {
+                    //console.log(key, value.routes);
+                    if (value.routes.indexOf(item) != -1) {
+                        selected.push(`${that.idx}.groups.${key}`);
+                    }                                               
+                    
+                });                
+            });
+            let unique = [...new Set(selected)];
+            this.selected = unique;
         }
     },
     methods: {

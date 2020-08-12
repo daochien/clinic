@@ -29,10 +29,10 @@
                             <thead>
                                 <tr>
                                 <th>#</th>
-                                <th>Name</th>
+                                <th>{{ $t('role.manage.name') }}</th>
                                 <!-- <th>permissions</th> -->
-                                <th>Created At</th>
-                                <th>Action</th>
+                                <th>{{ $t('role.manage.created_at') }}</th>
+                                <th>{{ $t('role.manage.action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -111,29 +111,7 @@ export default {
 
             this.$Progress.finish();
         },
-
-
-
-        // updateRole () {
-        //     this.$Progress.start();
-        //     // console.log('Editing data');
-        //     this.role.put('/api/role/'+this.role.id)
-        //     .then((response) => {
-        //         // success
-        //         $('#addNew').modal('hide');
-        //         Toast.fire({
-        //             icon: 'success',
-        //             title: response.data.message
-        //         });
-        //         this.$Progress.finish();
-        //             //  Fire.$emit('AfterCreate');
-
-        //         this.getResults(1);
-        //     })
-        //     .catch(() => {
-        //         this.$Progress.fail();
-        //     });
-        // },
+        
         deleteRole (id) {
             Swal.fire({
                 title: 'Are you sure?',

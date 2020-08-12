@@ -7,16 +7,20 @@
                 <div class="card" >
                     <div class="card-header border-bottom">
                         <div class="card-tools">
-                            <button type="button" class="btn btn-sm btn-primary float-right" @click="createRole()">
+                            <button v-if="!isEdit" type="button" class="btn btn-sm btn-primary float-right" @click="createRole()">
                                 <i class="fa fa-plus-square"></i>
-                                {{ $t('permission.button_create') }}
+                                {{ $t('role.button_create') }}
+                            </button>
+                            <button v-else type="button" class="btn btn-sm btn-primary float-right" @click="updateRole()">
+                                <i class="fa fa-plus-square"></i>
+                                {{ $t('role.button_edit') }}
                             </button>
                         </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body table-responsive">
                          <div class="form-group row">
-                            <label for="feInputTitle" class="col-sm-2 col-form-label">Name <span style="color:#c4183c;">*</span></label>
+                            <label for="feInputTitle" class="col-sm-2 col-form-label">{{ $t('role.input_name') }} <span style="color:#c4183c;">*</span></label>
                             <div class="col-sm-6">
                                 <input
                                 :class="['form-control', {'is-invalid': role.errors.has('name')}]"
@@ -29,12 +33,12 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                <th>Name</th>
-                                <th>Select All</th>
-                                <th>View List</th>
-                                <th>Create</th>
-                                <th>Update</th>
-                                <th>Delete</th>
+                                <th>{{ $t('role.table.name') }}</th>
+                                <th>{{ $t('role.table.select_all') }}</th>
+                                <th>{{ $t('role.table.permission_view_list') }}</th>
+                                <th>{{ $t('role.table.permission_create') }}</th>
+                                <th>{{ $t('role.table.permission_update') }}</th>
+                                <th>{{ $t('role.table.permission_delete') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,7 +47,7 @@
                                 :key="index"
                                 :data-route="route"
                                 :idx="index"
-                                :has-pers="role.permissions"
+                                :has-pers="roleHasPermissions"
                                 @select-permission="selectPermission" />
 
                             </tbody>
@@ -73,6 +77,7 @@ export default {
                 name: '',
                 permissions: []
             }),
+            roleHasPermissions: [],
             listRoutes: [],
         }
     },
@@ -81,6 +86,7 @@ export default {
     },
     methods: {
         selectPermission (data) {
+            //console.log(data);
             if (this.role.permissions.length > 0) {
                 let idx = -1;
                 this.role.permissions.forEach((item, index) => {
@@ -89,7 +95,7 @@ export default {
                     }
                 });
                 if (idx > -1) {
-                    this.role.permissions[0] = data;
+                    this.role.permissions[idx] = data;
                 } else {
                     this.role.permissions.push(data);
                 }
@@ -102,7 +108,7 @@ export default {
             this.$Progress.start();
             axios.get('/api/permission/routes').then(({ data }) => {
                 this.listRoutes = data.data;
-                // this.infoRole();
+                this.infoRole();
             });
             this.$Progress.finish();
         },
@@ -125,7 +131,22 @@ export default {
                 });
             })
         },
-
+        updateRole () {
+            this.$Progress.start();
+            // console.log('Editing data');
+            this.role.put('/api/role/'+this.role.id)
+            .then((response) => {
+                // success                
+                Toast.fire({
+                    icon: 'success',
+                    title: response.data.message
+                });
+                this.$Progress.finish();                                   
+            })
+            .catch(() => {
+                this.$Progress.fail();
+            });
+        },
         infoRole () {
             if (this.isEdit) {
                 this.$Progress.start();
@@ -146,9 +167,9 @@ export default {
             this.role.id = data.id;
             this.role.name = data.name;
             if (data.permissions.length > 0) {
-
-                this.role.permissions = data.permissions.map((item) => {
-                    return item.name.replace(".", ".groups.");
+                this.roleHasPermissions = data.permissions.map((item) => {
+                    //return item.name.replace(".", ".groups.");
+                    return item.name;
                 });
             }
         }

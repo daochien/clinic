@@ -33,21 +33,14 @@
                    
                     <router-link to="/admin/managers" class="dropdown-item">
                         
-                        <span>{{ __('sidebar.admin_manage') }}</span>
+                        <span>{{ __('sidebar.admin_list_manage') }}</span>
                     </router-link>
-                
-                
+                                
                     <router-link to="/admin/roles" class="dropdown-item">
                         
                         <span>{{ __('sidebar.role') }}</span>
                     </router-link>
-                
-                
-                    <router-link to="/admin/permissions" class="dropdown-item">
-                        
-                        <span>{{ __('sidebar.permission') }}</span>
-                    </router-link>
-                    
+                                                                        
                 </div>
             </li>
             <li class="nav-item dropdown">

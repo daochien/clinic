@@ -39,7 +39,8 @@ class AdminController extends BaseController
             $admin = $this->user->create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'type' => 'admin',
+                // 'type' => 'admin',
+                'note' => $request->note,
                 'password' => Hash::make('123123'),
             ]);
             
@@ -75,7 +76,7 @@ class AdminController extends BaseController
     public function destroy($id)
     {
 
-        $this->authorize('isAdmin');
+        //$this->authorize('isAdmin');
 
         $admin = $this->user->findOrFail($id);
 

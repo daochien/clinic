@@ -5,19 +5,22 @@
             'groups' => [
                 'view' => [
                         'name' => 'View list',
-                        'route_name' => ['user.index']
+                        'routes' => [
+                            'user.index',
+                            'user.list'
+                        ]
                     ],
                 'create' => [
                         'name' => 'Create',
-                        'route_name' => 'user.create'
+                        'routes' => ['user.create']
                     ],
                 'update' => [
                         'name' => 'Update',
-                        'route_name' => 'user.update'
+                        'routes' => ['user.update']
                     ],
                 'delete' => [
                         'name' => 'Delete',
-                        'route_name' => 'user.destroy'
+                        'routes' => ['user.destroy']
                     ]
             ]
         ],
@@ -26,19 +29,19 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'route_name' => 'category.index'
+                    'routes' => ['category.index']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'route_name' => 'category.create'
+                    'routes' => ['category.create']
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'route_name' => 'category.update'
+                    'routes' => ['category.update']
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'route_name' => 'category.destroy'
+                    'routes' => ['category.destroy']
                 ]
             ]
         ],
@@ -47,19 +50,19 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'route_name' => 'blog.index'
+                    'routes' => ['blog.index']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'route_name' => 'blog.create'
+                    'routes' => ['blog.create']
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'route_name' => 'blog.update'
+                    'routes' => ['blog.update']
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'route_name' => 'blog.destroy'
+                    'routes' => ['blog.destroy']
                 ]
             ]
         ],
@@ -68,40 +71,40 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'route_name' => 'tag.index'
+                    'routes' => ['tag.index']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'route_name' => 'tag.create'
+                    'routes' => ['tag.create']
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'route_name' => 'tag.update'
+                    'routes' => ['tag.update']
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'route_name' => 'tag.destroy'
+                    'routes' => ['tag.destroy']
                 ]
             ]
         ],
         'manager' => [
-            'name' => 'Permission management',
+            'name' => 'Admin management',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'route_name' => 'manager.index'
+                    'routes' => ['manager.index']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'route_name' => 'manager.create'
+                    'routes' => ['manager.create']
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'route_name' => 'manager.update'
+                    'routes' => ['manager.update']
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'route_name' => 'manager.destroy'
+                    'routes' => ['manager.destroy']
                 ]
             ]
         ]
