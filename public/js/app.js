@@ -3251,7 +3251,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log('User Component mounted.');
+    console.log('User Component mounted.!!');
   },
   created: function created() {
     this.$Progress.start();
@@ -3830,19 +3830,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      editmode: false,
-      notifications: {}
+      users: {}
     };
   },
   methods: {
@@ -3852,21 +3843,21 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$Progress.start();
       console.log("get Results");
-      axios.get("/api/notification?page=" + page).then(function (_ref) {
+      axios.get("/api/users?page=" + page).then(function (_ref) {
         var data = _ref.data;
-        return _this.notifications = data.data;
+        return _this.users = data.data;
       });
       this.$Progress.finish();
     },
-    loadNotification: function loadNotification() {
+    loadUsers: function loadUsers() {
       var _this2 = this;
 
       this.$Progress.start();
 
       if (this.$gate.isAdmin()) {
-        axios.get("/api/notification").then(function (_ref2) {
+        axios.get("/api/users").then(function (_ref2) {
           var data = _ref2.data;
-          return _this2.notifications = data.data;
+          return _this2.users = data.data;
         });
       }
 
@@ -3874,12 +3865,11 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log("Notification Component mounted.");
+    console.log("Component mounted.");
   },
   created: function created() {
     this.$Progress.start();
-    console.log("created");
-    this.loadNotification();
+    this.loadUsers();
     this.$Progress.finish();
   }
 });
@@ -66728,106 +66718,223 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "container-fluid" }, [
-      _c("div", { staticClass: "row mb-5" }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-12" }, [
-              _c("div", { staticClass: "card" }, [
-                _c("div", { staticClass: "card-body" }, [
-                  _c("form", [
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-12" }, [
-                        _c("label", [
-                          _vm._v(_vm._s(_vm.$t("app.notice_information")))
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("hr", { staticClass: "mt-2 mb-4" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row" }, [
-                      _c("div", { staticClass: "col-12" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", [
-                            _vm._v(
-                              "\n                          " +
-                                _vm._s(_vm.$t("app.title_info")) +
-                                "\n                          "
-                            ),
-                            _c("span", { staticClass: "text-danger" }, [
-                              _vm._v("*")
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: _vm.$t("app.please_enter_title")
-                            }
-                          })
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row mt-3" }, [
-                      _c("div", { staticClass: "col-12" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", [
-                            _vm._v(
-                              "\n                          " +
-                                _vm._s(_vm.$t("app.target_audience")) +
-                                "\n                          "
-                            ),
-                            _c("span", { staticClass: "text-danger" }, [
-                              _vm._v("*")
-                            ]),
-                            _vm._v(" "),
-                            _c("br"),
-                            _vm._v(" "),
-                            _c("small", [
-                              _vm._v(_vm._s(_vm.$t("app.target_help")))
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: _vm.$t("app.please_enter_target")
-                            }
-                          })
-                        ])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "row mt-3" }, [
-                      _c("div", { staticClass: "col-12" }, [
-                        _c("div", { staticClass: "form-group" }, [
-                          _c("label", [
-                            _vm._v(_vm._s(_vm.$t("app.notice_content")))
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "form-control",
-                            attrs: {
-                              type: "text",
-                              placeholder: _vm.$t("app.please_enter_title")
-                            }
-                          })
-                        ])
-                      ])
-                    ])
-                  ])
+    _c("div", { staticClass: "row page-filter" }, [
+      _c("div", { staticClass: "col-12 col-sm-8 offset-sm-2" }, [
+        _c("div", { staticClass: "card card-small mb-3" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-sm-6 col-12" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "feInputTitle" } }, [
+                    _vm._v("aa")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form_filter.role,
+                          expression: "form_filter.role"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form_filter,
+                            "role",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        }
+                      }
+                    },
+                    [
+                      _c("option", { attrs: { value: "" } }, [_vm._v("11")]),
+                      _vm._v(" "),
+                      _vm._l(_vm.roles, function(role, index) {
+                        return _c(
+                          "option",
+                          { key: index, domProps: { value: role } },
+                          [_vm._v(_vm._s(role))]
+                        )
+                      })
+                    ],
+                    2
+                  )
                 ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-sm-6 col-12" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", { attrs: { for: "feInputTitle" } }, [
+                    _vm._v("bbb")
+                  ]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form_filter.keyword,
+                        expression: "form_filter.keyword"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: {
+                      placeholder: _vm.$t(
+                        "manager.form_filter.placeholder_input_keyword"
+                      ),
+                      type: "text"
+                    },
+                    domProps: { value: _vm.form_filter.keyword },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.form_filter,
+                          "keyword",
+                          $event.target.value
+                        )
+                      }
+                    }
+                  })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-12 text-center" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "mb-2 btn btn-outline-dark mr-2",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.clearFilter()
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.$t("manager.form_filter.button_clear")))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "mb-2 btn btn-outline-info",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.searchUser()
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.$t("manager.form_filter.button_search")))]
+                )
               ])
             ])
           ])
         ])
-      ]),
-      _vm._v(" "),
-      !_vm.$gate.isAdmin() ? _c("div", [_c("not-found")], 1) : _vm._e()
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row table-list" }, [
+      _c("div", { staticClass: "col-12 col-sm-12" }, [
+        _c("div", { staticClass: "card card-small mb-4" }, [
+          _c("div", { staticClass: "card-body p-0 pb-3 text-center" }, [
+            _c("table", { staticClass: "table mb-0" }, [
+              _c("thead", { staticClass: "bg-light" }, [
+                _c("tr", [
+                  _c(
+                    "th",
+                    { staticClass: "border-0", attrs: { scope: "col" } },
+                    [_vm._v("#")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    { staticClass: "border-0", attrs: { scope: "col" } },
+                    [_vm._v(_vm._s(_vm.$t("manager.table.name")))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    { staticClass: "border-0", attrs: { scope: "col" } },
+                    [_vm._v(_vm._s(_vm.$t("manager.table.email")))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    { staticClass: "border-0", attrs: { scope: "col" } },
+                    [_vm._v(_vm._s(_vm.$t("manager.table.group")))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    { staticClass: "border-0", attrs: { scope: "col" } },
+                    [_vm._v(_vm._s(_vm.$t("manager.table.register_date")))]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    { staticClass: "border-0", attrs: { scope: "col" } },
+                    [_vm._v(_vm._s(_vm.$t("manager.table.last_login")))]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.users.data, function(item, index) {
+                  return _c("tr", { key: index }, [
+                    _c("td", [_vm._v(_vm._s(index + 1))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(item.name))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(item.email))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(item.group))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(item.created_at))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(item.created_at))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("-")])
+                  ])
+                }),
+                0
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-footer" },
+            [
+              _c("pagination", {
+                attrs: { data: _vm.users },
+                on: { "pagination-change-page": _vm.getResults }
+              })
+            ],
+            1
+          )
+        ])
+      ])
     ])
   ])
 }
@@ -84361,17 +84468,17 @@ var Gate = /*#__PURE__*/function () {
   _createClass(Gate, [{
     key: "isAdmin",
     value: function isAdmin() {
-      return this.user.type === 'admin';
+      return true; // return this.user.role_users.type.name === 'Admin';
     }
   }, {
     key: "isUser",
     value: function isUser() {
-      return this.user.type === 'user';
+      return true; // return this.user.role_users.type.name === 'User';
     }
   }, {
     key: "isAdminOrUser",
     value: function isAdminOrUser() {
-      if (this.user.type === 'user' || this.user.type === 'admin') {
+      if (this.user.role_users.type.name === 'User' || this.user.role_users.type.name === 'Admin') {
         return true;
       }
     }
@@ -93874,7 +93981,9 @@ __webpack_require__.r(__webpack_exports__);
       "request": "Request",
       "inquiry": "Inquiry",
       "setting": "Common setting",
-      "contact": "Contact"
+      "contact": "Contact",
+      "role": "Role",
+      "permission": "Permission"
     },
     "validation": {
       "accepted": "The {attribute} must be accepted.",
@@ -94055,6 +94164,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     "sidebar": {
       "user": "管理者アカウント管理",
+      "admin_manage": "管理者アカウント管理",
       "staff_manage": "スタッフ管理",
       "staff": "スタッフ一覧",
       "notification": "お知らせ管理",
@@ -94066,7 +94176,9 @@ __webpack_require__.r(__webpack_exports__);
       "request": "スタッフ管理担当",
       "inquiry": "問合せ管理",
       "setting": "Setting",
-      "contact": "問い合わせ担当"
+      "contact": "問い合わせ担当",
+      "role": "役割",
+      "permission": "権限"
     },
     "validation": {
       "accepted": "{attribute}を承認してください。",

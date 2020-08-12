@@ -249,7 +249,7 @@
 
         },
         mounted() {
-            console.log('User Component mounted.')
+            console.log('User Component mounted.!!')
         },
         created() {
             this.$Progress.start();

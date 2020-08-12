@@ -22,7 +22,7 @@
         </div>
     </form>
     <div class="nav-wrapper" style="overflow-y: auto;">
-        @can('isAdmin')
+
         <ul class="nav nav--no-borders flex-column">
             <li class="nav-item">
                 <router-link to="/admin/users" class="nav-link">
@@ -107,7 +107,5 @@
                 </div>
             </li>
         </ul>
-        @endcan
-
     </div>
 </aside>

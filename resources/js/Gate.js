@@ -5,15 +5,17 @@ export default class Gate{
     }
 
     isAdmin(){
-        return this.user.type === 'admin';
+        return true;
+        // return this.user.role_users.type.name === 'Admin';
     }
 
     isUser(){
-        return this.user.type === 'user';
+        return true;
+        // return this.user.role_users.type.name === 'User';
     }
-    
+
     isAdminOrUser(){
-        if(this.user.type === 'user' || this.user.type === 'admin'){
+        if(this.user.role_users.type.name === 'User' || this.user.role_users.type.name === 'Admin'){
             return true;
         }
     }

@@ -124,7 +124,8 @@
 
 @auth
     <script>
-        window.user = @json(auth()->user())
+        {{--window.user = @json(auth()->user())--}}
+            window.user = @json(\App\Models\User::where('id', auth()->user()->id)->with(['typeUsers.type', 'roleUsers.role'])->first())
     </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>
