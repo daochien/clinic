@@ -1,9 +1,9 @@
 <?php
 
-namespace jazmy\FormBuilder\Traits;
+namespace App\Traits;
 
-use jazmy\FormBuilder\Models\Form;
-use jazmy\FormBuilder\Models\Submission;
+use App\Models\Form;
+use App\Models\Submission;
 
 trait HasFormBuilderTraits
 {

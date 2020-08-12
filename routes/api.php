@@ -31,7 +31,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'user' => 'API\V1\UserController',
             'clinic' => 'API\V1\ClinicController',
             'product' => 'API\V1\ProductController',
-            'template' => 'API\V1\TemplateController',
+//            'template' => 'API\V1\TemplateController',
             'category' => 'API\V1\CategoryController',
             'tag' => 'API\V1\TagController',
             'notification' => 'API\V1\NotificationController',
@@ -39,7 +39,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'blog' => 'API\V1\BlogController',
             'manager' => 'API\V1\AdminController',
             'role' => 'API\V1\TagController',
-            'permission' => 'API\V1\PermissionController'            
+            'permission' => 'API\V1\PermissionController'
         ]);
 
         // Route::resource('blog', 'API\V1\BlogController', [
@@ -49,9 +49,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         //         'show' => 'Show',
         //         'update' => 'Update',
         //         'destroy' => 'Delete'
-        //     ],                       
+        //     ],
         // ]);
-        
+
         // Route::resource('manager', 'API\V1\AdminController', [
         //     'names' => [
         //         'index' => 'View list',

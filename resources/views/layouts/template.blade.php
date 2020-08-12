@@ -44,93 +44,91 @@
                 </div>
             </form>
             <div class="nav-wrapper" style="overflow-y: auto;">
-                @can('isAdmin')
-                    <ul class="nav nav--no-borders flex-column">
-                        <li class="nav-item">
-                            <a href="/admin/users" class="nav-link">
-                                <i class="fa fa-users nav-icon blue"></i>
-                                <span>{{ __('sidebar.admin_manage') }}</span>
+                <ul class="nav nav--no-borders flex-column">
+                    <li class="nav-item">
+                        <a href="/admin/users" class="nav-link">
+                            <i class="fa fa-users nav-icon blue"></i>
+                            <span>{{ __('sidebar.admin_manage') }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                            <i class="far fa-address-book"></i>
+                            <span>{{ __('sidebar.staff_manage') }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-small">
+                            <a href="/admin/clinics" class="dropdown-item">
+                                {{ __('sidebar.clinics') }}
                             </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                                <i class="far fa-address-book"></i>
-                                <span>{{ __('sidebar.staff_manage') }}</span>
+                            <a href="/admin/users" class="dropdown-item">
+                                {{ __('sidebar.staff') }}
                             </a>
-                            <div class="dropdown-menu dropdown-menu-small">
-                                <a href="/admin/clinics" class="dropdown-item">
-                                    {{ __('sidebar.clinics') }}
-                                </a>
-                                <a href="/admin/users" class="dropdown-item">
-                                    {{ __('sidebar.staff') }}
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/admin/notifications" class="nav-link">
-                                <i class="far fa-bell"></i>
-                                <span>{{ __('sidebar.notification') }}</span>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/notifications" class="nav-link">
+                            <i class="far fa-bell"></i>
+                            <span>{{ __('sidebar.notification') }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>{{ __('sidebar.request') }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-small">
+                            <a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>
+                            {{--<a href="/admin/templates" class="dropdown-item">
+                                {{ __('sidebar.templates') }}
+                            </a>--}}
+                            <a href="/admin/requests" class="dropdown-item">
+                                {{ __('sidebar.request') }}
                             </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                                <i class="fas fa-clipboard-list"></i>
-                                <span>{{ __('sidebar.request') }}</span>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                            <i class="far fa-question-circle"></i>
+                            <span>{{ __('sidebar.inquiry') }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-small">
+                            <a href="/admin/inquiry" class="dropdown-item">
+                                {{ __('sidebar.templates') }}
                             </a>
-                            <div class="dropdown-menu dropdown-menu-small">
-                                <a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>
-                                {{--<a href="/admin/templates" class="dropdown-item">
-                                    {{ __('sidebar.templates') }}
-                                </a>--}}
-                                <a href="/admin/requests" class="dropdown-item">
-                                    {{ __('sidebar.request') }}
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                                <i class="far fa-question-circle"></i>
-                                <span>{{ __('sidebar.inquiry') }}</span>
+                            <a href="/admin/request" class="dropdown-item">
+                                {{ __('sidebar.request') }}
                             </a>
-                            <div class="dropdown-menu dropdown-menu-small">
-                                <a href="/admin/inquiry" class="dropdown-item">
-                                    {{ __('sidebar.templates') }}
-                                </a>
-                                <a href="/admin/request" class="dropdown-item">
-                                    {{ __('sidebar.request') }}
-                                </a>
-                                <a href="/admin/inquiry" class="dropdown-item">
-                                    {{ __('sidebar.inquiry') }}
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a href="/admin/blogs" class="nav-link">
-                                <i class="fas fa-stream"></i>
-                                <span>{{ __('sidebar.blog') }}</span>
+                            <a href="/admin/inquiry" class="dropdown-item">
+                                {{ __('sidebar.inquiry') }}
                             </a>
-                        </li>
-                        {{-- <li class="nav-item">
-                             <a href="/admin/manuals" class="nav-link">
-                                 <i class="fa fa-users nav-icon blue"></i>
-                                 <span>{{ __('sidebar.manual') }}</span>
-                             </a>
-                         </li>--}}
-                    </ul>
-                    <ul class="nav nav--no-borders flex-column">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                                <i class="fas fa-cog"></i>
-                                <span>{{ __('app.setting') }}</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-small">
-                                <a href="/admin/product/products" class="nav-link">Product</a>
-                                <a href="/admin/product/category" class="nav-link">Category</a>
-                                <a href="/admin/product/tag" class="nav-link">Tags</a>
-                            </div>
-                        </li>
-                    </ul>
-                @endcan
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/blogs" class="nav-link">
+                            <i class="fas fa-stream"></i>
+                            <span>{{ __('sidebar.blog') }}</span>
+                        </a>
+                    </li>
+                    {{-- <li class="nav-item">
+                         <a href="/admin/manuals" class="nav-link">
+                             <i class="fa fa-users nav-icon blue"></i>
+                             <span>{{ __('sidebar.manual') }}</span>
+                         </a>
+                     </li>--}}
+                </ul>
+                <ul class="nav nav--no-borders flex-column">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                            <i class="fas fa-cog"></i>
+                            <span>{{ __('app.setting') }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-small">
+                            <a href="/admin/product/products" class="nav-link">Product</a>
+                            <a href="/admin/product/category" class="nav-link">Category</a>
+                            <a href="/admin/product/tag" class="nav-link">Tags</a>
+                        </div>
+                    </li>
+                </ul>
 
             </div>
         </aside>
