@@ -11,5 +11,7 @@ export default [
     { path: '/admin/manager/edit/:id(\\d+)', component: require('./components/admin/manager/Manager.vue').default },
     { path: '/admin/permissions', component: require('./components/admin/permission/Permissions.vue').default },
     { path: '/admin/roles', component: require('./components/admin/role/Roles.vue').default },
+    { path: '/admin/role/create', component: require('./components/admin/role/Role.vue').default },
+    { path: '/admin/role/edit/:id', component: require('./components/admin/role/Role.vue').default },
     { path: '*', component: require('./components/NotFound.vue').default }
 ];

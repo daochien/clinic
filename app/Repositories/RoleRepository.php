@@ -26,5 +26,27 @@ class RoleRepository
             $q->select('name', 'id');
         }])->latest()->paginate(10);
     }
-            
+
+    public function show($id)
+    {
+        return $this->model->with('permissions')->findOrFail($id);
+    }
+
+    public function getNamePermissions($pemissions)
+    {
+        if (empty($pemissions)) {
+            return [];
+        }
+
+        $pers = array();
+        foreach ($pemissions as $permission) {
+            if (!empty($permission['pers'])) {
+                foreach ($permission['pers'] as $router) {
+                    $pers[] = $router;
+                }
+            }
+        }
+
+        return $pers;
+    }
 }

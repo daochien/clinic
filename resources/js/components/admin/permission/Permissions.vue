@@ -25,89 +25,25 @@
                         <!-- /.card-header -->
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover">
-                            <thead>
-                                <tr>                                                                
-                                <th>Name</th>
-                                <th>Select All</th>
-                                <th>View List</th>                               
-                                <th>Create</th>
-                                <th>Update</th>
-                                <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(route, key) in listRoutes" :key="key">                                    
-                                    <td class="text-capitalize">{{key}} management</td>
-                                    <td class="text-capitalize">
-                                        <div class="custom-control custom-checkbox mb-3 mr-4 float-left">
-                                            <input
-                                            type="checkbox"
-                                            :class="['custom-control-input']"                                                                                        
-                                            :id="'checkbox_all_'+key"
-                                            @change="selectAll($event, key)"
-                                                                                                                              
-                                            >
-                                            <label class="custom-control-label" :for="'checkbox_all_'+key"></label>
-                                        </div>                                                                                                                  
-                                    </td>
-                                    <td class="text-capitalize">
-                                        <div v-for="(item, index) in route" :key="index">
-                                            <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-if="item == 'index'">
-                                                <input
-                                                type="checkbox"
-                                                :class="['custom-control-input']"                                                                                        
-                                                :id="'checkbox_view_'+key"
-                                                v-model="routes"
-                                                :value="`${key}.${item}`"                                            
-                                                >
-                                                <label class="custom-control-label" :for="'checkbox_view_'+key"></label>
-                                            </div> 
-                                        </div>                                                                                                                  
-                                    </td>                                    
-                                    <td class="text-capitalize">
-                                        <div v-for="(item, index) in route" :key="index">
-                                            <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-if="item == 'store'">
-                                                <input
-                                                type="checkbox"
-                                                :class="['custom-control-input']"                                                                                        
-                                                :id="'checkbox_create_'+key"
-                                                v-model="routes"
-                                                :value="`${key}.${item}`"                                            
-                                                >
-                                                <label class="custom-control-label" :for="'checkbox_create_'+key"></label>
-                                            </div> 
-                                        </div>                                   
-                                    </td>
-                                    <td class="text-capitalize">
-                                        <div v-for="(item, index) in route" :key="index">
-                                            <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-if="item == 'update'">
-                                                <input
-                                                type="checkbox"
-                                                :class="['custom-control-input']"                                                                                        
-                                                :id="'checkbox_update_'+key"
-                                                v-model="routes"
-                                                :value="`${key}.${item}`"                                            
-                                                >
-                                                <label class="custom-control-label" :for="'checkbox_update_'+key"></label>
-                                            </div> 
-                                        </div>                                     
-                                    </td>
-                                    <td class="text-capitalize">
-                                        <div v-for="(item, index) in route" :key="index">
-                                            <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-if="item == 'destroy'">
-                                                <input
-                                                type="checkbox"
-                                                :class="['custom-control-input']"                                                                                        
-                                                :id="'checkbox_destroy_'+key"
-                                                v-model="routes"
-                                                :value="`${key}.${item}`"                                            
-                                                >
-                                                <label class="custom-control-label" :for="'checkbox_destroy_'+key"></label>
-                                            </div> 
-                                        </div>                                    
-                                    </td>
-                                </tr>
-                            </tbody>
+                                <thead>
+                                    <tr>
+                                    <th>Name</th>
+                                    <th>Select All</th>
+                                    <th>View List</th>
+                                    <th>Create</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <item
+                                    v-for="(route, index) in listRoutes"
+                                    :key="index"
+                                    :data-route="route"
+                                    :idx="index"
+                                    @select-permission="selectPermission" />
+
+                                </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -123,12 +59,16 @@
             <div v-if="!$gate.isAdmin()">
                 <not-found></not-found>
             </div>
-                      
+
         </div>
     </section>
 </template>
 <script>
+import Item from './Item';
 export default {
+    components: {
+        Item
+    },
     data () {
         return {
             editMode: false,
@@ -136,27 +76,47 @@ export default {
             permission: new Form ({
                 id: '',
                 name: '',
-                route_name: ''
+                permissions: []
             }),
             listRoutes: [],
-            routes: [],            
+            routes: [],
+            selectedGroup: [],
         }
     },
     created () {
         this.getResults();
         this.loadRoutes();
     },
+    watch: {
+        selectedGroup : {
+            handler: function (val, oldVal) {
+                console.log(val);
+            },
+            deep: true
+        }
+    },
     methods: {
-        selectAll (e, key) {
-            let arr = [`${key}.index`,`${key}.store`, `${key}.update`, `${key}.destroy`];
-            if (e.target.checked == true) {
-                this.routes.push(`${key}.index`,`${key}.store`, `${key}.update`, `${key}.destroy`);
+        selectPermission (data) {
+            if (this.permission.permissions.length > 0) {
+                let idx = -1;
+                this.permission.permissions.forEach((item, index) => {
+                    if (item.type == data.type) {
+                        idx = index;
+                    }
+                });
+                if (idx > -1) {
+                    this.permission.permissions[0] = data;
+                } else {
+                    this.permission.permissions.push(data);
+                }
             } else {
-                this.routes = this.routes.filter((i) => !arr.includes(i))
+                this.permission.permissions.push(data);
             }
+
         },
+
         loadRoutes () {
-            this.$Progress.start();            
+            this.$Progress.start();
             axios.get('/api/permission/routes').then(({ data }) => (this.listRoutes = data.data));
             this.$Progress.finish();
         },
@@ -169,9 +129,27 @@ export default {
             this.$Progress.finish();
         },
         newModal () {
-            this.editMode = false;
-            this.permission.reset();
-            $('#addNew').modal('show');
+            // this.editMode = false;
+            // this.permission.reset();
+            // $('#addNew').modal('show');
+
+            this.permission.post('/api/permission')
+            .then((response)=>{
+                Toast.fire({
+                    icon: 'success',
+                    title: response.data.message
+                });
+
+                this.$Progress.finish();
+                this.getResults(1);
+            })
+            .catch(()=>{
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Some error occured! Please try again'
+                });
+            })
+
         },
         editModal(permission){
             this.editMode = true;

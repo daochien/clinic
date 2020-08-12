@@ -20,14 +20,45 @@ class PermissionController extends BaseController
 
     public function index()
     {
-                       
+
         $permissions = $this->permission->latest()->paginate(10);
 
         return $this->sendResponse($permissions, 'Permissions list');
     }
 
-    public function store(PermissionRequest $request)
+    public function store(Request $request)
     {
+
+        $permissions = array();
+        foreach ($request->permissions as $permission) {
+            if (!empty($permission['pers'])) {
+                foreach ($permission['pers'] as $router) {
+                    $routerName = 'router.'.$router.'.route_name';
+                    $permissions[] = config($routerName);
+                }
+            }
+        }
+        
+
+        //sync permissions
+
+        if (!empty($permissions)) {
+            $permissionsExists = $this->permission->whereIn('name', $permissions)->pluck('name')->toArray();
+        }
+
+        $insertPermissions = [];
+        foreach ($permissions as $item) {
+            if (!in_array($item, $permissionsExists)) {
+                $insertPermissions[] = [
+                    'name' => $item,
+                    'guard_name' => 'api'
+                ];
+            }
+        }
+
+        $this->permission->insert($insertPermissions);
+
+        dd($insertPermissions);
 
         $permission = $this->permission->create([
             'name' => $request->name,
@@ -41,9 +72,9 @@ class PermissionController extends BaseController
     public function update(PermissionRequest $request, $id)
     {
         $permission = $this->permission->findOrFail($id);
-        
+
         $permission->update($request->all());
-        
+
         return $this->sendResponse($permission, 'Permission Information has been updated');
     }
 
@@ -68,26 +99,13 @@ class PermissionController extends BaseController
 
     public function listRoutes()
     {
-        $routes = collect(Route::getRoutes())->map(function ($route) { 
-            if ($route->getPrefix() == 'api') {
-                $name = $route->getName();
-                $arrName = explode('.', $name);
-                if (isset($arrName[1]) && !empty($arrName[1])) {
-                    return $name;
-                }
-            }            
-        })->toArray();
-        
-        $routes = array_filter($routes);
-        
-        $routeGroup = [];
-        foreach ($routes as $name) {
-            $arrName = explode('.', $name);
-            if (isset($arrName[1]) && !empty($arrName[1])) {
-                $routeGroup[$arrName[0]][] = $arrName[1];
-            }
-        }
-        //dd($routeGroup);
-        return $this->sendResponse($routeGroup, 'Route list');
+        $routes = config('router');
+
+        return $this->sendResponse($routes, 'Route list');
+    }
+
+    public function buildPermission($pers)
+    {
+
     }
 }
