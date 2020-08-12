@@ -5,8 +5,6 @@ namespace App\Repositories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 
 class UserRepository
 {

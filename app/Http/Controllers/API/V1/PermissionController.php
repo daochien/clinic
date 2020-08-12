@@ -68,18 +68,18 @@ class PermissionController extends BaseController
 
     public function listRoutes()
     {
-        $routes = collect(Route::getRoutes())->map(function ($route) { 
+        $routes = collect(Route::getRoutes())->map(function ($route) {
             if ($route->getPrefix() == 'api') {
                 $name = $route->getName();
                 $arrName = explode('.', $name);
                 if (isset($arrName[1]) && !empty($arrName[1])) {
                     return $name;
                 }
-            }            
+            }
         })->toArray();
-        
+
         $routes = array_filter($routes);
-        
+
         $routeGroup = [];
         foreach ($routes as $name) {
             $arrName = explode('.', $name);
@@ -89,5 +89,10 @@ class PermissionController extends BaseController
         }
         //dd($routeGroup);
         return $this->sendResponse($routeGroup, 'Route list');
+    }
+
+    public function show($id)
+    {
+        return $id;
     }
 }
