@@ -27,10 +27,13 @@ export default [
     { path: '/admin/managers', component: require('./components/admin/manager/Managers.vue').default },
     { path: '/admin/manager/create', component: require('./components/admin/manager/Manager.vue').default },
     { path: '/admin/manager/edit/:id(\\d+)', component: require('./components/admin/manager/Manager.vue').default },
-    { path: '/admin/permissions', component: require('./components/admin/permission/Permissions.vue').default },
     { path: '/admin/roles', component: require('./components/admin/role/Roles.vue').default },
 
     { path: '/admin/group', component: require('./components/admin/group/Index.vue').default },
     { path: '/admin/group/add', component: require('./components/admin/group/Add.vue').default, name:'add_group' },
     { path: '/admin/group/edit', component: require('./components/admin/group/Edit.vue').default, name:'edit_group' },
+
+    { path: '/admin/role/create', component: require('./components/admin/role/Role.vue').default },
+    { path: '/admin/role/edit/:id', component: require('./components/admin/role/Role.vue').default },
+
 ];

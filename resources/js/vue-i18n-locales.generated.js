@@ -208,20 +208,24 @@ export default {
                 "button_cancel": "Cancel",
                 "button_success": "Delete account"
             }
-        },
-        "permission": {
-            "title_page": "Permission Management",
-            "button_create": "Create",
-            "table": {
-                "name": "Name"
-            }
-        },
+        },        
         "role": {
             "title_page": "Role Management",
             "button_create": "Create",
+            "button_edit": "Edit",
+            "input_name": "Name role",
             "table": {
                 "name": "Name",
-                "permissions": "Permissions"
+                "select_all": "Select all",
+                "permission_view_list": "View list",
+                "permission_create": 'Create',
+                "permission_update": 'Update',
+                'permission_delete': 'Delete'
+            },
+            'manage': {            
+                'name': 'Name',
+                'created_at': 'Created At',
+                'action': 'Action'
             }
         }
     },
@@ -436,20 +440,24 @@ export default {
                 "button_cancel": "キャンセル",
                 "button_success": "アカウントを削除"
             }
-        },
-        "permission": {
-            "title_page": "Permission Management",
-            "button_create": "Create",
-            "table": {
-                "name": "Name"
-            }
-        },
+        },        
         "role": {
-            "title_page": "Role Management",
-            "button_create": "Create",
+            "title_page": "役割管理",
+            "button_create": "役割を編集",
+            "button_edit": "役割を編集",
+            "input_name": "名前の役割",
             "table": {
-                "name": "Name",
-                "permissions": "Permissions"
+                "name": "名前グループの権限",
+                "select_all": "権限ビューリスト",
+                "permission_view_list": "リストを見る",
+                "permission_create": '権限作成',
+                "permission_update": '権限の更新',
+                'permission_delete': '権限削除'
+            },
+            "manage": {
+                'name': '名前の役割',
+                'created_at': 'で作成',
+                'action': 'アクション'
             }
         }
     }

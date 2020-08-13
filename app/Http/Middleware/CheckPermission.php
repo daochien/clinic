@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Closure;
+use App\Models\User;
 use Spatie\Permission\Models\Permission;
 
 class CheckPermission
@@ -18,14 +19,18 @@ class CheckPermission
     {
         return $next($request);
         $user = Auth::user();
-        if ($user->type == 'admin') {
+        
+        if (in_array($user->email, User::ROOT_EMAIL_ADMIN)) {
             return $next($request);
         }
 
+        if ($user->hasRole('system_admin')) {
+            return $next($request);
+        }
 
         $routeName = $request->route()->getName();
 
-        $permissions = Permission::where('route_name', $routeName)->pluck('name')->toArray();
+        $permissions = Permission::where('name', $routeName)->pluck('name')->toArray();
 
         if ($user->hasAnyPermission($permissions)) {
             return $next($request);
