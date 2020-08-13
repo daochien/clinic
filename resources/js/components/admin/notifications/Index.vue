@@ -3,13 +3,13 @@
     <!-- Page Header -->
     <div class="page-header row no-gutters py-4">
       <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-        <h3 class="page-title">{{ $t('app.notifications') }}</h3>
+        <h3 class="page-title">{{ $t('notification.notifications') }}</h3>
       </div>
       <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
         <router-link
           :class="'btn btn-primary pl-5 pr-5'"
           :to="{ path: '/admin/notification/edit'}"
-        >{{ $t('app.singup')}}</router-link>
+        >{{ $t('notification.singup')}}</router-link>
       </div>
     </div>
     <!-- End Page Header -->
@@ -24,22 +24,19 @@
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group">
-                          <label>{{ $t('app.target_person')}}</label>
+                          <label>{{ $t('notification.target_person')}}</label>
                           <select class="form-control" id="targetPerson">
-                            <option
-                              v-for="(entity) in groups.data"
-                              :key="entity.id"
-                            >{{ entity.name }}</option>
+                            <option v-for="(entity) in groups" :key="entity.id">{{ entity.name }}</option>
                           </select>
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group">
-                          <label>{{ $t('app.keyword')}}</label>
+                          <label>{{ $t('notification.keyword')}}</label>
                           <input
                             type="text"
                             class="form-control"
-                            :placeholder="$t('app.keyword_placeholder')"
+                            :placeholder="$t('notification.keyword_placeholder')"
                           />
                         </div>
                       </div>
@@ -50,13 +47,13 @@
                         <button
                           type="reset"
                           class="btn btn-outline-secondary pl-4 pr-4"
-                        >{{ $t('app.clear_condition')}}</button>
+                        >{{ $t('notification.clear_condition')}}</button>
                       </div>
                       <div class="col-6">
                         <button
                           type="button"
                           class="btn btn-outline-primary pl-4 pr-4"
-                        >{{ $t('app.search_condition')}}</button>
+                        >{{ $t('notification.search_condition')}}</button>
                       </div>
                     </div>
                   </form>
@@ -74,14 +71,14 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">{{ $t('app.title')}}</th>
-                    <th scope="col">{{ $t('app.target_person')}}</th>
-                    <th scope="col">{{ $t('app.total_number_diliveries')}}</th>
-                    <th scope="col">{{ $t('app.exist_number')}}</th>
-                    <th scope="col">{{ $t('app.number_people_confirm')}}</th>
-                    <th scope="col">{{ $t('app.release_date')}}</th>
-                    <th scope="col">{{ $t('app.status')}}</th>
-                    <th scope="col">{{ $t('app.operating')}}</th>
+                    <th scope="col">{{ $t('notification.title')}}</th>
+                    <th scope="col">{{ $t('notification.target_person')}}</th>
+                    <th scope="col">{{ $t('notification.total_number_diliveries')}}</th>
+                    <th scope="col">{{ $t('notification.exist_number')}}</th>
+                    <th scope="col">{{ $t('notification.number_people_confirm')}}</th>
+                    <th scope="col">{{ $t('notification.release_date')}}</th>
+                    <th scope="col">{{ $t('notification.status')}}</th>
+                    <th scope="col">{{ $t('notification.operating')}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -93,7 +90,7 @@
                       >{{ entity.title }}</router-link>
                     </td>
                     <td>
-                      <div v-for="target in entity.groups" :key="target.id">
+                      <div v-for="target in entity.notification_groups" :key="target.id">
                         <label>{{ target.group.name }}</label>
                       </div>
                     </td>
@@ -102,8 +99,11 @@
                     <td></td>
                     <td>{{ entity.created_at }}</td>
                     <td>
-                      <label class="text-secondary" v-if="entity.draft === 1">{{ $t('app.publish')}}</label>
-                      <label class="text-warning" v-else>{{ $t('app.unpublish')}}</label>
+                      <label
+                        class="text-secondary"
+                        v-if="entity.draft === 1"
+                      >{{ $t('notification.publish')}}</label>
+                      <label class="text-warning" v-else>{{ $t('notification.unpublish')}}</label>
                     </td>
                     <td>
                       <div class="dropdown">
@@ -118,12 +118,15 @@
                           <a
                             class="dropdown-item text-primary"
                             href="#"
-                          >{{ $t('app.publish_announcement')}}</a>
+                          >{{ $t('notification.publish_announcement')}}</a>
                           <router-link
                             :class="'dropdown-item text-primary'"
                             :to="{ name: 'edit_notification', params: { id: entity.id }}"
-                          >{{ $t('app.edit')}}</router-link>
-                          <a class="dropdown-item text-danger" href="#">{{ $t('app.delete')}}</a>
+                          >{{ $t('notification.edit')}}</router-link>
+                          <a
+                            class="dropdown-item text-danger"
+                            href="#"
+                          >{{ $t('notification.delete')}}</a>
                         </div>
                       </div>
                     </td>
@@ -172,7 +175,9 @@ export default {
         axios
           .get("/api/notification")
           .then(({ data }) => (this.notifications = data.data));
-        axios.get("/api/group").then(({ data }) => (this.groups = data.data));
+        axios
+          .get("/api/group/all")
+          .then(({ data }) => (this.groups = data.data));
       }
       this.$Progress.finish();
     },

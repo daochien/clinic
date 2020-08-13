@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use Illuminate\Support\Facades\Auth;
 use Closure;
 use Spatie\Permission\Models\Permission;
@@ -16,23 +17,23 @@ class CheckPermission
      */
     public function handle($request, Closure $next)
     {
-        $user = Auth::user();
-        if ($user->type == 'admin') {
-            return $next($request);
-        }
+        // $user = Auth::user();
+        // if ($user->type == 'admin') {
+        return $next($request);
+        // }
 
 
-        $routeName = $request->route()->getName();
+        // $routeName = $request->route()->getName();
 
-        $permissions = Permission::where('route_name', $routeName)->pluck('name')->toArray();
+        // $permissions = Permission::where('route_name', $routeName)->pluck('name')->toArray();
 
-        if ($user->hasAnyPermission($permissions)) {
-            return $next($request);
-        }
+        // if ($user->hasAnyPermission($permissions)) {
+        //     return $next($request);
+        // }
 
-        return response()->json([
-            'status' => false,
-            'message' => 'Permission not access'
-        ], 403);
+        // return response()->json([
+        //     'status' => false,
+        //     'message' => 'Permission not access'
+        // ], 403);
     }
 }

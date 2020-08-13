@@ -9,7 +9,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
     Route::group(['name' => 'permission'], function () {
-
     });
     Route::group(['name' => 'api.', 'middleware' => 'check.permission'], function () {
         Route::get('profile', 'API\V1\ProfileController@profile')->name('profile.index');
@@ -19,11 +18,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('category/list', 'API\V1\CategoryController@list');
         Route::post('product/upload', 'API\V1\ProductController@upload');
         Route::get('notification/{id}/members', 'API\V1\NotificationController@members');
+        Route::post('notification/store', 'API\V1\NotificationController@store');
 
         Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
 
         Route::get('group/{id}/members', 'API\V1\GroupController@members');
         Route::get('group/list', 'API\V1\GroupController@list');
+        Route::get('group/all', 'API\V1\GroupController@all');
         Route::get('group/edit/{id}', 'API\V1\GroupController@find');
         Route::post('group/update/{id}', 'API\V1\GroupController@update');
 
@@ -39,7 +40,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'blog' => 'API\V1\BlogController',
             'manager' => 'API\V1\AdminController',
             'role' => 'API\V1\TagController',
-            'permission' => 'API\V1\PermissionController'            
+            'permission' => 'API\V1\PermissionController'
         ]);
 
         // Route::resource('blog', 'API\V1\BlogController', [
@@ -49,9 +50,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         //         'show' => 'Show',
         //         'update' => 'Update',
         //         'destroy' => 'Delete'
-        //     ],                       
+        //     ],
         // ]);
-        
+
         // Route::resource('manager', 'API\V1\AdminController', [
         //     'names' => [
         //         'index' => 'View list',

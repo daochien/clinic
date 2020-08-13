@@ -8,6 +8,10 @@ use App\Models\Group;
 
 class GroupUser extends Model
 {
+    protected $primaryKey = ['user_id', 'group_id'];
+
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -17,9 +21,9 @@ class GroupUser extends Model
         'user_id', 'group_id'
     ];
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class,  'group_users', 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function group()

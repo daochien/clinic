@@ -15,7 +15,6 @@ class AlterTableGroupUserAddPrimaryKey extends Migration
     {
         Schema::table('group_users', function (Blueprint $table) {
             $table->primary(['group_id', 'user_id'], 'pri_key_group_user');
-            $table->dropIndex(['group_id']);
         });
     }
 

@@ -5,8 +5,6 @@ namespace App\Repositories;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
 
 class UserRepository
 {
@@ -28,7 +26,7 @@ class UserRepository
 
 
         if (!empty($params['keyword'])) {
-            $query->where('name', 'like', '%'.$params['keyword'].'%');
+            $query->where('name', 'like', '%' . $params['keyword'] . '%');
         }
 
         return $query->with('roles')->latest()->paginate($limit);
