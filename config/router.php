@@ -107,6 +107,27 @@
                     'routes' => ['manager.destroy']
                 ]
             ]
+        ],
+        'role' => [
+            'name' => 'Role management',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => ['role.index', 'permission.routes']
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => ['role.create']
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => ['role.update']
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => ['role.destroy']
+                ]
+            ]
         ]
     ];
 ?>
