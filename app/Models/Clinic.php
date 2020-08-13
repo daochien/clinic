@@ -17,7 +17,17 @@ class Clinic extends Model
 
     public function clinicUsers()
     {
-        return $this->hasMany(ClinicUser::class)->with('users');
+        return $this->hasMany(ClinicUser::class);
+    }
+
+    public function usersCount()
+    {
+        return $this->hasMany(ClinicUser::class)->count();
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'clinic_users', 'clinic_id', 'user_id');
     }
 
     protected static function boot(): void

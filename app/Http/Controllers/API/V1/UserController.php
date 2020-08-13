@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\Users\UserRequest;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\UserServices;
@@ -37,20 +39,19 @@ class UserController extends BaseController
      */
     public function show($id)
     {
-        $user = $this->repository->show($id);
+        $user = $this->repository->find($id);
 
-        return $this->sendResponse($user);
+        return $this->sendResponse(new UserResource($user));
     }
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $users = User::latest()->paginate(10);
-        return $this->sendResponse($users);
+        $users = $this->repository->with('role')->paginate(10);
+
+        return new UserCollection($users);
     }
 
     /**

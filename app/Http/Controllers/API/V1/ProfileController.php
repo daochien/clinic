@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\ChangePasswordRequest;
 use App\Http\Requests\Users\ProfileUpdateRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +28,7 @@ class ProfileController extends BaseController
      */
     public function profile()
     {
-        return $this->sendResponse(auth()->user());
+        return $this->sendResponse(new UserResource(auth()->user()->load('role')));
     }
 
 
@@ -44,7 +45,7 @@ class ProfileController extends BaseController
         $user = auth()->user();
         $user->update($request->all());
 
-        return $this->sendResponse($user);
+        return $this->sendResponse(new UserResource($user));
     }
 
 
