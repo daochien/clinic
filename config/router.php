@@ -121,7 +121,7 @@
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['role.update', 'role.show']
+                    'routes' => [ 'role.update', 'role.show' ]
                 ],
                 'delete' => [
                     'name' => 'Delete',
