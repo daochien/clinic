@@ -55,7 +55,7 @@ class User extends Authenticatable // implements MustVerifyEmail
     {
         return 'https://www.gravatar.com/avatar/' . md5(strtolower($this->email)) . '.jpg?s=200&d=mm';
     }
-    
+
     public function isAdmin()
     {
         return $this->roles()->where('name', 'Admin')->exists();
