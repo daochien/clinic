@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\ClinicRequest;
+use App\Http\Resources\ClinicCollection;
+use App\Http\Resources\ClinicResource;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
 use App\Models\Clinic;
 use App\Repositories\ClinicRepository;
 use App\Services\ClinicService;
@@ -35,7 +39,7 @@ class ClinicController extends BaseController
     {
         $clinics = $this->repository->get();
 
-        return $this->sendResponse($clinics, 'Item list');
+        return new ClinicCollection($clinics);
     }
 
     /**
@@ -65,7 +69,7 @@ class ClinicController extends BaseController
     {
         $clinic = $this->repository->show($id);
 
-        return $this->sendResponse($clinic);
+        return $this->sendResponse(new ClinicResource($clinic->load(['users'])));
     }
 
     /**
