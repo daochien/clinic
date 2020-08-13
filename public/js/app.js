@@ -3677,7 +3677,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      clinics: {}
+      clinics: [],
+      paginator: []
     };
   },
   methods: {
@@ -3686,9 +3687,9 @@ __webpack_require__.r(__webpack_exports__);
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$Progress.start();
-      axios.get('/api/clinic?page=' + page).then(function (_ref) {
-        var data = _ref.data;
-        return _this.clinics = data.data;
+      axios.get('/api/clinic?page=' + page).then(function (response) {
+        _this.clinics = response.data;
+        _this.paginator = response.data.meta;
       });
       this.$Progress.finish();
     },
@@ -3698,9 +3699,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start();
 
       if (this.$gate.isAdmin()) {
-        axios.get("/api/clinic").then(function (_ref2) {
-          var data = _ref2.data;
-          return _this2.clinics = data.data;
+        axios.get("/api/clinic").then(function (response) {
+          _this2.clinics = response.data;
+          _this2.paginator = response.data.meta;
         });
       }
 
@@ -66533,9 +66534,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(entity.address))]),
                                 _vm._v(" "),
-                                _c("td", [
-                                  _vm._v(_vm._s(entity.clinic_users_count))
-                                ]),
+                                _c("td", [_vm._v(_vm._s(entity.users_count))]),
                                 _vm._v(" "),
                                 _c("td", [
                                   _c("div", { staticClass: "dropdown" }, [
@@ -66646,7 +66645,7 @@ var render = function() {
                       { staticClass: "card-footer" },
                       [
                         _c("pagination", {
-                          attrs: { data: _vm.clinics },
+                          attrs: { data: _vm.paginator },
                           on: { "pagination-change-page": _vm.getResults }
                         })
                       ],
@@ -94286,8 +94285,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\www\clinic\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\www\clinic\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/atb/www/clinic/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/atb/www/clinic/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

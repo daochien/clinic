@@ -31,7 +31,7 @@
                                     <td>{{ index + 1}}</td>
                                     <td>{{ entity.name }}</td>
                                     <td>{{ entity.address }}</td>
-                                    <td>{{ entity.clinic_users_count }}</td>
+                                    <td>{{ entity.users_count }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <i
@@ -62,7 +62,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <pagination :data="clinics" @pagination-change-page="getResults"></pagination>
+                            <pagination :data="paginator" @pagination-change-page="getResults"></pagination>
                         </div>
                     </div>
                     <!-- /.card -->
@@ -79,13 +79,15 @@
     export default {
         data() {
             return {
-                clinics: {},
+                clinics: [],
+                paginator: [],
             }
         },
         methods: {
             getResults(page = 1) {
                 this.$Progress.start();
-                axios.get('/api/clinic?page=' + page).then(({data}) => (this.clinics = data.data));
+                axios.get('/api/clinic?page=' + page)
+                    .then((response) => {this.clinics = response.data; this.paginator = response.data.meta});
                 this.$Progress.finish();
             },
             loadClinics() {
@@ -93,7 +95,7 @@
                 if (this.$gate.isAdmin()) {
                     axios
                         .get("/api/clinic")
-                        .then(({data}) => (this.clinics = data.data));
+                        .then((response) => {this.clinics = response.data; this.paginator = response.data.meta});
                 }
                 this.$Progress.finish();
             },
