@@ -29,3 +29,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 
 Route::post('/login', 'API\V1\LoginController@login')->name('login_api');
+Route::post('/password/forgot', 'API\V1\Auth\ForgotPasswordController@sendResetLinkEmail')->name('api.password.forgot');
