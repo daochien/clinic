@@ -113,7 +113,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['role.index', 'permission.routes']
+                    'routes' => ['role.index', 'permission.routes', 'role.list']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -121,7 +121,7 @@
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['role.update']
+                    'routes' => ['role.update', 'role.show']
                 ],
                 'delete' => [
                     'name' => 'Delete',
