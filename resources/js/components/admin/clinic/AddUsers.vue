@@ -60,7 +60,7 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">
-                                        <input type="checkbox" @click="selectAll" v-model="allSelected">
+                                        <input type="checkbox" @change="selectAll" v-model="allSelected">
                                     </th>
                                     <th scope="col">{{ $t('app.user.name')}}</th>
                                     <th scope="col">{{ $t('app.user.email')}}</th>
@@ -72,7 +72,7 @@
                                 <tbody>
                                 <tr v-for="user in users" :key="user.id">
                                     <td>
-                                        <input type="checkbox" v-model="userIds" @click="select" :value="user.id">
+                                        <input type="checkbox" @click="select" :checked="isChecked(user.id)" :value="user.id" @change="changeChecked">
                                     </td>
                                     <td>{{ user.name }}</td>
                                     <td>{{ user.email }}</td>
@@ -117,6 +117,15 @@
                 userIds: []
             };
         },
+        watch: {
+            userIds: function (val) {
+                if(_.size(this.users) == _.size(this.userIds)) {
+                    this.allSelected = true;
+                } else {
+                    this.allSelected = false;
+                }
+            }
+        },
         methods: {
             getResults(page = 1) {
                 this.$Progress.start();
@@ -154,16 +163,29 @@
                     });
                 })
             },
-            selectAll() {
-                console.log(this.allSelected);
-                if (this.allSelected) {
-                    for (user in this.users) {
-                        this.userIds.push(this.users[user].id);
-                    }
+            selectAll(event) {
+                let self = this;
+                if (event.target.checked) {
+                    _.forEach(self.users, function (user) {
+                        self.userIds = _.union(self.userIds, [user.id]);
+                    })
+                } else {
+                    this.userIds = [];
+                    this.isChecked()
                 }
             },
             select() {
                 this.allSelected = false;
+            },
+            isChecked(userId) {
+                return _.indexOf(this.userIds, userId) > -1 ? true : false;
+            },
+            changeChecked(event) {
+                if(event.target.checked) {
+                    this.userIds = _.union(this.userIds, [parseInt(event.target.value)]);
+                } else {
+                    this.userIds = _.without(this.userIds, parseInt(event.target.value));
+                }
             },
             resetKeyword() {
                 this.keyword = ''

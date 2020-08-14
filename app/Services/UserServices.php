@@ -27,7 +27,7 @@ class UserServices
             $user = $this->userRepository->createUser($attribute);
 
             // Assigning Role by default user role
-            $user->assignRole(Role::ROLE_USER_DEFAULT);
+//            $user->assignRole(Role::ROLE_USER_DEFAULT);
 
             if( !empty($attribute['group_ids'] ?? null)) {
                 $groupUser = [];
