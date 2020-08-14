@@ -5,7 +5,7 @@
                 <h3 class="page-title">{{ $t('role.title_page') }}</h3>
             </div>
         </div>
-        <form-role :is-edit="isEdit"/>
+        <form-role :is-edit="isEdit" />
     </div>
 </template>
 <script>

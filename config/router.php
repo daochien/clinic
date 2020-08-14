@@ -92,42 +92,21 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['manager.index']
+                    'routes' => ['manager.index', 'role.list', 'role.index']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['manager.create']
+                    'routes' => ['manager.create', 'role.list', 'role.index'],
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['manager.update']
+                    'routes' => ['manager.update', 'role.list', 'role.index']
                 ],
                 'delete' => [
                     'name' => 'Delete',
                     'routes' => ['manager.destroy']
                 ]
             ]
-        ],
-        'role' => [
-            'name' => 'Role management',
-            'groups' => [
-                'view' => [
-                    'name' => 'View list',
-                    'routes' => ['role.index', 'permission.routes', 'role.list']
-                ],
-                'create' => [
-                    'name' => 'Create',
-                    'routes' => ['role.create']
-                ],
-                'update' => [
-                    'name' => 'Update',
-                    'routes' => [ 'role.update', 'role.show' ]
-                ],
-                'delete' => [
-                    'name' => 'Delete',
-                    'routes' => ['role.destroy']
-                ]
-            ]
-        ]
+        ]        
     ];
 ?>

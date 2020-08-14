@@ -4,7 +4,7 @@
 
             <div class="col-12">
 
-                <div class="card" >
+                <div class="card" v-if="$gate.isRoot()">
                     <div class="card-header border-bottom">
                         <div class="card-tools">
                             <button v-if="!isEdit" type="button" class="btn btn-sm btn-primary float-right" @click="createRole()">
@@ -58,6 +58,9 @@
                 </div>
                 <!-- /.card -->
             </div>
+        </div>
+        <div v-if="!$gate.isRoot()">
+            <not-found></not-found>
         </div>
     </div>
 </template>

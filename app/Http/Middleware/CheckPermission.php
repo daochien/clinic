@@ -19,11 +19,7 @@ class CheckPermission
     {
         $user = Auth::user();
         
-        if (in_array($user->email, User::ROOT_EMAIL_ADMIN)) {
-            return $next($request);
-        }
-
-        if ($user->hasRole('system_admin')) {
+        if ($user->isRoot()) {
             return $next($request);
         }
 

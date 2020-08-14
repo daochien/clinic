@@ -124,7 +124,8 @@
 
 @auth
     <script>
-        window.user = @json(auth()->user())
+        window.user = @json(auth()->user());
+        window.user.is_root = '{!! auth()->user()->isRoot() !!}';
     </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>

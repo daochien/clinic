@@ -14,7 +14,7 @@
 
                 <div class="col-12">
 
-                    <div class="card" v-if="$gate.isAdmin()">
+                    <div class="card" v-if="$gate.isRoot()">
                         <div class="card-header">
                             <div class="card-tools">
                             <router-link type="button" class="btn btn-sm btn-primary" :to="{path: 'role/create'}">
@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <div v-if="!$gate.isAdmin()">
+            <div v-if="!$gate.isRoot()">
                 <not-found></not-found>
             </div>
 
