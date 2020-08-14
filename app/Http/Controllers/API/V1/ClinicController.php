@@ -67,7 +67,6 @@ class ClinicController extends BaseController
     {
         $clinic = $this->repository->show($id);
 
-        //TODO: load group of user
         return $this->sendResponse(new ClinicResource($clinic->load(['users'])));
     }
 

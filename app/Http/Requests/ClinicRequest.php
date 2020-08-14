@@ -38,9 +38,9 @@ class ClinicRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:200|unique:clinics',
-            'post_code' => 'required|string|max:50',
+            'post_code' => 'nullable|string|max:50',
             'address' => 'required|string|max:200',
-            'description' => '|max:1000',
+            'description' => 'max:1000',
         ];
     }
 
@@ -53,7 +53,7 @@ class ClinicRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:200|unique:clinics,name,' . $this->get('id'),
-            'post_code' => 'required|string|max:50',
+            'post_code' => 'sometimes|nullable|string|max:50',
             'address' => 'required|string|max:200',
             'description' => 'max:1000',
         ];

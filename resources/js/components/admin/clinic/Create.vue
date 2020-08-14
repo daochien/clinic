@@ -43,7 +43,6 @@
                         <div class="form-group">
                           <label>
                             {{ $t('app.clinic.post_code')}}
-                            <span class="text-danger">*</span>
                             <br />
                           </label>
                             <input v-model="form.post_code" type="text" name="post_code"

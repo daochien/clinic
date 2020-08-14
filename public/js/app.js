@@ -3377,7 +3377,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3438,7 +3437,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
@@ -65962,10 +65960,6 @@ var render = function() {
                                     _vm._s(_vm.$t("app.clinic.post_code")) +
                                     "\n                          "
                                 ),
-                                _c("span", { staticClass: "text-danger" }, [
-                                  _vm._v("*")
-                                ]),
-                                _vm._v(" "),
                                 _c("br")
                               ]),
                               _vm._v(" "),
@@ -66316,10 +66310,6 @@ var render = function() {
                                     _vm._s(_vm.$t("app.clinic.post_code")) +
                                     "\n                                                    "
                                 ),
-                                _c("span", { staticClass: "text-danger" }, [
-                                  _vm._v("*")
-                                ]),
-                                _vm._v(" "),
                                 _c("br")
                               ]),
                               _vm._v(" "),
