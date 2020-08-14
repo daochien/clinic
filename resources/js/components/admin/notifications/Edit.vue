@@ -3,11 +3,15 @@
     <!-- Page Header -->
     <div class="page-header row no-gutters py-4">
       <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-        <h3 class="page-title">{{ $t('app.notification_management') }}</h3>
+        <h3 class="page-title">{{ $t('notification.notification_management') }}</h3>
       </div>
       <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-        <label class="pt-2 mr-4">{{ $t('app.save_draft')}}</label>
-        <button type="button" class="btn btn-primary pl-5 pr-5">{{ $t('app.singup')}}</button>
+        <label class="pt-2 mr-4">{{ $t('notification.save_draft')}}</label>
+        <button
+          type="button"
+          class="btn btn-primary pl-5 pr-5"
+          @click="saveNotification()"
+        >{{ $t('notification.singup')}}</button>
       </div>
     </div>
     <!-- End Page Header -->
@@ -21,7 +25,7 @@
                   <form>
                     <div class="row">
                       <div class="col-12">
-                        <label>{{ $t('app.notice_information')}}</label>
+                        <label>{{ $t('notification.notice_information')}}</label>
                       </div>
                     </div>
                     <hr class="mt-2 mb-4" />
@@ -30,13 +34,14 @@
                       <div class="col-12">
                         <div class="form-group">
                           <label>
-                            {{ $t('app.title_info')}}
+                            {{ $t('notification.title_info')}}
                             <span class="text-danger">*</span>
                           </label>
                           <input
                             type="text"
                             class="form-control"
-                            :placeholder="$t('app.please_enter_title')"
+                            :placeholder="$t('notification.please_enter_title')"
+                            v-model="form.title"
                           />
                         </div>
                       </div>
@@ -46,17 +51,19 @@
                       <div class="col-12">
                         <div class="form-group">
                           <label>
-                            {{ $t('app.target_audience')}}
+                            {{ $t('notification.target_audience')}}
                             <span class="text-danger">*</span>
                             <br />
-                            <small>{{ $t('app.target_help')}}</small>
+                            <small>{{ $t('notification.target_help')}}</small>
                           </label>
-
-                          <input
-                            type="text"
-                            class="form-control"
-                            :placeholder="$t('app.please_enter_target')"
-                          />
+                          <multiselect
+                            v-model="form.groups"
+                            :options="groups"
+                            :multiple="true"
+                            label="name"
+                            track-by="id"
+                            :placeholder="$t('notification.please_enter_target')"
+                          ></multiselect>
                         </div>
                       </div>
                     </div>
@@ -64,11 +71,13 @@
                     <div class="row mt-3">
                       <div class="col-12">
                         <div class="form-group">
-                          <label>{{ $t('app.notice_content')}}</label>
-                          <input
-                            type="text"
+                          <label>{{ $t('notification.notice_content')}}</label>
+                          <textarea
+                            rows="15"
+                            cols="50"
                             class="form-control"
-                            :placeholder="$t('app.please_enter_title')"
+                            :placeholder="$t('notification.please_enter_title')"
+                            v-model="form.content"
                           />
                         </div>
                       </div>
@@ -89,11 +98,23 @@
 </template>
 
 <script>
+import Multiselect from "vue-multiselect";
 export default {
+  components: {
+    Multiselect,
+  },
   data() {
     return {
       editmode: false,
-      notifications: {},
+      isValidate: false,
+      form: new Form({
+        title: "",
+        groups: [],
+        content: "",
+        confirm: false,
+        draft: false,
+      }),
+      groups: [],
     };
   },
   methods: {
@@ -110,10 +131,55 @@ export default {
       this.$Progress.start();
       if (this.$gate.isAdmin()) {
         axios
-          .get("/api/notification")
-          .then(({ data }) => (this.notifications = data.data));
+          .get("/api/group/all")
+          .then(({ data }) => (this.groups = data.data));
       }
       this.$Progress.finish();
+    },
+    validateForm() {
+      if (this.form.title.length <= 0) {
+        Toast.fire({
+          icon: "error",
+          title: "Please input title notification",
+        });
+        this.isValidate = false;
+      }
+      if (this.form.groups.length <= 0) {
+        Toast.fire({
+          icon: "error",
+          title: "Please input group notification",
+        });
+        this.isValidate = false;
+      }
+      if (this.form.content.length <= 0) {
+        Toast.fire({
+          icon: "error",
+          title: "Please input content notification",
+        });
+        this.isValidate = false;
+      }
+      this.isValidate = true;
+    },
+    saveNotification() {
+      this.validateForm();
+      if (!this.isValidate) {
+        return;
+      }
+      this.form
+        .post("/api/notification/store")
+        .then((data) => {
+          Toast.fire({
+            icon: "success",
+            title: data.data.message,
+          });
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          Toast.fire({
+            icon: "error",
+            title: "Some error occured! Please try again",
+          });
+        });
     },
   },
   mounted() {
@@ -127,3 +193,4 @@ export default {
   },
 };
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

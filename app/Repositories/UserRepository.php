@@ -22,7 +22,7 @@ class UserRepository extends BaseRepository
 
 
         if (!empty($params['keyword'])) {
-            $query->where('name', 'like', '%'.$params['keyword'].'%');
+            $query->where('name', 'like', '%' . $params['keyword'] . '%');
         }
 
         return $query->with('roles')->latest()->paginate($limit);

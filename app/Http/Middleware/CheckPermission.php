@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use Illuminate\Support\Facades\Auth;
 use Closure;
 use App\Models\User;
@@ -19,7 +20,7 @@ class CheckPermission
     {
         return $next($request);
         $user = Auth::user();
-        
+
         if (in_array($user->email, User::ROOT_EMAIL_ADMIN)) {
             return $next($request);
         }
@@ -28,17 +29,15 @@ class CheckPermission
             return $next($request);
         }
 
-        $routeName = $request->route()->getName();
-
         $permissions = Permission::where('name', $routeName)->pluck('name')->toArray();
 
-        if ($user->hasAnyPermission($permissions)) {
-            return $next($request);
-        }
+        // if ($user->hasAnyPermission($permissions)) {
+        //     return $next($request);
+        // }
 
-        return response()->json([
-            'status' => false,
-            'message' => 'Permission not access'
-        ], 403);
+        // return response()->json([
+        //     'status' => false,
+        //     'message' => 'Permission not access'
+        // ], 403);
     }
 }

@@ -7,21 +7,14 @@ use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Http\Requests\Groups\GroupRequest;
 use App\Models\User;
-use App\Models\Group;
 use App\Models\GroupUser;
 
 class GroupController extends BaseController
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct(Group $group)
     {
         $this->group = $group;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -108,6 +101,13 @@ class GroupController extends BaseController
         $entity->delete();
 
         return $this->sendResponse([$entity], 'Group has been Deleted');
+    }
+
+    public function all()
+    {
+        $group = $this->group->all();
+
+        return $this->sendResponse($group, 'Group list');
     }
 
     public function members($id)

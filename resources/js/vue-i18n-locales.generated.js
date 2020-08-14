@@ -1,53 +1,5 @@
 export default {
     "en": {
-        "app": {
-            "name": "Clinic portal",
-            "setting": "Setting"
-        },
-        "auth": {
-            "failed": "These credentials do not match our records.",
-            "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
-            "title_form": "Internal Portal",
-            "email_title": "Email address",
-            "email_holder": "Please enter your e-mail address",
-            "password_title": "Password",
-            "password_holder": "Enter password",
-            "btn_login": "Login",
-            "title_login": "Login",
-            "forgot_password": "Forgot Your Password",
-            "title_reset": "Reset password",
-            "confirm_password": "Confirm password",
-            "new_password": "New Password",
-            "reset_btn": "Reset"
-        },
-        "pagination": {
-            "previous": "&laquo; Previous",
-            "next": "Next &raquo;"
-        },
-        "passwords": {
-            "reset": "Your password has been reset!",
-            "sent": "We have e-mailed your password reset link!",
-            "token": "This password reset token is invalid.",
-            "user": "We can't find a user with that e-mail address.",
-            "throttled": "Please wait before retrying.",
-            "failed": "Password reset failed."
-        },
-        "sidebar": {
-            "user": "User",
-            "admin_manage": "Admin management",
-            "staff_manage": "Staff Manage",
-            "staff": "Staff list",
-            "notification": "Notification",
-            "request_inquiry": "Request/inquiry",
-            "blog": "Blog",
-            "manual": "Manual",
-            "clinics": "Clinics",
-            "templates": "Templates",
-            "request": "Request",
-            "inquiry": "Inquiry",
-            "setting": "Common setting",
-            "contact": "Contact"
-        },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
             "active_url": "The {attribute} is not a valid URL.",
@@ -160,165 +112,59 @@ export default {
             },
             "attributes": []
         },
-        "blog": {
-            "title_page_create": 'Create Blog',
-            "title_page_edit": 'Edit Blog',
-            "title_form": 'Article Content',
-            'title': 'Title',
-            'content': 'Content'
-        },
-        "manager": {
-            "title_page_list": "Admin account management",
-            "title_page_create": "Create Account Admin",
-            "title_page_edit": "Account Infomation",
-            "button_create": "Sign Up",
-            "form_filter": {
-                "placeholder_input_keyword": "Please enter a keyword",
-                "select_all_roles": "All role",
-                "select_roles": "Role",
-                "input_text_search": "Keyword",
-                "button_clear": "Clear",
-                "button_search": "Search"
-            },
-            "table": {
-                "name": "Name",
-                "email": "Email",
-                "role": "Role",
-                "note": "Note",
-                "last_login": "Last Login",
-                "action": "Action",
-                "action_edit": "Edit",
-                "action_delete": "Remove"
-            },
-            "form_create": {
-                "title": "Account Info",
-                "input_name": "Name",
-                "input_email": "Email",
-                "role": "Role",
-                "note": "Note",
-                "button_create": "Register",
-                "button_edit": "Save",
-                "button_remove": "Remove account"
-            },
-            "confirm_remove": {
-                "title_remove": "Are you sure？",
-                "content": "If you delete your account, all information such as email address and application data will be deleted.",
-                "button_cancel": "Cancel",
-                "button_success": "Delete account"
-            }
-        },        
-        "role": {
-            "title_page": "Role Management",
-            "button_create": "Create",
-            "button_edit": "Edit",
-            "input_name": "Name role",
-            "table": {
-                "name": "Name",
-                "select_all": "Select all",
-                "permission_view_list": "View list",
-                "permission_create": 'Create',
-                "permission_update": 'Update',
-                'permission_delete': 'Delete'
-            },
-            'manage': {            
-                'name': 'Name',
-                'created_at': 'Created At',
-                'action': 'Action'
-            }
-        }
-    },
-    "ja": {
-        "app": {
-            "name": "社内ポータルサイト",
-            "btn": {
-                "create": "新規登録",
-                "edit": "編集する",
-                "update": "Update",
-                "delete": "削除する",
-                "submit": "登録"
-            },
-            "label": {
-                "description": "メモ",
-                "operator": "操作"
-            },
-            "form": {
-                "keyword": "キーワード",
-                "keyword_placeholder": "キーワードを入力してください",
-                "clear_form": "条件をクリアする",
-                "submit_form": "この条件で検索"
-            },
-            "clinic": {
-                "header": {
-                    "create": "クリニック登録",
-                    "info": "クリニック情報"
-                },
-                "place_holder": {
-                    "name": "クリニック名を入力してください",
-                    "post_code": "郵便番号を入力してください",
-                    "address": "住所を入力してください",
-                    "description": "メモを入力してください"
-                },
-                "name": "クリニック名",
-                "post_code": "郵便番号",
-                "address": "住所",
-                "description": "メモ",
-                "manage_user": "ユーザーを管理する",
-                "users_count": "社員数"
-            },
-            "user": {
-                "name": "ユーザー名",
-                "email": "メールアドレス",
-                "group": "グループ",
-                "register_date": "登録日付",
-                "last_login_date": "最終ログイン日時"
-            }
-        },
         "auth": {
-            "failed": "Ja_These credentials do not match our records.",
-            "throttle": "Ja_Too many login attempts. Please try again in {seconds} seconds.",
-            "title_form": "社内ポータルサイト",
-            "email_title": "メールアドレス",
-            "email_holder": "メールアドレスを入力してください",
-            "password_title": "パスワード",
-            "password_holder": "パスワードを入力してください",
-            "btn_login": "ログイン",
-            "title_login": "ログイン",
-            "forgot_password": "パスワードを忘れた方はこちら?",
-            "title_reset": "パスワードを忘れた方はこちら?",
-            "confirm_password": "パスワードを認証する",
-            "new_password": "新しいパスワード",
-            "reset_btn": "リセット"
+            "failed": "These credentials do not match our records.",
+            "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
+            "title_form": "Internal Portal",
+            "email_title": "Email address",
+            "email_holder": "Please enter your e-mail address",
+            "password_title": "Password",
+            "password_holder": "Enter password",
+            "btn_login": "Login",
+            "title_login": "Login",
+            "forgot_password": "Forgot Your Password",
+            "title_reset": "Reset password",
+            "confirm_password": "Confirm password",
+            "new_password": "New Password",
+            "reset_btn": "Reset"
+        },
+        "app": {
+            "name": "Clinic portal",
+            "setting": "Setting"
+        },
+        "sidebar": {
+            "user": "User",
+            "admin_manage": "Admin management",
+            "admin_list_manage": "List admin",
+            "staff_manage": "Staff Manage",
+            "staff": "Staff list",
+            "notification": "Notification",
+            "request_inquiry": "Request/inquiry",
+            "blog": "Blog",
+            "manual": "Manual",
+            "clinics": "Clinics",
+            "templates": "Templates",
+            "request": "Request",
+            "inquiry": "Inquiry",
+            "setting": "Common setting",
+            "contact": "Contact",
+            "role": "Role",
+            "permission": "Permission"
+        },
+        "passwords": {
+            "reset": "Your password has been reset!",
+            "sent": "We have e-mailed your password reset link!",
+            "token": "This password reset token is invalid.",
+            "user": "We can't find a user with that e-mail address.",
+            "throttled": "Please wait before retrying.",
+            "failed": "Password reset failed."
         },
         "pagination": {
             "previous": "&laquo; Previous",
             "next": "Next &raquo;"
-        },
-        "passwords": {
-            "reset": "Your password has been reset!",
-            "failed": "パスワード再設定に失敗しました。",
-            "sent": "パスワード再設定のメールを送信しました。",
-            "token": "This password reset token is invalid.",
-            "user": "※メールアドレスを必ず入力してください。",
-            "throttled": "Please wait before retrying.",
-            "form_title": "パスワード再設定",
-            "submit_btn": "送信",
-            "back_to_login": "ログインページへ戻す"
-        },
-        "sidebar": {
-            "user": "管理者アカウント管理",
-            "staff_manage": "スタッフ管理",
-            "staff": "スタッフ一覧",
-            "notification": "お知らせ管理",
-            "request_inquiry": "申請・問合せ管理",
-            "blog": "記事管理",
-            "manual": "マニュアル管理 ",
-            "clinics": "クリニック一覧",
-            "templates": "申請テンプレート",
-            "request": "スタッフ管理担当",
-            "inquiry": "問合せ管理",
-            "setting": "Setting",
-            "contact": "問い合わせ担当"
-        },
+        }
+    },
+    "ja": {
         "validation": {
             "accepted": "{attribute}を承認してください。",
             "active_url": "{attribute}は、有効なURLではありません。",
@@ -402,71 +248,100 @@ export default {
             },
             "attributes": []
         },
-        "blog": {
-            "title_page_create": 'Thêm mới',
-            "title_page_edit": 'Edit Blog',
-            "title_form": 'Article Content',
-            'title': 'Title',
-            'content': 'Content'
+        "auth": {
+            "failed": "Ja_These credentials do not match our records.",
+            "throttle": "Ja_Too many login attempts. Please try again in {seconds} seconds.",
+            "title_form": "社内ポータルサイト",
+            "email_title": "メールアドレス",
+            "email_holder": "メールアドレスを入力してください",
+            "password_title": "パスワード",
+            "password_holder": "パスワードを入力してください",
+            "btn_login": "ログイン",
+            "title_login": "ログイン",
+            "forgot_password": "パスワードを忘れた方はこちら?",
+            "title_reset": "パスワードを忘れた方はこちら?",
+            "confirm_password": "パスワードを認証する",
+            "new_password": "新しいパスワード",
+            "reset_btn": "リセット"
         },
-        "manager": {
-            "title_page_list": "管理者アカウント管理",
-            "title_page_create": "管理者アカウント発行",
-            "title_page_edit": "管理者アカウント発行",
-            "button_create": "新規登録",
-            "form_filter": {
-                "placeholder_input_keyword": "キーワードを入力してください",
-                "select_all_roles": "全ての役割",
-                "select_roles": "担当者の役割",
-                "input_text_search": "キーワード",
-                "button_clear": "条件をクリアする",
-                "button_search": "この条件で検索"
+        "app": {
+            "name": "社内ポータルサイト",
+            "btn": {
+                "create": "新規登録",
+                "edit": "編集する",
+                "update": "Update",
+                "delete": "削除する",
+                "submit": "登録"
             },
-            "table": {
-                "name": "アカウント名",
+            "label": {
+                "description": "メモ",
+                "operator": "操作"
+            },
+            "form": {
+                "keyword": "キーワード",
+                "keyword_placeholder": "キーワードを入力してください",
+                "clear_form": "条件をクリアする",
+                "submit_form": "この条件で検索"
+            },
+            "clinic": {
+                "header": {
+                    "create": "クリニック登録",
+                    "info": "クリニック情報"
+                },
+                "place_holder": {
+                    "name": "クリニック名を入力してください",
+                    "post_code": "郵便番号を入力してください",
+                    "address": "住所を入力してください",
+                    "description": "メモを入力してください"
+                },
+                "name": "クリニック名",
+                "post_code": "郵便番号",
+                "address": "住所",
+                "description": "メモ",
+                "manage_user": "ユーザーを管理する",
+                "users_count": "社員数"
+            },
+            "user": {
+                "name": "ユーザー名",
                 "email": "メールアドレス",
-                "role": "役割",
-                "note": "メモ",
-                "last_login": "最終ログイン日時",
-                "action": "操作",
-                "action_edit": "編集する",
-                "action_delete": "削除する"
-            },
-            "form_create": {
-                "title": "アカウント情報",
-                "input_name": "アカウント名",
-                "input_email": "メールアドレス",
-                "role": "役割",
-                "note": "メモ",
-                "button_create": "登録",
-                "button_edit": "保存",
-                "button_remove": "アカウントを削除"
-            },
-            "confirm_remove": {
-                "title_remove": "管理者アカウントを削除しますか？",
-                "content": "のアカウントを削除すると、メールアドレスとか申請データなどすべての情報が削除されます。",
-                "button_cancel": "キャンセル",
-                "button_success": "アカウントを削除"
+                "group": "グループ",
+                "register_date": "登録日付",
+                "last_login_date": "最終ログイン日時"
             }
-        },        
-        "role": {
-            "title_page": "役割管理",
-            "button_create": "役割を編集",
-            "button_edit": "役割を編集",
-            "input_name": "名前の役割",
-            "table": {
-                "name": "名前グループの権限",
-                "select_all": "権限ビューリスト",
-                "permission_view_list": "リストを見る",
-                "permission_create": '権限作成',
-                "permission_update": '権限の更新',
-                'permission_delete': '権限削除'
-            },
-            "manage": {
-                'name': '名前の役割',
-                'created_at': 'で作成',
-                'action': 'アクション'
-            }
+        },
+        "sidebar": {
+            "user": "管理者アカウント管理",
+            "admin_manage": "管理者アカウント管理",
+            "admin_list_manage": "リスト管理者",
+            "staff_manage": "スタッフ管理",
+            "staff": "スタッフ一覧",
+            "notification": "お知らせ管理",
+            "request_inquiry": "申請・問合せ管理",
+            "blog": "記事管理",
+            "manual": "マニュアル管理 ",
+            "clinics": "クリニック一覧",
+            "templates": "申請テンプレート",
+            "request": "スタッフ管理担当",
+            "inquiry": "問合せ管理",
+            "setting": "Setting",
+            "contact": "問い合わせ担当",
+            "role": "役割",
+            "permission": "権限"
+        },
+        "passwords": {
+            "reset": "Your password has been reset!",
+            "failed": "パスワード再設定に失敗しました。",
+            "sent": "パスワード再設定のメールを送信しました。",
+            "token": "This password reset token is invalid.",
+            "user": "※メールアドレスを必ず入力してください。",
+            "throttled": "Please wait before retrying.",
+            "form_title": "パスワード再設定",
+            "submit_btn": "送信",
+            "back_to_login": "ログインページへ戻す"
+        },
+        "pagination": {
+            "previous": "&laquo; Previous",
+            "next": "Next &raquo;"
         }
     }
 }
