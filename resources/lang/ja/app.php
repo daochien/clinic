@@ -43,5 +43,6 @@ return [
         'group' => 'グループ',
         'register_date' => '登録日付',
         'last_login_date' => '最終ログイン日時',
+        'clinic_name' => 'クリニック',
     ]
 ];

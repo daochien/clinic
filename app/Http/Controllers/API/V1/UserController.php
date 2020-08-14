@@ -49,7 +49,7 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $users = $this->repository->with(['role', 'group'])->paginate(10);
+        $users = $this->repository->with(['role', 'group','clinic'])->paginate(10);
 
         return new UserCollection($users);
     }

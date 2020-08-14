@@ -95,17 +95,27 @@ class User extends Authenticatable // implements MustVerifyEmail
 
     public function type()
     {
-        return $this->belongsToMany(Role::class, 'type_users', 'user_id', 'type_id');
+        return $this->belongsToMany(Type::class, 'type_users', 'user_id', 'type_id');
     }
 
     public function level()
     {
-        return $this->belongsToMany(Role::class, 'level_users', 'user_id', 'level_id');
+        return $this->belongsToMany(Level::class, 'level_users', 'user_id', 'level_id');
     }
 
     public function group()
     {
-        return $this->belongsToMany(Role::class, 'group_users', 'user_id', 'group_id');
+        return $this->belongsToMany(Group::class, 'group_users', 'user_id', 'group_id');
+    }
+
+    public function clinic()
+    {
+        return $this->belongsToMany(Clinic::class, 'clinic_users', 'user_id', 'clinic_id');
+    }
+
+    public function loginLog()
+    {
+        return $this->hasMany(LoginLog::class);
     }
 
     protected static function boot(): void

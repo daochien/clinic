@@ -62,7 +62,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <pagination :data="{paginator}" @pagination-change-page="getResults"></pagination>
+                            <pagination :data="paginator" @pagination-change-page="getResults"></pagination>
                         </div>
                     </div>
                     <!-- /.card -->
@@ -87,7 +87,7 @@
             getResults(page = 1) {
                 this.$Progress.start();
                 axios.get('/api/clinic?page=' + page)
-                    .then((response) => {this.clinics = response.data; this.paginator = response.data});
+                    .then((response) => {this.clinics = response.data; this.paginator = response.data.meta});
                 this.$Progress.finish();
             },
             loadClinics() {
@@ -95,7 +95,7 @@
                 if (this.$gate.isAdmin()) {
                     axios
                         .get("/api/clinic")
-                        .then((response) => {this.clinics = response.data; this.paginator = response.data});
+                        .then((response) => {this.clinics = response.data; this.paginator = response.data.meta});
                 }
                 this.$Progress.finish();
             },
