@@ -27,7 +27,7 @@ class Clinic extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'clinic_users', 'clinic_id', 'user_id');
+        return $this->belongsToMany(User::class, 'clinic_users', 'clinic_id', 'user_id')->with(['group']);
     }
 
     protected static function boot(): void

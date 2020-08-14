@@ -3852,10 +3852,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       users: {},
+      paginator: {},
       keyword: ""
     };
   },
@@ -3866,9 +3874,9 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$Progress.start();
       console.log("get Results");
-      axios.get("/api/notification?keyword= " + keyword + "&page=" + page).then(function (_ref) {
-        var data = _ref.data;
-        return _this.users = data.data;
+      axios.get("/api/clinic?keyword= " + keyword + "&page=" + page).then(function (response) {
+        _this.users = response.data;
+        _this.paginator = response.data.meta;
       });
       this.$Progress.finish();
     },
@@ -3876,9 +3884,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$Progress.start();
-      axios.get("/api/clinic/" + this.$route.params.id + "/user").then(function (_ref2) {
-        var data = _ref2.data;
-        return _this2.users = data.data;
+      axios.get("/api/clinic/" + this.$route.params.id + "/user").then(function (response) {
+        _this2.users = response.data;
+        _this2.paginator = response.data.meta;
       });
       this.$Progress.finish();
     },
@@ -65357,9 +65365,9 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "tbody",
-                      _vm._l(_vm.users.data, function(user) {
+                      _vm._l(_vm.users.data, function(user, index) {
                         return _c("tr", { key: user.id }, [
-                          _c("td", [_vm._v(_vm._s(user.id))]),
+                          _c("td", [_vm._v(_vm._s(index + 1))]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-capitalize" }, [
                             _vm._v(_vm._s(user.name))
@@ -66794,7 +66802,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v(_vm._s(_vm.$t("app.btn.create")))]
+                [_vm._v(_vm._s(_vm.$t("app.btn.create")) + "\n            ")]
               )
             ]
           )
@@ -66837,7 +66845,12 @@ var render = function() {
                                   "btn btn-outline-secondary pl-4 pr-4",
                                 attrs: { type: "reset" }
                               },
-                              [_vm._v(_vm._s(_vm.$t("app.form.clear_form")))]
+                              [
+                                _vm._v(
+                                  _vm._s(_vm.$t("app.form.clear_form")) +
+                                    "\n                                            "
+                                )
+                              ]
                             )
                           ]),
                           _vm._v(" "),
@@ -66849,7 +66862,12 @@ var render = function() {
                                   "btn btn-outline-primary pl-4 pr-4",
                                 attrs: { type: "button" }
                               },
-                              [_vm._v(_vm._s(_vm.$t("app.form.submit_form")))]
+                              [
+                                _vm._v(
+                                  _vm._s(_vm.$t("app.form.submit_form")) +
+                                    "\n                                            "
+                                )
+                              ]
                             )
                           ])
                         ])
@@ -66902,7 +66920,7 @@ var render = function() {
                             "tbody",
                             _vm._l(_vm.users.data, function(entity, index) {
                               return _c("tr", { key: entity.id }, [
-                                _c("td", [_vm._v(_vm._s(index))]),
+                                _c("td", [_vm._v(_vm._s(index + 1))]),
                                 _vm._v(" "),
                                 _c("td", [_vm._v(_vm._s(entity.name))]),
                                 _vm._v(" "),
@@ -66910,19 +66928,45 @@ var render = function() {
                                 _vm._v(" "),
                                 _c(
                                   "td",
-                                  _vm._l(entity.groups, function(target) {
-                                    return _c("div", { key: target.id }, [
-                                      _c("label", [
-                                        _vm._v(_vm._s(target.group.name))
-                                      ])
-                                    ])
-                                  }),
-                                  0
+                                  [
+                                    entity.groups.length !== 0
+                                      ? _vm._l(entity.groups, function(target) {
+                                          return _c(
+                                            "span",
+                                            {
+                                              key: target.id,
+                                              staticClass:
+                                                "badge badge-info ml-1"
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n                                            " +
+                                                  _vm._s(target.name) +
+                                                  "\n                                         "
+                                              )
+                                            ]
+                                          )
+                                        })
+                                      : _c("div", [_vm._v(" - ")])
+                                  ],
+                                  2
                                 ),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(entity.created_at))]),
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(
+                                      new Date(entity.created_at).convert()
+                                    )
+                                  )
+                                ]),
                                 _vm._v(" "),
-                                _c("td", [_vm._v(_vm._s(entity.created_at))])
+                                _c("td", [
+                                  _vm._v(
+                                    _vm._s(
+                                      new Date(entity.last_login).convert()
+                                    )
+                                  )
+                                ])
                               ])
                             }),
                             0
@@ -66936,7 +66980,7 @@ var render = function() {
                       { staticClass: "card-footer" },
                       [
                         _c("pagination", {
-                          attrs: { data: _vm.users },
+                          attrs: { data: _vm.paginator },
                           on: { "pagination-change-page": _vm.getResults }
                         })
                       ],

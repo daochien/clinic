@@ -34,8 +34,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="user in users.data" :key="user.id">
-                                    <td>{{user.id}}</td>
+                                <tr v-for="(user, index) in users.data" :key="user.id">
+                                    <td>{{index + 1}}</td>
                                     <td class="text-capitalize">{{user.name}}</td>
                                     <td>{{user.email}}</td>
                                     <td>
