@@ -3390,7 +3390,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      users: {},
+      users: [],
       paginator: {},
       keyword: "",
       selected: [],
@@ -3405,7 +3405,7 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$Progress.start();
       axios.get("/api/user/search?keyword= " + this.keyword + "&page=" + page).then(function (response) {
-        _this.users = response.data;
+        _this.users = response.data.data;
         _this.paginator = response.data.meta;
       });
       this.$Progress.finish();
@@ -3437,8 +3437,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     selectAll: function selectAll() {
+      console.log(this.allSelected);
+
       if (this.allSelected) {
-        for (var user in this.users) {
+        for (user in this.users) {
           this.userIds.push(this.users[user].id);
         }
       }
@@ -66186,7 +66188,7 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "tbody",
-                            _vm._l(_vm.users.data, function(user) {
+                            _vm._l(_vm.users, function(user) {
                               return _c("tr", { key: user.id }, [
                                 _c("td", [
                                   _c("input", {

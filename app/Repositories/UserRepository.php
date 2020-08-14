@@ -45,12 +45,12 @@ class UserRepository extends BaseRepository
      */
     public function createUser(array $attributes)
     {
-        $user = User::create([
+        return User::create([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
             'password' => Hash::make($attributes['password']),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-
-        return $user;
     }
 }

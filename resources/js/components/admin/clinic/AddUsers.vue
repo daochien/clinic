@@ -70,7 +70,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="user in users.data" :key="user.id">
+                                <tr v-for="user in users" :key="user.id">
                                     <td>
                                         <input type="checkbox" v-model="userIds" @click="select" :value="user.id">
                                     </td>
@@ -109,7 +109,7 @@
     export default {
         data() {
             return {
-                users: {},
+                users: [],
                 paginator: {},
                 keyword: "",
                 selected: [],
@@ -123,7 +123,7 @@
                 axios
                     .get("/api/user/search?keyword= " + this.keyword + "&page=" + page)
                     .then((response) => {
-                        this.users = response.data;
+                        this.users = response.data.data;
                         this.paginator = response.data.meta
                     });
 
@@ -154,14 +154,15 @@
                     });
                 })
             },
-            selectAll: function() {
+            selectAll() {
+                console.log(this.allSelected);
                 if (this.allSelected) {
-                    for (let user in this.users) {
+                    for (user in this.users) {
                         this.userIds.push(this.users[user].id);
                     }
                 }
             },
-            select: function() {
+            select() {
                 this.allSelected = false;
             },
             resetKeyword() {
