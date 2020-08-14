@@ -3132,6 +3132,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3154,8 +3160,7 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$Progress.start();
       console.log('get Results');
-      axios.get('/api/user?page=' + page).then(function (_ref) {
-        var data = _ref.data;
+      axios.get('/api/user?page=' + page).then(function (data) {
         return _this.users = data.data;
       });
       this.$Progress.finish();
@@ -3221,8 +3226,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start();
 
       if (this.$gate.isAdmin()) {
-        axios.get("/api/user").then(function (_ref2) {
-          var data = _ref2.data;
+        axios.get("/api/user").then(function (data) {
           return _this4.users = data.data;
         });
       }
@@ -3678,7 +3682,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       clinics: [],
-      paginator: []
+      paginator: {}
     };
   },
   methods: {
@@ -3689,7 +3693,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.start();
       axios.get('/api/clinic?page=' + page).then(function (response) {
         _this.clinics = response.data;
-        _this.paginator = response.data.meta;
+        _this.paginator = response.data;
       });
       this.$Progress.finish();
     },
@@ -3701,7 +3705,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.$gate.isAdmin()) {
         axios.get("/api/clinic").then(function (response) {
           _this2.clinics = response.data;
-          _this2.paginator = response.data.meta;
+          _this2.paginator = response.data;
         });
       }
 
@@ -3831,10 +3835,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      users: {}
+      users: {},
+      keyword: ""
     };
   },
   methods: {
@@ -3844,7 +3867,7 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$Progress.start();
       console.log("get Results");
-      axios.get("/api/users?page=" + page).then(function (_ref) {
+      axios.get("/api/notification?keyword= " + keyword + "&page=" + page).then(function (_ref) {
         var data = _ref.data;
         return _this.users = data.data;
       });
@@ -3854,19 +3877,42 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$Progress.start();
-
-      if (this.$gate.isAdmin()) {
-        axios.get("/api/users").then(function (_ref2) {
-          var data = _ref2.data;
-          return _this2.users = data.data;
-        });
-      }
-
+      axios.get("/api/clinic/" + this.$route.params.id + "/user").then(function (_ref2) {
+        var data = _ref2.data;
+        return _this2.users = data.data;
+      });
       this.$Progress.finish();
+    },
+    create: function create() {
+      var _this3 = this;
+
+      this.$Progress.start();
+      axios.post("/api/clinic/" + this.$route.params.id + "/user").then(function (data) {
+        if (data.data.success) {
+          Toast.fire({
+            icon: 'success',
+            title: data.data.message
+          });
+
+          _this3.$Progress.finish();
+        } else {
+          Toast.fire({
+            icon: 'error',
+            title: 'Some error occured! Please try again'
+          });
+
+          _this3.$Progress.failed();
+        }
+      })["catch"](function () {
+        Toast.fire({
+          icon: 'error',
+          title: 'Some error occured! Please try again'
+        });
+      });
     }
   },
   mounted: function mounted() {
-    console.log("Component mounted.");
+    console.log("Notification Component mounted.");
   },
   created: function created() {
     this.$Progress.start();
@@ -65297,20 +65343,26 @@ var render = function() {
                           _c("td", [_vm._v(_vm._s(user.id))]),
                           _vm._v(" "),
                           _c("td", { staticClass: "text-capitalize" }, [
-                            _vm._v(_vm._s(user.type))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "text-capitalize" }, [
                             _vm._v(_vm._s(user.name))
                           ]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(user.email))]),
                           _vm._v(" "),
-                          _c("td", {
-                            domProps: {
-                              innerHTML: _vm._f("yesno")(user.email_verified_at)
-                            }
-                          }),
+                          _c("td", [_vm._v(_vm._s(user.clinic))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            user.groups
+                              ? _c(
+                                  "div",
+                                  _vm._l(user.groups, function(target) {
+                                    return _c("label", { key: target.id }, [
+                                      _vm._v(_vm._s(target.name))
+                                    ])
+                                  }),
+                                  0
+                                )
+                              : _c("div", [_vm._v(" - ")])
+                          ]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(user.created_at))]),
                           _vm._v(" "),
@@ -65685,17 +65737,17 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("ID")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Type")]),
-        _vm._v(" "),
         _c("th", [_vm._v("Name")]),
         _vm._v(" "),
         _c("th", [_vm._v("Email")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Email Verified?")]),
+        _c("th", [_vm._v("Group")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Created")]),
+        _c("th", [_vm._v("Clinic")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Action")])
+        _c("th", [_vm._v("Last login")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Last login")])
       ])
     ])
   },
@@ -66564,7 +66616,7 @@ var render = function() {
                                               "dropdown-item text-primary",
                                             attrs: {
                                               to: {
-                                                name: "clinic_user",
+                                                name: "clinic.manage.user",
                                                 params: { id: entity.id }
                                               }
                                             }
@@ -66589,7 +66641,7 @@ var render = function() {
                                               "dropdown-item text-primary",
                                             attrs: {
                                               to: {
-                                                name: "clinic_edit",
+                                                name: "clinic.edit",
                                                 params: { id: entity.id }
                                               }
                                             }
@@ -66645,7 +66697,7 @@ var render = function() {
                       { staticClass: "card-footer" },
                       [
                         _c("pagination", {
-                          attrs: { data: _vm.paginator },
+                          attrs: { data: { paginator: _vm.paginator } },
                           on: { "pagination-change-page": _vm.getResults }
                         })
                       ],
@@ -66681,263 +66733,209 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "content" }, [
-    _c("div", { staticClass: "page-header row no-gutters py-4" }, [
-      _c(
-        "div",
-        {
-          staticClass: "col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0"
-        },
-        [
-          _c("h3", { staticClass: "page-title" }, [
-            _vm._v(_vm._s(_vm.$t("app.clinic.header.create")))
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0"
-        },
-        [
-          _c("label", { staticClass: "pt-2 mr-4" }, [
-            _vm._v(_vm._s(_vm.$t("app.btn.create")))
-          ]),
-          _vm._v(" "),
+  return _vm.$gate.isAdmin()
+    ? _c("section", { staticClass: "content" }, [
+        _c("div", { staticClass: "page-header row no-gutters py-4" }, [
           _c(
-            "button",
+            "div",
             {
-              staticClass: "btn btn-primary pl-5 pr-5",
-              attrs: { type: "button" }
+              staticClass:
+                "col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0"
             },
-            [_vm._v(_vm._s(_vm.$t("app.btn.create")))]
-          )
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row page-filter" }, [
-      _c("div", { staticClass: "col-12 col-sm-8 offset-sm-2" }, [
-        _c("div", { staticClass: "card card-small mb-3" }, [
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-sm-6 col-12" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "feInputTitle" } }, [
-                    _vm._v("aa")
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form_filter.role,
-                          expression: "form_filter.role"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.form_filter,
-                            "role",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
-                          )
-                        }
-                      }
-                    },
-                    [
-                      _c("option", { attrs: { value: "" } }, [_vm._v("11")]),
-                      _vm._v(" "),
-                      _vm._l(_vm.roles, function(role, index) {
-                        return _c(
-                          "option",
-                          { key: index, domProps: { value: role } },
-                          [_vm._v(_vm._s(role))]
-                        )
-                      })
-                    ],
-                    2
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-sm-6 col-12" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", { attrs: { for: "feInputTitle" } }, [
-                    _vm._v("bbb")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.form_filter.keyword,
-                        expression: "form_filter.keyword"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      placeholder: _vm.$t(
-                        "manager.form_filter.placeholder_input_keyword"
-                      ),
-                      type: "text"
-                    },
-                    domProps: { value: _vm.form_filter.keyword },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.form_filter,
-                          "keyword",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ])
+            [
+              _c("h3", { staticClass: "page-title" }, [
+                _vm._v(_vm._s(_vm.$t("app.clinic.header.create")))
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-md-12 text-center" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "mb-2 btn btn-outline-dark mr-2",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.clearFilter()
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(_vm.$t("manager.form_filter.button_clear")))]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "mb-2 btn btn-outline-info",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        return _vm.searchUser()
-                      }
-                    }
-                  },
-                  [_vm._v(_vm._s(_vm.$t("manager.form_filter.button_search")))]
-                )
-              ])
-            ])
-          ])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row table-list" }, [
-      _c("div", { staticClass: "col-12 col-sm-12" }, [
-        _c("div", { staticClass: "card card-small mb-4" }, [
-          _c("div", { staticClass: "card-body p-0 pb-3 text-center" }, [
-            _c("table", { staticClass: "table mb-0" }, [
-              _c("thead", { staticClass: "bg-light" }, [
-                _c("tr", [
-                  _c(
-                    "th",
-                    { staticClass: "border-0", attrs: { scope: "col" } },
-                    [_vm._v("#")]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "th",
-                    { staticClass: "border-0", attrs: { scope: "col" } },
-                    [_vm._v(_vm._s(_vm.$t("manager.table.name")))]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "th",
-                    { staticClass: "border-0", attrs: { scope: "col" } },
-                    [_vm._v(_vm._s(_vm.$t("manager.table.email")))]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "th",
-                    { staticClass: "border-0", attrs: { scope: "col" } },
-                    [_vm._v(_vm._s(_vm.$t("manager.table.group")))]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "th",
-                    { staticClass: "border-0", attrs: { scope: "col" } },
-                    [_vm._v(_vm._s(_vm.$t("manager.table.register_date")))]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "th",
-                    { staticClass: "border-0", attrs: { scope: "col" } },
-                    [_vm._v(_vm._s(_vm.$t("manager.table.last_login")))]
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.users.data, function(item, index) {
-                  return _c("tr", { key: index }, [
-                    _c("td", [_vm._v(_vm._s(index + 1))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.name))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.email))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.group))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.created_at))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.created_at))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("-")])
-                  ])
-                }),
-                0
-              )
-            ])
-          ]),
+            ]
+          ),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "card-footer" },
+            {
+              staticClass:
+                "col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0"
+            },
             [
-              _c("pagination", {
-                attrs: { data: _vm.users },
-                on: { "pagination-change-page": _vm.getResults }
-              })
-            ],
-            1
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary pl-5 pr-5",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      return _vm.create()
+                    }
+                  }
+                },
+                [_vm._v(_vm._s(_vm.$t("app.btn.create")))]
+              )
+            ]
           )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "container-fluid" }, [
+          _c("div", { staticClass: "row mb-5" }, [
+            _c("div", { staticClass: "container" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12" }, [
+                  _c("div", { staticClass: "card" }, [
+                    _c("div", { staticClass: "card-body" }, [
+                      _c("form", [
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-12" }, [
+                            _c("div", { staticClass: "form-group" }, [
+                              _c("label", [
+                                _vm._v(_vm._s(_vm.$t("app.form.keyword")))
+                              ]),
+                              _vm._v(" "),
+                              _c("input", {
+                                staticClass: "form-control",
+                                attrs: {
+                                  type: "text",
+                                  placeholder: _vm.$t(
+                                    "app.form.keyword_placeholder"
+                                  )
+                                }
+                              })
+                            ])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row mt-2" }, [
+                          _c("div", { staticClass: "col-6 text-right" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-outline-secondary pl-4 pr-4",
+                                attrs: { type: "reset" }
+                              },
+                              [_vm._v(_vm._s(_vm.$t("app.form.clear_form")))]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-6" }, [
+                            _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "btn btn-outline-primary pl-4 pr-4",
+                                attrs: { type: "button" }
+                              },
+                              [_vm._v(_vm._s(_vm.$t("app.form.submit_form")))]
+                            )
+                          ])
+                        ])
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row mt-5" }, [
+            _c("div", { staticClass: "col-12" }, [
+              _vm.$gate.isAdmin()
+                ? _c("div", { staticClass: "card" }, [
+                    _c(
+                      "div",
+                      { staticClass: "card-body table-responsive p-0" },
+                      [
+                        _c("table", { staticClass: "table table-hover" }, [
+                          _c("thead", [
+                            _c("tr", [
+                              _vm._m(0),
+                              _vm._v(" "),
+                              _c("th", { attrs: { scope: "col" } }, [
+                                _vm._v(_vm._s(_vm.$t("app.user.name")))
+                              ]),
+                              _vm._v(" "),
+                              _c("th", { attrs: { scope: "col" } }, [
+                                _vm._v(_vm._s(_vm.$t("app.user.email")))
+                              ]),
+                              _vm._v(" "),
+                              _c("th", { attrs: { scope: "col" } }, [
+                                _vm._v(_vm._s(_vm.$t("app.user.group")))
+                              ]),
+                              _vm._v(" "),
+                              _c("th", { attrs: { scope: "col" } }, [
+                                _vm._v(_vm._s(_vm.$t("app.user.register_date")))
+                              ]),
+                              _vm._v(" "),
+                              _c("th", { attrs: { scope: "col" } }, [
+                                _vm._v(
+                                  _vm._s(_vm.$t("app.user.last_login_date"))
+                                )
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            _vm._l(_vm.users.data, function(entity, index) {
+                              return _c("tr", { key: entity.id }, [
+                                _c("td", [_vm._v(_vm._s(index))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(entity.name))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(entity.email))]),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  _vm._l(entity.groups, function(target) {
+                                    return _c("div", { key: target.id }, [
+                                      _c("label", [
+                                        _vm._v(_vm._s(target.group.name))
+                                      ])
+                                    ])
+                                  }),
+                                  0
+                                ),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(entity.created_at))]),
+                                _vm._v(" "),
+                                _c("td", [_vm._v(_vm._s(entity.created_at))])
+                              ])
+                            }),
+                            0
+                          )
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "card-footer" },
+                      [
+                        _c("pagination", {
+                          attrs: { data: _vm.users },
+                          on: { "pagination-change-page": _vm.getResults }
+                        })
+                      ],
+                      1
+                    )
+                  ])
+                : _vm._e()
+            ])
+          ])
         ])
       ])
-    ])
-  ])
+    : _c("div", [_c("not-found")], 1)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", { attrs: { scope: "col" } }, [
+      _c("input", {
+        staticClass: "custom-control-input",
+        attrs: { type: "checkbox", id: "formsAgreeField" }
+      })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -93891,19 +93889,19 @@ __webpack_require__.r(__webpack_exports__);
 }, {
   path: '/admin/clinics',
   component: __webpack_require__(/*! ./components/admin/clinic/Index.vue */ "./resources/js/components/admin/clinic/Index.vue")["default"],
-  name: 'clinic_list'
-}, {
-  path: '/admin/clinic/:id/user',
-  component: __webpack_require__(/*! ./components/admin/clinic/Users.vue */ "./resources/js/components/admin/clinic/Users.vue")["default"],
-  name: 'clinic_user'
+  name: 'clinic.list'
 }, {
   path: '/admin/clinic/:id/edit',
   component: __webpack_require__(/*! ./components/admin/clinic/Edit.vue */ "./resources/js/components/admin/clinic/Edit.vue")["default"],
-  name: 'clinic_edit'
+  name: 'clinic.edit'
 }, {
   path: '/admin/clinic/create',
   component: __webpack_require__(/*! ./components/admin/clinic/Create.vue */ "./resources/js/components/admin/clinic/Create.vue")["default"],
-  name: 'clinic_create'
+  name: 'clinic.create'
+}, {
+  path: '/admin/clinic/:id/user',
+  component: __webpack_require__(/*! ./components/admin/clinic/Users.vue */ "./resources/js/components/admin/clinic/Users.vue")["default"],
+  name: 'clinic.manage.user'
 }, {
   path: '/admin/users',
   component: __webpack_require__(/*! ./components/admin/Users.vue */ "./resources/js/components/admin/Users.vue")["default"]
@@ -93980,9 +93978,7 @@ __webpack_require__.r(__webpack_exports__);
       "request": "Request",
       "inquiry": "Inquiry",
       "setting": "Common setting",
-      "contact": "Contact",
-      "role": "Role",
-      "permission": "Permission"
+      "contact": "Contact"
     },
     "validation": {
       "accepted": "The {attribute} must be accepted.",
@@ -94111,6 +94107,12 @@ __webpack_require__.r(__webpack_exports__);
         "description": "メモ",
         "operator": "操作"
       },
+      "form": {
+        "keyword": "キーワード",
+        "keyword_placeholder": "キーワードを入力してください",
+        "clear_form": "条件をクリアする",
+        "submit_form": "この条件で検索"
+      },
       "clinic": {
         "header": {
           "create": "クリニック登録",
@@ -94128,6 +94130,13 @@ __webpack_require__.r(__webpack_exports__);
         "description": "メモ",
         "manage_user": "ユーザーを管理する",
         "users_count": "社員数"
+      },
+      "user": {
+        "name": "ユーザー名",
+        "email": "メールアドレス",
+        "group": "グループ",
+        "register_date": "登録日付",
+        "last_login_date": "最終ログイン日時"
       }
     },
     "auth": {
@@ -94163,7 +94172,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     "sidebar": {
       "user": "管理者アカウント管理",
-      "admin_manage": "管理者アカウント管理",
       "staff_manage": "スタッフ管理",
       "staff": "スタッフ一覧",
       "notification": "お知らせ管理",
@@ -94175,9 +94183,7 @@ __webpack_require__.r(__webpack_exports__);
       "request": "スタッフ管理担当",
       "inquiry": "問合せ管理",
       "setting": "Setting",
-      "contact": "問い合わせ担当",
-      "role": "役割",
-      "permission": "権限"
+      "contact": "問い合わせ担当"
     },
     "validation": {
       "accepted": "{attribute}を承認してください。",
@@ -94285,8 +94291,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/atb/www/clinic/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/atb/www/clinic/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\www\clinic\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\www\clinic\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -2,23 +2,28 @@
 
 namespace App\Repositories;
 
-use App\Models\Clinic;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class ClinicRepository
+abstract class BaseRepository
 {
 
     protected $model;
 
-    public function __construct(Clinic $clinic)
+    public function __construct()
     {
-        $this->model = $clinic;
+        $this->setModel();
     }
+
+    /**
+     * get model
+     * @return string
+     */
+    abstract public function getModel();
 
     public function get()
     {
-        return $this->model->latest()->withCount('clinicUsers')->paginate(10);
+        return $this->model->latest()->paginate(10);
     }
 
     /**
@@ -66,24 +71,19 @@ class ClinicRepository
      */
     public function delete($id)
     {
-
-            $result = $this->find($id);
-            if ($result) {
-                try {
-                    DB::beginTransaction();
-                    $result->clinicUsers()->delete();
-                    $result->delete();
-                    DB::commit();
-                } catch(\Exception $exception) {
-                    DB::rollBack();
-                }
+        $result = $this->find($id);
+        if ($result) {
+            try {
+                DB::beginTransaction();
+                $result->delete();
+                DB::commit();
+            } catch(\Exception $exception) {
+                DB::rollBack();
+                return false;
             }
+        }
 
-            return true;
-
-
-
-        return false;
+        return true;
     }
 
     /**
@@ -114,17 +114,7 @@ class ClinicRepository
      */
     public function show($id)
     {
-        return $this->model->with('clinicUsers')->findOrFail($id);
-    }
-
-    /**
-     * Get the associated model
-     *
-     * @return mixed
-     */
-    public function getModel()
-    {
-        return $this->model;
+        return $this->model->findOrFail($id);
     }
 
     /**
@@ -134,10 +124,11 @@ class ClinicRepository
      *
      * @return mixed
      */
-    public function setModel($model)
+    public function setModel()
     {
-        $this->model = $model;
-        return $this;
+        $this->model = app()->make(
+            $this->getModel()
+        );
     }
 
     /**
