@@ -1,5 +1,97 @@
 export default {
     "en": {
+        "app": {
+            "name": "Clinic portal",
+            "setting": "Setting"
+        },
+        "auth": {
+            "failed": "These credentials do not match our records.",
+            "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
+            "title_form": "Internal Portal",
+            "email_title": "Email address",
+            "email_holder": "Please enter your e-mail address",
+            "password_title": "Password",
+            "password_holder": "Enter password",
+            "btn_login": "Login",
+            "title_login": "Login",
+            "forgot_password": "Forgot Your Password",
+            "title_reset": "Reset password",
+            "confirm_password": "Confirm password",
+            "new_password": "New Password",
+            "reset_btn": "Reset"
+        },
+        "notification": {
+            "notifications": "お知らせ一覧",
+            "singup": "新規登録",
+            "target_person": "対象者",
+            "keyword": "キーワード",
+            "keyword_placeholder": "キーワードを入力してください",
+            "clear_condition": "条件をクリアする",
+            "search_condition": "この条件で検索",
+            "title": "タイトル",
+            "total_number_diliveries": "配送総数",
+            "exist_number": "既読数",
+            "number_people_confirm": "確認済人数",
+            "release_date": "公開日時",
+            "status": "ステータス",
+            "operating": "操作",
+            "publish_announcement": "お知らせを公開する",
+            "edit": "編集する",
+            "delete": "削除する",
+            "check_details": "詳細を確認する",
+            "unpublish": "未公開",
+            "publish": "公開済",
+            "details_information": "お知らせ詳細情報",
+            "clinic": "クリニック",
+            "username": "ユーザー名",
+            "mail_address": "メールアドレス",
+            "profession": "職業",
+            "confirm_date_and_time": "確認日時",
+            "un_read": "未読",
+            "already_read": "既読",
+            "notification_management": "お知らせ管理",
+            "save_draft": "ドラフトを保存",
+            "notice_information": "お知らせ情報",
+            "title_info": "タイトル",
+            "please_enter_title": "タイトルを入力してください",
+            "target_audience": "送信対象者",
+            "target_help": "※拠点名、職業、及びユーザー名で入力することは可能です。",
+            "please_enter_target": "対象者を入力してください",
+            "notice_content": "本文 (0/1000)",
+            "all_status": "全てのステータス",
+            "no_read_date": "----年--月--日 -- =>--"
+        },
+        "pagination": {
+            "previous": "&laquo; Previous",
+            "next": "Next &raquo;"
+        },
+        "passwords": {
+            "reset": "Your password has been reset!",
+            "sent": "We have e-mailed your password reset link!",
+            "token": "This password reset token is invalid.",
+            "user": "We can't find a user with that e-mail address.",
+            "throttled": "Please wait before retrying.",
+            "failed": "Password reset failed."
+        },
+        "sidebar": {
+            "user": "User",
+            "admin_manage": "Admin management",
+            "admin_list_manage": "List admin",
+            "staff_manage": "Staff Manage",
+            "staff": "Staff list",
+            "notification": "Notification",
+            "request_inquiry": "Request/inquiry",
+            "blog": "Blog",
+            "manual": "Manual",
+            "clinics": "Clinics",
+            "templates": "Templates",
+            "request": "Request",
+            "inquiry": "Inquiry",
+            "setting": "Common setting",
+            "contact": "Contact",
+            "role": "Role",
+            "permission": "Permission"
+        },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
             "active_url": "The {attribute} is not a valid URL.",
@@ -111,60 +203,145 @@ export default {
                 }
             },
             "attributes": []
+        }
+    },
+    "ja": {
+        "app": {
+            "name": "社内ポータルサイト",
+            "btn": {
+                "create": "新規登録",
+                "edit": "編集する",
+                "update": "Update",
+                "delete": "削除する",
+                "submit": "登録"
+            },
+            "label": {
+                "description": "メモ",
+                "operator": "操作"
+            },
+            "form": {
+                "keyword": "キーワード",
+                "keyword_placeholder": "キーワードを入力してください",
+                "clear_form": "条件をクリアする",
+                "submit_form": "この条件で検索"
+            },
+            "clinic": {
+                "header": {
+                    "create": "クリニック登録",
+                    "info": "クリニック情報"
+                },
+                "place_holder": {
+                    "name": "クリニック名を入力してください",
+                    "post_code": "郵便番号を入力してください",
+                    "address": "住所を入力してください",
+                    "description": "メモを入力してください"
+                },
+                "name": "クリニック名",
+                "post_code": "郵便番号",
+                "address": "住所",
+                "description": "メモ",
+                "manage_user": "ユーザーを管理する",
+                "users_count": "社員数"
+            },
+            "user": {
+                "name": "ユーザー名",
+                "email": "メールアドレス",
+                "group": "グループ",
+                "register_date": "登録日付",
+                "last_login_date": "最終ログイン日時"
+            }
         },
         "auth": {
-            "failed": "These credentials do not match our records.",
-            "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
-            "title_form": "Internal Portal",
-            "email_title": "Email address",
-            "email_holder": "Please enter your e-mail address",
-            "password_title": "Password",
-            "password_holder": "Enter password",
-            "btn_login": "Login",
-            "title_login": "Login",
-            "forgot_password": "Forgot Your Password",
-            "title_reset": "Reset password",
-            "confirm_password": "Confirm password",
-            "new_password": "New Password",
-            "reset_btn": "Reset"
+            "failed": "Ja_These credentials do not match our records.",
+            "throttle": "Ja_Too many login attempts. Please try again in {seconds} seconds.",
+            "title_form": "社内ポータルサイト",
+            "email_title": "メールアドレス",
+            "email_holder": "メールアドレスを入力してください",
+            "password_title": "パスワード",
+            "password_holder": "パスワードを入力してください",
+            "btn_login": "ログイン",
+            "title_login": "ログイン",
+            "forgot_password": "パスワードを忘れた方はこちら?",
+            "title_reset": "パスワードを忘れた方はこちら?",
+            "confirm_password": "パスワードを認証する",
+            "new_password": "新しいパスワード",
+            "reset_btn": "リセット"
         },
-        "app": {
-            "name": "Clinic portal",
-            "setting": "Setting"
-        },
-        "sidebar": {
-            "user": "User",
-            "admin_manage": "Admin management",
-            "admin_list_manage": "List admin",
-            "staff_manage": "Staff Manage",
-            "staff": "Staff list",
-            "notification": "Notification",
-            "request_inquiry": "Request/inquiry",
-            "blog": "Blog",
-            "manual": "Manual",
-            "clinics": "Clinics",
-            "templates": "Templates",
-            "request": "Request",
-            "inquiry": "Inquiry",
-            "setting": "Common setting",
-            "contact": "Contact",
-            "role": "Role",
-            "permission": "Permission"
-        },
-        "passwords": {
-            "reset": "Your password has been reset!",
-            "sent": "We have e-mailed your password reset link!",
-            "token": "This password reset token is invalid.",
-            "user": "We can't find a user with that e-mail address.",
-            "throttled": "Please wait before retrying.",
-            "failed": "Password reset failed."
+        "notification": {
+            "notifications": "お知らせ一覧",
+            "singup": "新規登録",
+            "target_person": "対象者",
+            "keyword": "キーワード",
+            "keyword_placeholder": "キーワードを入力してください",
+            "clear_condition": "条件をクリアする",
+            "search_condition": "この条件で検索",
+            "title": "タイトル",
+            "total_number_diliveries": "配送総数",
+            "exist_number": "既読数",
+            "number_people_confirm": "確認済人数",
+            "release_date": "公開日時",
+            "status": "ステータス",
+            "operating": "操作",
+            "publish_announcement": "お知らせを公開する",
+            "edit": "編集する",
+            "delete": "削除する",
+            "check_details": "詳細を確認する",
+            "unpublish": "未公開",
+            "publish": "公開済",
+            "details_information": "お知らせ詳細情報",
+            "clinic": "クリニック",
+            "username": "ユーザー名",
+            "mail_address": "メールアドレス",
+            "profession": "職業",
+            "confirm_date_and_time": "確認日時",
+            "un_read": "未読",
+            "already_read": "既読",
+            "notification_management": "お知らせ管理",
+            "save_draft": "ドラフトを保存",
+            "notice_information": "お知らせ情報",
+            "title_info": "タイトル",
+            "please_enter_title": "タイトルを入力してください",
+            "target_audience": "送信対象者",
+            "target_help": "※拠点名、職業、及びユーザー名で入力することは可能です。",
+            "please_enter_target": "対象者を入力してください",
+            "notice_content": "本文 (0/1000)",
+            "all_status": "全てのステータス",
+            "no_read_date": "----年--月--日 -- =>--"
         },
         "pagination": {
             "previous": "&laquo; Previous",
             "next": "Next &raquo;"
-        }
-    },
-    "ja": {
+        },
+        "passwords": {
+            "reset": "Your password has been reset!",
+            "failed": "パスワード再設定に失敗しました。",
+            "sent": "パスワード再設定のメールを送信しました。",
+            "token": "This password reset token is invalid.",
+            "user": "※メールアドレスを必ず入力してください。",
+            "throttled": "Please wait before retrying.",
+            "form_title": "パスワード再設定",
+            "submit_btn": "送信",
+            "back_to_login": "ログインページへ戻す"
+        },
+        "sidebar": {
+            "user": "管理者アカウント管理",
+            "admin_manage": "管理者アカウント管理",
+            "admin_list_manage": "リスト管理者",
+            "staff_manage": "スタッフ管理",
+            "staff": "スタッフ一覧",
+            "notification": "お知らせ管理",
+            "request_inquiry": "申請・問合せ管理",
+            "blog": "記事管理",
+            "manual": "マニュアル管理 ",
+            "clinics": "クリニック一覧",
+            "templates": "申請テンプレート",
+            "request": "スタッフ管理担当",
+            "inquiry": "問合せ管理",
+            "setting": "Setting",
+            "contact": "問い合わせ担当",
+            "role": "役割",
+            "permission": "権限"
+        },
         "validation": {
             "accepted": "{attribute}を承認してください。",
             "active_url": "{attribute}は、有効なURLではありません。",
@@ -247,101 +424,6 @@ export default {
                 }
             },
             "attributes": []
-        },
-        "auth": {
-            "failed": "Ja_These credentials do not match our records.",
-            "throttle": "Ja_Too many login attempts. Please try again in {seconds} seconds.",
-            "title_form": "社内ポータルサイト",
-            "email_title": "メールアドレス",
-            "email_holder": "メールアドレスを入力してください",
-            "password_title": "パスワード",
-            "password_holder": "パスワードを入力してください",
-            "btn_login": "ログイン",
-            "title_login": "ログイン",
-            "forgot_password": "パスワードを忘れた方はこちら?",
-            "title_reset": "パスワードを忘れた方はこちら?",
-            "confirm_password": "パスワードを認証する",
-            "new_password": "新しいパスワード",
-            "reset_btn": "リセット"
-        },
-        "app": {
-            "name": "社内ポータルサイト",
-            "btn": {
-                "create": "新規登録",
-                "edit": "編集する",
-                "update": "Update",
-                "delete": "削除する",
-                "submit": "登録"
-            },
-            "label": {
-                "description": "メモ",
-                "operator": "操作"
-            },
-            "form": {
-                "keyword": "キーワード",
-                "keyword_placeholder": "キーワードを入力してください",
-                "clear_form": "条件をクリアする",
-                "submit_form": "この条件で検索"
-            },
-            "clinic": {
-                "header": {
-                    "create": "クリニック登録",
-                    "info": "クリニック情報"
-                },
-                "place_holder": {
-                    "name": "クリニック名を入力してください",
-                    "post_code": "郵便番号を入力してください",
-                    "address": "住所を入力してください",
-                    "description": "メモを入力してください"
-                },
-                "name": "クリニック名",
-                "post_code": "郵便番号",
-                "address": "住所",
-                "description": "メモ",
-                "manage_user": "ユーザーを管理する",
-                "users_count": "社員数"
-            },
-            "user": {
-                "name": "ユーザー名",
-                "email": "メールアドレス",
-                "group": "グループ",
-                "register_date": "登録日付",
-                "last_login_date": "最終ログイン日時"
-            }
-        },
-        "sidebar": {
-            "user": "管理者アカウント管理",
-            "admin_manage": "管理者アカウント管理",
-            "admin_list_manage": "リスト管理者",
-            "staff_manage": "スタッフ管理",
-            "staff": "スタッフ一覧",
-            "notification": "お知らせ管理",
-            "request_inquiry": "申請・問合せ管理",
-            "blog": "記事管理",
-            "manual": "マニュアル管理 ",
-            "clinics": "クリニック一覧",
-            "templates": "申請テンプレート",
-            "request": "スタッフ管理担当",
-            "inquiry": "問合せ管理",
-            "setting": "Setting",
-            "contact": "問い合わせ担当",
-            "role": "役割",
-            "permission": "権限"
-        },
-        "passwords": {
-            "reset": "Your password has been reset!",
-            "failed": "パスワード再設定に失敗しました。",
-            "sent": "パスワード再設定のメールを送信しました。",
-            "token": "This password reset token is invalid.",
-            "user": "※メールアドレスを必ず入力してください。",
-            "throttled": "Please wait before retrying.",
-            "form_title": "パスワード再設定",
-            "submit_btn": "送信",
-            "back_to_login": "ログインページへ戻す"
-        },
-        "pagination": {
-            "previous": "&laquo; Previous",
-            "next": "Next &raquo;"
         }
     }
 }
