@@ -21,7 +21,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::get('role/list', 'API\V1\RoleController@list')->name('role.list');
         Route::get('permission/list', 'API\V1\PermissionController@list')->name('permission.list');
-        Route::get('permission/routes', 'API\V1\PermissionController@listRoutes');
+        Route::get('permission/routes', 'API\V1\PermissionController@listRoutes')->name('permission.routes');
 
         Route::apiResources([
             'user' => 'API\V1\UserController',
