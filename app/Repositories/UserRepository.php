@@ -26,6 +26,18 @@ class UserRepository extends BaseRepository
         return User::with('role')->find($id);
     }
 
+    public function search($keyword = '')
+    {
+        if (!empty($keyword)) {
+            return $this->model->where('name', 'LIKE', "%$keyword%")
+                ->orWhere('email', 'LIKE', "%$keyword%")
+                ->with(['role', 'group','clinic'])
+                ->paginate(10);
+        }
+
+        return $this->model->with(['role', 'group','clinic'])->paginate(10);
+    }
+
     /**
      * Create
      * @param array $attributes

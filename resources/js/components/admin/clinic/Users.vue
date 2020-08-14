@@ -3,58 +3,11 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('app.clinic.header.create') }}</h3>
-            </div>
-            <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <button type="button" class="btn btn-primary pl-5 pr-5" @click="create()">{{ $t('app.btn.create')}}
-                </button>
+                <h3 class="page-title">{{ $t('app.clinic.header.list-user') }}</h3>
             </div>
         </div>
         <!-- End Page Header -->
         <div class="container-fluid">
-            <div class="row mb-5">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label>{{ $t('app.form.keyword')}}</label>
-                                                    <input
-                                                        type="text"
-                                                        class="form-control"
-                                                        :placeholder="$t('app.form.keyword_placeholder')"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-2">
-                                            <div class="col-6 text-right">
-                                                <button
-                                                    type="reset"
-                                                    class="btn btn-outline-secondary pl-4 pr-4"
-                                                >{{ $t('app.form.clear_form')}}
-                                                </button>
-                                            </div>
-                                            <div class="col-6">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-outline-primary pl-4 pr-4"
-                                                >{{ $t('app.form.submit_form')}}
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="row mt-5">
                 <div class="col-12">
                     <div class="card" v-if="$gate.isAdmin()">

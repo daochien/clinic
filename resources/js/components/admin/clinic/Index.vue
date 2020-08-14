@@ -43,7 +43,7 @@
                                             ></i>
                                             <div class="dropdown-menu" aria-labelledby="operatingAction">
                                                 <router-link class="dropdown-item text-primary"
-                                                             :to="{ name: 'clinic.manage.user', params: { id: entity.id }} ">
+                                                             :to="{ name: 'clinic.add.user', params: { id: entity.id }} ">
                                                     {{ $t('app.clinic.manage_user')}}
                                                 </router-link>
                                                 <router-link class="dropdown-item text-primary"

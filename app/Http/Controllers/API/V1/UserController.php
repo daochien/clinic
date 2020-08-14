@@ -44,6 +44,13 @@ class UserController extends BaseController
         return $this->sendResponse(new UserResource($user));
     }
 
+    public function search(Request $request)
+    {
+        $users = $this->repository->search($request->keyword);
+
+        return new UserCollection($users);
+    }
+
     /**
      * Display a listing of the resource.
      */

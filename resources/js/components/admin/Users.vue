@@ -54,7 +54,7 @@
                                         </div>
                                         <div v-else>-</div>
                                     </td>
-                                    <td>{{ new Date(user.last_login).convert() }} </td>
+                                    <td>{{user.last_login|myDate}}</td>
                                     <td>
                                         <a href="#" @click="editModal(user)">
                                             <i class="fa fa-edit blue"></i>

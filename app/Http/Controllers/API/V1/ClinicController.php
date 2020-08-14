@@ -116,7 +116,6 @@ class ClinicController extends BaseController
     public function destroy($id)
     {
         try {
-            $this->authorize('isAdmin');
             $result = $this->service->delete($id);
 
             return $this->sendResponse($result);

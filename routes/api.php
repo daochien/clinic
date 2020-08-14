@@ -21,6 +21,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
 
+    Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
+
     Route::apiResources([
         'user' => 'API\V1\UserController',
         'clinic' => 'API\V1\ClinicController',
