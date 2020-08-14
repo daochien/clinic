@@ -28,22 +28,28 @@
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Type</th>
                       <th>Name</th>
                       <th>Email</th>
-                      <th>Email Verified?</th>
-                      <th>Created</th>
-                      <th>Action</th>
+                      <th>Group</th>
+                      <th>Clinic</th>
+                      <th>Last login</th>
+                      <th>Last login</th>
                     </tr>
                   </thead>
                   <tbody>
                      <tr v-for="user in users.data" :key="user.id">
 
                       <td>{{user.id}}</td>
-                      <td class="text-capitalize">{{user.type}}</td>
                       <td class="text-capitalize">{{user.name}}</td>
                       <td>{{user.email}}</td>
-                      <td :inner-html.prop="user.email_verified_at | yesno"></td>
+                      <td>{{user.clinic}}</td>
+
+                         <td>
+                             <div v-if="user.groups">
+                                     <label v-for="target in user.groups" :key="target.id">{{ target.name }}</label>
+                             </div>
+                             <div v-else> - </div>
+                         </td>
                       <td>{{user.created_at}}</td>
 
                       <td>
@@ -155,7 +161,7 @@
 
                   this.$Progress.start();
                     console.log('get Results');
-                  axios.get('/api/user?page=' + page).then(({ data }) => (this.users = data.data));
+                  axios.get('/api/user?page=' + page).then(( data ) => (this.users = data.data));
 
                   this.$Progress.finish();
             },
@@ -220,7 +226,7 @@
           loadUsers(){
             this.$Progress.start();
             if(this.$gate.isAdmin()){
-                axios.get("/api/user").then(({ data }) => (this.users = data.data));
+                axios.get("/api/user").then(( data ) => (this.users = data.data));
             }
             this.$Progress.finish();
           },

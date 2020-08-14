@@ -1,119 +1,163 @@
 <template>
-  <section class="content">
-    <!-- Page Header -->
-    <div class="page-header row no-gutters py-4">
-      <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-        <h3 class="page-title">{{ $t('app.clinic.header.create') }}</h3>
-      </div>
-      <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-        <label class="pt-2 mr-4">{{ $t('app.btn.create')}}</label>
-        <button type="button" class="btn btn-primary pl-5 pr-5">{{ $t('app.btn.create')}}</button>
-      </div>
-    </div>
-    <!-- End Page Header -->
+    <section class="content" v-if="$gate.isAdmin()">
+        <!-- Page Header -->
+        <div class="page-header row no-gutters py-4">
+            <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
+                <h3 class="page-title">{{ $t('app.clinic.header.create') }}</h3>
+            </div>
+            <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
+                <button type="button" class="btn btn-primary pl-5 pr-5" @click="create()">{{ $t('app.btn.create')}}</button>
+            </div>
+        </div>
+        <!-- End Page Header -->
+        <div class="container-fluid">
+            <div class="row mb-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>{{ $t('app.form.keyword')}}</label>
+                                                    <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        :placeholder="$t('app.form.keyword_placeholder')"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
 
-      <div class="row page-filter">
-          <div class="col-12 col-sm-8 offset-sm-2">
-              <div class="card card-small mb-3">
-                  <div class="card-body">
-                      <div class="row">
-                          <div class="col-sm-6 col-12">
-                              <div class="form-group">
-                                  <label for="feInputTitle">aa</label>
-                                  <select class="form-control" v-model="form_filter.role">
-                                      <option value="">11</option>
-                                      <option v-for="(role, index) in roles" :key="index" :value="role">{{ role }}</option>
-                                  </select>
-                              </div>
-                          </div>
-                          <div class="col-sm-6 col-12">
-                              <div class="form-group">
-                                  <label for="feInputTitle">bbb</label>
-                                  <input :placeholder="$t('manager.form_filter.placeholder_input_keyword')" v-model="form_filter.keyword" type="text" class="form-control">
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-md-12 text-center">
-                              <button @click="clearFilter()" type="button" class="mb-2 btn btn-outline-dark mr-2">{{ $t('manager.form_filter.button_clear') }}</button>
-                              <button @click="searchUser()" type="button" class="mb-2 btn btn-outline-info">{{ $t('manager.form_filter.button_search') }}</button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="row table-list">
-          <div class="col-12 col-sm-12">
-              <div class="card card-small mb-4">
-                  <div class="card-body p-0 pb-3 text-center">
-                      <table class="table mb-0">
-                          <thead class="bg-light">
-                          <tr>
-                              <th scope="col" class="border-0">#</th>
-                              <th scope="col" class="border-0">{{ $t('manager.table.name') }}</th>
-                              <th scope="col" class="border-0">{{ $t('manager.table.email') }}</th>
-                              <th scope="col" class="border-0">{{ $t('manager.table.group') }}</th>
-                              <th scope="col" class="border-0">{{ $t('manager.table.register_date') }}</th>
-                              <th scope="col" class="border-0">{{ $t('manager.table.last_login') }}</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                          <tr v-for="(item, index) in users.data" :key="index">
-                              <td>{{ index + 1 }}</td>
-                              <td>{{ item.name }}</td>
-                              <td>{{ item.email }}</td>
-                              <td>{{ item.group }}</td>
-                              <td>{{ item.created_at }}</td>
-                              <td>{{ item.created_at }}</td>
-                              <td>-</td>
-                          </tr>
-                          </tbody>
-                      </table>
-                  </div>
-                  <div class="card-footer">
-                      <pagination :data="users" @pagination-change-page="getResults"></pagination>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </section>
+                                        <div class="row mt-2">
+                                            <div class="col-6 text-right">
+                                                <button
+                                                    type="reset"
+                                                    class="btn btn-outline-secondary pl-4 pr-4"
+                                                >{{ $t('app.form.clear_form')}}</button>
+                                            </div>
+                                            <div class="col-6">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-outline-primary pl-4 pr-4"
+                                                >{{ $t('app.form.submit_form')}}</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div class="card" v-if="$gate.isAdmin()">
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th scope="col"><input type="checkbox" class="custom-control-input" id="formsAgreeField"></th>
+                                    <th scope="col">{{ $t('app.user.name')}}</th>
+                                    <th scope="col">{{ $t('app.user.email')}}</th>
+                                    <th scope="col">{{ $t('app.user.group')}}</th>
+                                    <th scope="col">{{ $t('app.user.register_date')}}</th>
+                                    <th scope="col">{{ $t('app.user.last_login_date')}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(entity, index) in users.data" :key="entity.id">
+                                    <td>{{ index }}</td>
+                                    <td>{{ entity.name }}</td>
+                                    <td>{{ entity.email }}</td>
+                                    <td>
+                                        <div v-for="target in entity.groups" :key="target.id">
+                                            <label>{{ target.group.name }}</label>
+                                        </div>
+                                    </td>
+                                    <td>{{ entity.created_at }}</td>
+                                    <td>{{ entity.created_at }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <pagination :data="users" @pagination-change-page="getResults"></pagination>
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <div v-else>
+        <not-found></not-found>
+    </div>
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      users: {},
-    };
-  },
-  methods: {
-    getResults(page = 1) {
-      this.$Progress.start();
-      console.log("get Results");
-      axios
-        .get("/api/users?page=" + page)
-        .then(({ data }) => (this.users = data.data));
+    export default {
+        data() {
+            return {
+                users: {},
+                keyword: "",
+            };
+        },
+        methods: {
+            getResults(page = 1) {
+                this.$Progress.start();
+                console.log("get Results");
+                axios
+                    .get("/api/notification?keyword= " + keyword + "&page=" + page)
+                    .then(({ data }) => (this.users = data.data));
 
-      this.$Progress.finish();
-    },
-    loadUsers() {
-      this.$Progress.start();
-      if (this.$gate.isAdmin()) {
-        axios
-          .get("/api/users")
-          .then(({ data }) => (this.users = data.data));
-      }
-      this.$Progress.finish();
-    },
-  },
-  mounted() {
-    console.log("Component mounted.");
-  },
-  created() {
-    this.$Progress.start();
-    this.loadUsers();
-    this.$Progress.finish();
-  },
-};
+                this.$Progress.finish();
+            },
+            loadUsers() {
+                this.$Progress.start();
+                    axios
+                        .get("/api/clinic/" + this.$route.params.id + "/user")
+                        .then(({ data }) => (this.users = data.data));
+                this.$Progress.finish();
+            },
+            create(){
+                this.$Progress.start();
+
+                axios.post("/api/clinic/" + this.$route.params.id + "/user")
+                    .then((data)=>{
+                        if(data.data.success){
+                            Toast.fire({
+                                icon: 'success',
+                                title: data.data.message
+                            });
+                            this.$Progress.finish();
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Some error occured! Please try again'
+                            });
+
+                            this.$Progress.failed();
+                        }
+                    })
+                    .catch(()=>{
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Some error occured! Please try again'
+                        });
+                    })
+            },
+        },
+        mounted() {
+            console.log("Notification Component mounted.");
+        },
+        created() {
+            this.$Progress.start();
+            this.loadUsers();
+            this.$Progress.finish();
+        },
+    };
 </script>

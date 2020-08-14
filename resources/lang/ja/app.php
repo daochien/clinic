@@ -13,6 +13,12 @@ return [
         'description' => 'メモ',
         'operator' => '操作',
     ],
+    'form' => [
+      'keyword' =>  'キーワード',
+      'keyword_placeholder' =>  'キーワードを入力してください',
+      'clear_form' =>  '条件をクリアする',
+      'submit_form' =>  'この条件で検索',
+    ],
     'clinic' => [
         'header' => [
             'create' =>  'クリニック登録',
@@ -30,5 +36,12 @@ return [
         'description' => 'メモ',
         'manage_user' => 'ユーザーを管理する',
         'users_count' => '社員数',
+    ],
+    'user' => [
+        'name' => 'ユーザー名',
+        'email' => 'メールアドレス',
+        'group' => 'グループ',
+        'register_date' => '登録日付',
+        'last_login_date' => '最終ログイン日時',
     ]
 ];

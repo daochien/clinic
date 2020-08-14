@@ -49,7 +49,7 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $users = $this->repository->with('role')->paginate(10);
+        $users = $this->repository->with(['role', 'group'])->paginate(10);
 
         return new UserCollection($users);
     }
@@ -66,10 +66,14 @@ class UserController extends BaseController
      */
     public function store(UserRequest $request)
     {
-        $attributes = $request->validated();
-        $user = $this->service->createUser($attributes);
+        try{
+            $attributes = $request->validated();
+            $user = $this->service->createUser($attributes);
 
-        return $this->sendResponse($user);
+            return $this->sendResponse($user);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getMessage());
+        }
     }
 
     /**

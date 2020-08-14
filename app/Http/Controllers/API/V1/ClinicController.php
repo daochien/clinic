@@ -32,8 +32,6 @@ class ClinicController extends BaseController
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -69,6 +67,7 @@ class ClinicController extends BaseController
     {
         $clinic = $this->repository->show($id);
 
+        //TODO: load group of user
         return $this->sendResponse(new ClinicResource($clinic->load(['users'])));
     }
 
@@ -102,6 +101,14 @@ class ClinicController extends BaseController
         }
 
     }
+
+    public function getUsers($clinicId)
+    {
+        $clinic = $this->repository->find($clinicId);
+
+        return $this->sendResponse($clinic->users()->paginate(10));
+    }
+
     /**
      * Remove the specified resource from storage.
      *

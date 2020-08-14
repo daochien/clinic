@@ -27,14 +27,18 @@ class UserServices
             $user = $this->userRepository->createUser($attribute);
 
             // Assigning Role by default user role
-            $role = Role::where('name', 'User')->first();
-            $user->assignRole($role);
+            $user->assignRole(Role::ROLE_USER_DEFAULT);
 
-            $group = Group::find($user->type);
-            GroupUser::inserOrIgnore([
-                'group_id' => $group->id,
-                'user_id' => $user->id
-            ]);
+            if( !empty($attribute['group_ids'] ?? null)) {
+                $groupUser = [];
+                foreach ($attribute['group_ids'] as $groupId){
+                    $groupUser[] = [
+                        'group_id' => $groupId,
+                        'user_id' => $user->id
+                    ];
+                }
+                GroupUser::inserOrIgnore($groupUser);
+            }
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();

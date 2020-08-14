@@ -48,16 +48,6 @@ class User extends Authenticatable // implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Assigning User role
-     *
-     * @param \App\Models\Role $role
-     */
-    public function assignRole(Role $role)
-    {
-        return $this->roles()->save($role);
-    }
-
     public function isAdmin()
     {
         return $this->roles()->where('name', 'Admin')->exists();
@@ -106,6 +96,21 @@ class User extends Authenticatable // implements MustVerifyEmail
     public function role()
     {
         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+    }
+
+    public function type()
+    {
+        return $this->belongsToMany(Role::class, 'type_users', 'user_id', 'type_id');
+    }
+
+    public function level()
+    {
+        return $this->belongsToMany(Role::class, 'level_users', 'user_id', 'level_id');
+    }
+
+    public function group()
+    {
+        return $this->belongsToMany(Role::class, 'group_users', 'user_id', 'group_id');
     }
 
     protected static function boot(): void

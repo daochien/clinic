@@ -19,6 +19,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('product/upload', 'API\V1\ProductController@upload');
         Route::get('notification/{id}/members', 'API\V1\NotificationController@members');
 
+        Route::get('clinic/{id}/user', 'API\V1\ClinicController@getUsers')->name('clinic.get.users');
         Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
 
         Route::get('group/{id}/members', 'API\V1\GroupController@members');

@@ -46,9 +46,7 @@ export default {
             "request": "Request",
             "inquiry": "Inquiry",
             "setting": "Common setting",
-            "contact": "Contact",
-            "role": "Role",
-            "permission": "Permission"
+            "contact": "Contact"
         },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
@@ -243,6 +241,12 @@ export default {
                 "description": "メモ",
                 "operator": "操作"
             },
+            "form": {
+                "keyword": "キーワード",
+                "keyword_placeholder": "キーワードを入力してください",
+                "clear_form": "条件をクリアする",
+                "submit_form": "この条件で検索"
+            },
             "clinic": {
                 "header": {
                     "create": "クリニック登録",
@@ -260,6 +264,13 @@ export default {
                 "description": "メモ",
                 "manage_user": "ユーザーを管理する",
                 "users_count": "社員数"
+            },
+            "user": {
+                "name": "ユーザー名",
+                "email": "メールアドレス",
+                "group": "グループ",
+                "register_date": "登録日付",
+                "last_login_date": "最終ログイン日時"
             }
         },
         "auth": {
@@ -295,7 +306,6 @@ export default {
         },
         "sidebar": {
             "user": "管理者アカウント管理",
-            "admin_manage": "管理者アカウント管理",
             "staff_manage": "スタッフ管理",
             "staff": "スタッフ一覧",
             "notification": "お知らせ管理",
@@ -307,9 +317,7 @@ export default {
             "request": "スタッフ管理担当",
             "inquiry": "問合せ管理",
             "setting": "Setting",
-            "contact": "問い合わせ担当",
-            "role": "役割",
-            "permission": "権限"
+            "contact": "問い合わせ担当"
         },
         "validation": {
             "accepted": "{attribute}を承認してください。",

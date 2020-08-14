@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Clinic;
-use App\Models\ClinicUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
