@@ -5,10 +5,7 @@
             'groups' => [
                 'view' => [
                         'name' => 'View list',
-                        'routes' => [
-                            'user.index',
-                            'user.list'
-                        ]
+                        'routes' => ['user.index','user.list']
                     ],
                 'create' => [
                         'name' => 'Create',
