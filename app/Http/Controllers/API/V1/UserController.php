@@ -44,12 +44,19 @@ class UserController extends BaseController
         return $this->sendResponse(new UserResource($user));
     }
 
+    public function search(Request $request)
+    {
+        $users = $this->repository->search($request->keyword);
+
+        return new UserCollection($users);
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = $this->repository->with(['role', 'group'])->paginate(10);
+        $users = $this->repository->with(['role', 'group','clinic'])->paginate(10);
 
         return new UserCollection($users);
     }

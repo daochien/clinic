@@ -5,7 +5,8 @@ export default [
     { path: '/admin/clinics', component: require('./components/admin/clinic/Index.vue').default, name: 'clinic.list' },
     { path: '/admin/clinic/:id/edit', component: require('./components/admin/clinic/Edit.vue').default, name: 'clinic.edit'},
     { path: '/admin/clinic/create', component: require('./components/admin/clinic/Create.vue').default, name: 'clinic.create'},
-    { path: '/admin/clinic/:id/user', component: require('./components/admin/clinic/Users.vue').default, name: 'clinic.manage.user' },
+    { path: '/admin/clinic/:id/user', component: require('./components/admin/clinic/Users.vue').default, name: 'clinic.user' },
+    { path: '/admin/clinic/:id/add-user', component: require('./components/admin/clinic/AddUsers.vue').default, name: 'clinic.add.user' },
 
     { path: '/admin/users', component: require('./components/admin/Users.vue').default },
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Helpers\DateHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserResource extends JsonResource
@@ -18,8 +19,16 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'created_at' => $this->created_at,
+            'groups' => GroupResource::collection($this->group),
+            'last_login' => $this->getLastLoginTime(),
             'roles' => RoleResource::collection($this->whenLoaded('role')),
-            'groups' => GroupResource::collection($this->whenLoaded('group')),
+            'clinics' => ClinicResource::collection($this->whenLoaded('clinic')),
         ];
+    }
+
+    public function getLastLoginTime()
+    {
+        return $this->loginLog()->orderByDesc('id')->first()->created_at ?? '-';
     }
 }

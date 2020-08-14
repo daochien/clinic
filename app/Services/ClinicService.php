@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Clinic;
 use App\Models\ClinicUser;
 use App\Models\Group;
+use App\Models\GroupUser;
 use App\Repositories\ClinicRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -34,14 +35,18 @@ class ClinicService
             if (!isset($userIds, $clinicId)) {
                 return;
             }
+            $clinic = $this->clinicRepository->find($clinicId);
+            $group = Group::where('name', $clinic->name)->first();
 
             DB::beginTransaction();
-            ClinicUser::where('clinic_id', $clinicId)->delete();
-            $data = [];
+            $clinicUserData = [];
+            $groupUserData = [];
             foreach ( $userIds as $userId) {
-                $data[] = ['clinic_id' => $clinicId, 'user_id' => $userId];
+                $clinicUserData[] = ['clinic_id' => $clinicId, 'user_id' => $userId];
+                $groupUserData[] = ['group_id' => $group->id, 'user_id' => $userId];
             }
-            ClinicUser::insertOrIgnore($data);
+            ClinicUser::insertOrIgnore($clinicUserData);
+            GroupUser::insertOrIgnore($groupUserData);
             DB::commit();
         } catch (\Exception $exception) {
             DB::rollBack();
@@ -55,6 +60,7 @@ class ClinicService
         $clinic = $this->clinicRepository->find($id);
         try {
             DB::beginTransaction();
+            $clinic->clinicUsers()->delete();
             $clinic->delete();
             DB::commit();
 

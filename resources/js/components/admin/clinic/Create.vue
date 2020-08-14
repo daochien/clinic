@@ -43,7 +43,6 @@
                         <div class="form-group">
                           <label>
                             {{ $t('app.clinic.post_code')}}
-                            <span class="text-danger">*</span>
                             <br />
                           </label>
                             <input v-model="form.post_code" type="text" name="post_code"
@@ -97,6 +96,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -117,11 +117,9 @@ export default {
           this.form.post('/api/clinic')
               .then((data)=>{
                   if(data.data.success){
-                      Toast.fire({
-                          icon: 'success',
-                          title: data.data.message
-                      });
+                      this.$router.push("/admin/clinics")
                       this.$Progress.finish();
+
                   } else {
                       Toast.fire({
                           icon: 'error',

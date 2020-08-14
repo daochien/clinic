@@ -22,7 +22,8 @@ return [
     'clinic' => [
         'header' => [
             'create' =>  'クリニック登録',
-            'info' => 'クリニック情報'
+            'info' => 'クリニック情報',
+            'list-user' => 'List Users',
         ],
         'place_holder' => [
             'name'=> 'クリニック名を入力してください',
@@ -43,5 +44,6 @@ return [
         'group' => 'グループ',
         'register_date' => '登録日付',
         'last_login_date' => '最終ログイン日時',
+        'clinic_name' => 'クリニック',
     ]
 ];

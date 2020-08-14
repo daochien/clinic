@@ -67,7 +67,6 @@ class ClinicController extends BaseController
     {
         $clinic = $this->repository->show($id);
 
-        //TODO: load group of user
         return $this->sendResponse(new ClinicResource($clinic->load(['users'])));
     }
 
@@ -106,7 +105,7 @@ class ClinicController extends BaseController
     {
         $clinic = $this->repository->find($clinicId);
 
-        return $this->sendResponse($clinic->users()->paginate(10));
+        return new UserCollection($clinic->users()->paginate(10));
     }
 
     /**
@@ -117,7 +116,6 @@ class ClinicController extends BaseController
     public function destroy($id)
     {
         try {
-            $this->authorize('isAdmin');
             $result = $this->service->delete($id);
 
             return $this->sendResponse($result);

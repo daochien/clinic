@@ -43,6 +43,18 @@ class UserRepository extends BaseRepository
         return User::with('role')->find($id);
     }
 
+    public function search($keyword = '')
+    {
+        if (!empty($keyword)) {
+            return $this->model->where('name', 'LIKE', "%$keyword%")
+                ->orWhere('email', 'LIKE', "%$keyword%")
+                ->with(['role', 'group','clinic'])
+                ->paginate(10);
+        }
+
+        return $this->model->with(['role', 'group','clinic'])->paginate(10);
+    }
+
     /**
      * Create
      * @param array $attributes
@@ -50,13 +62,13 @@ class UserRepository extends BaseRepository
      */
     public function createUser(array $attributes)
     {
-        $user = User::create([
+        return User::create([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
             'password' => Hash::make($attributes['password']),
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
-
-        return $user;
     }
 
     public function show($id)

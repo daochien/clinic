@@ -23,6 +23,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('clinic/{id}/user', 'API\V1\ClinicController@getUsers')->name('clinic.get.users');
         Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
 
+        Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
+
+        Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
+
         Route::get('group/{id}/members', 'API\V1\GroupController@members');
         Route::get('group/list', 'API\V1\GroupController@list');
         Route::get('group/all', 'API\V1\GroupController@all');
@@ -53,5 +57,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 
-Route::post('/login', 'API\V1\LoginController@login')->name('login_api');
+Route::post('/login', 'API\V1\Auth\LoginController@login')->name('api.login');
 Route::post('/password/forgot', 'API\V1\Auth\ForgotPasswordController@sendResetLinkEmail')->name('api.password.forgot');
