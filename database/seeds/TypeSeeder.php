@@ -15,19 +15,15 @@ class TypeSeeder extends Seeder
         DB::table('types')->insertOrIgnore(
             [
                 [
-                    'name' => '医師',
+                    'name' => 'DR',
                     'description' => 'Doctor',
                 ],
                 [
-                    'name' => 'ナース',
+                    'name' => 'DH',
                     'description' => 'Nurse',
                 ],
                 [
-                    'name' => '役員',
-                    'description' => 'Back office',
-                ],
-                [
-                    'name' => '他の',
+                    'name' => 'Other',
                     'description' => 'Other',
                 ],
             ]
