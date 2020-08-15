@@ -4675,7 +4675,9 @@ __webpack_require__.r(__webpack_exports__);
       clinics: [],
       groups: [],
       paginator: {},
-      keyword: ""
+      keyword: "",
+      clinicSelected: "",
+      groupSelected: ""
     };
   },
   methods: {
@@ -4684,8 +4686,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       this.$Progress.start();
-      console.log('get Results');
-      axios.get('/api/user?page=' + page).then(function (response) {
+      axios.get("/api/user/search?keyword= " + this.keyword + "&page=" + page + "&clinic_id=" + this.clinicSelected + "&group_id=" + this.groupSelected).then(function (response) {
         _this.users = response.data.data;
         _this.paginator = response.data.meta;
       });
@@ -68336,8 +68337,8 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.groups,
-                                expression: "groups"
+                                value: _vm.groupSelected,
+                                expression: "groupSelected"
                               }
                             ],
                             staticClass: "form-control",
@@ -68352,7 +68353,7 @@ var render = function() {
                                     var val = "_value" in o ? o._value : o.value
                                     return val
                                   })
-                                _vm.groups = $event.target.multiple
+                                _vm.groupSelected = $event.target.multiple
                                   ? $$selectedVal
                                   : $$selectedVal[0]
                               }
@@ -68361,7 +68362,7 @@ var render = function() {
                           [
                             _c(
                               "option",
-                              { attrs: { value: "0", selected: "" } },
+                              { attrs: { value: "", selected: "" } },
                               [
                                 _vm._v(
                                   _vm._s(_vm.$t("app.user.group_select_all"))
@@ -68370,9 +68371,14 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _vm._l(_vm.groups, function(group) {
-                              return _c("option", { key: group.id }, [
-                                _vm._v(_vm._s(group.name))
-                              ])
+                              return _c(
+                                "option",
+                                {
+                                  key: group.id,
+                                  domProps: { value: group.id }
+                                },
+                                [_vm._v(_vm._s(group.name))]
+                              )
                             })
                           ],
                           2
@@ -68393,8 +68399,8 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.clinics,
-                                expression: "clinics"
+                                value: _vm.clinicSelected,
+                                expression: "clinicSelected"
                               }
                             ],
                             staticClass: "form-control",
@@ -68409,7 +68415,7 @@ var render = function() {
                                     var val = "_value" in o ? o._value : o.value
                                     return val
                                   })
-                                _vm.clinics = $event.target.multiple
+                                _vm.clinicSelected = $event.target.multiple
                                   ? $$selectedVal
                                   : $$selectedVal[0]
                               }
@@ -68418,7 +68424,7 @@ var render = function() {
                           [
                             _c(
                               "option",
-                              { attrs: { value: "0", selected: "" } },
+                              { attrs: { value: "", selected: "" } },
                               [
                                 _vm._v(
                                   _vm._s(_vm.$t("app.user.clinic_select_all"))
@@ -68427,9 +68433,14 @@ var render = function() {
                             ),
                             _vm._v(" "),
                             _vm._l(_vm.clinics, function(clinic) {
-                              return _c("option", { key: clinic.id }, [
-                                _vm._v(_vm._s(clinic.name))
-                              ])
+                              return _c(
+                                "option",
+                                {
+                                  key: clinic.id,
+                                  domProps: { value: clinic.id }
+                                },
+                                [_vm._v(_vm._s(clinic.name))]
+                              )
                             })
                           ],
                           2
@@ -89996,7 +90007,11 @@ Vue.component('admin-dashboard', __webpack_require__(/*! ./components/admin/Dash
 Vue.component('not-found', __webpack_require__(/*! ./components/NotFound.vue */ "./resources/js/components/NotFound.vue")["default"]); // Filter Section
 
 Vue.filter('myDate', function (created) {
-  return moment__WEBPACK_IMPORTED_MODULE_2___default()(created).format('YYYY-MM-DD HH:mm:ss');
+  if (created) {
+    return moment__WEBPACK_IMPORTED_MODULE_2___default()(created).format('YYYY-MM-DD HH:mm:ss');
+  }
+
+  return "-";
 });
 Vue.filter('yesno', function (value) {
   return value ? '<i class="fas fa-check green"></i>' : '<i class="fas fa-times red"></i>';

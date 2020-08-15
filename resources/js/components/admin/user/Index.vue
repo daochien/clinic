@@ -18,18 +18,18 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>{{ $t('app.user.group')}}</label>
-                                                <select class="form-control" id="groups" v-model="groups">
-                                                    <option value="0" selected>{{ $t('app.user.group_select_all') }}</option>
-                                                    <option v-for="group in groups" :key="group.id">{{ group.name }}</option>
+                                                <select class="form-control" id="groups" v-model="groupSelected">
+                                                    <option value="" selected>{{ $t('app.user.group_select_all') }}</option>
+                                                    <option v-for="group in groups" :key="group.id" :value="group.id" >{{ group.name }}</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>{{ $t('app.user.clinic_name')}}</label>
-                                                <select class="form-control" id="clinics" v-model="clinics">
-                                                    <option value="0" selected>{{ $t('app.user.clinic_select_all') }}</option>
-                                                    <option v-for="clinic in clinics" :key="clinic.id">{{ clinic.name }}</option>
+                                                <select class="form-control" id="clinics" v-model="clinicSelected">
+                                                    <option value="" selected>{{ $t('app.user.clinic_select_all') }}</option>
+                                                    <option v-for="clinic in clinics" :key="clinic.id" :value="clinic.id">{{ clinic.name }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -144,13 +144,16 @@
                 groups: [],
                 paginator: {},
                 keyword: "",
+                clinicSelected: "",
+                groupSelected: "",
             }
         },
         methods: {
             getResults(page = 1) {
                 this.$Progress.start();
-                console.log('get Results');
-                axios.get('/api/user?page=' + page).then((response) => {
+                axios
+                .get("/api/user/search?keyword= " + this.keyword + "&page=" + page + "&clinic_id=" + this.clinicSelected + "&group_id=" + this.groupSelected)
+                    .then((response) => {
                     this.users = response.data.data;
                     this.paginator = response.data.meta
                 });

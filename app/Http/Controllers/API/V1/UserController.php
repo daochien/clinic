@@ -49,7 +49,7 @@ class UserController extends BaseController
 
     public function search(Request $request)
     {
-        $users = $this->repository->search($request->keyword);
+        $users = $this->repository->search($request->all());
 
         return new UserCollection($users);
     }

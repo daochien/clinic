@@ -29,6 +29,6 @@ class UserResource extends JsonResource
 
     public function getLastLoginTime()
     {
-        return $this->loginLog()->orderByDesc('id')->first()->created_at ?? '-';
+        return $this->loginLog()->orderByDesc('id')->first()->created_at ?? null;
     }
 }
