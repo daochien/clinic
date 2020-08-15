@@ -16,6 +16,10 @@ class AlterTable20200814ChangeStructureRequire extends Migration
         Schema::table('clinics', function (Blueprint $table) {
             $table->text('post_code')->nullable()->change();
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->text('description')->nullable();
+        });
     }
 
     /**
@@ -27,6 +31,9 @@ class AlterTable20200814ChangeStructureRequire extends Migration
     {
         Schema::table('clinics', function (Blueprint $table) {
             $table->text('post_code')->change();
+        });
+        Schema::table('users', function (Blueprint $table) {
+            $table->drop('description');
         });
     }
 }

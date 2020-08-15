@@ -201,9 +201,26 @@ export default {
                 "users_count": "社員数"
             },
             "user": {
+                "title": {
+                    "index": "スタッフ一覧",
+                    "create": "スタッフ登録",
+                    "edit": "スタッフ情報編集"
+                },
+                "place_holder": {
+                    "name": "スタッフ名を入力してください",
+                    "email": "メールアドレスを入力してください",
+                    "group": "グループを選択してください",
+                    "clinic": "クリニックを選択してください",
+                    "description": "メモを入力してください",
+                    "level": "Levelを入力してください",
+                    "type": "Typeを入力してください"
+                },
+                "remove_staff": "スタッフを削除",
                 "name": "ユーザー名",
                 "email": "メールアドレス",
                 "group": "グループ",
+                "level": "Level",
+                "type": "Type",
                 "register_date": "登録日付",
                 "last_login_date": "最終ログイン日時",
                 "clinic_name": "クリニック",

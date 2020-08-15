@@ -3,7 +3,11 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('sidebar.staff') }}</h3>
+                <h3 class="page-title">{{ $t('app.user.title.index') }}</h3>
+            </div>
+            <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
+                <router-link type="button" class="btn btn-primary pl-5 pr-5" to="/admin/user/create">{{ $t('app.btn.create')}}
+                </router-link>
             </div>
         </div>
         <!-- End Page Header -->

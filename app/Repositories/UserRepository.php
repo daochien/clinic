@@ -60,7 +60,8 @@ class UserRepository extends BaseRepository
         return User::create([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
-            'password' => Hash::make($attributes['password']),
+            'password' => Hash::make(User::DEFAULT_PASSWORD),
+            'description' => $attributes['description'],
             'created_at' => now(),
             'updated_at' => now(),
         ]);
