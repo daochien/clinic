@@ -40,6 +40,11 @@ class ClinicController extends BaseController
         return new ClinicCollection($clinics);
     }
 
+    public function all()
+    {
+        return new ClinicCollection($this->repository->getAll());
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -122,5 +127,10 @@ class ClinicController extends BaseController
         } catch (\Exception $exception) {
             return $this->sendError($exception->getCode(), $exception->getMessage());
         }
+    }
+
+    public function getAll()
+    {
+        return new ClinicCollection($this->repository->getAll());
     }
 }

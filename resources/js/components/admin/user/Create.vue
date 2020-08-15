@@ -8,6 +8,66 @@
         </div>
         <!-- End Page Header -->
         <div class="container-fluid">
+            <div class="row mb-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>{{ $t('user.group.label')}}</label>
+                                                <select class="form-control" id="groups" v-model="group">
+                                                    <option value="">{{ $t('user.group.all') }}</option>
+                                                    <option v-for="(entity) in groups" :key="entity.id">{{ entity.name }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>{{ $t('user.clinic.label')}}</label>
+                                                <select class="form-control" id="clinics" v-model="clinic">
+                                                    <option value="">{{ $t('user.clinic.all') }}</option>
+                                                    <option v-for="(entity) in clinics" :key="entity.id">{{ entity.name }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>{{ $t('app.form.keyword')}}</label>
+                                                <input
+                                                    v-model="keyword"
+                                                    type="text"
+                                                    class="form-control"
+                                                    :placeholder="$t('app.form.keyword_placeholder')"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-2">
+                                        <div class="col-6 text-right">
+                                            <button
+                                                type="reset"
+                                                class="btn btn-outline-secondary pl-4 pr-4" @click="resetKeyword()"
+                                            >{{ $t('app.form.clear_form')}}
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="button" class="btn btn-outline-primary pl-4 pr-4" @click="getResults()">
+                                                {{ $t('app.form.submit_form')}}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="card" v-if="$gate.isAdmin()">
@@ -144,8 +204,9 @@
     export default {
         data() {
             return {
-                editmode: false,
-                users: {},
+                users: [],
+                clinics: [],
+                groups: [],
                 paginator: {},
                 form: new Form({
                     id: '',
@@ -224,14 +285,25 @@
                 })
             },
             loadUsers() {
+                axios.get("/api/user").then((response) => {
+                    this.users = response.data;
+                    this.paginator = response.data.meta
+                });
+            },
+            loadFormInfo() {
                 this.$Progress.start();
-                if (this.$gate.isAdmin()) {
-                    axios.get("/api/user").then((response) => {
-                        this.users = response.data;
-                        this.paginator = response.data.meta
-                    });
-                }
+                this.loadUsers();
                 this.$Progress.finish();
+            },
+            loadGroup() {
+                axios.get("/api/group").then((response) => {
+                    this.groups = response.data;
+                });
+            },
+            loadClinic() {
+                axios.get("/api/clinic").then((response) => {
+                    this.clinics = response.data;
+                });
             },
             createUser() {
                 this.form.post('/api/user')

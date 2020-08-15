@@ -21,6 +21,11 @@ class ClinicRepository
         return $this->model->latest()->withCount('clinicUsers')->paginate(10);
     }
 
+    public function getAll()
+    {
+        return $this->model->orderByDesc('id')->get();
+    }
+
     /**
      * Get one
      * @param $id

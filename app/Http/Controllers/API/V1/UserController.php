@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\Users\UserRequest;
+use App\Http\Resources\ClinicCollection;
+use App\Http\Resources\GroupCollection;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
+use App\Models\Group;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Services\UserServices;
@@ -118,5 +121,10 @@ class UserController extends BaseController
         $user->delete();
 
         return $this->sendResponse([$user]);
+    }
+
+    public function getAllGroup()
+    {
+        return new GroupCollection(Group::orderByDesc('id')->get());
     }
 }

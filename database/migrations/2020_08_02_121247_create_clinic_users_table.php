@@ -19,6 +19,8 @@ class CreateClinicUsersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('clinic_id')->references('id')->on('clinics')->onDelete('cascade');
             $table->index(['clinic_id', 'user_id'], 'idx_clinic_user');
         });
     }

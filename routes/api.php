@@ -18,10 +18,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('clinic/{id}/user', 'API\V1\ClinicController@getUsers')->name('clinic.get.users');
     Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
+    Route::get('clinic/all', 'API\V1\ClinicController@getAll')->name('api.clinic.all');
 
     Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
 
     Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
+    Route::get('/group/all', 'API\V1\UserController@getAllGroup')->name('api.group.all');
 
     Route::apiResources([
         'user' => 'API\V1\UserController',

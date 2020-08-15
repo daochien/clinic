@@ -8,7 +8,7 @@ export default [
     { path: '/admin/clinic/:id/user', component: require('./components/admin/clinic/Users.vue').default, name: 'clinic.user' },
     { path: '/admin/clinic/:id/add-user', component: require('./components/admin/clinic/AddUsers.vue').default, name: 'clinic.add.user' },
 
-    { path: '/admin/users', component: require('./components/admin/Users.vue').default },
+    { path: '/admin/users', component: require('./components/admin/user/Index.vue').default },
 
     { path: '/admin/products', component: require('./components/admin/product/Products.vue').default },
     { path: '/admin/product/tag', component: require('./components/admin/product/Tag.vue').default },

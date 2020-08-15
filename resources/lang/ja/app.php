@@ -45,5 +45,7 @@ return [
         'register_date' => '登録日付',
         'last_login_date' => '最終ログイン日時',
         'clinic_name' => 'クリニック',
+        'group_select_all' => '全てのグループ',
+        'clinic_select_all' => '全てのクリニック',
     ]
 ];
