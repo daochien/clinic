@@ -23,7 +23,7 @@ class UserRepository extends BaseRepository
      */
     public function find($id)
     {
-        return User::with('role')->find($id);
+        return User::with(['role', 'group', 'type', 'clinic', 'level'])->find($id);
     }
 
     public function search($param = [])

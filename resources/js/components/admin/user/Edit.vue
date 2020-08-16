@@ -6,7 +6,7 @@
                 <h3 class="page-title">{{ $t('app.user.title.create') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <button type="button" class="btn btn-primary pl-5 pr-5" @click="createUser()">{{ $t('app.btn.create')}}</button>
+                <button type="button" class="btn btn-primary pl-5 pr-5" @click="updateUser()">{{ $t('app.btn.create')}}</button>
             </div>
         </div>
         <!-- End Page Header -->
@@ -19,6 +19,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-6">
+                                            <input type="hidden" name="id" v-model="form.id">
                                             <div class="form-group">
                                                 <label>
                                                     {{ $t('app.user.name')}}
@@ -85,8 +86,8 @@
                                                 <label>{{ $t('app.user.type')}}</label>
                                                 <span class="text-danger">*</span>
                                                 <select class="form-control" id="types" v-model="form.type_id" :class="{ 'is-invalid': form.errors.has('type_id') }">
-                                                    <option value="" selected>{{ $t('app.user.place_holder.type') }}</option>
-                                                    <option v-for="type in types" :key="'type_' +type.id" :value="type.id" >{{ type.name }}</option>
+                                                    <option value="">{{ $t('app.user.place_holder.type') }}</option>
+                                                    <option v-for="type in types" :selected="type.id === form.type_id" :key="'type_' +type.id" :value="type.id" >{{ type.name }}</option>
                                                 </select>
                                                 <has-error :form="form" field="type_id"></has-error>
                                             </div>
@@ -96,7 +97,7 @@
                                                 <label>{{ $t('app.user.level')}}</label>
                                                 <select class="form-control" id="levels" v-model="form.level_id">
                                                     <option value="" selected>{{ $t('app.user.place_holder.level') }}</option>
-                                                    <option v-for="level in levels" :key="'level_' + level.id" :value="level.id">{{ level.name }}</option>
+                                                    <option v-for="level in levels" :selected="level.id === form.level_id" :key="'level_' + level.id" :value="level.id">{{ level.name }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -138,7 +139,9 @@
                 groups: [],
                 types: [],
                 levels: [],
+                usr: {},
                 form: new Form({
+                    id: '',
                     name: '',
                     email: '',
                     clinics: [],
@@ -150,13 +153,14 @@
             }
         },
         methods: {
-            createUser() {
-                this.form.post('/api/user')
+            updateUser() {
+                this.form.put('/api/user/' + this.$route.params.id)
                     .then((response) => {
                         this.$router.push("/admin/users")
                         this.$Progress.finish();
                     })
                     .catch(() => {
+                        this.$Progress.fail();
                     })
             },
             loadGroup() {
@@ -179,9 +183,24 @@
                     this.levels = response.data.data;
                 });
             },
+            loadUser() {
+                axios.get("/api/user/" + this.$route.params.id).then((response) => {
+                    this.user = response.data.data;
+                    this.form.fill(this.user);
+
+                    if(this.user.type[0].id !== 'undefined') {
+                        this.form.type_id = this.user.type[0].id
+                    }
+
+                    if(this.user.level_id[0].id !== 'undefined') {
+                        this.form.level_id = this.user.level[0].id
+                    }
+                });
+            },
         },
         created() {
             this.$Progress.start();
+            this.loadUser();
             this.loadGroup();
             this.loadClinic();
             this.loadType();

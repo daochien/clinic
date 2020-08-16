@@ -115,12 +115,6 @@
                 this.$Progress.start();
                 this.form.put('/api/clinic/'+this.$route.params.id)
                     .then((response) => {
-                        // success
-                        $('#addNew').modal('hide');
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'success'
-                        });
                         this.$Progress.finish();
                         this.$router.push('/admin/clinics')
                     })

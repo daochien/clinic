@@ -112,13 +112,24 @@
                                     </td>
                                     <td>{{user.last_login|myDate}}</td>
                                     <td>
-                                        <a href="#" @click="editModal(user)">
-                                            <i class="fa fa-edit blue"></i>
-                                        </a>
-                                        /
-                                        <a href="#" @click="deleteUser(user.id)">
-                                            <i class="fa fa-trash red"></i>
-                                        </a>
+                                        <div class="dropdown">
+                                            <i
+                                                class="fa fa-ellipsis-v"
+                                                id="operatingAction"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"
+                                            ></i>
+                                                <div class="dropdown-menu" aria-labelledby="operatingAction">
+                                                    <router-link class="dropdown-item text-primary"
+                                                                 :to="{ name: 'user.edit', params: { id: user.id }} ">
+                                                        {{ $t('app.btn.edit')}}
+                                                    </router-link>
+                                                    <a class="dropdown-item text-danger" href="#" @click="deleteUser(user.id)">
+                                                        {{$t('app.btn.delete')}}
+                                                    </a>
+                                                </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -174,7 +185,7 @@
                 }).then((result) => {
                     // Send request to the server
                     if (result.value) {
-                        this.form.delete('/api/user/' + id).then(() => {
+                        axios.delete('/api/user/' + id).then(() => {
                             Swal.fire(
                                 'Deleted!',
                                 'Your file has been deleted.',

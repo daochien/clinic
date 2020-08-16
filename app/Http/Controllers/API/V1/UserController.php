@@ -97,14 +97,15 @@ class UserController extends BaseController
      */
     public function update(UserRequest $request, $id)
     {
-        $user = User::findOrFail($id);
+        try {
+            $attributes = $request->validated();
+            $user = $this->service->updateUser($id, $attributes);
 
-        if (!empty($request->password)) {
-            $request->merge(['password' => Hash::make($request['password'])]);
+            return $this->sendResponse($user);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getMessage());
         }
-        $user->update($request->all());
 
-        return $this->sendResponse($user);
     }
 
     /**
