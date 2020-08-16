@@ -18,26 +18,23 @@ class CheckPermission
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
         $user = Auth::user();
 
-        if (in_array($user->email, User::ROOT_EMAIL_ADMIN)) {
+        if ($user->isRoot()) {
             return $next($request);
         }
 
-        if ($user->hasRole('system_admin')) {
-            return $next($request);
-        }
+        $routeName = $request->route()->getName();
 
         $permissions = Permission::where('name', $routeName)->pluck('name')->toArray();
 
-        // if ($user->hasAnyPermission($permissions)) {
-        //     return $next($request);
-        // }
+        if ($user->hasAnyPermission($permissions)) {
+            return $next($request);
+        }
 
-        // return response()->json([
-        //     'status' => false,
-        //     'message' => 'Permission not access'
-        // ], 403);
+        return response()->json([
+            'status' => false,
+            'message' => 'Permission not access'
+        ], 403);
     }
 }

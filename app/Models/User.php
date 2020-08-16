@@ -148,4 +148,16 @@ class User extends Authenticatable // implements MustVerifyEmail
     {
         return $this->belongsToMany(Role::class)->select('roles.id', 'name');
     }
+    public function isRoot()
+    {
+        if (in_array($this->email, self::ROOT_EMAIL_ADMIN)) {
+            return true;
+        }
+
+        if ($this->hasRole('system_admin')) {
+            return true;
+        }
+
+        return false;
+    }
 }
