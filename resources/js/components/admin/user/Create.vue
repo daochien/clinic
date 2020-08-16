@@ -49,19 +49,33 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>{{ $t('app.user.group')}}</label>
-                                                <select class="form-control" id="groups" v-model="form.group_ids">
-                                                    <option value="" selected>{{ $t('app.user.place_holder.group') }}</option>
-                                                    <option v-for="group in groups" :key="group.id" :value="group.id" >{{ group.name }}</option>
-                                                </select>
+                                                <span class="text-danger">*</span>
+                                                <multiselect
+                                                    v-model="form.groups"
+                                                    :class="{ 'is-invalid': form.errors.has('groups') }"
+                                                    :options="groups"
+                                                    :multiple="true"
+                                                    label="name"
+                                                    track-by="id"
+                                                    :placeholder="$t('app.user.place_holder.group')"
+                                                ></multiselect>
+                                                <has-error :form="form" field="groups"></has-error>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>{{ $t('app.user.clinic_name')}}</label>
-                                                <select class="form-control" id="clinics" v-model="form.clinic_ids">
-                                                    <option value="" selected>{{ $t('app.user.place_holder.clinic') }}</option>
-                                                    <option v-for="clinic in clinics" :key="clinic.id" :value="clinic.id">{{ clinic.name }}</option>
-                                                </select>
+                                                <span class="text-danger">*</span>
+                                                <multiselect
+                                                    :class="{ 'is-invalid': form.errors.has('clinics') }"
+                                                    v-model="form.clinics"
+                                                    :options="clinics"
+                                                    :multiple="true"
+                                                    label="name"
+                                                    track-by="id"
+                                                    :placeholder="$t('app.user.place_holder.clinic')"
+                                                ></multiselect>
+                                                <has-error :form="form" field="clinics"></has-error>
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +86,7 @@
                                                 <span class="text-danger">*</span>
                                                 <select class="form-control" id="types" v-model="form.type_id" :class="{ 'is-invalid': form.errors.has('type_id') }">
                                                     <option value="" selected>{{ $t('app.user.place_holder.type') }}</option>
-                                                    <option v-for="type in types" :key="type.id" :value="type.id" >{{ type.name }}</option>
+                                                    <option v-for="type in types" :key="'type_' +type.id" :value="type.id" >{{ type.name }}</option>
                                                 </select>
                                                 <has-error :form="form" field="type_id"></has-error>
                                             </div>
@@ -82,7 +96,7 @@
                                                 <label>{{ $t('app.user.level')}}</label>
                                                 <select class="form-control" id="levels" v-model="form.level_id">
                                                     <option value="" selected>{{ $t('app.user.place_holder.level') }}</option>
-                                                    <option v-for="level in levels" :key="level.id" :value="level.id">{{ level.name }}</option>
+                                                    <option v-for="level in levels" :key="'level_' + level.id" :value="level.id">{{ level.name }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -113,7 +127,11 @@
 </template>
 
 <script>
+    import Multiselect from "vue-multiselect";
     export default {
+        components: {
+            Multiselect,
+        },
         data() {
             return {
                 clinics: [],
@@ -123,8 +141,8 @@
                 form: new Form({
                     name: '',
                     email: '',
-                    clinic_ids: [],
-                    group_ids: [],
+                    clinics: [],
+                    groups: [],
                     level_id: '',
                     type_id: '',
                     description: '',
@@ -139,10 +157,6 @@
                         this.$Progress.finish();
                     })
                     .catch(() => {
-                        Toast.fire({
-                            icon: 'error',
-                            title: 'Some error occured! Please try again'
-                        });
                     })
             },
             loadGroup() {
@@ -176,3 +190,4 @@
         }
     }
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

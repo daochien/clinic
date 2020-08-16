@@ -41,9 +41,9 @@ class UserRequest extends FormRequest
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
             'type_id' => 'required',
-            'group_ids' => 'nullable',
+            'groups' => 'required',
+            'clinics' => 'required',
             'level_id' => 'nullable',
-            'clinic_ids' => 'nullable',
             'description' => 'nullable',
         ];
     }
@@ -59,9 +59,9 @@ class UserRequest extends FormRequest
             'name' => 'sometimes|string|max:191',
             'email' => 'sometimes|string|email|max:191|unique:users,email,' . $this->get('id'),
             'type_id' => 'required',
-            'group_id' => 'nullable',
+            'groups' => 'required',
+            'clinics' => 'required',
             'level_id' => 'nullable',
-            'clinic_id' => 'nullable',
             'description' => 'nullable',
         ];
     }

@@ -49,40 +49,22 @@ class UserServices
                 ];
             }
 
-            if( !empty($attribute['group_ids'] ?? null)) {
-                if (is_array($attribute['group_ids'])) {
-                    foreach ($attribute['group_ids'] as $groupId){
-                        $groupUser[] = [
-                            'group_id' => $groupId,
-                            'user_id' => $user->id
-                        ];
-                    }
-                } else {
-                    $groupUser[] = [
-                        'group_id' => $attribute['group_ids'],
-                        'user_id' => $user->id
-                    ];
-                }
+            foreach ($attribute['groups'] as $group){
+                $groupUser[] = [
+                    'group_id' => $group['id'],
+                    'user_id' => $user->id
+                ];
             }
             GroupUser::insertOrIgnore($groupUser);
 
-            if( !empty($attribute['clinic_ids'] ?? null)) {
-                if (is_array($attribute['clinic_ids'])) {
-                    $clinicUser = [];
-                    foreach ($attribute['clinic_ids'] as $clinicId){
-                        $clinicUser[] = [
-                            'clinic_id' => $clinicId,
-                            'user_id' => $user->id
-                        ];
-                    }
-                } else {
-                    $clinicUser[] = [
-                        'clinic_id' => $attribute['clinic_ids'],
-                        'user_id' => $user->id
-                    ];
-                }
-                ClinicUser::insertOrIgnore($clinicUser);
+            $clinicUser = [];
+            foreach ($attribute['clinics'] as $clinic){
+                $clinicUser[] = [
+                    'clinic_id' => $clinic['id'],
+                    'user_id' => $user->id
+                ];
             }
+            ClinicUser::insertOrIgnore($clinicUser);
 
 
             if( !empty($attribute['level_id'] ?? null)) {
