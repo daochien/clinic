@@ -19,6 +19,8 @@ class User extends Authenticatable // implements MustVerifyEmail
 
     use Notifiable, HasApiTokens, HasRoles;
 
+    const DEFAULT_PASSWORD = '123456';
+
     protected $guard_name = 'api';
 
     /**
@@ -27,7 +29,7 @@ class User extends Authenticatable // implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'note'
+        'name', 'email', 'password', 'note', 'description'
     ];
 
     /**

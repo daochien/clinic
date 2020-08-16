@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClinicUsersTable extends Migration
+class CreateNotificationUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateClinicUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('clinic_users', function (Blueprint $table) {
+        Schema::create('notification_users', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('clinic_id');
+            $table->tinyInteger('status')->default(0)->comment('1:waiting|2:read|3:rejected');
             $table->unsignedInteger('user_id');
+            $table->unsignedInteger('notification_id')->index();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('clinic_id')->references('id')->on('clinics')->onDelete('cascade');
+            $table->unique(['notification_id', 'user_id'], 'idx_notification_user');
         });
     }
 
@@ -31,6 +31,6 @@ class CreateClinicUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clinic_users');
+        Schema::dropIfExists('notification_users');
     }
 }

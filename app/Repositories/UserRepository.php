@@ -40,19 +40,31 @@ class UserRepository extends BaseRepository
      */
     public function find($id)
     {
-        return User::with('role')->find($id);
+        return User::with(['role', 'group', 'type', 'clinic', 'level'])->find($id);
     }
 
-    public function search($keyword = '')
+    public function search($param = [])
     {
-        if (!empty($keyword)) {
-            return $this->model->where('name', 'LIKE', "%$keyword%")
-                ->orWhere('email', 'LIKE', "%$keyword%")
-                ->with(['role', 'group','clinic'])
-                ->paginate(10);
+        $query = User::from('users as u')->with(['role', 'group','clinic'])->select('u.*');
+
+        if (!empty($keyword = $param['keyword'])) {
+            $query->where('name', 'LIKE', "%$keyword%")
+                ->orWhere('email', 'LIKE', "%$keyword%");
         }
 
-        return $this->model->with(['role', 'group','clinic'])->paginate(10);
+        if (!empty($clinicId = $param['clinic_id'])) {
+            $query->join('clinic_users as cu', function ($join) use ($clinicId) {
+               $join->on('cu.user_id', 'u.id')->where('cu.clinic_id', $clinicId);
+            });
+        }
+
+        if (!empty($groupId = $param['group_id'])) {
+            $query->join('group_users as gu', function ($join) use ($groupId) {
+               $join->on('gu.user_id', 'u.id')->where('gu.group_id', $groupId);
+            });
+        }
+
+        return $query->paginate(10);
     }
 
     /**
@@ -65,7 +77,8 @@ class UserRepository extends BaseRepository
         return User::create([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
-            'password' => Hash::make($attributes['password']),
+            'password' => Hash::make(User::DEFAULT_PASSWORD),
+            'description' => $attributes['description'],
             'created_at' => now(),
             'updated_at' => now(),
         ]);

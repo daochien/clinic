@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ClinicResource extends JsonResource
+class LevelResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,11 +17,6 @@ class ClinicResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            "post_code" => "$this->post_code",
-            "address" => "$this->address",
-            "description" => $this->description,
-            'users_count' => $this->usersCount(),
-            'users' => UserResource::collection($this->whenLoaded('users')),
         ];
     }
 }

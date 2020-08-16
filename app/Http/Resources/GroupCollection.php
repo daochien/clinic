@@ -4,10 +4,10 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ClinicCollection extends ResourceCollection
+class GroupCollection extends ResourceCollection
 {
     public function toArray($request)
     {
-        return ClinicResource::collection($this->collection);
+        return GroupResource::collection($this->collection);
     }
 }

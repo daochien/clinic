@@ -107,7 +107,10 @@ Vue.component(
 // Filter Section
 
 Vue.filter('myDate',function(created){
-    return moment(created).format('YYYY-MM-DD HH:mm:ss');
+    if (created) {
+        return moment(created).format('YYYY-MM-DD HH:mm:ss');
+    }
+    return "-";
 });
 
 Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i class="fas fa-times red"></i>'));

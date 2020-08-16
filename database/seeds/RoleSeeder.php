@@ -18,10 +18,14 @@ class RoleSeeder extends Seeder
                 [
                     'name' => 'Admin',
                     'guard_name' => 'api',
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ],
                 [
                     'name' => 'User',
-                    'description' => 'api',
+                    'guard_name' => 'api',
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ],
             ]
         );

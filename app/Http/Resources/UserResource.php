@@ -24,11 +24,13 @@ class UserResource extends JsonResource
             'last_login' => $this->getLastLoginTime(),
             'roles' => RoleResource::collection($this->whenLoaded('role')),
             'clinics' => ClinicResource::collection($this->whenLoaded('clinic')),
+            'type' => TypeResource::collection($this->whenLoaded('type')),
+            'level' => LevelResource::collection($this->whenLoaded('level')),
         ];
     }
 
     public function getLastLoginTime()
     {
-        return $this->loginLog()->orderByDesc('id')->first()->created_at ?? '-';
+        return $this->loginLog()->orderByDesc('id')->first()->created_at ?? null;
     }
 }
