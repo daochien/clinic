@@ -169,9 +169,5 @@
                 this.keyword = ''
             }
         },
-        mounted() {
-        },
-        created() {
-        },
     };
 </script>

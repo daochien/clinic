@@ -137,14 +137,5 @@ export default {
               })
       },
   },
-  mounted() {
-    console.log("Component mounted.");
-  },
-  created() {
-    this.$Progress.start();
-    console.log("created");
-
-    this.$Progress.finish();
-  },
 };
 </script>

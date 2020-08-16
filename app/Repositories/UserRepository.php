@@ -30,20 +30,20 @@ class UserRepository extends BaseRepository
     {
         $query = User::from('users as u')->with(['role', 'group','clinic'])->select('u.*');
 
-        if (!empty($keyword = $param['keyword'])) {
-            $query->where('name', 'LIKE', "%$keyword%")
-                ->orWhere('email', 'LIKE', "%$keyword%");
+        if (isset($param['keyword'])) {
+            $query->where('name', 'LIKE', "%{$param['keyword']}%")
+                ->orWhere('email', 'LIKE', "%{$param['keyword']}%");
         }
 
-        if (!empty($clinicId = $param['clinic_id'])) {
-            $query->join('clinic_users as cu', function ($join) use ($clinicId) {
-               $join->on('cu.user_id', 'u.id')->where('cu.clinic_id', $clinicId);
+        if (isset($param['clinic_id'])) {
+            $query->join('clinic_users as cu', function ($join) use ($param) {
+               $join->on('cu.user_id', 'u.id')->where('cu.clinic_id', $param['clinic_id']);
             });
         }
 
-        if (!empty($groupId = $param['group_id'])) {
-            $query->join('group_users as gu', function ($join) use ($groupId) {
-               $join->on('gu.user_id', 'u.id')->where('gu.group_id', $groupId);
+        if (isset($param['group_id'])) {
+            $query->join('group_users as gu', function ($join) use ($param) {
+               $join->on('gu.user_id', 'u.id')->where('gu.group_id', $param['group_id']);
             });
         }
 

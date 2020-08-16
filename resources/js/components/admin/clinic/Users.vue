@@ -118,9 +118,6 @@
                     })
             },
         },
-        mounted() {
-            console.log("Notification Component mounted.");
-        },
         created() {
             this.$Progress.start();
             this.loadUsers();

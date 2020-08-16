@@ -219,9 +219,6 @@
         resetKeyword() {
             this.keyword = '';
         },
-        mounted() {
-            console.log('User Component mounted.!!')
-        },
         created() {
             this.$Progress.start();
             this.loadUsers();

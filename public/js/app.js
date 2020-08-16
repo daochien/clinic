@@ -3168,9 +3168,7 @@ __webpack_require__.r(__webpack_exports__);
     resetKeyword: function resetKeyword() {
       this.keyword = '';
     }
-  },
-  mounted: function mounted() {},
-  created: function created() {}
+  }
 });
 
 /***/ }),
@@ -3319,14 +3317,6 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     }
-  },
-  mounted: function mounted() {
-    console.log("Component mounted.");
-  },
-  created: function created() {
-    this.$Progress.start();
-    console.log("created");
-    this.$Progress.finish();
   }
 });
 
@@ -3478,7 +3468,6 @@ __webpack_require__.r(__webpack_exports__);
       this.$Progress.finish();
     }
   },
-  mounted: function mounted() {},
   created: function created() {
     this.$Progress.start();
     this.loadData();
@@ -3630,7 +3619,6 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  mounted: function mounted() {},
   created: function created() {
     this.$Progress.start();
     this.loadClinics();
@@ -3767,9 +3755,6 @@ __webpack_require__.r(__webpack_exports__);
         });
       });
     }
-  },
-  mounted: function mounted() {
-    console.log("Notification Component mounted.");
   },
   created: function created() {
     this.$Progress.start();
@@ -5195,9 +5180,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   resetKeyword: function resetKeyword() {
     this.keyword = '';
-  },
-  mounted: function mounted() {
-    console.log('User Component mounted.!!');
   },
   created: function created() {
     this.$Progress.start();

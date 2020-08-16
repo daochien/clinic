@@ -126,8 +126,6 @@
                 })
             },
         },
-        mounted() {
-        },
         created() {
             this.$Progress.start();
             this.loadClinics();
