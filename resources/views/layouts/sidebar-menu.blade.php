@@ -30,12 +30,12 @@
                     <span>{{ __('sidebar.admin_manage') }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-small">
-
+                    @can('manager.index')
                     <router-link to="/admin/managers" class="dropdown-item">
 
                         <span>{{ __('sidebar.admin_list_manage') }}</span>
                     </router-link>
-
+                    @endcan
                     <router-link to="/admin/roles" class="dropdown-item">
 
                         <span>{{ __('sidebar.role') }}</span>
