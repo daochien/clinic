@@ -60,10 +60,33 @@
                             v-model="form.groups"
                             :options="groups"
                             :multiple="true"
+                            :disabled="!enable_manual"
                             label="name"
                             track-by="id"
                             :placeholder="$t('notification.please_enter_target')"
                           ></multiselect>
+                        </div>
+                        <div class="form-group row ml-0">
+                          <label class="col-form-label">{{ $t('notification.release_date')}}</label>
+                          <div class="col-sm-3">
+                            <input type="date" class="form-control" v-model="form.schedule_date" />
+                          </div>
+                          <div class="col-sm-1"></div>
+                          <div class="col-sm-2">
+                            <b-form-checkbox
+                              v-model="form.confirm"
+                              name="check-button"
+                              switch
+                            >Enable Confirm</b-form-checkbox>
+                          </div>
+                          <div class="col-sm-1"></div>
+                          <div class="col-sm-2">
+                            <b-form-checkbox
+                              v-model="enable_manual"
+                              name="check-button"
+                              switch
+                            >Enable Manual</b-form-checkbox>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -113,11 +136,24 @@ export default {
         content: "",
         confirm: false,
         draft: false,
+        schedule_date: "",
       }),
       groups: [],
+      enable_manual: false,
     };
   },
   methods: {
+    resetForm() {
+      this.isValidate = false;
+      this.form = new Form({
+        title: "",
+        groups: [],
+        content: "",
+        confirm: false,
+        draft: false,
+        schedule_date: "",
+      });
+    },
     getResults(page = 1) {
       this.$Progress.start();
       console.log("get Results");
@@ -132,7 +168,13 @@ export default {
       if (this.$gate.isAdmin()) {
         axios
           .get("/api/group/all")
-          .then(({ data }) => (this.groups = data.data));
+          .then(
+            ({ data }) => (
+              (this.groups = data.data),
+              this.form.groups.push(data.data[0]),
+              this.form.groups.push(data.data[1])
+            )
+          );
       }
       this.$Progress.finish();
     },
@@ -173,6 +215,7 @@ export default {
             title: data.data.message,
           });
           this.$Progress.finish();
+          this.resetForm();
         })
         .catch(() => {
           Toast.fire({

@@ -21,7 +21,11 @@
                         <div class="form-group">
                           <label>{{ $t('notification.clinic')}}</label>
                           <select class="form-control" id="clinic">
-                            <option v-for="(entity) in groups" :key="entity.id">{{ entity.name }}</option>
+                            <option
+                              v-for="(entity) in groups"
+                              :key="entity.id"
+                              :v-model="form.groups"
+                            >{{ entity.name }}</option>
                           </select>
                         </div>
                       </div>
@@ -29,9 +33,15 @@
                         <div class="form-group">
                           <label>{{ $t('notification.keyword')}}</label>
                           <select class="form-control" id="status">
-                            <option>{{ $t('notification.all_status')}}</option>
-                            <option>{{ $t('notification.un_read')}}</option>
-                            <option>{{ $t('notification.already_read')}}</option>
+                            <option
+                              :v-model="form.status"
+                              value="0"
+                            >{{ $t('notification.all_status')}}</option>
+                            <option :v-model="form.status" value="1">{{ $t('notification.un_read')}}</option>
+                            <option
+                              :v-model="form.status"
+                              value="2"
+                            >{{ $t('notification.already_read')}}</option>
                           </select>
                         </div>
                       </div>
@@ -44,6 +54,7 @@
                           <input
                             type="text"
                             class="form-control"
+                            :v-model="form.keyword"
                             :placeholder="$t('notification.keyword_placeholder')"
                           />
                         </div>
@@ -55,12 +66,14 @@
                         <button
                           type="reset"
                           class="btn btn-outline-secondary pl-4 pr-4"
+                          @click="resetForm()"
                         >{{ $t('notification.clear_condition')}}</button>
                       </div>
                       <div class="col-6">
                         <button
                           type="button"
                           class="btn btn-outline-primary pl-4 pr-4"
+                          @click="searchData()"
                         >{{ $t('notification.search_condition')}}</button>
                       </div>
                     </div>
@@ -114,9 +127,22 @@ export default {
       members: {},
       groups: {},
       notification_id: 0,
+      form: new Form({
+        groups: [],
+        keyword: "",
+        status: 0,
+      }),
     };
   },
   methods: {
+    resetForm() {
+      this.isValidate = false;
+      this.form = new Form({
+        groups: [],
+        keyword: "",
+        status: 0,
+      });
+    },
     getResults(page = 1) {
       this.$Progress.start();
       console.log("get Results");
@@ -140,6 +166,7 @@ export default {
       }
       this.$Progress.finish();
     },
+    searchData() {},
   },
   mounted() {
     console.log("mounted");
