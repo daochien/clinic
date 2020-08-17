@@ -1,87 +1,24 @@
 <?php
     return [
-        'user' => [
-            'name' => 'User management',
+        'role' => [
+            'name' => 'Role management',
             'groups' => [
                 'view' => [
                         'name' => 'View list',
-                        'routes' => ['user.index','user.list']
+                        'routes' => ['role.index','role.list']
                     ],
                 'create' => [
                         'name' => 'Create',
-                        'routes' => ['user.create']
+                        'routes' => ['role.create']
                     ],
                 'update' => [
                         'name' => 'Update',
-                        'routes' => ['user.update']
+                        'routes' => ['role.update', 'role.show']
                     ],
                 'delete' => [
                         'name' => 'Delete',
-                        'routes' => ['user.destroy']
+                        'routes' => ['role.destroy']
                     ]
-            ]
-        ],
-        'category' => [
-            'name' => 'Category management',
-            'groups' => [
-                'view' => [
-                    'name' => 'View list',
-                    'routes' => ['category.index']
-                ],
-                'create' => [
-                    'name' => 'Create',
-                    'routes' => ['category.create']
-                ],
-                'update' => [
-                    'name' => 'Update',
-                    'routes' => ['category.update']
-                ],
-                'delete' => [
-                    'name' => 'Delete',
-                    'routes' => ['category.destroy']
-                ]
-            ]
-        ],
-        'blog' => [
-            'name' => 'Blog management',
-            'groups' => [
-                'view' => [
-                    'name' => 'View list',
-                    'routes' => ['blog.index']
-                ],
-                'create' => [
-                    'name' => 'Create',
-                    'routes' => ['blog.create']
-                ],
-                'update' => [
-                    'name' => 'Update',
-                    'routes' => ['blog.update']
-                ],
-                'delete' => [
-                    'name' => 'Delete',
-                    'routes' => ['blog.destroy']
-                ]
-            ]
-        ],
-        'tag' => [
-            'name' => 'Tag management',
-            'groups' => [
-                'view' => [
-                    'name' => 'View list',
-                    'routes' => ['tag.index']
-                ],
-                'create' => [
-                    'name' => 'Create',
-                    'routes' => ['tag.create']
-                ],
-                'update' => [
-                    'name' => 'Update',
-                    'routes' => ['tag.update']
-                ],
-                'delete' => [
-                    'name' => 'Delete',
-                    'routes' => ['tag.destroy']
-                ]
             ]
         ],
         'manager' => [
@@ -104,6 +41,174 @@
                     'routes' => ['manager.destroy']
                 ]
             ]
-        ]        
+        ],
+        'clinic' => [
+            'name' => 'Clinic management',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => []
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => [],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => []
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ],
+        'staff' => [
+            'name' => 'Staff management',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => []
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => [],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => []
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ],
+        'group' => [
+            'name' => 'Group management',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => []
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => [],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => []
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ],
+        'notification' => [
+            'name' => 'Notification management',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => []
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => [],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => []
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ],
+        'request_template' => [
+            'name' => 'Request template management',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => []
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => [],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => []
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ],
+        'request' => [
+            'name' => 'Request management',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => []
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => [],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => []
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ],
+        'inquiry' => [
+            'name' => 'Inquiry management',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => []
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => [],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => []
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ],
+        'page' => [
+            'name' => 'Page management',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => []
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => [],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => []
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ]
     ];
 ?>
