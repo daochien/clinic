@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/user', function (Request $request) {
-        dd(123);
         return $request->user();
     });
 
@@ -18,6 +17,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('tag/list', 'API\V1\TagController@list');
         Route::get('category/list', 'API\V1\CategoryController@list');
         Route::post('product/upload', 'API\V1\ProductController@upload')->name('product.upload');
+
+        Route::get('clinic/{id}/user', 'API\V1\ClinicController@getUsers')->name('clinic.get.users');
+        Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
+        Route::get('clinic/all', 'API\V1\ClinicController@getAll')->name('api.clinic.all');
+
+        Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');
+        Route::get('setting/level', 'API\V1\SettingController@getLevel')->name('api.setting.level');
+
+        Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
+
+        Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
+        Route::get('/group/all', 'API\V1\UserController@getAllGroup')->name('api.group.all');
 
         Route::get('role/list', 'API\V1\RoleController@list')->name('role.list');
         Route::get('permission/list', 'API\V1\PermissionController@list')->name('permission.list');
@@ -40,4 +51,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 
-Route::post('/login', 'API\V1\LoginController@login')->name('login_api');
+Route::post('/login', 'API\V1\Auth\LoginController@login')->name('api.login');
+Route::post('/password/forgot', 'API\V1\Auth\ForgotPasswordController@sendResetLinkEmail')->name('api.password.forgot');

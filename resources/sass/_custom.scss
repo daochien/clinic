@@ -24,4 +24,13 @@
         }
     }
 }
+.multiselect.is-invalid {
+    .multiselect__tags {
+        border-color: #c4183c;
+        box-shadow: 0 5px 11.5px rgba(196, 24, 60, 0.1);
+    }
+    //.multiselect__select::before{
+        //display: none;
+    //}
+}
 

@@ -20,7 +20,7 @@ class CreateNotificationUsersTable extends Migration
             $table->unsignedInteger('notification_id')->index();
             $table->timestamps();
 
-            $table->index(['notification_id', 'user_id'], 'idx_notification_user');
+            $table->unique(['notification_id', 'user_id'], 'idx_notification_user');
         });
     }
 

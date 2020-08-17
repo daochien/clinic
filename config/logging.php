@@ -43,15 +43,15 @@ return [
 
         'single' => [
             'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
-            'level' => 'debug',
+            'path'   => storage_path('logs/' . str_replace('-', '', PHP_SAPI ?? 'php') . '.log'),
+            'level'  => 'debug',
         ],
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
-            'level' => 'debug',
-            'days' => 14,
+            'path'   => storage_path('logs/' . str_replace('-', '', PHP_SAPI ?? 'php') . '.log'),
+            'level'  => 'debug',
+            'days'   => 7,
         ],
 
         'slack' => [

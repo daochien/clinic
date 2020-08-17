@@ -20,10 +20,10 @@ class UserRepository
         if (!empty($params['role'])) {
             $roles = is_array($params['role']) ? $params['role'] : [$params['role']];
         }
-        
+
         $query = $this->model->role($roles);
-        
-        
+
+
         if (!empty($params['keyword'])) {
             $query->where('name', 'like', '%'.$params['keyword'].'%');
         }
@@ -43,9 +43,31 @@ class UserRepository
      */
     public function find($id)
     {
-        $result = $this->model->find($id);
+        return User::with(['role', 'group', 'type', 'clinic', 'level'])->find($id);
+    }
 
-        return $result;
+    public function search($param = [])
+    {
+        $query = User::from('users as u')->with(['role', 'group','clinic'])->select('u.*');
+
+        if (isset($param['keyword'])) {
+            $query->where('name', 'LIKE', "%{$param['keyword']}%")
+                ->orWhere('email', 'LIKE', "%{$param['keyword']}%");
+        }
+
+        if (isset($param['clinic_id'])) {
+            $query->join('clinic_users as cu', function ($join) use ($param) {
+               $join->on('cu.user_id', 'u.id')->where('cu.clinic_id', $param['clinic_id']);
+            });
+        }
+
+        if (isset($param['group_id'])) {
+            $query->join('group_users as gu', function ($join) use ($param) {
+               $join->on('gu.user_id', 'u.id')->where('gu.group_id', $param['group_id']);
+            });
+        }
+
+        return $query->paginate(10);
     }
 
     /**
@@ -53,128 +75,15 @@ class UserRepository
      * @param array $attributes
      * @return mixed
      */
-    public function create(array $attributes)
+    public function createUser(array $attributes)
     {
-
-        return $this->model->create($attributes);
-    }
-
-    /**
-     * Update
-     * @param $id
-     * @param array $attributes
-     * @return bool|mixed
-     */
-    public function update($id, array $attributes)
-    {
-        $result = $this->find($id);
-        if ($result) {
-            $result->update($attributes);
-            return $result;
-        }
-
-        return false;
-    }
-
-    /**
-     * Delete
-     *
-     * @param $id
-     * @return bool
-     */
-    public function delete($id)
-    {
-        $result = $this->find($id);
-        if ($result) {
-            $result->delete();
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Pagination
-     * @param $perPage
-     * @return mixed
-     */
-    public function paginate($perPage)
-    {
-        return $this->model->paginate($perPage);
-    }
-
-    /**
-     * Latest
-     * @return mixed
-     */
-    public function latest()
-    {
-        return $this->model->latest();
-    }
-
-    /**
-     * show the record with the given id
-     *
-     * @param int $id
-     *
-     * @return mixed
-     */
-    public function show($id)
-    {
-        return $this->model->with('roles')->findOrFail($id);
-    }
-
-    /**
-     * Get the associated model
-     *
-     * @return mixed
-     */
-    public function getModel()
-    {
-        return $this->model;
-    }
-
-    /**
-     * Set the associated model
-     *
-     * @param $model
-     *
-     * @return mixed
-     */
-    public function setModel($model)
-    {
-        $this->model = $model;
-        return $this;
-    }
-
-    /**
-     * Eager load database relationships
-     *
-     * @param String $relations
-     *
-     */
-    public function with($relations)
-    {
-        return $this->model->with($relations);
-    }
-
-    /**
-     * On method call
-     * To use Eloquent Methods which are not exist on repository
-     *  Example Eloquent findOrFail() method
-     *
-     * @param $method
-     * @param $arguments
-     *
-     * @return mixed
-     */
-    public function __call($method, $arguments)
-    {
-        if (method_exists($this, $method)) {
-            return Model::__call('setModel', [$this->model])->setTable($this->model->table)->$method(...$arguments);
-        } else {
-            return $this->model->$method(...$arguments);
-        }
+        return User::create([
+            'name' => $attributes['name'],
+            'email' => $attributes['email'],
+            'password' => Hash::make($attributes['password']),
+            'description' => $attributes['description'],
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

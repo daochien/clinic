@@ -20,46 +20,6 @@ export default {
             "new_password": "New Password",
             "reset_btn": "Reset"
         },
-        "manager": {
-            "title_page_list": "Admin account management",
-            "title_page_create": "Create Account Admin",
-            "title_page_edit": "Account Infomation",
-            "button_create": "Sign Up",
-            "form_filter": {
-                "placeholder_input_keyword": "Please enter a keyword",
-                "select_all_roles": "All role",
-                "select_roles": "Role",
-                "input_text_search": "Keyword",
-                "button_clear": "Clear",
-                "button_search": "Search"
-            },
-            "table": {
-                "name": "Name",
-                "email": "Email",
-                "role": "Role",
-                "note": "Note",
-                "last_login": "Last Login",
-                "action": "Action",
-                "action_edit": "Edit",
-                "action_delete": "Remove"
-            },
-            "form_create": {
-                "title": "Account Info",
-                "input_name": "Name",
-                "input_email": "Email",
-                "role": "Role",
-                "note": "Note",
-                "button_create": "Register",
-                "button_edit": "Save",
-                "button_remove": "Remove account"
-            },
-            "confirm_remove": {
-                "title_remove": "Are you sure？",
-                "content": "If you delete your account, all information such as email address and application data will be deleted.",
-                "button_cancel": "Cancel",
-                "button_success": "Delete account"
-            }
-        },
         "pagination": {
             "previous": "&laquo; Previous",
             "next": "Next &raquo;"
@@ -225,7 +185,70 @@ export default {
     },
     "ja": {
         "app": {
-            "name": "社内ポータルサイト"
+            "name": "社内ポータルサイト",
+            "btn": {
+                "create": "新規登録",
+                "edit": "編集する",
+                "update": "Update",
+                "delete": "削除する",
+                "submit": "登録"
+            },
+            "label": {
+                "description": "メモ",
+                "operator": "操作"
+            },
+            "form": {
+                "keyword": "キーワード",
+                "keyword_placeholder": "キーワードを入力してください",
+                "clear_form": "条件をクリアする",
+                "submit_form": "この条件で検索"
+            },
+            "clinic": {
+                "header": {
+                    "create": "クリニック登録",
+                    "info": "クリニック情報",
+                    "list-user": "List Users"
+                },
+                "place_holder": {
+                    "name": "クリニック名を入力してください",
+                    "post_code": "郵便番号を入力してください",
+                    "address": "住所を入力してください",
+                    "description": "メモを入力してください"
+                },
+                "name": "クリニック名",
+                "post_code": "郵便番号",
+                "address": "住所",
+                "description": "メモ",
+                "manage_user": "ユーザーを管理する",
+                "users_count": "社員数"
+            },
+            "user": {
+                "title": {
+                    "index": "スタッフ一覧",
+                    "create": "スタッフ登録",
+                    "edit": "スタッフ情報編集"
+                },
+                "place_holder": {
+                    "name": "スタッフ名を入力してください",
+                    "email": "メールアドレスを入力してください",
+                    "group": "グループを選択してください",
+                    "clinic": "クリニックを選択してください",
+                    "description": "メモを入力してください",
+                    "level": "Levelを入力してください",
+                    "type": "Typeを入力してください"
+                },
+                "remove_staff": "スタッフを削除",
+                "name": "ユーザー名",
+                "email": "メールアドレス",
+                "group": "グループ",
+                "level": "Level",
+                "type": "Type",
+                "register_date": "登録日付",
+                "last_login_date": "最終ログイン日時",
+                "clinic_name": "クリニック",
+                "group_select_all": "全てのグループ",
+                "clinic_select_all": "全てのクリニック"
+            }
         },
         "auth": {
             "failed": "Ja_These credentials do not match our records.",
@@ -242,46 +265,6 @@ export default {
             "confirm_password": "パスワードを認証する",
             "new_password": "新しいパスワード",
             "reset_btn": "リセット"
-        },
-        "manager": {
-            "title_page_list": "管理者アカウント管理",
-            "title_page_create": "管理者アカウント発行",
-            "title_page_edit": "管理者アカウント発行",
-            "button_create": "新規登録",
-            "form_filter": {
-                "placeholder_input_keyword": "キーワードを入力してください",
-                "select_all_roles": "全ての役割",
-                "select_roles": "担当者の役割",
-                "input_text_search": "キーワード",
-                "button_clear": "条件をクリアする",
-                "button_search": "この条件で検索"
-            },
-            "table": {
-                "name": "アカウント名",
-                "email": "メールアドレス",
-                "role": "役割",
-                "note": "メモ",
-                "last_login": "最終ログイン日時",
-                "action": "操作",
-                "action_edit": "編集する",
-                "action_delete": "削除する"
-            },
-            "form_create": {
-                "title": "アカウント情報",
-                "input_name": "アカウント名",
-                "input_email": "メールアドレス",
-                "role": "役割",
-                "note": "メモ",
-                "button_create": "登録",
-                "button_edit": "保存",
-                "button_remove": "アカウントを削除"
-            },
-            "confirm_remove": {
-                "title_remove": "管理者アカウントを削除しますか？",
-                "content": "のアカウントを削除すると、メールアドレスとか申請データなどすべての情報が削除されます。",
-                "button_cancel": "キャンセル",
-                "button_success": "アカウントを削除"
-            }
         },
         "pagination": {
             "previous": "&laquo; Previous",
@@ -337,110 +320,81 @@ export default {
             "permission": "権限"
         },
         "validation": {
-            "accepted": "The {attribute} must be accepted.",
-            "active_url": "The {attribute} is not a valid URL.",
-            "after": "The {attribute} must be a date after {date}.",
-            "after_or_equal": "The {attribute} must be a date after or equal to {date}.",
-            "alpha": "The {attribute} may only contain letters.",
-            "alpha_dash": "The {attribute} may only contain letters, numbers, dashes and underscores.",
-            "alpha_num": "The {attribute} may only contain letters and numbers.",
-            "array": "The {attribute} must be an array.",
-            "before": "The {attribute} must be a date before {date}.",
-            "before_or_equal": "The {attribute} must be a date before or equal to {date}.",
+            "accepted": "{attribute}を承認してください。",
+            "active_url": "{attribute}は、有効なURLではありません。",
+            "after": "{attribute}には、{date}以降の日付を指定してください。",
+            "after_or_equal": "{attribute}には、{date}以降もしくは同日時を指定してください。",
+            "alpha": "{attribute}には、アルファベッドのみ使用できます。",
+            "alpha_dash": "{attribute}には、英数字('A-Z','a-z','0-9')とハイフンと下線('-','_')が使用できます。",
+            "alpha_num": "{attribute}には、英数字('A-Z','a-z','0-9')が使用できます。",
+            "array": "{attribute}には、配列を指定してください。",
+            "before": "{attribute}には、{date}以前の日付を指定してください。",
+            "before_or_equal": "{attribute}には、{date}以前もしくは同日時を指定してください。",
             "between": {
-                "numeric": "The {attribute} must be between {min} and {max}.",
-                "file": "The {attribute} must be between {min} and {max} kilobytes.",
-                "string": "The {attribute} must be between {min} and {max} characters.",
-                "array": "The {attribute} must have between {min} and {max} items."
+                "numeric": "{attribute}には、{min}から、{max}までの数字を指定してください。",
+                "file": "{attribute}には、{min} KBから{max} KBまでのサイズのファイルを指定してください。",
+                "string": "{attribute}は、{min}文字から{max}文字にしてください。",
+                "array": "{attribute}の項目は、{min}個から{max}個にしてください。"
             },
-            "boolean": "The {attribute} field must be true or false.",
-            "confirmed": "The {attribute} confirmation does not match.",
-            "date": "The {attribute} is not a valid date.",
-            "date_equals": "The {attribute} must be a date equal to {date}.",
-            "date_format": "The {attribute} does not match the format {format}.",
-            "different": "The {attribute} and {other} must be different.",
-            "digits": "The {attribute} must be {digits} digits.",
-            "digits_between": "The {attribute} must be between {min} and {max} digits.",
-            "dimensions": "The {attribute} has invalid image dimensions.",
-            "distinct": "The {attribute} field has a duplicate value.",
-            "email": "The {attribute} must be a valid email address.",
-            "ends_with": "The {attribute} must end with one of the following: {values}",
-            "exists": "The selected {attribute} is invalid.",
-            "file": "The {attribute} must be a file.",
-            "filled": "The {attribute} field must have a value.",
-            "gt": {
-                "numeric": "The {attribute} must be greater than {value}.",
-                "file": "The {attribute} must be greater than {value} kilobytes.",
-                "string": "The {attribute} must be greater than {value} characters.",
-                "array": "The {attribute} must have more than {value} items."
-            },
-            "gte": {
-                "numeric": "The {attribute} must be greater than or equal {value}.",
-                "file": "The {attribute} must be greater than or equal {value} kilobytes.",
-                "string": "The {attribute} must be greater than or equal {value} characters.",
-                "array": "The {attribute} must have {value} items or more."
-            },
-            "image": "The {attribute} must be an image.",
-            "in": "The selected {attribute} is invalid.",
-            "in_array": "The {attribute} field does not exist in {other}.",
-            "integer": "The {attribute} must be an integer.",
-            "ip": "The {attribute} must be a valid IP address.",
-            "ipv4": "The {attribute} must be a valid IPv4 address.",
-            "ipv6": "The {attribute} must be a valid IPv6 address.",
-            "json": "The {attribute} must be a valid JSON string.",
-            "lt": {
-                "numeric": "The {attribute} must be less than {value}.",
-                "file": "The {attribute} must be less than {value} kilobytes.",
-                "string": "The {attribute} must be less than {value} characters.",
-                "array": "The {attribute} must have less than {value} items."
-            },
-            "lte": {
-                "numeric": "The {attribute} must be less than or equal {value}.",
-                "file": "The {attribute} must be less than or equal {value} kilobytes.",
-                "string": "The {attribute} must be less than or equal {value} characters.",
-                "array": "The {attribute} must not have more than {value} items."
-            },
+            "boolean": "{attribute}には、'true'か'false'を指定してください。",
+            "confirmed": "{attribute}と{attribute}確認が一致しません。",
+            "date": "{attribute}は、正しい日付ではありません。",
+            "date_format": "{attribute}の形式は、'{format}'と合いません。",
+            "different": "{attribute}と{other}には、異なるものを指定してください。",
+            "digits": "{attribute}は、{digits}桁にしてください。",
+            "digits_between": "{attribute}は、{min}桁から{max}桁にしてください。",
+            "dimensions": "{attribute}は、正しい縦横比ではありません。",
+            "distinct": "{attribute}に重複した値があります。",
+            "email": "{attribute}は、有効なメールアドレス形式で指定してください。",
+            "exists": "選択された{attribute}は、有効ではありません。",
+            "file": "{attribute}はファイルでなければいけません。",
+            "filled": "{attribute}は必須です。",
+            "image": "{attribute}には、画像を指定してください。",
+            "in": "選択された{attribute}は、有効ではありません。",
+            "in_array": "{attribute}は、{other}に存在しません。",
+            "integer": "{attribute}には、整数を指定してください。",
+            "ip": "{attribute}には、有効なIPアドレスを指定してください。",
+            "ipv4": "{attribute}はIPv4アドレスを指定してください。",
+            "ipv6": "{attribute}はIPv6アドレスを指定してください。",
+            "json": "{attribute}には、有効なJSON文字列を指定してください。",
             "max": {
-                "numeric": "The {attribute} may not be greater than {max}.",
-                "file": "The {attribute} may not be greater than {max} kilobytes.",
-                "string": "The {attribute} may not be greater than {max} characters.",
-                "array": "The {attribute} may not have more than {max} items."
+                "numeric": "{attribute}には、{max}以下の数字を指定してください。",
+                "file": "{attribute}には、{max} KB以下のファイルを指定してください。",
+                "string": "{attribute}は、{max}文字以下にしてください。",
+                "array": "{attribute}の項目は、{max}個以下にしてください。"
             },
-            "mimes": "The {attribute} must be a file of type: {values}.",
-            "mimetypes": "The {attribute} must be a file of type: {values}.",
+            "mimes": "{attribute}には、{values}タイプのファイルを指定してください。",
+            "mimetypes": "{attribute}には、{values}タイプのファイルを指定してください。",
             "min": {
-                "numeric": "The {attribute} must be at least {min}.",
-                "file": "The {attribute} must be at least {min} kilobytes.",
-                "string": "The {attribute} must be at least {min} characters.",
-                "array": "The {attribute} must have at least {min} items."
+                "numeric": "{attribute}には、{min}以上の数字を指定してください。",
+                "file": "{attribute}には、{min} KB以上のファイルを指定してください。",
+                "string": "{attribute}は、{min}文字以上にしてください。",
+                "array": "{attribute}の項目は、{max}個以上にしてください。"
             },
-            "not_in": "The selected {attribute} is invalid.",
-            "not_regex": "The {attribute} format is invalid.",
-            "numeric": "The {attribute} must be a number.",
-            "password": "The password is incorrect.",
-            "present": "The {attribute} field must be present.",
-            "regex": "The {attribute} format is invalid.",
-            "required": "The {attribute} field is required.",
-            "required_if": "The {attribute} field is required when {other} is {value}.",
-            "required_unless": "The {attribute} field is required unless {other} is in {values}.",
-            "required_with": "The {attribute} field is required when {values} is present.",
-            "required_with_all": "The {attribute} field is required when {values} are present.",
-            "required_without": "The {attribute} field is required when {values} is not present.",
-            "required_without_all": "The {attribute} field is required when none of {values} are present.",
-            "same": "The {attribute} and {other} must match.",
+            "not_in": "選択された{attribute}は、有効ではありません。",
+            "not_regex": "{attribute} は整数で入力してください",
+            "numeric": "{attribute}には、数字を指定してください。",
+            "present": "{attribute}は、必ず存在しなくてはいけません。",
+            "regex": "{attribute}には、有効な正規表現を指定してください。",
+            "required": "必ず入力してください。",
+            "required_if": "{other}が{value}の場合、{attribute}を指定してください。",
+            "required_unless": "{other}が{value}以外の場合、{attribute}を指定してください。",
+            "required_with": "{values}が指定されている場合、{attribute}も指定してください。",
+            "required_with_all": "{values}が全て指定されている場合、{attribute}も指定してください。",
+            "required_without": "{values}が指定されていない場合、{attribute}を指定してください。",
+            "required_without_all": "{values}が全て指定されていない場合、{attribute}を指定してください。",
+            "same": "{attribute}と{other}が一致しません。",
             "size": {
-                "numeric": "The {attribute} must be {size}.",
-                "file": "The {attribute} must be {size} kilobytes.",
-                "string": "The {attribute} must be {size} characters.",
-                "array": "The {attribute} must contain {size} items."
+                "numeric": "{attribute}には、{size}を指定してください。",
+                "file": "{attribute}には、{size} KBのファイルを指定してください。",
+                "string": "{attribute}は、{size}文字にしてください。",
+                "array": "{attribute}の項目は、{size}個にしてください。"
             },
-            "starts_with": "The {attribute} must start with one of the following: {values}",
-            "string": "The {attribute} must be a string.",
-            "timezone": "The {attribute} must be a valid zone.",
-            "unique": "The {attribute} has already been taken.",
-            "uploaded": "The {attribute} failed to upload.",
-            "url": "The {attribute} format is invalid.",
-            "uuid": "The {attribute} must be a valid UUID.",
+            "string": "{attribute}には、文字を指定してください。",
+            "timezone": "{attribute}には、有効なタイムゾーンを指定してください。",
+            "unique": "指定の{attribute}は既に使用されています。",
+            "uploaded": "{attribute}のアップロードに失敗しました。",
+            "url": "{attribute}は、有効なURL形式で指定してください。",
             "custom": {
                 "attribute-name": {
                     "rule-name": "custom-message"

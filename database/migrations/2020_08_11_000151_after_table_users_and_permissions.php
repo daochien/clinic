@@ -14,11 +14,11 @@ class AfterTableUsersAndPermissions extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->text('note');           
+            $table->text('note')->nullable();
         });
 
         Schema::table('permissions', function (Blueprint $table) {
-            $table->string('route_name');           
+            $table->string('route_name');
         });
     }
 
@@ -34,7 +34,7 @@ class AfterTableUsersAndPermissions extends Migration
         });
 
         Schema::table('permissions', function (Blueprint $table) {
-            $table->dropColumn('route_name');           
+            $table->dropColumn('route_name');
         });
     }
 }

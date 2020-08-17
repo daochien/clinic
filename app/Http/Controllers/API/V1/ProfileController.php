@@ -5,10 +5,12 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\ChangePasswordRequest;
 use App\Http\Requests\Users\ProfileUpdateRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class ProfileController extends Controller
+class ProfileController extends BaseController
 {
     /**
      * Create a new controller instance.
@@ -26,12 +28,7 @@ class ProfileController extends Controller
      */
     public function profile()
     {
-        $response = [
-            'success' => true,
-            'data'    => auth('api')->user(),
-            'message' => 'User Profile',
-        ];
-        return response()->json($response, 200);
+        return $this->sendResponse(new UserResource(auth()->user()->load('role')));
     }
 
 
@@ -45,16 +42,10 @@ class ProfileController extends Controller
      */
     public function updateProfile(ProfileUpdateRequest $request)
     {
-        $user = auth('api')->user();
-
+        $user = auth()->user();
         $user->update($request->all());
 
-        $response = [
-            'success' => true,
-            'data'    => $user,
-            'message' => 'Profile has been updated',
-        ];
-        return response()->json($response, 200);
+        return $this->sendResponse(new UserResource($user));
     }
 
 
@@ -67,13 +58,15 @@ class ProfileController extends Controller
      */
     public function changePassword(ChangePasswordRequest $request)
     {
-        User::find(auth('api')->user()->id)->update(['password' => Hash::make($request->new_password)]);
+        $user = auth()->user();
+        User::find($user->id)->update(['password' => Hash::make($request->new_password)]);
+        //remove old token
+        $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+        //create new token
+        $credentials = ['email' => $user->email, 'password' => $request->new_password];
+        Auth::guard('web')->attempt($credentials);
+        $token = Auth::guard('web')->user()->createToken($request->device_name);
 
-        $response = [
-            'success' => true,
-            'data'    => [],
-            'message' => 'Password Has been updated',
-        ];
-        return response()->json($response, 200);
+        return $this->sendResponse(['token' => $token->plainTextToken]);
     }
 }
