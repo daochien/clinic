@@ -17,6 +17,7 @@ class CheckPermission
      */
     public function handle($request, Closure $next)
     {
+        return $next($request);
         $user = Auth::user();
         
         if ($user->isRoot()) {

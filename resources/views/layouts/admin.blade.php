@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link href="{{ asset('css/shards-dashboards.1.3.1.css') }}" rel="stylesheet">
     <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/formbuilder/js/footable/css/footable.standalone.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('vendor/formbuilder/css/styles.css') }}{{ jazmy\FormBuilder\Helper::bustCache() }}">
 </head>
 <body class="h-100">
 <div class="container-fluid" id="app">
@@ -125,16 +127,30 @@
 @auth
     <script>
         {{--window.user = @json(auth()->user())--}}
-            window.user = @json(\App\Models\User::where('id', auth()->user()->id)->with(['typeUsers.type', 'roleUsers.role'])->first())
+            window.user = @json(\App\Models\User::where('id', auth()->user()->id)->with(['typeUsers.type', 'roleUsers.role'])->first());
             window.user.is_root = '{!! auth()->user()->isRoot() !!}';
     </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>
+<script src="{{ ('/js/toastr.min.js') }}"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
 <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
-<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 {!! Toastr::message() !!}
+<script type="text/javascript">
+    window.FormBuilder = {
+        csrfToken: '{{ csrf_token() }}',
+    }
+</script>
+<script src="{{ asset('vendor/formbuilder/js/jquery-ui.min.js') }}" defer></script>
+<script src="{{ asset('vendor/formbuilder/js/sweetalert.min.js') }}" defer></script>
+<script src="{{ asset('vendor/formbuilder/js/jquery-formbuilder/form-builder.min.js') }}" defer></script>
+<script src="{{ asset('vendor/formbuilder/js/jquery-formbuilder/form-render.min.js') }}" defer></script>
+<script src="{{ asset('vendor/formbuilder/js/parsleyjs/parsley.min.js') }}" defer></script>
+<script src="{{ asset('vendor/formbuilder/js/clipboard/clipboard.min.js') }}?b=ck24" defer></script>
+<script src="{{ asset('vendor/formbuilder/js/moment.js') }}"></script>
+<script src="{{ asset('vendor/formbuilder/js/footable/js/footable.min.js') }}" defer></script>
+<script src="{{ asset('vendor/formbuilder/js/script.js') }}{{ jazmy\FormBuilder\Helper::bustCache() }}" defer></script>
 </body>
 </html>

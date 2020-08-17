@@ -13,12 +13,12 @@ class PermissionController extends BaseController
     {
         return $this->permission = $permission;
     }
-        
+
     public function listRoutes()
     {
         $routes = config('router');
 
         return $this->sendResponse($routes, 'Route list');
     }
-    
+
 }

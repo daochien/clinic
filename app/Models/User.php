@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
+use App\Models\GroupUser;
 
 class User extends Authenticatable // implements MustVerifyEmail
 {

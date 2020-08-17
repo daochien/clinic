@@ -30,12 +30,10 @@
                     <span>{{ __('sidebar.admin_manage') }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-small">
-                    @can('manager.index')
                     <router-link to="/admin/managers" class="dropdown-item">
 
                         <span>{{ __('sidebar.admin_list_manage') }}</span>
                     </router-link>
-                    @endcan
                     <router-link to="/admin/roles" class="dropdown-item">
 
                         <span>{{ __('sidebar.role') }}</span>
@@ -72,6 +70,7 @@
                     <router-link to="/admin/templates" class="dropdown-item">
                         {{ __('sidebar.templates') }}
                     </router-link>
+                    <a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>
                     <router-link to="/admin/requests" class="dropdown-item">
                         {{ __('sidebar.request') }}
                     </router-link>
@@ -120,5 +119,6 @@
                 </div>
             </li>
         </ul>
+
     </div>
 </aside>
