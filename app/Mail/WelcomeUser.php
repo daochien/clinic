@@ -33,6 +33,7 @@ class WelcomeUser extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.welcome-user');
+        return $this->subject("[{$this->user->name}] Welcome to " . config('app.name'))
+            ->markdown('emails.welcome-user');
     }
 }

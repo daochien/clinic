@@ -2,20 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\ResetPassword as ResetPasswordNotification;
 
 class User extends Authenticatable // implements MustVerifyEmail
 {
     use Notifiable, HasApiTokens, HasRoles;
-
-    const DEFAULT_PASSWORD = '123456';
 
     protected $guard_name = 'api';
 
@@ -118,6 +113,11 @@ class User extends Authenticatable // implements MustVerifyEmail
     public function loginLog()
     {
         return $this->hasMany(LoginLog::class);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token, $this->email));
     }
 
     protected static function boot(): void

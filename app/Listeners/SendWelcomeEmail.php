@@ -5,7 +5,6 @@ namespace App\Listeners;
 use App\Events\CreateUserEvent;
 use App\Mail\WelcomeUser;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Auth;
 
 class SendWelcomeEmail implements ShouldQueue
 {
