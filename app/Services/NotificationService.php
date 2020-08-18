@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\Notifications\NotificationRequest;
 use App\Models\Group;
+use App\Models\NotificationStatus;
 use App\Repositories\NotificationRepository;
 use App\Repositories\NotificationGroupRepository;
 use App\Models\NotificationUser;
@@ -41,7 +42,7 @@ class NotificationService
         foreach ($groups as $group) {
 
             // Create notification group
-            $entityGroup = $this->repositoryGroup->create([
+            $this->repositoryGroup->create([
                 'notification_id' => $entity->id,
                 'group_id' => $group['id']
             ]);
@@ -52,8 +53,20 @@ class NotificationService
             foreach ($datas as $user) {
                 NotificationUser::insertOrIgnore([
                     'notification_id' => $entity->id,
-                    'user_id' => $user->id
+                    'user_id' => $user->id,
+                    'created_at' => now(),
+                    'updated_at' => now()
                 ]);
+
+                if ($request['confirm'] == true) {
+                    NotificationStatus::insertOrIgnore([
+                        'notification_id' => $entity->id,
+                        'user_id' => $user->id,
+                        'status' => 1,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
+                }
             }
         }
         return $entity;

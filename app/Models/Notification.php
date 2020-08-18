@@ -41,4 +41,24 @@ class Notification extends Model
     {
         return $this->hasMany(NotificationGroup::class, 'notification_id');
     }
+
+    public function usersCount()
+    {
+        return $this->hasMany(NotificationUser::class)->count();
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'notification_users', 'user_id');
+    }
+
+    public function usersRead()
+    {
+        return $this->hasMany(NotificationStatus::class)->where('status', [2, 3])->count();
+    }
+
+    public function usersConfirm()
+    {
+        return $this->hasMany(NotificationStatus::class)->where('status', '=', 1)->count();
+    }
 }

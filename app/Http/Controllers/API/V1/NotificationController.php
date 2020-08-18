@@ -26,8 +26,13 @@ class NotificationController extends BaseController
 
     public function index()
     {
-        $data = $this->repository->latest()->with('notificationGroups.group')->paginate(10);
-        return $this->sendResponse($data, 'Notifications list');
+        $datas = $this->repository->get();
+        return new NotificationCollection($datas);
+    }
+
+    public function all()
+    {
+        return new NotificationCollection($this->repository->getAll());
     }
 
     public function store(NotificationRequest $request)
@@ -38,6 +43,12 @@ class NotificationController extends BaseController
         } catch (\Exception $exception) {
             return $this->sendError($exception->getCode(), $exception->getMessage());
         }
+    }
+
+    public function show($id)
+    {
+        $data = $this->repository->show($id);
+        return $this->sendResponse(new NotificationCollection($data->load(['users'])));
     }
 
     public function update(NotificationRequest $request, $id)
