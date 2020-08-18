@@ -21,5 +21,13 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('123123'),
             'note' => '',
         ]);
+
+        DB::table('role_user')->insert([
+            'role_id' => '1',
+            'user_id' => '1',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
     }
 }

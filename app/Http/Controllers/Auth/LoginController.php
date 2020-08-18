@@ -62,18 +62,19 @@ class LoginController extends Controller
         LoginLog::create(['user_id' => $this->guard()->user()->id]);
         return $request->wantsJson()
             ? new Response('', 204)
-            : redirect()->intended($this->redirectPath());
+            : redirect()->intended($this->redirectTo($request));
     }
 
-    public function redirectTo()
+    public function redirectTo($request)
     {
         $authUser = \Auth::user();
+
         if ($authUser->isAdmin()) {
-            redirect('admin/clinics');
+            redirect()->intended('admin/clinics');
         } elseif ($authUser->isWebUser()) {
-            redirect('home');
+            redirect()->intended('home');
         } else {
-            return new Response('Permission Denied', 403);
+            return $request->wantsJson() ? response()->json('Permission Denied', 403) : redirect()->intended('/login');
         }
     }
 }

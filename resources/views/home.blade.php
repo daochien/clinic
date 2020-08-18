@@ -1,4 +1,8 @@
-@extends('layouts.admin')
+@if(auth()->user()->isAdmin())
+    @extends('layouts.admin')
+@else
+    @extends('layouts.app')
+@endif
 
 @section('content')
 <div class="container">
