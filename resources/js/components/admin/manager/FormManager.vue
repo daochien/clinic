@@ -212,10 +212,15 @@ export default {
             this.manager.id = data.id;
             this.manager.name = data.name;
             this.manager.email = data.email;
-            this.manager.note = data.note;
+            this.manager.description = data.description;
             if (data.roles.length > 0) {
                 data.roles.forEach(item => {
                     this.manager.roles.push(item.name);
+                });
+            }
+            if (data.type.length > 0) {
+                data.type.forEach(item => {
+                    this.manager.type_id = item.id;
                 });
             }
         },

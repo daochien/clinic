@@ -68,13 +68,18 @@ class UserRepository extends BaseRepository
         return $this->model->with('roles')->findOrFail($id);
     }
 
+    public function showAdmin($id)
+    {
+        return $this->model->with('roles', 'type')->findOrFail($id);
+    }
+
     public function createAdmin(array $attributes)
     {
         return User::create([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
             'description' => $attributes['description'],
-            'password' => $attributes['password'],
+            'password' => Hash::make($attributes['password']),
             'created_at' => now(),
             'updated_at' => now(),
         ]);

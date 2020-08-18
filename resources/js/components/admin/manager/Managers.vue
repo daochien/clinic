@@ -69,7 +69,7 @@
                                             {{ role.name }}
                                         </span>
                                     </td>
-                                    <td>{{ item.note }}</td>
+                                    <td>{{ item.description }}</td>
                                     <td>{{ item.created_at }}</td>
                                     <td>
                                         <router-link :to="{path: `/admin/manager/edit/${item.id}`}">
