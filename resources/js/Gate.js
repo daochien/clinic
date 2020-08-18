@@ -1,7 +1,11 @@
 export default class Gate{
 
     constructor(user){
-        this.user = user;
+        this.user = user;               
+    }
+
+    isRoot () {
+        return this.user.is_root == 1;
     }
 
     isAdmin(){

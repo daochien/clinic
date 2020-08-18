@@ -9,32 +9,68 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return $request->user();
     });
 
-    Route::get('profile', 'API\V1\ProfileController@profile')->name('profile.index');
-    Route::put('profile', 'API\V1\ProfileController@updateProfile')->name('profile.update');
-    Route::post('change-password', 'API\V1\ProfileController@changePassword')->name('profile.change.password');
-    Route::get('tag/list', 'API\V1\TagController@list');
-    Route::get('category/list', 'API\V1\CategoryController@list');
-    Route::post('product/upload', 'API\V1\ProductController@upload');
+    Route::group(['name' => 'api.', 'middleware' => 'check.permission'], function () {
+        Route::get('profile', 'API\V1\ProfileController@profile')->name('profile.index');
+        Route::put('profile', 'API\V1\ProfileController@updateProfile')->name('profile.update');
+        Route::post('change-password', 'API\V1\ProfileController@changePassword')->name('profile.change.password');
 
-    Route::get('clinic/{id}/user', 'API\V1\ClinicController@getUsers')->name('clinic.get.users');
-    Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
-    Route::get('clinic/all', 'API\V1\ClinicController@getAll')->name('api.clinic.all');
+        Route::get('tag/list', 'API\V1\TagController@list');
+        Route::get('category/list', 'API\V1\CategoryController@list');
+        Route::post('product/upload', 'API\V1\ProductController@upload');
+        Route::get('notification/{id}/members', 'API\V1\NotificationController@members');
+        Route::post('notification/store', 'API\V1\NotificationController@store');
 
-    Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');
-    Route::get('setting/level', 'API\V1\SettingController@getLevel')->name('api.setting.level');
+        Route::get('clinic/{id}/user', 'API\V1\ClinicController@getUsers')->name('clinic.get.users');
+        Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
+        Route::get('clinic/all', 'API\V1\ClinicController@getAll')->name('api.clinic.all');
 
-    Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
+        Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');
+        Route::get('setting/level', 'API\V1\SettingController@getLevel')->name('api.setting.level');
 
-    Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
-    Route::get('/group/all', 'API\V1\UserController@getAllGroup')->name('api.group.all');
+        Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
 
-    Route::apiResources([
-        'user' => 'API\V1\UserController',
-        'clinic' => 'API\V1\ClinicController',
-        'product' => 'API\V1\ProductController',
-        'category' => 'API\V1\CategoryController',
-        'tag' => 'API\V1\TagController',
-    ]);
+        Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
+        Route::get('/group/all', 'API\V1\UserController@getAllGroup')->name('api.group.all');
+
+        Route::get('group/{id}/members', 'API\V1\GroupController@members');
+        Route::get('group/list', 'API\V1\GroupController@list');
+        Route::get('group/all', 'API\V1\GroupController@all');
+        Route::get('group/edit/{id}', 'API\V1\GroupController@find');
+        Route::post('group/update/{id}', 'API\V1\GroupController@update');
+
+        Route::get('clinic/{id}/user', 'API\V1\ClinicController@getUsers')->name('clinic.get.users');
+        Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
+        Route::get('clinic/all', 'API\V1\ClinicController@getAll')->name('api.clinic.all');
+
+        Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');
+        Route::get('setting/level', 'API\V1\SettingController@getLevel')->name('api.setting.level');
+
+        Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
+
+        Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
+        Route::get('/group/all', 'API\V1\UserController@getAllGroup')->name('api.group.all');
+
+        Route::get('role/list', 'API\V1\RoleController@list')->name('role.list');
+        Route::get('permission/list', 'API\V1\PermissionController@list')->name('permission.list');
+        Route::get('permission/routes', 'API\V1\PermissionController@listRoutes')->name('permission.routes');
+
+        Route::apiResources([
+            'user' => 'API\V1\UserController',
+            'clinic' => 'API\V1\ClinicController',
+            'product' => 'API\V1\ProductController',
+//            'template' => 'API\V1\TemplateController',
+            'category' => 'API\V1\CategoryController',
+            'tag' => 'API\V1\TagController',
+            'notification' => 'API\V1\NotificationController',
+            'group' => 'API\V1\GroupController',
+            'blog' => 'API\V1\BlogController',
+            'manager' => 'API\V1\AdminController',
+            'role' => 'API\V1\RoleController',
+            'permission' => 'API\V1\PermissionController'
+        ]);
+
+    });
+
 });
 
 

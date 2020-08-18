@@ -32,9 +32,29 @@ export default {
             "throttled": "Please wait before retrying.",
             "failed": "Password reset failed."
         },
+        "role": {
+            "title_page": "Role Management",
+            "button_create": "Create",
+            "button_edit": "Edit",
+            "input_name": "Name role",
+            "table": {
+                "name": "Name",
+                "select_all": "Select all",
+                "permission_view_list": "View list",
+                "permission_create": "Create",
+                "permission_update": "Update",
+                "permission_delete": "Delete"
+            },
+            "manage": {
+                "name": "Name",
+                "created_at": "Created At",
+                "action": "Action"
+            }
+        },
         "sidebar": {
             "user": "User",
             "admin_manage": "Admin management",
+            "admin_list_manage": "List admin",
             "staff_manage": "Staff Manage",
             "staff": "Staff list",
             "notification": "Notification",
@@ -46,7 +66,9 @@ export default {
             "request": "Request",
             "inquiry": "Inquiry",
             "setting": "Common setting",
-            "contact": "Contact"
+            "contact": "Contact",
+            "role": "Role",
+            "permission": "Permission"
         },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
@@ -259,8 +281,29 @@ export default {
             "submit_btn": "送信",
             "back_to_login": "ログインページへ戻す"
         },
+        "role": {
+            "title_page": "役割管理",
+            "button_create": "役割を編集",
+            "button_edit": "役割を編集",
+            "input_name": "名前の役割",
+            "table": {
+                "name": "名前グループの権限",
+                "select_all": "権限ビューリスト",
+                "permission_view_list": "リストを見る",
+                "permission_create": "権限作成",
+                "permission_update": "権限の更新",
+                "permission_delete": "権限削除"
+            },
+            "manage": {
+                "name": "名前の役割",
+                "created_at": "で作成",
+                "action": "アクション"
+            }
+        },
         "sidebar": {
             "user": "管理者アカウント管理",
+            "admin_manage": "管理者アカウント管理",
+            "admin_list_manage": "リスト管理者",
             "staff_manage": "スタッフ管理",
             "staff": "スタッフ一覧",
             "notification": "お知らせ管理",
@@ -272,7 +315,9 @@ export default {
             "request": "スタッフ管理担当",
             "inquiry": "問合せ管理",
             "setting": "Setting",
-            "contact": "問い合わせ担当"
+            "contact": "問い合わせ担当",
+            "role": "役割",
+            "permission": "権限"
         },
         "validation": {
             "accepted": "{attribute}を承認してください。",
