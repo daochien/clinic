@@ -6,9 +6,8 @@ use App\Http\Requests\Notifications\NotificationRequest;
 use App\Models\Group;
 use App\Repositories\NotificationRepository;
 use App\Repositories\NotificationGroupRepository;
-use App\Models\GroupUser;
-use App\Models\NotificationGroup;
 use App\Models\NotificationUser;
+use Illuminate\Support\Facades\DB;
 
 class NotificationService
 {
@@ -25,12 +24,18 @@ class NotificationService
 
     public function add(NotificationRequest $request)
     {
-        $entity = $this->repository->create([
+        $data = [
             'title' => $request['title'],
             'content' => $request['content'],
             'confirm' => $request['confirm'],
             'draft' => $request['draft'],
-        ]);
+        ];
+
+        if (isset($request['schedule_date'])) {
+            $data['schedule_date'] = $request['schedule_date'];
+        }
+
+        $entity = $this->repository->create($data);
 
         $groups = $request['groups'];
         foreach ($groups as $group) {
@@ -61,5 +66,20 @@ class NotificationService
             return response()->json(['data' => ['data' => $entities]]);
         }
         return response()->json(['data' => ['data' => []]]);
+    }
+
+    public function delete($id)
+    {
+        $entity = $this->repository->find($id);
+        try {
+            DB::beginTransaction();
+            $entity->delete();
+            DB::commit();
+
+            return true;
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return false;
+        }
     }
 }

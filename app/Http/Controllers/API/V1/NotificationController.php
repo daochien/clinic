@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\Notifications\NotificationRequest;
-use App\Models\Group;
-use App\Models\Notification;
-use App\Models\NotificationGroup;
 use App\Repositories\NotificationGroupRepository;
 use App\Repositories\NotificationRepository;
 use App\Services\NotificationService;
+use App\Http\Resources\NotificationCollection;
 
 class NotificationController extends BaseController
 {
@@ -28,38 +26,48 @@ class NotificationController extends BaseController
 
     public function index()
     {
-        $data = Notification::latest()->with('notificationGroups.group')->paginate(10);
+        $data = $this->repository->latest()->with('notificationGroups.group')->paginate(10);
         return $this->sendResponse($data, 'Notifications list');
     }
 
     public function store(NotificationRequest $request)
     {
-        $entity = $this->service->add($request);
-        return $this->sendResponse($entity, 'Notification Created Successfully');
+        try {
+            $entity = $this->service->add($request);
+            return $this->sendResponse($entity, 'Add notification successfuly');
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
     }
 
     public function update(NotificationRequest $request, $id)
     {
-        $entity = Notification::findOrFail($id);
-        $entity->update($request->all());
+        try {
+            $result = $this->repository->update($id, $request->validated());
 
-        return $this->sendResponse($entity, 'Notification information has been updated');
+            return $this->sendResponse($result, 'Update notification successfuly');
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
     }
 
     public function destroy($id)
     {
-
-        $this->authorize('isAdmin');
-
-        $entity = Notification::findOrFail($id);
-
-        $entity->delete();
-
-        return $this->sendResponse([$entity], 'Notification has been Deleted');
+        try {
+            $result = $this->service->delete($id);
+            return $this->sendResponse($result);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
     }
 
     public function members($id)
     {
         return $this->service->getMember($id);
+    }
+
+    public function getAll()
+    {
+        return new NotificationCollection($this->repository->getAll());
     }
 }

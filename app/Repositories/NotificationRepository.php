@@ -3,12 +3,11 @@
 namespace App\Repositories;
 
 use App\Models\Notification;
-use Frameworks\Cores\Repositories\BaseRepository;
 
 class NotificationRepository extends BaseRepository
 {
-    public function __construct(Notification $model)
+    public function getModel()
     {
-        $this->model = $model;
+        return Notification::class;
     }
 }

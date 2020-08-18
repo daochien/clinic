@@ -69,6 +69,10 @@ Vue.component(AlertError.name, AlertError)
 import Multiselect from 'vue-multiselect'
 Vue.component('multiselect', Multiselect)
 
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
+
 /**
  * Routes imports and assigning
  */
@@ -106,7 +110,7 @@ Vue.component(
 
 // Filter Section
 
-Vue.filter('myDate',function(created){
+Vue.filter('myDate', function (created) {
     if (created) {
         return moment(created).format('YYYY-MM-DD HH:mm:ss');
     }

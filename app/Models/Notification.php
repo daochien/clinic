@@ -12,7 +12,7 @@ class Notification extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'content', 'confirm', 'draft'
+        'title', 'content', 'confirm', 'draft', 'schedule_date'
     ];
 
     /**
