@@ -30,12 +30,10 @@
                     <span>{{ __('sidebar.admin_manage') }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-small">
-
                     <router-link to="/admin/managers" class="dropdown-item">
 
                         <span>{{ __('sidebar.admin_list_manage') }}</span>
                     </router-link>
-
                     <router-link to="/admin/roles" class="dropdown-item">
 
                         <span>{{ __('sidebar.role') }}</span>

@@ -18,13 +18,34 @@
                         <div class="form-group col-12 col-sm-6">
                             <label for="feInputTitle">{{ $t('manager.form_create.input_email') }} <span style="color:#c4183c;">*</span></label>
                             <input
-
                             :class="['form-control', {'is-invalid': $v.manager.email.$error}]"
                             type="text" v-model.trim="$v.manager.email.$model">
                             <div class="invalid-feedback" v-if="!$v.manager.email.required">{{ $t('validation.required') }}</div>
                             <div class="invalid-feedback" v-if="!$v.manager.email.email">{{ $t('validation.email') }}</div>
                         </div>
                     </div>
+                    <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>{{ $t('app.user.type')}}</label>
+                                    <span class="text-danger">*</span>
+                                    <select :class="['form-control', {'is-invalid': $v.manager.type_id.$error}]" id="types" v-model="$v.manager.type_id.$model" >
+                                        <option value="" selected>{{ $t('app.user.place_holder.type') }}</option>
+                                        <option v-for="type in types" :key="'type_' +type.id" :value="type.id" >{{ type.name }}</option>
+                                    </select>
+                                    <div class="invalid-feedback" v-if="!$v.manager.type_id.required">{{ $t('validation.required') }}</div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-6">
+                                <div class="form-group">
+                                    <label>{{ $t('app.user.level')}}</label>
+                                    <select class="form-control" id="levels" v-model="manager.level_id">
+                                        <option value="" selected>{{ $t('app.user.place_holder.level') }}</option>
+                                        <option v-for="level in levels" :key="'level_' + level.id" :value="level.id">{{ level.name }}</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                        </div>
                     <div class="row">
                         <div class="col-12">
                             {{ $t('manager.form_create.role') }} <span style="color:#c4183c;">*</span>
@@ -46,8 +67,8 @@
                         <div class="form-group col-12">
                             <label for="feInputTitle">{{ $t('manager.form_create.note') }}</label>
                             <textarea
-                            :class="['form-control', {'is-invalid': $v.manager.note.$error}]"
-                            v-model="$v.manager.note.$model"
+                            :class="['form-control', {'is-invalid': $v.manager.description.$error}]"
+                            v-model="$v.manager.description.$model"
                             class="form-control"
                             cols="30" rows="10"></textarea>
                         </div>
@@ -84,9 +105,13 @@ export default {
                 name: '',
                 email: '',
                 roles: [],
-                note: ''
+                description: '',
+                type_id: '',
+                // level_id: ''
             },
             roles: [],
+            types: [],
+            levels: [],
         }
     },
 
@@ -104,7 +129,10 @@ export default {
             roles: {
                 required
             },
-            note: {
+            type_id: {
+                required
+            },
+            description: {
                 maxLength: maxLength(500)
             },
         },
@@ -112,6 +140,8 @@ export default {
     },
 
     created () {
+        this.loadType();
+        this.loadLevel();
         this.infoAdmin();
         this.loadRoles();
     },
@@ -119,6 +149,16 @@ export default {
     methods: {
         loadRoles () {
             axios.get("/api/role/list").then(({ data }) => (this.roles = data.data));
+        },
+        loadType() {
+            axios.get("/api/setting/type").then((response) => {
+                this.types = response.data.data;
+            });
+        },
+        loadLevel() {
+            axios.get("/api/setting/level").then((response) => {
+                this.levels = response.data.data;
+            });
         },
         createAdmin() {
             this.$v.manager.$touch();

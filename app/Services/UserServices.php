@@ -4,6 +4,8 @@
 namespace App\Services;
 
 
+use App\Events\CreateUserEvent;
+use App\Helpers\PasswordHelper;
 use App\Models\ClinicUser;
 use App\Models\Group;
 use App\Models\GroupUser;
@@ -28,7 +30,6 @@ class UserServices
         try {
             DB::beginTransaction();
             $user = $this->userRepository->update($userId, $attribute);
-
 
             if( !empty($attribute['type_id'] ?? null)) {
                 TypeUser::where('user_id', $user->id)->delete();
@@ -85,8 +86,9 @@ class UserServices
     {
         try {
             DB::beginTransaction();
+            $attribute['password'] = PasswordHelper::randomPassword();
             $user = $this->userRepository->createUser($attribute);
-
+            event(new CreateUserEvent($user, $attribute['password']));
             // Assigning Role by default user role
 //            $user->assignRole(Role::ROLE_USER_DEFAULT);
 

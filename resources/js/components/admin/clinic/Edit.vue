@@ -132,8 +132,6 @@
                 this.$Progress.finish();
             },
         },
-        mounted() {
-        },
         created() {
             this.$Progress.start();
             this.loadData();

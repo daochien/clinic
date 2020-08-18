@@ -38,5 +38,4 @@ export default [
 
     { path: '/admin/role/create', component: require('./components/admin/role/Role.vue').default },
     { path: '/admin/role/edit/:id', component: require('./components/admin/role/Role.vue').default },
-
 ];
