@@ -15,10 +15,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('change-password', 'API\V1\ProfileController@changePassword');
     Route::get('tag/list', 'API\V1\TagController@list');
     Route::get('category/list', 'API\V1\CategoryController@list');
-    Route::post('product/upload', 'API\V1\ProductController@upload');
-    Route::get('group/list', 'API\V1\GroupController@list');
-    Route::get('group/edit/{id}', 'API\V1\GroupController@find');
-    Route::post('group/update/{id}', 'API\V1\GroupController@update');
+
+    Route::get('group/members/{id}', 'API\V1\GroupController@members');
+    Route::get('group/members/filter/{value}', 'API\V1\GroupController@filter');
+    Route::post('group/members/add', 'API\V1\GroupController@addUsers');
+    Route::get('group/members/group-users/{id}', 'API\V1\GroupController@getGroupUsersByGroup');
+    Route::post('group/members/remove', 'API\V1\GroupController@removeUsers');
 
     Route::apiResources([
         'user' => 'API\V1\UserController',

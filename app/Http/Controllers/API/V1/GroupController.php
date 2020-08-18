@@ -5,6 +5,9 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 use Illuminate\Http\Request;
+use App\Models\GroupUser;
+use DB;
+
 
 class GroupController extends BaseController
 {
@@ -76,14 +79,14 @@ class GroupController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $tag = $this->group->findOrFail($id);
+        $group = $this->group->findOrFail($id);
 
-        $tag->update($request->all());
+        $group->update($request->all());
 
-        return $this->sendResponse($tag, 'Group Information has been updated');
+        return $this->sendResponse($group, 'Group Information has been updated');
     }
 
-    public function find($id)
+    public function show($id)
     {
         // get a groups by id
         $group  = $this->group->findOrFail($id);
@@ -106,5 +109,55 @@ class GroupController extends BaseController
         $entity->delete();
 
         return $this->sendResponse([$entity], 'Group has been Deleted');
+    }
+
+    public function members($id)
+    {
+        $users_id = GroupUser::where('group_id', $id)->pluck('user_id');
+        if(count($users_id)){
+            $users = DB::table('users')->whereIn('id', $users_id)->paginate(10);
+            return $this->sendResponse($users, 'Members list');
+        }
+        return response()->json(['data' => ['data' => []]]);
+    }
+
+    public function  getGroupUsersByGroup($id){
+        $ids = GroupUser::where('group_id', $id)->get();
+        if(count($ids)){
+            return $this->sendResponse($ids, 'Id Group Users list');
+        }
+        return response()->json(['data' => ['data' => []]]);
+    }
+
+    public function filter($value)
+    {
+        $users = DB::table('users')->where('name', 'LIKE', '%' . $value . '%')->get();
+        if(count($users)){
+            return $this->sendResponse($users, 'Users list');
+        }
+        $data = ['data' => ['data' => []]];
+        return $this->sendResponse($data, 'Group empty');
+    }
+
+    public function addUsers(Request $request)
+    {
+        $temp = GroupUser::where('user_id', $request->get('user_id'))->where('group_id', $request->get('group_id'))->get();
+        if(count($temp)){
+            $data = ['data' => ['data' => []]];
+            return $this->sendResponse($data, 'User Already In Group');
+        }else{
+            $tag = GroupUser::create([
+                'user_id' => $request->get('user_id'),
+                'group_id' => $request->get('group_id'),
+            ]);
+            return $this->sendResponse($tag, 'User Added Successfully');
+        }
+    }
+
+    public function removeUsers(Request $request)
+    {
+        GroupUser::whereIn('id', $request->get('ids'))->delete();
+        $data = ['data' => ['data' => []]];
+        return $this->sendResponse($data, 'User Remove Successfully');
     }
 }
