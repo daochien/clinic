@@ -13,7 +13,7 @@ class Role extends Model
 
     protected $table = 'roles';
 
-    const ROLE_USER_DEFAULT = 'User';
+    const USER_ROLE = ['Web' => 2, 'Mobile' => 3];
 
     public function users()
     {

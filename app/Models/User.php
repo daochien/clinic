@@ -45,9 +45,15 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->roles()->where('name', 'Admin')->exists();
     }
 
-    public function isUser()
+    //TODO match record name with Role feature
+    public function isWebUser()
     {
-        return $this->roles()->where('name', 'User')->exists();
+        return $this->roles()->where('name', 'Web')->exists();
+    }
+    //TODO match record name with Role feature
+    public function isMobileUser()
+    {
+        return $this->roles()->where('name', 'Mobile')->exists();
     }
 
     public function clinicUsers()

@@ -25,13 +25,6 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/admin/users';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -70,5 +63,17 @@ class LoginController extends Controller
         return $request->wantsJson()
             ? new Response('', 204)
             : redirect()->intended($this->redirectPath());
+    }
+
+    public function redirectTo()
+    {
+        $authUser = \Auth::user();
+        if ($authUser->isAdmin()) {
+            redirect('admin/clinics');
+        } elseif ($authUser->isWebUser()) {
+            redirect('home');
+        } else {
+            return new Response('Permission Denied', 403);
+        }
     }
 }
