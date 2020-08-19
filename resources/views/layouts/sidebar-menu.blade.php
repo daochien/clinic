@@ -25,26 +25,26 @@
 
         <ul class="nav nav--no-borders flex-column">
             
-            @canany(['manager.index', 'role.index'])
+            {{-- @canany(['manager.index', 'role.index']) --}}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
                     <i class="fa fa-users nav-icon blue"></i>
                     <span>{{ __('sidebar.admin_manage') }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-small">
-                    @can('manager.index')
+                    {{-- @can('manager.index') --}}
                         <router-link to="/admin/managers" class="dropdown-item">
                             <span>{{ __('sidebar.admin_list_manage') }}</span>
                         </router-link>
-                    @endcan
-                    @can(['role.index','role.create', 'role.update'])
+                    {{-- @endcan --}}
+                    {{-- @can(['role.index','role.create', 'role.update']) --}}
                         <router-link to="/admin/roles" class="dropdown-item">
                             <span>{{ __('sidebar.role') }}</span>
                         </router-link>
-                    @endcan
+                    {{-- @endcan --}}
                 </div>
             </li>
-            @endcanany
+            {{-- @endcanany --}}
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
