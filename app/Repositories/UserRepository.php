@@ -19,8 +19,9 @@ class UserRepository extends BaseRepository
             $roles = is_array($params['role']) ? $params['role'] : [$params['role']];
         }
 
-        $query = $this->model->role($roles);
-
+        $query = $this->model->whereHas("roles", function ($q) use ($roles) {
+            $q->whereIn('name', $roles);
+        });
 
         if (!empty($params['keyword'])) {
             $query->where('name', 'like', '%' . $params['keyword'] . '%');

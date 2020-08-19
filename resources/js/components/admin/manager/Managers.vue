@@ -12,9 +12,9 @@
                 </router-link>
             </div>
         </div>
-        <div class="row page-filter">
+        <div class="row page-filter  mb-5">
             <div class="col-12 col-sm-8 offset-sm-2">
-                <div class="card card-small mb-3">
+                <div class="card card-small">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-6 col-12">
@@ -43,11 +43,11 @@
                 </div>
             </div>
         </div>
-        <div class="row table-list">
+        <div class="row">
             <div class="col-12 col-sm-12">
-                <div class="card card-small mb-4">
-                    <div class="card-body p-0 pb-3 text-center">
-                        <table class="table mb-0">
+                <div class="card">
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-hover">
                             <thead class="bg-light">
                                 <tr>
                                 <th scope="col" class="border-0">#</th>
@@ -60,7 +60,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(item, index) in admins.data" :key="index">
+                                <tr v-for="(item, index) in admins" :key="index">
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ item.name }}</td>
                                     <td>{{ item.email }}</td>
@@ -70,22 +70,33 @@
                                         </span>
                                     </td>
                                     <td>{{ item.description }}</td>
-                                    <td>{{ item.created_at }}</td>
+                                    <td>{{item.last_login|myDate}}</td>
                                     <td>
-                                        <router-link :to="{path: `/admin/manager/edit/${item.id}`}">
-                                            <i class="fa fa-edit blue"></i>
-                                        </router-link>
-                                        /
-                                        <a href="javascript:void(0)" @click="removeAdmin(item.id)">
-                                            <i class="fa fa-trash red"></i>
-                                        </a>
+                                        <div class="dropdown">
+                                            <i
+                                                style="cursor: pointer;"
+                                                class="fa fa-ellipsis-v"
+                                                id="operatingAction"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"
+                                            ></i>
+                                            <div class="dropdown-menu" aria-labelledby="operatingAction">                                                    
+                                                <router-link class="dropdown-item text-primary" :to="{path: `/admin/manager/edit/${item.id}`}">
+                                                    {{ $t('app.btn.edit')}}
+                                                </router-link>
+                                                <a class="dropdown-item text-danger" href="#" @click="removeAdmin(item.id)">
+                                                    {{$t('app.btn.delete')}}
+                                                </a>
+                                            </div>
+                                        </div>                                       
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="card-footer">
-                        <pagination :data="admins" @pagination-change-page="getResults"></pagination>
+                        <pagination :data="paginator" @pagination-change-page="getResults"></pagination>
                     </div>
                 </div>
             </div>
@@ -104,7 +115,8 @@ export default {
     },
     data () {
         return {
-            admins: {},
+            admins: [],
+            paginator: {},
             roles: [],
             form_filter: {
                 role: '',
@@ -132,7 +144,10 @@ export default {
                     role: this.form_filter.role,
                     keyword: this.form_filter.keyword
                 }
-            }).then(({ data }) => (this.admins = data.data));
+            }).then(({ data }) => {
+                this.admins = data.data;
+                this.paginator = data.meta
+            });
             this.$Progress.finish();
         },
         searchAdmin () {
