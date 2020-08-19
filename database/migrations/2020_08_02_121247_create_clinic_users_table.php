@@ -16,7 +16,7 @@ class CreateClinicUsersTable extends Migration
         Schema::create('clinic_users', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('clinic_id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

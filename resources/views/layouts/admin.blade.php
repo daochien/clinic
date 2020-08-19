@@ -125,15 +125,17 @@
 @auth
     <script>
         {{--window.user = @json(auth()->user())--}}
-            window.user = @json(\App\Models\User::where('id', auth()->user()->id)->with(['typeUsers.type', 'roleUsers.role'])->first())
+            window.user = @json(\App\Models\User::where('id', auth()->user()->id)->with(['typeUsers.type', 'roleUsers.role'])->first());
+            window.user.is_root = '{!! auth()->user()->isRoot() !!}';
+            window.user.permissions = @json(auth()->user()->getAllPermissions());
     </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>
+<script src="{{ ('/js/toastr.min.js') }}"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
 <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
-<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 {!! Toastr::message() !!}
 </body>
 </html>

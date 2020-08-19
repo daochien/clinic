@@ -7,9 +7,15 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
+use App\Models\GroupUser;
 
 class User extends Authenticatable // implements MustVerifyEmail
 {
+
+    CONST ROOT_EMAIL_ADMIN = [
+        'admin@gmail.com'
+    ];
+
     use Notifiable, HasApiTokens, HasRoles;
 
     protected $guard_name = 'api';
@@ -85,10 +91,10 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->hasMany(TypeUser::class);
     }
 
-    public function role()
-    {
-        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
-    }
+     public function role()
+     {
+         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+     }
 
     public function type()
     {
@@ -132,5 +138,27 @@ class User extends Authenticatable // implements MustVerifyEmail
             $clinic->roleUsers()->delete();
             $clinic->typeUsers()->delete();
         });
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'group_users', 'user_id');
+    }
+
+    public function getRoles()
+    {
+        return $this->belongsToMany(Role::class)->select('roles.id', 'name');
+    }
+    public function isRoot()
+    {
+        if (in_array($this->email, self::ROOT_EMAIL_ADMIN)) {
+            return true;
+        }
+
+        if ($this->hasRole('super_user')) {
+            return true;
+        }
+
+        return false;
     }
 }

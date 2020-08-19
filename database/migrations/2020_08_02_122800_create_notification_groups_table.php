@@ -14,10 +14,11 @@ class CreateNotificationGroupsTable extends Migration
     public function up()
     {
         Schema::create('notification_groups', function (Blueprint $table) {
-            $table->unsignedInteger('notification_id');
-            $table->unsignedInteger('group_id');
-
-            $table->index(['notification_id', 'group_id'], 'idx_notification_group');
+            $table->unsignedBigInteger('notification_id');
+            $table->unsignedBigInteger('group_id');
+            $table->foreign('notification_id')->references('id')->on('notifications')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
+            $table->primary(['notification_id', 'group_id'], 'pri_key_notification_groups');
         });
     }
 
