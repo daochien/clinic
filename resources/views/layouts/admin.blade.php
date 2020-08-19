@@ -9,6 +9,7 @@
 
     <title>{{ __('app.name') }}</title>
 
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link href="{{ asset('css/shards-dashboards.1.3.1.css') }}" rel="stylesheet">
     <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
@@ -79,17 +80,12 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#"
                                role="button" aria-haspopup="true" aria-expanded="false">
-{{--                                <img class="user-avatar rounded-circle mr-2" src="{{ auth()->user()->photo }}" alt="User Avatar"> --}}
                                 <span class="d-none d-md-inline-block">{{ Auth::user()->name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-small">
-                                <router-link to="/profile" class="dropdown-item">
-                                    <i class="material-icons">&#xE7FD;</i>
-                                    Profile
-                                </router-link>
                                 <a class="dropdown-item text-danger" href="#"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="material-icons text-danger">&#xE879;</i>
-                                    {{ __('Logout') }}
+                                    {{ __('auth.logout') }}
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>

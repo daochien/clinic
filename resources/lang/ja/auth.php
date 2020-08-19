@@ -27,5 +27,6 @@ return [
     'confirm_password' => 'パスワードを認証する',
     'new_password' => '新しいパスワード',
     'reset_btn' => 'リセット',
+    'logout' => 'ログアウト',
 
 ];

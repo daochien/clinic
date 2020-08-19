@@ -64,14 +64,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'clinic' => 'API\V1\ClinicController',
             'product' => 'API\V1\ProductController',
             //            'template' => 'API\V1\TemplateController',
-            'category' => 'API\V1\CategoryController',
-            'tag' => 'API\V1\TagController',
-            'notification' => 'API\V1\NotificationController',
-            'group' => 'API\V1\GroupController',
-            'blog' => 'API\V1\BlogController',
-            'manager' => 'API\V1\AdminController',
-            'role' => 'API\V1\RoleController',
-            'permission' => 'API\V1\PermissionController'
+//            'category' => 'API\V1\CategoryController',
+//            'tag' => 'API\V1\TagController',
+//            'notification' => 'API\V1\NotificationController',
+//            'group' => 'API\V1\GroupController',
+//            'blog' => 'API\V1\BlogController',
+//            'manager' => 'API\V1\AdminController',
+//            'role' => 'API\V1\RoleController',
+//            'permission' => 'API\V1\PermissionController'
         ]);
     });
 });

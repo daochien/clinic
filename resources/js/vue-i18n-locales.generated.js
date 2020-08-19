@@ -81,7 +81,8 @@ export default {
             "title_reset": "Reset password",
             "confirm_password": "Confirm password",
             "new_password": "New Password",
-            "reset_btn": "Reset"
+            "reset_btn": "Reset",
+            "logout": "Logout"
         },
         "manager": {
             "title_page_list": "Admin account management",
@@ -416,7 +417,8 @@ export default {
             "title_reset": "パスワードを忘れた方はこちら?",
             "confirm_password": "パスワードを認証する",
             "new_password": "新しいパスワード",
-            "reset_btn": "リセット"
+            "reset_btn": "リセット",
+            "logout": "ログアウト"
         },
         "group": {
             "group_list": "クリニック一覧",

@@ -24,7 +24,7 @@
     <div class="nav-wrapper" style="overflow-y: auto;">
 
         <ul class="nav nav--no-borders flex-column">
-            
+
             {{-- @canany(['manager.index', 'role.index']) --}}
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
@@ -72,9 +72,6 @@
                     <span>{{ __('sidebar.request') }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-small">
-                    <router-link to="/admin/templates" class="dropdown-item">
-                        {{ __('sidebar.templates') }}
-                    </router-link>
                     <a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>
                     <router-link to="/admin/requests" class="dropdown-item">
                         {{ __('sidebar.request') }}
