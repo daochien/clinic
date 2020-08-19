@@ -30,6 +30,7 @@ class Notification extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'schedule_date' => 'date:Y-m-d'
     ];
 
     public function groups()
@@ -40,5 +41,25 @@ class Notification extends Model
     public function notificationGroups()
     {
         return $this->hasMany(NotificationGroup::class, 'notification_id');
+    }
+
+    public function usersCount()
+    {
+        return $this->hasMany(NotificationUser::class)->count();
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'notification_users', 'user_id');
+    }
+
+    public function usersRead()
+    {
+        return $this->hasMany(NotificationStatus::class)->where('status', [2, 3])->count();
+    }
+
+    public function usersConfirm()
+    {
+        return $this->hasMany(NotificationStatus::class)->where('status', '=', 1)->count();
     }
 }

@@ -115,18 +115,21 @@
                       >{{ entity.title }}</router-link>
                     </td>
                     <td>
-                      <div v-for="target in entity.notification_groups" :key="target.id">
+                      <div v-for="target in entity.groups" :key="target.id">
                         <label>{{ target.group.name }}</label>
                       </div>
                     </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ entity.users_count }}</td>
+                    <td>{{ entity.users_read }}</td>
+                    <td>
+                      <label v-if="entity.confirm === 0">{{ entity.users_count}}</label>
+                      <label v-else>{{ entity.users_confirm }}</label>
+                    </td>
                     <td>{{ entity.created_at }}</td>
                     <td>
                       <label
                         class="text-secondary"
-                        v-if="entity.draft === 1"
+                        v-if="entity.draft === 0"
                       >{{ $t('notification.publish')}}</label>
                       <label class="text-warning" v-else>{{ $t('notification.unpublish')}}</label>
                     </td>
@@ -205,7 +208,7 @@ export default {
       console.log("get Results");
       axios
         .get("/api/notification?page=" + page)
-        .then(({ data }) => (this.notifications = data.data));
+        .then(({ data }) => (this.notifications = data));
 
       this.$Progress.finish();
     },
@@ -214,7 +217,7 @@ export default {
       if (this.$gate.isAdmin()) {
         axios
           .get("/api/notification")
-          .then(({ data }) => (this.notifications = data.data));
+          .then(({ data }) => (this.notifications = data));
         axios
           .get("/api/group/all")
           .then(({ data }) => (this.groups = data.data));

@@ -16,11 +16,16 @@ class NotificationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name,
-            "post_code" => "$this->post_code",
-            "address" => "$this->address",
-            "description" => $this->description,
+            'title' => $this->title,
+            "content" => $this->content,
+            "confirm" => $this->confirm,
+            "draft" => $this->draft,
+            "schedule_date" => $this->schedule_date,
+            "created_at" => $this->created_at,
+            'groups' => $this->notificationGroups,
             'users_count' => $this->usersCount(),
+            'users_read' => $this->usersRead(),
+            'users_confirm' => $this->usersConfirm(),
             'users' => UserResource::collection($this->whenLoaded('users')),
         ];
     }
