@@ -129,7 +129,7 @@
                     <td>
                       <label
                         class="text-secondary"
-                        v-if="entity.draft === 1"
+                        v-if="entity.draft === 0"
                       >{{ $t('notification.publish')}}</label>
                       <label class="text-warning" v-else>{{ $t('notification.unpublish')}}</label>
                     </td>

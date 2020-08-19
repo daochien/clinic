@@ -30,6 +30,7 @@ class Notification extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'schedule_date' => 'date:Y-m-d'
     ];
 
     public function groups()

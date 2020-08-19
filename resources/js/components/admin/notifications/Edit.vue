@@ -131,6 +131,7 @@ export default {
       editmode: false,
       isValidate: false,
       form: new Form({
+        notification_id: 0,
         title: "",
         groups: [],
         content: "",
@@ -146,6 +147,7 @@ export default {
     resetForm() {
       this.isValidate = false;
       this.form = new Form({
+        notification_id: 0,
         title: "",
         groups: [],
         content: "",
@@ -165,20 +167,39 @@ export default {
     },
     loadNotification() {
       this.$Progress.start();
+      this.form.groups = [];
       if (this.$gate.isAdmin()) {
+        axios.get("/api/group/all").then(({ data }) => {
+          this.groups = data.data;
+          if (this.form.notification_id <= 0) {
+            this.form.groups.push(data.data[0]);
+            this.form.groups.push(data.data[1]);
+          }
+        });
+      }
+      if (this.form.notification_id > 0) {
         axios
-          .get("/api/group/all")
-          .then(
-            ({ data }) => (
-              (this.groups = data.data),
-              this.form.groups.push(data.data[0]),
-              this.form.groups.push(data.data[1])
-            )
-          );
+          .get("/api/notification/" + this.form.notification_id + "/show")
+          .then(({ data }) => {
+            this.form.title = data.data.title;
+            this.form.content = data.data.content;
+            this.form.draft = data.data.draft;
+            this.form.schedule_date = data.data.schedule_date;
+            if (data.data.confirm == 1) {
+              this.form.confirm = true;
+            } else {
+              this.form.confirm = false;
+            }
+            console.log(this.form.groups);
+            data.data.notification_groups.forEach((item) => {
+              this.form.groups.push(item.group);
+            });
+          });
       }
       this.$Progress.finish();
     },
     validateForm() {
+      this.isValidate = true;
       if (this.form.title.length <= 0) {
         Toast.fire({
           icon: "error",
@@ -200,7 +221,6 @@ export default {
         });
         this.isValidate = false;
       }
-      this.isValidate = true;
     },
     saveNotification() {
       this.validateForm();
@@ -231,6 +251,7 @@ export default {
   created() {
     this.$Progress.start();
     console.log("created");
+    this.form.notification_id = this.$route.params.id;
     this.loadNotification();
     this.$Progress.finish();
   },
