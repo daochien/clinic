@@ -27,6 +27,7 @@ class LoginController extends BaseController
             LoginLog::create(['user_id' => $authUser->id]);
             return $this->sendResponse(['token' => $token->plainTextToken]);
         }
+        Auth::guard('web')->logout();
 
         return $this->sendError("Invalid", "Permission denied", 403);
     }

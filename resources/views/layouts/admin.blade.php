@@ -80,7 +80,7 @@
                             <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#"
                                role="button" aria-haspopup="true" aria-expanded="false">
 {{--                                <img class="user-avatar rounded-circle mr-2" src="{{ auth()->user()->photo }}" alt="User Avatar"> --}}
-                                <span class="d-none d-md-inline-block">{{ Auth::user()->name }}</span>
+                                <span class="d-none d-md-inline-block">{{ Auth::user()->name?? '' }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-small">
                                 <router-link to="/profile" class="dropdown-item">
@@ -125,7 +125,7 @@
 @auth
     <script>
         {{--window.user = @json(auth()->user())--}}
-            window.user = @json(\App\Models\User::where('id', auth()->user()->id)->with(['typeUsers.type', 'roleUsers.role'])->first())
+            window.user = @json(\App\Models\User::where('id', auth()->user()->id)->with(['type', 'role'])->first())
     </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>

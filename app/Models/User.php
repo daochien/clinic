@@ -40,20 +40,29 @@ class User extends Authenticatable // implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdminOrRoot()
+    {
+        return $this->role()
+            ->where('name', 'Admin')
+            ->orWhere('name', 'Root')
+            ->exists();
+    }
+
     public function isAdmin()
     {
-        return $this->roles()->where('name', 'Admin')->exists();
+        return $this->role()->where('name', 'Admin')->exists();
     }
 
     //TODO match record name with Role feature
     public function isWebUser()
     {
-        return $this->roles()->where('name', 'Web')->exists();
+        return $this->role()->where('name', 'Web')->exists();
     }
     //TODO match record name with Role feature
     public function isMobileUser()
     {
-        return $this->roles()->where('name', 'Mobile')->exists();
+        return $this->role()->where('name', 'Mobile')->exists();
     }
 
     public function clinicUsers()

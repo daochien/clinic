@@ -1,4 +1,4 @@
-@if(auth()->user()->isAdmin())
+@if(auth()->user()->isAdminOrRoot())
     @extends('layouts.admin')
 @else
     @extends('layouts.app')
@@ -9,7 +9,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Home page!!!!</div>
 
                 <div class="card-body">
                     @if (session('status'))
