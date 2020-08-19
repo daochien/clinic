@@ -16,6 +16,8 @@ class CreateTypeUsersTable extends Migration
         Schema::create('type_users', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedInteger('type_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
         });
     }
 

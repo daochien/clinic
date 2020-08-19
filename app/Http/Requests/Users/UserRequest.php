@@ -13,7 +13,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return \Auth::check();
     }
 
     /**
@@ -38,10 +38,13 @@ class UserRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'type' => 'required|in:admin,user',
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
-            'password' => 'required|string|min:6'
+            'type_id' => 'required',
+            'groups' => 'required',
+            'clinics' => 'required',
+            'level_id' => 'nullable',
+            'description' => 'nullable',
         ];
     }
 
@@ -53,9 +56,13 @@ class UserRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'type' => 'sometimes|in:admin,user',
             'name' => 'sometimes|string|max:191',
-            'email' => 'sometimes|string|email|max:191|unique:users,email,' . $this->get('id')
+            'email' => 'required|string|email|max:191|unique:users,email,' . $this->get('id'),
+            'type_id' => 'required',
+            'groups' => 'required',
+            'clinics' => 'required',
+            'level_id' => 'nullable',
+            'description' => 'nullable',
         ];
     }
 }

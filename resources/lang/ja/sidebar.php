@@ -2,6 +2,8 @@
 
 return [
     'user' => '管理者アカウント管理',
+    'admin_manage' => '管理者アカウント管理',
+    'admin_list_manage' => 'リスト管理者',
     'staff_manage' => 'スタッフ管理',
     'staff' => 'スタッフ一覧',
     'notification' => 'お知らせ管理',
@@ -14,4 +16,6 @@ return [
     'inquiry' => '問合せ管理',
     'setting' => 'Setting',
     'contact' => '問い合わせ担当',
+    'role' => '役割',
+    'permission' => '権限',
 ];

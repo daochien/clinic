@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use App\Models\GroupUser;
 use DB;
 
+use App\Http\Requests\Groups\GroupRequest;
+use App\Models\User;
+
 
 class GroupController extends BaseController
 {
@@ -109,6 +112,23 @@ class GroupController extends BaseController
         $entity->delete();
 
         return $this->sendResponse([$entity], 'Group has been Deleted');
+    }
+
+    public function all()
+    {
+        $group = $this->group->all();
+
+        return $this->sendResponse($group, 'Group list');
+    }
+
+    public function users($id)
+    {
+        $entity = GroupUser::where('group_id', $id)->first();
+        if (isset($entity->group_id)) {
+            $data = $entity->users()->paginate(10);
+            return $this->sendResponse($data, 'Members list');
+        }
+        return response()->json(['data' => ['data' => []]]);
     }
 
     public function members($id)

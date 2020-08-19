@@ -60,6 +60,7 @@ class CategoryController extends BaseController
         $tag = $this->category->create([
             'name' => $request->get('name'),
             'description' => $request->get('description'),
+            'type' => $request->get('type')
         ]);
 
         return $this->sendResponse($tag, 'Category Created Successfully');

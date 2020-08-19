@@ -12,7 +12,7 @@ class GroupUser extends Model
     protected $fillable = ['user_id', 'group_id'];
     public $timestamps = false;
 
-    public function user()
+    public function users()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }

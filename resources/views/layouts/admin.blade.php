@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link href="{{ asset('css/shards-dashboards.1.3.1.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
 </head>
 <body class="h-100">
 <div class="container-fluid" id="app">
@@ -79,8 +79,8 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#"
                                role="button" aria-haspopup="true" aria-expanded="false">
-                                <img class="user-avatar rounded-circle mr-2" src="{{ auth()->user()->photo }}"
-                                     alt="User Avatar"> <span class="d-none d-md-inline-block">{{ Auth::user()->name }} [{{ Ucfirst(Auth::user()->type) }}]</span>
+{{--                                <img class="user-avatar rounded-circle mr-2" src="{{ auth()->user()->photo }}" alt="User Avatar"> --}}
+                                <span class="d-none d-md-inline-block">{{ Auth::user()->name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-small">
                                 <router-link to="/profile" class="dropdown-item">
@@ -124,15 +124,17 @@
 
 @auth
     <script>
-        window.user = @json(auth()->user())
+        {{--window.user = @json(auth()->user())--}}
+            window.user = @json(\App\Models\User::where('id', auth()->user()->id)->with(['typeUsers.type', 'roleUsers.role'])->first());
+            window.user.is_root = '{!! auth()->user()->isRoot() !!}';
     </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>
+<script src="{{ ('/js/toastr.min.js') }}"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
 <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
-<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 {!! Toastr::message() !!}
 </body>
 </html>

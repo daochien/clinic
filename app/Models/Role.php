@@ -13,8 +13,10 @@ class Role extends Model
 
     protected $table = 'roles';
 
+    const ROLE_USER_DEFAULT = 'User';
+
     public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user_id');
     }
 }

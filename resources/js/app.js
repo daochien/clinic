@@ -49,10 +49,10 @@ const Toast = Swal.mixin({
     timer: 3000,
     timerProgressBar: true,
     onOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
-  })
+})
 window.Swal = Swal;
 window.Toast = Toast;
 
@@ -61,11 +61,17 @@ Vue.use(VueProgressBar, {
     color: 'rgb(143, 255, 199)',
     failedColor: 'red',
     height: '3px'
-  });
+});
 
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
+import Multiselect from 'vue-multiselect'
+Vue.component('multiselect', Multiselect)
+
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 
 /**
  * Routes imports and assigning
@@ -80,6 +86,11 @@ const router = new VueRouter({
 });
 // Routes End
 
+/**
+ * import Vuelidate form
+*/
+import Vuelidate from 'vuelidate';
+Vue.use(Vuelidate);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -99,8 +110,11 @@ Vue.component(
 
 // Filter Section
 
-Vue.filter('myDate',function(created){
-    return moment(created).format('MMMM Do YYYY');
+Vue.filter('myDate', function (created) {
+    if (created) {
+        return moment(created).format('YYYY-MM-DD HH:mm:ss');
+    }
+    return "-";
 });
 
 Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i class="fas fa-times red"></i>'));

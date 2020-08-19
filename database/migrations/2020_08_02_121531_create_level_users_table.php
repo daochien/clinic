@@ -15,8 +15,10 @@ class CreateLevelUsersTable extends Migration
     {
         Schema::create('level_users', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedInteger('level_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');
         });
     }
 

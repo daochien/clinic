@@ -179,6 +179,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        \App\Providers\SqlDebugProvider::class,
     ],
 
     /*
