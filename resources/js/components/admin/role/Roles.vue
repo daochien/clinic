@@ -14,10 +14,10 @@
 
                 <div class="col-12">
 
-                    <div class="card" v-if="$gate.isRoot()">
+                    <div class="card" v-if="$gate.canPermission('role.index')">
                         <div class="card-header">
                             <div class="card-tools">
-                            <router-link type="button" class="btn btn-sm btn-primary" :to="{path: 'role/create'}">
+                            <router-link v-if="$gate.canPermission('role.create')" type="button" class="btn btn-sm btn-primary" :to="{path: 'role/create'}">
                                 <i class="fa fa-plus-square"></i>
                                 {{ $t('role.button_create') }}
                             </router-link>
@@ -54,7 +54,7 @@
                                     </td> -->
                                     <td class="text-capitalize">{{role.created_at}}</td>
                                     <td>
-                                        <router-link :to="{path: `/admin/role/edit/${role.id}`}" >
+                                        <router-link v-if="$gate.canPermission('role.show')" :to="{path: `/admin/role/edit/${role.id}`}" >
                                             <i class="fa fa-edit blue"></i>
                                         </router-link>
                                         /
@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <div v-if="!$gate.isRoot()">
+            <div v-if="!$gate.canPermission('role.index')">
                 <not-found></not-found>
             </div>
 
@@ -100,7 +100,7 @@ export default {
         }
     },
     created () {
-        this.getResults();
+        this.getResults();        
     },
     methods: {
         getResults(page = 1) {
