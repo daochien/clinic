@@ -4,12 +4,12 @@
 
             <div class="page-header row no-gutters py-4">
                 <div class="col-6 text-center text-sm-left mb-0">
-                    <h3 class="page-title">Add group</h3>
+                    <h3 class="page-title">{{ $t('group.add_group')}}</h3>
                 </div>
                 <div class="col-6 text-center text-sm-right mb-0">
                     <div class="card-tools">
                         <button type="button" class="btn btn-sm btn-primary" @click="updateGroup()">
-                            Lưu lại
+                            {{ $t('group.registered_group')}}
                         </button>
                     </div>
                 </div>
@@ -21,37 +21,39 @@
 
                     <div class="card" >
                         <div class="card-header border-bottom">
-                            <h6 class="m-0">Infor Clinic</h6>
+                            <h6 class="m-0">{{ $t('group.info_clinic')}}</h6>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive p-4">
                             <form>
                                 <div class="row">
                                     <div class="form-group col-md-6 col-12">
-                                        <label>Name <span class="text-danger">*</span></label>
+                                        <label>{{ $t('group.name')}} <span class="text-danger">*</span></label>
                                         <input v-model="form.name" type="text" name="name"
-                                               placeholder="name"
+                                               :placeholder="$t('group.name')"
                                                class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                                         <has-error :form="form" field="name"></has-error>
                                     </div>
                                     <div class="form-group col-md-6 col-12">
-                                        <label>Code</label>
+                                        <label>{{ $t('group.portal_code')}}</label>
                                         <input v-model="form.postal_code" type="text" name="name"
-                                               placeholder="Mã bưu điện"
+                                               :placeholder="$t('group.portal_code_placeholder')"
                                                class="form-control" :class="{ 'is-invalid': form.errors.has('postal_code') }">
                                         <has-error :form="form" field="postal_code"></has-error>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Address <span class="text-danger">*</span></label>
+                                    <label>{{ $t('group.address')}} <span class="text-danger">*</span></label>
                                     <input v-model="form.address" type="text" name="name"
-                                           placeholder="Địa chỉ"
+                                           :placeholder="$t('group.address_placeholder')"
                                            class="form-control" :class="{ 'is-invalid': form.errors.has('address') }">
                                     <has-error :form="form" field="address"></has-error>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleFormControlTextarea1">Description</label>
-                                    <textarea v-model="form.description" placeholder="Mô tả" name="description" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }" id="exampleFormControlTextarea1" rows="6"></textarea>
+                                    <label for="exampleFormControlTextarea1">{{ $t('group.Description')}}</label>
+                                    <textarea v-model="form.description"
+                                              :placeholder="$t('group.Description_placeholder')"
+                                              name="description" class="form-control" :class="{ 'is-invalid': form.errors.has('description') }" id="exampleFormControlTextarea1" rows="6"></textarea>
                                     <has-error :form="form" field="description"></has-error>
                                 </div>
 
@@ -90,8 +92,9 @@
             loadGroup(){
                 this.$Progress.start();
                 // if(this.$gate.isAdmin()){
-                axios.get("/api/group/edit/"+this.id).then(({ data }) =>
+                axios.get("/api/group/"+this.id).then(({ data }) =>
                 {
+                    console.log(data.data);
                     this.group = data.data;
                     let group = JSON.parse(JSON.stringify(this.group))
                     this.form.fill(group);
@@ -104,7 +107,7 @@
             updateGroup(){
                 this.$Progress.start();
 
-                this.form.post('/api/group/update/'+this.id)
+                this.form.put('/api/group/'+this.id)
                     .then((data)=>{
                         Toast.fire({
                             icon: 'success',
