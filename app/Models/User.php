@@ -91,10 +91,10 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->hasMany(TypeUser::class);
     }
 
-    // public function role()
-    // {
-    //     return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
-    // }
+     public function role()
+     {
+         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+     }
 
     public function type()
     {
