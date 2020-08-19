@@ -3,102 +3,71 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\Notifications\NotificationRequest;
-use App\Models\GroupUser;
-use App\Models\Notification;
-use App\Models\NotificationGroup;
+use App\Repositories\NotificationGroupRepository;
+use App\Repositories\NotificationRepository;
+use App\Services\NotificationService;
+use App\Http\Resources\NotificationCollection;
 
 class NotificationController extends BaseController
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
+    protected $service;
+    protected $repository;
+    protected $repositoryGroup;
+
+    public function __construct(
+        NotificationService $notiService,
+        NotificationRepository $notiRepository,
+        NotificationGroupRepository $notiGroupRepository
+    ) {
+        $this->service = $notiService;
+        $this->repository = $notiRepository;
+        $this->repositoryGroup = $notiGroupRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data = Notification::with('groups.group')->latest()->paginate(10);
+        $data = $this->repository->latest()->with('notificationGroups.group')->paginate(10);
         return $this->sendResponse($data, 'Notifications list');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Notifications\NotificationRequest  $request
-     *
-     * @param $id
-     *
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function store(NotificationRequest $request)
     {
-        $entity = Notification::create([
-            'title' => $request['title'],
-            'content' => $request['content'],
-            'confirm' => $request['confirm'],
-            'draft' => $request['draft'],
-        ]);
-
-        return $this->sendResponse($entity, 'Notification Created Successfully');
+        try {
+            $entity = $this->service->add($request);
+            return $this->sendResponse($entity, 'Add notification successfuly');
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
     }
 
-    /**
-     * Update the resource in storage
-     *
-     * @param  \App\Http\Requests\Notifications\NotificationRequest  $request
-     * @param $id
-     *
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
-     */
     public function update(NotificationRequest $request, $id)
     {
-        $entity = Notification::findOrFail($id);
-        $entity->update($request->all());
+        try {
+            $result = $this->repository->update($id, $request->validated());
 
-        return $this->sendResponse($entity, 'Notification information has been updated');
+            return $this->sendResponse($result, 'Update notification successfuly');
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-
-        $this->authorize('isAdmin');
-
-        $entity = Notification::findOrFail($id);
-        // delete the entity
-
-        $entity->delete();
-
-        return $this->sendResponse([$entity], 'Notification has been Deleted');
+        try {
+            $result = $this->service->delete($id);
+            return $this->sendResponse($result);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
     }
 
     public function members($id)
     {
-        // get all notification groups
-        $entities  = NotificationGroup::where('notification_id', $id)->get();
-        if ($entities->count() > 0) {
-            $arrUser = [];
-            foreach ($entities as $group) {
-                $entity = GroupUser::where('group_id', $group->group_id)->first();
-                $arrUser = array_merge($arrUser, $entity->users()->get()->toArray());
-            }
-            return response()->json(['data' => ['data' => $arrUser]]);
-        }
-        return response()->json(['data' => ['data' => []]]);
+        return $this->service->getMember($id);
+    }
+
+    public function getAll()
+    {
+        return new NotificationCollection($this->repository->getAll());
     }
 }

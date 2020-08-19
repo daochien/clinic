@@ -26,7 +26,11 @@ class AdminServices
 
             $attribute['password'] = PasswordHelper::randomPassword();
             $admin = $this->userRepository->createAdmin($attribute);
-            event(new CreateAdminEvent($admin, $attribute['password']));
+
+            try {
+                event(new CreateAdminEvent($admin, $attribute['password']));
+            } catch (\Exception $e) {}
+            
             $admin->assignRole($attribute['roles']);
 
             if( !empty($attribute['type_id'] ?? null)) {

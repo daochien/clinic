@@ -3,7 +3,7 @@
     <!-- Page Header -->
     <div class="page-header row no-gutters py-4">
       <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-        <h3 class="page-title">{{ $t('app.details_information') }}</h3>
+        <h3 class="page-title">{{ $t('notification.details_information') }}</h3>
       </div>
       <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0"></div>
     </div>
@@ -19,22 +19,29 @@
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group">
-                          <label>{{ $t('app.clinic')}}</label>
+                          <label>{{ $t('notification.clinic')}}</label>
                           <select class="form-control" id="clinic">
                             <option
-                              v-for="(entity) in groups.data"
+                              v-for="(entity) in groups"
                               :key="entity.id"
+                              :v-model="form.groups"
                             >{{ entity.name }}</option>
                           </select>
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group">
-                          <label>{{ $t('app.keyword')}}</label>
+                          <label>{{ $t('notification.keyword')}}</label>
                           <select class="form-control" id="status">
-                            <option>{{ $t('app.all_status')}}</option>
-                            <option>{{ $t('app.un_read')}}</option>
-                            <option>{{ $t('app.already_read')}}</option>
+                            <option
+                              :v-model="form.status"
+                              value="0"
+                            >{{ $t('notification.all_status')}}</option>
+                            <option :v-model="form.status" value="1">{{ $t('notification.un_read')}}</option>
+                            <option
+                              :v-model="form.status"
+                              value="2"
+                            >{{ $t('notification.already_read')}}</option>
                           </select>
                         </div>
                       </div>
@@ -43,11 +50,12 @@
                     <div class="row mt-2">
                       <div class="col-12">
                         <div class="form-group">
-                          <label>{{ $t('app.keyword')}}</label>
+                          <label>{{ $t('notification.keyword')}}</label>
                           <input
                             type="text"
                             class="form-control"
-                            :placeholder="$t('app.keyword_placeholder')"
+                            :v-model="form.keyword"
+                            :placeholder="$t('notification.keyword_placeholder')"
                           />
                         </div>
                       </div>
@@ -58,13 +66,15 @@
                         <button
                           type="reset"
                           class="btn btn-outline-secondary pl-4 pr-4"
-                        >{{ $t('app.clear_condition')}}</button>
+                          @click="resetForm()"
+                        >{{ $t('notification.clear_condition')}}</button>
                       </div>
                       <div class="col-6">
                         <button
                           type="button"
                           class="btn btn-outline-primary pl-4 pr-4"
-                        >{{ $t('app.search_condition')}}</button>
+                          @click="searchData()"
+                        >{{ $t('notification.search_condition')}}</button>
                       </div>
                     </div>
                   </form>
@@ -82,46 +92,31 @@
                 <thead>
                   <tr>
                     <th scope="col">#</th>
-                    <th scope="col">{{ $t('app.username')}}</th>
-                    <th scope="col">{{ $t('app.mail_address')}}</th>
-                    <th scope="col">{{ $t('app.profession')}}</th>
-                    <th scope="col">{{ $t('app.clinic')}}</th>
-                    <th scope="col">{{ $t('app.status')}}</th>
-                    <th scope="col">{{ $t('app.confirm_date_and_time')}}</th>
+                    <th scope="col">{{ $t('notification.username')}}</th>
+                    <th scope="col">{{ $t('notification.mail_address')}}</th>
+                    <th scope="col">{{ $t('notification.profession')}}</th>
+                    <th scope="col">{{ $t('notification.clinic')}}</th>
+                    <th scope="col">{{ $t('notification.status')}}</th>
+                    <th scope="col">{{ $t('notification.confirm_date_and_time')}}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(entity, index) in members.data" :key="entity.id">
                     <td>{{ index }}</td>
-                    <td>{{ entity.name }}</td>
-                    <td>{{ entity.email }}</td>
+                    <td>{{ entity.user.name }}</td>
+                    <td>{{ entity.user.email }}</td>
+                    <td>{{ entity.user.type }}</td>
                     <td></td>
                     <td></td>
-                    <td>
-                      <label class="text-secondary" v-if="entity.draft === 1">{{ $t('app.un_read')}}</label>
-                      <label class="text-warning" v-else>{{ $t('app.already_read')}}</label>
-                    </td>
-                    <td>
-                      <label v-if="entity.updated_at != null">{{ entity.updated_at }}</label>
-                      <label v-else>{{ $t('app.no_read_date')}}</label>
-                    </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer">
-              <pagination :data="members" @pagination-change-page="getResults"></pagination>
-            </div>
           </div>
-          <!-- /.card -->
         </div>
       </div>
     </div>
   </section>
-  <div v-else>
-    <not-found></not-found>
-  </div>
 </template>
 
 <script>
@@ -132,9 +127,22 @@ export default {
       members: {},
       groups: {},
       notification_id: 0,
+      form: new Form({
+        groups: [],
+        keyword: "",
+        status: 0,
+      }),
     };
   },
   methods: {
+    resetForm() {
+      this.isValidate = false;
+      this.form = new Form({
+        groups: [],
+        keyword: "",
+        status: 0,
+      });
+    },
     getResults(page = 1) {
       this.$Progress.start();
       console.log("get Results");
@@ -152,10 +160,13 @@ export default {
         axios
           .get("/api/notification/" + this.notification_id + "/members")
           .then(({ data }) => (this.members = data.data));
-        axios.get("/api/group").then(({ data }) => (this.groups = data.data));
+        axios
+          .get("/api/group/all")
+          .then(({ data }) => (this.groups = data.data));
       }
       this.$Progress.finish();
     },
+    searchData() {},
   },
   mounted() {
     console.log("mounted");

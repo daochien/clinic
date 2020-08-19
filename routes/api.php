@@ -18,12 +18,23 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('category/list', 'API\V1\CategoryController@list');
         Route::post('product/upload', 'API\V1\ProductController@upload');
         Route::get('notification/{id}/members', 'API\V1\NotificationController@members');
+        Route::post('notification/store', 'API\V1\NotificationController@store');
 
         Route::get('clinic/{id}/user', 'API\V1\ClinicController@getUsers')->name('clinic.get.users');
         Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
+        Route::get('clinic/all', 'API\V1\ClinicController@getAll')->name('api.clinic.all');
+
+        Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');
+        Route::get('setting/level', 'API\V1\SettingController@getLevel')->name('api.setting.level');
+
+        Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
+
+        Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
+        Route::get('/group/all', 'API\V1\UserController@getAllGroup')->name('api.group.all');
 
         Route::get('group/{id}/members', 'API\V1\GroupController@members');
         Route::get('group/list', 'API\V1\GroupController@list');
+        Route::get('group/all', 'API\V1\GroupController@all');
         Route::get('group/edit/{id}', 'API\V1\GroupController@find');
         Route::post('group/update/{id}', 'API\V1\GroupController@update');
 
@@ -57,7 +68,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'role' => 'API\V1\RoleController',
             'permission' => 'API\V1\PermissionController'
         ]);
-
 
     });
 

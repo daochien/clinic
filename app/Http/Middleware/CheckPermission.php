@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Middleware;
+
 use Illuminate\Support\Facades\Auth;
 use Closure;
 use App\Models\User;
@@ -17,9 +18,8 @@ class CheckPermission
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
         $user = Auth::user();
-        
+
         if ($user->isRoot()) {
             return $next($request);
         }
