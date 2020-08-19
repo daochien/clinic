@@ -13,15 +13,15 @@
                             :class="['form-control', {'is-invalid': $v.manager.name.$error}]"
                             type="text"
                             v-model.trim="$v.manager.name.$model">
-                            <div class="invalid-feedback" v-if="!$v.manager.name.required">{{ $t('validation.required') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.name.required">{{ $t('manager.validator.name_required') }}</div>
                         </div>
                         <div class="form-group col-12 col-sm-6">
                             <label for="feInputTitle">{{ $t('manager.form_create.input_email') }} <span style="color:#c4183c;">*</span></label>
                             <input
                             :class="['form-control', {'is-invalid': $v.manager.email.$error}]"
                             type="text" v-model.trim="$v.manager.email.$model">
-                            <div class="invalid-feedback" v-if="!$v.manager.email.required">{{ $t('validation.required') }}</div>
-                            <div class="invalid-feedback" v-if="!$v.manager.email.email">{{ $t('validation.email') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.email.required">{{ $t('manager.validator.email_required') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.email.email">{{ $t('manager.validator.email_valid') }}</div>
                         </div>
                     </div>
                     <div class="row">
@@ -171,13 +171,13 @@ export default {
                         this.$router.push({path: '/admin/managers'});
                         Toast.fire({
                             icon: 'success',
-                            title: data.data.message
+                            title: this.$t('manager.form_create.alert_create_success')
                         });
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: 'Some error occured! Please try again'
+                            title: this.$t('manager.form_create.alert_error')
                         });
 
                         this.$Progress.failed();
@@ -187,7 +187,7 @@ export default {
 
                     Toast.fire({
                         icon: 'error',
-                        title: 'Some error occured! Please try again'
+                        title: this.$t('manager.form_create.alert_error')
                     });
                 })
             }
@@ -235,13 +235,13 @@ export default {
                         // this.$router.push({path: '/admin/managers'});
                         Toast.fire({
                             icon: 'success',
-                            title: data.data.message
+                            title: this.$t('manager.form_create.alert_edit_success')
                         });
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: 'Some error occured! Please try again'
+                            title: this.$t('manager.form_create.alert_error')
                         });
 
                         this.$Progress.failed();
@@ -250,7 +250,7 @@ export default {
                 .catch(()=>{
                     Toast.fire({
                         icon: 'error',
-                        title: 'Some error occured! Please try again'
+                        title: this.$t('manager.form_create.alert_error')
                     });
                 })
             }

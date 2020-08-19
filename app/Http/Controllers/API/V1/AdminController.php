@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\RoleRepository;
 use App\Services\AdminServices;
+use App\Http\Resources\AdminCollection;
 
 class AdminController extends BaseController
 {
@@ -31,7 +32,7 @@ class AdminController extends BaseController
         $roles = $this->roleRepo->pluckName();
         $admins = $this->userRepo->listAdmin($roles, $request->only('role', 'keyword'));
         
-        return $this->sendResponse($admins, 'Admin list');
+        return new AdminCollection($admins);        
     }
 
     public function store(AdminRequest $request)
