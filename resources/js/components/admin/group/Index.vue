@@ -38,7 +38,7 @@
                       <td>{{item.description}}</td>
                          <td>{{item.group_users_count}}</td>
                          <td>
-                             <div class="dropdown" v-if="(item.id>3)">
+                             <div class="dropdown">
                                  <i
                                      class="fa fa-ellipsis-v"
                                      id="operatingAction"
@@ -48,8 +48,8 @@
                                  ></i>
                                  <div class="dropdown-menu" aria-labelledby="operatingAction">
                                      <router-link :to="{name:'users_group', params: { id: item.id }}"  class="dropdown-item text-primary">{{ $t('group.user_in_group')}}</router-link>
-                                     <router-link :to="{name:'edit_group', params: { id: item.id }}" class="dropdown-item text-primary">{{ $t('group.edit_group_info')}}</router-link>
-                                     <a class="dropdown-item text-danger" href="#" @click="deleteGroup(item.id)">{{ $t('group.remove_group')}}</a>
+                                     <router-link v-if="(item.id>3)"  :to="{name:'edit_group', params: { id: item.id }}" class="dropdown-item text-primary">{{ $t('group.edit_group_info')}}</router-link>
+                                     <a v-if="(item.id>3)" class="dropdown-item text-danger" href="#" @click="deleteGroup(item.id)">{{ $t('group.remove_group')}}</a>
                                  </div>
                              </div>
                          </td>
