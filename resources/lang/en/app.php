@@ -27,7 +27,7 @@ return [
             'list-user' => 'List Users',
         ],
         'place_holder' => [
-            'name'=> 'Name',
+            'name' => 'Name',
             'post_code' => 'Post code',
             'address' => 'Address',
             'description' => 'Description',
@@ -46,7 +46,7 @@ return [
             'edit' => 'Edit',
         ],
         'place_holder' => [
-            'name'=> 'Name',
+            'name' => 'Name',
             'email' => 'Email',
             'group' => 'Select Group',
             'clinic' => 'Select Clinic',
@@ -68,5 +68,9 @@ return [
         'clinic_name' => 'Clinic',
         'group_select_all' => 'All Group',
         'clinic_select_all' => 'All Clinic',
-    ]
+    ],
+    'delete_head' => 'Are you sure?',
+    'delete_question' => 'You won\'t be able to revert this!',
+    'delete_yes' => 'Yes, delete it!',
+    'delete_cancel' => 'Cancel'
 ];
