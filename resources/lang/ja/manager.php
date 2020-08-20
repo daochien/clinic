@@ -31,13 +31,21 @@ return
         "note"=> "メモ",
         "button_create"=> "登録",
         "button_edit"=> "保存",
-        "button_remove"=> "アカウントを削除"
+        "button_remove"=> "アカウントを削除",
+        "alert_create_success" => '新しい管理者を作成しました',
+        "alert_edit_success" => '管理者の更新が成功しました',
+        "alert_error" => 'エラーが発生しました！もう一度お試しください'
     ],
     "confirm_remove"=> [
         "title_remove"=> "管理者アカウントを削除しますか？",
         "content"=> "のアカウントを削除すると、メールアドレスとか申請データなどすべての情報が削除されます。",
         "button_cancel"=> "キャンセル",
         "button_success"=> "アカウントを削除"
+    ],
+    "validator"  => [
+        "name_required" => '名前は必須です',
+        'email_required' => 'メールが必要です',
+        'email_valid' => '不正なメール形式'
     ]
-    ];
+];
 ?>

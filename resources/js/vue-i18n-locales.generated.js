@@ -20,38 +20,6 @@ export default {
             "new_password": "New Password",
             "reset_btn": "Reset"
         },
-        "group": {
-            "group_list": "クリニック一覧",
-            "add_new": "新規登録",
-            "name": "クリニック名",
-            "description": "住所",
-            "number_staff": "社員数",
-            "action": "操作",
-            "remove_group": "削除する",
-            "edit_group_info": "編集する",
-            "user_in_group": "ユーザーを管理する",
-            "add_group": "クリニック登録",
-            "registered_group": "登録",
-            "name_placeholder": "クリニック名を入力してください",
-            "info_clinic": "クリニック情報",
-            "portal_code": "郵便番号",
-            "portal_code_placeholder": "郵便番号を入力してください",
-            "address": "住所 ",
-            "address_placeholder": "住所を入力してください",
-            "Description": "メモ",
-            "Description_placeholder": "メモを入力してください",
-            "remove_from_group": "abc",
-            "add_to_group": "abc",
-            "keyword": "キーワード",
-            "enter_a_keyword": "キーワードを入力してください",
-            "search_by_condition": "この条件で検索",
-            "remove_condition": "条件をクリアする",
-            "name_account": "ユーザー名",
-            "email": "メールアドレス",
-            "group": "グループ",
-            "created_at": "登録日付",
-            "last_login": "最終ログイン日時"
-        },
         "manager": {
             "title_page_list": "Admin account management",
             "title_page_create": "Create Account Admin",
@@ -83,13 +51,21 @@ export default {
                 "note": "Note",
                 "button_create": "Register",
                 "button_edit": "Save",
-                "button_remove": "Remove account"
+                "button_remove": "Remove account",
+                "alert_create_success": "create admin success",
+                "alert_edit_success": "update admin success",
+                "alert_error": "Some error occured! Please try again"
             },
             "confirm_remove": {
                 "title_remove": "Are you sure？",
                 "content": "If you delete your account, all information such as email address and application data will be deleted.",
                 "button_cancel": "Cancel",
                 "button_success": "Delete account"
+            },
+            "validator": {
+                "name_required": "name is required",
+                "email_required": "email is required",
+                "email_valid": "incorrect email format"
             }
         },
         "notification": {
@@ -442,13 +418,21 @@ export default {
                 "note": "メモ",
                 "button_create": "登録",
                 "button_edit": "保存",
-                "button_remove": "アカウントを削除"
+                "button_remove": "アカウントを削除",
+                "alert_create_success": "新しい管理者を作成しました",
+                "alert_edit_success": "管理者の更新が成功しました",
+                "alert_error": "エラーが発生しました！もう一度お試しください"
             },
             "confirm_remove": {
                 "title_remove": "管理者アカウントを削除しますか？",
                 "content": "のアカウントを削除すると、メールアドレスとか申請データなどすべての情報が削除されます。",
                 "button_cancel": "キャンセル",
                 "button_success": "アカウントを削除"
+            },
+            "validator": {
+                "name_required": "名前は必須です",
+                "email_required": "メールが必要です",
+                "email_valid": "不正なメール形式"
             }
         },
         "notification": {

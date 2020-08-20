@@ -35,7 +35,7 @@ export default [
     { path: '/admin/group', component: require('./components/admin/group/Index.vue').default },
     { path: '/admin/group/add', component: require('./components/admin/group/Add.vue').default, name:'add_group' },
     { path: '/admin/group/edit', component: require('./components/admin/group/Edit.vue').default, name:'edit_group' },
-    { path: '/admin/group/users', component: require('./components/admin/group/Members.vue').default, name:'users_group' },
+    // { path: '/admin/group/users', component: require('./components/admin/group/Members.vue').default, name:'users_group' },
 
     { path: '/admin/role/create', component: require('./components/admin/role/Role.vue').default },
     { path: '/admin/role/edit/:id', component: require('./components/admin/role/Role.vue').default },

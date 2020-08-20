@@ -5,10 +5,12 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admins\AdminRequest;
+use App\Models\Permission;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\RoleRepository;
 use App\Services\AdminServices;
+use App\Http\Resources\AdminCollection;
 
 class AdminController extends BaseController
 {
@@ -30,7 +32,7 @@ class AdminController extends BaseController
         $roles = $this->roleRepo->pluckName();
         $admins = $this->userRepo->listAdmin($roles, $request->only('role', 'keyword'));
         
-        return $this->sendResponse($admins, 'Admin list');
+        return new AdminCollection($admins);        
     }
 
     public function store(AdminRequest $request)
@@ -46,20 +48,16 @@ class AdminController extends BaseController
 
     public function show($id)
     {
-        $admin = $this->userRepo->show($id);
-
+        
+        $admin = $this->userRepo->showAdmin($id);
+        
         return $this->sendResponse($admin, 'Admin Details');
     }
 
     public function update(AdminRequest $request, $id)
     {
-        $admin = $this->user->findOrFail($id);
-
-        $admin->update($request->all());
-
-        $roles = $request->roles ? $request->roles : [];
-        $admin->syncRoles($roles);
-
+        $admin = $this->service->updateAdmin($id, $request->all());
+       
         return $this->sendResponse($admin, 'Admin Information has been updated');
     }
 

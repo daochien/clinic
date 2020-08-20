@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\Notifications\NotificationRequest;
+use App\Http\Requests\Notifications\SearchNotificationRequest;
 use App\Repositories\NotificationGroupRepository;
 use App\Repositories\NotificationRepository;
 use App\Services\NotificationService;
@@ -26,18 +27,38 @@ class NotificationController extends BaseController
 
     public function index()
     {
-        $data = $this->repository->latest()->with('notificationGroups.group')->paginate(10);
-        return $this->sendResponse($data, 'Notifications list');
+        $datas = $this->repository->get();
+        return new NotificationCollection($datas);
+    }
+
+    public function all()
+    {
+        return new NotificationCollection($this->repository->getAll());
     }
 
     public function store(NotificationRequest $request)
     {
         try {
+            $id = 0;
+            if (isset($request['notification_id'])) {
+                $id = $request['notification_id'];
+            }
+
+            if ($id > 0) {
+                return $this->sendResponse($this->service->update($request, $id), "Update notification successfuly");
+            }
+
             $entity = $this->service->add($request);
             return $this->sendResponse($entity, 'Add notification successfuly');
         } catch (\Exception $exception) {
             return $this->sendError($exception->getCode(), $exception->getMessage());
         }
+    }
+
+    public function show($id)
+    {
+        $data = $this->repository->show($id);
+        return $this->sendResponse($data);
     }
 
     public function update(NotificationRequest $request, $id)
@@ -69,5 +90,15 @@ class NotificationController extends BaseController
     public function getAll()
     {
         return new NotificationCollection($this->repository->getAll());
+    }
+
+    public function search(SearchNotificationRequest $request)
+    {
+        try {
+            $datas = $this->service->search($request);
+            return new NotificationCollection($datas);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
     }
 }

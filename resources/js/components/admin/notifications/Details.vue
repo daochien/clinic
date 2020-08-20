@@ -151,7 +151,6 @@ export default {
           "/api/notification/" + this.notification_id + "/members?page=" + page
         )
         .then(({ data }) => (this.members = data.data));
-
       this.$Progress.finish();
     },
     loadNotification() {
