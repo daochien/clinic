@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
+use App\Notifications\ResetPassword as ResetPasswordNotification;
 use App\Models\GroupUser;
 
 class User extends Authenticatable // implements MustVerifyEmail
@@ -18,8 +17,6 @@ class User extends Authenticatable // implements MustVerifyEmail
     ];
 
     use Notifiable, HasApiTokens, HasRoles;
-
-    const DEFAULT_PASSWORD = '123456';
 
     protected $guard_name = 'api';
 
@@ -49,7 +46,6 @@ class User extends Authenticatable // implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
     public function isAdmin()
     {
         return $this->roles()->where('name', 'Admin')->exists();
@@ -95,10 +91,10 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->hasMany(TypeUser::class);
     }
 
-    public function role()
-    {
-        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
-    }
+     public function role()
+     {
+         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+     }
 
     public function type()
     {
@@ -123,6 +119,11 @@ class User extends Authenticatable // implements MustVerifyEmail
     public function loginLog()
     {
         return $this->hasMany(LoginLog::class);
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token, $this->email));
     }
 
     protected static function boot(): void
@@ -154,7 +155,7 @@ class User extends Authenticatable // implements MustVerifyEmail
             return true;
         }
 
-        if ($this->hasRole('system_admin')) {
+        if ($this->hasRole('super_user')) {
             return true;
         }
 

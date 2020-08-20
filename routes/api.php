@@ -22,7 +22,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('notification/store', 'API\V1\NotificationController@store');
         Route::get('clinic/{id}/user', 'API\V1\ClinicController@getUsers')->name('clinic.get.users');
 
-
         Route::get('clinic/{id}/user', 'API\V1\ClinicController@getUsers')->name('clinic.get.users');
         Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
         Route::get('clinic/all', 'API\V1\ClinicController@getAll')->name('api.clinic.all');
@@ -34,12 +33,24 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
         Route::get('/group/all', 'API\V1\UserController@getAllGroup')->name('api.group.all');
+        Route::get('/group/list', 'API\V1\GroupController@all')->name('api.group.list');
+        Route::get('group/members/{id}', 'API\V1\GroupController@users');
+        Route::get('group/members/filter/{value}', 'API\V1\GroupController@filter');
+        Route::post('group/members/add', 'API\V1\GroupController@addUsers');
+        Route::get('group/members/group-users/{id}', 'API\V1\GroupController@getGroupUsersByGroup');
+        Route::post('group/members/remove', 'API\V1\GroupController@removeUsers');
 
-        Route::get('group/{id}/members', 'API\V1\GroupController@members');
-        Route::get('group/list', 'API\V1\GroupController@list');
-        Route::get('group/all', 'API\V1\GroupController@all');
-        Route::get('group/edit/{id}', 'API\V1\GroupController@find');
-        Route::post('group/update/{id}', 'API\V1\GroupController@update');
+        Route::get('clinic/{id}/user', 'API\V1\ClinicController@getUsers')->name('clinic.get.users');
+        Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
+        Route::get('clinic/all', 'API\V1\ClinicController@getAll')->name('api.clinic.all');
+
+        Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');
+        Route::get('setting/level', 'API\V1\SettingController@getLevel')->name('api.setting.level');
+
+        Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
+
+        Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
+
 
         Route::get('role/list', 'API\V1\RoleController@list')->name('role.list');
         Route::get('permission/list', 'API\V1\PermissionController@list')->name('permission.list');
@@ -61,7 +72,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         ]);
     });
 });
-
 
 Route::post('/login', 'API\V1\Auth\LoginController@login')->name('api.login');
 Route::post('/password/forgot', 'API\V1\Auth\ForgotPasswordController@sendResetLinkEmail')->name('api.password.forgot');

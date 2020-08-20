@@ -40,7 +40,8 @@ class AdminRequest extends FormRequest
         return [
             'name' => 'required|string|max:191',
             'email' => 'required|string|email|max:191|unique:users',
-            'roles' => 'required|array'
+            'roles' => 'required|array',
+            'type_id' => 'required'
         ];
     }
 
@@ -54,7 +55,8 @@ class AdminRequest extends FormRequest
         return [
             'name' => 'required|string|max:191',
             'email' => 'sometimes|string|email|max:191|unique:users,email,' . $this->get('id'),
-            'roles' => 'required|array'
+            'roles' => 'required|array',
+            'type_id' => 'required'
         ];
     }
 }

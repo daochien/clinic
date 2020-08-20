@@ -4,11 +4,11 @@
 
         <div class="page-header row no-gutters py-4">
             <div class="col-6 text-center text-sm-left mb-0">
-                <h3 class="page-title">Group list</h3>
+                <h3 class="page-title">{{ $t('group.group_list')}}</h3>
             </div>
             <div class="col-6 text-center text-sm-right mb-0">
                 <div class="card-tools">
-                        <router-link :to="{name:'add_group'}" class="btn btn-sm btn-primary">Add new</router-link>
+                        <router-link :to="{name:'add_group'}" class="btn btn-sm btn-primary">{{ $t('group.add_new')}}</router-link>
                 </div>
             </div>
         </div>
@@ -24,10 +24,10 @@
                   <thead>
                     <tr>
                       <th>#</th>
-                      <th>Name</th>
-                      <th>Description</th>
-                      <th>Number staff</th>
-                      <th>Action</th>
+                      <th>{{ $t('group.name')}}</th>
+                      <th>{{ $t('group.description')}}</th>
+                      <th>{{ $t('group.number_staff')}}</th>
+                      <th>{{ $t('group.action')}}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -46,12 +46,9 @@
                                  aria-expanded="false"
                              ></i>
                              <div class="dropdown-menu" aria-labelledby="operatingAction">
-                                 <a
-                                     class="dropdown-item text-primary"
-                                     href="#"
-                                 >show users in group (add/remove group)</a>
-                                 <router-link :to="{name:'edit_group', params: { id: item.id }}" class="dropdown-item text-primary">edit group info</router-link>
-                                 <a class="dropdown-item text-danger" href="#" @click="deleteGroup(item.id)">Remove group</a>
+                                 <router-link :to="{name:'users_group', params: { id: item.id }}"  class="dropdown-item text-primary">{{ $t('group.user_in_group')}}</router-link>
+                                 <router-link :to="{name:'edit_group', params: { id: item.id }}" class="dropdown-item text-primary">{{ $t('group.edit_group_info')}}</router-link>
+                                 <a class="dropdown-item text-danger" href="#" @click="deleteGroup(item.id)">{{ $t('group.remove_group')}}</a>
                              </div>
                          </div></td>
                       <td>
@@ -89,7 +86,6 @@
             // if(this.$gate.isAdmin()){
               axios.get("/api/group").then(({ data }) => (this.group = data.data));
             // }
-
           },
 
             deleteGroup(id){

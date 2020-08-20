@@ -91,7 +91,7 @@
       <div class="row mt-5">
         <div class="col-12">
           <div class="card" v-if="$gate.isAdmin()">
-            <div class="card-body table-responsive p-0">
+            <div class="card-body p-0">
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -134,7 +134,7 @@
                       <label class="text-warning" v-else>{{ $t('notification.unpublish')}}</label>
                     </td>
                     <td>
-                      <div class="dropdown">
+                      <div class="btn-group">
                         <i
                           class="fa fa-ellipsis-v fa-fw"
                           id="operatingAction"
@@ -142,7 +142,10 @@
                           aria-haspopup="true"
                           aria-expanded="false"
                         ></i>
-                        <div class="dropdown-menu" aria-labelledby="operatingAction">
+                        <div
+                          class="dropdown-menu dropdown-menu-right"
+                          aria-labelledby="operatingAction"
+                        >
                           <a
                             class="dropdown-item text-primary"
                             @click="publishAnnouncement()"
