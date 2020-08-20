@@ -101,7 +101,23 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <div class="row ml-1">
+                                        <div class="form-group">
+                                            <label>{{ $t('app.user.role_label')}}</label>
+                                        </div>
+                                        <template v-for="role in roles">
+                                            <div class="col-1">
+                                                <div class="custom-control custom-radio mb-1 col-1">
+                                                    <input type="radio" class="custom-control-input"
+                                                           name="role" v-bind:id="role.id + '-user'"
+                                                           v-bind:value="{id: role.id, name: role.name}"
+                                                           v-model="form.role"
+                                                           :checked="role.id === form.role.id">
+                                                    <label class="custom-control-label" :for="role.id + '-user'">{{role.name}}</label>
+                                                </div>
+                                            </div>
+                                        </template>
+                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-12">
                                             <div class="form-group">
@@ -138,9 +154,11 @@
                 groups: [],
                 types: [],
                 levels: [],
+                roles: {},
                 form: new Form({
                     name: '',
                     email: '',
+                    role: [],
                     clinics: [],
                     groups: [],
                     level_id: '',
@@ -179,6 +197,11 @@
                     this.levels = response.data.data;
                 });
             },
+            loadUserRole() {
+                axios.get("/api/setting/user-role").then((response) => {
+                    this.roles = response.data.data;
+                });
+            },
         },
         created() {
             this.$Progress.start();
@@ -186,6 +209,7 @@
             this.loadClinic();
             this.loadType();
             this.loadLevel();
+            this.loadUserRole();
             this.$Progress.finish();
         }
     }

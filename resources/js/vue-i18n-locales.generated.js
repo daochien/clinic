@@ -1,72 +1,5 @@
 export default {
     "en": {
-        "app": {
-            "name": "Clinic portal",
-            "setting": "Setting",
-            "btn": {
-                "create": "Create",
-                "edit": "Edit",
-                "update": "Update",
-                "delete": "Delete",
-                "submit": "Submit"
-            },
-            "label": {
-                "description": "Description",
-                "operator": "Operator"
-            },
-            "form": {
-                "keyword": "Keyword",
-                "keyword_placeholder": "keyword",
-                "clear_form": "clear form",
-                "submit_form": "Search"
-            },
-            "clinic": {
-                "header": {
-                    "create": "Create clinic",
-                    "info": "Information",
-                    "list-user": "List Users"
-                },
-                "place_holder": {
-                    "name": "Name",
-                    "post_code": "Post code",
-                    "address": "Address",
-                    "description": "Description"
-                },
-                "name": "Name",
-                "post_code": "Post code",
-                "address": "Address",
-                "description": "Description",
-                "manage_user": "Manage user",
-                "users_count": "User count"
-            },
-            "user": {
-                "title": {
-                    "index": "List",
-                    "create": "Create",
-                    "edit": "Edit"
-                },
-                "place_holder": {
-                    "name": "Name",
-                    "email": "Email",
-                    "group": "Select Group",
-                    "clinic": "Select Clinic",
-                    "description": "Description",
-                    "level": "Select Level",
-                    "type": "Select type"
-                },
-                "remove_staff": "Remove staff",
-                "name": "Name",
-                "email": "Email",
-                "group": "Group",
-                "level": "Level",
-                "type": "Type",
-                "register_date": "Register date",
-                "last_login_date": "Last login",
-                "clinic_name": "Clinic",
-                "group_select_all": "All Group",
-                "clinic_select_all": "All Clinic"
-            }
-        },
         "auth": {
             "failed": "These credentials do not match our records.",
             "throttle": "Too many login attempts. Please try again in {seconds} seconds.",
@@ -84,95 +17,6 @@ export default {
             "reset_btn": "Reset",
             "logout": "Logout"
         },
-        "manager": {
-            "title_page_list": "Admin account management",
-            "title_page_create": "Create Account Admin",
-            "title_page_edit": "Account Infomation",
-            "button_create": "Sign Up",
-            "form_filter": {
-                "placeholder_input_keyword": "Please enter a keyword",
-                "select_all_roles": "All role",
-                "select_roles": "Role",
-                "input_text_search": "Keyword",
-                "button_clear": "Clear",
-                "button_search": "Search"
-            },
-            "table": {
-                "name": "Name",
-                "email": "Email",
-                "role": "Role",
-                "note": "Note",
-                "last_login": "Last Login",
-                "action": "Action",
-                "action_edit": "Edit",
-                "action_delete": "Remove"
-            },
-            "form_create": {
-                "title": "Account Info",
-                "input_name": "Name",
-                "input_email": "Email",
-                "role": "Role",
-                "note": "Note",
-                "button_create": "Register",
-                "button_edit": "Save",
-                "button_remove": "Remove account",
-                "alert_create_success": "create admin success",
-                "alert_edit_success": "update admin success",
-                "alert_error": "Some error occured! Please try again"
-            },
-            "confirm_remove": {
-                "title_remove": "Are you sure？",
-                "content": "If you delete your account, all information such as email address and application data will be deleted.",
-                "button_cancel": "Cancel",
-                "button_success": "Delete account"
-            },
-            "validator": {
-                "name_required": "name is required",
-                "email_required": "email is required",
-                "email_valid": "incorrect email format"
-            }
-        },
-        "notification": {
-            "notifications": "お知らせ一覧",
-            "singup": "新規登録",
-            "target_person": "対象者",
-            "keyword": "キーワード",
-            "keyword_placeholder": "キーワードを入力してください",
-            "clear_condition": "条件をクリアする",
-            "search_condition": "この条件で検索",
-            "title": "タイトル",
-            "total_number_diliveries": "配送総数",
-            "exist_number": "既読数",
-            "number_people_confirm": "確認済人数",
-            "release_date": "公開日時",
-            "status": "ステータス",
-            "operating": "操作",
-            "publish_announcement": "お知らせを公開する",
-            "edit": "編集する",
-            "delete": "削除する",
-            "check_details": "詳細を確認する",
-            "unpublish": "未公開",
-            "publish": "公開済",
-            "details_information": "お知らせ詳細情報",
-            "clinic": "クリニック",
-            "username": "ユーザー名",
-            "mail_address": "メールアドレス",
-            "profession": "職業",
-            "confirm_date_and_time": "確認日時",
-            "un_read": "未読",
-            "already_read": "既読",
-            "notification_management": "お知らせ管理",
-            "save_draft": "ドラフトを保存",
-            "notice_information": "お知らせ情報",
-            "title_info": "タイトル",
-            "please_enter_title": "タイトルを入力してください",
-            "target_audience": "送信対象者",
-            "target_help": "※拠点名、職業、及びユーザー名で入力することは可能です。",
-            "please_enter_target": "対象者を入力してください",
-            "notice_content": "本文 (0/1000)",
-            "all_status": "全てのステータス",
-            "no_read_date": "----年--月--日 -- =>--"
-        },
         "pagination": {
             "previous": "&laquo; Previous",
             "next": "Next &raquo;"
@@ -184,25 +28,6 @@ export default {
             "user": "We can't find a user with that e-mail address.",
             "throttled": "Please wait before retrying.",
             "failed": "Password reset failed."
-        },
-        "role": {
-            "title_page": "Role Management",
-            "button_create": "Create",
-            "button_edit": "Edit",
-            "input_name": "Name role",
-            "table": {
-                "name": "Name",
-                "select_all": "Select all",
-                "permission_view_list": "View list",
-                "permission_create": "Create",
-                "permission_update": "Update",
-                "permission_delete": "Delete"
-            },
-            "manage": {
-                "name": "Name",
-                "created_at": "Created At",
-                "action": "Action"
-            }
         },
         "sidebar": {
             "user": "User",
@@ -334,170 +159,24 @@ export default {
                 }
             },
             "attributes": []
-        }
-    },
-    "ja": {
-        "app": {
-            "name": "社内ポータルサイト",
-            "btn": {
-                "create": "新規登録",
-                "edit": "編集する",
-                "update": "Update",
-                "delete": "削除する",
-                "submit": "登録"
-            },
-            "label": {
-                "description": "メモ",
-                "operator": "操作"
-            },
-            "form": {
-                "keyword": "キーワード",
-                "keyword_placeholder": "キーワードを入力してください",
-                "clear_form": "条件をクリアする",
-                "submit_form": "この条件で検索"
-            },
-            "clinic": {
-                "header": {
-                    "create": "クリニック登録",
-                    "info": "クリニック情報",
-                    "list-user": "List Users"
-                },
-                "place_holder": {
-                    "name": "クリニック名を入力してください",
-                    "post_code": "郵便番号を入力してください",
-                    "address": "住所を入力してください",
-                    "description": "メモを入力してください"
-                },
-                "name": "クリニック名",
-                "post_code": "郵便番号",
-                "address": "住所",
-                "description": "メモ",
-                "manage_user": "ユーザーを管理する",
-                "users_count": "社員数"
-            },
-            "user": {
-                "title": {
-                    "index": "スタッフ一覧",
-                    "create": "スタッフ登録",
-                    "edit": "スタッフ情報編集"
-                },
-                "place_holder": {
-                    "name": "スタッフ名を入力してください",
-                    "email": "メールアドレスを入力してください",
-                    "group": "グループを選択してください",
-                    "clinic": "クリニックを選択してください",
-                    "description": "メモを入力してください",
-                    "level": "Levelを入力してください",
-                    "type": "Typeを入力してください"
-                },
-                "remove_staff": "スタッフを削除",
-                "name": "ユーザー名",
-                "email": "メールアドレス",
-                "group": "グループ",
-                "level": "Level",
-                "type": "Type",
-                "register_date": "登録日付",
-                "last_login_date": "最終ログイン日時",
-                "clinic_name": "クリニック",
-                "group_select_all": "全てのグループ",
-                "clinic_select_all": "全てのクリニック"
-            }
         },
-        "auth": {
-            "failed": "Ja_These credentials do not match our records.",
-            "throttle": "Ja_Too many login attempts. Please try again in {seconds} seconds.",
-            "title_form": "社内ポータルサイト",
-            "email_title": "メールアドレス",
-            "email_holder": "メールアドレスを入力してください",
-            "password_title": "パスワード",
-            "password_holder": "パスワードを入力してください",
-            "btn_login": "ログイン",
-            "title_login": "ログイン",
-            "forgot_password": "パスワードを忘れた方はこちら?",
-            "title_reset": "パスワードを忘れた方はこちら?",
-            "confirm_password": "パスワードを認証する",
-            "new_password": "新しいパスワード",
-            "reset_btn": "リセット",
-            "logout": "ログアウト"
-        },
-        "group": {
-            "group_list": "クリニック一覧",
-            "add_new": "新規登録",
-            "name": "クリニック名",
-            "description": "住所",
-            "number_staff": "社員数",
-            "action": "操作",
-            "remove_group": "削除する",
-            "edit_group_info": "編集する",
-            "user_in_group": "ユーザーを管理する",
-            "add_group": "クリニック登録",
-            "registered_group": "登録",
-            "name_placeholder": "クリニック名を入力してください",
-            "info_clinic": "クリニック情報",
-            "portal_code": "郵便番号",
-            "portal_code_placeholder": "郵便番号を入力してください",
-            "address": "住所 ",
-            "address_placeholder": "住所を入力してください",
-            "Description": "メモ",
-            "Description_placeholder": "メモを入力してください",
-            "remove_from_group": "abc",
-            "add_to_group": "abc",
-            "keyword": "キーワード",
-            "enter_a_keyword": "キーワードを入力してください",
-            "search_by_condition": "この条件で検索",
-            "remove_condition": "条件をクリアする",
-            "name_account": "ユーザー名",
-            "email": "メールアドレス",
-            "group": "グループ",
-            "created_at": "登録日付",
-            "last_login": "最終ログイン日時"
-        },
-        "manager": {
-            "title_page_list": "管理者アカウント管理",
-            "title_page_create": "管理者アカウント発行",
-            "title_page_edit": "管理者アカウント発行",
-            "button_create": "新規登録",
-            "form_filter": {
-                "placeholder_input_keyword": "キーワードを入力してください",
-                "select_all_roles": "全ての役割",
-                "select_roles": "担当者の役割",
-                "input_text_search": "キーワード",
-                "button_clear": "条件をクリアする",
-                "button_search": "この条件で検索"
-            },
+        "role": {
+            "title_page": "Role Management",
+            "button_create": "Create",
+            "button_edit": "Edit",
+            "input_name": "Name role",
             "table": {
-                "name": "アカウント名",
-                "email": "メールアドレス",
-                "role": "役割",
-                "note": "メモ",
-                "last_login": "最終ログイン日時",
-                "action": "操作",
-                "action_edit": "編集する",
-                "action_delete": "削除する"
+                "name": "Name",
+                "select_all": "Select all",
+                "permission_view_list": "View list",
+                "permission_create": "Create",
+                "permission_update": "Update",
+                "permission_delete": "Delete"
             },
-            "form_create": {
-                "title": "アカウント情報",
-                "input_name": "アカウント名",
-                "input_email": "メールアドレス",
-                "role": "役割",
-                "note": "メモ",
-                "button_create": "登録",
-                "button_edit": "保存",
-                "button_remove": "アカウントを削除",
-                "alert_create_success": "新しい管理者を作成しました",
-                "alert_edit_success": "管理者の更新が成功しました",
-                "alert_error": "エラーが発生しました！もう一度お試しください"
-            },
-            "confirm_remove": {
-                "title_remove": "管理者アカウントを削除しますか？",
-                "content": "のアカウントを削除すると、メールアドレスとか申請データなどすべての情報が削除されます。",
-                "button_cancel": "キャンセル",
-                "button_success": "アカウントを削除"
-            },
-            "validator": {
-                "name_required": "名前は必須です",
-                "email_required": "メールが必要です",
-                "email_valid": "不正なメール形式"
+            "manage": {
+                "name": "Name",
+                "created_at": "Created At",
+                "action": "Action"
             }
         },
         "notification": {
@@ -541,6 +220,143 @@ export default {
             "all_status": "全てのステータス",
             "no_read_date": "----年--月--日 -- =>--"
         },
+        "app": {
+            "name": "Clinic portal",
+            "setting": "Setting",
+            "btn": {
+                "create": "Create",
+                "edit": "Edit",
+                "update": "Update",
+                "delete": "Delete",
+                "submit": "Submit"
+            },
+            "label": {
+                "description": "Description",
+                "operator": "Operator"
+            },
+            "form": {
+                "keyword": "Keyword",
+                "keyword_placeholder": "keyword",
+                "clear_form": "clear form",
+                "submit_form": "Search"
+            },
+            "clinic": {
+                "header": {
+                    "create": "Create clinic",
+                    "info": "Information",
+                    "list-user": "List Users"
+                },
+                "place_holder": {
+                    "name": "Name",
+                    "post_code": "Post code",
+                    "address": "Address",
+                    "description": "Description"
+                },
+                "name": "Name",
+                "post_code": "Post code",
+                "address": "Address",
+                "description": "Description",
+                "manage_user": "Manage user",
+                "users_count": "User count"
+            },
+            "user": {
+                "title": {
+                    "index": "List",
+                    "create": "Create",
+                    "edit": "Edit"
+                },
+                "place_holder": {
+                    "name": "Name",
+                    "email": "Email",
+                    "group": "Select Group",
+                    "clinic": "Select Clinic",
+                    "description": "Description",
+                    "level": "Select Level",
+                    "type": "Select type"
+                },
+                "remove_staff": "Remove staff",
+                "name": "Name",
+                "email": "Email",
+                "group": "Group",
+                "level": "Level",
+                "type": "Type",
+                "role_label": "Role",
+                "role_web_label": "Web",
+                "role_mobile_label": "Mobile",
+                "register_date": "Register date",
+                "last_login_date": "Last login",
+                "clinic_name": "Clinic",
+                "group_select_all": "All Group",
+                "clinic_select_all": "All Clinic"
+            }
+        },
+        "manager": {
+            "title_page_list": "Admin account management",
+            "title_page_create": "Create Account Admin",
+            "title_page_edit": "Account Infomation",
+            "button_create": "Sign Up",
+            "form_filter": {
+                "placeholder_input_keyword": "Please enter a keyword",
+                "select_all_roles": "All role",
+                "select_roles": "Role",
+                "input_text_search": "Keyword",
+                "button_clear": "Clear",
+                "button_search": "Search"
+            },
+            "table": {
+                "name": "Name",
+                "email": "Email",
+                "role": "Role",
+                "note": "Note",
+                "last_login": "Last Login",
+                "action": "Action",
+                "action_edit": "Edit",
+                "action_delete": "Remove"
+            },
+            "form_create": {
+                "title": "Account Info",
+                "input_name": "Name",
+                "input_email": "Email",
+                "role": "Role",
+                "note": "Note",
+                "button_create": "Register",
+                "button_edit": "Save",
+                "button_remove": "Remove account",
+                "alert_create_success": "create admin success",
+                "alert_edit_success": "update admin success",
+                "alert_error": "Some error occured! Please try again"
+            },
+            "confirm_remove": {
+                "title_remove": "Are you sure？",
+                "content": "If you delete your account, all information such as email address and application data will be deleted.",
+                "button_cancel": "Cancel",
+                "button_success": "Delete account"
+            },
+            "validator": {
+                "name_required": "name is required",
+                "email_required": "email is required",
+                "email_valid": "incorrect email format"
+            }
+        }
+    },
+    "ja": {
+        "auth": {
+            "failed": "Ja_These credentials do not match our records.",
+            "throttle": "Ja_Too many login attempts. Please try again in {seconds} seconds.",
+            "title_form": "社内ポータルサイト",
+            "email_title": "メールアドレス",
+            "email_holder": "メールアドレスを入力してください",
+            "password_title": "パスワード",
+            "password_holder": "パスワードを入力してください",
+            "btn_login": "ログイン",
+            "title_login": "ログイン",
+            "forgot_password": "パスワードを忘れた方はこちら?",
+            "title_reset": "パスワードを忘れた方はこちら?",
+            "confirm_password": "パスワードを認証する",
+            "new_password": "新しいパスワード",
+            "reset_btn": "リセット",
+            "logout": "ログアウト"
+        },
         "pagination": {
             "previous": "&laquo; Previous",
             "next": "Next &raquo;"
@@ -555,25 +371,6 @@ export default {
             "form_title": "パスワード再設定",
             "submit_btn": "送信",
             "back_to_login": "ログインページへ戻す"
-        },
-        "role": {
-            "title_page": "役割管理",
-            "button_create": "役割を編集",
-            "button_edit": "役割を編集",
-            "input_name": "名前の役割",
-            "table": {
-                "name": "名前グループの権限",
-                "select_all": "権限ビューリスト",
-                "permission_view_list": "リストを見る",
-                "permission_create": "権限作成",
-                "permission_update": "権限の更新",
-                "permission_delete": "権限削除"
-            },
-            "manage": {
-                "name": "名前の役割",
-                "created_at": "で作成",
-                "action": "アクション"
-            }
         },
         "sidebar": {
             "user": "管理者アカウント管理",
@@ -676,6 +473,215 @@ export default {
                 }
             },
             "attributes": []
+        },
+        "role": {
+            "title_page": "役割管理",
+            "button_create": "役割を編集",
+            "button_edit": "役割を編集",
+            "input_name": "名前の役割",
+            "table": {
+                "name": "名前グループの権限",
+                "select_all": "権限ビューリスト",
+                "permission_view_list": "リストを見る",
+                "permission_create": "権限作成",
+                "permission_update": "権限の更新",
+                "permission_delete": "権限削除"
+            },
+            "manage": {
+                "name": "名前の役割",
+                "created_at": "で作成",
+                "action": "アクション"
+            }
+        },
+        "notification": {
+            "notifications": "お知らせ一覧",
+            "singup": "新規登録",
+            "target_person": "対象者",
+            "keyword": "キーワード",
+            "keyword_placeholder": "キーワードを入力してください",
+            "clear_condition": "条件をクリアする",
+            "search_condition": "この条件で検索",
+            "title": "タイトル",
+            "total_number_diliveries": "配送総数",
+            "exist_number": "既読数",
+            "number_people_confirm": "確認済人数",
+            "release_date": "公開日時",
+            "status": "ステータス",
+            "operating": "操作",
+            "publish_announcement": "お知らせを公開する",
+            "edit": "編集する",
+            "delete": "削除する",
+            "check_details": "詳細を確認する",
+            "unpublish": "未公開",
+            "publish": "公開済",
+            "details_information": "お知らせ詳細情報",
+            "clinic": "クリニック",
+            "username": "ユーザー名",
+            "mail_address": "メールアドレス",
+            "profession": "職業",
+            "confirm_date_and_time": "確認日時",
+            "un_read": "未読",
+            "already_read": "既読",
+            "notification_management": "お知らせ管理",
+            "save_draft": "ドラフトを保存",
+            "notice_information": "お知らせ情報",
+            "title_info": "タイトル",
+            "please_enter_title": "タイトルを入力してください",
+            "target_audience": "送信対象者",
+            "target_help": "※拠点名、職業、及びユーザー名で入力することは可能です。",
+            "please_enter_target": "対象者を入力してください",
+            "notice_content": "本文 (0/1000)",
+            "all_status": "全てのステータス",
+            "no_read_date": "----年--月--日 -- =>--"
+        },
+        "app": {
+            "name": "社内ポータルサイト",
+            "btn": {
+                "create": "新規登録",
+                "edit": "編集する",
+                "update": "Update",
+                "delete": "削除する",
+                "submit": "登録"
+            },
+            "label": {
+                "description": "メモ",
+                "operator": "操作"
+            },
+            "form": {
+                "keyword": "キーワード",
+                "keyword_placeholder": "キーワードを入力してください",
+                "clear_form": "条件をクリアする",
+                "submit_form": "この条件で検索"
+            },
+            "clinic": {
+                "header": {
+                    "create": "クリニック登録",
+                    "info": "クリニック情報",
+                    "list-user": "List Users"
+                },
+                "place_holder": {
+                    "name": "クリニック名を入力してください",
+                    "post_code": "郵便番号を入力してください",
+                    "address": "住所を入力してください",
+                    "description": "メモを入力してください"
+                },
+                "name": "クリニック名",
+                "post_code": "郵便番号",
+                "address": "住所",
+                "description": "メモ",
+                "manage_user": "ユーザーを管理する",
+                "users_count": "社員数"
+            },
+            "user": {
+                "title": {
+                    "index": "スタッフ一覧",
+                    "create": "スタッフ登録",
+                    "edit": "スタッフ情報編集"
+                },
+                "place_holder": {
+                    "name": "スタッフ名を入力してください",
+                    "email": "メールアドレスを入力してください",
+                    "group": "グループを選択してください",
+                    "clinic": "クリニックを選択してください",
+                    "description": "メモを入力してください",
+                    "level": "Levelを入力してください",
+                    "type": "Typeを入力してください"
+                },
+                "remove_staff": "スタッフを削除",
+                "name": "ユーザー名",
+                "email": "メールアドレス",
+                "group": "グループ",
+                "level": "Level",
+                "type": "Type",
+                "role_label": "Role",
+                "role_web_label": "Web",
+                "role_mobile_label": "Mobile",
+                "register_date": "登録日付",
+                "last_login_date": "最終ログイン日時",
+                "clinic_name": "クリニック",
+                "group_select_all": "全てのグループ",
+                "clinic_select_all": "全てのクリニック"
+            }
+        },
+        "group": {
+            "group_list": "クリニック一覧",
+            "add_new": "新規登録",
+            "name": "クリニック名",
+            "description": "住所",
+            "number_staff": "社員数",
+            "action": "操作",
+            "remove_group": "削除する",
+            "edit_group_info": "編集する",
+            "user_in_group": "ユーザーを管理する",
+            "add_group": "クリニック登録",
+            "registered_group": "登録",
+            "name_placeholder": "クリニック名を入力してください",
+            "info_clinic": "クリニック情報",
+            "portal_code": "郵便番号",
+            "portal_code_placeholder": "郵便番号を入力してください",
+            "address": "住所 ",
+            "address_placeholder": "住所を入力してください",
+            "Description": "メモ",
+            "Description_placeholder": "メモを入力してください",
+            "remove_from_group": "abc",
+            "add_to_group": "abc",
+            "keyword": "キーワード",
+            "enter_a_keyword": "キーワードを入力してください",
+            "search_by_condition": "この条件で検索",
+            "remove_condition": "条件をクリアする",
+            "name_account": "ユーザー名",
+            "email": "メールアドレス",
+            "group": "グループ",
+            "created_at": "登録日付",
+            "last_login": "最終ログイン日時"
+        },
+        "manager": {
+            "title_page_list": "管理者アカウント管理",
+            "title_page_create": "管理者アカウント発行",
+            "title_page_edit": "管理者アカウント発行",
+            "button_create": "新規登録",
+            "form_filter": {
+                "placeholder_input_keyword": "キーワードを入力してください",
+                "select_all_roles": "全ての役割",
+                "select_roles": "担当者の役割",
+                "input_text_search": "キーワード",
+                "button_clear": "条件をクリアする",
+                "button_search": "この条件で検索"
+            },
+            "table": {
+                "name": "アカウント名",
+                "email": "メールアドレス",
+                "role": "役割",
+                "note": "メモ",
+                "last_login": "最終ログイン日時",
+                "action": "操作",
+                "action_edit": "編集する",
+                "action_delete": "削除する"
+            },
+            "form_create": {
+                "title": "アカウント情報",
+                "input_name": "アカウント名",
+                "input_email": "メールアドレス",
+                "role": "役割",
+                "note": "メモ",
+                "button_create": "登録",
+                "button_edit": "保存",
+                "button_remove": "アカウントを削除",
+                "alert_create_success": "新しい管理者を作成しました",
+                "alert_edit_success": "管理者の更新が成功しました",
+                "alert_error": "エラーが発生しました！もう一度お試しください"
+            },
+            "confirm_remove": {
+                "title_remove": "管理者アカウントを削除しますか？",
+                "content": "のアカウントを削除すると、メールアドレスとか申請データなどすべての情報が削除されます。",
+                "button_cancel": "キャンセル",
+                "button_success": "アカウントを削除"
+            },
+            "validator": {
+                "name_required": "名前は必須です",
+                "email_required": "メールが必要です",
+                "email_valid": "不正なメール形式"
+            }
         }
     }
 }

@@ -43,6 +43,7 @@ class UserRequest extends FormRequest
             'type_id' => 'required',
             'groups' => 'required',
             'clinics' => 'required',
+            'role' => 'required',
             'level_id' => 'nullable',
             'description' => 'nullable',
         ];
@@ -61,6 +62,7 @@ class UserRequest extends FormRequest
             'type_id' => 'required',
             'groups' => 'required',
             'clinics' => 'required',
+            'role' => 'required',
             'level_id' => 'nullable',
             'description' => 'nullable',
         ];

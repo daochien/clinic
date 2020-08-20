@@ -11,6 +11,7 @@ use App\Models\Group;
 use App\Models\GroupUser;
 use App\Models\LevelUser;
 use App\Models\Role;
+use App\Models\RoleUser;
 use App\Models\Type;
 use App\Models\TypeUser;
 use App\Repositories\UserRepository;
@@ -30,6 +31,11 @@ class UserServices
         try {
             DB::beginTransaction();
             $user = $this->userRepository->update($userId, $attribute);
+
+            // Assigning Role by default user role
+            $user->syncRoles($attribute['role']['name']);
+            RoleUser::where(['user_id' => $user->id])->update(['role_id' => $attribute['role']['id']]);
+            $user->assignRole($attribute['role']['name']);
 
             if( !empty($attribute['type_id'] ?? null)) {
                 TypeUser::where('user_id', $user->id)->delete();
@@ -90,7 +96,11 @@ class UserServices
             $user = $this->userRepository->createUser($attribute);
             event(new CreateUserEvent($user, $attribute['password']));
             // Assigning Role by default user role
-//            $user->assignRole(Role::ROLE_USER_DEFAULT);
+            RoleUser::insertOrIgnore([
+                    'role_id' => $attribute['role']['id'],
+                    'user_id' => $user->id
+                ]);
+            $user->assignRole($attribute['role']['name']);
 
             if( !empty($attribute['type_id'] ?? null)) {
                 TypeUser::insertOrIgnore([
