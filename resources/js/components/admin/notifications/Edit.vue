@@ -203,21 +203,21 @@ export default {
       if (this.form.title.length <= 0) {
         Toast.fire({
           icon: "error",
-          title: "Please input title notification",
+          title: t("notification.require_title"),
         });
         this.isValidate = false;
       }
       if (this.form.groups.length <= 0) {
         Toast.fire({
           icon: "error",
-          title: "Please input group notification",
+          title: t("notification.require_group"),
         });
         this.isValidate = false;
       }
       if (this.form.content.length <= 0) {
         Toast.fire({
           icon: "error",
-          title: "Please input content notification",
+          title: t("notification.require_content"),
         });
         this.isValidate = false;
       }
@@ -236,11 +236,12 @@ export default {
           });
           this.$Progress.finish();
           this.resetForm();
+          this.$router.push({ name: "notification_list" });
         })
         .catch(() => {
           Toast.fire({
             icon: "error",
-            title: "Some error occured! Please try again",
+            title: t("notification.some_error"),
           });
         });
     },

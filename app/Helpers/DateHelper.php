@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Helpers;
 
+use DateTime;
 use Illuminate\Support\Carbon;
 
 class DateHelper
@@ -74,5 +75,14 @@ class DateHelper
         }
 
         return false;
+    }
+
+    /**
+     * @param DateTime $dateTime
+     */
+    public static function toJaDate($dateOld)
+    {
+        $dateTime = $dateOld->format('Y-m-d H:i:s');
+        return date('Y', strtotime($dateTime)) . '年' . date('m', strtotime($dateTime)) . '月' . date('d', strtotime($dateTime)) . '日' . ' ' . date('H:m', strtotime($dateTime));
     }
 }

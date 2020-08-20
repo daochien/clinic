@@ -99,7 +99,13 @@ export default {
             "please_enter_target": "対象者を入力してください",
             "notice_content": "本文 (0/1000)",
             "all_status": "全てのステータス",
-            "no_read_date": "----年--月--日 -- =>--"
+            "no_read_date": "----年--月--日 -- =>--",
+            "require_title": "Please input title notification",
+            "require_group": "Please input group notification",
+            "require_content": "Please input content notification",
+            "some_error": "Some error occured! Please try again",
+            "create_successfuly": "Add notification successfuly",
+            "update_successfuly": "Update notification successfuly"
         },
         "pagination": {
             "previous": "&laquo; Previous",
@@ -426,7 +432,13 @@ export default {
             "please_enter_target": "対象者を入力してください",
             "notice_content": "本文 (0/1000)",
             "all_status": "全てのステータス",
-            "no_read_date": "----年--月--日 -- =>--"
+            "no_read_date": "----年--月--日 -- =>--",
+            "require_title": "タイトル通知を入力してください",
+            "require_group": "グループ通知を入力してください",
+            "require_content": "コンテンツ通知を入力してください",
+            "some_error": "エラーが発生しました！ もう一度お試しください",
+            "create_successfuly": "通知を追加しました",
+            "update_successfuly": "通知を更新しました"
         },
         "pagination": {
             "previous": "&laquo; Previous",

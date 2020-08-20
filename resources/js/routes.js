@@ -3,8 +3,8 @@ export default [
     { path: '/admin/profile', component: require('./components/admin/Profile.vue').default },
 
     { path: '/admin/clinics', component: require('./components/admin/clinic/Index.vue').default, name: 'clinic.list' },
-    { path: '/admin/clinic/:id/edit', component: require('./components/admin/clinic/Edit.vue').default, name: 'clinic.edit'},
-    { path: '/admin/clinic/create', component: require('./components/admin/clinic/Create.vue').default, name: 'clinic.create'},
+    { path: '/admin/clinic/:id/edit', component: require('./components/admin/clinic/Edit.vue').default, name: 'clinic.edit' },
+    { path: '/admin/clinic/create', component: require('./components/admin/clinic/Create.vue').default, name: 'clinic.create' },
     { path: '/admin/clinic/:id/user', component: require('./components/admin/clinic/Users.vue').default, name: 'clinic.user' },
     { path: '/admin/clinic/:id/add-user', component: require('./components/admin/clinic/AddUsers.vue').default, name: 'clinic.add.user' },
 
@@ -21,7 +21,7 @@ export default [
 
     { path: '*', component: require('./components/NotFound.vue').default },
 
-    { path: '/admin/notifications', component: require('./components/admin/notifications/Index.vue').default },
+    { path: '/admin/notifications', component: require('./components/admin/notifications/Index.vue').default, name: 'notification_list' },
     { path: '/admin/notification/details', component: require('./components/admin/notifications/Details.vue').default, name: 'details_notification' },
     { path: '/admin/notification/edit', component: require('./components/admin/notifications/Edit.vue').default, name: 'edit_notification' },
 
@@ -33,8 +33,8 @@ export default [
     { path: '/admin/roles', component: require('./components/admin/role/Roles.vue').default },
 
     { path: '/admin/group', component: require('./components/admin/group/Index.vue').default },
-    { path: '/admin/group/add', component: require('./components/admin/group/Add.vue').default, name:'add_group' },
-    { path: '/admin/group/edit', component: require('./components/admin/group/Edit.vue').default, name:'edit_group' },
+    { path: '/admin/group/add', component: require('./components/admin/group/Add.vue').default, name: 'add_group' },
+    { path: '/admin/group/edit', component: require('./components/admin/group/Edit.vue').default, name: 'edit_group' },
 
     { path: '/admin/role/create', component: require('./components/admin/role/Role.vue').default },
     { path: '/admin/role/edit/:id', component: require('./components/admin/role/Role.vue').default },

@@ -136,7 +136,7 @@
                     <td>
                       <div class="dropdown">
                         <i
-                          class="fa fa-ellipsis-v"
+                          class="fa fa-ellipsis-v fa-fw"
                           id="operatingAction"
                           data-toggle="dropdown"
                           aria-haspopup="true"
@@ -145,7 +145,7 @@
                         <div class="dropdown-menu" aria-labelledby="operatingAction">
                           <a
                             class="dropdown-item text-primary"
-                            href="#"
+                            @click="publishAnnouncement()"
                           >{{ $t('notification.publish_announcement')}}</a>
                           <router-link
                             :class="'dropdown-item text-primary'"
@@ -153,7 +153,7 @@
                           >{{ $t('notification.edit')}}</router-link>
                           <a
                             class="dropdown-item text-danger"
-                            href="#"
+                            @click="deleteNotification()"
                           >{{ $t('notification.delete')}}</a>
                         </div>
                       </div>
@@ -229,6 +229,8 @@ export default {
         path: "/admin/notification/edit",
       });
     },
+    deleteNotification() {},
+    publishAnnouncement() {},
     searchData() {},
   },
   mounted() {
