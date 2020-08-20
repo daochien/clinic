@@ -18,7 +18,7 @@ class UserRepository extends BaseRepository
         if (!empty($params['role'])) {
             $roles = is_array($params['role']) ? $params['role'] : [$params['role']];
         }
-        
+
         $query = $this->model->whereHas("roles", function ($q) use ($roles) {
             $q->whereIn('name', $roles);
         });
@@ -56,13 +56,13 @@ class UserRepository extends BaseRepository
 
         if (isset($param['clinic_id'])) {
             $query->join('clinic_users as cu', function ($join) use ($param) {
-               $join->on('cu.user_id', 'u.id')->where('cu.clinic_id', $param['clinic_id']);
+                $join->on('cu.user_id', 'u.id')->where('cu.clinic_id', $param['clinic_id']);
             });
         }
 
         if (isset($param['group_id'])) {
             $query->join('group_users as gu', function ($join) use ($param) {
-               $join->on('gu.user_id', 'u.id')->where('gu.group_id', $param['group_id']);
+                $join->on('gu.user_id', 'u.id')->where('gu.group_id', $param['group_id']);
             });
         }
 
