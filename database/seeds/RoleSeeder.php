@@ -15,7 +15,8 @@ class RoleSeeder extends Seeder
     {
         //create role super_user
         $roleSuperUser = Role::create([
-            'name' => 'root',
+            'id' => 1,
+            'name' => 'super_user',
             'guard_name' => 'api'
         ]);
 
@@ -24,6 +25,7 @@ class RoleSeeder extends Seeder
 
         //create role admin
         $roleAdmin = Role::create([
+            'id' => 2,
             'name' => 'admin',
             'guard_name' => 'api'
         ]);
@@ -33,7 +35,8 @@ class RoleSeeder extends Seeder
 
         //create role operator
         $roleWeb = Role::create([
-            'name' => 'web',
+            'id' => 3,
+            'name' => 'staff_web',
             'guard_name' => 'api'
         ]);
 
@@ -42,7 +45,8 @@ class RoleSeeder extends Seeder
 
          //create role operator
         $roleMobile = Role::create([
-            'name' => 'mobile',
+            'id' => 4,
+            'name' => 'staff_mobile',
             'guard_name' => 'api'
         ]);
 

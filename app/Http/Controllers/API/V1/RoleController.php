@@ -8,7 +8,8 @@ use Spatie\Permission\Models\Role;
 use App\Repositories\RoleRepository;
 use App\Repositories\PermissionRepository;
 use App\Http\Requests\Roles\RoleRequest;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 class RoleController extends BaseController
 {
 
@@ -38,8 +39,16 @@ class RoleController extends BaseController
 
     public function list()
     {
-        $roles = $this->role->pluck('name', 'id');
+        $user = Auth::user();
 
+        $role = $this->role->findOrFail(\App\Models\Role::ROLE_DEFAULT['root']);
+        
+        if ( in_array($user->email, User::ROOT_EMAIL_ADMIN) || $user->hasRole($role->name)) {
+            $roles = $this->role->pluck('name', 'id');
+        } else {
+            $roles = $this->role->where('id', '<>', 1)->pluck('name', 'id');
+        }
+    
         return $this->sendResponse($roles, 'Role list');
     }
 

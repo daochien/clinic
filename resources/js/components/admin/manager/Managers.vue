@@ -65,7 +65,7 @@
                                     <td>{{ item.name }}</td>
                                     <td>{{ item.email }}</td>
                                     <td>
-                                        <span class="card-post__category badge badge-pill badge-info mr-2" v-for="(role, roleIndex) in item.roles" :key="roleIndex">
+                                        <span class="mr-2" v-for="(role, roleIndex) in item.roles" :key="roleIndex">
                                             {{ role.name }}
                                         </span>
                                     </td>

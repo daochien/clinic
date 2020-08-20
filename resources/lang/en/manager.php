@@ -43,8 +43,10 @@ return [
     ],
     "validator"  => [
         "name_required" => 'name is required',
+        "name_maxLength" => 'name cannot exceed 255 characters',
         'email_required' => 'email is required',
-        'email_valid' => 'incorrect email format'
+        'email_valid' => 'incorrect email format',
+        'email_maxLength' => 'email cannot exceed 255 characters'
     ],
 ];
 ?>

@@ -31,7 +31,7 @@
                                 <th>#</th>
                                 <th>{{ $t('role.manage.name') }}</th>
                                 <!-- <th>permissions</th> -->
-                                <th>{{ $t('role.manage.created_at') }}</th>
+                                <!-- <th>{{ $t('role.manage.created_at') }}</th> -->
                                 <th>{{ $t('role.manage.action') }}</th>
                                 </tr>
                             </thead>
@@ -52,15 +52,15 @@
                                             </span>
                                         </div>
                                     </td> -->
-                                    <td class="text-capitalize">{{role.created_at}}</td>
+                                    <!-- <td class="text-capitalize">{{role.created_at}}</td> -->
                                     <td>
                                         <router-link v-if="$gate.canPermission('role.show')" :to="{path: `/admin/role/edit/${role.id}`}" >
                                             <i class="fa fa-edit blue"></i>
                                         </router-link>
-                                        /
+                                        <!-- /
                                         <a href="#" @click="deleteRole(role.id)">
                                             <i class="fa fa-trash red"></i>
-                                        </a>
+                                        </a> -->
                                     </td>
                                 </tr>
                             </tbody>
