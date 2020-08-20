@@ -91,11 +91,11 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->hasMany(TypeUser::class);
     }
 
-    // public function role()
-    // {
-    //     return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
-    // }
-
+    public function role()
+    {
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+    }
+    
     public function type()
     {
         return $this->belongsToMany(Type::class, 'type_users', 'user_id', 'type_id');
@@ -140,6 +140,15 @@ class User extends Authenticatable // implements MustVerifyEmail
         });
     }
 
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'group_users', 'user_id');
+    }
+
+    public function getRoles()
+    {
+        return $this->belongsToMany(Role::class)->select('roles.id', 'name');
+    }
     public function isRoot()
     {
         if (in_array($this->email, self::ROOT_EMAIL_ADMIN)) {

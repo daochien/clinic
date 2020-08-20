@@ -30,13 +30,21 @@ return [
         "note"=> "Note",
         "button_create"=> "Register",
         "button_edit"=> "Save",
-        "button_remove"=> "Remove account"
+        "button_remove"=> "Remove account",
+        "alert_create_success" => 'create admin success',
+        "alert_edit_success" => 'update admin success',
+        "alert_error" => 'Some error occured! Please try again'
     ],
     "confirm_remove"=> [
         "title_remove"=> "Are you sure？",
         "content"=> "If you delete your account, all information such as email address and application data will be deleted.",
         "button_cancel"=> "Cancel",
         "button_success"=> "Delete account"
-    ]
+    ],
+    "validator"  => [
+        "name_required" => 'name is required',
+        'email_required' => 'email is required',
+        'email_valid' => 'incorrect email format'
+    ],
 ];
 ?>

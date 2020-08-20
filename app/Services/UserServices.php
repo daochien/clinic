@@ -90,7 +90,7 @@ class UserServices
             $user = $this->userRepository->createUser($attribute);
             event(new CreateUserEvent($user, $attribute['password']));
             // Assigning Role by default user role
-            $user->assignRole(Role::ROLE_USER_DEFAULT);
+//            $user->assignRole(Role::ROLE_USER_DEFAULT);
 
             if( !empty($attribute['type_id'] ?? null)) {
                 TypeUser::insertOrIgnore([

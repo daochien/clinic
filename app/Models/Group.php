@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\NotificationGroup;
 
 class Group extends Model
 {
@@ -12,7 +11,7 @@ class Group extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description','postal_code','address'];
+    protected $fillable = ['name', 'description', 'postal_code', 'address'];
 
 
     /**
@@ -32,18 +31,20 @@ class Group extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function notificationGroups()
+    public function notifications()
     {
-        return $this->hasMany(NotificationGroup::class, 'group_id', 'id');
-    }
-
-    public function groupUsers()
-    {
-        return $this->hasMany(GroupUser::class, 'group_id', 'id');
+        return $this->belongsToMany(Notification::class, 'notification_groups', 'group_id');
     }
 
     public function group_users()
     {
-        return $this->hasMany(GroupUsers::class,'group_id');
+        return $this->hasMany(GroupUser::class,'group_id');
     }
+
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'group_users', 'user_id');
+    }
+
 }

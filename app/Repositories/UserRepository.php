@@ -18,12 +18,13 @@ class UserRepository extends BaseRepository
         if (!empty($params['role'])) {
             $roles = is_array($params['role']) ? $params['role'] : [$params['role']];
         }
-
-        $query = $this->model->role($roles);
-
+        
+        $query = $this->model->whereHas("roles", function ($q) use ($roles) {
+            $q->whereIn('name', $roles);
+        });
 
         if (!empty($params['keyword'])) {
-            $query->where('name', 'like', '%'.$params['keyword'].'%');
+            $query->where('name', 'like', '%' . $params['keyword'] . '%');
         }
 
         return $query->with('roles')->latest()->paginate($limit);
@@ -41,7 +42,31 @@ class UserRepository extends BaseRepository
      */
     public function find($id)
     {
-        return User::with('role')->find($id);
+        return User::with(['role', 'group', 'type', 'clinic', 'level'])->find($id);
+    }
+
+    public function search($param = [])
+    {
+        $query = User::from('users as u')->with(['role', 'group','clinic'])->select('u.*');
+
+        if (isset($param['keyword'])) {
+            $query->where('name', 'LIKE', "%{$param['keyword']}%")
+                ->orWhere('email', 'LIKE', "%{$param['keyword']}%");
+        }
+
+        if (isset($param['clinic_id'])) {
+            $query->join('clinic_users as cu', function ($join) use ($param) {
+               $join->on('cu.user_id', 'u.id')->where('cu.clinic_id', $param['clinic_id']);
+            });
+        }
+
+        if (isset($param['group_id'])) {
+            $query->join('group_users as gu', function ($join) use ($param) {
+               $join->on('gu.user_id', 'u.id')->where('gu.group_id', $param['group_id']);
+            });
+        }
+
+        return $query->paginate(10);
     }
 
     /**
@@ -59,13 +84,16 @@ class UserRepository extends BaseRepository
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-        return $user;
     }
 
     public function show($id)
     {
         return $this->model->with('roles')->findOrFail($id);
+    }
+
+    public function showAdmin($id)
+    {
+        return $this->model->with('roles', 'type')->findOrFail($id);
     }
 
     public function createAdmin(array $attributes)

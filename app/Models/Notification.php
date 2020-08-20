@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\GroupUser;
 
 class Notification extends Model
 {
@@ -13,7 +12,7 @@ class Notification extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'content', 'confirm', 'draft'
+        'title', 'content', 'confirm', 'draft', 'schedule_date'
     ];
 
     /**
@@ -31,10 +30,36 @@ class Notification extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
+        'schedule_date' => 'date:Y-m-d'
     ];
 
     public function groups()
     {
-        return $this->belongsToMany(GroupUser::class, 'notification_groups', 'group_id', 'id');
+        return $this->belongsToMany(Group::class, 'notification_groups', 'group_id');
+    }
+
+    public function notificationGroups()
+    {
+        return $this->hasMany(NotificationGroup::class, 'notification_id');
+    }
+
+    public function usersCount()
+    {
+        return $this->hasMany(NotificationUser::class)->count();
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'notification_users', 'user_id');
+    }
+
+    public function usersRead()
+    {
+        return $this->hasMany(NotificationStatus::class)->where('status', [2, 3])->count();
+    }
+
+    public function usersConfirm()
+    {
+        return $this->hasMany(NotificationStatus::class)->where('status', '=', 1)->count();
     }
 }
