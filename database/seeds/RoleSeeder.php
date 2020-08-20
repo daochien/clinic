@@ -15,13 +15,13 @@ class RoleSeeder extends Seeder
     {
         //create role super_user
         $roleSuperUser = Role::create([
-            'name' => 'super_user',
+            'name' => 'root',
             'guard_name' => 'api'
         ]);
 
         $superPermissions = $this->getPermissions();
         $roleSuperUser->givePermissionTo($superPermissions);
-    
+
         //create role admin
         $roleAdmin = Role::create([
             'name' => 'admin',
@@ -30,15 +30,24 @@ class RoleSeeder extends Seeder
 
         $adminPermissions = $this->getPermissions(['role', 'group']);
         $roleAdmin->givePermissionTo($adminPermissions);
-        
+
         //create role operator
-        $roleOperator = Role::create([
-            'name' => 'operator',
+        $roleWeb = Role::create([
+            'name' => 'web',
             'guard_name' => 'api'
         ]);
 
-        $operatorPermissions = $this->getPermissions(['role', 'group', 'manager']);
-        $roleOperator->givePermissionTo($operatorPermissions);
+        $webPermissions = $this->getPermissions(['role', 'group', 'manager']);
+        $roleWeb->givePermissionTo($webPermissions);
+
+         //create role operator
+        $roleMobile = Role::create([
+            'name' => 'mobile',
+            'guard_name' => 'api'
+        ]);
+
+        $mobilePermissions = $this->getPermissions(['role', 'group', 'manager']);
+        $roleMobile->givePermissionTo($mobilePermissions);
 
         // DB::table('roles')->insertOrIgnore(
         //     [
@@ -67,7 +76,7 @@ class RoleSeeder extends Seeder
                 foreach ($router['groups'] as $group) {
                     $permissions = array_merge($permissions, $group['routes']);
                 }
-            }            
+            }
         }
         $permissions = array_unique($permissions);
 
@@ -85,7 +94,7 @@ class RoleSeeder extends Seeder
         if (!empty($insertPermissions)) {
             DB::table('permissions')->insert($insertPermissions);
         }
-    
+
         return $permissions;
     }
 }

@@ -63,7 +63,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'user' => 'API\V1\UserController',
             'clinic' => 'API\V1\ClinicController',
             'product' => 'API\V1\ProductController',
-            //            'template' => 'API\V1\TemplateController',
+            'template' => 'API\V1\TemplateController',
             'category' => 'API\V1\CategoryController',
             'tag' => 'API\V1\TagController',
             'notification' => 'API\V1\NotificationController',
