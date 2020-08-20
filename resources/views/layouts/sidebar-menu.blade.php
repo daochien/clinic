@@ -52,7 +52,7 @@
                     <span>{{ __('sidebar.staff_manage') }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-small">
-                    <router-link to="/admin/clinics" class="dropdown-item">
+                    <router-link to="/admin/clinic" class="dropdown-item">
                         {{ __('sidebar.clinics') }}
                     </router-link>
                     <router-link to="/admin/users" class="dropdown-item">
