@@ -104,7 +104,7 @@ class GroupController extends BaseController
      */
     public function destroy($id)
     {
-        $this->authorize('isAdmin');
+//        $this->authorize('isAdmin');
 
         $entity = Group::findOrFail($id);
         // delete the entity
@@ -155,7 +155,7 @@ class GroupController extends BaseController
         if(count($users)){
             return $this->sendResponse($users, 'Users list');
         }
-        $data = ['data' => ['data' => []]];
+        $data = null;
         return $this->sendResponse($data, 'Group empty');
     }
 

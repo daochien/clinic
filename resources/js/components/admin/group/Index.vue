@@ -15,7 +15,7 @@
 
         <div class="row">
 
-          <div class="col-8 offset-2">
+          <div class="col-12">
 
             <div class="card">
               <!-- /.card-header -->
@@ -37,20 +37,22 @@
                       <td>{{item.name}}</td>
                       <td>{{item.description}}</td>
                          <td>{{item.group_users_count}}</td>
-                         <td><div class="dropdown">
-                             <i
-                                 class="fa fa-ellipsis-v"
-                                 id="operatingAction"
-                                 data-toggle="dropdown"
-                                 aria-haspopup="true"
-                                 aria-expanded="false"
-                             ></i>
-                             <div class="dropdown-menu" aria-labelledby="operatingAction">
-                                 <router-link :to="{name:'users_group', params: { id: item.id }}"  class="dropdown-item text-primary">{{ $t('group.user_in_group')}}</router-link>
-                                 <router-link :to="{name:'edit_group', params: { id: item.id }}" class="dropdown-item text-primary">{{ $t('group.edit_group_info')}}</router-link>
-                                 <a class="dropdown-item text-danger" href="#" @click="deleteGroup(item.id)">{{ $t('group.remove_group')}}</a>
+                         <td>
+                             <div class="dropdown" v-if="(item.id>3)">
+                                 <i
+                                     class="fa fa-ellipsis-v"
+                                     id="operatingAction"
+                                     data-toggle="dropdown"
+                                     aria-haspopup="true"
+                                     aria-expanded="false"
+                                 ></i>
+                                 <div class="dropdown-menu" aria-labelledby="operatingAction">
+                                     <router-link :to="{name:'users_group', params: { id: item.id }}"  class="dropdown-item text-primary">{{ $t('group.user_in_group')}}</router-link>
+                                     <router-link :to="{name:'edit_group', params: { id: item.id }}" class="dropdown-item text-primary">{{ $t('group.edit_group_info')}}</router-link>
+                                     <a class="dropdown-item text-danger" href="#" @click="deleteGroup(item.id)">{{ $t('group.remove_group')}}</a>
+                                 </div>
                              </div>
-                         </div></td>
+                         </td>
                       <td>
                       </td>
                     </tr>
@@ -72,16 +74,10 @@
         data () {
             return {
               group : {},
-              // Create a new form instance
-              form: new Form({
-                  id : '',
-                  name: '',
-                  description: '',
-              })
             }
         },
-        methods: {
 
+        methods: {
           loadGroup(){
             // if(this.$gate.isAdmin()){
               axios.get("/api/group").then(({ data }) => (this.group = data.data));
@@ -89,6 +85,7 @@
           },
 
             deleteGroup(id){
+              if (id >3){
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -100,7 +97,7 @@
 
                     // Send request to the server
                     if (result.value) {
-                        this.form.delete('/api/group/'+id).then(()=>{
+                        axios.delete('/api/group/'+id).then(()=>{
                             Swal.fire(
                                 'Deleted!',
                                 'Your file has been deleted.',
@@ -113,6 +110,7 @@
                         });
                     }
                 })
+              }
             },
 
           createCategory(){
