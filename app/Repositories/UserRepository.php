@@ -74,7 +74,7 @@ class UserRepository extends BaseRepository
             'name' => $attributes['name'],
             'email' => $attributes['email'],
             'description' => $attributes['description'],
-            'password' => $attributes['password'],
+            'password' => Hash::make($attributes['password']),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
