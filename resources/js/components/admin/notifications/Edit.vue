@@ -204,7 +204,6 @@ export default {
     },
     validateForm() {
       this.isValidate = true;
-      this.lang = this.$i18n._vm.messages;
       if (this.form.title.length <= 0) {
         Toast.fire({
           icon: "error",
@@ -260,6 +259,7 @@ export default {
     this.form.notification_id = this.$route.params.id;
     this.loadNotification();
     this.$Progress.finish();
+    this.lang = this.$i18n._vm.messages;
   },
 };
 </script>

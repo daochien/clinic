@@ -146,18 +146,18 @@
                           class="dropdown-menu dropdown-menu-right"
                           aria-labelledby="operatingAction"
                         >
-                          <a
+                          <button
                             class="dropdown-item text-primary"
                             @click="publishAnnouncement()"
-                          >{{ $t('notification.publish_announcement')}}</a>
+                          >{{ $t('notification.publish_announcement')}}</button>
                           <router-link
                             :class="'dropdown-item text-primary'"
                             :to="{ name: 'edit_notification', params: { id: entity.id }}"
                           >{{ $t('notification.edit')}}</router-link>
-                          <a
+                          <button
                             class="dropdown-item text-danger"
                             @click="deleteNotification()"
-                          >{{ $t('notification.delete')}}</a>
+                          >{{ $t('notification.delete')}}</button>
                         </div>
                       </div>
                     </td>
@@ -232,7 +232,20 @@ export default {
         path: "/admin/notification/edit",
       });
     },
-    deleteNotification() {},
+    deleteNotification() {
+      Swal.fire({
+        title: this.lang.ja.app.delete_head,
+        text: this.lang.ja.app.delete_question,
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: this.lang.ja.app.delete_yes,
+        cancelButtonText: this.lang.ja.app.delete_cancel,
+      }).then((result) => {
+        if (result.value) {
+        }
+      });
+    },
     publishAnnouncement() {},
     searchData() {},
   },
@@ -244,6 +257,7 @@ export default {
     console.log("created");
     this.loadNotification();
     this.$Progress.finish();
+    this.lang = this.$i18n._vm.messages;
   },
 };
 </script>

@@ -2,7 +2,11 @@ export default {
     "en": {
         "app": {
             "name": "Clinic portal",
-            "setting": "Setting"
+            "setting": "Setting",
+            "delete_head": "Are you sure?",
+            "delete_question": "You won't be able to revert this!",
+            "delete_yes": "Yes, delete it!",
+            "delete_cancel": "Cancel"
         },
         "auth": {
             "failed": "These credentials do not match our records.",
@@ -343,7 +347,11 @@ export default {
                 "clinic_name": "クリニック",
                 "group_select_all": "全てのグループ",
                 "clinic_select_all": "全てのクリニック"
-            }
+            },
+            "delete_head": "本気ですか?",
+            "delete_question": "これを元に戻すことはできません!",
+            "delete_yes": "はい、削除します!",
+            "delete_cancel": "キャンセル"
         },
         "auth": {
             "failed": "Ja_These credentials do not match our records.",
