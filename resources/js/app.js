@@ -16,13 +16,14 @@ import moment from 'moment';
 import auth from './auth'
 
 Vue.use(Vuex)
-
 export default new Vuex.Store({
     modules: {
         auth
     }
 })
 
+import VueBreadcrumbs from 'vue-2-breadcrumbs';
+Vue.use(VueBreadcrumbs);
 
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';

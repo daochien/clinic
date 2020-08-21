@@ -33,4 +33,10 @@
         //display: none;
     //}
 }
+.breadcrumb {
+    background-color: #fff !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    //content: ">" !important;
+}
 

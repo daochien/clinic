@@ -31,6 +31,10 @@
   box-shadow: 0 5px 11.5px rgba(196, 24, 60, 0.1);
 }
 
+.breadcrumb {
+  background-color: #fff !important;
+}
+
 /*!
  * Bootstrap v4.5.2 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
