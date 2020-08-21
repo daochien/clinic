@@ -27,5 +27,5 @@ return [
     'confirm_password' => 'Confirm password',
     'new_password' => 'New Password',
     'reset_btn' => 'Reset',
-
+    'logout' => 'Logout',
 ];

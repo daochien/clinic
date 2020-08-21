@@ -16,6 +16,8 @@ class User extends Authenticatable // implements MustVerifyEmail
         'admin@gmail.com'
     ];
 
+    const USER_ROLE = ['Web' => 3, 'Mobile' => 4];
+
     use Notifiable, HasApiTokens, HasRoles;
 
     protected $guard_name = 'api';

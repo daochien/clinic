@@ -2,7 +2,73 @@ export default {
     "en": {
         "app": {
             "name": "Clinic portal",
-            "setting": "Setting"
+            "setting": "Setting",
+            "btn": {
+                "create": "Create",
+                "edit": "Edit",
+                "update": "Update",
+                "delete": "Delete",
+                "submit": "Submit"
+            },
+            "label": {
+                "description": "Description",
+                "operator": "Operator"
+            },
+            "form": {
+                "keyword": "Keyword",
+                "keyword_placeholder": "keyword",
+                "clear_form": "clear form",
+                "submit_form": "Search"
+            },
+            "clinic": {
+                "header": {
+                    "create": "Create clinic",
+                    "info": "Information",
+                    "list-user": "List Users"
+                },
+                "place_holder": {
+                    "name": "Name",
+                    "post_code": "Post code",
+                    "address": "Address",
+                    "description": "Description"
+                },
+                "name": "Name",
+                "post_code": "Post code",
+                "address": "Address",
+                "description": "Description",
+                "manage_user": "Manage user",
+                "users_count": "User count"
+            },
+            "user": {
+                "title": {
+                    "index": "List",
+                    "create": "Create",
+                    "edit": "Edit"
+                },
+                "place_holder": {
+                    "name": "Name",
+                    "email": "Email",
+                    "group": "Select Group",
+                    "clinic": "Select Clinic",
+                    "description": "Description",
+                    "level": "Select Level",
+                    "type": "Select type"
+                },
+                "remove_staff": "Remove staff",
+                "name": "Name",
+                "email": "Email",
+                "group": "Group",
+                "level": "Level",
+                "type": "Type",
+                "role_label": "Role",
+                "role_web_label": "Web",
+                "role_mobile_label": "Mobile",
+                "register_date": "Register date",
+                "last_login_date": "Last login",
+                "clinic_name": "Clinic",
+                "group_select_all": "All Group",
+                "clinic_select_all": "All Clinic"
+            }
         },
         "auth": {
             "failed": "These credentials do not match our records.",
@@ -18,7 +84,8 @@ export default {
             "title_reset": "Reset password",
             "confirm_password": "Confirm password",
             "new_password": "New Password",
-            "reset_btn": "Reset"
+            "reset_btn": "Reset",
+            "logout": "Logout"
         },
         "manager": {
             "title_page_list": "Admin account management",
@@ -338,6 +405,9 @@ export default {
                 "group": "グループ",
                 "level": "Level",
                 "type": "Type",
+                "role_label": "Role",
+                "role_web_label": "Web",
+                "role_mobile_label": "Mobile",
                 "register_date": "登録日付",
                 "last_login_date": "最終ログイン日時",
                 "clinic_name": "クリニック",
@@ -359,7 +429,8 @@ export default {
             "title_reset": "パスワードを忘れた方はこちら?",
             "confirm_password": "パスワードを認証する",
             "new_password": "新しいパスワード",
-            "reset_btn": "リセット"
+            "reset_btn": "リセット",
+            "logout": "ログアウト"
         },
         "group": {
             "group_list": "クリニック一覧",

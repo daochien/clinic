@@ -74,7 +74,6 @@
         <not-found></not-found>
     </div>
 </template>
-
 <script>
     export default {
         data() {
