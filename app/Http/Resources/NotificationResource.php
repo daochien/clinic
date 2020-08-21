@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Helpers\DateHelper;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\App;
 
 class NotificationResource extends JsonResource
 {
@@ -14,7 +16,7 @@ class NotificationResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $datas = [
             'id' => $this->id,
             'title' => $this->title,
             "content" => $this->content,
@@ -28,5 +30,12 @@ class NotificationResource extends JsonResource
             'users_confirm' => $this->usersConfirm(),
             'users' => UserResource::collection($this->whenLoaded('users')),
         ];
+
+        if (App::isLocale('ja')) {
+            $datas["created_at"] = DateHelper::toJaDate($this->created_at);
+            $datas["schedule_date"] = DateHelper::toJaDate($this->schedule_date);
+        }
+
+        return $datas;
     }
 }

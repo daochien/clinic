@@ -45,11 +45,11 @@ class NotificationController extends BaseController
             }
 
             if ($id > 0) {
-                return $this->sendResponse($this->service->update($request, $id), "Update notification successfuly");
+                return $this->sendResponse($this->service->update($request, $id), __('notification.create_successfuly'));
             }
 
             $entity = $this->service->add($request);
-            return $this->sendResponse($entity, 'Add notification successfuly');
+            return $this->sendResponse($entity,  __('notification.update_successfuly'));
         } catch (\Exception $exception) {
             return $this->sendError($exception->getCode(), $exception->getMessage());
         }
@@ -66,7 +66,7 @@ class NotificationController extends BaseController
         try {
             $result = $this->repository->update($id, $request->validated());
 
-            return $this->sendResponse($result, 'Update notification successfuly');
+            return $this->sendResponse($result, __('notification.update_successfuly'));
         } catch (\Exception $exception) {
             return $this->sendError($exception->getCode(), $exception->getMessage());
         }

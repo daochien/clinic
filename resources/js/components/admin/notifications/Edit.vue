@@ -130,6 +130,7 @@ export default {
     return {
       editmode: false,
       isValidate: false,
+      lang: {},
       form: new Form({
         notification_id: 0,
         title: "",
@@ -171,9 +172,12 @@ export default {
       if (this.$gate.isAdmin()) {
         axios.get("/api/group/all").then(({ data }) => {
           this.groups = data.data;
-          if (this.form.notification_id <= 0) {
-            this.form.groups.push(data.data[0]);
-            this.form.groups.push(data.data[1]);
+          if (
+            this.form.notification_id <= 0 ||
+            this.form.notification_id == undefined
+          ) {
+            this.form.groups.push(this.groups[0]);
+            this.form.groups.push(this.groups[1]);
           }
         });
       }
@@ -200,24 +204,25 @@ export default {
     },
     validateForm() {
       this.isValidate = true;
+      this.lang = this.$i18n._vm.messages;
       if (this.form.title.length <= 0) {
         Toast.fire({
           icon: "error",
-          title: "Please input title notification",
+          title: this.lang.ja.notification.require_title,
         });
         this.isValidate = false;
       }
       if (this.form.groups.length <= 0) {
         Toast.fire({
           icon: "error",
-          title: "Please input group notification",
+          title: this.lang.ja.notification.require_group,
         });
         this.isValidate = false;
       }
       if (this.form.content.length <= 0) {
         Toast.fire({
           icon: "error",
-          title: "Please input content notification",
+          title: this.lang.ja.notification.require_content,
         });
         this.isValidate = false;
       }
@@ -236,11 +241,12 @@ export default {
           });
           this.$Progress.finish();
           this.resetForm();
+          this.$router.push({ name: "notification_list" });
         })
         .catch(() => {
           Toast.fire({
             icon: "error",
-            title: "Some error occured! Please try again",
+            title: t("notification.some_error"),
           });
         });
     },

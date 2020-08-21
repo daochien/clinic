@@ -91,7 +91,7 @@
       <div class="row mt-5">
         <div class="col-12">
           <div class="card" v-if="$gate.isAdmin()">
-            <div class="card-body table-responsive p-0">
+            <div class="card-body p-0">
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -134,18 +134,21 @@
                       <label class="text-warning" v-else>{{ $t('notification.unpublish')}}</label>
                     </td>
                     <td>
-                      <div class="dropdown">
+                      <div class="btn-group">
                         <i
-                          class="fa fa-ellipsis-v"
+                          class="fa fa-ellipsis-v fa-fw"
                           id="operatingAction"
                           data-toggle="dropdown"
                           aria-haspopup="true"
                           aria-expanded="false"
                         ></i>
-                        <div class="dropdown-menu" aria-labelledby="operatingAction">
+                        <div
+                          class="dropdown-menu dropdown-menu-right"
+                          aria-labelledby="operatingAction"
+                        >
                           <a
                             class="dropdown-item text-primary"
-                            href="#"
+                            @click="publishAnnouncement()"
                           >{{ $t('notification.publish_announcement')}}</a>
                           <router-link
                             :class="'dropdown-item text-primary'"
@@ -153,7 +156,7 @@
                           >{{ $t('notification.edit')}}</router-link>
                           <a
                             class="dropdown-item text-danger"
-                            href="#"
+                            @click="deleteNotification()"
                           >{{ $t('notification.delete')}}</a>
                         </div>
                       </div>
@@ -229,6 +232,8 @@ export default {
         path: "/admin/notification/edit",
       });
     },
+    deleteNotification() {},
+    publishAnnouncement() {},
     searchData() {},
   },
   mounted() {
