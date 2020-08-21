@@ -131,8 +131,10 @@ export default {
             },
             "validator": {
                 "name_required": "name is required",
+                "name_maxLength": "name cannot exceed 255 characters",
                 "email_required": "email is required",
-                "email_valid": "incorrect email format"
+                "email_valid": "incorrect email format",
+                "email_maxLength": "email cannot exceed 255 characters"
             }
         },
         "notification": {
@@ -509,7 +511,9 @@ export default {
             "validator": {
                 "name_required": "名前は必須です",
                 "email_required": "メールが必要です",
-                "email_valid": "不正なメール形式"
+                "email_valid": "不正なメール形式",
+                "name_maxLength": "名前は255文字以下にする必要があります",
+                "email_maxLength": "メールは255文字を超えることはできません"
             }
         },
         "notification": {

@@ -19,6 +19,7 @@ class AdminResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'description' => $this->description,
             'created_at' => $this->created_at,
             'groups' => GroupResource::collection($this->group),
             'last_login' => $this->getLastLoginTime(),

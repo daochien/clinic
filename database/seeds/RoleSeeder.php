@@ -15,30 +15,43 @@ class RoleSeeder extends Seeder
     {
         //create role super_user
         $roleSuperUser = Role::create([
+            'id' => 1,
             'name' => 'super_user',
             'guard_name' => 'api'
         ]);
 
         $superPermissions = $this->getPermissions();
         $roleSuperUser->givePermissionTo($superPermissions);
-    
+
         //create role admin
         $roleAdmin = Role::create([
+            'id' => 2,
             'name' => 'admin',
             'guard_name' => 'api'
         ]);
 
         $adminPermissions = $this->getPermissions(['role', 'group']);
         $roleAdmin->givePermissionTo($adminPermissions);
-        
+
         //create role operator
-        $roleOperator = Role::create([
-            'name' => 'operator',
+        $roleWeb = Role::create([
+            'id' => 3,
+            'name' => 'staff_web',
             'guard_name' => 'api'
         ]);
 
-        $operatorPermissions = $this->getPermissions(['role', 'group', 'manager']);
-        $roleOperator->givePermissionTo($operatorPermissions);
+        $webPermissions = $this->getPermissions(['role', 'group', 'manager']);
+        $roleWeb->givePermissionTo($webPermissions);
+
+         //create role operator
+        $roleMobile = Role::create([
+            'id' => 4,
+            'name' => 'staff_mobile',
+            'guard_name' => 'api'
+        ]);
+
+        $mobilePermissions = $this->getPermissions(['role', 'group', 'manager']);
+        $roleMobile->givePermissionTo($mobilePermissions);
 
         // DB::table('roles')->insertOrIgnore(
         //     [
@@ -67,7 +80,7 @@ class RoleSeeder extends Seeder
                 foreach ($router['groups'] as $group) {
                     $permissions = array_merge($permissions, $group['routes']);
                 }
-            }            
+            }
         }
         $permissions = array_unique($permissions);
 
@@ -85,7 +98,7 @@ class RoleSeeder extends Seeder
         if (!empty($insertPermissions)) {
             DB::table('permissions')->insert($insertPermissions);
         }
-    
+
         return $permissions;
     }
 }

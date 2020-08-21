@@ -5,7 +5,7 @@
             'groups' => [
                 'view' => [
                         'name' => 'View list',
-                        'routes' => ['role.index','role.list']
+                        'routes' => ['role.index']
                     ],
                 'create' => [
                         'name' => 'Create',
@@ -26,15 +26,15 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['manager.index', 'role.list', 'role.index']
+                    'routes' => ['manager.index', 'role.list']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['manager.create', 'role.list', 'role.index'],
+                    'routes' => ['manager.create', 'role.list'],
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['manager.update', 'role.list', 'role.index']
+                    'routes' => ['manager.update', 'manager.show', 'role.list']
                 ],
                 'delete' => [
                     'name' => 'Delete',
@@ -47,19 +47,19 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => []
+                    'routes' => ['clinic.index', 'api.clinic.all']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => [],
+                    'routes' => ['clinic.create', 'clinic.get.users', 'clinic.add.users'],
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => []
+                    'routes' => ['clinic.update', 'clinic.show']
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'routes' => []
+                    'routes' => ['clinic.destroy']
                 ]
             ]
         ],
@@ -68,19 +68,19 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => []
+                    'routes' => ['user.index', 'api.user.search', 'api.group.all', 'api.setting.level', 'api.setting.type', 'api.clinic.all']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => [],
+                    'routes' => ['user.create', 'api.group.all', 'api.setting.level', 'api.setting.type', 'api.clinic.all'],
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => []
+                    'routes' => ['user.show', 'user.update', 'api.group.all', 'api.setting.level', 'api.setting.type', 'api.clinic.all']
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'routes' => []
+                    'routes' => ['user.destroy']
                 ]
             ]
         ],
@@ -89,19 +89,19 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => []
+                    'routes' => ['group.index']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => [],
+                    'routes' => ['group.create'],
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => []
+                    'routes' => ['group.update', 'group.show']
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'routes' => []
+                    'routes' => ['group.destroy']
                 ]
             ]
         ],
@@ -110,19 +110,19 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => []
+                    'routes' => ['notification.index', 'api.group.all']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => [],
+                    'routes' => ['notification.create', 'api.group.all'],
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => []
+                    'routes' => ['notification.update', 'notification.show', 'api.group.all']
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'routes' => []
+                    'routes' => ['notification.destroy']
                 ]
             ]
         ],
@@ -131,84 +131,84 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => []
+                    'routes' => ['template.index']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => [],
+                    'routes' => ['template.create'],
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => []
+                    'routes' => ['template.update', 'template.show']
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'routes' => []
+                    'routes' => ['template.destroy']
                 ]
             ]
         ],
-        'request' => [
-            'name' => 'Request management',
-            'groups' => [
-                'view' => [
-                    'name' => 'View list',
-                    'routes' => []
-                ],
-                'create' => [
-                    'name' => 'Create',
-                    'routes' => [],
-                ],
-                'update' => [
-                    'name' => 'Update',
-                    'routes' => []
-                ],
-                'delete' => [
-                    'name' => 'Delete',
-                    'routes' => []
-                ]
-            ]
-        ],
-        'inquiry' => [
-            'name' => 'Inquiry management',
-            'groups' => [
-                'view' => [
-                    'name' => 'View list',
-                    'routes' => []
-                ],
-                'create' => [
-                    'name' => 'Create',
-                    'routes' => [],
-                ],
-                'update' => [
-                    'name' => 'Update',
-                    'routes' => []
-                ],
-                'delete' => [
-                    'name' => 'Delete',
-                    'routes' => []
-                ]
-            ]
-        ],
-        'page' => [
-            'name' => 'Page management',
-            'groups' => [
-                'view' => [
-                    'name' => 'View list',
-                    'routes' => []
-                ],
-                'create' => [
-                    'name' => 'Create',
-                    'routes' => [],
-                ],
-                'update' => [
-                    'name' => 'Update',
-                    'routes' => []
-                ],
-                'delete' => [
-                    'name' => 'Delete',
-                    'routes' => []
-                ]
-            ]
-        ]
+        // 'request' => [
+        //     'name' => 'Request management',
+        //     'groups' => [
+        //         'view' => [
+        //             'name' => 'View list',
+        //             'routes' => []
+        //         ],
+        //         'create' => [
+        //             'name' => 'Create',
+        //             'routes' => [],
+        //         ],
+        //         'update' => [
+        //             'name' => 'Update',
+        //             'routes' => []
+        //         ],
+        //         'delete' => [
+        //             'name' => 'Delete',
+        //             'routes' => []
+        //         ]
+        //     ]
+        // ],
+        // 'inquiry' => [
+        //     'name' => 'Inquiry management',
+        //     'groups' => [
+        //         'view' => [
+        //             'name' => 'View list',
+        //             'routes' => []
+        //         ],
+        //         'create' => [
+        //             'name' => 'Create',
+        //             'routes' => [],
+        //         ],
+        //         'update' => [
+        //             'name' => 'Update',
+        //             'routes' => []
+        //         ],
+        //         'delete' => [
+        //             'name' => 'Delete',
+        //             'routes' => []
+        //         ]
+        //     ]
+        // ],
+        // 'page' => [
+        //     'name' => 'Page management',
+        //     'groups' => [
+        //         'view' => [
+        //             'name' => 'View list',
+        //             'routes' => []
+        //         ],
+        //         'create' => [
+        //             'name' => 'Create',
+        //             'routes' => [],
+        //         ],
+        //         'update' => [
+        //             'name' => 'Update',
+        //             'routes' => []
+        //         ],
+        //         'delete' => [
+        //             'name' => 'Delete',
+        //             'routes' => []
+        //         ]
+        //     ]
+        // ]
     ];
 ?>

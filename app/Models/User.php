@@ -157,7 +157,9 @@ class User extends Authenticatable // implements MustVerifyEmail
             return true;
         }
 
-        if ($this->hasRole('super_user')) {
+        $role = Role::find(Role::ROLE_DEFAULT['root']);
+        
+        if ($this->hasRole($role->name)) {
             return true;
         }
 

@@ -14,7 +14,6 @@
         "fruitcake/laravel-cors": "^2.0",
         "jazmy/jaz-form-builder": "dev-master",
         "laravel/framework": "^7.0",
-        "laravel/horizon": "^4.3",
         "laravel/sanctum": "^2.4",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",

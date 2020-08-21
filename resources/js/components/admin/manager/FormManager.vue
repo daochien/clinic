@@ -14,6 +14,7 @@
                             type="text"
                             v-model.trim="$v.manager.name.$model">
                             <div class="invalid-feedback" v-if="!$v.manager.name.required">{{ $t('manager.validator.name_required') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.name.maxLength">{{ $t('manager.validator.name_maxLength') }}</div>
                         </div>
                         <div class="form-group col-12 col-sm-6">
                             <label for="feInputTitle">{{ $t('manager.form_create.input_email') }} <span style="color:#c4183c;">*</span></label>
@@ -22,6 +23,7 @@
                             type="text" v-model.trim="$v.manager.email.$model">
                             <div class="invalid-feedback" v-if="!$v.manager.email.required">{{ $t('manager.validator.email_required') }}</div>
                             <div class="invalid-feedback" v-if="!$v.manager.email.email">{{ $t('manager.validator.email_valid') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.name.maxLength">{{ $t('manager.validator.email_maxLength') }}</div>
                         </div>
                     </div>
                     <div class="row">
@@ -119,12 +121,12 @@ export default {
         manager: {
             name: {
                 required,
-                maxLength: maxLength(191)
+                maxLength: maxLength(50)
             },
             email: {
                 required,
                 email,
-                maxLength: maxLength(191)
+                maxLength: maxLength(255)
             },
             roles: {
                 required
