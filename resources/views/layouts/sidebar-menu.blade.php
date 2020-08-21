@@ -83,16 +83,16 @@
                         <span>{{ __('sidebar.request') }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-small">
-                        <router-link to="/admin/template" class="dropdown-item">
+                        {{--<router-link to="/admin/template" class="dropdown-item">
                             {{ __('sidebar.templates') }}
-                        </router-link>
+                        </router-link>--}}
                         <a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>
-                        <router-link to="/admin/request" class="dropdown-item">
+                        {{--<router-link to="/admin/request" class="dropdown-item">
                             {{ __('sidebar.request') }}
-                        </router-link>
+                        </router-link>--}}
                     </div>
                 </li>
-                <li class="nav-item dropdown">
+                {{--<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
                         <i class="far fa-question-circle"></i>
                         <span>{{ __('sidebar.inquiry') }}</span>
@@ -108,13 +108,13 @@
                             {{ __('sidebar.inquiry') }}
                         </router-link>
                     </div>
-                </li>
-                <li class="nav-item">
+                </li>--}}
+                {{--<li class="nav-item">
                     <router-link to="/admin/blog" class="nav-link">
                         <i class="fas fa-stream"></i>
                         <span>{{ __('sidebar.blog') }}</span>
                     </router-link>
-                </li>
+                </li>--}}
             {{-- <li class="nav-item">
                     <router-link to="/admin/manuals" class="nav-link">
                         <i class="fa fa-users nav-icon blue"></i>
@@ -123,20 +123,5 @@
                 </li>--}}
             </ul>
         @endif
-
-        <ul class="nav nav--no-borders flex-column">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                    <i class="fas fa-cog"></i>
-                    <span>{{ __('app.setting') }}</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-small">
-                    <router-link to="/admin/product/products" class="nav-link">Product</router-link>
-                    <router-link to="/admin/product/category" class="nav-link">Category</router-link>
-                    <router-link to="/admin/product/tag" class="nav-link">Tags</router-link>
-                </div>
-            </li>
-        </ul>
-
     </div>
 </aside>

@@ -27,7 +27,7 @@ export default [
     },
 
     {
-        path: '/admin/templates',
+        path: '/admin/template',
         component: {template: '<router-view/>'},
         name: 'user', meta: {breadcrumb: `申請管理`},
         children: [
@@ -53,7 +53,7 @@ export default [
     { path: '/admin/blog/create', component: require('./components/admin/blog/Create.vue').default },
 
     {
-        path: '/admin/managers',
+        path: '/admin/manager',
         component: {template: '<router-view/>'},
         name: 'admin', meta: {breadcrumb: `管理者アカウント管理`},
         children: [

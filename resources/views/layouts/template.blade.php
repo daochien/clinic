@@ -46,7 +46,7 @@
             <div class="nav-wrapper" style="overflow-y: auto;">
                 <ul class="nav nav--no-borders flex-column">
                     <li class="nav-item">
-                        <a href="/admin/users" class="nav-link">
+                        <a href="/admin/user" class="nav-link">
                             <i class="fa fa-users nav-icon blue"></i>
                             <span>{{ __('sidebar.admin_manage') }}</span>
                         </a>
@@ -57,16 +57,16 @@
                             <span>{{ __('sidebar.staff_manage') }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-small">
-                            <a href="/admin/clinics" class="dropdown-item">
+                            <a href="/admin/clinic" class="dropdown-item">
                                 {{ __('sidebar.clinics') }}
                             </a>
-                            <a href="/admin/users" class="dropdown-item">
+                            <a href="/admin/user" class="dropdown-item">
                                 {{ __('sidebar.staff') }}
                             </a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="/admin/notifications" class="nav-link">
+                        <a href="/admin/notification" class="nav-link">
                             <i class="far fa-bell"></i>
                             <span>{{ __('sidebar.notification') }}</span>
                         </a>
@@ -81,7 +81,7 @@
                             {{--<a href="/admin/templates" class="dropdown-item">
                                 {{ __('sidebar.templates') }}
                             </a>--}}
-                            <a href="/admin/requests" class="dropdown-item">
+                            <a href="/admin/request" class="dropdown-item">
                                 {{ __('sidebar.request') }}
                             </a>
                         </div>
@@ -104,29 +104,10 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a href="/admin/blogs" class="nav-link">
+                        <a href="/admin/blog" class="nav-link">
                             <i class="fas fa-stream"></i>
                             <span>{{ __('sidebar.blog') }}</span>
                         </a>
-                    </li>
-                    {{-- <li class="nav-item">
-                         <a href="/admin/manuals" class="nav-link">
-                             <i class="fa fa-users nav-icon blue"></i>
-                             <span>{{ __('sidebar.manual') }}</span>
-                         </a>
-                     </li>--}}
-                </ul>
-                <ul class="nav nav--no-borders flex-column">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                            <i class="fas fa-cog"></i>
-                            <span>{{ __('app.setting') }}</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-small">
-                            <a href="/admin/product/products" class="nav-link">Product</a>
-                            <a href="/admin/product/category" class="nav-link">Category</a>
-                            <a href="/admin/product/tag" class="nav-link">Tags</a>
-                        </div>
                     </li>
                 </ul>
 
