@@ -512,7 +512,7 @@ export default {
                 "name_required": "名前は必須です",
                 "email_required": "メールが必要です",
                 "email_valid": "不正なメール形式",
-                "name_maxLength": "名前は255文字以下にする必要があります",
+                "name_maxLength": "名前は50文字以下にする必要があります",
                 "email_maxLength": "メールは255文字を超えることはできません"
             }
         },

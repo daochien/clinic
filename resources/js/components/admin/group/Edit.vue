@@ -114,9 +114,9 @@
                             title: data.data.message
                         });
                         this.$Progress.finish();
+                        this.$router.push({ path: '/admin/group' })
                     })
                     .catch(()=>{
-
                         Toast.fire({
                             icon: 'error',
                             title: 'Some error occured! Please try again'
@@ -129,8 +129,12 @@
         },
         created() {
             this.$Progress.start();
-            this.id = this.$route.params.id;
-            this.loadGroup();
+            if( this.$route.params.id){
+                this.id = this.$route.params.id;
+                this.loadGroup();
+            }else{
+                this.$router.push({ path: '/admin/group' });
+            }
             this.$Progress.finish();
         }
     }

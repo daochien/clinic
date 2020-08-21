@@ -104,7 +104,7 @@ class GroupController extends BaseController
      */
     public function destroy($id)
     {
-        $this->authorize('isAdmin');
+//        $this->authorize('isAdmin');
 
         $entity = Group::findOrFail($id);
         // delete the entity
@@ -121,7 +121,7 @@ class GroupController extends BaseController
         return $this->sendResponse($group, 'Group list');
     }
 
-    public function users($id)
+    public function members($id)
     {
         $entity = GroupUser::where('group_id', $id)->first();
         if (isset($entity->group_id)) {
@@ -131,11 +131,11 @@ class GroupController extends BaseController
         return response()->json(['data' => ['data' => []]]);
     }
 
-    public function members($id)
+    public function users($id)
     {
         $users_id = GroupUser::where('group_id', $id)->pluck('user_id');
         if(count($users_id)){
-            $users = DB::table('users')->whereIn('id', $users_id)->paginate(10);
+            $users = DB::table('users')->whereIn('id', $users_id)->paginate(20);
             return $this->sendResponse($users, 'Members list');
         }
         return response()->json(['data' => ['data' => []]]);
@@ -155,7 +155,7 @@ class GroupController extends BaseController
         if(count($users)){
             return $this->sendResponse($users, 'Users list');
         }
-        $data = ['data' => ['data' => []]];
+        $data = null;
         return $this->sendResponse($data, 'Group empty');
     }
 
