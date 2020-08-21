@@ -240,7 +240,7 @@ export default {
           });
           this.$Progress.finish();
           this.resetForm();
-          this.$router.push({ name: "notification_list" });
+          this.$router.push({ path: "/admin/notification" });
         })
         .catch(() => {
           Toast.fire({

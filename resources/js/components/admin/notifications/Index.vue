@@ -115,9 +115,14 @@
                       >{{ entity.title }}</router-link>
                     </td>
                     <td>
-                      <div v-for="target in entity.groups" :key="target.id">
-                        <label>{{ target.group.name }}</label>
+                      <div v-if="entity.groups.length !== 0">
+                        <span
+                          class="badge badge-info ml-1"
+                          v-for="target in entity.groups"
+                          :key="'gr_' + target.group.id"
+                        >{{ target.group.name}}</span>
                       </div>
+                      <div v-else>-</div>
                     </td>
                     <td>{{ entity.users_count }}</td>
                     <td>{{ entity.users_read }}</td>

@@ -22,9 +22,9 @@
                           <label>{{ $t('notification.clinic')}}</label>
                           <select class="form-control" id="clinic">
                             <option
-                              v-for="(entity) in groups"
+                              v-for="(entity) in clinics"
                               :key="entity.id"
-                              :v-model="form.groups"
+                              :v-model="form.clinics"
                             >{{ entity.name }}</option>
                           </select>
                         </div>
@@ -87,7 +87,7 @@
       <div class="row mt-5">
         <div class="col-12">
           <div class="card" v-if="$gate.isAdmin()">
-            <div class="card-body table-responsive p-0">
+            <div class="card-body p-0">
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -105,9 +105,54 @@
                     <td>{{ index }}</td>
                     <td>{{ entity.user.name }}</td>
                     <td>{{ entity.user.email }}</td>
-                    <td>{{ entity.user.type }}</td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div v-if="entity.user.group.length !== 0">
+                        <span
+                          class="badge badge-info ml-1"
+                          v-for="group in entity.user.group"
+                          :key="'sc_' + group.id"
+                        >{{ group.name}}</span>
+                      </div>
+                      <div v-else>-</div>
+                    </td>
+                    <td>
+                      <div v-if="entity.user.clinic.length !== 0">
+                        <span
+                          class="badge badge-info ml-1"
+                          v-for="clinic in entity.user.clinic"
+                          :key="'sc_' + clinic.id"
+                        >{{ clinic.name}}</span>
+                      </div>
+                      <div v-else>-</div>
+                    </td>
+                    <td>
+                      <div v-if="entity.notification.confirm == true">
+                        <span
+                          v-if="entity.user_status.status == 1"
+                          class="text-secondary"
+                        >{{ $t('notification.un_read') }}</span>
+                        <span
+                          v-else-if="entity.user_status.status == 2"
+                          class="text-primary"
+                        >{{ $t('notification.already_read') }}</span>
+                        <span v-else>-</span>
+                      </div>
+                      <div v-else>-</div>
+                    </td>
+                    <td>
+                      <div v-if="entity.notification.confirm == true">
+                        <span
+                          v-if="entity.user_status.status == 1"
+                          class="text-secondary"
+                        >{{ $t('notification.no_read_date') }}</span>
+                        <span
+                          v-else-if="entity.user_status.status == 2"
+                          class="text-primary"
+                        >{{ entity.user_status.updated_at }}</span>
+                        <span v-else>-</span>
+                      </div>
+                      <div v-else>-</div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -125,10 +170,10 @@ export default {
     return {
       editmode: false,
       members: {},
-      groups: {},
+      clinics: {},
       notification_id: 0,
       form: new Form({
-        groups: [],
+        clinics: [],
         keyword: "",
         status: 0,
       }),
@@ -165,6 +210,11 @@ export default {
       }
       this.$Progress.finish();
     },
+    loadClinic() {
+      axios.get("/api/clinic/all").then((response) => {
+        this.clinics = response.data.data;
+      });
+    },
     searchData() {},
   },
   mounted() {
@@ -175,6 +225,7 @@ export default {
     console.log("created");
     this.notification_id = this.$route.params.id;
     this.loadNotification();
+    this.loadClinic();
     this.$Progress.finish();
   },
 };
