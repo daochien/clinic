@@ -238,6 +238,16 @@ export default {
             "role": "Role",
             "permission": "Permission"
         },
+        "template": {
+            "create_breadcrumb_label": "Create template",
+            "basic_info": "Basic info",
+            "setting": "Setting",
+            "title": "Title",
+            "category": "Category",
+            "approver": "Approvers",
+            "multi_approve": "Multi approve",
+            "description": "Description"
+        },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
             "active_url": "The {attribute} is not a valid URL.",
@@ -623,6 +633,16 @@ export default {
             "contact": "問い合わせ担当",
             "role": "役割",
             "permission": "権限"
+        },
+        "template": {
+            "create_breadcrumb_label": "申請テンプレート編集",
+            "basic_info": "基本情報",
+            "setting": "申請項目設定",
+            "title": "タイトル",
+            "category": "担当役割",
+            "approver": "承認担当者",
+            "multi_approve": "全員承認",
+            "description": "メモ"
         },
         "validation": {
             "accepted": "{attribute}を承認してください。",

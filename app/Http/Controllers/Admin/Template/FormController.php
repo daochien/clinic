@@ -37,13 +37,13 @@ class FormController extends Controller
     public function create()
     {
         $pageTitle = "Create New Form";
+        $breadCrumbTitle = __('template.create_breadcrumb_label');
 
         $saveURL = route('template.store');
-
         // get the roles to use to populate the make the 'Access' section of the form builder work
         $form_roles = FormBuilderHelper::getConfiguredRoles();
 
-        return view('template.forms.create', compact('pageTitle', 'saveURL', 'form_roles'));
+        return view('template.forms.create', compact('pageTitle', 'breadCrumbTitle', 'saveURL', 'form_roles'));
     }
 
     public function store(SaveFormRequest $request)

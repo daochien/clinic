@@ -16,7 +16,7 @@
                     <div class="card" v-if="$gate.isAdmin()">
                         <div class="card-header">
                             <div class="card-tools">
-                                <router-link class="btn btn-sm btn-primary" to="/admin/templates/create">
+                                <router-link class="btn btn-sm btn-primary" to="/admin/template/create">
                                     <i class="fa fa-plus-square"></i>
                                     Create Template
                                 </router-link>
