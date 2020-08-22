@@ -170,7 +170,7 @@ export default {
                 axios.post('/api/manager', this.manager)
                 .then( (data) => {
                     if(data.data.success) {
-                        this.$router.push({path: '/admin/managers'});
+                        this.$router.push({path: '/admin/manager'});
                         Toast.fire({
                             icon: 'success',
                             title: this.$t('manager.form_create.alert_create_success')
