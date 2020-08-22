@@ -125,7 +125,7 @@ export default {
                 });
 
                 this.$Progress.finish();
-                this.$router.push({path: '/admin/roles'});
+                this.$router.push({path: '/admin/manager/roles'});
             })
             .catch(()=>{
                 Toast.fire({
