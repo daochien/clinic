@@ -34,8 +34,8 @@ class UserServices
 
             // Assigning Role by default user role
             $user->syncRoles($attribute['role']['name']);
-            RoleUser::where(['user_id' => $user->id])->update(['role_id' => $attribute['role']['id']]);
-            $user->assignRole($attribute['role']['name']);
+//            RoleUser::where(['user_id' => $user->id])->update(['role_id' => $attribute['role']['id']]);
+//            $user->assignRole($attribute['role']['name']);
 
             if( !empty($attribute['type_id'] ?? null)) {
                 TypeUser::where('user_id', $user->id)->delete();
@@ -96,10 +96,10 @@ class UserServices
             $user = $this->userRepository->createUser($attribute);
             event(new CreateUserEvent($user, $attribute['password']));
             // Assigning Role by default user role
-            RoleUser::insertOrIgnore([
-                    'role_id' => $attribute['role']['id'],
-                    'user_id' => $user->id
-                ]);
+//            RoleUser::insertOrIgnore([
+//                    'role_id' => $attribute['role']['id'],
+//                    'user_id' => $user->id
+//                ]);
             $user->assignRole($attribute['role']['name']);
 
             if( !empty($attribute['type_id'] ?? null)) {

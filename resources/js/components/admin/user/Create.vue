@@ -171,7 +171,7 @@
             createUser() {
                 this.form.post('/api/user')
                     .then((response) => {
-                        this.$router.push("/admin/users")
+                        this.$router.push("/admin/user")
                         this.$Progress.finish();
                     })
                     .catch(() => {
