@@ -14,10 +14,10 @@ return [
         'operator' => '操作',
     ],
     'form' => [
-      'keyword' =>  'キーワード',
-      'keyword_placeholder' =>  'キーワードを入力してください',
-      'clear_form' =>  '条件をクリアする',
-      'submit_form' =>  'この条件で検索',
+        'keyword' =>  'キーワード',
+        'keyword_placeholder' =>  'キーワードを入力してください',
+        'clear_form' =>  '条件をクリアする',
+        'submit_form' =>  'この条件で検索',
     ],
     'clinic' => [
         'header' => [
@@ -26,7 +26,7 @@ return [
             'list-user' => 'List Users',
         ],
         'place_holder' => [
-            'name'=> 'クリニック名を入力してください',
+            'name' => 'クリニック名を入力してください',
             'post_code' => '郵便番号を入力してください',
             'address' => '住所を入力してください',
             'description' => 'メモを入力してください',
@@ -45,7 +45,7 @@ return [
             'edit' => 'スタッフ情報編集',
         ],
         'place_holder' => [
-            'name'=> 'スタッフ名を入力してください',
+            'name' => 'スタッフ名を入力してください',
             'email' => 'メールアドレスを入力してください',
             'group' => 'グループを選択してください',
             'clinic' => 'クリニックを選択してください',
@@ -67,5 +67,9 @@ return [
         'clinic_name' => 'クリニック',
         'group_select_all' => '全てのグループ',
         'clinic_select_all' => '全てのクリニック',
-    ]
+    ],
+    'delete_head' => '本気ですか?',
+    'delete_question' => 'これを元に戻すことはできません!',
+    'delete_yes' => 'はい、削除します!',
+    'delete_cancel' => 'キャンセル'
 ];

@@ -76,7 +76,7 @@ class NotificationService
 
     public function getMember($id = 0)
     {
-        $entities  = NotificationUser::where('notification_id', $id)->with('user')->get();
+        $entities  = NotificationUser::where('notification_id', $id)->with(['userStatus', 'notification', 'user.clinic', 'user.group'])->get();
         if ($entities->count() > 0) {
             return response()->json(['data' => ['data' => $entities]]);
         }
