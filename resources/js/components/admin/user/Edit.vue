@@ -174,7 +174,7 @@
             updateUser() {
                 this.form.put('/api/user/' + this.$route.params.id)
                     .then((response) => {
-                        this.$router.push("/admin/users")
+                        this.$router.push("/admin/user")
                         this.$Progress.finish();
                     })
                     .catch(() => {
