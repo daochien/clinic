@@ -25,7 +25,7 @@
                       <div class="col-6">
                         <div class="form-group">
                           <label>{{ $t('notification.target_person')}}</label>
-                          <select class="form-control" id="targetPerson">
+                          <select class="form-control" id="targetPerson" v-model="form.groups">
                             <option v-for="(entity) in groups" :key="entity.id">{{ entity.name }}</option>
                           </select>
                         </div>
@@ -36,7 +36,7 @@
                           <input
                             type="text"
                             class="form-control"
-                            :v-model="form.keyword"
+                            v-model="form.keyword"
                             :placeholder="$t('notification.keyword_placeholder')"
                           />
                         </div>
@@ -46,21 +46,15 @@
                       <div class="col-6">
                         <div class="form-group">
                           <label>{{ $t('notification.release_date')}}</label>
-                          <input type="date" class="form-control" :v-model="form.release_date" />
+                          <input type="date" class="form-control" v-model="form.release_date" />
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group">
                           <label>{{ $t('notification.status')}}</label>
-                          <select class="form-control" id="targetPerson">
-                            <option
-                              value="true"
-                              :v-model="form.status"
-                            >{{ $t('notification.publish')}}</option>
-                            <option
-                              value="false"
-                              :v-model="form.status"
-                            >{{ $t('notification.unpublish')}}</option>
+                          <select class="form-control" id="targetPerson" v-model="form.status">
+                            <option value="true">{{ $t('notification.publish')}}</option>
+                            <option value="false">{{ $t('notification.unpublish')}}</option>
                           </select>
                         </div>
                       </div>
@@ -130,7 +124,7 @@
                       <label v-if="entity.confirm === 0">{{ entity.users_count}}</label>
                       <label v-else>{{ entity.users_confirm }}</label>
                     </td>
-                    <td>{{ entity.created_at }}</td>
+                    <td>{{ entity.schedule_date }}</td>
                     <td>
                       <label
                         class="text-secondary"
@@ -239,20 +233,39 @@ export default {
     },
     deleteNotification() {
       Swal.fire({
-        title: this.lang.ja.app.delete_head,
-        text: this.lang.ja.app.delete_question,
+        title: this.$t("app").delete_head,
+        text: this.$t("app").delete_question,
         showCancelButton: true,
         confirmButtonColor: "#d33",
         cancelButtonColor: "#3085d6",
-        confirmButtonText: this.lang.ja.app.delete_yes,
-        cancelButtonText: this.lang.ja.app.delete_cancel,
+        confirmButtonText: this.$t("app").delete_yes,
+        cancelButtonText: this.$t("app").delete_cancel,
       }).then((result) => {
         if (result.value) {
         }
       });
     },
     publishAnnouncement() {},
-    searchData() {},
+    searchData() {
+      this.$Progress.start();
+      if (this.$gate.isAdmin()) {
+        this.form
+          .post("/api/notification/search")
+          .then((data) => {
+            Toast.fire({
+              icon: "success",
+              title: data.data.message,
+            });
+          })
+          .catch(() => {
+            Toast.fire({
+              icon: "error",
+              title: this.$t("app").notification.some_error,
+            });
+          });
+      }
+      this.$Progress.finish();
+    },
   },
   mounted() {
     console.log("Notification Component mounted.");
@@ -262,7 +275,6 @@ export default {
     console.log("created");
     this.loadNotification();
     this.$Progress.finish();
-    this.lang = this.$i18n._vm.messages;
   },
 };
 </script>

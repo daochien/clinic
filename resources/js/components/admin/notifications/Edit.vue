@@ -130,7 +130,6 @@ export default {
     return {
       editmode: false,
       isValidate: false,
-      lang: {},
       form: new Form({
         notification_id: 0,
         title: "",
@@ -207,21 +206,21 @@ export default {
       if (this.form.title.length <= 0) {
         Toast.fire({
           icon: "error",
-          title: this.lang.ja.notification.require_title,
+          title: this.$t('app').notification.require_title,
         });
         this.isValidate = false;
       }
       if (this.form.groups.length <= 0) {
         Toast.fire({
           icon: "error",
-          title: this.lang.ja.notification.require_group,
+          title: this.$t('app').notification.require_group,
         });
         this.isValidate = false;
       }
       if (this.form.content.length <= 0) {
         Toast.fire({
           icon: "error",
-          title: this.lang.ja.notification.require_content,
+          title: this.$t('app').notification.require_content,
         });
         this.isValidate = false;
       }
@@ -245,7 +244,7 @@ export default {
         .catch(() => {
           Toast.fire({
             icon: "error",
-            title: t("notification.some_error"),
+            title: this.$t('app').notification.some_error,
           });
         });
     },
@@ -259,7 +258,6 @@ export default {
     this.form.notification_id = this.$route.params.id;
     this.loadNotification();
     this.$Progress.finish();
-    this.lang = this.$i18n._vm.messages;
   },
 };
 </script>

@@ -76,11 +76,7 @@ class NotificationService
 
     public function getMember($id = 0)
     {
-        $entities  = NotificationUser::where('notification_id', $id)->with(['userStatus', 'notification', 'user.clinic', 'user.group'])->get();
-        if ($entities->count() > 0) {
-            return response()->json(['data' => ['data' => $entities]]);
-        }
-        return response()->json(['data' => ['data' => []]]);
+        return NotificationUser::where('notification_id', $id)->with(['userStatus', 'notification', 'user.clinic', 'user.group'])->get();
     }
 
     public function delete($id)
@@ -156,5 +152,49 @@ class NotificationService
     public function search(SearchNotificationRequest $request)
     {
         return $this->repository->search($request);
+    }
+
+    public function detailSearch(SearchNotificationRequest $request)
+    {
+        if (!isset($request['notification_id'])) {
+            return null;
+        }
+        $id = $request['notification_id'];
+        $datas = NotificationUser::where('notification_id', $id)
+        ->whereHas(
+            'userStatus', function($qstatus) use($request){
+                if($request['status'] == '0'){
+                    $qstatus->whereIn('status', [ 1, 2, 3]);
+                }else{
+                    $qstatus->where('status', '=',  $request['status']);
+                }
+            }
+        )
+        ->whereHas(
+            'user', function($quser) use($request){
+                if (isset($request['keyword']) && strlen($request['keyword']) > 0) {
+                    if (strpos($request['keyword'], '@') === false ) {
+                        $quser->where('name', 'like', '%'. $request['keyword'] . '%'); 
+                    }else{
+                        $quser->where('email', 'like', '%' . explode("@",$request['keyword'])[0] . '%');  
+                    }
+                }
+            }
+        )
+        ->whereHas(            
+            'user.clinic', function($qclinic) use($request){                
+                if (isset($request['clinic']) && strlen($request['clinic']) > 0) {
+                    $qclinic->where('name', '=', $request['clinic']);             
+                }
+            }
+        )
+        ->with([
+            'userStatus',
+            'notification',
+            'user.clinic',
+            'user.group'
+        ]);
+
+        return  $datas->get();
     }
 }

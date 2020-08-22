@@ -20,28 +20,22 @@
                       <div class="col-6">
                         <div class="form-group">
                           <label>{{ $t('notification.clinic')}}</label>
-                          <select class="form-control" id="clinic">
+                          <select class="form-control" id="clinic" v-model="form.clinic">
                             <option
                               v-for="(entity) in clinics"
                               :key="entity.id"
-                              :v-model="form.clinics"
+                              :value="entity.name"
                             >{{ entity.name }}</option>
                           </select>
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group">
-                          <label>{{ $t('notification.keyword')}}</label>
-                          <select class="form-control" id="status">
-                            <option
-                              :v-model="form.status"
-                              value="0"
-                            >{{ $t('notification.all_status')}}</option>
-                            <option :v-model="form.status" value="1">{{ $t('notification.un_read')}}</option>
-                            <option
-                              :v-model="form.status"
-                              value="2"
-                            >{{ $t('notification.already_read')}}</option>
+                          <label>{{ $t('notification.status')}}</label>
+                          <select class="form-control" id="status" v-model="form.status">
+                            <option value="0">{{ $t('notification.all_status')}}</option>
+                            <option value="1">{{ $t('notification.un_read')}}</option>
+                            <option value="2">{{ $t('notification.already_read')}}</option>
                           </select>
                         </div>
                       </div>
@@ -54,7 +48,7 @@
                           <input
                             type="text"
                             class="form-control"
-                            :v-model="form.keyword"
+                            v-model="form.keyword"
                             :placeholder="$t('notification.keyword_placeholder')"
                           />
                         </div>
@@ -101,7 +95,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(entity, index) in members.data" :key="entity.id">
+                  <tr v-for="(entity, index) in members" :key="entity.id">
                     <td>{{ index }}</td>
                     <td>{{ entity.user.name }}</td>
                     <td>{{ entity.user.email }}</td>
@@ -148,7 +142,7 @@
                         <span
                           v-else-if="entity.user_status.status == 2"
                           class="text-primary"
-                        >{{ entity.user_status.updated_at }}</span>
+                        >{{ entity.user_confirm_date }}</span>
                         <span v-else>-</span>
                       </div>
                       <div v-else>-</div>
@@ -156,6 +150,10 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <!--<pagination :data="members" @pagination-change-page="getResults"></pagination> -->
             </div>
           </div>
         </div>
@@ -169,11 +167,12 @@ export default {
   data() {
     return {
       editmode: false,
-      members: {},
-      clinics: {},
+      members: [],
+      clinics: [],
       notification_id: 0,
       form: new Form({
-        clinics: [],
+        notification_id: 0,
+        clinic: "",
         keyword: "",
         status: 0,
       }),
@@ -183,7 +182,8 @@ export default {
     resetForm() {
       this.isValidate = false;
       this.form = new Form({
-        groups: [],
+        notification_id: this.notification_id,
+        clinic: "",
         keyword: "",
         status: 0,
       });
@@ -204,9 +204,6 @@ export default {
         axios
           .get("/api/notification/" + this.notification_id + "/members")
           .then(({ data }) => (this.members = data.data));
-        axios
-          .get("/api/group/all")
-          .then(({ data }) => (this.groups = data.data));
       }
       this.$Progress.finish();
     },
@@ -215,7 +212,27 @@ export default {
         this.clinics = response.data.data;
       });
     },
-    searchData() {},
+    searchData() {
+      this.$Progress.start();
+      var app = this;
+      axios
+        .post("/api/notification/detailSearch", this.form)
+        .then((resp) => {
+          app.members = resp.data.data;
+          Toast.fire({
+            icon: "success",
+            title: resp.data.message,
+          });
+        })
+        .catch(() => {
+          Toast.fire({
+            icon: "error",
+            title: this.$t("app").notification.some_error,
+          });
+        });
+      this.$Progress.finish();
+      this.$forceUpdate();
+    },
   },
   mounted() {
     console.log("mounted");
@@ -224,6 +241,7 @@ export default {
     this.$Progress.start();
     console.log("created");
     this.notification_id = this.$route.params.id;
+    this.form.notification_id = this.notification_id;
     this.loadNotification();
     this.loadClinic();
     this.$Progress.finish();
