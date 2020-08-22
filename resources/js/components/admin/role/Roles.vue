@@ -17,7 +17,7 @@
                     <div class="card" v-if="$gate.canPermission('role.index')">
                         <div class="card-header">
                             <div class="card-tools">
-                            <router-link v-if="$gate.canPermission('role.create')" type="button" class="btn btn-sm btn-primary" :to="{path: 'role/create'}">
+                            <router-link v-if="$gate.canPermission('role.create')" type="button" class="btn btn-sm btn-primary" :to="{path: '/admin/role/create'}">
                                 <i class="fa fa-plus-square"></i>
                                 {{ $t('role.button_create') }}
                             </router-link>
@@ -57,10 +57,10 @@
                                         <router-link v-if="$gate.canPermission('role.show')" :to="{path: `/admin/role/edit/${role.id}`}" >
                                             <i class="fa fa-edit blue"></i>
                                         </router-link>
-                                        <!-- /
-                                        <a href="#" @click="deleteRole(role.id)">
+                                        /
+                                        <a href="#" v-if="defaultRoles.indexOf(role.id) == -1" @click="deleteRole(role.id)">
                                             <i class="fa fa-trash red"></i>
-                                        </a> -->
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -95,7 +95,8 @@ export default {
                 name: '',
                 permissions: []
             }),
-            permissions: []
+            permissions: [],
+            defaultRoles: [1, 2, 3, 4]
 
         }
     },
