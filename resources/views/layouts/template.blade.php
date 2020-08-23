@@ -134,9 +134,9 @@
             </div> <!-- / .main-navbar -->
 
             <div class="main-content-container container-fluid px-4">
-                <div class="row">
+                <section class="content">
                     @yield('content')
-                </div>
+                </section>
                 {{-- /.content --}}
             </div>
         </main>

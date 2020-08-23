@@ -41,6 +41,12 @@
   padding: 1.25rem 1rem 0.75rem 1rem;
 }
 
+.parsley-errors-list {
+  list-style-type: none;
+  padding-left: 0;
+  color: red;
+}
+
 /*!
  * Bootstrap v4.5.2 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
