@@ -79,9 +79,9 @@
 
         methods: {
           loadGroup(){
-            // if(this.$gate.isAdmin()){
+            if(this.$gate.isAdmin()){
               axios.get("/api/group").then(({ data }) => (this.group = data.data));
-            // }
+            }
           },
 
             deleteGroup(id){
