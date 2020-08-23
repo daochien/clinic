@@ -95,7 +95,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="(entity, index) in members" :key="entity.id">
+                  <tr v-for="(entity, index) in members.data" :key="entity.id">
                     <td>{{ index }}</td>
                     <td>{{ entity.user.name }}</td>
                     <td>{{ entity.user.email }}</td>
@@ -153,7 +153,7 @@
             </div>
             <!-- /.card-body -->
             <div class="card-footer">
-              <!--<pagination :data="members" @pagination-change-page="getResults"></pagination> -->
+              <pagination :data="members" @pagination-change-page="getResults"></pagination>
             </div>
           </div>
         </div>
@@ -167,7 +167,7 @@ export default {
   data() {
     return {
       editmode: false,
-      members: [],
+      members: {},
       clinics: [],
       notification_id: 0,
       form: new Form({
@@ -195,7 +195,7 @@ export default {
         .get(
           "/api/notification/" + this.notification_id + "/members?page=" + page
         )
-        .then(({ data }) => (this.members = data.data));
+        .then(({ data }) => (this.members = data));
       this.$Progress.finish();
     },
     loadNotification() {
@@ -203,7 +203,7 @@ export default {
       if (this.$gate.isAdmin()) {
         axios
           .get("/api/notification/" + this.notification_id + "/members")
-          .then(({ data }) => (this.members = data.data));
+          .then(({ data }) => (this.members = data));
       }
       this.$Progress.finish();
     },
@@ -217,11 +217,11 @@ export default {
       var app = this;
       axios
         .post("/api/notification/detailSearch", this.form)
-        .then((resp) => {
-          app.members = resp.data.data;
+        .then((data) => {
+          app.members = data.data;
           Toast.fire({
             icon: "success",
-            title: resp.data.message,
+            title: data.data.message,
           });
         })
         .catch(() => {

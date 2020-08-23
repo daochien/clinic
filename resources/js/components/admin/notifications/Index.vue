@@ -25,8 +25,12 @@
                       <div class="col-6">
                         <div class="form-group">
                           <label>{{ $t('notification.target_person')}}</label>
-                          <select class="form-control" id="targetPerson" v-model="form.groups">
-                            <option v-for="(entity) in groups" :key="entity.id">{{ entity.name }}</option>
+                          <select class="form-control" id="targetPerson" v-model="form.group">
+                            <option
+                              v-for="(entity) in groups"
+                              :key="entity.id"
+                              :value="entity.name"
+                            >{{ entity.name }}</option>
                           </select>
                         </div>
                       </div>
@@ -53,8 +57,8 @@
                         <div class="form-group">
                           <label>{{ $t('notification.status')}}</label>
                           <select class="form-control" id="targetPerson" v-model="form.status">
-                            <option value="true">{{ $t('notification.publish')}}</option>
-                            <option value="false">{{ $t('notification.unpublish')}}</option>
+                            <option value="0">{{ $t('notification.publish')}}</option>
+                            <option value="1">{{ $t('notification.unpublish')}}</option>
                           </select>
                         </div>
                       </div>
@@ -187,10 +191,10 @@ export default {
       notifications: {},
       groups: {},
       form: new Form({
-        groups: [],
+        group: "",
         keyword: "",
         release_date: "",
-        status: false,
+        status: 0,
       }),
     };
   },
@@ -198,11 +202,10 @@ export default {
     resetForm() {
       this.isValidate = false;
       this.form = new Form({
-        title: "",
-        groups: [],
+        group: "",
         keyword: "",
         release_date: "",
-        status: false,
+        status: 0,
       });
     },
     getResults(page = 1) {
@@ -248,23 +251,24 @@ export default {
     publishAnnouncement() {},
     searchData() {
       this.$Progress.start();
-      if (this.$gate.isAdmin()) {
-        this.form
-          .post("/api/notification/search")
-          .then((data) => {
-            Toast.fire({
-              icon: "success",
-              title: data.data.message,
-            });
-          })
-          .catch(() => {
-            Toast.fire({
-              icon: "error",
-              title: this.$t("app").notification.some_error,
-            });
+      var app = this;
+      axios
+        .post("/api/notification/search", this.form)
+        .then((data) => {
+          app.notifications = data.data;
+          Toast.fire({
+            icon: "success",
+            title: data.data.message,
           });
-      }
+        })
+        .catch(() => {
+          Toast.fire({
+            icon: "error",
+            title: this.$t("app").notification.some_error,
+          });
+        });
       this.$Progress.finish();
+      this.$forceUpdate();
     },
   },
   mounted() {
