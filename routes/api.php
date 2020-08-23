@@ -58,7 +58,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'category' => 'API\V1\CategoryController',
             'notification' => 'API\V1\NotificationController',
             'group' => 'API\V1\GroupController',
-            'blog' => 'API\V1\BlogController',
+            'page' => 'API\V1\PageController',
             'manager' => 'API\V1\AdminController',
             'role' => 'API\V1\RoleController',
             'permission' => 'API\V1\PermissionController'
