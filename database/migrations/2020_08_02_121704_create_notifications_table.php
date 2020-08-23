@@ -19,7 +19,7 @@ class CreateNotificationsTable extends Migration
             $table->text('content');
             $table->boolean('confirm')->comment('0: not require | 1: Must confirm');
             $table->boolean('draft')->comment('0: false | 1: true');
-            $table->dateTime('schedule_date');
+            $table->dateTime('schedule_date')->nullable();
             $table->timestamps();
         });
     }

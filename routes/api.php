@@ -17,6 +17,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('notification/{id}/members', 'API\V1\NotificationController@members');
         Route::get('notification/{id}/show', 'API\V1\NotificationController@show');
         Route::post('notification/store', 'API\V1\NotificationController@store');
+        Route::post('notification/search', 'API\V1\NotificationController@search');
+        Route::post('notification/detailSearch', 'API\V1\NotificationController@detailSearch');
 
         Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');
         Route::get('setting/level', 'API\V1\SettingController@getLevel')->name('api.setting.level');
