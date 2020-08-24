@@ -22,7 +22,7 @@
                                     <input class="custom-control-input" type="radio" id="inlineFAQ" value="option3">
                                     <label class="custom-control-label" for="inlineFAQ">FAQ</label>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                         <div class="form-group row border-bottom" style="padding-bottom: 10px;">
                             <label class="col-sm-2 col-form-label">Title <span color="color:#c4183c;">*</span></label>
@@ -47,21 +47,22 @@
                                         :calendar-button="true"
                                         :calendar-button-icon="'fa fa-calendar'"
                                         :clear-button="true"
-                                        :wrapper-class="'custom-datepicker'"                                    
-                                        :disabledDates="disabledDateStart"                                                                        
+                                        :wrapper-class="'custom-datepicker'"
+                                        :disabledDates="disabledDateStart"
                                         :input-class="{'form-control': true, 'is-invalid': false}">
                                     </datepicker>
                                 </div>
                                 <div class="col-sm-2">
                                     <select class="form-control">
                                         <option>Hours</option>
+                                        <option v-for="i in 24" :key="i">{{ i }}</option>
                                     </select>
                                 </div>
                                 <div class="col-sm-2">
                                     <select class="form-control">
                                         <option>Minute</option>
                                     </select>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row border-bottom">
@@ -100,15 +101,15 @@
                                     id="uploadImage"
                                     @change="onImageChange">
                                     <label class="custom-file-label" for="uploadImage">Choose file...</label>
-                                </div>                                
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
         <div class="row" style="margin-bottom: 30px;">
-            
+
             <div class="col-10 offset-1">
                 <div class="title">
                     <span style="font-size: 18px;">Article content</span>
@@ -120,7 +121,7 @@
                         </li>
                         <li class="nav-item col-sm-6">
                             <a class="nav-link" data-toggle="tab" href="#menu1">File upload</a>
-                        </li>                        
+                        </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane container active" id="home">
@@ -128,7 +129,7 @@
                                 :style="{'height': '400px'}"
                                 ref="myQuillEditor"
                                 v-model="content"
-                                :options="editorOption"                                
+                                :options="editorOption"
                             />
                         </div>
                         <div class="tab-pane container fade" id="menu1">
@@ -136,9 +137,9 @@
                                 <div class="dropzone-custom-content">
                                     <h3 class="dropzone-custom-title">Please choose the file</h3>
                                     <div class="subtitle">Please upload the document (pdf, docx ppt), image file (png, jpg) or video (mp4).</div>
-                                </div>    
-                            </vue-dropzone>    
-                        </div>                        
+                                </div>
+                            </vue-dropzone>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -174,7 +175,7 @@ export default {
             dropzoneOptions: {
                 url: 'https://httpbin.org/post',
                 thumbnailWidth: 150,
-                maxFilesize: 0.5,                
+                maxFilesize: 0.5,
                 headers: { "My-Awesome-Header": "header value" },
                 addRemoveLinks: true
             }
@@ -214,7 +215,7 @@ export default {
 .switchToggle input + label:before, .switchToggle input + input + label:before {content: 'No'; position: absolute; top: 0px; left: 35px; width: 26px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
 .switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {content: 'Yes'; position: absolute; top: 0px; left: 10px; width: 26px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
 .switchToggle input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
-.switchToggle label:active:after {width: 60px; } 
+.switchToggle label:active:after {width: 60px; }
 .toggle-switchArea { margin: 10px 0 10px 0; }
 .nav-item .active {
     border-bottom: 2px solid #007BFF !important;
