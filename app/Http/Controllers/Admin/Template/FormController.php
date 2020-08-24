@@ -7,22 +7,23 @@ use App\Events\Form\FormCreated;
 use App\Events\Form\FormDeleted;
 use App\Events\Form\FormUpdated;
 use App\Helper\FormBuilderHelper;
+use App\Models\Category;
 use App\Models\Form;
 use App\Http\Requests\SaveFormRequest;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class FormController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $categoryRepository;
+
+
+    public function __construct(CategoryRepository $categoryRepository)
     {
         $this->middleware('auth');
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function index()
@@ -38,12 +39,13 @@ class FormController extends Controller
     {
         $pageTitle = "Create New Form";
         $breadCrumbTitle = __('template.create_breadcrumb_label');
+        $category = $this->categoryRepository->getTemplateByCategory(Category::TYPE['template']);
 
         $saveURL = route('template.store');
         // get the roles to use to populate the make the 'Access' section of the form builder work
         $form_roles = FormBuilderHelper::getConfiguredRoles();
 
-        return view('template.forms.create', compact('pageTitle', 'breadCrumbTitle', 'saveURL', 'form_roles'));
+        return view('template.forms.create', compact('category', 'pageTitle', 'breadCrumbTitle', 'saveURL', 'form_roles'));
     }
 
     public function store(SaveFormRequest $request)
