@@ -33,7 +33,7 @@
                     </div>
                     <ul class="navbar-nav border-left flex-row ">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#"
+                            <a class="top-nav nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#"
                                role="button" aria-haspopup="true" aria-expanded="false">
                                 <span class="d-none d-md-inline-block">{{ Auth::user()->name }}</span>
                             </a>

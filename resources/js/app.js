@@ -74,6 +74,8 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
+import CKEditor from '@ckeditor/ckeditor5-vue';
+Vue.use( CKEditor );
 /**
  * Routes imports and assigning
  */

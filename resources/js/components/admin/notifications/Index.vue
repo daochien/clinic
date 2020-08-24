@@ -25,8 +25,12 @@
                       <div class="col-6">
                         <div class="form-group">
                           <label>{{ $t('notification.target_person')}}</label>
-                          <select class="form-control" id="targetPerson">
-                            <option v-for="(entity) in groups" :key="entity.id">{{ entity.name }}</option>
+                          <select class="form-control" id="targetPerson" v-model="form.group">
+                            <option
+                              v-for="(entity) in groups"
+                              :key="entity.id"
+                              :value="entity.name"
+                            >{{ entity.name }}</option>
                           </select>
                         </div>
                       </div>
@@ -36,7 +40,7 @@
                           <input
                             type="text"
                             class="form-control"
-                            :v-model="form.keyword"
+                            v-model="form.keyword"
                             :placeholder="$t('notification.keyword_placeholder')"
                           />
                         </div>
@@ -46,21 +50,15 @@
                       <div class="col-6">
                         <div class="form-group">
                           <label>{{ $t('notification.release_date')}}</label>
-                          <input type="date" class="form-control" :v-model="form.release_date" />
+                          <input type="date" class="form-control" v-model="form.release_date" />
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group">
                           <label>{{ $t('notification.status')}}</label>
-                          <select class="form-control" id="targetPerson">
-                            <option
-                              value="true"
-                              :v-model="form.status"
-                            >{{ $t('notification.publish')}}</option>
-                            <option
-                              value="false"
-                              :v-model="form.status"
-                            >{{ $t('notification.unpublish')}}</option>
+                          <select class="form-control" id="targetPerson" v-model="form.status">
+                            <option value="0">{{ $t('notification.publish')}}</option>
+                            <option value="1">{{ $t('notification.unpublish')}}</option>
                           </select>
                         </div>
                       </div>
@@ -115,9 +113,14 @@
                       >{{ entity.title }}</router-link>
                     </td>
                     <td>
-                      <div v-for="target in entity.groups" :key="target.id">
-                        <label>{{ target.group.name }}</label>
+                      <div v-if="entity.groups.length !== 0">
+                        <span
+                          class="badge badge-info ml-1"
+                          v-for="target in entity.groups"
+                          :key="'gr_' + target.group.id"
+                        >{{ target.group.name}}</span>
                       </div>
+                      <div v-else>-</div>
                     </td>
                     <td>{{ entity.users_count }}</td>
                     <td>{{ entity.users_read }}</td>
@@ -125,7 +128,7 @@
                       <label v-if="entity.confirm === 0">{{ entity.users_count}}</label>
                       <label v-else>{{ entity.users_confirm }}</label>
                     </td>
-                    <td>{{ entity.created_at }}</td>
+                    <td>{{ entity.schedule_date }}</td>
                     <td>
                       <label
                         class="text-secondary"
@@ -146,18 +149,18 @@
                           class="dropdown-menu dropdown-menu-right"
                           aria-labelledby="operatingAction"
                         >
-                          <a
+                          <button
                             class="dropdown-item text-primary"
                             @click="publishAnnouncement()"
-                          >{{ $t('notification.publish_announcement')}}</a>
+                          >{{ $t('notification.publish_announcement')}}</button>
                           <router-link
                             :class="'dropdown-item text-primary'"
                             :to="{ name: 'edit_notification', params: { id: entity.id }}"
                           >{{ $t('notification.edit')}}</router-link>
-                          <a
+                          <button
                             class="dropdown-item text-danger"
                             @click="deleteNotification()"
-                          >{{ $t('notification.delete')}}</a>
+                          >{{ $t('notification.delete')}}</button>
                         </div>
                       </div>
                     </td>
@@ -188,10 +191,10 @@ export default {
       notifications: {},
       groups: {},
       form: new Form({
-        groups: [],
+        group: "",
         keyword: "",
         release_date: "",
-        status: false,
+        status: 0,
       }),
     };
   },
@@ -199,11 +202,10 @@ export default {
     resetForm() {
       this.isValidate = false;
       this.form = new Form({
-        title: "",
-        groups: [],
+        group: "",
         keyword: "",
         release_date: "",
-        status: false,
+        status: 0,
       });
     },
     getResults(page = 1) {
@@ -232,9 +234,42 @@ export default {
         path: "/admin/notification/edit",
       });
     },
-    deleteNotification() {},
+    deleteNotification() {
+      Swal.fire({
+        title: this.$t("app").delete_head,
+        text: this.$t("app").delete_question,
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: this.$t("app").delete_yes,
+        cancelButtonText: this.$t("app").delete_cancel,
+      }).then((result) => {
+        if (result.value) {
+        }
+      });
+    },
     publishAnnouncement() {},
-    searchData() {},
+    searchData() {
+      this.$Progress.start();
+      var app = this;
+      axios
+        .post("/api/notification/search", this.form)
+        .then((data) => {
+          app.notifications = data.data;
+          Toast.fire({
+            icon: "success",
+            title: data.data.message,
+          });
+        })
+        .catch(() => {
+          Toast.fire({
+            icon: "error",
+            title: this.$t("app").notification.some_error,
+          });
+        });
+      this.$Progress.finish();
+      this.$forceUpdate();
+    },
   },
   mounted() {
     console.log("Notification Component mounted.");

@@ -17,6 +17,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('notification/{id}/members', 'API\V1\NotificationController@members');
         Route::get('notification/{id}/show', 'API\V1\NotificationController@show');
         Route::post('notification/store', 'API\V1\NotificationController@store');
+        Route::post('notification/search', 'API\V1\NotificationController@search');
+        Route::post('notification/detailSearch', 'API\V1\NotificationController@detailSearch');
 
         Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');
         Route::get('setting/level', 'API\V1\SettingController@getLevel')->name('api.setting.level');
@@ -49,6 +51,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('role/list', 'API\V1\RoleController@list')->name('role.list');
         Route::get('permission/list', 'API\V1\PermissionController@list')->name('permission.list');
         Route::get('permission/routes', 'API\V1\PermissionController@listRoutes')->name('permission.routes');
+
+        Route::post('page/upload-image-content', 'API\V1\PageController@uploadImageContent')->name('page.uploadImageContent');
 
         Route::apiResources([
             'user' => 'API\V1\UserController',

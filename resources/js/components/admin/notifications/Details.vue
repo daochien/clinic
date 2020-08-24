@@ -20,28 +20,22 @@
                       <div class="col-6">
                         <div class="form-group">
                           <label>{{ $t('notification.clinic')}}</label>
-                          <select class="form-control" id="clinic">
+                          <select class="form-control" id="clinic" v-model="form.clinic">
                             <option
-                              v-for="(entity) in groups"
+                              v-for="(entity) in clinics"
                               :key="entity.id"
-                              :v-model="form.groups"
+                              :value="entity.name"
                             >{{ entity.name }}</option>
                           </select>
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group">
-                          <label>{{ $t('notification.keyword')}}</label>
-                          <select class="form-control" id="status">
-                            <option
-                              :v-model="form.status"
-                              value="0"
-                            >{{ $t('notification.all_status')}}</option>
-                            <option :v-model="form.status" value="1">{{ $t('notification.un_read')}}</option>
-                            <option
-                              :v-model="form.status"
-                              value="2"
-                            >{{ $t('notification.already_read')}}</option>
+                          <label>{{ $t('notification.status')}}</label>
+                          <select class="form-control" id="status" v-model="form.status">
+                            <option value="0">{{ $t('notification.all_status')}}</option>
+                            <option value="1">{{ $t('notification.un_read')}}</option>
+                            <option value="2">{{ $t('notification.already_read')}}</option>
                           </select>
                         </div>
                       </div>
@@ -54,7 +48,7 @@
                           <input
                             type="text"
                             class="form-control"
-                            :v-model="form.keyword"
+                            v-model="form.keyword"
                             :placeholder="$t('notification.keyword_placeholder')"
                           />
                         </div>
@@ -87,7 +81,7 @@
       <div class="row mt-5">
         <div class="col-12">
           <div class="card" v-if="$gate.isAdmin()">
-            <div class="card-body table-responsive p-0">
+            <div class="card-body p-0">
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -105,12 +99,61 @@
                     <td>{{ index }}</td>
                     <td>{{ entity.user.name }}</td>
                     <td>{{ entity.user.email }}</td>
-                    <td>{{ entity.user.type }}</td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                      <div v-if="entity.user.group.length !== 0">
+                        <span
+                          class="badge badge-info ml-1"
+                          v-for="group in entity.user.group"
+                          :key="'sc_' + group.id"
+                        >{{ group.name}}</span>
+                      </div>
+                      <div v-else>-</div>
+                    </td>
+                    <td>
+                      <div v-if="entity.user.clinic.length !== 0">
+                        <span
+                          class="badge badge-info ml-1"
+                          v-for="clinic in entity.user.clinic"
+                          :key="'sc_' + clinic.id"
+                        >{{ clinic.name}}</span>
+                      </div>
+                      <div v-else>-</div>
+                    </td>
+                    <td>
+                      <div v-if="entity.notification.confirm == true">
+                        <span
+                          v-if="entity.user_status.status == 1"
+                          class="text-secondary"
+                        >{{ $t('notification.un_read') }}</span>
+                        <span
+                          v-else-if="entity.user_status.status == 2"
+                          class="text-primary"
+                        >{{ $t('notification.already_read') }}</span>
+                        <span v-else>-</span>
+                      </div>
+                      <div v-else>-</div>
+                    </td>
+                    <td>
+                      <div v-if="entity.notification.confirm == true">
+                        <span
+                          v-if="entity.user_status.status == 1"
+                          class="text-secondary"
+                        >{{ $t('notification.no_read_date') }}</span>
+                        <span
+                          v-else-if="entity.user_status.status == 2"
+                          class="text-primary"
+                        >{{ entity.user_confirm_date }}</span>
+                        <span v-else>-</span>
+                      </div>
+                      <div v-else>-</div>
+                    </td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer">
+              <pagination :data="members" @pagination-change-page="getResults"></pagination>
             </div>
           </div>
         </div>
@@ -125,10 +168,11 @@ export default {
     return {
       editmode: false,
       members: {},
-      groups: {},
+      clinics: [],
       notification_id: 0,
       form: new Form({
-        groups: [],
+        notification_id: 0,
+        clinic: "",
         keyword: "",
         status: 0,
       }),
@@ -138,7 +182,8 @@ export default {
     resetForm() {
       this.isValidate = false;
       this.form = new Form({
-        groups: [],
+        notification_id: this.notification_id,
+        clinic: "",
         keyword: "",
         status: 0,
       });
@@ -150,7 +195,7 @@ export default {
         .get(
           "/api/notification/" + this.notification_id + "/members?page=" + page
         )
-        .then(({ data }) => (this.members = data.data));
+        .then(({ data }) => (this.members = data));
       this.$Progress.finish();
     },
     loadNotification() {
@@ -158,14 +203,36 @@ export default {
       if (this.$gate.isAdmin()) {
         axios
           .get("/api/notification/" + this.notification_id + "/members")
-          .then(({ data }) => (this.members = data.data));
-        axios
-          .get("/api/group/all")
-          .then(({ data }) => (this.groups = data.data));
+          .then(({ data }) => (this.members = data));
       }
       this.$Progress.finish();
     },
-    searchData() {},
+    loadClinic() {
+      axios.get("/api/clinic/all").then((response) => {
+        this.clinics = response.data.data;
+      });
+    },
+    searchData() {
+      this.$Progress.start();
+      var app = this;
+      axios
+        .post("/api/notification/detailSearch", this.form)
+        .then((data) => {
+          app.members = data.data;
+          Toast.fire({
+            icon: "success",
+            title: data.data.message,
+          });
+        })
+        .catch(() => {
+          Toast.fire({
+            icon: "error",
+            title: this.$t("app").notification.some_error,
+          });
+        });
+      this.$Progress.finish();
+      this.$forceUpdate();
+    },
   },
   mounted() {
     console.log("mounted");
@@ -174,7 +241,9 @@ export default {
     this.$Progress.start();
     console.log("created");
     this.notification_id = this.$route.params.id;
+    this.form.notification_id = this.notification_id;
     this.loadNotification();
+    this.loadClinic();
     this.$Progress.finish();
   },
 };

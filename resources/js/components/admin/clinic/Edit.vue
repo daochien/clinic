@@ -116,7 +116,7 @@
                 this.form.put('/api/clinic/'+this.$route.params.id)
                     .then((response) => {
                         this.$Progress.finish();
-                        this.$router.push('/admin/clinics')
+                        this.$router.push('/admin/clinic')
                     })
                     .catch(() => {
                         this.$Progress.fail();
