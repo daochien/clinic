@@ -46,7 +46,8 @@ return [
         "name_maxLength" => 'name cannot exceed 255 characters',
         'email_required' => 'email is required',
         'email_valid' => 'incorrect email format',
-        'email_maxLength' => 'email cannot exceed 255 characters'
+        'email_maxLength' => 'email cannot exceed 255 characters',
+        "note_maxLength" => 'note cannot exceed 500 characters',
     ],
 ];
 ?>

@@ -73,6 +73,7 @@
                             v-model="$v.manager.description.$model"
                             class="form-control"
                             cols="30" rows="10"></textarea>
+                            <div class="invalid-feedback" v-if="!$v.manager.description.maxLength">{{ $t('manager.validator.note_maxLength') }}</div>
                         </div>
                     </div>
                     <div class="row">
