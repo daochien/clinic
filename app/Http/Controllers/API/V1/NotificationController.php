@@ -86,7 +86,7 @@ class NotificationController extends BaseController
     public function members($id)
     {
         $datas =  $this->service->getMember($id);
-        return new NotificationUserCollection($datas);        
+        return new NotificationUserCollection($datas);
     }
 
     public function getAll()
