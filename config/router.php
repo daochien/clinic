@@ -9,7 +9,7 @@
                     ],
                 'create' => [
                         'name' => 'Create',
-                        'routes' => ['role.create']
+                        'routes' => ['role.store']
                     ],
                 'update' => [
                         'name' => 'Update',
@@ -30,7 +30,7 @@
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['manager.create', 'role.list'],
+                    'routes' => ['manager.store', 'role.list'],
                 ],
                 'update' => [
                     'name' => 'Update',
@@ -51,7 +51,7 @@
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['clinic.create', 'clinic.get.users', 'clinic.add.users'],
+                    'routes' => ['clinic.store', 'clinic.get.users', 'clinic.add.users'],
                 ],
                 'update' => [
                     'name' => 'Update',
@@ -72,7 +72,7 @@
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['user.create', 'api.group.all', 'api.setting.level', 'api.setting.type', 'api.clinic.all'],
+                    'routes' => ['user.store', 'api.group.all', 'api.setting.level', 'api.setting.type', 'api.clinic.all'],
                 ],
                 'update' => [
                     'name' => 'Update',
@@ -93,7 +93,7 @@
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['group.create'],
+                    'routes' => ['group.store'],
                 ],
                 'update' => [
                     'name' => 'Update',
@@ -114,7 +114,7 @@
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['notification.create', 'api.group.all'],
+                    'routes' => ['notification.store', 'api.group.all'],
                 ],
                 'update' => [
                     'name' => 'Update',
@@ -135,7 +135,7 @@
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['template.create'],
+                    'routes' => ['template.store'],
                 ],
                 'update' => [
                     'name' => 'Update',
