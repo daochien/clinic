@@ -87,7 +87,7 @@
             },
 
           loadGroup(){
-            if(this.$gate.isAdmin()){
+            if(this.$gate.isRoot()){
               axios.get("/api/group").then(({ data }) => {this.group = data.data});
             }
           },
