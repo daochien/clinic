@@ -107,31 +107,12 @@ export default {
             post_code: '',
             address: '',
             description: '',
-            forced: 1
         }),
     };
   },
   methods: {
-      createGroup(){
-          this.$Progress.start();
-          this.form.post('/api/group')
-              .then((data)=>{
-                  Toast.fire({
-                      icon: 'success',
-                      title: data.data.message
-                  });
-                  this.$Progress.finish();
-              })
-              .catch(()=>{
-                  Toast.fire({
-                      icon: 'error',
-                      title: 'Some error occured! Please try again'
-                  });
-              })
-      },
       create(){
           this.$Progress.start();
-          this.createGroup();
           this.form.post('/api/clinic')
               .then((data)=>{
                   if(data.data.success){
