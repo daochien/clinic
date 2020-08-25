@@ -80,7 +80,7 @@
                                     <select type="text" name="approver[]" id="approver" class="js-example-basic-multiple form-control
                                            @error('approver') is-invalid @enderror" multiple="multiple">
                                         @foreach($adminList as $admin)
-                                            <option value="{{ $cat['id'] }}">
+                                            <option value="{{ $admin['id'] }}">
                                                 {{ $admin['name'] }}
                                             </option>
                                         @endforeach
