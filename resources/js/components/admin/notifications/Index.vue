@@ -184,7 +184,11 @@
 </template>
 
 <script>
+import DateRangePicker from "vue2-daterange-picker";
 export default {
+  components: {
+    DateRangePicker,
+  },
   data() {
     return {
       editmode: false,
@@ -282,3 +286,4 @@ export default {
   },
 };
 </script>
+<style src="vue2-daterange-picker/dist/vue2-daterange-picker.css"></style>

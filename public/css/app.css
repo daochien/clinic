@@ -40,6 +40,12 @@
   padding: 1.25rem 1rem 0.75rem 1rem;
 }
 
+.form-control {
+  height: auto !important;
+  padding: 0.4375rem 0.75rem !important;
+  border: 1px solid #e1e5eb !important;
+}
+
 /*!
  * Bootstrap v4.5.2 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
@@ -2192,11 +2198,6 @@ pre code {
   border-color: #a1cbef;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
-}
-
-.form-control::-webkit-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
 }
 
 .form-control::-moz-placeholder {
