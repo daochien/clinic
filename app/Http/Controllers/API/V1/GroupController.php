@@ -62,6 +62,9 @@ class GroupController extends BaseController
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
         $tag = $this->group->create([
             'name' => $request->get('name'),
             'description' => $request->get('description'),
@@ -81,6 +84,9 @@ class GroupController extends BaseController
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
         $group = $this->group->findOrFail($id);
 
         $group->update($request->all());
