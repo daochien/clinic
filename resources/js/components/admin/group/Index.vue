@@ -6,7 +6,7 @@
             <div class="col-6 text-center text-sm-left mb-0">
                 <h3 class="page-title">{{ $t('group.group_list')}}</h3>
             </div>
-            <div class="col-6 text-center text-sm-right mb-0">
+            <div class="col-6 text-center text-sm-right mb-0" v-if="this.$gate.isRoot()">
                 <div class="card-tools">
                         <router-link :to="{name:'add_group'}" class="btn btn-sm btn-primary">{{ $t('group.add_new')}}</router-link>
                 </div>
