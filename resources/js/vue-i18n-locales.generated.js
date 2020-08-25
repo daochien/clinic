@@ -246,7 +246,18 @@ export default {
             "category": "Category",
             "approver": "Approvers",
             "multi_approve": "Multi approve",
-            "description": "Description"
+            "description": "Description",
+            "title-create": "Create Template",
+            "btn": {
+                "save-draft": "Save Draft",
+                "create": "Create"
+            },
+            "place_holder": {
+                "title": "Input title",
+                "category": "Select Category",
+                "approver": "Select approver"
+            },
+            "create_success": "Template successfully created"
         },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
@@ -652,7 +663,8 @@ export default {
                 "title": "タイトルを入力してください",
                 "category": "担当役割を指定してください",
                 "approver": "タイトルを入力してください"
-            }
+            },
+            "create_success": "Template successfully created"
         },
         "validation": {
             "accepted": "{attribute}を承認してください。",

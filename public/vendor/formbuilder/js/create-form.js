@@ -71,6 +71,7 @@ jQuery(function() {
     var fbClearBtn = $('.fb-clear-btn')
     var fbShowDataBtn = $('.fb-showdata-btn')
     var fbSaveBtn = $('.fb-save-btn')
+    var fbSaveDraftBtn = $('.fb-save-draft-btn')
 
     // setup the buttons to respond to save and clear
     fbClearBtn.click(function(e) {
@@ -112,16 +113,13 @@ jQuery(function() {
             fbClearBtn.attr('disabled', 'disabled');
 
             var formBuilderJSONData = formBuilder.actions.getData('json')
-            // console.log(formBuilderJSONData)
-            // var formBuilderArrayData = formBuilder.actions.getData()
-            // console.log(formBuilderArrayData)
 
             var postData = {
                 name: $('#name').val(),
                 category: $('#category').val(),
                 approver: $('#approver').val(),
+                multi_approve: $('#multi_approve:checked').val() == 'on' ? 1 : 0,
                 description: $('#description').val(),
-                // visibility: $('#visibility').val(),
                 visibility: "PUBLIC",
                 allows_edit: 1,
                 form_builder_json: formBuilderJSONData,
@@ -170,6 +168,89 @@ jQuery(function() {
                 fbSaveBtn.removeAttr('disabled')
                 fbClearBtn.removeAttr('disabled')
             })
+        })
+
+    })
+
+    fbSaveDraftBtn.click(function(e) {
+        e.preventDefault()
+
+        var form = $('#createFormForm')
+
+        // make sure the form is valid
+        if ( ! form.parsley().validate() ) return
+
+        // make sure the form builder is not empty
+        if (! formBuilder.actions.getData().length) {
+            swal({
+                title: "Error",
+                text: "The form builder cannot be empty",
+                icon: 'error',
+            })
+            return
+        }
+
+        // ask for confirmation
+        sConfirm("Save this form definition?", function() {
+            fbSaveBtn.attr('disabled', 'disabled');
+            fbClearBtn.attr('disabled', 'disabled');
+
+            var formBuilderJSONData = formBuilder.actions.getData('json')
+
+            var postData = {
+                name: $('#name').val(),
+                category: $('#category').val(),
+                approver: $('#approver').val(),
+                multi_approve: $('#multi_approve:checked').val() == 'on' ? 1 : 0,
+                description: $('#description').val(),
+                visibility: "PRIVATE",
+                allows_edit: 1,
+                form_builder_json: formBuilderJSONData,
+                _token: window.FormBuilder.csrfToken
+            }
+
+            var method = form.data('formMethod') ? 'PUT' : 'POST'
+            jQuery.ajax({
+                url: form.attr('action'),
+                processData: true,
+                data: postData,
+                method: method,
+                cache: false,
+            })
+                .then(function(response) {
+                    fbSaveBtn.removeAttr('disabled')
+                    fbClearBtn.removeAttr('disabled')
+
+                    if (response.success) {
+                        // the form has been created
+                        // send the user to the form index page
+                        swal({
+                            title: "Form Saved!",
+                            text: response.details || '',
+                            icon: 'success',
+                        })
+
+                        setTimeout(function() {
+                            window.location = response.dest
+                        }, 1500);
+
+                        // clear out the form
+                        // $('#name').val('')
+                        // $('#visibility').val('')
+                        // $('#allows_edit').val('0')
+                    } else {
+                        swal({
+                            title: "Error",
+                            text: response.details || 'Error',
+                            icon: 'error',
+                        })
+                    }
+                }, function(error) {
+                    handleAjaxError(error)
+
+                    fbSaveBtn.removeAttr('disabled')
+                    fbClearBtn.removeAttr('disabled')
+                })
         })
 
     })

@@ -18,5 +18,7 @@ return [
         'title' => 'タイトルを入力してください',
         'category' => '担当役割を指定してください',
         'approver' => 'タイトルを入力してください',
-    ]
+    ],
+    'create_success' => 'Template successfully created',
+    'create_failed' => 'Failed to create the form.',
 ];

@@ -8,9 +8,7 @@
                 <h3 class="page-title">{{ __('template.title-create') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <button class="btn btn-outline-accent">
-                    {{ __('template.btn.save-draft')}}
-                </button>
+                <button class="btn btn-outline-accent fb-save-draft-btn">{{ __('template.btn.save-draft')}}</button>
                 <button type="button" class="btn btn-primary pl-5 pr-5 fb-save-btn">{{ __('template.btn.create')}}</button>
             </div>
         </div>
@@ -32,7 +30,7 @@
                                     </div>
                                 </div>
                                 <div class="col-10">
-                                    <input type="text" name="name" id="name" required class="form-control
+                                    <input type="text" name="name" id="name" class="form-control
                                            @error('name') is-invalid @enderror"
                                            placeholder="{{__('template.place_holder.title')}}">
                                     @error('name')
@@ -52,7 +50,7 @@
                                     </div>
                                 </div>
                                 <div class="col-5">
-                                    <select name="category[]" id="category" required class="form-control
+                                    <select name="category[]" id="category" class="form-control
                                            @error('category') is-invalid @enderror" >
                                         <option value="">{{ __('template.place_holder.category') }}</option>
                                         @foreach($category as $cat)
@@ -79,13 +77,14 @@
                                     </div>
                                 </div>
                                 <div class="col-10">
-                                    <select type="text" name="approver[]" id="approver" required class="js-example-basic-multiple form-control
+                                    <select type="text" name="approver[]" id="approver" class="js-example-basic-multiple form-control
                                            @error('approver') is-invalid @enderror" multiple="multiple">
                                         @foreach($adminList as $admin)
                                             <option value="{{ $cat['id'] }}">
                                                 {{ $admin['name'] }}
                                             </option>
                                         @endforeach
+                                    </select>
                                     @error('approver')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -103,8 +102,8 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="custom-control custom-toggle custom-toggle-sm mb-1 col-2">
-                                        <input type="checkbox" id="customToggle2" name="multi_approve" class="custom-control-input">
-                                        <label class="custom-control-label" for="customToggle2"></label>
+                                        <input type="checkbox" id="multi_approve" name="multi_approve" class="custom-control-input">
+                                        <label class="custom-control-label" for="multi_approve"></label>
                                     </div>
                                 </div>
                             </div>

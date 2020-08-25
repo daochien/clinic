@@ -38,6 +38,7 @@ class Form extends Model
      */
     protected $casts = [
         'allows_edit' => 'boolean',
+        'multi_approve' => 'boolean',
     ];
 
     /**

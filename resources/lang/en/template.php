@@ -9,4 +9,15 @@ return [
     'approver' => 'Approvers',
     'multi_approve' => 'Multi approve',
     'description' => 'Description',
+    'title-create' => 'Create Template',
+    'btn' => [
+        'save-draft' => 'Save Draft',
+        'create' => 'Create',
+    ],
+    'place_holder' => [
+        'title' => 'Input title',
+        'category' => 'Select Category',
+        'approver' => 'Select approver',
+    ],
+    'create_success' => 'Template successfully created',
 ];
