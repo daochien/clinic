@@ -56,6 +56,24 @@ class PageRepository
         }
     }
 
+    public function uploadFiles($files, $pathFolder)
+    {
+        try {
+
+            $paths = array();
+            foreach ($files['files'] as $file) {
+                $path = Storage::disk('s3')->put($pathFolder, $file, 'public');
+                $path = Storage::disk('s3')->url($path);
+                $paths[] = $path;
+            }
+            return $paths;
+
+        } catch (\Exception $e) {
+
+            return false;
+        }
+    }
+
     /**
      * On method call
      * To use Eloquent Methods which are not exist on repository

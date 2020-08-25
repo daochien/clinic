@@ -138,16 +138,7 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane container active" id="home">
-                            <ckeditor
-                            v-model="page.content"
-                            :editor="editor"
-                            :config="editorConfig"></ckeditor>
-                            <!-- <quill-editor
-                                v-model="page.content"
-                                :style="{'height': '400px'}"
-                                ref="myQuillEditor"
-                                :options="editorOption"
-                            /> -->
+                            <vue-editor id="editor" useCustomImageHandler @image-added="handleImageAdded" v-model="page.content"></vue-editor>
                         </div>
                         <div class="tab-pane container fade" id="menu1">
                             <vue-dropzone
@@ -172,6 +163,8 @@
 </template>
 <script>
 
+import { VueEditor } from "vue2-editor";
+
 import moment from 'moment';
 import Datepicker from 'vuejs-datepicker';
 
@@ -181,50 +174,11 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import '@ckeditor/ckeditor5-build-classic/build/translations/ja';
 
-class UploadAdapter {
-
-    constructor(loader) {
-        this.loader = loader;
-    }
-
-    upload() {
-        return new Promise((resolve, reject) => {
-            const data = new FormData();
-            data.append('upload', this.loader.file);
-            resolve({
-                default: 'https://scontent-xsp1-2.xx.fbcdn.net/v/t1.0-9/s960x960/83823156_2489042574541029_3664970652525264896_o.jpg?_nc_cat=106&_nc_sid=85a577&_nc_ohc=zKocENzZ-HwAX88UodN&_nc_ht=scontent-xsp1-2.xx&_nc_tp=7&oh=93b570531ff84e4f42e908a96a9dff2f&oe=5F4BF398'
-            });
-            // axios({
-            //     url: '/index/uploadimage',
-            //     method: 'post',
-            //     data,
-            //     headers: {
-            //         'Content-Type': 'multipart/form-data;'
-            //     },
-            //     withCredentials: false
-            // }).then(response => {
-            //     if (response.data.result == 'success') {
-            //         resolve({
-            //             default: response.data.url
-            //         });
-            //     } else {
-            //         reject(response.data.message);
-            //     }
-            // }).catch(response => {
-            //     reject ( 'Upload failed');
-            // });
-
-        });
-    }
-
-    abort() {
-    }
-}
-
 export default {
     components: {
         Datepicker,
-        vueDropzone: vue2Dropzone
+        VueEditor,
+        vueDropzone: vue2Dropzone,
     },
     data () {
         return {
@@ -233,11 +187,7 @@ export default {
                 from: '',
             },
             previewImage: '',
-            editor: ClassicEditor,
-            editorConfig: {
-                language: 'ja',
-                extraPlugins: [ this.MyCustomUploadAdapterPlugin ],
-            },
+
             dropzoneOptions: {
                 autoProcessQueue: false,
                 url: 'https://httpbin.org/post',
@@ -255,7 +205,7 @@ export default {
                 minute: '',
                 public: false,
                 public_destination: '',
-                content:'',
+                content: '',
                 files: [],
                 image: '',
                 category_id: ''
@@ -267,11 +217,7 @@ export default {
     created () {
     },
     methods: {
-        MyCustomUploadAdapterPlugin ( editor ) {
-            editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
-                return new UploadAdapter( loader );
-            };
-        },
+
         formatUnix (date) {
             return moment(date).format('DD/MM/YYYY');
         },
@@ -346,7 +292,26 @@ export default {
             }
 
             return data;
-        }
+        },
+        async handleImageAdded (file, Editor, cursorLocation, resetUploader) {
+            var formData = new FormData();
+            formData.append("image", file);
+            axios.post('/api/page/upload-image-content', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then(({data}) => {
+                Editor.insertEmbed(cursorLocation, "image", data.data);
+                resetUploader();
+            })
+            .catch((error) => {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Some error occured! Please try again'
+                });
+            })
+        },
     }
 }
 </script>
@@ -392,8 +357,8 @@ export default {
     top: 5px;
 }
 
-.ck-content {
-    min-height: 450px;
+.ql-container {
+    min-height: 400px;
 }
 .vue-dropzone {
     border: 1px dashed #000000;

@@ -27,10 +27,21 @@ class PageController extends BaseController
         try {
 
             $page = $this->pageRepo->create($request->all());
-            $pathUpload = $this->pageRepo->getPathUpload($page);
-            $image = $this->pageRepo->uploadFile($request->image, $pathUpload);
-            if ($image) {
-                $page->image = $image;
+
+            if (!empty($request->image)) {
+                $pathUploadImage = $this->pageRepo->getPathUpload($page);
+                $image = $this->pageRepo->uploadFile($request->image, $pathUploadImage);
+                if ($image) {
+                    $page->image = $image;
+                }
+            }
+
+            if (!empty($request->files)) {
+                $pathUploadFile = $this->pageRepo->getPathUpload($page, 'files');
+                $files = $this->pageRepo->uploadFiles($request->only('files'), $pathUploadFile);
+                if ($files) {
+                    $page->files = json_encode($files);
+                }
             }
 
             $page->save();
