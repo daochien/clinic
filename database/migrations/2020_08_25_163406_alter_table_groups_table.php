@@ -22,7 +22,7 @@ class AlterTableGroupsTable extends Migration
         });
 
         Schema::table('groups', function (Blueprint $table) {
-            $table->boolean('forced');
+            $table->boolean('forced')->default('1');
         });
     }
 

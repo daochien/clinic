@@ -118,32 +118,14 @@
                         });
                     }
                 })
+              }else{
+                  Swal.fire(
+                      'Cannot do this Action!',
+                      'Your cannot delete this group.',
+                      'error'
+                  );
               }
             },
-
-          createCategory(){
-              this.$Progress.start();
-
-              this.form.post('/api/category')
-              .then((data)=>{
-                  $('#addNew').modal('hide');
-
-                  Toast.fire({
-                        icon: 'success',
-                        title: data.data.message
-                    });
-                  this.$Progress.finish();
-                  this.loadCategories();
-
-              })
-              .catch(()=>{
-
-                  Toast.fire({
-                      icon: 'error',
-                      title: 'Some error occured! Please try again'
-                  });
-              })
-          }
 
         },
         mounted() {
