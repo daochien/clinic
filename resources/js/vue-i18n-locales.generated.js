@@ -649,7 +649,9 @@ export default {
                 "create": "新規登録"
             },
             "place_holder": {
-                "title": "タイトルを入力してください"
+                "title": "タイトルを入力してください",
+                "category": "担当役割を指定してください",
+                "approver": "タイトルを入力してください"
             }
         },
         "validation": {

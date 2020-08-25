@@ -52,9 +52,9 @@
                                     </div>
                                 </div>
                                 <div class="col-5">
-                                    <select name="category[]" id="category" required class="js-example-basic-multiple form-control
-                                           @error('category') is-invalid @enderror" multiple="multiple">
-                                        <option value="">{{__('template.place_holder.category')}}</option>
+                                    <select name="category[]" id="category" required class="form-control
+                                           @error('category') is-invalid @enderror" >
+                                        <option value="">{{ __('template.place_holder.category') }}</option>
                                         @foreach($category as $cat)
                                             <option value="{{ $cat['id'] }}">
                                                 {{ $cat['name'] }}
@@ -79,9 +79,13 @@
                                     </div>
                                 </div>
                                 <div class="col-10">
-                                    <input type="text" name="approver" id="approver" required class="form-control
-                                           @error('approver') is-invalid @enderror"
-                                           placeholder="{{__('template.place_holder.approver')}}">
+                                    <select type="text" name="approver[]" id="approver" required class="js-example-basic-multiple form-control
+                                           @error('approver') is-invalid @enderror" multiple="multiple">
+                                        @foreach($adminList as $admin)
+                                            <option value="{{ $cat['id'] }}">
+                                                {{ $admin['name'] }}
+                                            </option>
+                                        @endforeach
                                     @error('approver')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -153,19 +157,22 @@
         </div>
     </form>
 
-
 @endsection
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-@push(config('formbuilder.layout_js_stack', 'scripts'))
-    <script type="text/javascript">
-        window.FormBuilder = window.FormBuilder || {}
-        window.FormBuilder.form_roles = @json($form_roles);
-    </script>
+
+@section('page-js-files')
     <script src="{{ asset('vendor/formbuilder/js/create-form.js') }}{{ \App\Helper\FormBuilderHelper::bustCache() }}" defer></script>
-@endpush
-<script>
+@stop
+
+@section('page-js-script')
+<script type="text/javascript">
     $(document).ready(function() {
-        $('#category').select2();
+        $('#approver').select2({
+            placeholder: "{{__('template.place_holder.approver')}}",
+        });
     });
+    window.FormBuilder = window.FormBuilder || {}
+    window.FormBuilder.form_roles = @json($form_roles);
 </script>
+
+@stop
 

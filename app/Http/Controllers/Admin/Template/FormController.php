@@ -10,6 +10,7 @@ use App\Helper\FormBuilderHelper;
 use App\Models\Category;
 use App\Models\Form;
 use App\Http\Requests\SaveFormRequest;
+use App\Models\Role;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -45,7 +46,9 @@ class FormController extends Controller
         // get the roles to use to populate the make the 'Access' section of the form builder work
         $form_roles = FormBuilderHelper::getConfiguredRoles();
 
-        return view('template.forms.create', compact('category', 'pageTitle', 'breadCrumbTitle', 'saveURL', 'form_roles'));
+        $adminList = Role::findByName('admin', 'api')->users()->get();
+
+        return view('template.forms.create', compact('category', 'adminList', 'pageTitle', 'breadCrumbTitle', 'saveURL', 'form_roles'));
     }
 
     public function store(SaveFormRequest $request)

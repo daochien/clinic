@@ -234,7 +234,7 @@ export default {
                 axios.put('/api/manager/'+this.manager.id, this.manager)
                 .then( (data) => {
                     if(data.data.success) {
-                        // this.$router.push({path: '/admin/managers'});
+                        // this.$router.push({path: '/admin/manager'});
                         Toast.fire({
                             icon: 'success',
                             title: this.$t('manager.form_create.alert_edit_success')
@@ -263,7 +263,7 @@ export default {
         },
         removeSuccess () {
             $('#removeAdmin').modal('hide');
-            this.$router.push({path: '/admin/managers'});
+            this.$router.push({path: '/admin/manager'});
         },
     }
 

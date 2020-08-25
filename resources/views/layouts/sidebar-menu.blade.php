@@ -36,7 +36,7 @@
                         </router-link>
                     @endcan
                     @can(['role.index','role.create', 'role.update'])
-                        <router-link to="/admin/manager/roles" class="dropdown-item">
+                        <router-link to="/admin/manager/role" class="dropdown-item">
                             <span>{{ __('sidebar.role') }}</span>
                         </router-link>
                     @endcan

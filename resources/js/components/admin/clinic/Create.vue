@@ -117,7 +117,7 @@ export default {
           this.form.post('/api/clinic')
               .then((data)=>{
                   if(data.data.success){
-                      this.$router.push("/admin/clinics")
+                      this.$router.push("/admin/clinic")
                       this.$Progress.finish();
 
                   } else {

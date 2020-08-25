@@ -148,7 +148,6 @@
 {{-- ./wrapper --}}
 
 <script src="{{ mix('/js/app.js') }}"></script>
-<script src="{{ ('/js/select2.min.js') }}"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
@@ -168,6 +167,9 @@
 <script src="{{ asset('vendor/formbuilder/js/moment.js') }}"></script>
 <script src="{{ asset('vendor/formbuilder/js/footable/js/footable.min.js') }}" defer></script>
 <script src="{{ asset('vendor/formbuilder/js/script.js') }}{{ jazmy\FormBuilder\Helper::bustCache() }}" defer></script>
+
 @stack('fb-scripts')
+@yield('page-js-files')
+@yield('page-js-script')
 </body>
 </html>
