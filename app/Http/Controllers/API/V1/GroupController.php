@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Models\GroupUser;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Requests\Groups\GroupRequest;
 use App\Models\User;
@@ -34,7 +34,7 @@ class GroupController extends BaseController
      */
     public function index()
     {
-        $group = $this->group->latest()->withCount('group_users')->paginate(10);
+        $group = $this->group->latest()->withCount('group_users')->orderBy('id', 'desc')->paginate(10);
         return $this->sendResponse($group, 'Group list');
     }
 
@@ -65,8 +65,7 @@ class GroupController extends BaseController
         $tag = $this->group->create([
             'name' => $request->get('name'),
             'description' => $request->get('description'),
-            'postal_code' => $request->get('postal_code'),
-            'address' => $request->get('address'),
+            'forced' => $request->get('forced'),
         ]);
 
         return $this->sendResponse($tag, 'Group Created Successfully');
