@@ -8,6 +8,7 @@ use App\Repositories\NotificationGroupRepository;
 use App\Repositories\NotificationRepository;
 use App\Services\NotificationService;
 use App\Http\Resources\NotificationCollection;
+use App\Http\Resources\NotificationUserCollection;
 
 class NotificationController extends BaseController
 {
@@ -84,7 +85,8 @@ class NotificationController extends BaseController
 
     public function members($id)
     {
-        return $this->service->getMember($id);
+        $datas =  $this->service->getMember($id);
+        return new NotificationUserCollection($datas);
     }
 
     public function getAll()
@@ -97,6 +99,16 @@ class NotificationController extends BaseController
         try {
             $datas = $this->service->search($request);
             return new NotificationCollection($datas);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
+    }
+
+    public function detailSearch(SearchNotificationRequest $request)
+    {
+        try {
+            $datas = $this->service->detailSearch($request);
+            return new NotificationUserCollection($datas);
         } catch (\Exception $exception) {
             return $this->sendError($exception->getCode(), $exception->getMessage());
         }
