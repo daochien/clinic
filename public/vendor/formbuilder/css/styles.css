@@ -1,0 +1,38 @@
+.form-wrap.form-builder .form-group.access-wrap,
+.form-wrap.form-builder .form-group.value-wrap,
+.form-wrap.form-builder .form-group.placeholder-wrap,
+.form-wrap.form-builder .form-group.className-wrap,
+.form-wrap.form-builder .form-group.name-wrap,
+.form-wrap.form-builder .form-group.rows-wrap,
+.form-wrap.form-builder .form-group.description-wrap
+{
+    display: none !important;
+}
+
+.form-wrap.form-builder .frmb li.frmb-placeholder,
+.form-wrap.form-builder .frmb li.ui-state-highlight {
+    /*background: radial-gradient(ellipse at center,#545454 0,transparent 75%);*/
+    background-image: none !important;
+}
+
+.fb-editor {
+	background-image: #f2f2f2;
+}
+.five {
+	width: 5% !important;
+}
+.ten {
+	width: 10% !important;
+}
+.fifteen {
+	width: 15% !important;
+}
+.twenty {
+	width: 20% !important;
+}
+.twenty-five {
+	width: 25% !important;
+}
+.d-inline-block {
+	display: inline-block !important;
+}

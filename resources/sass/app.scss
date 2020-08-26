@@ -1,12 +1,17 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+// Bootstrap Vue
+
+
 // Variables
 @import 'variables';
 @import 'custom';
+@import '~select2';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss';
 
 // Font Awesome
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";

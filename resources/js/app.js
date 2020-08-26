@@ -16,13 +16,14 @@ import moment from 'moment';
 import auth from './auth'
 
 Vue.use(Vuex)
-
 export default new Vuex.Store({
     modules: {
         auth
     }
 })
 
+import VueBreadcrumbs from 'vue-2-breadcrumbs';
+Vue.use(VueBreadcrumbs);
 
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';
@@ -49,10 +50,10 @@ const Toast = Swal.mixin({
     timer: 3000,
     timerProgressBar: true,
     onOpen: (toast) => {
-      toast.addEventListener('mouseenter', Swal.stopTimer)
-      toast.addEventListener('mouseleave', Swal.resumeTimer)
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
-  })
+})
 window.Swal = Swal;
 window.Toast = Toast;
 
@@ -61,11 +62,18 @@ Vue.use(VueProgressBar, {
     color: 'rgb(143, 255, 199)',
     failedColor: 'red',
     height: '3px'
-  });
+});
 
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
+import Multiselect from 'vue-multiselect'
+Vue.component('multiselect', Multiselect)
+
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
+Vue.use(require('vue-moment'));
 
 /**
  * Routes imports and assigning
@@ -80,7 +88,16 @@ const router = new VueRouter({
 });
 // Routes End
 
+/**
+ * import Vuelidate form
+*/
+import Vuelidate from 'vuelidate';
+Vue.use(Vuelidate);
 
+/**
+ * import Vue filter
+*/
+import filter from './filter';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -97,10 +114,16 @@ Vue.component(
     require('./components/NotFound.vue').default
 );
 
+import Vue2Editor from "vue2-editor";
+Vue.use(Vue2Editor);
+
 // Filter Section
 
-Vue.filter('myDate',function(created){
-    return moment(created).format('MMMM Do YYYY');
+Vue.filter('myDate', function (created) {
+    if (created) {
+        return moment(created).format('YYYY-MM-DD HH:mm:ss');
+    }
+    return "-";
 });
 
 Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i class="fas fa-times red"></i>'));

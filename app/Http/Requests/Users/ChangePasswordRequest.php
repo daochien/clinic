@@ -28,6 +28,7 @@ class ChangePasswordRequest extends FormRequest
             'current_password' => ['required', new MatchOldPassword],
             'new_password' => 'required|min:6',
             'confirm_password' => 'required|same:new_password',
+            'device_name' => 'required',
         ];
     }
 }

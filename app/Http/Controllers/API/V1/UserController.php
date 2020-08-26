@@ -3,30 +3,65 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\Users\UserRequest;
+use App\Http\Resources\ClinicCollection;
+use App\Http\Resources\GroupCollection;
+use App\Http\Resources\UserCollection;
+use App\Http\Resources\UserResource;
+use App\Models\Group;
 use App\Models\User;
+use App\Repositories\UserRepository;
+use App\Services\UserServices;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends BaseController
 {
+    protected $repository = '';
+    protected $service = '';
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepository $repository, UserServices $userServices)
     {
+        $this->repository = $repository;
+        $this->service = $userServices;
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = $this->repository->find($id);
+
+        return $this->sendResponse(new UserResource($user));
+    }
+
+    public function search(Request $request)
+    {
+        $users = $this->repository->search($request->all());
+
+        return new UserCollection($users);
     }
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $users = User::latest()->paginate(10);
-        return $this->sendResponse($users, 'Users list');
+        $users = $this->repository->with(['role', 'group', 'clinic'])->paginate(10);
+
+        return new UserCollection($users);
     }
 
     /**
@@ -41,14 +76,14 @@ class UserController extends BaseController
      */
     public function store(UserRequest $request)
     {
-        $user = User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-            'type' => $request['type'],
-        ]);
+        try {
+            $attributes = $request->validated();
+            $user = $this->service->createUser($attributes);
 
-        return $this->sendResponse($user, 'User Created Successfully');
+            return $this->sendResponse($user);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getMessage());
+        }
     }
 
     /**
@@ -62,15 +97,14 @@ class UserController extends BaseController
      */
     public function update(UserRequest $request, $id)
     {
-        $user = User::findOrFail($id);
+        try {
+            $attributes = $request->validated();
+            $user = $this->service->updateUser($id, $attributes);
 
-        if (!empty($request->password)) {
-            $request->merge(['password' => Hash::make($request['password'])]);
+            return $this->sendResponse($user);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getMessage());
         }
-
-        $user->update($request->all());
-
-        return $this->sendResponse($user, 'User Information has been updated');
     }
 
     /**
@@ -81,14 +115,21 @@ class UserController extends BaseController
      */
     public function destroy($id)
     {
-
         $this->authorize('isAdmin');
-
         $user = User::findOrFail($id);
         // delete the user
-
         $user->delete();
 
-        return $this->sendResponse([$user], 'User has been Deleted');
+        return $this->sendResponse([$user]);
+    }
+
+    public function getAllGroup()
+    {
+        return new GroupCollection(Group::orderBy('id')->get());
+    }
+
+    public function getAllGroupDefault()
+    {
+        return new GroupCollection(Group::orderBy('id')->get());
     }
 }
