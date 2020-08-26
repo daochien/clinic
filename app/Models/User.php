@@ -37,7 +37,7 @@ class User extends Authenticatable // implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'updated_at'
     ];
 
     /**
@@ -158,7 +158,7 @@ class User extends Authenticatable // implements MustVerifyEmail
         }
 
         $role = Role::find(Role::ROLE_DEFAULT['root']);
-        
+
         if ($this->hasRole($role->name)) {
             return true;
         }
