@@ -109,6 +109,9 @@ Vue.component(
     require('./components/NotFound.vue').default
 );
 
+import Vue2Editor from "vue2-editor";
+Vue.use(Vue2Editor);
+
 // Filter Section
 
 Vue.filter('myDate', function (created) {
