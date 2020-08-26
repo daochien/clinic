@@ -52,11 +52,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('permission/list', 'API\V1\PermissionController@list')->name('permission.list');
         Route::get('permission/routes', 'API\V1\PermissionController@listRoutes')->name('permission.routes');
 
+        Route::get('category/type/{type}', 'API\V1\CategoryController@getByType')->name('category.list.by.type');
+        Route::get('template/{id}', 'API\V1\TemplateController@show')->name('api.template.show');
+
         Route::apiResources([
             'user' => 'API\V1\UserController',
             'clinic' => 'API\V1\ClinicController',
-            'product' => 'API\V1\ProductController',
-            'template' => 'API\V1\TemplateController',
             'category' => 'API\V1\CategoryController',
             'notification' => 'API\V1\NotificationController',
             'group' => 'API\V1\GroupController',

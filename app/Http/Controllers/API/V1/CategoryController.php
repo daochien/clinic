@@ -4,20 +4,24 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
 class CategoryController extends BaseController
 {
     protected $category = '';
+    protected $repository = '';
 
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param Category $category
+     * @param CategoryRepository $repository
      */
-    public function __construct(Category $category)
+    public function __construct(Category $category, CategoryRepository $repository)
     {
         $this->category = $category;
+        $this->repository = $repository;
     }
 
 
@@ -29,6 +33,13 @@ class CategoryController extends BaseController
     public function index()
     {
         $categories = $this->category->latest()->paginate(10);
+
+        return $this->sendResponse($categories, 'Category list');
+    }
+
+    public function getByType(Request $request, $type)
+    {
+        $categories = $this->repository->getTemplateByCategory(Category::TYPE[$type]);
 
         return $this->sendResponse($categories, 'Category list');
     }
