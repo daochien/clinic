@@ -81,7 +81,7 @@
                                                 aria-haspopup="true"
                                                 aria-expanded="false"
                                             ></i>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="operatingAction">                                                    
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="operatingAction">
                                                 <router-link class="dropdown-item text-primary" :to="{path: `/admin/manager/edit/${item.id}`}">
                                                     {{ $t('app.btn.edit')}}
                                                 </router-link>
@@ -89,7 +89,7 @@
                                                     {{$t('app.btn.delete')}}
                                                 </a>
                                             </div>
-                                        </div>                                       
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>

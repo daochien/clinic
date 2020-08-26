@@ -77,7 +77,10 @@
                             <span>{{ __('sidebar.request') }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-small">
-                            <a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>
+                            {{--<a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>--}}
+                            <router-link to="/admin/template" class="dropdown-item">
+                                {{ __('sidebar.templates') }}
+                            </router-link>
                             {{--<a href="/admin/templates" class="dropdown-item">
                                 {{ __('sidebar.templates') }}
                             </a>--}}
@@ -134,6 +137,8 @@
             </div> <!-- / .main-navbar -->
 
             <div class="main-content-container container-fluid px-4">
+                <router-view></router-view>
+                <vue-progress-bar></vue-progress-bar>
                 <section class="content">
                     @yield('content')
                 </section>

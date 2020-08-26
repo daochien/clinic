@@ -29,7 +29,7 @@ class SaveFormRequest extends FormRequest
             'name' => 'required|max:100',
             'category' => 'required',
             'approver' => 'required',
-            'description' => 'string',
+            'description' => 'nullable',
             'visibility' => ['required', Rule::in([Form::FORM_PUBLIC, Form::FORM_PRIVATE])],
             'allows_edit' => 'required|boolean',
             'multi_approve' => 'required|boolean',

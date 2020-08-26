@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body table-responsive">
+                    <div class="card-body">
                          <div class="form-group row">
                             <label for="feInputTitle" class="col-sm-2 col-form-label">{{ $t('role.input_name') }} <span style="color:#c4183c;">*</span></label>
                             <div class="col-sm-6">
@@ -139,12 +139,12 @@ export default {
             // console.log('Editing data');
             this.role.put('/api/role/'+this.role.id)
             .then((response) => {
-                // success                
+                // success
                 Toast.fire({
                     icon: 'success',
                     title: response.data.message
                 });
-                this.$Progress.finish();                                   
+                this.$Progress.finish();
             })
             .catch(() => {
                 this.$Progress.fail();
