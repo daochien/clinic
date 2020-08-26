@@ -27,7 +27,7 @@ class CheckPermission
         $routeName = $request->route()->getName();
         
         $permissions = Permission::where('name', $routeName)->pluck('name')->toArray();
-
+        
         if ($user->hasAnyPermission($permissions)) {
             return $next($request);
         }

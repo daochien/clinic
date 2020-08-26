@@ -19,7 +19,7 @@ export default class Gate{
         });
         return false;        
     }
-
+    
     isAdmin(){
         return true;
         // return this.user.role_users.type.name === 'Admin';
