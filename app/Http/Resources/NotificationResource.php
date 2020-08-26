@@ -31,14 +31,14 @@ class NotificationResource extends JsonResource
             'users' => UserResource::collection($this->whenLoaded('users')),
         ];
 
-        if (App::isLocale('ja')) {
-            $datas["created_at"] = DateHelper::toJaDate($this->created_at);
-            if(isset($this->schedule_date)){
-                $datas["schedule_date"] = DateHelper::toJaDate($this->schedule_date);
-            }else{
-                $datas["schedule_date"] = DateHelper::toJaDate($this->created_at);
-            }
-        }
+//        if (App::isLocale('ja')) {
+//            $datas["created_at"] = DateHelper::toJaDate($this->created_at);
+//            if(isset($this->schedule_date)){
+//                $datas["schedule_date"] = DateHelper::toJaDate($this->schedule_date);
+//            }else{
+//                $datas["schedule_date"] = DateHelper::toJaDate($this->created_at);
+//            }
+//        }
 
         return $datas;
     }

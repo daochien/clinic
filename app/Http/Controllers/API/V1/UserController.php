@@ -125,7 +125,7 @@ class UserController extends BaseController
 
     public function getAllGroup()
     {
-        return new GroupCollection(Group::orderByDesc('id')->get());
+        return new GroupCollection(Group::orderBy('id')->get());
     }
 
     public function getAllGroupDefault()

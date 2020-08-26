@@ -73,6 +73,7 @@ Vue.component('multiselect', Multiselect)
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(require('vue-moment'));
 
 /**
  * Routes imports and assigning
