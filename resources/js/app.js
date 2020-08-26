@@ -94,6 +94,10 @@ import Vuelidate from 'vuelidate';
 Vue.use(Vuelidate);
 
 /**
+ * import Vue filter
+*/
+import filter from './filter';
+/**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
@@ -108,6 +112,9 @@ Vue.component(
     'not-found',
     require('./components/NotFound.vue').default
 );
+
+import Vue2Editor from "vue2-editor";
+Vue.use(Vue2Editor);
 
 // Filter Section
 

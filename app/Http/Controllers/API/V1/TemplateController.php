@@ -2,29 +2,23 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use App\Http\Requests\Products\ProductRequest;
-use App\Models\Product;
-use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use App\Models\Form;
 
 class TemplateController extends BaseController
 {
 
-    protected $product = '';
+    protected $template = '';
 
-    protected $productRepository;
 
     /**
      * Create a new controller instance.
      *
-     * @param Product $product
-     * @param ProductRepository $productRepository
+     * @param Form $template
      */
-    public function __construct(Product $product, ProductRepository $productRepository)
+    public function __construct(Form $template)
     {
-        $this->product = $product;
-        $this->productRepository = $productRepository;
+        $this->template = $template;
     }
 
     /**
@@ -34,8 +28,18 @@ class TemplateController extends BaseController
      */
     public function index()
     {
-        $templates = Form::getForUser(auth()->user());
+        $templates = Form::paginate();
 
         return $this->sendResponse($templates, 'Templates list');
+    }
+
+    public function show(Request $request, $id)
+    {
+        $form = $this->template->where(['id' => $id])
+            ->with(['user','category','approvers'])
+            ->withCount('submissions')
+            ->firstOrFail();
+
+        return $this->sendResponse($form, 'Templates list');
     }
 }

@@ -35,7 +35,7 @@
                             <span>{{ __('sidebar.admin_list_manage') }}</span>
                         </router-link>
                     @endcan
-                    @can(['role.index','role.create', 'role.update'])
+                    @can(['role.index','role.store', 'role.update'])
                         <router-link to="/admin/manager/roles" class="dropdown-item">
                             <span>{{ __('sidebar.role') }}</span>
                         </router-link>
