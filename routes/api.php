@@ -17,6 +17,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('notification/{id}/members', 'API\V1\NotificationController@members');
         Route::get('notification/{id}/show', 'API\V1\NotificationController@show');
         Route::post('notification/store', 'API\V1\NotificationController@store');
+        Route::post('notification/search', 'API\V1\NotificationController@search');
+        Route::post('notification/detailSearch', 'API\V1\NotificationController@detailSearch');
 
         Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');
         Route::get('setting/level', 'API\V1\SettingController@getLevel')->name('api.setting.level');
@@ -37,6 +39,14 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('clinic/{id}/user', 'API\V1\ClinicController@getUsers')->name('clinic.get.users');
         Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
         Route::get('clinic/all', 'API\V1\ClinicController@getAll')->name('api.clinic.all');
+
+        Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');
+        Route::get('setting/level', 'API\V1\SettingController@getLevel')->name('api.setting.level');
+
+        Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
+
+        Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
+        Route::get('/group/default', 'API\V1\UserController@getAllGroupDefault')->name('api.group.default');
 
         Route::get('role/list', 'API\V1\RoleController@list')->name('role.list');
         Route::get('permission/list', 'API\V1\PermissionController@list')->name('permission.list');

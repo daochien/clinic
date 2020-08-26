@@ -113,7 +113,6 @@ export default {
   methods: {
       create(){
           this.$Progress.start();
-
           this.form.post('/api/clinic')
               .then((data)=>{
                   if(data.data.success){

@@ -54,12 +54,13 @@
                         </div>
                         <div class="col-12">
                             <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index">
-                                <input
+                                <input                                
                                 type="checkbox"
                                 :class="['custom-control-input', {'is-invalid': $v.manager.roles.$error}]"
                                 class="custom-control-input"
                                 v-model="$v.manager.roles.$model"
-                                :id="'formsCheckboxChecked_'+index"
+                                :id="'formsCheckboxChecked_'+index"                                
+                                :disabled="isAdmin == index"
                                 :value="role">
                                 <label class="custom-control-label" :for="'formsCheckboxChecked_'+index">{{ role }}</label>
                             </div>
@@ -73,6 +74,7 @@
                             v-model="$v.manager.description.$model"
                             class="form-control"
                             cols="30" rows="10"></textarea>
+                            <div class="invalid-feedback" v-if="!$v.manager.description.maxLength">{{ $t('manager.validator.note_maxLength') }}</div>
                         </div>
                     </div>
                     <div class="row">
@@ -142,12 +144,28 @@ export default {
     },
 
     created () {
+        
         this.loadType();
         this.loadLevel();
         this.infoAdmin();
         this.loadRoles();
+        if (this.isAdmin == 2) {
+            this.manager.roles.push('admin');
+        }
     },
-
+    computed : {
+        isAdmin () {
+            let id = 0;
+            if (window.user.roles.length > 0) {                
+                window.user.roles.forEach ((item) => {                
+                    if (item.id == 2) {                
+                        id = item.id;
+                    }
+                })                
+            }
+            return id; 
+        }
+    },
     methods: {
         loadRoles () {
             axios.get("/api/role/list").then(({ data }) => (this.roles = data.data));

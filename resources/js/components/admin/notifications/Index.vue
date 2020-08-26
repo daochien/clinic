@@ -25,8 +25,12 @@
                       <div class="col-6">
                         <div class="form-group">
                           <label>{{ $t('notification.target_person')}}</label>
-                          <select class="form-control" id="targetPerson">
-                            <option v-for="(entity) in groups" :key="entity.id">{{ entity.name }}</option>
+                          <select class="form-control" id="targetPerson" v-model="form.group">
+                            <option
+                              v-for="(entity) in groups"
+                              :key="entity.id"
+                              :value="entity.name"
+                            >{{ entity.name }}</option>
                           </select>
                         </div>
                       </div>
@@ -36,7 +40,7 @@
                           <input
                             type="text"
                             class="form-control"
-                            :v-model="form.keyword"
+                            v-model="form.keyword"
                             :placeholder="$t('notification.keyword_placeholder')"
                           />
                         </div>
@@ -46,21 +50,15 @@
                       <div class="col-6">
                         <div class="form-group">
                           <label>{{ $t('notification.release_date')}}</label>
-                          <input type="date" class="form-control" :v-model="form.release_date" />
+                          <input type="date" class="form-control" v-model="form.release_date" />
                         </div>
                       </div>
                       <div class="col-6">
                         <div class="form-group">
                           <label>{{ $t('notification.status')}}</label>
-                          <select class="form-control" id="targetPerson">
-                            <option
-                              value="true"
-                              :v-model="form.status"
-                            >{{ $t('notification.publish')}}</option>
-                            <option
-                              value="false"
-                              :v-model="form.status"
-                            >{{ $t('notification.unpublish')}}</option>
+                          <select class="form-control" id="targetPerson" v-model="form.status">
+                            <option value="0">{{ $t('notification.publish')}}</option>
+                            <option value="1">{{ $t('notification.unpublish')}}</option>
                           </select>
                         </div>
                       </div>
@@ -130,7 +128,7 @@
                       <label v-if="entity.confirm === 0">{{ entity.users_count}}</label>
                       <label v-else>{{ entity.users_confirm }}</label>
                     </td>
-                    <td>{{ entity.created_at }}</td>
+                    <td>{{ entity.schedule_date }}</td>
                     <td>
                       <label
                         class="text-secondary"
@@ -186,17 +184,21 @@
 </template>
 
 <script>
+import DateRangePicker from "vue2-daterange-picker";
 export default {
+  components: {
+    DateRangePicker,
+  },
   data() {
     return {
       editmode: false,
       notifications: {},
       groups: {},
       form: new Form({
-        groups: [],
+        group: "",
         keyword: "",
         release_date: "",
-        status: false,
+        status: 0,
       }),
     };
   },
@@ -204,11 +206,10 @@ export default {
     resetForm() {
       this.isValidate = false;
       this.form = new Form({
-        title: "",
-        groups: [],
+        group: "",
         keyword: "",
         release_date: "",
-        status: false,
+        status: 0,
       });
     },
     getResults(page = 1) {
@@ -239,20 +240,40 @@ export default {
     },
     deleteNotification() {
       Swal.fire({
-        title: this.lang.ja.app.delete_head,
-        text: this.lang.ja.app.delete_question,
+        title: this.$t("app").delete_head,
+        text: this.$t("app").delete_question,
         showCancelButton: true,
         confirmButtonColor: "#d33",
         cancelButtonColor: "#3085d6",
-        confirmButtonText: this.lang.ja.app.delete_yes,
-        cancelButtonText: this.lang.ja.app.delete_cancel,
+        confirmButtonText: this.$t("app").delete_yes,
+        cancelButtonText: this.$t("app").delete_cancel,
       }).then((result) => {
         if (result.value) {
         }
       });
     },
     publishAnnouncement() {},
-    searchData() {},
+    searchData() {
+      this.$Progress.start();
+      var app = this;
+      axios
+        .post("/api/notification/search", this.form)
+        .then((data) => {
+          app.notifications = data.data;
+          Toast.fire({
+            icon: "success",
+            title: data.data.message,
+          });
+        })
+        .catch(() => {
+          Toast.fire({
+            icon: "error",
+            title: this.$t("app").notification.some_error,
+          });
+        });
+      this.$Progress.finish();
+      this.$forceUpdate();
+    },
   },
   mounted() {
     console.log("Notification Component mounted.");
@@ -262,7 +283,7 @@ export default {
     console.log("created");
     this.loadNotification();
     this.$Progress.finish();
-    this.lang = this.$i18n._vm.messages;
   },
 };
 </script>
+<style src="vue2-daterange-picker/dist/vue2-daterange-picker.css"></style>

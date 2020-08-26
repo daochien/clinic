@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admins\AdminRequest;
-use App\Models\Permission;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\RoleRepository;
@@ -63,10 +62,14 @@ class AdminController extends BaseController
 
     public function destroy($id)
     {
-
-        //$this->authorize('isAdmin');
-
+        
+        $roleRoot = $this->roleRepo->show(1);
+        
         $admin = $this->user->findOrFail($id);
+
+        if ($admin->hasRole($roleRoot->name)) {
+            return $this->sendError('Cannot remove super_user');
+        }
 
         $admin->delete();
 

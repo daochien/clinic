@@ -33,7 +33,11 @@ class NotificationResource extends JsonResource
 
         if (App::isLocale('ja')) {
             $datas["created_at"] = DateHelper::toJaDate($this->created_at);
-            $datas["schedule_date"] = DateHelper::toJaDate($this->schedule_date);
+            if(isset($this->schedule_date)){
+                $datas["schedule_date"] = DateHelper::toJaDate($this->schedule_date);
+            }else{
+                $datas["schedule_date"] = DateHelper::toJaDate($this->created_at);
+            }
         }
 
         return $datas;

@@ -35,8 +35,8 @@
                             <span>{{ __('sidebar.admin_list_manage') }}</span>
                         </router-link>
                     @endcan
-                    @can(['role.index','role.create', 'role.update'])
-                        <router-link to="/admin/manager/role" class="dropdown-item">
+                    @can(['role.index','role.store', 'role.update'])
+                        <router-link to="/admin/manager/roles" class="dropdown-item">
                             <span>{{ __('sidebar.role') }}</span>
                         </router-link>
                     @endcan
@@ -50,12 +50,20 @@
                     <i class="far fa-address-book"></i>
                     <span>{{ __('sidebar.staff_manage') }}</span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-small">
+                <div class="dropdown-menu dropdown-menu-small" id="notClose">
+
                     @can('clinic.index')
-                        <router-link to="/admin/clinic" class="dropdown-item">
+                        <router-link to="/admin/clinic" class="dropdown-item ">
                             {{ __('sidebar.clinics') }}
                         </router-link>
                     @endcan
+
+                        @can('group.index')
+                            <router-link to="/admin/group" class="dropdown-item ">
+                                {{ __('sidebar.groups') }}
+                            </router-link>
+                        @endcan
+
                     @can('user.index')
                         <router-link to="/admin/user" class="dropdown-item">
                             {{ __('sidebar.staff') }}

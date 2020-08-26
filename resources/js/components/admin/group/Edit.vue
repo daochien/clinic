@@ -27,28 +27,16 @@
                         <div class="card-body p-4">
                             <form>
                                 <div class="row">
-                                    <div class="form-group col-md-6 col-12">
+                                    <div class="form-group col-12">
                                         <label>{{ $t('group.name')}} <span class="text-danger">*</span></label>
                                         <input v-model="form.name" type="text" name="name"
                                                :placeholder="$t('group.name')"
                                                class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
                                         <has-error :form="form" field="name"></has-error>
                                     </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>{{ $t('group.portal_code')}}</label>
-                                        <input v-model="form.postal_code" type="text" name="name"
-                                               :placeholder="$t('group.portal_code_placeholder')"
-                                               class="form-control" :class="{ 'is-invalid': form.errors.has('postal_code') }">
-                                        <has-error :form="form" field="postal_code"></has-error>
-                                    </div>
+
                                 </div>
-                                <div class="form-group">
-                                    <label>{{ $t('group.address')}} <span class="text-danger">*</span></label>
-                                    <input v-model="form.address" type="text" name="name"
-                                           :placeholder="$t('group.address_placeholder')"
-                                           class="form-control" :class="{ 'is-invalid': form.errors.has('address') }">
-                                    <has-error :form="form" field="address"></has-error>
-                                </div>
+
                                 <div class="form-group">
                                     <label for="exampleFormControlTextarea1">{{ $t('group.Description')}}</label>
                                     <textarea v-model="form.description"
@@ -79,8 +67,6 @@
                 form: new Form({
                     id:'',
                     name: '',
-                    postal_code: '',
-                    address: '',
                     description: '',
                     created_at:'',
                     updated_at:''

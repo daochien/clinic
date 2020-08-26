@@ -99,6 +99,38 @@ export default {
             "reset_btn": "Reset",
             "logout": "Logout"
         },
+        "group": {
+            "group_list": "クリニック一覧",
+            "add_new": "新規登録",
+            "name": "クリニック名",
+            "description": "住所",
+            "number_staff": "社員数",
+            "action": "操作",
+            "remove_group": "削除する",
+            "edit_group_info": "編集する",
+            "user_in_group": "ユーザーを管理する",
+            "add_group": "クリニック登録",
+            "registered_group": "登録",
+            "name_placeholder": "クリニック名を入力してください",
+            "info_clinic": "クリニック情報",
+            "portal_code": "郵便番号",
+            "portal_code_placeholder": "郵便番号を入力してください",
+            "address": "住所 ",
+            "address_placeholder": "住所を入力してください",
+            "Description": "メモ",
+            "Description_placeholder": "メモを入力してください",
+            "remove_from_group": "abc",
+            "add_to_group": "abc",
+            "keyword": "キーワード",
+            "enter_a_keyword": "キーワードを入力してください",
+            "search_by_condition": "この条件で検索",
+            "remove_condition": "条件をクリアする",
+            "name_account": "ユーザー名",
+            "email": "メールアドレス",
+            "group": "グループ",
+            "created_at": "登録日付",
+            "last_login": "最終ログイン日時"
+        },
         "manager": {
             "title_page_list": "Admin account management",
             "title_page_create": "Create Account Admin",
@@ -146,7 +178,8 @@ export default {
                 "name_maxLength": "name cannot exceed 255 characters",
                 "email_required": "email is required",
                 "email_valid": "incorrect email format",
-                "email_maxLength": "email cannot exceed 255 characters"
+                "email_maxLength": "email cannot exceed 255 characters",
+                "note_maxLength": "note cannot exceed 500 characters"
             }
         },
         "notification": {
@@ -503,8 +536,8 @@ export default {
             "address_placeholder": "住所を入力してください",
             "Description": "メモ",
             "Description_placeholder": "メモを入力してください",
-            "remove_from_group": "abc",
-            "add_to_group": "abc",
+            "remove_from_group": "remove member to group",
+            "add_to_group": "add member to group",
             "keyword": "キーワード",
             "enter_a_keyword": "キーワードを入力してください",
             "search_by_condition": "この条件で検索",
@@ -562,7 +595,8 @@ export default {
                 "email_required": "メールが必要です",
                 "email_valid": "不正なメール形式",
                 "name_maxLength": "名前は50文字以下にする必要があります",
-                "email_maxLength": "メールは255文字を超えることはできません"
+                "email_maxLength": "メールは255文字を超えることはできません",
+                "note_maxLength": "500文字を超えることはできません"
             }
         },
         "notification": {
@@ -663,7 +697,8 @@ export default {
             "setting": "Setting",
             "contact": "問い合わせ担当",
             "role": "役割",
-            "permission": "権限"
+            "permission": "権限",
+            "groups": "グループ管理"
         },
         "template": {
             "page_title": "申請テンプレート一覧",

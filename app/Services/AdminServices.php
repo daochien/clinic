@@ -66,7 +66,7 @@ class AdminServices
                 ]);
             }
 
-            $admin->assignRole($attribute['roles']);
+            $admin->syncRoles($attribute['roles']);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

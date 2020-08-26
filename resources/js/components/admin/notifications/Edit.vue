@@ -69,18 +69,19 @@
                         <div class="form-group row ml-0">
                           <label class="col-form-label">{{ $t('notification.release_date')}}</label>
                           <div class="col-sm-3">
-                            <input type="date" class="form-control" v-model="form.schedule_date" />
+                            <datetime format="YYYY/MM/DD H:i" v-model="form.schedule_date"></datetime>
                           </div>
                           <div class="col-sm-1"></div>
+                          <div class="col-sm-1 mr-2">
+                            <b-form-checkbox v-model="default_dr" name="check-button">DR</b-form-checkbox>
+                            <b-form-checkbox v-model="default_dh" name="check-button">DH</b-form-checkbox>
+                          </div>
                           <div class="col-sm-2">
                             <b-form-checkbox
                               v-model="form.confirm"
                               name="check-button"
                               switch
                             >Enable Confirm</b-form-checkbox>
-                          </div>
-                          <div class="col-sm-1"></div>
-                          <div class="col-sm-2">
                             <b-form-checkbox
                               v-model="enable_manual"
                               name="check-button"
@@ -95,12 +96,10 @@
                       <div class="col-12">
                         <div class="form-group">
                           <label>{{ $t('notification.notice_content')}}</label>
-                          <textarea
-                            rows="15"
-                            cols="50"
+                          <vue-editor
+                            v-model="form.content"
                             class="form-control"
                             :placeholder="$t('notification.please_enter_title')"
-                            v-model="form.content"
                           />
                         </div>
                       </div>
@@ -122,15 +121,17 @@
 
 <script>
 import Multiselect from "vue-multiselect";
+import datetime from "vuejs-datetimepicker";
+
 export default {
   components: {
     Multiselect,
+    datetime,
   },
   data() {
     return {
       editmode: false,
       isValidate: false,
-      lang: {},
       form: new Form({
         notification_id: 0,
         title: "",
@@ -142,7 +143,28 @@ export default {
       }),
       groups: [],
       enable_manual: false,
+      default_dr: true,
+      default_dh: true,
     };
+  },
+  watch: {
+    default_dr: function () {
+      var drGroup = this.form.groups.filter((e) => e.id == 1);
+      if (drGroup.length == 0 && this.default_dr) {
+        this.form.groups.push(this.groups[0]);
+      } else if (drGroup.length > 0 && !this.default_dr) {
+        console.log(drGroup);
+        this.form.groups.splice(this.form.groups.indexOf(drGroup[0]), 1);
+      }
+    },
+    default_dh: function () {
+      var dhGroup = this.form.groups.filter((e) => e.id == 2);
+      if (dhGroup.length == 0 && this.default_dh) {
+        this.form.groups.push(this.groups[1]);
+      } else if (dhGroup.length > 0 && !this.default_dh) {
+        this.form.groups.splice(this.form.groups.indexOf(dhGroup[0]), 1);
+      }
+    },
   },
   methods: {
     resetForm() {
@@ -170,7 +192,7 @@ export default {
       this.$Progress.start();
       this.form.groups = [];
       if (this.$gate.isAdmin()) {
-        axios.get("/api/group/all").then(({ data }) => {
+        axios.get("/api/group/default").then(({ data }) => {
           this.groups = data.data;
           if (
             this.form.notification_id <= 0 ||
@@ -194,10 +216,23 @@ export default {
             } else {
               this.form.confirm = false;
             }
-            console.log(this.form.groups);
             data.data.notification_groups.forEach((item) => {
               this.form.groups.push(item.group);
             });
+
+            var drGroup = this.form.groups.filter((e) => e.id == 1);
+            if (drGroup.length == 0) {
+              this.default_dr = false;
+            } else {
+              this.default_dr = true;
+            }
+
+            var dhGroup = this.form.groups.filter((e) => e.id == 2);
+            if (dhGroup.length == 0) {
+              this.default_dh = false;
+            } else {
+              this.default_dh = true;
+            }
           });
       }
       this.$Progress.finish();
@@ -207,21 +242,21 @@ export default {
       if (this.form.title.length <= 0) {
         Toast.fire({
           icon: "error",
-          title: this.lang.ja.notification.require_title,
+          title: this.$t("app").notification.require_title,
         });
         this.isValidate = false;
       }
       if (this.form.groups.length <= 0) {
         Toast.fire({
           icon: "error",
-          title: this.lang.ja.notification.require_group,
+          title: this.$t("app").notification.require_group,
         });
         this.isValidate = false;
       }
       if (this.form.content.length <= 0) {
         Toast.fire({
           icon: "error",
-          title: this.lang.ja.notification.require_content,
+          title: this.$t("app").notification.require_content,
         });
         this.isValidate = false;
       }
@@ -245,13 +280,14 @@ export default {
         .catch(() => {
           Toast.fire({
             icon: "error",
-            title: t("notification.some_error"),
+            title: this.$t("app").notification.some_error,
           });
         });
     },
   },
   mounted() {
     console.log("Notification Component mounted.");
+    $("#tj-datetime-input").addClass("form-control");
   },
   created() {
     this.$Progress.start();
@@ -259,7 +295,6 @@ export default {
     this.form.notification_id = this.$route.params.id;
     this.loadNotification();
     this.$Progress.finish();
-    this.lang = this.$i18n._vm.messages;
   },
 };
 </script>
