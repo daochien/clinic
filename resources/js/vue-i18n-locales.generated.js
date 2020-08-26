@@ -10,6 +10,14 @@ export default {
                 "delete": "Delete",
                 "submit": "Submit"
             },
+            "popup": {
+                "are_you_sure": "Are you sure?",
+                "you_wont_able_revert": "You won't be able to revert this!",
+                "delete_it": "Yes, delete it!",
+                "deleted": "Deleted!",
+                "failed": "Failed!",
+                "your_item_has_been_deleted": "Your item has been deleted."
+            },
             "label": {
                 "description": "Description",
                 "operator": "Operator"
@@ -239,11 +247,15 @@ export default {
             "permission": "Permission"
         },
         "template": {
+            "page_title": "List template",
             "create_breadcrumb_label": "Create template",
             "basic_info": "Basic info",
             "setting": "Setting",
             "title": "Title",
             "category": "Category",
+            "category_title": "Category",
+            "date_created": "Created",
+            "operator": "Operator",
             "approver": "Approvers",
             "multi_approve": "Multi approve",
             "description": "Description",
@@ -381,6 +393,14 @@ export default {
                 "update": "Update",
                 "delete": "削除する",
                 "submit": "登録"
+            },
+            "popup": {
+                "are_you_sure": "Are you sure?",
+                "you_wont_able_revert": "You won't be able to revert this!",
+                "delete_it": "Yes, delete it!",
+                "deleted": "Deleted!",
+                "failed": "Failed!",
+                "your_item_has_been_deleted": "Your item has been deleted."
             },
             "label": {
                 "description": "メモ",
@@ -646,11 +666,15 @@ export default {
             "permission": "権限"
         },
         "template": {
+            "page_title": "申請テンプレート一覧",
             "create_breadcrumb_label": "申請テンプレート編集",
             "basic_info": "基本情報",
             "setting": "申請項目設定",
             "title": "タイトル",
             "category": "担当役割",
+            "category_title": "担当者役割",
+            "date_created": "作成日時",
+            "operator": "操作",
             "approver": "承認担当者",
             "multi_approve": "全員承認",
             "description": "メモ",
@@ -664,7 +688,8 @@ export default {
                 "category": "担当役割を指定してください",
                 "approver": "タイトルを入力してください"
             },
-            "create_success": "Template successfully created"
+            "create_success": "Template successfully created",
+            "create_failed": "Failed to create the form."
         },
         "validation": {
             "accepted": "{attribute}を承認してください。",

@@ -87,7 +87,7 @@ class FormController extends Controller
                     ->json([
                         'success' => true,
                         'details' => __('create_success'),
-                        'dest' => route('template.index'),
+                        'dest' => config('app.url') . "/admin/template",
                     ]);
         } catch (Throwable $e) {
             info($e);

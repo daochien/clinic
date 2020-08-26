@@ -32,7 +32,6 @@ export default [
         meta: {breadcrumb: `申請管理`},
         children: [
             { path: '', component: require('./components/admin/template/Index.vue').default, meta: {breadcrumb: `申請テンプレート`} },
-            // { path: 'create', component: require('./components/admin/template/Create.vue').default , meta: {breadcrumb: `申請テンプレート`}},
         ]
     },
 

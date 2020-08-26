@@ -9,6 +9,14 @@ return [
         'delete' => '削除する',
         'submit' => '登録',
     ],
+    'popup' => [
+        'are_you_sure' => 'Are you sure?',
+        'you_wont_able_revert' => 'You won\'t be able to revert this!',
+        'delete_it' => 'Yes, delete it!',
+        'deleted' => 'Deleted!',
+        'failed' => 'Failed!',
+        'your_item_has_been_deleted' => 'Your item has been deleted.',
+    ],
     'label' => [
         'description' => 'メモ',
         'operator' => '操作',

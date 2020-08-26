@@ -24,7 +24,7 @@
                     <h6 class="m-0">{{ $t('group.info_clinic')}}</h6>
                 </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-4">
+              <div class="card-body  p-4">
                   <form>
                       <div class="row">
                           <div class="form-group col-md-6 col-12">

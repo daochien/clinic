@@ -76,7 +76,7 @@
                 <div class="col-12">
                     <div class="card" v-if="$gate.isAdmin()">
                         <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0">
+                        <div class="card-body p-0">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>

@@ -44,6 +44,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::get('category/type/{type}', 'API\V1\CategoryController@getByType')->name('category.list.by.type');
         Route::get('template/{id}', 'API\V1\TemplateController@show')->name('api.template.show');
+        Route::delete('template/{id}', 'API\V1\TemplateController@destroy')->name('api.template.destroy');
+        Route::get('template/', 'API\V1\TemplateController@index')->name('template.index');
 
         Route::apiResources([
             'user' => 'API\V1\UserController',
