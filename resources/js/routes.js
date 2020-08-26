@@ -66,12 +66,12 @@ export default [
     {
         path: '/admin/group',
         component: {template: '<router-view/>'},
-        meta: {breadcrumb: `Group`},
+        meta: {breadcrumb: `スタッフ管理`},
         children: [
-            { path: '', component: require('./components/admin/group/Index.vue').default, meta: {breadcrumb: `List`} },
-            { path: 'add', component: require('./components/admin/group/Add.vue').default, name:'add_group', meta: {breadcrumb: `List`} },
-            { path: 'edit', component: require('./components/admin/group/Edit.vue').default, name:'edit_group', meta: {breadcrumb: `List`} },
-            // { path: '/admin/group/users', component: require('./components/admin/group/Members.vue').default, name:'users_group', meta: {breadcrumb: `List`} },
+            { path: '', component: require('./components/admin/group/Index.vue').default, meta: {breadcrumb: `クリニック一覧`} },
+            { path: 'add', component: require('./components/admin/group/Add.vue').default, name:'add_group', meta: {breadcrumb: `クリニック一覧`} },
+            { path: 'edit', component: require('./components/admin/group/Edit.vue').default, name:'edit_group', meta: {breadcrumb: `クリニック一覧`} },
+            { path: 'users', component: require('./components/admin/group/Members.vue').default, name:'users_group', meta: {breadcrumb: `クリニック一覧`} },
         ]
     },
 

@@ -1,6 +1,6 @@
 <template>
   <section class="content">
-    <div class="container-fluid">
+    <div class="container-fluid" v-if="this.$gate.isRoot()">
 
         <div class="page-header row no-gutters py-4">
             <div class="col-6 text-center text-sm-left mb-0">
@@ -54,6 +54,11 @@
         </div>
 
     </div>
+
+      <div v-else>
+          <not-found></not-found>
+      </div>
+
   </section>
 </template>
 

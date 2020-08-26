@@ -1,6 +1,6 @@
 <template>
     <section class="content">
-        <div class="container-fluid">
+        <div class="container-fluid" v-if="this.$gate.isRoot()">
 
             <div class="page-header row no-gutters py-4">
                 <div class="col-6 text-center text-sm-left mb-0">
@@ -62,7 +62,7 @@
                                 <tbody>
                                 <tr v-for="item in members.data" :key="item.id">
                                     <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
-                                    <td>{{item.name}}</td>
+                                    <td>{{item.name}} - {{item.id}}</td>
                                     <td>{{item.email}}</td>
                                     <td>{{group}}</td>
                                     <td>{{item.created_at}}</td>
@@ -78,6 +78,11 @@
             </div>
 
         </div>
+
+        <div v-else>
+            <not-found></not-found>
+        </div>
+
     </section>
 </template>
 
@@ -113,12 +118,11 @@
         methods: {
 
             loadMembers(){
-                // if(this.$gate.isAdmin()){
-                axios.get("/api/group/members/"+this.id).then(({ data }) => {
-                    console.log(data.data);
-                    this.members = data.data
-                });
-                // }
+                if(this.$gate.isRoot()){
+                    axios.get("/api/group/members/"+this.id).then(({ data }) => {
+                        this.members = data.data
+                    });
+                }
             },
 
             removeCondition(){
@@ -128,24 +132,26 @@
             },
 
             filter(){
-                this.$Progress.start();
+                if(this.$gate.isRoot()){
+                    this.$Progress.start();
 
-                axios.get('/api/group/members/filter/'+this.value)
-                    .then((data)=>{
-                        this.members = data.data
-                        Toast.fire({
-                            icon: 'success',
-                            title: data.data.message
-                        });
-                        this.$Progress.finish();
-                    })
-                    .catch(()=>{
-                        Toast.fire({
-                            icon: 'error',
-                            title: 'Some error occured! Please try again'
-                        });
-                    })
-            },
+                    axios.get('/api/group/members/filter/'+this.value)
+                            .then((data)=>{
+                                this.members = data.data
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: data.data.message
+                                });
+                                this.$Progress.finish();
+                            })
+                            .catch(()=>{
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: 'Some error occured! Please try again'
+                                });
+                            })
+                    }
+                },
 
             getGroupName(){
                 axios.get("/api/group/"+this.id).then(({ data }) => {
@@ -154,31 +160,32 @@
             },
 
             addToGroup(){
-                var count_success=0;
-                var count_error = 0;
-                if(this.selected.length){
-                    this.selected.forEach(element => {
-                        axios.post("/api/group/members/add", {user_id: element, group_id: this.id})
-                            .then((data)=>{
-                                this.loadMembers();
-                            })
-                            .catch(()=>{
-                            })
-                    });
+                if(this.$gate.isRoot()) {
+                    var count_success = 0;
+                    var count_error = 0;
+                    if (this.selected.length) {
+                        this.selected.forEach(element => {
+                            axios.post("/api/group/members/add", {user_id: element, group_id: this.id})
+                                .then((data) => {
+                                    this.loadData();
+                                    this.selected = [];
+                                })
+                                .catch(() => {
+                                })
+                        });
 
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'add success to group '
+                        });
+                        this.$Progress.finish();
 
-
-                    Toast.fire({
-                        icon: 'success',
-                        title: 'add success to group '
-                    });
-                    this.$Progress.finish();
-
-                }else{
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'You have not chosen Group! Please try again'
-                    });
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'You have not chosen user! Please try again'
+                        });
+                    }
                 }
             },
 
@@ -191,13 +198,14 @@
 
 
             removeToGroup(){
-                if(this.selected.length){
-                    console.log('this');
-                    let idSelected = [];
+                if(this.$gate.isRoot()) {
 
-                        this.groupUsers.data.forEach((element) =>{
-                            this.selected.forEach((item) =>{
-                                if (element.user_id == item){
+                    if (this.selected.length) {
+                        let idSelected = [];
+
+                        this.groupUsers.data.forEach((element) => {
+                            this.selected.forEach((item) => {
+                                if (element.user_id == item) {
                                     idSelected.push(element.id);
                                 }
                             })
@@ -205,43 +213,47 @@
 
 
                         axios.post("/api/group/members/remove", {ids: idSelected})
-                            .then((data)=>{
+                            .then((data) => {
                                 Toast.fire({
                                     icon: 'success',
                                     title: 'remove user success'
                                 });
-                                this.removeCondition();
+
+                                this.selected = [];
+                                idSelected = [];
+                                this.loadData();
                                 this.$Progress.finish();
                             })
-                            .catch(()=>{
+                            .catch(() => {
                                 Toast.fire({
                                     icon: 'error',
                                     title: 'You have not chosen Group! Please try again'
                                 });
                             })
-                }else{
-                    console.log('that');
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'You have not chosen Group! Please try again'
-                    });
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'You have not chosen user! Please try again'
+                        });
+                    }
                 }
             },
 
             loadData(){
-                if(this.id){
-                    console.log(this.id);
-                    this.loadMembers();
-                    this.getGroupName();
-                    this.loadGroupUsers();
-                }else{
-                    if(this.$route.params.id){
-                        this.id = this.$route.params.id;
+                if(this.$gate.isRoot()) {
+                    if (this.id) {
                         this.loadMembers();
                         this.getGroupName();
                         this.loadGroupUsers();
-                    }else{
-                        this.$router.push({ path: '/admin/group' });
+                    } else {
+                        if (this.$route.params.id) {
+                            this.id = this.$route.params.id;
+                            this.loadMembers();
+                            this.getGroupName();
+                            this.loadGroupUsers();
+                        } else {
+                            this.$router.push({path: '/admin/group'});
+                        }
                     }
                 }
             }

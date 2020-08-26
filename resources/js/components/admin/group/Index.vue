@@ -1,12 +1,12 @@
 <template>
   <section class="content">
-    <div class="container-fluid">
+    <div class="container-fluid" v-if="this.$gate.isRoot()">
 
         <div class="page-header row no-gutters py-4">
             <div class="col-6 text-center text-sm-left mb-0">
                 <h3 class="page-title">{{ $t('group.group_list')}}</h3>
             </div>
-            <div class="col-6 text-center text-sm-right mb-0" v-if="this.$gate.isRoot()">
+            <div class="col-6 text-center text-sm-right mb-0" >
                 <div class="card-tools">
                         <router-link :to="{name:'add_group'}" class="btn btn-sm btn-primary">{{ $t('group.add_new')}}</router-link>
                 </div>
@@ -35,7 +35,7 @@
                       <td>{{index + 1}}</td>
                       <td>{{item.name}}</td>
                          <td>{{item.group_users_count}}</td>
-                         <td>
+                         <td style="width:80px">
                              <div class="dropdown">
                                  <i
                                      class="fa fa-ellipsis-v"
@@ -51,8 +51,7 @@
                                  </div>
                              </div>
                          </td>
-                      <td>
-                      </td>
+
                     </tr>
                   </tbody>
                 </table>
@@ -67,6 +66,10 @@
         </div>
 
     </div>
+
+      <div v-else>
+          <not-found></not-found>
+      </div>
   </section>
 </template>
 
