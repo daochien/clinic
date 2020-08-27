@@ -54,6 +54,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('permission/list', 'API\V1\PermissionController@list')->name('permission.list');
         Route::get('permission/routes', 'API\V1\PermissionController@listRoutes')->name('permission.routes');
 
+        Route::post('page/upload-image-content', 'API\V1\PageController@uploadImageContent')->name('page.uploadImageContent');
+        
         Route::get('category/type/{type}', 'API\V1\CategoryController@getByType')->name('category.list.by.type');
         Route::get('template/{id}', 'API\V1\TemplateController@show')->name('api.template.show');
         Route::delete('template/{id}', 'API\V1\TemplateController@destroy')->name('api.template.destroy');
@@ -65,7 +67,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             'category' => 'API\V1\CategoryController',
             'notification' => 'API\V1\NotificationController',
             'group' => 'API\V1\GroupController',
-            'blog' => 'API\V1\BlogController',
+            'page' => 'API\V1\PageController',
             'manager' => 'API\V1\AdminController',
             'role' => 'API\V1\RoleController',
             'permission' => 'API\V1\PermissionController'

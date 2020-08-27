@@ -85,4 +85,13 @@ export default [
             { path: 'edit/:id', component: require('./components/admin/role/Role.vue').default, meta: {breadcrumb: `List`} },
         ]
     },
+
+    {
+        path: '/admin/page',
+        component: {template: '<router-view/>'},
+        name: 'role', meta: {breadcrumb: `Page`},
+        children: [
+            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Create`} },            
+        ]
+    },
 ];
