@@ -62,7 +62,7 @@
                                 <tbody>
                                 <tr v-for="item in members.data" :key="item.id">
                                     <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
-                                    <td>{{item.name}} - {{item.id}}</td>
+                                    <td>{{item.name}}</td>
                                     <td>{{item.email}}</td>
                                     <td>{{group}}</td>
                                     <td>{{item.created_at}}</td>
