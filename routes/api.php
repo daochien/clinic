@@ -10,6 +10,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::group(['name' => 'api.', 'middleware' => 'check.permission'], function () {
+        Route::post('/upload', 'API\V1\StorageController@upload')->name('s3.upload');
+        Route::get('/create-upload-url', 'API\V1\StorageController@createS3UploadUrl')->name('create_upload_url');
         Route::get('profile', 'API\V1\ProfileController@profile')->name('profile.index');
         Route::put('profile', 'API\V1\ProfileController@updateProfile')->name('profile.update');
         Route::post('change-password', 'API\V1\ProfileController@changePassword')->name('profile.change.password');

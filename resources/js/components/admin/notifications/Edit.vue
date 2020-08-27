@@ -129,6 +129,7 @@
                                                 <div class="form-group">
                                                     <label>{{ $t('notification.notice_content')}}</label>
                                                     <quill-editor
+                                                        ref="quill"
                                                         :content="form.content"
                                                         v-model="form.content"
                                                     />
@@ -190,6 +191,9 @@
             this.form.notification_id = this.$route.params.id;
             this.loadNotification();
             this.$Progress.finish();
+        },
+        mounted() {
+            this.$refs.quill.quill.getModule("toolbar").addHandler("image", this.imageHandler);
         },
         watch: {
             'form.groups' : function (value) {
@@ -321,6 +325,53 @@
                 } else {
                     this.form.groups = _.filter(this.form.groups, ({id}) => id != 2);
                 }
+            },
+            imageHandler() {
+                var input = document.createElement("input");
+                input.setAttribute("type", "file");
+                input.click();
+                // Listen upload local image and save to server
+                input.onchange = () => {
+                    let file = input.files[0];
+                    let maxFileSize = 3000000 // 3MB
+                    // file type is only image.
+                    if (/^image\//.test(file.type)) {
+                        if (file.size > maxFileSize) {
+                            return this.$alert('Over rate limit of filesize', {confirmButtonText: 'OK'});
+                        }
+
+                        this.uploadImage(file);
+                    } else {
+                        return this.$alert(this.language.upload.file_invalid, {
+                            confirmButtonText: 'OK',
+                        });
+                    }
+                }
+            },
+            uploadImage(file) {
+                let formData = new FormData()
+                formData.append('image', file);
+                let uploadedInfo = {data: {access_url: null}}
+                axios.post(`/api/upload`, formData)
+                    .then(response => {
+                        // uploadedInfo = response.data;
+                        // if (uploadedInfo && uploadedInfo.upload_url) {
+                        //     let headers = {
+                        //         'Content-Type': file.type,
+                        //         'x-amz-acl': 'public-read',
+                        //     };
+                        //
+                        //     return axios.put(uploadedInfo.upload_url, file, {headers: headers});
+                        // }
+                    })
+                    .then(uploadResponse => {
+                        // const range = this.$refs.quill.quill.getSelection()
+                        // this.$refs.quill.quill.insertEmbed(range.index, 'image', uploadedInfo.access_url)
+                    })
+                    .catch(error => {
+                        // console.log(error);
+                        // return this.$alert(this.$t('ugc.system_error'), {confirmButtonText: 'OK'});
+                    });
             }
         },
     };
