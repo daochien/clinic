@@ -165,6 +165,7 @@
                                                 aria-labelledby="operatingAction"
                                             >
                                                 <button
+                                                    v-if="new Date(entity.schedule_date) >= new Date()"
                                                     class="dropdown-item text-primary"
                                                     @click="publishAnnouncement(entity)"
                                                 >{{ $t('notification.publish_announcement')}}
@@ -288,6 +289,7 @@
             publishAnnouncement(notification) {
                 notification.draft = 0;
                 notification.notification_id = notification.id;
+                let groups = notification.groups;
                 notification.groups = [];
                 axios.post("/api/notification/store", notification)
                     .then((data) => {
@@ -303,7 +305,9 @@
                             icon: "error",
                             title: this.$t('app').notification.some_error,
                         });
-                    });
+                    }).finally(() => {
+                        notification.groups = groups;
+                });
             },
             searchData() {
                 this.$Progress.start();

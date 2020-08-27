@@ -5,8 +5,8 @@
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
                 <h3 class="page-title">{{ $t('notification.notification_management') }}</h3>
             </div>
-            <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <label class="pt-2 mr-4" @click="saveNotification(1)">{{ $t('notification.save_draft')}}</label>
+            <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0" v-if="!disableForm">
+                <label class="pt-2 mr-4" @click="saveNotification(1)" style="cursor: pointer">{{ $t('notification.save_draft')}}</label>
                 <button
                     type="button"
                     class="btn btn-primary pl-5 pr-5"
@@ -119,7 +119,12 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="col-form-label">{{ $t('notification.release_date')}}</label>
-                                                    <datetime :required="true" format="YYYY-MM-DD h:i:s" v-model='form.schedule_date' :disabledDates="{ to: new Date(Date.now() - 8640000) }"></datetime>
+                                                    <datetime
+                                                        ref="datetime"
+                                                        :required="true"
+                                                        format="YYYY-MM-DD h:i:s"
+                                                        v-model='form.schedule_date'
+                                                        :disabled-dates="{ to: new Date(Date.now()) }"></datetime>
                                                 </div>
                                             </div>
                                         </div>
@@ -132,6 +137,7 @@
                                                         ref="quill"
                                                         :content="form.content"
                                                         v-model="form.content"
+                                                        :disabled='disableForm'
                                                     />
                                                 </div>
                                             </div>
@@ -191,6 +197,7 @@
             this.form.notification_id = this.$route.params.id;
             this.loadNotification();
             this.$Progress.finish();
+
         },
         mounted() {
             this.$refs.quill.quill.getModule("toolbar").addHandler("image", this.imageHandler);
@@ -245,6 +252,11 @@
                             this.form.title = data.data.title;
                             this.form.content = data.data.content;
                             this.form.draft = data.data.draft;
+                            this.disableForm = new Date(data.data.schedule_date) <= new Date() && !data.data.draft;
+                            if (this.disableForm) {
+                                $('#tj-datetime-input').prop( "disabled", true );
+                            }
+                            
                             this.form.schedule_date = this.$moment(data.data.schedule_date).format('YYYY-MM-DD hh:mm:ss');
                             if (data.data.confirm == 1) {
                                 this.form.confirm = true;
