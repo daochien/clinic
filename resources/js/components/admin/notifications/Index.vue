@@ -162,11 +162,11 @@
                                                 class="dropdown-menu dropdown-menu-right"
                                                 aria-labelledby="operatingAction"
                                             >
-<!--                                                <button-->
-<!--                                                    class="dropdown-item text-primary"-->
-<!--                                                    @click="publishAnnouncement()"-->
-<!--                                                >{{ $t('notification.publish_announcement')}}-->
-<!--                                                </button>-->
+                                                <button
+                                                    class="dropdown-item text-primary"
+                                                    @click="publishAnnouncement(entity)"
+                                                >{{ $t('notification.publish_announcement')}}
+                                                </button>
                                                 <router-link
                                                     :class="'dropdown-item text-primary'"
                                                     :to="{ name: 'edit_notification', params: { id: entity.id }}"
@@ -271,7 +271,25 @@
                     }
                 });
             },
-            publishAnnouncement() {
+            publishAnnouncement(notification) {
+                notification.draft = 0;
+                notification.notification_id = notification.id;
+                notification.groups = [];
+                axios.post("/api/notification/store", notification)
+                    .then((data) => {
+                        Toast.fire({
+                            icon: "success",
+                            title: data.data.message,
+                        });
+                        this.$Progress.finish();
+                        this.$router.push({path: "/admin/notification"});
+                    })
+                    .catch(() => {
+                        Toast.fire({
+                            icon: "error",
+                            title: this.$t('app').notification.some_error,
+                        });
+                    });
             },
             searchData() {
                 this.$Progress.start();

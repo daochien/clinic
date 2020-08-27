@@ -101,7 +101,6 @@ class NotificationService
         }
     }
 
-
     public function update(NotificationRequest $request, $id)
     {
         $data = [
@@ -116,13 +115,14 @@ class NotificationService
         }
 
         $entity = $this->repository->update($id, $data);
+        $groups = $request['groups'];
+        if (!$groups) {
+            return $entity;
+        }
 
         NotificationGroup::where('notification_id', '=', $id)->delete();
         NotificationUser::where('notification_id', '=', $id)->delete();
-
-        $groups = $request['groups'];
         foreach ($groups as $group) {
-
             // Create notification group
             NotificationGroup::insertOrIgnore([
                 'notification_id' => $entity->id,
@@ -153,6 +153,7 @@ class NotificationService
                 }
             }
         }
+
         return $entity;
     }
 
