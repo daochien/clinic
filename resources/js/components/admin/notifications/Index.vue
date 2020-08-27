@@ -61,7 +61,7 @@
                                                     >
                                                         <template v-slot:input="picker" style="min-width: 350px;">
                                                             <div v-if="picker.startDate && picker.endDate">
-                                                                {{ $moment(picker.startDate).format('DD-MM-YYYY HH:mm:ss') }} - {{ $moment(picker.endDate).format('DD-MM-YYYY HH:mm:ss') }}
+                                                                {{ $moment(picker.startDate).format('YYYY-MM-DD HH:mm:ss') }} - {{ $moment(picker.endDate).format('YYYY-MM-DD HH:mm:ss') }}
                                                             </div>
                                                         </template>
                                                     </date-range-picker>

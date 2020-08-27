@@ -256,7 +256,7 @@
                             if (this.disableForm) {
                                 $('#tj-datetime-input').prop( "disabled", true );
                             }
-                            
+
                             this.form.schedule_date = this.$moment(data.data.schedule_date).format('YYYY-MM-DD hh:mm:ss');
                             if (data.data.confirm == 1) {
                                 this.form.confirm = true;
