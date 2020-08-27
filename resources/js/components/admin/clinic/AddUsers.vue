@@ -53,6 +53,7 @@
                 </div>
             </div>
             <div class="row mt-5">
+                <div class="col-12 text-lg-right">{{ $t('app.total') }} : {{clinic.users_count}}</div>
                 <div class="col-12">
                     <div class="card" v-if="$gate.isAdmin()">
                         <div class="card-body p-0">
@@ -60,7 +61,7 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">
-                                        <input type="checkbox" @change="selectAll" v-model="allSelected">
+                                        <!--<input type="checkbox" @change="selectAll" v-model="allSelected">-->
                                     </th>
                                     <th scope="col">{{ $t('app.user.name')}}</th>
                                     <th scope="col">{{ $t('app.user.email')}}</th>
@@ -114,7 +115,8 @@
                 keyword: "",
                 selected: [],
                 allSelected: false,
-                userIds: []
+                userIds: [],
+                clinic: {}
             };
         },
         watch: {
@@ -145,6 +147,10 @@
                 })
                 .then((data) => {
                     if (data.data.success) {
+                        Toast.fire({
+                            icon: "success",
+                            title: data.data.message,
+                        });
                         this.$router.push('/admin/clinic')
                         this.$Progress.finish();
                     } else {
@@ -189,7 +195,19 @@
             },
             resetKeyword() {
                 this.keyword = ''
+            },
+            getClinicInfo(){
+                axios.get("/api/clinic/" + this.$route.params.id)
+                    .then(({ data }) => {
+                        this.clinic = data.data;
+                    });
             }
         },
+        created() {
+            this.$Progress.start();;
+            this.getClinicInfo();
+            this.getResults();
+            this.$Progress.finish();
+        }
     };
 </script>

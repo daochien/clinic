@@ -16,7 +16,10 @@ return [
         'deleted' => 'Deleted!',
         'failed' => 'Failed!',
         'your_item_has_been_deleted' => 'Your item has been deleted.',
+        'create_success' => 'Create successfully',
+        'update_success' => 'Update  successfully'
     ],
+    'total' => 'Total',
     'label' => [
         'description' => 'メモ',
         'operator' => '操作',

@@ -90,30 +90,26 @@
                 this.$Progress.finish();
             },
             loadClinics() {
-                this.$Progress.start();
-                if (this.$gate.isAdmin()) {
-                    axios
-                        .get("/api/clinic")
-                        .then((response) => {this.clinics = response.data; this.paginator = response.data.meta});
-                }
-                this.$Progress.finish();
+                axios
+                    .get("/api/clinic")
+                    .then((response) => {this.clinics = response.data; this.paginator = response.data.meta});
             },
             deleteClinic(id){
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: this.$t('app').popup.are_you_sure,
+                    text: this.$t('app').popup.you_wont_able_revert,
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: this.$t('app').popup.delete_it
                 }).then((result) => {
                     if (result.value) {
                         axios
                             .delete("/api/clinic/"+id)
                             .then(() => {
                                 Swal.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
+                                    this.$t('app').popup.deleted,
+                                    this.$t('app').popup.your_item_has_been_deleted,
                                     'success'
                                 );
                                 // Fire.$emit('AfterCreate');

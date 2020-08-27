@@ -80,7 +80,7 @@ class UserController extends BaseController
             $attributes = $request->validated();
             $user = $this->service->createUser($attributes);
 
-            return $this->sendResponse($user);
+            return $this->sendResponse($user, __('app.popup.create_success'));
         } catch (\Exception $exception) {
             return $this->sendError($exception->getMessage());
         }
@@ -101,7 +101,7 @@ class UserController extends BaseController
             $attributes = $request->validated();
             $user = $this->service->updateUser($id, $attributes);
 
-            return $this->sendResponse($user);
+            return $this->sendResponse($user, __('app.popup.update_success'));
         } catch (\Exception $exception) {
             return $this->sendError($exception->getMessage());
         }
