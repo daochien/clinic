@@ -9,6 +9,7 @@ use App\Repositories\NotificationRepository;
 use App\Services\NotificationService;
 use App\Http\Resources\NotificationCollection;
 use App\Http\Resources\NotificationUserCollection;
+use Illuminate\Http\Request;
 
 class NotificationController extends BaseController
 {
@@ -54,6 +55,11 @@ class NotificationController extends BaseController
         } catch (\Exception $exception) {
             return $this->sendError($exception->getCode(), $exception->getMessage());
         }
+    }
+
+    public function publish(Request $request)
+    {
+        return $this->service->publish($request->get('id'));
     }
 
     public function show($id)
