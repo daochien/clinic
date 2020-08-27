@@ -57,10 +57,12 @@
                                                         style="width: 100%"
                                                         v-model="form.release_date"
                                                         :auto-apply="true"
-                                                        :locale-data="{ format: 'DD-MM-YYYY HH:mm:ss' ,  separator: ' + ',}"
+                                                        :locale-data="localeData"
                                                     >
                                                         <template v-slot:input="picker" style="min-width: 350px;">
-                                                            {{ picker.startDate }} - {{ picker.endDate }}
+                                                            <div v-if="picker.startDate && picker.endDate">
+                                                                {{ $moment(picker.startDate).format('DD-MM-YYYY HH:mm:ss') }} - {{ $moment(picker.endDate).format('DD-MM-YYYY HH:mm:ss') }}
+                                                            </div>
                                                         </template>
                                                     </date-range-picker>
                                                 </div>
@@ -219,6 +221,18 @@
                     },
                     status: 0,
                 }),
+                localeData: {
+                    direction: 'ltr',
+                    format: 'mm/dd/yyyy',
+                    separator: ' - ',
+                    applyLabel: 'Apply',
+                    cancelLabel: 'Cancel',
+                    weekLabel: 'W',
+                    customRangeLabel: 'Custom Range',
+                    daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    firstDay: 0
+                }
             };
         },
         methods: {
