@@ -171,6 +171,10 @@
             createUser() {
                 this.form.post('/api/user')
                     .then((response) => {
+                        Toast.fire({
+                            icon: "success",
+                            title: data.data.message,
+                        });
                         this.$router.push("/admin/user")
                         this.$Progress.finish();
                     })

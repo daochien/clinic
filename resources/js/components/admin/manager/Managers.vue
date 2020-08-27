@@ -46,7 +46,7 @@
         <div class="row">
             <div class="col-12 col-sm-12">
                 <div class="card">
-                    <div class="card-body table-responsive p-0">
+                    <div class="card-body p-0">
                         <table class="table table-hover">
                             <thead class="bg-light">
                                 <tr>
@@ -69,7 +69,7 @@
                                             {{ role.name }}
                                         </span>
                                     </td>
-                                    <td>{{ item.description }}</td>
+                                    <td>{{ item.description | limitString }}</td>
                                     <td>{{item.last_login|myDate}}</td>
                                     <td>
                                         <div class="dropdown">
@@ -81,7 +81,7 @@
                                                 aria-haspopup="true"
                                                 aria-expanded="false"
                                             ></i>
-                                            <div class="dropdown-menu" aria-labelledby="operatingAction">                                                    
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="operatingAction">
                                                 <router-link class="dropdown-item text-primary" :to="{path: `/admin/manager/edit/${item.id}`}">
                                                     {{ $t('app.btn.edit')}}
                                                 </router-link>
@@ -89,7 +89,7 @@
                                                     {{$t('app.btn.delete')}}
                                                 </a>
                                             </div>
-                                        </div>                                       
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>

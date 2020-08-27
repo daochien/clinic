@@ -7,22 +7,26 @@ use App\Events\Form\FormCreated;
 use App\Events\Form\FormDeleted;
 use App\Events\Form\FormUpdated;
 use App\Helper\FormBuilderHelper;
+use App\Models\Category;
 use App\Models\Form;
 use App\Http\Requests\SaveFormRequest;
+use App\Models\Role;
+use App\Models\TemplateApprover;
+use App\Models\TemplateCategory;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class FormController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public $categoryRepository;
+
+
+    public function __construct(CategoryRepository $categoryRepository)
     {
         $this->middleware('auth');
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function index()
@@ -37,28 +41,43 @@ class FormController extends Controller
     public function create()
     {
         $pageTitle = "Create New Form";
+        $breadCrumbTitle = __('template.create_breadcrumb_label');
+        $category = $this->categoryRepository->getTemplateByCategory(Category::TYPE['template']);
 
         $saveURL = route('template.store');
-
         // get the roles to use to populate the make the 'Access' section of the form builder work
         $form_roles = FormBuilderHelper::getConfiguredRoles();
 
-        return view('template.forms.create', compact('pageTitle', 'saveURL', 'form_roles'));
+        $adminList = Role::findByName('admin')->users()->get();
+
+        return view('template.forms.create', compact('category', 'adminList', 'pageTitle', 'breadCrumbTitle', 'saveURL', 'form_roles'));
     }
 
     public function store(SaveFormRequest $request)
     {
         $user = $request->user();
-
-        $input = $request->merge(['user_id' => $user->id])->except('_token');
-
-        DB::beginTransaction();
-
-        // generate a random identifier
-        $input['identifier'] = $user->id.'-'.FormBuilderHelper::randomString(20);
-        $created = Form::create($input);
+        $input = $request->merge(['user_id' => $user->id])->except(['_token', 'approver', 'category']);
 
         try {
+            DB::beginTransaction();
+
+            // generate a random identifier
+            $input['identifier'] = $user->id.'-'.FormBuilderHelper::randomString(20);
+            $created = Form::create($input);
+            $approvers = $request->get('approver');
+            $templateApprover = [];
+            foreach ($approvers as $approver) {
+                $templateApprover[] = [
+                    'form_id' => $created->id,
+                    'user_id' => $approver,
+                ];
+            }
+            TemplateApprover::insertOrIgnore($templateApprover);
+            TemplateCategory::insertOrIgnore([
+                'form_id' => $created->id,
+                'category_id' => $request->get('category'),
+            ]);
+
             // dispatch the event
             event(new FormCreated($created));
 
@@ -67,15 +86,14 @@ class FormController extends Controller
             return response()
                     ->json([
                         'success' => true,
-                        'details' => 'Form successfully created!',
-                        'dest' => route('template.index'),
+                        'details' => __('create_success'),
+                        'dest' => config('app.url') . "/admin/template",
                     ]);
         } catch (Throwable $e) {
             info($e);
-
             DB::rollback();
 
-            return response()->json(['success' => false, 'details' => 'Failed to create the form.']);
+            return response()->json(['success' => false, 'details' => __('create_failed')]);
         }
     }
 
@@ -96,37 +114,65 @@ class FormController extends Controller
     {
         $user = auth()->user();
 
-        $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        $form = Form::where(['user_id' => $user->id, 'id' => $id])->with(['approvers', 'category'])->firstOrFail();
 
-        $pageTitle = 'Edit Form';
+        $pageTitle = "Preview Form";
+        $breadCrumbTitle = __('template.create_breadcrumb_label');
+        $category = $this->categoryRepository->getTemplateByCategory(Category::TYPE['template']);
+        $adminList = Role::findByName('admin')->users()->get();
 
         $saveURL = route('template.update', $form);
 
         // get the roles to use to populate the make the 'Access' section of the form builder work
         $form_roles = FormBuilderHelper::getConfiguredRoles();
 
-        return view('template.forms.edit', compact('form', 'pageTitle', 'saveURL', 'form_roles'));
+        return view('template.forms.edit', compact('form', 'category', 'adminList', 'pageTitle', 'breadCrumbTitle', 'saveURL', 'form_roles'));
     }
 
     public function update(SaveFormRequest $request, $id)
     {
         $user = auth()->user();
-        $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        $form = Form::where(['user_id' => $user->id, 'id' => $id])->with(['approvers', 'category'])->firstOrFail();
 
-        $input = $request->except('_token');
+        $input = $request->except(['_token', 'approver', 'category']);
+        try {
+            DB::beginTransaction();
 
-        if ($form->update($input)) {
-            // dispatch the event
-            event(new FormUpdated($form));
+            $approvers = $request->get('approver');
+            $templateApprover = [];
+            foreach ($approvers as $approver) {
+                $templateApprover[] = [
+                    'form_id' => $form->id,
+                    'user_id' => $approver,
+                ];
+            }
+            TemplateApprover::where('form_id', $form->id)->delete();
+            TemplateApprover::insertOrIgnore($templateApprover);
+            TemplateCategory::where('form_id', $form->id)->delete();
+            TemplateCategory::insertOrIgnore([
+                'form_id' => $form->id,
+                'category_id' => $request->get('category'),
+            ]);
 
-            return response()
-                    ->json([
-                        'success' => true,
-                        'details' => 'Form successfully updated!',
-                        'dest' => route('template.index'),
-                    ]);
-        } else {
-            response()->json(['success' => false, 'details' => 'Failed to update the form.']);
+
+            if ($form->update($input)) {
+                DB::commit();
+                // dispatch the event
+                event(new FormUpdated($form));
+                return response()
+                        ->json([
+                            'success' => true,
+                            'details' => 'Form successfully updated!',
+                            'dest' => route('template.index'),
+                        ]);
+            } else {
+                response()->json(['success' => false, 'details' => 'Failed to update the form.']);
+            }
+        } catch (Throwable $e) {
+            info($e);
+            DB::rollback();
+
+            return response()->json(['success' => false, 'details' => __('create_failed')]);
         }
     }
 

@@ -2,29 +2,24 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use App\Http\Requests\Products\ProductRequest;
-use App\Models\Product;
-use App\Repositories\ProductRepository;
+use App\Events\Form\FormDeleted;
 use Illuminate\Http\Request;
 use App\Models\Form;
 
 class TemplateController extends BaseController
 {
 
-    protected $product = '';
+    protected $template = '';
 
-    protected $productRepository;
 
     /**
      * Create a new controller instance.
      *
-     * @param Product $product
-     * @param ProductRepository $productRepository
+     * @param Form $template
      */
-    public function __construct(Product $product, ProductRepository $productRepository)
+    public function __construct(Form $template)
     {
-        $this->product = $product;
-        $this->productRepository = $productRepository;
+        $this->template = $template;
     }
 
     /**
@@ -34,8 +29,31 @@ class TemplateController extends BaseController
      */
     public function index()
     {
-        $templates = Form::getForUser(auth()->user());
+        $templates = Form::with(['approvers', 'category'])->paginate(10);
 
         return $this->sendResponse($templates, 'Templates list');
+    }
+
+    public function show(Request $request, $id)
+    {
+        $form = $this->template->where(['id' => $id])
+            ->with(['user','category','approvers'])
+            ->where('visibility', Form::FORM_PUBLIC)
+            ->withCount('submissions')
+            ->firstOrFail();
+
+        return $this->sendResponse($form, 'Templates list');
+    }
+
+    public function destroy($id)
+    {
+        $user = auth()->user();
+        $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        $form->delete();
+
+        // dispatch the event
+        event(new FormDeleted($form));
+
+        return $this->sendResponse([$form]);
     }
 }

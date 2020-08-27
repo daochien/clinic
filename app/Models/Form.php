@@ -38,6 +38,7 @@ class Form extends Model
      */
     protected $casts = [
         'allows_edit' => 'boolean',
+        'multi_approve' => 'boolean',
     ];
 
     /**
@@ -153,5 +154,15 @@ class Form extends Model
                             'type' => $entry['type'] ?? null,
                         ];
                     });
+    }
+
+    public function approvers()
+    {
+        return $this->belongsToMany(User::class, 'template_approvers', 'form_id', 'user_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsToMany(Category::class, 'template_category', 'form_id', 'category_id');
     }
 }

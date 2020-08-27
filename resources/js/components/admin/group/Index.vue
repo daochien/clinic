@@ -1,12 +1,12 @@
 <template>
   <section class="content">
-    <div class="container-fluid">
+    <div class="container-fluid" v-if="this.$gate.isRoot()">
 
         <div class="page-header row no-gutters py-4">
             <div class="col-6 text-center text-sm-left mb-0">
                 <h3 class="page-title">{{ $t('group.group_list')}}</h3>
             </div>
-            <div class="col-6 text-center text-sm-right mb-0">
+            <div class="col-6 text-center text-sm-right mb-0" >
                 <div class="card-tools">
                         <router-link :to="{name:'add_group'}" class="btn btn-sm btn-primary">{{ $t('group.add_new')}}</router-link>
                 </div>
@@ -19,25 +19,23 @@
 
             <div class="card">
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
+              <div class="card-body p-0">
                 <table class="table table-hover">
                   <thead>
                     <tr>
                       <th>#</th>
                       <th>{{ $t('group.name')}}</th>
-                      <th>{{ $t('group.description')}}</th>
                       <th>{{ $t('group.number_staff')}}</th>
                       <th>{{ $t('group.action')}}</th>
                     </tr>
                   </thead>
                   <tbody>
-                     <tr v-for="item in group.data" :key="item.id">
+                     <tr v-for="(item, index) in group.data" :key="item.id">
 
-                      <td>{{item.id}}</td>
+                      <td>{{index + 1}}</td>
                       <td>{{item.name}}</td>
-                      <td>{{item.description}}</td>
                          <td>{{item.group_users_count}}</td>
-                         <td>
+                         <td style="width:80px">
                              <div class="dropdown">
                                  <i
                                      class="fa fa-ellipsis-v"
@@ -48,24 +46,30 @@
                                  ></i>
                                  <div class="dropdown-menu" aria-labelledby="operatingAction">
                                      <router-link :to="{name:'users_group', params: { id: item.id }}"  class="dropdown-item text-primary">{{ $t('group.user_in_group')}}</router-link>
-                                     <router-link v-if="(item.id>3)"  :to="{name:'edit_group', params: { id: item.id }}" class="dropdown-item text-primary">{{ $t('group.edit_group_info')}}</router-link>
-                                     <a v-if="(item.id>3)" class="dropdown-item text-danger" href="#" @click="deleteGroup(item.id)">{{ $t('group.remove_group')}}</a>
+                                     <router-link v-if="!(item.forced)"  :to="{name:'edit_group', params: { id: item.id }}" class="dropdown-item text-primary">{{ $t('group.edit_group_info')}}</router-link>
+                                     <a v-if="!(item.forced)" class="dropdown-item text-danger" href="#" @click="deleteGroup(item.id)">{{ $t('group.remove_group')}}</a>
                                  </div>
                              </div>
                          </td>
-                      <td>
-                      </td>
+
                     </tr>
                   </tbody>
                 </table>
               </div>
               <!-- /.card-body -->
+                <div class="card-footer">
+                    <pagination :data="group" @pagination-change-page="getResults"></pagination>
+                </div>
             </div>
             <!-- /.card -->
           </div>
         </div>
 
     </div>
+
+      <div v-else>
+          <not-found></not-found>
+      </div>
   </section>
 </template>
 
@@ -78,9 +82,16 @@
         },
 
         methods: {
+            getResults(page = 1) {
+                this.$Progress.start();
+                axios.get('/api/group?page=' + page)
+                    .then(({data}) => {this.group = data.data});
+                this.$Progress.finish();
+            },
+
           loadGroup(){
-            if(this.$gate.isAdmin()){
-              axios.get("/api/group").then(({ data }) => (this.group = data.data));
+            if(this.$gate.isRoot()){
+              axios.get("/api/group").then(({ data }) => {this.group = data.data});
             }
           },
 
@@ -110,32 +121,14 @@
                         });
                     }
                 })
+              }else{
+                  Swal.fire(
+                      'Cannot do this Action!',
+                      'Your cannot delete this group.',
+                      'error'
+                  );
               }
             },
-
-          createCategory(){
-              this.$Progress.start();
-
-              this.form.post('/api/category')
-              .then((data)=>{
-                  $('#addNew').modal('hide');
-
-                  Toast.fire({
-                        icon: 'success',
-                        title: data.data.message
-                    });
-                  this.$Progress.finish();
-                  this.loadCategories();
-
-              })
-              .catch(()=>{
-
-                  Toast.fire({
-                      icon: 'error',
-                      title: 'Some error occured! Please try again'
-                  });
-              })
-          }
 
         },
         mounted() {

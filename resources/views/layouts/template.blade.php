@@ -77,16 +77,19 @@
                             <span>{{ __('sidebar.request') }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-small">
-                            <a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>
+                            {{--<a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>--}}
+                            <router-link to="/admin/template" class="dropdown-item">
+                                {{ __('sidebar.templates') }}
+                            </router-link>
                             {{--<a href="/admin/templates" class="dropdown-item">
                                 {{ __('sidebar.templates') }}
                             </a>--}}
-                            <a href="/admin/request" class="dropdown-item">
+                            {{--<a href="/admin/request" class="dropdown-item">
                                 {{ __('sidebar.request') }}
-                            </a>
+                            </a>--}}
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
+                    {{--<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
                             <i class="far fa-question-circle"></i>
                             <span>{{ __('sidebar.inquiry') }}</span>
@@ -108,7 +111,7 @@
                             <i class="fas fa-stream"></i>
                             <span>{{ __('sidebar.blog') }}</span>
                         </a>
-                    </li>
+                    </li>--}}
                 </ul>
 
             </div>
@@ -119,95 +122,26 @@
         <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
             <div class="main-navbar sticky-top bg-white">
                 <!-- Main Navbar -->
-                <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
-                    <form action="#" class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
-                        <div class="input-group input-group-seamless ml-3">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <i class="fas fa-search"></i>
-                                </div>
-                            </div>
-                            <input class="navbar-search form-control" type="text" placeholder="Search for something..."
-                                   aria-label="Search">
-                        </div>
-                    </form>
-                    <ul class="navbar-nav border-left flex-row ">
-                        {{--<li class="nav-item border-right dropdown notifications">
-                            <a class="nav-link nav-link-icon text-center" href="#" role="button" id="dropdownMenuLink"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <div class="nav-link-icon__wrapper">
-                                    <i class="material-icons">&#xE7F4;</i>
-                                    <span class="badge badge-pill badge-danger">2</span>
-                                </div>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-small" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">
-                                    <div class="notification__icon-wrapper">
-                                        <div class="notification__icon">
-                                            <i class="material-icons">&#xE6E1;</i>
-                                        </div>
-                                    </div>
-                                    <div class="notification__content">
-                                        <span class="notification__category">Analytics</span>
-                                        <p>Your website’s active users count increased by <span
-                                                class="text-success text-semibold">28%</span> in the last week. Great
-                                            job!</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <div class="notification__icon-wrapper">
-                                        <div class="notification__icon">
-                                            <i class="material-icons">&#xE8D1;</i>
-                                        </div>
-                                    </div>
-                                    <div class="notification__content">
-                                        <span class="notification__category">Sales</span>
-                                        <p>Last week your store’s sales count decreased by <span
-                                                class="text-danger text-semibold">5.52%</span>. It could have been
-                                            worse!</p>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item notification__all text-center" href="#"> View all
-                                    Notifications </a>
-                            </div>
-                        </li>--}}
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#"
-                               role="button" aria-haspopup="true" aria-expanded="false">
-                                <img class="user-avatar rounded-circle mr-2" src="{{ auth()->user()->photo }}"
-                                     alt="User Avatar"> <span class="d-none d-md-inline-block">{{ Auth::user()->name }} [{{ Ucfirst(Auth::user()->type) }}]</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-small">
-                                <a href="/profile" class="dropdown-item">
-                                    <i class="material-icons">&#xE7FD;</i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item text-danger" href="#"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="material-icons text-danger">&#xE879;</i>
-                                    {{ __('Logout') }}
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </a>
-
-                            </div>
-                        </li>
-                    </ul>
-                    <nav class="nav">
-                        <a href="#"
-                           class="nav-link nav-link-icon toggle-sidebar d-sm-inline d-md-none text-center border-left"
-                           data-toggle="collapse" data-target=".header-navbar" aria-expanded="false"
-                           aria-controls="header-navbar">
-                            <i class="material-icons">&#xE5D2;</i>
-                        </a>
-                    </nav>
-                </nav>
+                <div class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
+                    <div class="input-group input-group-seamless ml-3">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="/admin/template"class="router-link-exact-active router-link-active">申請管理</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <span class="router-link-exact-active router-link-active"> {{$breadCrumbTitle ?? '' }}</span>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
             </div> <!-- / .main-navbar -->
 
             <div class="main-content-container container-fluid px-4">
-                <div class="row">
+                <router-view></router-view>
+                <vue-progress-bar></vue-progress-bar>
+                <section class="content">
                     @yield('content')
-                </div>
+                </section>
                 {{-- /.content --}}
             </div>
         </main>
@@ -238,6 +172,9 @@
 <script src="{{ asset('vendor/formbuilder/js/moment.js') }}"></script>
 <script src="{{ asset('vendor/formbuilder/js/footable/js/footable.min.js') }}" defer></script>
 <script src="{{ asset('vendor/formbuilder/js/script.js') }}{{ jazmy\FormBuilder\Helper::bustCache() }}" defer></script>
+
 @stack('fb-scripts')
+@yield('page-js-files')
+@yield('page-js-script')
 </body>
 </html>
