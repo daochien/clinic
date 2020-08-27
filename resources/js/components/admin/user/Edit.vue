@@ -174,6 +174,10 @@
             updateUser() {
                 this.form.put('/api/user/' + this.$route.params.id)
                     .then((response) => {
+                        Toast.fire({
+                            icon: "success",
+                            title: data.data.message,
+                        });
                         this.$router.push("/admin/user")
                         this.$Progress.finish();
                     })
