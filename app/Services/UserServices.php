@@ -118,13 +118,13 @@ class UserServices
                 ];
             }
 
-            foreach ($attribute['groups'] as $group){
-                $groupUser[] = [
-                    'group_id' => $group['id'],
-                    'user_id' => $user->id
-                ];
-            }
-            GroupUser::insertOrIgnore($groupUser);
+//            foreach ($attribute['groups'] as $group){
+//                $groupUser[] = [
+//                    'group_id' => $group['id'],
+//                    'user_id' => $user->id
+//                ];
+//            }
+//            GroupUser::insertOrIgnore($groupUser);
 
             $clinicUser = [];
             foreach ($attribute['clinics'] as $clinic){
