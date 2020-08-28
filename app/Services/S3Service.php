@@ -25,12 +25,26 @@ class S3Service
         $this->s3Adapter = $filesystemManager->drive('s3')->getDriver()->getAdapter();
     }
 
+    /**
+     * @param $file
+     * @param string $path
+     * @return string
+     */
     public function store($file, $path = 'images')
     {
         $fileName = $this->uniqueId(32, now()->format('YmdH'));
         $filePath = "{$path}/{$fileName}";
         $fileUrl = $file->storePublicly($filePath, 's3');
         return $this->getAccessUrl($fileUrl);
+    }
+
+    /**
+     * @param $path
+     * @return mixed
+     */
+    public function download($path)
+    {
+        return Storage::disk('s3')->download($path);
     }
 
     /**
