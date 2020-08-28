@@ -1,0 +1,373 @@
+<template>
+    <div class="container-fluid">
+        <div class="page-header row no-gutters py-4">
+            <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
+                <h3 class="page-title">Create Page</h3>
+            </div>
+            <div class="col-12 col-sm-8 text-center text-sm-right mb-0">
+                <button class="btn btn-primary float-right" style="font-size: 16px; width: 140px;" @click="createPage()">
+                    Create New
+                </button>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 30px;">
+            <div class="col-10 offset-1">
+                <div class="title">
+                    <span style="font-size: 18px;">Basic information</span>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group row border-bottom">
+                            <label class="col-sm-2 col-form-label">Documents <span color="color:#c4183c;">*</span></label>
+                            <div class="col-sm-10 col-form-label">
+                                <div class="custom-control custom-radio form-check-inline float-left">
+                                    <input class="custom-control-input" type="radio" id="inlineArticle" v-model="page.type" :value="'blog'">
+                                    <label class="custom-control-label" for="inlineArticle">Article</label>
+                                </div>
+                                 <div class="custom-control custom-radio form-check-inline float-left">
+                                    <input class="custom-control-input" type="radio" id="inlineManual" v-model="page.type" :value="'manual'">
+                                    <label class="custom-control-label" for="inlineManual">Manual</label>
+                                </div>
+                                 <div class="custom-control custom-radio form-check-inline float-left">
+                                    <input class="custom-control-input" type="radio" id="inlineFAQ" v-model="page.type" :value="'faq'">
+                                    <label class="custom-control-label" for="inlineFAQ">FAQ</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <label class="col-sm-2 col-form-label">Title <span color="color:#c4183c;">*</span></label>
+                            <div class="col-sm-10 ">
+                                <input type="text" class="form-control" v-model="page.title" placeholder="Please enter a title">
+                            </div>
+                        </div>
+                        <div class="form-group row border-bottom">
+                            <label class="col-sm-2 col-form-label">Release </label>
+                            <div class="col-sm-10 col-form-label">
+                                <div class="switchToggle">
+                                    <input type="checkbox" id="switch1" v-model="page.release">
+                                    <label for="switch1">Toggle</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <label class="col-sm-2 col-form-label">Release Date </label>
+                            <div class="col-sm-10 row">
+                                <div class="col-sm-4">
+                                    <datepicker
+                                        v-model="page.release_date"
+                                        :format="formatUnix"
+                                        :calendar-button="true"
+                                        :calendar-button-icon="'fa fa-calendar'"
+                                        :clear-button="true"
+                                        :wrapper-class="'custom-datepicker'"
+                                        :disabledDates="disabledDateStart"
+                                        :input-class="{'form-control': true, 'is-invalid': false}">
+                                    </datepicker>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select class="form-control" v-model="page.hours">
+                                        <option value="">Hours</option>
+                                        <option v-for="i in 24" :key="i">{{ i - 1 }}</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select class="form-control" v-model="page.minute">
+                                        <option value="">Minute</option>
+                                        <option v-for="i in 60" :key="i">{{ i - 1 }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row border-bottom">
+                            <label class="col-sm-2 col-form-label">Public</label>
+                            <div class="col-sm-10 col-form-label">
+                                <div class="switchToggle">
+                                    <input type="checkbox" id="switch2" v-model="page.public">
+                                    <label for="switch2">Toggle</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <label class="col-sm-2 col-form-label">Public destination</label>
+                            <div class="col-sm-10">
+                                <input v-model="page.public_destination" type="text" class="form-control" placeholder="Please specify the publication destination">
+                            </div>
+                        </div>
+                        <div class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <label class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-4">
+                                <select class="form-control" v-model="page.category_id">
+                                    <option value="">Please specify a category</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <label class="col-sm-2 col-form-label">Image</label>
+                            <div class="col-sm-4" v-show="previewImage">
+                                <img :src="previewImage" style="width:100%;">
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="custom-file">
+                                    <input
+                                    type="file"
+                                    :class="['custom-file-input', {'is-invalid': false}]"
+                                    id="uploadImage"
+                                    @change="onImageChange">
+                                    <label class="custom-file-label" for="uploadImage">Choose file...</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 30px;">
+
+            <div class="col-10 offset-1">
+                <div class="title">
+                    <span style="font-size: 18px;">Article content</span>
+                </div>
+                <div class="card">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item col-sm-6">
+                            <a class="nav-link active" data-toggle="tab" href="#home">Manual setting</a>
+                        </li>
+                        <li class="nav-item col-sm-6">
+                            <a class="nav-link" data-toggle="tab" href="#menu1">File upload</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane container active" id="home">
+                            <vue-editor id="editor" useCustomImageHandler @image-added="handleImageAdded" v-model="page.content"></vue-editor>
+                        </div>
+                        <div class="tab-pane container fade" id="menu1">
+                            <vue-dropzone
+                            ref="myVueDropzone"
+                            id="dropzone"
+                            @vdropzone-file-added="vfileAdded"
+                            @vdropzone-removed-file="removeFile"
+                            :options="dropzoneOptions"
+                            :useCustomSlot=true>
+                                <div class="dropzone-custom-content">
+                                    <h3 class="dropzone-custom-title">Please choose the file</h3>
+                                    <div class="subtitle">Please upload the document (pdf, docx ppt), image file (png, jpg) or video (mp4).</div>
+                                    <button class="btn btn-white">Upload file</button>
+                                </div>
+                            </vue-dropzone>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+
+import { VueEditor } from "vue2-editor";
+
+import moment from 'moment';
+import Datepicker from 'vuejs-datepicker';
+
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
+
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import '@ckeditor/ckeditor5-build-classic/build/translations/ja';
+
+export default {
+    components: {
+        Datepicker,
+        VueEditor,
+        vueDropzone: vue2Dropzone,
+    },
+    data () {
+        return {
+            disabledDateStart: {
+                to: new Date(Date.now() - 8640000),
+                from: '',
+            },
+            previewImage: '',
+
+            dropzoneOptions: {
+                autoProcessQueue: false,
+                url: 'https://httpbin.org/post',
+                thumbnailWidth: 170,
+                maxFilesize: 0.5,
+                addRemoveLinks: true,
+                duplicateCheck: true
+            },
+            page: {
+                type: 'blog',
+                title: '',
+                release: true,
+                release_date: '',
+                hours: '',
+                minute: '',
+                public: false,
+                public_destination: '',
+                content: '',
+                files: [],
+                image: '',
+                category_id: ''
+            },
+            counter: 0,
+		    form: new FormData(),
+        }
+    },
+    created () {
+    },
+    methods: {
+
+        formatUnix (date) {
+            return moment(date).format('DD/MM/YYYY');
+        },
+        formatDate (date) {
+            return moment(date).format('YYYY-MM-DD');
+        },
+        onImageChange (e) {
+            try {
+                let files = e.target.files || e.dataTransfer.files;
+                // this.resetData();
+                if (!files.length)
+                    return;
+                if ( /\.(jpe?g|png|gif)$/i.test( files[0].name ) ) {
+                    this.page.image = files[0];
+                    this.previewImage = URL.createObjectURL(files[0]);
+                } else {
+                    this.page.image = '';
+                    this.previewImage = '';
+                    alert('File error');
+                }
+            } catch(error) {}
+        },
+        vfileAdded (file) {
+            this.page.files.push(file);
+        },
+        removeFile (file, error, xhr) {
+            let index = this.page.files.indexOf(file);
+            this.page.files.splice(index, 1);
+        },
+        createPage () {
+            let params = this.handleSubmit();
+            axios.post('/api/page', params, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then((data)=>{
+                console.log(data);
+                Toast.fire({
+                    icon: 'success',
+                    title: data.data.message
+                });
+
+                this.$Progress.finish();
+
+            })
+            .catch(()=>{
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Some error occured! Please try again'
+                });
+            })
+        },
+        handleSubmit () {
+            let data = new FormData();
+            data.append('image', this.page.image);
+            data.append('title', this.page.title);
+            data.append('release', this.page.release == true ? 1 : 0);
+            data.append('release_date', this.formatDate(this.page.release_date));
+            data.append('hours', this.page.hours);
+            data.append('minute', this.page.minute);
+            data.append('public', this.page.public == true ? 1 : 0);
+            data.append('public_destination', this.page.public_destination);
+            data.append('category_id', this.page.category_id);
+            data.append('content', this.page.content);
+
+            if (this.page.files.length > 0) {
+                for (let i = 0; i < this.page.files.length; i++) {
+                    data.append('files[]', this.page.files[i]);
+                }
+            }
+
+            return data;
+        },
+        async handleImageAdded (file, Editor, cursorLocation, resetUploader) {
+            var formData = new FormData();
+            formData.append("image", file);
+            axios.post('/api/page/upload-image-content', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then(({data}) => {
+                Editor.insertEmbed(cursorLocation, "image", data.data);
+                resetUploader();
+            })
+            .catch((error) => {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Some error occured! Please try again'
+                });
+            })
+        },
+    }
+}
+</script>
+<style scoped>
+.switchToggle input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
+.switchToggle label {cursor: pointer; text-indent: -9999px; width: 70px; max-width: 70px; height: 22px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
+.switchToggle label:after {content: ''; position: absolute; top: 0px; left: 2px; width: 22px; height: 22px; background: #fff; border-radius: 90px; transition: 0.3s; }
+.switchToggle input:checked + label, .switchToggle input:checked + input + label  {background: #3e98d3; }
+.switchToggle input + label:before, .switchToggle input + input + label:before {content: 'No'; position: absolute; top: 0px; left: 35px; width: 26px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
+.switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {content: 'Yes'; position: absolute; top: 0px; left: 10px; width: 26px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
+.switchToggle input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
+.switchToggle label:active:after {width: 60px; }
+.toggle-switchArea { margin: 10px 0 10px 0; }
+.nav-item .active {
+    border-bottom: 2px solid #007BFF !important;
+}
+.nav-item {
+    text-align: center;
+    padding: 0;
+    background: rgba(0, 0, 0, 0.05);
+}
+.nav-item a {
+    border-radius: 0px;
+    color: #3D5170;
+}
+.tab-content {
+    min-height: 500px;
+}
+.tab-content .tab-pane {
+    padding: 10px;
+}
+</style>
+<style>
+.vdp-datepicker__clear-button {
+    position: absolute;
+    top: 6px;
+    right: 30px;
+    color: red;
+}
+.vdp-datepicker__calendar-button {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+.ql-container {
+    min-height: 400px;
+}
+.vue-dropzone {
+    border: 1px dashed #000000;
+}
+.dropzone .dz-preview {
+    width: auto;
+}
+.dropzone .dz-preview .dz-image {
+    max-width: 170px;
+    margin-right: unset;
+}
+</style>

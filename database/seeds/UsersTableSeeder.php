@@ -22,6 +22,8 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('123123'),
             'note' => '',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         $role = Role::find(1);

@@ -10,6 +10,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::group(['name' => 'api.', 'middleware' => 'check.permission'], function () {
+        Route::post('/upload', 'API\V1\StorageController@upload')->name('s3.upload');
+        Route::get('/create-upload-url', 'API\V1\StorageController@createS3UploadUrl')->name('create_upload_url');
         Route::get('profile', 'API\V1\ProfileController@profile')->name('profile.index');
         Route::put('profile', 'API\V1\ProfileController@updateProfile')->name('profile.update');
         Route::post('change-password', 'API\V1\ProfileController@changePassword')->name('profile.change.password');
@@ -46,21 +48,26 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
 
         Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
-        Route::get('/group/all', 'API\V1\UserController@getAllGroup')->name('api.group.all');
+        Route::get('/group/default', 'API\V1\UserController@getAllGroupDefault')->name('api.group.default');
 
         Route::get('role/list', 'API\V1\RoleController@list')->name('role.list');
         Route::get('permission/list', 'API\V1\PermissionController@list')->name('permission.list');
         Route::get('permission/routes', 'API\V1\PermissionController@listRoutes')->name('permission.routes');
 
+        Route::post('page/upload-image-content', 'API\V1\PageController@uploadImageContent')->name('page.uploadImageContent');
+        
+        Route::get('category/type/{type}', 'API\V1\CategoryController@getByType')->name('category.list.by.type');
+        Route::get('template/{id}', 'API\V1\TemplateController@show')->name('api.template.show');
+        Route::delete('template/{id}', 'API\V1\TemplateController@destroy')->name('api.template.destroy');
+        Route::get('template/', 'API\V1\TemplateController@index')->name('template.index');
+
         Route::apiResources([
             'user' => 'API\V1\UserController',
             'clinic' => 'API\V1\ClinicController',
-            'product' => 'API\V1\ProductController',
-            'template' => 'API\V1\TemplateController',
             'category' => 'API\V1\CategoryController',
             'notification' => 'API\V1\NotificationController',
             'group' => 'API\V1\GroupController',
-            'blog' => 'API\V1\BlogController',
+            'page' => 'API\V1\PageController',
             'manager' => 'API\V1\AdminController',
             'role' => 'API\V1\RoleController',
             'permission' => 'API\V1\PermissionController'

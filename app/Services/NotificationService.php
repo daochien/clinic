@@ -21,7 +21,8 @@ class NotificationService
     public function __construct(
         NotificationRepository $notificationRepository,
         NotificationGroupRepository $notiGroupRepository
-    ) {
+    )
+    {
         $this->repository = $notificationRepository;
         $this->repositoryGroup = $notiGroupRepository;
     }
@@ -101,7 +102,6 @@ class NotificationService
         }
     }
 
-
     public function update(NotificationRequest $request, $id)
     {
         $data = [
@@ -116,13 +116,14 @@ class NotificationService
         }
 
         $entity = $this->repository->update($id, $data);
+        $groups = $request['groups'];
+        if (!$groups) {
+            return $entity;
+        }
 
         NotificationGroup::where('notification_id', '=', $id)->delete();
         NotificationUser::where('notification_id', '=', $id)->delete();
-
-        $groups = $request['groups'];
         foreach ($groups as $group) {
-
             // Create notification group
             NotificationGroup::insertOrIgnore([
                 'notification_id' => $entity->id,
@@ -153,14 +154,15 @@ class NotificationService
                 }
             }
         }
+
         return $entity;
     }
 
-    public function search(SearchNotificationRequest $request)
+    public function search($request)
     {
         $datas = Notification::where(
             function ($qstatus) use ($request) {
-                if (isset($request['status']) && strlen($request['status']) > 0) {
+                if (isset($request['status'])) {
                     $qstatus->where('draft', '=', $request['status']);
                 }
             }
@@ -174,8 +176,8 @@ class NotificationService
             )
             ->where(
                 function ($qdate) use ($request) {
-                    if (isset($request['release_date']) && strlen($request['release_date']) > 0) {
-                        $qdate->where('schedule_date', '=', $request['release_date']);
+                    if (!empty($request['release_date'])) {
+                        $qdate->whereBetween('schedule_date', [new \Carbon\Carbon($request['release_date']['startDate']), new \Carbon\Carbon($request['release_date']['endDate'])]);
                     }
                 }
             )
@@ -191,7 +193,7 @@ class NotificationService
                 'notificationGroups.group'
             ]);
 
-        return  $datas->paginate(10);
+        return $datas->paginate(10);
     }
 
     public function detailSearch(SearchNotificationRequest $request)
@@ -207,7 +209,7 @@ class NotificationService
                     if ($request['status'] == '0') {
                         $qstatus->whereIn('status', [1, 2, 3]);
                     } else {
-                        $qstatus->where('status', '=',  $request['status']);
+                        $qstatus->where('status', '=', $request['status']);
                     }
                 }
             )
@@ -238,6 +240,6 @@ class NotificationService
                 'user.group'
             ]);
 
-        return  $datas->paginate(10);
+        return $datas->paginate(10);
     }
 }

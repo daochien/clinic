@@ -59,7 +59,7 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $users = $this->repository->with(['role', 'group','clinic'])->paginate(10);
+        $users = $this->repository->with(['role', 'group', 'clinic'])->paginate(10);
 
         return new UserCollection($users);
     }
@@ -76,11 +76,11 @@ class UserController extends BaseController
      */
     public function store(UserRequest $request)
     {
-        try{
+        try {
             $attributes = $request->validated();
             $user = $this->service->createUser($attributes);
 
-            return $this->sendResponse($user);
+            return $this->sendResponse($user, __('app.popup.create_success'));
         } catch (\Exception $exception) {
             return $this->sendError($exception->getMessage());
         }
@@ -101,11 +101,10 @@ class UserController extends BaseController
             $attributes = $request->validated();
             $user = $this->service->updateUser($id, $attributes);
 
-            return $this->sendResponse($user);
+            return $this->sendResponse($user, __('app.popup.update_success'));
         } catch (\Exception $exception) {
             return $this->sendError($exception->getMessage());
         }
-
     }
 
     /**
@@ -126,6 +125,11 @@ class UserController extends BaseController
 
     public function getAllGroup()
     {
-        return new GroupCollection(Group::orderByDesc('id')->get());
+        return new GroupCollection(Group::orderBy('id')->get());
+    }
+
+    public function getAllGroupDefault()
+    {
+        return new GroupCollection(Group::orderBy('id')->get());
     }
 }

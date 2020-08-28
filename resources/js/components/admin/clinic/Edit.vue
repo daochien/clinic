@@ -115,6 +115,10 @@
                 this.$Progress.start();
                 this.form.put('/api/clinic/'+this.$route.params.id)
                     .then((response) => {
+                        Toast.fire({
+                            icon: "success",
+                            title: data.data.message,
+                        });
                         this.$Progress.finish();
                         this.$router.push('/admin/clinic')
                     })

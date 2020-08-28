@@ -5,7 +5,7 @@ export default [
     {
         path: '/admin/clinic',
         component: { template: '<router-view/>' },
-        name: 'clinic',meta: {breadcrumb: `スタッフ管理`},
+        meta: {breadcrumb: `スタッフ管理`},
         children: [
             { path: '', component: require('./components/admin/clinic/Index.vue').default, name: 'clinic.list', meta: {breadcrumb: `クリニック一覧`}},
             { path: ':id/edit',component: require('./components/admin/clinic/Edit.vue').default,name: 'clinic.edit',meta: {breadcrumb: `クリニック一覧`}},
@@ -18,21 +18,20 @@ export default [
     {
         path: '/admin/user',
         component: {template: '<router-view/>'},
-        name: 'user', meta: {breadcrumb: `スタッフ管理`},
+        meta: {breadcrumb: `スタッフ管理`},
         children: [
             { path: '', component: require('./components/admin/user/Index.vue').default, name: 'user.list', meta: {breadcrumb: `スタッフ一覧`}},
-            { path: '/admin/user/create', component: require('./components/admin/user/Create.vue').default, name: 'user.create', meta: {breadcrumb: `スタッフ一覧`}},
-            { path: '/admin/user/:id/edit', component: require('./components/admin/user/Edit.vue').default, name: 'user.edit', meta: {breadcrumb: `スタッフ一覧`} },
+            { path: 'create', component: require('./components/admin/user/Create.vue').default, name: 'user.create', meta: {breadcrumb: `スタッフ一覧`}},
+            { path: ':id/edit', component: require('./components/admin/user/Edit.vue').default, name: 'user.edit', meta: {breadcrumb: `スタッフ一覧`} },
         ]
     },
 
     {
         path: '/admin/template',
         component: {template: '<router-view/>'},
-        name: 'user', meta: {breadcrumb: `申請管理`},
+        meta: {breadcrumb: `申請管理`},
         children: [
             { path: '', component: require('./components/admin/template/Index.vue').default, meta: {breadcrumb: `申請テンプレート`} },
-            { path: 'create', component: require('./components/admin/template/Create.vue').default , meta: {breadcrumb: `申請テンプレート`}},
         ]
     },
 
@@ -41,7 +40,7 @@ export default [
     {
         path: '/admin/notification',
         component: {template: '<router-view/>'},
-        name: 'user', meta: {breadcrumb: `お知らせ管理`},
+        meta: {breadcrumb: `お知らせ管理`},
         children: [
             { path: '', component: require('./components/admin/notifications/Index.vue').default, meta: {breadcrumb: `お知らせ一覧`} },
             { path: 'details', component: require('./components/admin/notifications/Details.vue').default, name: 'details_notification', meta: {breadcrumb: `お知らせ詳細情報`} },
@@ -55,7 +54,7 @@ export default [
     {
         path: '/admin/manager',
         component: {template: '<router-view/>'},
-        name: 'admin', meta: {breadcrumb: `管理者アカウント管理`},
+        meta: {breadcrumb: `管理者アカウント管理`},
         children: [
             { path: '', component: require('./components/admin/manager/Managers.vue').default, meta: {breadcrumb: `管理者一覧`} },
             { path: 'create', component: require('./components/admin/manager/Manager.vue').default, meta: {breadcrumb: `管理者一覧`} },
@@ -67,12 +66,12 @@ export default [
     {
         path: '/admin/group',
         component: {template: '<router-view/>'},
-        name: 'group', meta: {breadcrumb: `Group`},
+        meta: {breadcrumb: `スタッフ管理`},
         children: [
-            { path: '', component: require('./components/admin/group/Index.vue').default, meta: {breadcrumb: `List`} },
-            { path: '/add', component: require('./components/admin/group/Add.vue').default, name:'add_group', meta: {breadcrumb: `List`} },
-            { path: '/edit', component: require('./components/admin/group/Edit.vue').default, name:'edit_group', meta: {breadcrumb: `List`} },
-            { path: '/admin/group/users', component: require('./components/admin/group/Members.vue').default, name:'users_group', meta: {breadcrumb: `List`} },
+            { path: '', component: require('./components/admin/group/Index.vue').default, meta: {breadcrumb: `クリニック一覧`} },
+            { path: 'add', component: require('./components/admin/group/Add.vue').default, name:'add_group', meta: {breadcrumb: `クリニック一覧`} },
+            { path: 'edit', component: require('./components/admin/group/Edit.vue').default, name:'edit_group', meta: {breadcrumb: `クリニック一覧`} },
+            { path: 'users', component: require('./components/admin/group/Members.vue').default, name:'users_group', meta: {breadcrumb: `クリニック一覧`} },
         ]
     },
 
@@ -80,10 +79,19 @@ export default [
     {
         path: '/admin/role',
         component: {template: '<router-view/>'},
-        name: 'role', meta: {breadcrumb: `Group`},
+        meta: {breadcrumb: `Group`},
         children: [
             { path: 'create', component: require('./components/admin/role/Role.vue').default, meta: {breadcrumb: `Create`} },
-            { path: '/admin/role/edit/:id', component: require('./components/admin/role/Role.vue').default, meta: {breadcrumb: `List`} },
+            { path: 'edit/:id', component: require('./components/admin/role/Role.vue').default, meta: {breadcrumb: `List`} },
+        ]
+    },
+
+    {
+        path: '/admin/page',
+        component: {template: '<router-view/>'},
+        name: 'role', meta: {breadcrumb: `Page`},
+        children: [
+            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Create`} },            
         ]
     },
 ];

@@ -73,6 +73,7 @@ Vue.component('multiselect', Multiselect)
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(require('vue-moment'));
 
 /**
  * Routes imports and assigning
@@ -112,6 +113,9 @@ Vue.component(
     'not-found',
     require('./components/NotFound.vue').default
 );
+
+import Vue2Editor from "vue2-editor";
+Vue.use(Vue2Editor);
 
 // Filter Section
 

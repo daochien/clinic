@@ -113,11 +113,14 @@ export default {
   methods: {
       create(){
           this.$Progress.start();
-
           this.form.post('/api/clinic')
               .then((data)=>{
                   if(data.data.success){
-                      this.$router.push("/admin/clinics")
+                      Toast.fire({
+                          icon: "success",
+                          title: data.data.message,
+                      });
+                      this.$router.push("/admin/clinic")
                       this.$Progress.finish();
 
                   } else {

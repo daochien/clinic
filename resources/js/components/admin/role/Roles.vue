@@ -24,7 +24,7 @@
                             </div>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0">
+                        <div class="card-body p-0">
                             <table class="table table-hover">
                             <thead>
                                 <tr>
@@ -101,7 +101,7 @@ export default {
         }
     },
     created () {
-        this.getResults();        
+        this.getResults();
     },
     methods: {
         getResults(page = 1) {
@@ -112,7 +112,7 @@ export default {
 
             this.$Progress.finish();
         },
-        
+
         deleteRole (id) {
             Swal.fire({
                 title: 'Are you sure?',
