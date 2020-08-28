@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use Illuminate\Filesystem\FilesystemManager;
+use Illuminate\Support\Facades\Storage;
 
 class S3Service
 {
@@ -24,30 +25,12 @@ class S3Service
         $this->s3Adapter = $filesystemManager->drive('s3')->getDriver()->getAdapter();
     }
 
-    /**
-     * Generates S3 upload url.
-     * @param string $path The path (Object Key) in the S3 bucket
-     * @param $expiration
-     * @param array $options
-     * @return array
-     */
-    public function createUploadUrl(string $path, $expiration, array $options = [])
+    public function store($file, $path = 'images')
     {
-        $options += ['ACL' => 'public-read'];
-        $s3Client    = $this->s3Adapter->getClient();
-        $commandArgs = [
-            'Bucket' => $this->s3Adapter->getBucket(),
-            'Key'    => $this->s3Adapter->getPathPrefix() . $path,
-        ] + $options;
-
-        $command  = $s3Client->getCommand('PutObject', $commandArgs);
-
-        return [
-            'object_key' => $commandArgs['Key'],
-            'existed'    => $this->doesObjectExist($commandArgs['Key'], $options),
-            'upload_url' => (string) $s3Client->createPresignedRequest($command, $expiration)->getUri(),
-            'access_url' => $this->getAccessUrl($path),
-        ];
+        $fileName = $this->uniqueId(32, now()->format('YmdH'));
+        $filePath = "{$path}/{$fileName}";
+        $fileUrl = $file->storePublicly($filePath, 's3');
+        return $this->getAccessUrl($fileUrl);
     }
 
     /**
@@ -70,6 +53,24 @@ class S3Service
         // Refer: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingBucket.html
         $region = $s3Client->getRegion();
         return "https://s3.${region}.amazonaws.com/${bucketName}/${objectKey}";
+    }
+
+    private function uniqueId($length = 16, $prefix = '')
+    {
+        if (!is_numeric($length) || $length <= 0) {
+            $length = 16;
+        }
+
+        if (function_exists('random_bytes')) {
+            $raw    = random_bytes((int) ceil($length / 2));
+            $result = substr(bin2hex($raw), 0, (int) $length);
+        } elseif (function_exists('openssl_random_pseudo_bytes')) {
+            $raw    = openssl_random_pseudo_bytes((int) ceil($length / 2));
+            $result = substr(bin2hex($raw), 0, (int) $length);
+        } else {
+            $result = substr(str_replace('-', '', \Ramsey\Uuid\Uuid::uuid4()), 0, (int) $length);
+        }
+        return "${prefix}${result}";
     }
 
     /**
@@ -96,9 +97,9 @@ class S3Service
     {
         $s3Client = $this->s3Adapter->getClient();
         $s3Client->deleteObject([
-            'Bucket' => $this->s3Adapter->getBucket(),
-            'Key'    => $this->s3Adapter->getPathPrefix() . $path,
-        ] + $options);
+                'Bucket' => $this->s3Adapter->getBucket(),
+                'Key'    => $this->s3Adapter->getPathPrefix() . $path,
+            ] + $options);
         return true;
     }
 
@@ -119,10 +120,10 @@ class S3Service
 
         if ($this->doesObjectExist($objectKey, $options)) {
             $s3Client->copyObject([
-                'Bucket'     => $bucketName,
-                'Key'        => $newObjKey,
-                'CopySource' => "{$bucketName}/{$objectKey}",
-            ] + $options);
+                    'Bucket'     => $bucketName,
+                    'Key'        => $newObjKey,
+                    'CopySource' => "{$bucketName}/{$objectKey}",
+                ] + $options);
         }
 
         return [
