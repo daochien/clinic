@@ -10,17 +10,26 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::group(['name' => 'api.', 'middleware' => 'check.permission'], function () {
-        Route::post('/upload', 'API\V1\StorageController@upload')->name('s3.upload');
-        Route::get('/create-upload-url', 'API\V1\StorageController@createS3UploadUrl')->name('create_upload_url');
+        Route::namespace('API\V1')
+            ->prefix('/s3')
+            ->group(function (): void {
+                Route::post('/store', 'StorageController@store')->name('s3.store');
+            });
+
         Route::get('profile', 'API\V1\ProfileController@profile')->name('profile.index');
         Route::put('profile', 'API\V1\ProfileController@updateProfile')->name('profile.update');
         Route::post('change-password', 'API\V1\ProfileController@changePassword')->name('profile.change.password');
 
-        Route::get('notification/{id}/members', 'API\V1\NotificationController@members');
-        Route::get('notification/{id}/show', 'API\V1\NotificationController@show');
-        Route::post('notification/store', 'API\V1\NotificationController@store');
-        Route::post('notification/search', 'API\V1\NotificationController@search');
-        Route::post('notification/detailSearch', 'API\V1\NotificationController@detailSearch');
+        Route::namespace('API\V1')
+            ->prefix('/notification')
+            ->group(function (): void {
+                Route::get('/{id}/members', 'NotificationController@members');
+                Route::get('/{id}/show', 'NotificationController@show');
+                Route::post('/store', 'NotificationController@store');
+                Route::post('/search', 'NotificationController@search');
+                Route::post('/detailSearch', 'NotificationController@detailSearch');
+                Route::get('/fetch', 'NotificationController@fetch');
+            });
 
         Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');
         Route::get('setting/level', 'API\V1\SettingController@getLevel')->name('api.setting.level');

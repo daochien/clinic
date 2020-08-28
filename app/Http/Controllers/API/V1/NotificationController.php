@@ -119,4 +119,19 @@ class NotificationController extends BaseController
             return $this->sendError($exception->getCode(), $exception->getMessage());
         }
     }
+
+    public function fetch(Request $request)
+    {
+        try {
+            if ($request->get('userId')) {
+                $filter['user_id'] = $request->get('userId');
+            }
+
+            $data = $this->service->fetch($filter);
+//            return new NotificationUserCollection($datas);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getCode(), $exception->getMessage());
+        }
+
+    }
 }
