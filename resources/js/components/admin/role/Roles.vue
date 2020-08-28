@@ -57,7 +57,7 @@
                                         <router-link v-if="$gate.canPermission('role.show')" :to="{path: `/admin/role/edit/${role.id}`}" >
                                             <i class="fa fa-edit blue"></i>
                                         </router-link>
-                                        /
+                                        <!-- / -->
                                         <a href="#" v-if="defaultRoles.indexOf(role.id) == -1" @click="deleteRole(role.id)">
                                             <i class="fa fa-trash red"></i>
                                         </a>

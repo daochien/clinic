@@ -17,7 +17,7 @@ class RoleSeeder extends Seeder
         $roleSuperUser = Role::create([
             'id' => 1,
             'name' => 'super_user',
-            'guard_name' => 'api'
+            'guard_name' => 'web'
         ]);
 
         $superPermissions = $this->getPermissions();
@@ -27,7 +27,7 @@ class RoleSeeder extends Seeder
         $roleAdmin = Role::create([
             'id' => 2,
             'name' => 'admin',
-            'guard_name' => 'api'
+            'guard_name' => 'web'
         ]);
 
         $adminPermissions = $this->getPermissions(['role', 'group']);
@@ -37,7 +37,7 @@ class RoleSeeder extends Seeder
         $roleWeb = Role::create([
             'id' => 3,
             'name' => 'staff_web',
-            'guard_name' => 'api'
+            'guard_name' => 'web'
         ]);
 
         $webPermissions = $this->getPermissions(['role', 'group', 'manager']);
@@ -47,7 +47,7 @@ class RoleSeeder extends Seeder
         $roleMobile = Role::create([
             'id' => 4,
             'name' => 'staff_mobile',
-            'guard_name' => 'api'
+            'guard_name' => 'web'
         ]);
 
         $mobilePermissions = $this->getPermissions(['role', 'group', 'manager']);
@@ -91,7 +91,7 @@ class RoleSeeder extends Seeder
             if (!in_array($item, $permissionsExists)) {
                 $insertPermissions[] = [
                     'name' => $item,
-                    'guard_name' => 'api'
+                    'guard_name' => 'web'
                 ];
             }
         }
