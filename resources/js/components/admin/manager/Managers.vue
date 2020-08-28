@@ -62,8 +62,8 @@
                             <tbody>
                                 <tr v-for="(item, index) in admins" :key="index">
                                     <td>{{ index + 1 }}</td>
-                                    <td>{{ item.name }}</td>
-                                    <td>{{ item.email }}</td>
+                                    <td>{{ item.name | limitString20 }}</td>
+                                    <td>{{ item.email | limitString20 }}</td>
                                     <td>
                                         <span class="mr-2" v-for="(role, roleIndex) in item.roles" :key="roleIndex">
                                             {{ role.name }}
