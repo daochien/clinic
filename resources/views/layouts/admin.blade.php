@@ -78,6 +78,7 @@
         {{--window.user = @json(auth()->user())--}}
             window.user = @json(\App\Models\User::where('id', auth()->user()->id)->with(['typeUsers.type', 'roleUsers.role'])->first());
             window.user.is_root = '{!! auth()->user()->isRoot() !!}';
+            window.user.roles = @json(auth()->user()->roles);
             window.user.permissions = @json(auth()->user()->getAllPermissions());
     </script>
 @endauth
