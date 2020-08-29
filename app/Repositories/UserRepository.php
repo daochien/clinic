@@ -8,6 +8,17 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository
 {
+    /**
+     * @var RoleRepository
+     */
+    private $roleRepository;
+
+    public function __construct(RoleRepository $roleRepository)
+    {
+        parent::__construct();
+        $this->roleRepository = $roleRepository;
+    }
+
     public function getModel()
     {
         return User::class;
@@ -43,6 +54,14 @@ class UserRepository extends BaseRepository
 
     }
 
+    public function listUser()
+    {
+        return User::from('users as u')
+            ->join('model_has_roles as mhr', 'mhr.model_id', 'u.id')
+            ->whereIn('mhr.role_id', array_values(User::USER_ROLE))
+            ->with(['role', 'group', 'clinic'])->paginate(10);
+    }
+
     public function get()
     {
         return $this->model->latest()->paginate(10);
@@ -60,7 +79,9 @@ class UserRepository extends BaseRepository
 
     public function search($param = [])
     {
-        $query = User::from('users as u')->with(['role', 'group','clinic'])->select('u.*');
+        $query = User::from('users as u')
+            ->join('model_has_roles as mhr', 'mhr.model_id', 'u.id')
+            ->whereIn('mhr.role_id', array_values(User::USER_ROLE));
 
         if (isset($param['keyword'])) {
             $query->where('name', 'LIKE', "%{$param['keyword']}%")
@@ -79,7 +100,7 @@ class UserRepository extends BaseRepository
             });
         }
 
-        return $query->paginate(10);
+        return $query->with(['role', 'group','clinic'])->select('u.*')->paginate(10);
     }
 
     /**
