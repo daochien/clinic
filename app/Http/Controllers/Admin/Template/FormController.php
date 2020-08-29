@@ -48,7 +48,7 @@ class FormController extends Controller
         // get the roles to use to populate the make the 'Access' section of the form builder work
         $form_roles = FormBuilderHelper::getConfiguredRoles();
 
-        $adminList = Role::findByName('admin', 'api')->users()->get();
+        $adminList = Role::findByName('admin')->users()->get();
 
         return view('template.forms.create', compact('category', 'adminList', 'pageTitle', 'breadCrumbTitle', 'saveURL', 'form_roles'));
     }
@@ -119,7 +119,7 @@ class FormController extends Controller
         $pageTitle = "Preview Form";
         $breadCrumbTitle = __('template.create_breadcrumb_label');
         $category = $this->categoryRepository->getTemplateByCategory(Category::TYPE['template']);
-        $adminList = Role::findByName('admin', 'api')->users()->get();
+        $adminList = Role::findByName('admin')->users()->get();
 
         $saveURL = route('template.update', $form);
 

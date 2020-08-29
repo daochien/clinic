@@ -103,14 +103,14 @@
                                                                        v-bind:value="{id: role.id, name: role.name}"
                                                                        v-model="form.role"
                                                                        :checked="role.id === form.role.id">
-                                                                <label class="custom-control-label" :for="role.id + '-user'">{{role.name}}</label>
+                                                                <label class="custom-control-label" :for="role.id + '-user'">{{ role.name }}</label>
                                                             </div>
                                                         </div>
                                                     </template>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <!--<div class="col-6">
                                             <div class="form-group">
                                                 <label>{{ $t('app.user.level')}}</label>
                                                 <select class="form-control" id="levels" v-model="form.level_id">
@@ -118,7 +118,7 @@
                                                     <option v-for="level in levels" :key="'level_' + level.id" :value="level.id">{{ level.name }}</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                     <div class="row ml-1">
 
@@ -166,7 +166,7 @@
                     role: [],
                     clinics: [],
                     // groups: [],
-                    level_id: '',
+                    // level_id: '',
                     type_id: '',
                     description: '',
                 }),
@@ -174,8 +174,9 @@
         },
         methods: {
             createUser() {
+                this.$Progress.start();
                 this.form.post('/api/user')
-                    .then((response) => {
+                    .then((data)=>{
                         if(data.data.success){
                             Toast.fire({
                                 icon: "success",
@@ -196,7 +197,7 @@
                     .catch(() => {
                         Toast.fire({
                             icon: 'error',
-                            title: 'Some error occured! Please try again'
+                            title: 'Some error occured! Please try again!'
                         });
                     })
             },
@@ -215,11 +216,11 @@
                     this.types = response.data.data;
                 });
             },
-            loadLevel() {
-                axios.get("/api/setting/level").then((response) => {
-                    this.levels = response.data.data;
-                });
-            },
+            // loadLevel() {
+            //     axios.get("/api/setting/level").then((response) => {
+            //         this.levels = response.data.data;
+            //     });
+            // },
             loadUserRole() {
                 axios.get("/api/setting/user-role").then((response) => {
                     this.roles = response.data.data;
@@ -231,7 +232,7 @@
             // this.loadGroup();
             this.loadClinic();
             this.loadType();
-            this.loadLevel();
+            // this.loadLevel();
             this.loadUserRole();
             this.$Progress.finish();
         }

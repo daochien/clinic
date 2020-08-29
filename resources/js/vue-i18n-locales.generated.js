@@ -734,7 +734,9 @@ export default {
                 "name": "名前の役割",
                 "created_at": "で作成",
                 "action": "アクション"
-            }
+            },
+            "web": "Web",
+            "mobile": "Mobile"
         },
         "sidebar": {
             "user": "管理者アカウント管理",
