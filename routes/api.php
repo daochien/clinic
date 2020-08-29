@@ -42,7 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::get('/group/list', 'API\V1\GroupController@all')->name('api.group.list');
         Route::get('group/members/{id}', 'API\V1\GroupController@users');
-        Route::get('group/members/filter/{value}', 'API\V1\GroupController@filter');
+        Route::get('group/members/filter/{id}/{value}', 'API\V1\GroupController@filter');
         Route::post('group/members/add', 'API\V1\GroupController@addUsers');
         Route::get('group/members/group-users/{id}', 'API\V1\GroupController@getGroupUsersByGroup');
         Route::post('group/members/remove', 'API\V1\GroupController@removeUsers');
