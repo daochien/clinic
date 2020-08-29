@@ -364,25 +364,15 @@
                 let formData = new FormData()
                 formData.append('image', file);
                 let uploadedInfo = {data: {access_url: null}}
-                axios.post(`/api/upload`, formData)
+                axios.post(`/api/s3/store`, formData)
                     .then(response => {
-                        // uploadedInfo = response.data;
-                        // if (uploadedInfo && uploadedInfo.upload_url) {
-                        //     let headers = {
-                        //         'Content-Type': file.type,
-                        //         'x-amz-acl': 'public-read',
-                        //     };
-                        //
-                        //     return axios.put(uploadedInfo.upload_url, file, {headers: headers});
-                        // }
-                    })
-                    .then(uploadResponse => {
-                        // const range = this.$refs.quill.quill.getSelection()
-                        // this.$refs.quill.quill.insertEmbed(range.index, 'image', uploadedInfo.access_url)
+                        let imageUrl = response.data.image_url;
+                        const range = this.$refs.quill.quill.getSelection()
+                        this.$refs.quill.quill.insertEmbed(range.index, 'image', imageUrl)
                     })
                     .catch(error => {
-                        // console.log(error);
-                        // return this.$alert(this.$t('ugc.system_error'), {confirmButtonText: 'OK'});
+                        console.log(error);
+                        return this.$alert(this.$t('ugc.system_error'), {confirmButtonText: 'OK'});
                     });
             }
         },

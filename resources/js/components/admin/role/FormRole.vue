@@ -1,23 +1,23 @@
 <template>
     <div class="container-fluid">
+        <div class="page-header row no-gutters py-4">
+            <div class="col-12 col-sm-8 text-center text-sm-left mb-0">
+                <h3 class="page-title">{{ $t('role.title_page') }}</h3>
+            </div>
+            <div class="col-12 col-sm-4 text-center text-sm-right mb-0">
+                <button v-if="!isEdit" type="button" class="btn btn-sm btn-primary float-right" @click="createRole()">
+                    <i class="fa fa-plus-square"></i>
+                    {{ $t('role.button_create') }}
+                </button>
+                <button v-else type="button" class="btn btn-sm btn-primary float-right" @click="updateRole()">
+                    <i class="fa fa-plus-square"></i>
+                    {{ $t('role.button_edit') }}
+                </button>
+            </div>   
+        </div>
         <div class="row">
-
             <div class="col-12">
-
-                <div class="card" v-if="$gate.isRoot()">
-                    <div class="card-header border-bottom">
-                        <div class="card-tools">
-                            <button v-if="!isEdit" type="button" class="btn btn-sm btn-primary float-right" @click="createRole()">
-                                <i class="fa fa-plus-square"></i>
-                                {{ $t('role.button_create') }}
-                            </button>
-                            <button v-else type="button" class="btn btn-sm btn-primary float-right" @click="updateRole()">
-                                <i class="fa fa-plus-square"></i>
-                                {{ $t('role.button_edit') }}
-                            </button>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
+                <div class="card" v-if="$gate.isRoot()">                                        
                     <div class="card-body">
                          <div class="form-group row">
                             <label for="feInputTitle" class="col-sm-2 col-form-label">{{ $t('role.input_name') }} <span style="color:#c4183c;">*</span></label>

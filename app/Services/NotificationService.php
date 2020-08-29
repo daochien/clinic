@@ -11,6 +11,7 @@ use App\Models\NotificationStatus;
 use App\Repositories\NotificationRepository;
 use App\Repositories\NotificationGroupRepository;
 use App\Models\NotificationUser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class NotificationService
@@ -34,6 +35,7 @@ class NotificationService
             'content' => $request['content'],
             'confirm' => $request['confirm'],
             'draft' => $request['draft'],
+            'created_by' => Auth::id(),
         ];
 
         if (isset($request['schedule_date'])) {
@@ -241,5 +243,15 @@ class NotificationService
             ]);
 
         return $datas->paginate(10);
+    }
+
+    public function fetch($filters)
+    {
+        $notificationUsers = NotificationUser::with(['userStatus', 'notification'])->orderBy('id', 'desc');
+        if (!empty($filters['user_id'])) {
+            $notificationUsers->where('user_id', $filters['user_id']);
+        }
+
+        return $notificationUsers->paginate(20);
     }
 }
