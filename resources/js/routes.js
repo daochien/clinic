@@ -35,7 +35,7 @@ export default [
         ]
     },
 
-    { path: '*', component: require('./components/NotFound.vue').default },
+    // { path: '*', component: require('./components/NotFound.vue').default },
 
     {
         path: '/admin/notification',
@@ -91,7 +91,7 @@ export default [
         component: {template: '<router-view/>'},
         name: 'role', meta: {breadcrumb: `Page`},
         children: [
-            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Create`} },            
+            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Create`} },
         ]
     },
 ];

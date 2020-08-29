@@ -44,7 +44,7 @@ class UserRequest extends FormRequest
 //            'groups' => 'required',
             'clinics' => 'required',
             'role' => 'required',
-            'level_id' => 'nullable',
+//            'level_id' => 'nullable',
             'description' => 'nullable|max:500',
         ];
     }
@@ -63,7 +63,7 @@ class UserRequest extends FormRequest
 //            'groups' => 'required',
             'clinics' => 'required',
             'role' => 'required',
-            'level_id' => 'nullable',
+//            'level_id' => 'nullable',
             'description' => 'nullable|max:500',
         ];
     }

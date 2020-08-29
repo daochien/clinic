@@ -34,34 +34,29 @@ class UserServices
 
             // Assigning Role by default user role
             $user->syncRoles($attribute['role']['name']);
-//            RoleUser::where(['user_id' => $user->id])->update(['role_id' => $attribute['role']['id']]);
-//            $user->assignRole($attribute['role']['name']);
 
-            if( !empty($attribute['type_id'] ?? null)) {
-                TypeUser::where('user_id', $user->id)->delete();
+            $currentTypeUser = TypeUser::where('user_id', $user->id)->first();
+
+            if ($currentTypeUser->type_id != $attribute['type_id']) {
+                $currentType = Type::find($currentTypeUser->type_id);
+                $currentGroup = Group::where(['name' => $currentType->name])->first();
+
+                if ($currentGroup) {
+                    GroupUser::where(['user_id' => $user->id, 'group_id' => $currentGroup->id])->delete();
+                    TypeUser::where(['user_id' => $user->id, 'type_id' => $currentType->id])->delete();
+                }
+
                 TypeUser::insertOrIgnore([
                     'type_id' => $attribute['type_id'],
                     'user_id' => $user->id
                 ]);
-            }
-
-            GroupUser::where('user_id', $user->id)->delete();
-            $type = Type::find($attribute['type_id']);
-            $group = Group::where(['name' => $type->name])->first();
-            if ($group) {
-                $groupUser[] = [
-                    'group_id' => $group->id,
+                $newType = Type::find($attribute['type_id']);
+                $newGroup = Group::where(['name' => $newType->name])->first();
+                GroupUser::insertOrIgnore([
+                    'group_id' => $newGroup->id,
                     'user_id' => $user->id
-                ];
+                ]);
             }
-
-            foreach ($attribute['groups'] as $group){
-                $groupUser[] = [
-                    'group_id' => $group['id'],
-                    'user_id' => $user->id
-                ];
-            }
-            GroupUser::insertOrIgnore($groupUser);
 
             ClinicUser::where('user_id', $user->id)->delete();
             $clinicUser = [];
@@ -95,11 +90,6 @@ class UserServices
             $attribute['password'] = PasswordHelper::randomPassword();
             $user = $this->userRepository->createUser($attribute);
             event(new CreateUserEvent($user, $attribute['password']));
-            // Assigning Role by default user role
-//            RoleUser::insertOrIgnore([
-//                    'role_id' => $attribute['role']['id'],
-//                    'user_id' => $user->id
-//                ]);
             $user->assignRole($attribute['role']['name']);
 
             if( !empty($attribute['type_id'] ?? null)) {
@@ -136,12 +126,12 @@ class UserServices
             ClinicUser::insertOrIgnore($clinicUser);
 
 
-            if( !empty($attribute['level_id'] ?? null)) {
-                LevelUser::insertOrIgnore([
-                    'level_id' => $attribute['level_id'],
-                    'user_id' => $user->id
-                ]);
-            }
+//            if( !empty($attribute['level_id'] ?? null)) {
+//                LevelUser::insertOrIgnore([
+//                    'level_id' => $attribute['level_id'],
+//                    'user_id' => $user->id
+//                ]);
+//            }
 
             DB::commit();
         } catch (\Exception $exception) {
