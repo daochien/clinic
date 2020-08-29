@@ -10,7 +10,6 @@ use App\Repositories\UserRepository;
 use App\Repositories\RoleRepository;
 use App\Services\AdminServices;
 use App\Http\Resources\AdminCollection;
-use Illuminate\Support\Facades\Auth;
 
 class AdminController extends BaseController
 {
@@ -29,8 +28,6 @@ class AdminController extends BaseController
 
     public function index(Request $request)
     {
-        // $user = Auth::user();
-        // dd($user->getPermissionNames());
         $roles = $this->roleRepo->pluckName();
         $admins = $this->userRepo->listAdmin($roles, $request->only('role', 'keyword'));
 
