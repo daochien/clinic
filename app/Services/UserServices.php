@@ -35,22 +35,25 @@ class UserServices
             // Assigning Role by default user role
             $user->syncRoles($attribute['role']['name']);
 
-            $currentTypeUser = TypeUser::where('user_id', $user->id)->get()->pluck('type_id');
-            if ($currentTypeUser->not != $attribute['type_id']) {
-                $type = Type::find($attribute['type_id']);
-                $group = Group::where(['name' => $type->name])->first();
+            $currentTypeUser = TypeUser::where('user_id', $user->id)->first();
 
-                if ($group) {
-                    GroupUser::where(['user_id' => $user->id, 'group_id' => $group->id])->delete();
-                    GroupUser::insertOrIgnore([
-                        'group_id' => $group->id,
-                        'user_id' => $user->id
-                    ]);
+            if ($currentTypeUser->type_id != $attribute['type_id']) {
+                $currentType = Type::find($currentTypeUser->type_id);
+                $currentGroup = Group::where(['name' => $currentType->name])->first();
+
+                if ($currentGroup) {
+                    GroupUser::where(['user_id' => $user->id, 'group_id' => $currentGroup->id])->delete();
+                    TypeUser::where(['user_id' => $user->id, 'type_id' => $currentType->id])->delete();
                 }
 
-                TypeUser::where('user_id', $user->id)->delete();
                 TypeUser::insertOrIgnore([
                     'type_id' => $attribute['type_id'],
+                    'user_id' => $user->id
+                ]);
+                $newType = Type::find($attribute['type_id']);
+                $newGroup = Group::where(['name' => $newType->name])->first();
+                GroupUser::insertOrIgnore([
+                    'group_id' => $newGroup->id,
                     'user_id' => $user->id
                 ]);
             }
