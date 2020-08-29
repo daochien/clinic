@@ -20,7 +20,7 @@ class UserRepository extends BaseRepository
         }
 
         $query = $this->model->whereHas("roles", function ($q) use ($roles) {
-            $q->whereIn('name', $roles)->whereIn('id', [1, 2]);
+            $q->whereIn('name', $roles)->whereIn('id', User::ADMIN_ID);
         });
 
         if (!empty($params['keyword'])) {
@@ -28,6 +28,19 @@ class UserRepository extends BaseRepository
         }
 
         return $query->with('roles')->latest()->paginate($limit);
+
+        // if (!empty($params['role'])) {
+        //     $roles = is_array($params['role']) ? $params['role'] : [$params['role']];
+        // }
+
+        // $query = $this->model->role($roles);
+
+        // if (!empty($params['keyword'])) {
+        //     $query->where('name', 'like', '%' . $params['keyword'] . '%');
+        // }
+
+        return $query->with('roles')->latest()->paginate($limit);
+
     }
 
     public function get()

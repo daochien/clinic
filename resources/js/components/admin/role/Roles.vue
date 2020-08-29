@@ -3,9 +3,15 @@
 
       <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
-            <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
+            <div class="col-12 col-sm-8 text-center text-sm-left mb-4 mb-sm-0">
                 <h3 class="page-title">{{ $t('role.title_page') }}</h3>
             </div>
+            <div class="col-12 col-sm-4 text-center text-sm-right mb-0">
+                <router-link v-if="$gate.canPermission('role.create')" type="button" class="btn btn-sm btn-primary float-right" :to="{path: '/admin/role/create'}">
+                    <i class="fa fa-plus-square"></i>
+                    {{ $t('role.button_create') }}
+                </router-link>
+            </div>            
         </div>
         <!-- End Page Header -->
 
@@ -15,14 +21,7 @@
                 <div class="col-12">
 
                     <div class="card" v-if="$gate.canPermission('role.index')">
-                        <div class="card-header">
-                            <div class="card-tools">
-                            <router-link v-if="$gate.canPermission('role.create')" type="button" class="btn btn-sm btn-primary" :to="{path: '/admin/role/create'}">
-                                <i class="fa fa-plus-square"></i>
-                                {{ $t('role.button_create') }}
-                            </router-link>
-                            </div>
-                        </div>
+                        
                         <!-- /.card-header -->
                         <div class="card-body p-0">
                             <table class="table table-hover">
@@ -57,7 +56,7 @@
                                         <router-link v-if="$gate.canPermission('role.show')" :to="{path: `/admin/role/edit/${role.id}`}" >
                                             <i class="fa fa-edit blue"></i>
                                         </router-link>
-                                        /
+                                        <!-- / -->
                                         <a href="#" v-if="defaultRoles.indexOf(role.id) == -1" @click="deleteRole(role.id)">
                                             <i class="fa fa-trash red"></i>
                                         </a>
