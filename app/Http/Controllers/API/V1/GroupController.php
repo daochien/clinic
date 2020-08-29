@@ -154,9 +154,17 @@ class GroupController extends BaseController
         return response()->json(['data' => ['data' => []]]);
     }
 
-    public function filter($value)
+    public function filter($id, $value)
     {
-        $users = DB::table('users')->where('name', 'LIKE', '%' . $value . '%')->get();
+        $query = "SELECT users.id, users.name, users.email, users.created_at from users WHERE id in (select DISTINCT(users.id) from users LEFT JOIN group_users on users.id = group_users.user_id where group_id != $id and users.id not in (select users.id from users JOIN group_users on group_users.user_id = users.id where group_users.group_id = 6)) and users.name like '%$value%'";
+
+//        $users = DB::table('users')
+//            ->select('users.*', 'group_users.group_id')
+//            ->join('group_users', 'users.id', '=', 'group_users.user_id')
+//            ->where('name', 'LIKE', '%' . $value . '%')
+//            ->where('group_users.group_id','!=',$id)
+//            ->get();
+        $users = DB::select( DB::raw($query));
         if(count($users)){
             return $this->sendResponse($users, 'Users list');
         }
