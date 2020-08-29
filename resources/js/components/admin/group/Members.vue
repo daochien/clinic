@@ -8,8 +8,8 @@
                 </div>
                 <div class="col-6 text-center text-sm-right mb-0">
                     <div class="card-tools">
-                        <button type="button" class="btn btn-primary"  @click="addToGroup()">{{ $t('group.add_to_group')}}</button>
-                        <button type="button" class="btn btn-danger"  @click="removeToGroup()">{{ $t('group.remove_from_group')}}</button>
+                        <button type="button" class="btn btn-primary" :disabled="!addButton" @click="addToGroup()">{{ $t('group.add_to_group')}} {{group}}</button>
+                        <button type="button" class="btn btn-danger"  :disabled="!removeButton" @click="removeToGroup()">{{ $t('group.remove_from_group')}} {{group}}</button>
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                                 <tbody>
                                 <tr v-for="item in members.data" :key="item.id">
                                     <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
-                                    <td>{{item.name}} - {{item.id}}</td>
+                                    <td>{{item.name}}</td>
                                     <td>{{item.email}}</td>
                                     <td>{{group}}</td>
                                     <td>{{item.created_at}}</td>
@@ -95,10 +95,31 @@
                 selected:[],
                 id:'',
                 group:'',
-                value : ''
+                value : '',
+                removeAllow: false
             }
         },
         computed: {
+
+            addButton:function(){
+                if(this.selected.length){
+                    if(this.value != ''){
+                        return true;
+                    }
+                } else{
+                    return false;
+                }
+            },
+            removeButton:function(){
+                if(this.selected.length){
+                    if(this.removeAllow){
+                        return true;
+                    }
+                } else{
+                    return false;
+                }
+            },
+
             selectAll: {
                 get: function () {
                     return this.members.data ? this.selected.length == this.members.data.length : false;
@@ -127,6 +148,7 @@
 
             removeCondition(){
               this.value='';
+              this.removeAllow = true;
               this.selected = [];
               this.loadMembers();
             },
@@ -135,13 +157,14 @@
                 if(this.$gate.isRoot()){
                     this.$Progress.start();
 
-                    axios.get('/api/group/members/filter/'+this.value)
+                    axios.get('/api/group/members/filter/'+this.id +'/'+this.value)
                             .then((data)=>{
                                 this.members = data.data
                                 Toast.fire({
                                     icon: 'success',
                                     title: data.data.message
                                 });
+                                this.removeAllow = true;
                                 this.$Progress.finish();
                             })
                             .catch(()=>{
@@ -241,6 +264,7 @@
 
             loadData(){
                 if(this.$gate.isRoot()) {
+                    this.removeAllow = true;
                     if (this.id) {
                         this.loadMembers();
                         this.getGroupName();

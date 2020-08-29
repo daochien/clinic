@@ -5,8 +5,8 @@
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
                 <h3 class="page-title">{{ $t('notification.notification_management') }}</h3>
             </div>
-            <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <label class="pt-2 mr-4" @click="saveNotification(1)">{{ $t('notification.save_draft')}}</label>
+            <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0" v-if="!disableForm">
+                <label class="pt-2 mr-4" @click="saveNotification(1)" style="cursor: pointer">{{ $t('notification.save_draft')}}</label>
                 <button
                     type="button"
                     class="btn btn-primary pl-5 pr-5"
@@ -119,7 +119,12 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label class="col-form-label">{{ $t('notification.release_date')}}</label>
-                                                    <datetime :required="true" format="YYYY-MM-DD h:i:s" v-model='form.schedule_date' :disabledDates="{ to: new Date(Date.now() - 8640000) }"></datetime>
+                                                    <datetime
+                                                        ref="datetime"
+                                                        :required="true"
+                                                        format="YYYY-MM-DD h:i:s"
+                                                        v-model='form.schedule_date'
+                                                        :disabled-dates="{ to: new Date(Date.now()) }"></datetime>
                                                 </div>
                                             </div>
                                         </div>
@@ -129,8 +134,10 @@
                                                 <div class="form-group">
                                                     <label>{{ $t('notification.notice_content')}}</label>
                                                     <quill-editor
+                                                        ref="quill"
                                                         :content="form.content"
                                                         v-model="form.content"
+                                                        :disabled='disableForm'
                                                     />
                                                 </div>
                                             </div>
@@ -190,6 +197,10 @@
             this.form.notification_id = this.$route.params.id;
             this.loadNotification();
             this.$Progress.finish();
+
+        },
+        mounted() {
+            this.$refs.quill.quill.getModule("toolbar").addHandler("image", this.imageHandler);
         },
         watch: {
             'form.groups' : function (value) {
@@ -241,6 +252,11 @@
                             this.form.title = data.data.title;
                             this.form.content = data.data.content;
                             this.form.draft = data.data.draft;
+                            this.disableForm = new Date(data.data.schedule_date) <= new Date() && !data.data.draft;
+                            if (this.disableForm) {
+                                $('#tj-datetime-input').prop( "disabled", true );
+                            }
+
                             this.form.schedule_date = this.$moment(data.data.schedule_date).format('YYYY-MM-DD hh:mm:ss');
                             if (data.data.confirm == 1) {
                                 this.form.confirm = true;
@@ -321,6 +337,43 @@
                 } else {
                     this.form.groups = _.filter(this.form.groups, ({id}) => id != 2);
                 }
+            },
+            imageHandler() {
+                var input = document.createElement("input");
+                input.setAttribute("type", "file");
+                input.click();
+                // Listen upload local image and save to server
+                input.onchange = () => {
+                    let file = input.files[0];
+                    let maxFileSize = 3000000 // 3MB
+                    // file type is only image.
+                    if (/^image\//.test(file.type)) {
+                        if (file.size > maxFileSize) {
+                            return this.$alert('Over rate limit of filesize', {confirmButtonText: 'OK'});
+                        }
+
+                        this.uploadImage(file);
+                    } else {
+                        return this.$alert(this.language.upload.file_invalid, {
+                            confirmButtonText: 'OK',
+                        });
+                    }
+                }
+            },
+            uploadImage(file) {
+                let formData = new FormData()
+                formData.append('image', file);
+                let uploadedInfo = {data: {access_url: null}}
+                axios.post(`/api/s3/store`, formData)
+                    .then(response => {
+                        let imageUrl = response.data.image_url;
+                        const range = this.$refs.quill.quill.getSelection()
+                        this.$refs.quill.quill.insertEmbed(range.index, 'image', imageUrl)
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        return this.$alert(this.$t('ugc.system_error'), {confirmButtonText: 'OK'});
+                    });
             }
         },
     };

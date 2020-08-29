@@ -57,10 +57,12 @@
                                                         style="width: 100%"
                                                         v-model="form.release_date"
                                                         :auto-apply="true"
-                                                        :locale-data="{ format: 'DD-MM-YYYY HH:mm:ss' ,  separator: ' + ',}"
+                                                        :locale-data="localeData"
                                                     >
                                                         <template v-slot:input="picker" style="min-width: 350px;">
-                                                            {{ picker.startDate }} - {{ picker.endDate }}
+                                                            <div v-if="picker.startDate && picker.endDate">
+                                                                {{ $moment(picker.startDate).format('YYYY-MM-DD HH:mm:ss') }} - {{ $moment(picker.endDate).format('YYYY-MM-DD HH:mm:ss') }}
+                                                            </div>
                                                         </template>
                                                     </date-range-picker>
                                                 </div>
@@ -162,11 +164,12 @@
                                                 class="dropdown-menu dropdown-menu-right"
                                                 aria-labelledby="operatingAction"
                                             >
-<!--                                                <button-->
-<!--                                                    class="dropdown-item text-primary"-->
-<!--                                                    @click="publishAnnouncement()"-->
-<!--                                                >{{ $t('notification.publish_announcement')}}-->
-<!--                                                </button>-->
+                                                <button
+                                                    v-if="new Date(entity.schedule_date) >= new Date()"
+                                                    class="dropdown-item text-primary"
+                                                    @click="publishAnnouncement(entity)"
+                                                >{{ $t('notification.publish_announcement')}}
+                                                </button>
                                                 <router-link
                                                     :class="'dropdown-item text-primary'"
                                                     :to="{ name: 'edit_notification', params: { id: entity.id }}"
@@ -219,6 +222,18 @@
                     },
                     status: 0,
                 }),
+                localeData: {
+                    direction: 'ltr',
+                    format: 'mm/dd/yyyy',
+                    separator: ' - ',
+                    applyLabel: 'Apply',
+                    cancelLabel: 'Cancel',
+                    weekLabel: 'W',
+                    customRangeLabel: 'Custom Range',
+                    daysOfWeek: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    monthNames: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    firstDay: 0
+                }
             };
         },
         methods: {
@@ -271,7 +286,28 @@
                     }
                 });
             },
-            publishAnnouncement() {
+            publishAnnouncement(notification) {
+                notification.draft = 0;
+                notification.notification_id = notification.id;
+                let groups = notification.groups;
+                notification.groups = [];
+                axios.post("/api/notification/store", notification)
+                    .then((data) => {
+                        Toast.fire({
+                            icon: "success",
+                            title: data.data.message,
+                        });
+                        this.$Progress.finish();
+                        this.$router.push({path: "/admin/notification"});
+                    })
+                    .catch(() => {
+                        Toast.fire({
+                            icon: "error",
+                            title: this.$t('app').notification.some_error,
+                        });
+                    }).finally(() => {
+                        notification.groups = groups;
+                });
             },
             searchData() {
                 this.$Progress.start();

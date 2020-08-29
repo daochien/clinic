@@ -18,9 +18,11 @@ class User extends Authenticatable // implements MustVerifyEmail
 
     const USER_ROLE = ['Web' => 3, 'Mobile' => 4];
 
+    const ADMIN_ID = [1, 2];
+
     use Notifiable, HasApiTokens, HasRoles;
 
-    protected $guard_name = 'api';
+    //protected $guard_name = 'api';
 
     /**
      * The attributes that are mass assignable.
