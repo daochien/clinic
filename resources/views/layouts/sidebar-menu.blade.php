@@ -91,9 +91,12 @@
                     <router-link to="/admin/template" class="dropdown-item">
                         {{ __('sidebar.templates') }}
                     </router-link>
-                    {{--<router-link to="/admin/request" class="dropdown-item">
-                        {{ __('sidebar.request') }}
-                    </router-link>--}}
+                    @foreach (\App\Models\TemplateCategory::getAll() as $category)
+                        <router-link to="/admin/template/{{$category->id}}/request" class="dropdown-item">
+                            {{ __($category->name) }}
+                        </router-link>
+                    @endforeach
+
                 </div>
             </li>
             {{--<li class="nav-item dropdown">
