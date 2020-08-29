@@ -115,7 +115,7 @@ class UserController extends BaseController
      */
     public function destroy($id)
     {
-        $this->authorize('isAdmin');
+//        $this->authorize('isAdmin');
         $user = User::findOrFail($id);
         // delete the user
         $user->delete();

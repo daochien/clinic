@@ -38,7 +38,7 @@ class NotificationRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'title' => 'required|string|max:191',
+            'title' => 'required|string|max:50',
             'content' => 'required',
             'confirm' => 'required|boolean',
             'draft' => 'required|boolean'
@@ -53,7 +53,7 @@ class NotificationRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'title' => 'required|string|max:191',
+            'title' => 'required|string|max:50',
             'content' => 'required',
             'confirm' => 'required|boolean',
             'draft' => 'required|boolean'

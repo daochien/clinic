@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-6">
+                                        <!--<div class="col-6">
                                             <div class="form-group">
                                                 <label>{{ $t('app.user.group')}}</label>
                                                 <span class="text-danger">*</span>
@@ -60,6 +60,17 @@
                                                     :placeholder="$t('app.user.place_holder.group')"
                                                 ></multiselect>
                                                 <has-error :form="form" field="groups"></has-error>
+                                            </div>
+                                        </div>-->
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>{{ $t('app.user.type')}}</label>
+                                                <span class="text-danger">*</span>
+                                                <select class="form-control" id="types" v-model="form.type_id" :class="{ 'is-invalid': form.errors.has('type_id') }">
+                                                    <option value="" selected>{{ $t('app.user.place_holder.type') }}</option>
+                                                    <option v-for="type in types" :key="'type_' +type.id" :value="type.id" >{{ type.name }}</option>
+                                                </select>
+                                                <has-error :form="form" field="type_id"></has-error>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -82,13 +93,21 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label>{{ $t('app.user.type')}}</label>
-                                                <span class="text-danger">*</span>
-                                                <select class="form-control" id="types" v-model="form.type_id" :class="{ 'is-invalid': form.errors.has('type_id') }">
-                                                    <option value="" selected>{{ $t('app.user.place_holder.type') }}</option>
-                                                    <option v-for="type in types" :key="'type_' +type.id" :value="type.id" >{{ type.name }}</option>
-                                                </select>
-                                                <has-error :form="form" field="type_id"></has-error>
+                                                <div>{{ $t('app.user.role_label')}}</div>
+                                                <div>
+                                                    <template v-for="role in roles">
+                                                        <div class="col-3 float-left">
+                                                            <div class="custom-control custom-radio mb-1 col-1">
+                                                                <input type="radio" class="custom-control-input"
+                                                                       name="role" v-bind:id="role.id + '-user'"
+                                                                       v-bind:value="{id: role.id, name: role.name}"
+                                                                       v-model="form.role"
+                                                                       :checked="role.id === form.role.id">
+                                                                <label class="custom-control-label" :for="role.id + '-user'">{{role.name}}</label>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -102,21 +121,7 @@
                                         </div>
                                     </div>
                                     <div class="row ml-1">
-                                        <div class="form-group">
-                                            <label>{{ $t('app.user.role_label')}}</label>
-                                        </div>
-                                        <template v-for="role in roles">
-                                            <div class="col-1">
-                                                <div class="custom-control custom-radio mb-1 col-1">
-                                                    <input type="radio" class="custom-control-input"
-                                                           name="role" v-bind:id="role.id + '-user'"
-                                                           v-bind:value="{id: role.id, name: role.name}"
-                                                           v-model="form.role"
-                                                           :checked="role.id === form.role.id">
-                                                    <label class="custom-control-label" :for="role.id + '-user'">{{role.name}}</label>
-                                                </div>
-                                            </div>
-                                        </template>
+
                                      </div>
                                     <div class="row mt-3">
                                         <div class="col-12">
@@ -151,7 +156,7 @@
         data() {
             return {
                 clinics: [],
-                groups: [],
+                // groups: [],
                 types: [],
                 levels: [],
                 roles: {},
@@ -160,7 +165,7 @@
                     email: '',
                     role: [],
                     clinics: [],
-                    groups: [],
+                    // groups: [],
                     level_id: '',
                     type_id: '',
                     description: '',
@@ -171,21 +176,35 @@
             createUser() {
                 this.form.post('/api/user')
                     .then((response) => {
-                        Toast.fire({
-                            icon: "success",
-                            title: data.data.message,
-                        });
-                        this.$router.push("/admin/user")
-                        this.$Progress.finish();
+                        if(data.data.success){
+                            Toast.fire({
+                                icon: "success",
+                                title: data.data.message,
+                            });
+                            this.$router.push("/admin/user")
+                            this.$Progress.finish();
+
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: 'Some error occured! Please try again'
+                            });
+
+                            this.$Progress.failed();
+                        }
                     })
                     .catch(() => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Some error occured! Please try again'
+                        });
                     })
             },
-            loadGroup() {
-                axios.get("/api/group/all").then((response) => {
-                    this.groups = response.data.data;
-                });
-            },
+            // loadGroup() {
+            //     axios.get("/api/group/all").then((response) => {
+            //         this.groups = response.data.data;
+            //     });
+            // },
             loadClinic() {
                 axios.get("/api/clinic/all").then((response) => {
                     this.clinics = response.data.data;
@@ -209,7 +228,7 @@
         },
         created() {
             this.$Progress.start();
-            this.loadGroup();
+            // this.loadGroup();
             this.loadClinic();
             this.loadType();
             this.loadLevel();
