@@ -18,7 +18,7 @@ class User extends Authenticatable // implements MustVerifyEmail
 
     public $timestamps = true;
 
-    const USER_ROLE = ['Web' => 3, 'Mobile' => 4];
+    const USER_ROLE = ['staff_web' => 3, 'staff_mobile' => 4];
 
     const ADMIN_ID = [1, 2];
 
