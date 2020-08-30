@@ -20,7 +20,14 @@ class User extends Authenticatable // implements MustVerifyEmail
 
     const USER_ROLE = ['staff_web' => 3, 'staff_mobile' => 4];
 
+    const ROLE_ROOT = 1;
+    const ROLE_ADMIN = 2;
+    const ROLE_STAFF_WEB = 3;
+    const ROLE_STAFF_MOBILE = 4;
+
     const ADMIN_ID = [1, 2];
+
+    const POSITTION = ['BOD' => 1, 'HR' => 2];
 
     use Notifiable, HasApiTokens, HasRoles;
 
@@ -32,7 +39,7 @@ class User extends Authenticatable // implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'note', 'description'
+        'name', 'email', 'password', 'note', 'description', 'posittion'
     ];
 
     /**

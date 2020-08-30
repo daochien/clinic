@@ -28,6 +28,7 @@ return
         "input_name"=> "アカウント名",
         "input_email"=> "メールアドレス",
         "role"=> "役割",
+        'posittion' => 'ポジション',
         "note"=> "メモ",
         "button_create"=> "登録",
         "button_edit"=> "保存",

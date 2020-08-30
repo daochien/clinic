@@ -12,7 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 class RoleController extends BaseController
 {
-
+    
     protected $role = '';
 
     protected $roleRepo;
@@ -40,13 +40,11 @@ class RoleController extends BaseController
     public function list()
     {
         $user = Auth::user();
-
-        $role = $this->role->findOrFail(\App\Models\Role::ROLE_DEFAULT['root']);
-        
-        if ( in_array($user->email, User::ROOT_EMAIL_ADMIN) || $user->hasRole($role->name)) {
-            $roles = $this->role->pluck('name', 'id');
+                        
+        if ( in_array($user->email, User::ROOT_EMAIL_ADMIN) || $user->hasRole('admin')) {
+            $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->pluck('name', 'id');
         } else {
-            $roles = $this->role->where('id', '<>', 1)->pluck('name', 'id');
+            $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_ADMIN, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->pluck('name', 'id');
         }
     
         return $this->sendResponse($roles, 'Role list');

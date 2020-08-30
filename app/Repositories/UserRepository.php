@@ -31,7 +31,7 @@ class UserRepository extends BaseRepository
         }
 
         $query = $this->model->whereHas("roles", function ($q) use ($roles) {
-            $q->whereIn('name', $roles)->whereIn('id', User::ADMIN_ID);
+            $q->whereIn('name', $roles)->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_STAFF_MOBILE, User::ROLE_STAFF_WEB]);
         });
 
         if (!empty($params['keyword'])) {
@@ -127,7 +127,7 @@ class UserRepository extends BaseRepository
 
     public function showAdmin($id)
     {
-        return $this->model->with('roles', 'type')->findOrFail($id);
+        return $this->model->with('roles')->findOrFail($id);
     }
 
     public function createAdmin(array $attributes)
@@ -136,6 +136,7 @@ class UserRepository extends BaseRepository
             'name' => $attributes['name'],
             'email' => $attributes['email'],
             'description' => $attributes['description'],
+            'posittion' => $attributes['posittion'],
             'password' => Hash::make($attributes['password']),
             'created_at' => now(),
             'updated_at' => now(),

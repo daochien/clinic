@@ -27,45 +27,45 @@
                         </div>
                     </div>
                     <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label>{{ $t('app.user.type')}}</label>
-                                    <span class="text-danger">*</span>
-                                    <select :class="['form-control', {'is-invalid': $v.manager.type_id.$error}]" id="types" v-model="$v.manager.type_id.$model" >
-                                        <option value="" selected>{{ $t('app.user.place_holder.type') }}</option>
-                                        <option v-for="type in types" :key="'type_' +type.id" :value="type.id" >{{ type.name }}</option>
-                                    </select>
-                                    <div class="invalid-feedback" v-if="!$v.manager.type_id.required">{{ $t('validation.required') }}</div>
-                                </div>
-                            </div>
-                            <!-- <div class="col-6">
-                                <div class="form-group">
-                                    <label>{{ $t('app.user.level')}}</label>
-                                    <select class="form-control" id="levels" v-model="manager.level_id">
-                                        <option value="" selected>{{ $t('app.user.place_holder.level') }}</option>
-                                        <option v-for="level in levels" :key="'level_' + level.id" :value="level.id">{{ level.name }}</option>
-                                    </select>
-                                </div>
-                            </div> -->
-                        </div>
-                    <div class="row">
-                        <div class="col-12">
-                            {{ $t('manager.form_create.role') }} <span style="color:#c4183c;">*</span>
-                        </div>
-                        <div class="col-12">
-                            <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index">
-                                <input
-                                type="checkbox"
-                                :class="['custom-control-input', {'is-invalid': $v.manager.roles.$error}]"
-                                class="custom-control-input"
-                                v-model="$v.manager.roles.$model"
-                                :id="'formsCheckboxChecked_'+index"
-                                :disabled="isAdmin == index"
-                                :value="role">
-                                <label class="custom-control-label" :for="'formsCheckboxChecked_'+index">{{ role }}</label>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>{{ $t('manager.form_create.posittion') }}</label>
+                                <span class="text-danger">*</span>
+                                <select :class="['form-control', {'is-invalid': $v.manager.posittion.$error}]" id="types" v-model="$v.manager.posittion.$model" >
+                                    <option value="" selected>{{ $t('app.user.place_holder.type') }}</option>
+                                    <option v-for="(item, index) in posittion" :key="index" :value="item" >{{ index }}</option>
+                                    
+                                </select>
+                                <div class="invalid-feedback" v-if="!$v.manager.posittion.required">{{ $t('validation.required') }}</div>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-6">
+                            <div class="col-12">
+                                {{ $t('manager.form_create.role') }} <span style="color:#c4183c;">*</span>
+                            </div>
+                            <div class="col-12" style="margin-top: 12px;">
+                                <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index">
+                                    <input                                
+                                    type="checkbox"
+                                    :class="['custom-control-input', {'is-invalid': $v.manager.roles.$error}]"
+                                    class="custom-control-input"
+                                    v-model="$v.manager.roles.$model"
+                                    :id="'formsCheckboxChecked_'+index"                                
+                                    :value="role">
+                                    <label class="custom-control-label" :for="'formsCheckboxChecked_'+index">{{ role }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-6">
+                            <div class="form-group">
+                                <label>{{ $t('app.user.level')}}</label>
+                                <select class="form-control" id="levels" v-model="manager.level_id">
+                                    <option value="" selected>{{ $t('app.user.place_holder.level') }}</option>
+                                    <option v-for="level in levels" :key="'level_' + level.id" :value="level.id">{{ level.name }}</option>
+                                </select>
+                            </div>
+                        </div> -->
+                    </div>                    
                     <div class="row">
                         <div class="form-group col-12">
                             <label for="feInputTitle">{{ $t('manager.form_create.note') }}</label>
@@ -110,7 +110,7 @@ export default {
                 email: '',
                 roles: [],
                 description: '',
-                type_id: '',
+                posittion: 1,
                 // level_id: ''
             },
             roles: [],
@@ -133,7 +133,7 @@ export default {
             roles: {
                 required
             },
-            type_id: {
+            posittion: {
                 required
             },
             description: {
@@ -144,27 +144,15 @@ export default {
     },
 
     created () {
-
+        this.posittion = window.user.posittion;
         this.loadType();
         this.loadLevel();
         this.infoAdmin();
         this.loadRoles();
-        if (this.isAdmin == 2) {
-            this.manager.roles.push('admin');
-        }
+        
     },
     computed : {
-        isAdmin () {
-            let id = 0;
-            if (window.user.roles.length > 0) {
-                window.user.roles.forEach ((item) => {
-                    if (item.id == 2) {
-                        id = item.id;
-                    }
-                })
-            }
-            return id;
-        }
+        
     },
     methods: {
         loadRoles () {
@@ -232,16 +220,12 @@ export default {
             this.manager.name = data.name;
             this.manager.email = data.email;
             this.manager.description = data.description;
+            this.manager.posittion = data.posittion;
             if (data.roles.length > 0) {
                 data.roles.forEach(item => {
                     this.manager.roles.push(item.name);
                 });
-            }
-            if (data.type.length > 0) {
-                data.type.forEach(item => {
-                    this.manager.type_id = item.id;
-                });
-            }
+            }            
         },
         updateAdmin () {
             this.$v.manager.$touch();

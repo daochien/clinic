@@ -28,6 +28,7 @@ return [
         "input_email"=> "Email",
         "role"=> "Role",
         "note"=> "Note",
+        "posittion" => 'Posittion',
         "button_create"=> "Register",
         "button_edit"=> "Save",
         "button_remove"=> "Remove account",
