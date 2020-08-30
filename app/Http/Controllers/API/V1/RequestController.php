@@ -28,7 +28,7 @@ class RequestController extends BaseController
         $requests = Submission::from('form_submissions as s')
             ->join('template_category as tc', 'tc.form_id', 's.form_id')
             ->where('tc.category_id', $categoryId)
-            ->with(['requestLogs', 'requestComments', 'approvers', 'user'])
+            ->with(['requestLogs', 'requestComments', 'user', 'form.approvers'])
             ->latest()
             ->paginate(10);
 
