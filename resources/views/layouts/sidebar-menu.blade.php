@@ -58,11 +58,11 @@
                         </router-link>
                     @endcan
 
-                        @can('group.index')
-                            <router-link to="/admin/group" class="dropdown-item ">
-                                {{ __('sidebar.groups') }}
-                            </router-link>
-                        @endcan
+                    @can('group.index')
+                        <router-link to="/admin/group" class="dropdown-item ">
+                            {{ __('sidebar.groups') }}
+                        </router-link>
+                    @endcan
 
                     @can('user.index')
                         <router-link to="/admin/user" class="dropdown-item">

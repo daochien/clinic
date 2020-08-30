@@ -40,7 +40,10 @@ export default [
         component: {template: '<router-view/>'},
         meta: {breadcrumb: `申請管理`},
         children: [
-            { path: 'category/:id', component: require('./components/admin/request/Index.vue').default, meta: {breadcrumb: `申請一覧`} },
+            { path: '', component: require('./components/admin/request/Index.vue').default,meta: {breadcrumb: `申請一覧`}},
+            { path: 'category/:id', component: require('./components/admin/request/Category.vue').default,meta: {breadcrumb: `申請一覧`}},
+            { path: ':id', component: require('./components/admin/request/Request.vue').default, meta: {breadcrumb: `申請詳細情報`} },
+
         ]
     },
 

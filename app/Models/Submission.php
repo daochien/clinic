@@ -64,6 +64,11 @@ class Submission extends Model
         return $this->belongsToMany(User::class, 'template_approvers', 'form_id', 'user_id');
     }
 
+    public function category()
+    {
+        return $this->belongsToMany(Category::class, 'template_category', 'form_id', 'category_id');
+    }
+
     /**
      * Get the forms that belong to the provided user
      *

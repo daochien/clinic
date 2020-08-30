@@ -4,7 +4,7 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('template.page_title') }}</h3>
+                <h3 class="page-title">{{ $t('template.request.page_title') }}</h3>
             </div>
         </div>
         <!-- End Page Header -->
@@ -51,7 +51,7 @@
                                             ></i>
                                             <div class="dropdown-menu" aria-labelledby="operatingAction">
                                                 <a class="dropdown-item text-primary"
-                                                             :href="'/admin/template/' + request.id + '/edit'">
+                                                   :href="'/admin/template/' + request.id + '/edit'">
                                                     {{ $t('app.btn.edit')}}
                                                 </a>
                                                 <a class="dropdown-item text-danger" href="#" @click="deleteTemplate(request.id)">
@@ -115,20 +115,16 @@
                 })
             },*/
             loadRequests(){
-                this.$Progress.start();
-                if(this.$gate.isAdmin()){
-                    axios.get("/api/request/category/"  + this.$route.params.id).then(({ data }) => ( this.requests = data.data));
-                }
-                this.$Progress.finish();
+                axios.get("/api/request/category/"  + this.$route.params.id).then(({ data }) => ( this.requests = data.data));
             },
 
         },
         mounted() {
         },
         created() {
-            // this.$Progress.start();
+            this.$Progress.start();
             this.loadRequests();
-            // this.$Progress.finish();
+            this.$Progress.finish();
         }
     }
 </script>

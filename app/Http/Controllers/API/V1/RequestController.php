@@ -25,15 +25,23 @@ class RequestController extends BaseController
 
     public function indexByCategory($categoryId)
     {
-        $category = Category::find($categoryId);
-
         $requests = Submission::from('form_submissions as s')
             ->join('template_category as tc', 'tc.form_id', 's.form_id')
             ->where('tc.category_id', $categoryId)
             ->with(['requestLogs', 'requestComments', 'approvers', 'user'])
             ->latest()
             ->paginate(10);
+        $category = Category::find($categoryId);
 
-        return $this->sendResponse($requests, $category->name);
+        return $this->sendResponse($requests);
+    }
+
+    public function show($id)
+    {
+        $submission = Submission::with('user', 'form', 'approvers','category')
+            ->where('id', $id)
+            ->firstOrFail();
+
+        return $this->sendResponse($submission);
     }
 }

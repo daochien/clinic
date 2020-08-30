@@ -78,13 +78,13 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-small">
                             {{--<a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>--}}
-                            <router-link to="/admin/template" class="dropdown-item">
+                            <a href="/admin/template" class="dropdown-item">
                                 {{ __('sidebar.templates') }}
-                            </router-link>
+                            </a>
                             @foreach (\App\Models\TemplateCategory::getAll() as $category)
-                                <router-link to="/admin/request/category/{{$category->id}}" class="dropdown-item">
+                                <a href="/admin/request/category/{{$category->id}}" class="dropdown-item">
                                     {{ __($category->name) }}
-                                </router-link>
+                                </a>
                             @endforeach
                         </div>
                     </li>

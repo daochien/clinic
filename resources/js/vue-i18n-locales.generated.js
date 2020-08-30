@@ -800,7 +800,12 @@ export default {
                 "submitted_at": "申請日時",
                 "approved_at": "最終承認日時",
                 "approve": "承認する",
-                "reject": "却下する"
+                "reject": "却下する",
+                "detail": "詳細を見る",
+                "page_title": "申請詳細情報",
+                "pending": "承認待ち",
+                "approved": "承認済み",
+                "processing": "承認中"
             }
         },
         "validation": {
