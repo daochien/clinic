@@ -24,5 +24,13 @@ return [
         'approver' => 'タイトルを入力してください',
     ],
     'create_success' => 'Template successfully created',
-    'create_failed' => 'Failed to create the form.',
+    'create_failed' => 'Failed to create the template.',
+    'request' => [
+        'submitter' => '申請者',
+        'status' => 'ステータス',
+        'submitted_at' => '申請日時',
+        'approved_at' => '最終承認日時',
+        'approve' => '承認する',
+        'reject' => '却下する',
+    ]
 ];

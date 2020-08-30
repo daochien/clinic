@@ -35,6 +35,15 @@ export default [
         ]
     },
 
+    {
+        path: '/admin/request',
+        component: {template: '<router-view/>'},
+        meta: {breadcrumb: `申請管理`},
+        children: [
+            { path: 'category/:id', component: require('./components/admin/request/Index.vue').default, meta: {breadcrumb: `申請一覧`} },
+        ]
+    },
+
     // { path: '*', component: require('./components/NotFound.vue').default },
 
     {

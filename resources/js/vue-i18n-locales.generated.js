@@ -355,7 +355,16 @@ export default {
                 "category": "Select Category",
                 "approver": "Select approver"
             },
-            "create_success": "Template successfully created"
+            "create_success": "Template successfully created",
+            "create_failed": "Failed to create the template.",
+            "request": {
+                "submitter": "Submitter",
+                "status": "Status",
+                "submitted_at": "Submitted at",
+                "approved_at": "Approved at",
+                "approve": "Approve",
+                "reject": "Reject"
+            }
         },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
@@ -784,7 +793,15 @@ export default {
                 "approver": "タイトルを入力してください"
             },
             "create_success": "Template successfully created",
-            "create_failed": "Failed to create the form."
+            "create_failed": "Failed to create the template.",
+            "request": {
+                "submitter": "申請者",
+                "status": "ステータス",
+                "submitted_at": "申請日時",
+                "approved_at": "最終承認日時",
+                "approve": "承認する",
+                "reject": "却下する"
+            }
         },
         "validation": {
             "accepted": "{attribute}を承認してください。",
