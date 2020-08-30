@@ -44,7 +44,7 @@
                                 {{ $t('manager.form_create.role') }} <span style="color:#c4183c;">*</span>
                             </div>
                             <div class="col-12" style="margin-top: 12px;">
-                                <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index" v-if="index == 1 || index == 2">
+                                <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index" v-if="index != 3 && index != 4">
                                     <input                                
                                     type="checkbox"
                                     :class="['custom-control-input', {'is-invalid': $v.manager.roles.$error}]"
