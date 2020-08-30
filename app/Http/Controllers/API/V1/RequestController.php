@@ -31,17 +31,18 @@ class RequestController extends BaseController
             ->with(['requestLogs', 'requestComments', 'approvers', 'user'])
             ->latest()
             ->paginate(10);
-        $category = Category::find($categoryId);
 
         return $this->sendResponse($requests);
     }
 
     public function show($id)
     {
-        $submission = Submission::with('user', 'form', 'approvers','category')
+        $submission = Submission::with('user', 'form', 'form.approvers','form.category')
             ->where('id', $id)
             ->firstOrFail();
 
-        return $this->sendResponse($submission);
+        $form_headers = $submission->form->getEntriesHeader();
+
+        return $this->sendResponse(['submission' => $submission, 'form_headers' => $form_headers]);
     }
 }
