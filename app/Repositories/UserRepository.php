@@ -31,7 +31,7 @@ class UserRepository extends BaseRepository
         }
 
         $query = $this->model->whereHas("roles", function ($q) use ($roles) {
-            $q->whereIn('name', $roles)->whereIn('id', User::ADMIN_ID);
+            $q->whereIn('name', $roles)->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_STAFF_MOBILE, User::ROLE_STAFF_WEB]);
         });
 
         if (!empty($params['keyword'])) {
