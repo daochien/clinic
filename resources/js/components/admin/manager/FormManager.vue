@@ -54,12 +54,12 @@
                         </div>
                         <div class="col-12">
                             <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index">
-                                <input                                
+                                <input
                                 type="checkbox"
                                 :class="['custom-control-input', {'is-invalid': $v.manager.roles.$error}]"
                                 class="custom-control-input"
                                 v-model="$v.manager.roles.$model"
-                                :id="'formsCheckboxChecked_'+index"                                
+                                :id="'formsCheckboxChecked_'+index"
                                 :disabled="isAdmin == index"
                                 :value="role">
                                 <label class="custom-control-label" :for="'formsCheckboxChecked_'+index">{{ role }}</label>
@@ -144,7 +144,7 @@ export default {
     },
 
     created () {
-        
+
         this.loadType();
         this.loadLevel();
         this.infoAdmin();
@@ -156,14 +156,14 @@ export default {
     computed : {
         isAdmin () {
             let id = 0;
-            if (window.user.roles.length > 0) {                
-                window.user.roles.forEach ((item) => {                
-                    if (item.id == 2) {                
+            if (window.user.roles.length > 0) {
+                window.user.roles.forEach ((item) => {
+                    if (item.id == 2) {
                         id = item.id;
                     }
-                })                
+                })
             }
-            return id; 
+            return id;
         }
     },
     methods: {
@@ -226,7 +226,6 @@ export default {
                     console.log(error);
                 });
             }
-
         },
         syncRespone (data) {
             this.manager.id = data.id;

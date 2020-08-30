@@ -26,10 +26,10 @@ class SaveFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:100',
+            'name' => 'required|max:50',
             'category' => 'required',
             'approver' => 'required',
-            'description' => 'nullable',
+            'description' => 'nullable|max:500',
             'visibility' => ['required', Rule::in([Form::FORM_PUBLIC, Form::FORM_PRIVATE])],
             'allows_edit' => 'required|boolean',
             'multi_approve' => 'required|boolean',

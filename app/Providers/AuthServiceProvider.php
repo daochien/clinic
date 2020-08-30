@@ -29,11 +29,11 @@ class AuthServiceProvider extends ServiceProvider
          * Defining the user Roles
          */
         Gate::define('isAdmin', function ($user) {
-            return !empty($user->role->where('name', 'Admin')->first());
+            return !empty($user->roles->where('name', 'admin')->orWhere('name', 'root')->first());
         });
 
         Gate::define('isUser', function ($user) {
-            return !empty($user->role->where('name', 'User')->first());
+            return !empty($user->roles->where('name', 'web')->where('name', 'mobile')->first());
         });
     }
 }

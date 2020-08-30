@@ -59,9 +59,7 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $users = $this->repository->with(['role', 'group', 'clinic'])->paginate(10);
-
-        return new UserCollection($users);
+        return new UserCollection($this->repository->listUser());
     }
 
     /**
@@ -115,7 +113,7 @@ class UserController extends BaseController
      */
     public function destroy($id)
     {
-        $this->authorize('isAdmin');
+//        $this->authorize('isAdmin');
         $user = User::findOrFail($id);
         // delete the user
         $user->delete();

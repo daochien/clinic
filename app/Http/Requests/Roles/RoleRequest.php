@@ -38,7 +38,7 @@ class RoleRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'name' => 'required|string|max:191'
+            'name' => 'required|string|max:50'
         ];
     }
 
@@ -50,7 +50,7 @@ class RoleRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'name' => 'required|string|max:191'
+            'name' => 'required|string|max:50'
         ];
     }
 }

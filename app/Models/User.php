@@ -16,7 +16,9 @@ class User extends Authenticatable // implements MustVerifyEmail
         'admin@gmail.com'
     ];
 
-    const USER_ROLE = ['Web' => 3, 'Mobile' => 4];
+    public $timestamps = true;
+
+    const USER_ROLE = ['staff_web' => 3, 'staff_mobile' => 4];
 
     const ADMIN_ID = [1, 2];
 
@@ -50,14 +52,15 @@ class User extends Authenticatable // implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public function isAdmin()
     {
-        return $this->roles()->where('name', 'Admin')->exists();
+        return $this->roles()->whereIn('id', self::ADMIN_ID)->exists();
     }
 
     public function isUser()
     {
-        return $this->roles()->where('name', 'User')->exists();
+        return $this->roles()->whereIn('id', array_values(self::USER_ROLE))->exists();
     }
 
     public function clinicUsers()
