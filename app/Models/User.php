@@ -22,6 +22,8 @@ class User extends Authenticatable // implements MustVerifyEmail
 
     const ADMIN_ID = [1, 2];
 
+    const POSITTION = ['BOD' => 1, 'HR' => 2];
+
     use Notifiable, HasApiTokens, HasRoles;
 
     //protected $guard_name = 'api';
@@ -32,7 +34,7 @@ class User extends Authenticatable // implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'note', 'description'
+        'name', 'email', 'password', 'note', 'description', 'posittion'
     ];
 
     /**

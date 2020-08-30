@@ -127,7 +127,7 @@ class UserRepository extends BaseRepository
 
     public function showAdmin($id)
     {
-        return $this->model->with('roles', 'type')->findOrFail($id);
+        return $this->model->with('roles')->findOrFail($id);
     }
 
     public function createAdmin(array $attributes)
@@ -136,6 +136,7 @@ class UserRepository extends BaseRepository
             'name' => $attributes['name'],
             'email' => $attributes['email'],
             'description' => $attributes['description'],
+            'posittion' => $attributes['posittion'],
             'password' => Hash::make($attributes['password']),
             'created_at' => now(),
             'updated_at' => now(),
