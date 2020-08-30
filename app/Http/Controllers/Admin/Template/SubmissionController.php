@@ -39,13 +39,10 @@ class SubmissionController extends Controller
         );
     }
 
-    public function show($form_id, $submission_id)
+    public function show( $submission_id)
     {
-        $submission = Submission::with('user', 'form')
-                            ->where([
-                                'form_id' => $form_id,
-                                'id' => $submission_id,
-                            ])
+        $submission = Submission::with('user', 'form', 'approvers')
+                            ->where('id', $submission_id)
                             ->firstOrFail();
 
         $form_headers = $submission->form->getEntriesHeader();

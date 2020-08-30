@@ -154,7 +154,6 @@ class FormController extends Controller
                 'category_id' => $request->get('category'),
             ]);
 
-
             if ($form->update($input)) {
                 DB::commit();
                 // dispatch the event
@@ -162,11 +161,11 @@ class FormController extends Controller
                 return response()
                         ->json([
                             'success' => true,
-                            'details' => 'Form successfully updated!',
-                            'dest' => route('template.index'),
+                            'details' => __('create_success'),
+                            'dest' => config('app.url') . "/admin/template",
                         ]);
             } else {
-                response()->json(['success' => false, 'details' => 'Failed to update the form.']);
+                response()->json(['success' => false, 'details' => __('create_failed')]);
             }
         } catch (Throwable $e) {
             info($e);
@@ -180,6 +179,8 @@ class FormController extends Controller
     {
         $user = auth()->user();
         $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        TemplateApprover::where('form_id', $form->id)->delete();
+        TemplateCategory::where('form_id', $form->id)->delete();
         $form->delete();
 
         // dispatch the event

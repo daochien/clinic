@@ -24,10 +24,10 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{{ $t('template.title')}}</th>
-                                    <th class="ten">{{ $t('template.category_title')}}</th>
-                                    <th class="fifteen">{{ $t('template.approver')}}</th>
-                                    <th class="ten">{{ $t('template.date_created')}}</th>
-                                    <th class="twenty-five">{{ $t('app.label.operator')}}</th>
+                                    <th>{{ $t('template.category_title')}}</th>
+                                    <th>{{$t('template.approver')}}</th>
+                                    <th>{{ $t('template.date_created')}}</th>
+                                    <th>{{ $t('app.label.operator')}}</th>
 
                                 </tr>
                                 </thead>
