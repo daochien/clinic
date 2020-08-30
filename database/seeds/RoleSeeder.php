@@ -54,34 +54,34 @@ class RoleSeeder extends Seeder
         $roleMobile->givePermissionTo($mobilePermissions);
 
         //create role operator
-        // $roleStaff = Role::create([
-        //     'id' => 5,
-        //     'name' => 'staff_management',
-        //     'guard_name' => 'web'
-        // ]);
+        $roleStaff = Role::create([
+            'id' => 5,
+            'name' => 'staff_management',
+            'guard_name' => 'web'
+        ]);
 
-        // $staffPermissions = $this->getPermissions(['role', 'group', 'manager', 'clinic', 'notification', 'request_template']);
-        // $roleStaff->givePermissionTo($staffPermissions);
+        $staffPermissions = $this->getPermissions(['role', 'group', 'manager', 'clinic', 'notification', 'request_template']);
+        $roleStaff->givePermissionTo($staffPermissions);
 
-        // //create role operator
-        // $clinicStaff = Role::create([
-        //     'id' => 6,
-        //     'name' => 'clinic_management',
-        //     'guard_name' => 'web'
-        // ]);
+        //create role operator
+        $clinicStaff = Role::create([
+            'id' => 6,
+            'name' => 'clinic_management',
+            'guard_name' => 'web'
+        ]);
 
-        // $clinicPermissions = $this->getPermissions(['role', 'group', 'manager', 'staff', 'notification', 'request_template']);
-        // $clinicStaff->givePermissionTo($clinicPermissions);
+        $clinicPermissions = $this->getPermissions(['role', 'group', 'manager', 'staff', 'notification', 'request_template']);
+        $clinicStaff->givePermissionTo($clinicPermissions);
 
-        // //create role operator
-        // $requestStaff = Role::create([
-        //     'id' => 7,
-        //     'name' => 'template_management',
-        //     'guard_name' => 'web'
-        // ]);
+        //create role operator
+        $requestStaff = Role::create([
+            'id' => 7,
+            'name' => 'template_management',
+            'guard_name' => 'web'
+        ]);
 
-        // $requestPermissions = $this->getPermissions(['role', 'group', 'manager', 'staff', 'notification', 'clinic']);
-        // $requestStaff->givePermissionTo($requestPermissions);
+        $requestPermissions = $this->getPermissions(['role', 'group', 'manager', 'staff', 'notification', 'clinic']);
+        $requestStaff->givePermissionTo($requestPermissions);
 
         // DB::table('roles')->insertOrIgnore(
         //     [
