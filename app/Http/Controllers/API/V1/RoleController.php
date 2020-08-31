@@ -12,7 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 class RoleController extends BaseController
 {
-    
+
     protected $role = '';
 
     protected $roleRepo;
@@ -40,26 +40,26 @@ class RoleController extends BaseController
     public function list()
     {
         $user = Auth::user();
-                        
+
         if ( in_array($user->email, User::ROOT_EMAIL_ADMIN) || $user->hasRole('admin')) {
             $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->pluck('name', 'id');
         } else {
             $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_ADMIN, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->pluck('name', 'id');
         }
-    
+
         return $this->sendResponse($roles, 'Role list');
     }
 
     public function store(RoleRequest $request)
     {
-        
+
         $role = $this->role->create([
             'name' => strtolower($request->name),
-            'guard_name' => 'api'
+            'guard_name' => 'web'
         ]);
 
         $permissions = $this->roleRepo->getNamePermissions($request->permissions);
-        
+
         if (!empty($permissions)) {
             //sync permissions to db
             $this->permission->sync($permissions);
@@ -86,15 +86,15 @@ class RoleController extends BaseController
         ]);
 
         $permissions = $this->roleRepo->getNamePermissions($request->permissions);
-        
+
         if (!empty($permissions)) {
             //sync permissions to db
             $this->permission->sync($permissions);
             //asign permission to role
             $role->syncPermissions($permissions);
         }
-            
-        return $this->sendResponse($role, 'Role Created Successfully');
+
+        return $this->sendResponse($role, 'Role Updated Successfully');
     }
 
     public function destroy($id)

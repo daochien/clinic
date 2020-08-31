@@ -11,7 +11,7 @@
                     <i class="fa fa-plus-square"></i>
                     {{ $t('role.button_create') }}
                 </router-link>
-            </div>            
+            </div>
         </div>
         <!-- End Page Header -->
 
@@ -21,7 +21,7 @@
                 <div class="col-12">
 
                     <div class="card" v-if="$gate.canPermission('role.index')">
-                        
+
                         <!-- /.card-header -->
                         <div class="card-body p-0">
                             <table class="table table-hover">
