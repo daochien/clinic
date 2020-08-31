@@ -31,6 +31,8 @@ class RoleSeeder extends Seeder
         ]);
 
         $adminPermissions = $this->getPermissions(['role', 'group']);
+        $adminPermissions = array_merge($adminPermissions, array('role.list', 'api.group.all'));
+        
         $roleAdmin->givePermissionTo($adminPermissions);
 
         //create role operator
