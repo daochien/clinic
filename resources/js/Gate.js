@@ -1,25 +1,27 @@
 export default class Gate{
 
     constructor(user){
-        this.user = user;               
+        this.user = user;
     }
 
     isRoot () {
         return this.user.is_root == 1;
     }
 
-    canPermission (permission) {        
+    canPermission (permission) {
         if (this.user.is_root) {
             return true;
         }
+
+        let check = false;
         this.user.permissions.forEach((item) => {
-            if (item.name === permission) {
-                return true;
+            if (item.name == permission) {
+                check = true;
             }
         });
-        return false;        
+        return check;
     }
-    
+
     isAdmin(){
         return true;
         // return this.user.role_users.type.name === 'Admin';

@@ -13,11 +13,11 @@
                     <i class="fa fa-plus-square"></i>
                     {{ $t('role.button_edit') }}
                 </button>
-            </div>   
+            </div>
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="card" v-if="$gate.isRoot()">                                        
+                <div class="card" v-if="$gate.isRoot()">
                     <div class="card-body">
                          <div class="form-group row">
                             <label for="feInputTitle" class="col-sm-2 col-form-label">{{ $t('role.input_name') }} <span style="color:#c4183c;">*</span></label>
@@ -116,14 +116,14 @@ export default {
             this.$Progress.finish();
         },
         createRole () {
-
+            this.$Progress.start();
             this.role.post('/api/role')
             .then((response) => {
+
                 Toast.fire({
                     icon: 'success',
                     title: response.data.message
                 });
-
                 this.$Progress.finish();
                 this.$router.push({path: '/admin/manager/roles'});
             })
@@ -132,11 +132,12 @@ export default {
                     icon: 'error',
                     title: 'Some error occured! Please try again'
                 });
+                this.$Progress.failed();
             })
         },
         updateRole () {
             this.$Progress.start();
-            // console.log('Editing data');
+
             this.role.put('/api/role/'+this.role.id)
             .then((response) => {
                 // success
@@ -145,8 +146,13 @@ export default {
                     title: response.data.message
                 });
                 this.$Progress.finish();
+                this.$router.push({path: '/admin/manager/roles'});
             })
             .catch(() => {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Some error occured! Please try again'
+                });
                 this.$Progress.fail();
             });
         },

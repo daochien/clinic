@@ -94,7 +94,7 @@ class RoleController extends BaseController
             $role->syncPermissions($permissions);
         }
 
-        return $this->sendResponse($role, 'Role Created Successfully');
+        return $this->sendResponse($role, 'Role Updated Successfully');
     }
 
     public function destroy($id)
