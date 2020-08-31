@@ -79,10 +79,11 @@ export default [
     {
         path: '/admin/role',
         component: {template: '<router-view/>'},
-        meta: {breadcrumb: `Group`},
+        meta: {breadcrumb: `役割管理`},
         children: [
-            { path: 'create', component: require('./components/admin/role/Role.vue').default, meta: {breadcrumb: `Create`} },
-            { path: 'edit/:id', component: require('./components/admin/role/Role.vue').default, meta: {breadcrumb: `List`} },
+            { path: '', component: require('./components/admin/role/Roles.vue').default, meta: {breadcrumb: `リストの役割`} },
+            { path: 'create', component: require('./components/admin/role/Role.vue').default, meta: {breadcrumb: `役割を作成`} },
+            { path: 'edit/:id', component: require('./components/admin/role/Role.vue').default, meta: {breadcrumb: `役割を編集`} },
         ]
     },
 

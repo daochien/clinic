@@ -17,7 +17,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="card" v-if="$gate.isRoot()">
+                <div class="card" v-if="$gate.canPermission('role.store')">
                     <div class="card-body">
                          <div class="form-group row">
                             <label for="feInputTitle" class="col-sm-2 col-form-label">{{ $t('role.input_name') }} <span style="color:#c4183c;">*</span></label>
@@ -59,7 +59,7 @@
                 <!-- /.card -->
             </div>
         </div>
-        <div v-if="!$gate.isRoot()">
+        <div v-if="!$gate.canPermission('role.store')">
             <not-found></not-found>
         </div>
     </div>
