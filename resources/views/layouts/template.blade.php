@@ -76,7 +76,7 @@
                             <i class="fas fa-clipboard-list"></i>
                             <span>{{ __('sidebar.request') }}</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-small">
+                        <div class="dropdown-menu dropdown-menu-small show">
                             {{--<a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>--}}
                             <a href="/admin/template" class="dropdown-item">
                                 {{ __('sidebar.templates') }}
@@ -88,29 +88,6 @@
                             @endforeach
                         </div>
                     </li>
-                    {{--<li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                            <i class="far fa-question-circle"></i>
-                            <span>{{ __('sidebar.inquiry') }}</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-small">
-                            <a href="/admin/inquiry" class="dropdown-item">
-                                {{ __('sidebar.templates') }}
-                            </a>
-                            <a href="/admin/request" class="dropdown-item">
-                                {{ __('sidebar.request') }}
-                            </a>
-                            <a href="/admin/inquiry" class="dropdown-item">
-                                {{ __('sidebar.inquiry') }}
-                            </a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/admin/blog" class="nav-link">
-                            <i class="fas fa-stream"></i>
-                            <span>{{ __('sidebar.blog') }}</span>
-                        </a>
-                    </li>--}}
                 </ul>
 
             </div>

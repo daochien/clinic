@@ -28,20 +28,21 @@ class RequestController extends BaseController
         $requests = Submission::from('form_submissions as s')
             ->join('template_category as tc', 'tc.form_id', 's.form_id')
             ->where('tc.category_id', $categoryId)
-            ->with(['requestLogs', 'requestComments', 'approvers', 'user'])
+            ->with(['requestLogs', 'requestComments', 'user', 'form.approvers'])
             ->latest()
             ->paginate(10);
-        $category = Category::find($categoryId);
 
         return $this->sendResponse($requests);
     }
 
     public function show($id)
     {
-        $submission = Submission::with('user', 'form', 'approvers','category')
+        $submission = Submission::with('user', 'form', 'form.approvers','form.category')
             ->where('id', $id)
             ->firstOrFail();
 
-        return $this->sendResponse($submission);
+        $form_headers = $submission->form->getEntriesHeader();
+
+        return $this->sendResponse(['submission' => $submission, 'form_headers' => $form_headers]);
     }
 }

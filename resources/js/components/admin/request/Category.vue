@@ -31,8 +31,8 @@
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ request.user.name }}</td>
                                     <td>
-                                        <div v-if="request.approvers.length !== 0">
-                                            <span class="badge badge-info ml-1" v-for="approver in request.approvers" :key="'sc_' + approver.id">
+                                        <div v-if="request.form.approvers.length !== 0">
+                                            <span class="badge badge-info ml-1" v-for="approver in request.form.approvers" :key="'sc_' + approver.id">
                                                 {{ approver.name}}
                                             </span>
                                         </div>
