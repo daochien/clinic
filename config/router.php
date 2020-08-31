@@ -5,15 +5,15 @@
             'groups' => [
                 'view' => [
                         'name' => 'View list',
-                        'routes' => ['role.index']
+                        'routes' => ['role.index', 'permission.routes']
                     ],
                 'create' => [
                         'name' => 'Create',
-                        'routes' => ['role.store']
+                        'routes' => ['role.store', 'permission.routes']
                     ],
                 'update' => [
                         'name' => 'Update',
-                        'routes' => ['role.update', 'role.show']
+                        'routes' => ['role.update', 'role.show', 'permission.routes']
                     ],
                 'delete' => [
                         'name' => 'Delete',
