@@ -96,6 +96,14 @@
                     </router-link>--}}
                 </div>
             </li>
+
+            <li class="nav-item">
+                <router-link to="/admin/page/create" class="nav-link">
+                    <i class="far fa-bell"></i>
+                    <span>{{ __('sidebar.page') }}</span>
+                </router-link>
+            </li>
+
             {{--<li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
                     <i class="far fa-question-circle"></i>

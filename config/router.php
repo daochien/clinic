@@ -211,26 +211,26 @@
         //         ]
         //     ]
         // ],
-        // 'page' => [
-        //     'name' => 'Page management',
-        //     'groups' => [
-        //         'view' => [
-        //             'name' => 'View list',
-        //             'routes' => []
-        //         ],
-        //         'create' => [
-        //             'name' => 'Create',
-        //             'routes' => [],
-        //         ],
-        //         'update' => [
-        //             'name' => 'Update',
-        //             'routes' => []
-        //         ],
-        //         'delete' => [
-        //             'name' => 'Delete',
-        //             'routes' => []
-        //         ]
-        //     ]
-        // ]
+        'page' => [
+            'name' => 'Page management',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => ['page.blogs', 'page.blogLatest', 'page.manualLatest', 'page.faqLatest']
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => ['page.store'],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => ['page.show', 'page.store']
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => ['page.destroy']
+                ]
+            ]
+        ]
     ];
 ?>

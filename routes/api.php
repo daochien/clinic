@@ -64,11 +64,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('permission/routes', 'API\V1\PermissionController@listRoutes')->name('permission.routes');
 
         Route::post('page/upload-image-content', 'API\V1\PageController@uploadImageContent')->name('page.uploadImageContent');
-        
+
         Route::get('category/type/{type}', 'API\V1\CategoryController@getByType')->name('category.list.by.type');
         Route::get('template/{id}', 'API\V1\TemplateController@show')->name('api.template.show');
         Route::delete('template/{id}', 'API\V1\TemplateController@destroy')->name('api.template.destroy');
         Route::get('template/', 'API\V1\TemplateController@index')->name('template.index');
+
+        Route::get('page/blogs', 'API\V1\PageController@blogs')->name('page.blogs');
+        Route::get('page/blog-latest', 'API\V1\PageController@blogLatest')->name('page.blogLatest');
+        Route::get('page/manual-latest', 'API\V1\PageController@manualLatest')->name('page.manualLatest');
+        Route::get('page/faq-latest', 'API\V1\PageController@faqLatest')->name('page.faqLatest');
 
         Route::apiResources([
             'user' => 'API\V1\UserController',
