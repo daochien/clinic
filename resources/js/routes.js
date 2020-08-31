@@ -31,7 +31,7 @@ export default [
         component: {template: '<router-view/>'},
         meta: {breadcrumb: `申請管理`},
         children: [
-            { path: '', component: require('./components/admin/template/Index.vue').default, meta: {breadcrumb: `申請テンプレート`} },
+            { path: '', component: require('./components/admin/template/Index.vue').default, name:'template.list', meta: {breadcrumb: `申請テンプレート`} },
         ]
     },
 
