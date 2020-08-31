@@ -13,7 +13,7 @@ class NotificationSeeder extends Seeder
      */
     public function run()
     {
-        try {
+//        try {
             DB::beginTransaction();
             $bodUser = \App\Models\User::where('email', 'bod@gmail.com')->first();
             if (!$bodUser) {
@@ -26,7 +26,7 @@ class NotificationSeeder extends Seeder
                     'posittion' => \App\Models\User::POSITTION['BOD'],
                 ]);
             }
-
+            $bodUser = \App\Models\User::where('email', 'bod@gmail.com')->first();
             $hrUser = \App\Models\User::where('email', 'hr@gmail.com')->first();
             if (!$hrUser) {
                 $hrUser = \App\Models\User::insert([
@@ -38,6 +38,7 @@ class NotificationSeeder extends Seeder
                     'posittion' => \App\Models\User::POSITTION['HR'],
                 ]);
             }
+            $hrUser = \App\Models\User::where('email', 'hr@gmail.com')->first();
 
             $notificationsData = [];
             for ($i = 1; $i <= 20; $i ++) {
@@ -78,6 +79,7 @@ class NotificationSeeder extends Seeder
                     'posittion' => 0,
                 ]);
             }
+            $webappUser = \App\Models\User::where('email', 'webapp@gmail.com')->first();
 
             $notificationUsersData = [];
             $notifications = \App\Models\Notification::all();
@@ -92,9 +94,9 @@ class NotificationSeeder extends Seeder
 
             $notificationUsers = DB::table('notification_users')->insert($notificationUsersData);
             DB::commit();
-        } catch (\Exception $e) {
-            var_dump($e->getMessage());
-            DB::rollBack();
-        }
+//        } catch (\Exception $e) {
+//            var_dump($e->getMessage());
+//            DB::rollBack();
+//        }
     }
 }
