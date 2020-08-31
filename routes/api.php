@@ -51,9 +51,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('clinic/{id}/user', 'API\V1\ClinicController@addUsers')->name('clinic.add.users');
         Route::get('clinic/all', 'API\V1\ClinicController@getAll')->name('api.clinic.all');
 
-        Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');
-        Route::get('setting/level', 'API\V1\SettingController@getLevel')->name('api.setting.level');
-
         Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
 
         Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');

@@ -59,7 +59,7 @@ class UserRepository extends BaseRepository
         return User::from('users as u')
             ->join('model_has_roles as mhr', 'mhr.model_id', 'u.id')
             ->whereIn('mhr.role_id', array_values(User::USER_ROLE))
-            ->with(['role', 'group', 'clinic'])->paginate(10);
+            ->with(['role', 'group', 'clinic', 'type'])->paginate(10);
     }
 
     public function get()
@@ -93,14 +93,19 @@ class UserRepository extends BaseRepository
                 $join->on('cu.user_id', 'u.id')->where('cu.clinic_id', $param['clinic_id']);
             });
         }
-
-        if (isset($param['group_id'])) {
-            $query->join('group_users as gu', function ($join) use ($param) {
-                $join->on('gu.user_id', 'u.id')->where('gu.group_id', $param['group_id']);
+//
+//        if (isset($param['group_id'])) {
+//            $query->join('group_users as gu', function ($join) use ($param) {
+//                $join->on('gu.user_id', 'u.id')->where('gu.group_id', $param['group_id']);
+//            });
+//        }
+        if (isset($param['type_id'])) {
+            $query->join('type_users as tp', function ($join) use ($param) {
+                $join->on('tp.user_id', 'u.id')->where('tp.type_id', $param['type_id']);
             });
         }
 
-        return $query->with(['role', 'group','clinic'])->select('u.*')->paginate(10);
+        return $query->with(['role', 'type','clinic'])->select('u.*')->paginate(10);
     }
 
     /**
