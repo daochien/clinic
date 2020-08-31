@@ -27,11 +27,23 @@ class NotificationSeeder extends Seeder
                 ]);
             }
 
+            $hrUser = \App\Models\User::where('email', 'hr@gmail.com')->first();
+            if (!$hrUser) {
+                $hrUser = \App\Models\User::insert([
+                    'name' => 'hr',
+                    'email' => 'hr@gmail.com',
+                    'password' => \Illuminate\Support\Facades\Hash::make(123123),
+                    'note' => 'hr',
+                    'description' => 'hr',
+                    'posittion' => \App\Models\User::POSITTION['HR'],
+                ]);
+            }
+
             $notificationsData = [];
             for ($i = 1; $i <= 20; $i ++) {
                 $notificationsData[] = [
-                    'title' => "Notification $i",
-                    'content' => "Notification content ". now() . ' - id ' . $i,
+                    'title' => "BOD Notification $i",
+                    'content' => "BOD Notification content ". now() . ' - id ' . $i,
                     'confirm' => rand(0,1),
                     'draft' => 0,
                     'schedule_date' => now(),
@@ -39,10 +51,24 @@ class NotificationSeeder extends Seeder
                 ];
             }
             \App\Models\Notification::insert($notificationsData);
+
+            $notificationsData = [];
+            for ($i = 1; $i <= 20; $i ++) {
+                $notificationsData[] = [
+                    'title' => "HR Notification $i",
+                    'content' => "HR Notification content ". now() . ' - id ' . $i,
+                    'confirm' => rand(0,1),
+                    'draft' => 0,
+                    'schedule_date' => now(),
+                    'created_by' => $hrUser->id,
+                ];
+            }
+            \App\Models\Notification::insert($notificationsData);
+
             // create user webapp.
             $webappUser = \App\Models\User::where('email', 'webapp@gmail.com')->first();
             if (!$webappUser) {
-                $webappUser = DB::table('users')->insert([
+                $webappUser = \App\Models\User::insert([
                     'id' => 9999,
                     'name' => 'webapp',
                     'email' => 'webapp@gmail.com',
