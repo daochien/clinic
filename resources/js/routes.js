@@ -1,4 +1,5 @@
 export default [
+    { path: '/notification', component: require('./components/client/notification/Index.vue').default },
     { path: '/admin/dashboard', component: require('./components/admin/Dashboard.vue').default },
     { path: '/admin/profile', component: require('./components/admin/Profile.vue').default },
 

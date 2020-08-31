@@ -247,7 +247,7 @@ class NotificationService
 
     public function fetch($filters)
     {
-        $notificationUsers = NotificationUser::with(['userStatus', 'notification'])->orderBy('notifications.created_at', 'desc');
+        $notificationUsers = NotificationUser::with(['userStatus', 'notification', 'notification.creator'])->orderBy('notifications.created_at', 'desc');
         if (!empty($filters['user_id'])) {
             $notificationUsers->where('user_id', $filters['user_id']);
         }
@@ -260,6 +260,6 @@ class NotificationService
                 ->join('users', 'users.id', 'notifications.created_by')->where('users.posittion', '!=', $filters['from']);
         }
 
-        return $notificationUsers->select('notifications.*')->paginate(20);
+        return $notificationUsers->whereHas('notification')->select('notification_users.*')->paginate(20);
     }
 }
