@@ -1,5 +1,15 @@
 <template>
-    <div class="row">
+    <div class="container-fluid">
+        <div class="page-header row no-gutters py-4">
+            <div class="col-12 col-sm-8 text-center text-sm-left mb-0">
+                <h3 class="page-title">{{ isEdit ? $t('manager.title_page_edit') : $t('manager.title_page_create') }}</h3>
+            </div>
+            <div class="col-12 col-sm-4 text-center text-sm-right mb-0">
+                <button v-if="isEdit" class="btn mb-2 btn-sm btn-salmon" @click="removeAdmin(manager.id)">{{ $t('manager.form_create.button_remove') }}</button>
+                <button class="mb-2 btn btn-sm btn-primary" v-if="!isEdit" @click="createAdmin()"> {{ $t('manager.form_create.button_create') }}</button>
+                <button class="mb-2 btn btn-sm btn-primary" v-else @click="updateAdmin()"> {{ $t('manager.form_create.button_edit') }}</button>
+            </div>  
+        </div>
         <div class="col-12 col-sm-10 offset-sm-1">
             <div class="card card-small mb-3">
                 <div class="card-header border-bottom">
@@ -76,16 +86,8 @@
                             cols="30" rows="10"></textarea>
                             <div class="invalid-feedback" v-if="!$v.manager.description.maxLength">{{ $t('manager.validator.note_maxLength') }}</div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 text-right">
-                            <span v-if="isEdit" class="mr-2" style="color:#EB5757; cursor: pointer;" @click="removeAdmin()">{{ $t('manager.form_create.button_remove') }}</span>
-                            <button class="mb-2 btn btn-sm btn-primary" v-if="!isEdit" @click="createAdmin()"> {{ $t('manager.form_create.button_create') }}</button>
-                            <button class="mb-2 btn btn-sm btn-primary" v-else @click="updateAdmin()"> {{ $t('manager.form_create.button_edit') }}</button>
-                        </div>
-                    </div>
-                </div>
-                <confirm-remove v-if="isEdit" :id="manager.id" @remove-success="removeSuccess" />
+                    </div>                    
+                </div>                
             </div>
         </div>
     </div>
@@ -93,16 +95,12 @@
 
 <script>
 
-import ConfirmRemove from './ConfirmRemove';
 import { required, minLength, between, requiredIf, email, maxLength, numeric, minValue } from 'vuelidate/lib/validators';
 
 export default {
     props: {
         isEdit: Boolean
-    },
-    components: {
-        ConfirmRemove
-    },
+    },    
     data () {
         return {
             manager: {
@@ -235,7 +233,7 @@ export default {
                 axios.put('/api/manager/'+this.manager.id, this.manager)
                 .then( (data) => {
                     if(data.data.success) {
-                        // this.$router.push({path: '/admin/manager'});
+                        this.$router.push({path: '/admin/manager'});                        
                         Toast.fire({
                             icon: 'success',
                             title: this.$t('manager.form_create.alert_edit_success')
@@ -258,14 +256,32 @@ export default {
                 })
             }
         },
-        removeAdmin (id) {
-            this.idRemove = id;
-            $('#removeAdmin').modal('show');
-        },
-        removeSuccess () {
-            $('#removeAdmin').modal('hide');
-            this.$router.push({path: '/admin/manager'});
-        },
+        removeAdmin (id) {            
+            Swal.fire({
+                title: this.$t('app').popup.are_you_sure,
+                text: this.$t('app').popup.you_wont_able_revert,
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: this.$t('app').popup.delete_it
+            }).then((result) => {
+                // Send request to the server
+                if (result.value) {
+                    
+                    axios.delete('/api/manager/'+id).then(() => {
+                        Swal.fire(
+                            this.$t('app').popup.deleted,
+                            this.$t('app').popup.your_item_has_been_deleted,
+                            'success'
+                        );
+                        // Fire.$emit('AfterCreate');
+                        this.$router.push({path: '/admin/manager'});
+                    }).catch((data) => {
+                        Swal.fire("Failed!", data.message, "warning");
+                    });
+                }
+            })
+        },        
     }
 
 }
