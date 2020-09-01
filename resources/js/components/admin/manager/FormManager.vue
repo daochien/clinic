@@ -24,8 +24,8 @@
                             :class="['form-control', {'is-invalid': $v.manager.name.$error}]"
                             type="text"
                             v-model.trim="$v.manager.name.$model">
-                            <div class="invalid-feedback" v-if="!$v.manager.name.required">{{ $t('manager.validator.name_required') }}</div>
-                            <div class="invalid-feedback" v-if="!$v.manager.name.maxLength">{{ $t('manager.validator.name_maxLength') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.name.required">{{ $t('validator.name_required') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.name.maxLength">{{ $t('validator.name_maxLength') }}</div>
                         </div>
                         <div class="form-group col-12 col-sm-6">
                             <label for="feInputTitle">{{ $t('admin.attr._mail_address') }} <span style="color:#c4183c;">*</span></label>
@@ -33,9 +33,9 @@
                             :placeholder="$t('admin.info.form._mail_address_pl')"
                             :class="['form-control', {'is-invalid': $v.manager.email.$error}]"
                             type="text" v-model.trim="$v.manager.email.$model">
-                            <div class="invalid-feedback" v-if="!$v.manager.email.required">{{ $t('manager.validator.email_required') }}</div>
-                            <div class="invalid-feedback" v-if="!$v.manager.email.email">{{ $t('manager.validator.email_valid') }}</div>
-                            <div class="invalid-feedback" v-if="!$v.manager.name.maxLength">{{ $t('manager.validator.email_maxLength') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.email.required">{{ $t('validator.email_required') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.email.email">{{ $t('validator.email_valid') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.name.maxLength">{{ $t('validator.email_maxLength') }}</div>
                         </div>
                     </div>
                     <div class="row">
@@ -86,7 +86,7 @@
                             v-model="$v.manager.description.$model"
                             class="form-control"
                             cols="30" rows="10"></textarea>
-                            <div class="invalid-feedback" v-if="!$v.manager.description.maxLength">{{ $t('manager.validator.note_maxLength') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.description.maxLength">{{ $t('validator.note_maxLength') }}</div>
                         </div>
                     </div>                    
                 </div>                

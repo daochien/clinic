@@ -27,15 +27,14 @@ return [
             '_mail_address_pl' => 'メールアドレスを入力してください',
         ],
         'messages' => [
-            '_login_failed' => 'パスワード再設定に失敗しました。',
+            '_send_mail_success' => 'パスワード再設定のメールを送信しました。',
+            '_send_mail_failed' => 'パスワード再設定のメール送信に失敗しました。',
         ],
         'others' => [
             '_btn_login' => 'パスワードを再設定',
             '_link_back_to_login' => 'ログイン画面へ戻す',
         ],
     ],
-    'failed' => 'Ja_These credentials do not match our records.',
-    'throttle' => 'Ja_Too many login attempts. Please try again in :seconds seconds.',
     'title_form' => '社内ポータルサイト',
     'email_title' => 'メールアドレス',
     'email_holder' => 'メールアドレスを入力してください',
@@ -46,8 +45,5 @@ return [
     'forgot_password' => 'パスワードを忘れた方はこちら?',
     'title_reset' => 'パスワードを忘れた方はこちら?',
     'confirm_password' => 'パスワードを認証する',
-    'new_password' => '新しいパスワード',
     'reset_btn' => 'リセット',
-    'logout' => 'ログアウト',
-
 ];
