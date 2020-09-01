@@ -21,10 +21,10 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label>{{ $t('app.user.group')}}</label>
-                                                <select class="form-control" id="groups" v-model="groupSelected">
+                                                <label>{{ $t('app.user.type')}}</label>
+                                                <select class="form-control" id="groups" v-model="typeSelected">
                                                     <option value="" selected>{{ $t('app.user.group_select_all') }}</option>
-                                                    <option v-for="group in groups" :key="'group_' + group.id" :value="group.id" >{{ group.name }}</option>
+                                                    <option v-for="tp in type" :key="'tp_' + tp.id" :value="tp.id" >{{ tp.name }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -83,7 +83,7 @@
                                     <th>#</th>
                                     <th>{{ $t('app.user.name') }}</th>
                                     <th>{{ $t('app.user.email') }}</th>
-                                    <th>{{ $t('app.user.group') }}</th>
+                                    <th>{{ $t('app.user.type') }}</th>
                                     <th>{{ $t('app.user.clinic_name') }}</th>
                                     <th>{{ $t('app.user.last_login_date') }}</th>
                                     <th>{{ $t('app.label.operator') }}</th>
@@ -95,9 +95,9 @@
                                     <td class="text-capitalize">{{user.name}}</td>
                                     <td>{{user.email}}</td>
                                     <td>
-                                        <template v-if="user.groups.length !== 0">
-                                             <span class="badge badge-info ml-1" v-for="group in user.groups" :key="'sg_' + group.id">
-                                                {{ group.name}}
+                                        <template v-if="user.type.length !== 0">
+                                             <span class="badge badge-info ml-1" v-for="type in user.type" :key="'tp_' + type.id">
+                                                {{ type.name}}
                                             </span>
                                         </template>
                                         <div v-else> -</div>
@@ -156,18 +156,18 @@
             return {
                 users: [],
                 clinics: [],
-                groups: [],
+                type: [],
                 paginator: {},
                 keyword: "",
                 clinicSelected: "",
-                groupSelected: "",
+                typeSelected: "",
             }
         },
         methods: {
             getResults(page = 1) {
                 this.$Progress.start();
                 axios
-                .get("/api/user/search?keyword= " + this.keyword + "&page=" + page + "&clinic_id=" + this.clinicSelected + "&group_id=" + this.groupSelected)
+                .get("/api/user/search?keyword= " + this.keyword + "&page=" + page + "&clinic_id=" + this.clinicSelected + "&type_id=" + this.typeSelected)
                     .then((response) => {
                     this.users = response.data.data;
                     this.paginator = response.data.meta
@@ -205,9 +205,9 @@
                     this.paginator = response.data.meta
                 });
             },
-            loadGroup() {
-                axios.get("/api/group/all").then((response) => {
-                    this.groups = response.data.data;
+            loadType() {
+                axios.get("/api/setting/type").then((response) => {
+                    this.type = response.data.data;
                 });
             },
             loadClinic() {
@@ -222,7 +222,7 @@
         created() {
             this.$Progress.start();
             this.loadUsers();
-            this.loadGroup();
+            this.loadType();
             this.loadClinic();
             this.$Progress.finish();
         }
