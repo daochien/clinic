@@ -31,7 +31,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             ->group(function (): void {
                 Route::get('/{id}/members', 'NotificationController@members');
                 Route::get('/{id}/show', 'NotificationController@show');
-                Route::post('/store', 'NotificationController@store');
+                Route::post('/store', 'NotificationController@store')->name('notification.store');
                 Route::post('/search', 'NotificationController@search');
                 Route::post('/detailSearch', 'NotificationController@detailSearch');
             });

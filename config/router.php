@@ -68,7 +68,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['user.index', 'api.user.search']                    
+                    'routes' => ['user.index', 'api.user.search']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -118,12 +118,12 @@
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['notification.update', 'notification.show']
+                    'routes' => ['notification.update', 'notification.show', 'notification.store']
                 ],
                 'delete' => [
                     'name' => 'Delete',
                     'routes' => ['notification.destroy']
-                ]
+                ],
             ]
         ],
         'request_template' => [
