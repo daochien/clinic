@@ -61,7 +61,7 @@
             </div> <!-- / .main-navbar -->
 
             <div class="main-content-container container-fluid px-4">
-                <router-view></router-view>
+                <router-view :key="$route.fullPath"></router-view>
                 <vue-progress-bar></vue-progress-bar>
                 {{-- /.content --}}
             </div>
@@ -80,14 +80,15 @@
             window.user.is_root = '{!! auth()->user()->isRoot() !!}';
             window.user.roles = @json(auth()->user()->roles);
             window.user.permissions = @json(auth()->user()->getAllPermissions());
+            window.user.posittion = @json(\App\Models\User::POSITTION);
     </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>
 <script src="{{ ('/js/toastr.min.js') }}"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+{{--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
-<script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
+<script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>--}}
 {!! Toastr::message() !!}
 </body>
 </html>

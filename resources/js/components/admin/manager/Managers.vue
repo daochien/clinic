@@ -62,8 +62,8 @@
                             <tbody>
                                 <tr v-for="(item, index) in admins" :key="index">
                                     <td>{{ index + 1 }}</td>
-                                    <td>{{ item.name }}</td>
-                                    <td>{{ item.email }}</td>
+                                    <td>{{ item.name | limitString20 }}</td>
+                                    <td>{{ item.email | limitString20 }}</td>
                                     <td>
                                         <span class="mr-2" v-for="(role, roleIndex) in item.roles" :key="roleIndex">
                                             {{ role.name }}
@@ -81,7 +81,7 @@
                                                 aria-haspopup="true"
                                                 aria-expanded="false"
                                             ></i>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="operatingAction">                                                    
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="operatingAction">
                                                 <router-link class="dropdown-item text-primary" :to="{path: `/admin/manager/edit/${item.id}`}">
                                                     {{ $t('app.btn.edit')}}
                                                 </router-link>
@@ -89,7 +89,7 @@
                                                     {{$t('app.btn.delete')}}
                                                 </a>
                                             </div>
-                                        </div>                                       
+                                        </div>
                                     </td>
                                 </tr>
                             </tbody>
@@ -100,19 +100,14 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <confirm-remove :id="idRemove" @remove-success="removeSuccess"/>
+        </div>        
     </div>
 </template>
 
 <script>
 
-import ConfirmRemove from './ConfirmRemove';
-
 export default {
-    components: {
-        ConfirmRemove
-    },
+    
     data () {
         return {
             admins: [],
@@ -171,14 +166,32 @@ export default {
                 console.log(error);
             });
         },
-        removeAdmin (id) {
-            this.idRemove = id;
-            $('#removeAdmin').modal('show');
-        },
-        removeSuccess () {
-            $('#removeAdmin').modal('hide');
-            this.loadListAdmin();
-        },
+        removeAdmin (id) {            
+            Swal.fire({
+                title: this.$t('app').popup.are_you_sure,
+                text: this.$t('app').popup.you_wont_able_revert,
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: this.$t('app').popup.delete_it
+            }).then((result) => {
+                // Send request to the server
+                if (result.value) {
+                    
+                    axios.delete('/api/manager/'+id).then(() => {
+                        Swal.fire(
+                            this.$t('app').popup.deleted,
+                            this.$t('app').popup.your_item_has_been_deleted,
+                            'success'
+                        );
+                        // Fire.$emit('AfterCreate');
+                        this.loadListAdmin();
+                    }).catch((data) => {
+                        Swal.fire("Failed!", data.message, "warning");
+                    });
+                }
+            })
+        },        
         clearFilter () {
             this.form_filter.role = '';
             this.form_filter.keyword = '';

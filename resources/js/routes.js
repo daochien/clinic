@@ -1,4 +1,7 @@
 export default [
+
+    { path: '/blogs', component: require('./components/front-end/Page.vue').default },
+
     { path: '/admin/dashboard', component: require('./components/admin/Dashboard.vue').default },
     { path: '/admin/profile', component: require('./components/admin/Profile.vue').default },
 
@@ -31,12 +34,23 @@ export default [
         component: {template: '<router-view/>'},
         meta: {breadcrumb: `申請管理`},
         children: [
-            { path: '', component: require('./components/admin/template/Index.vue').default, meta: {breadcrumb: `申請テンプレート`} },
-            // { path: 'create', component: require('./components/admin/template/Create.vue').default , meta: {breadcrumb: `申請テンプレート`}},
+            { path: '', component: require('./components/admin/template/Index.vue').default, name:'template.list', meta: {breadcrumb: `申請テンプレート`} },
         ]
     },
 
-    { path: '*', component: require('./components/NotFound.vue').default },
+    {
+        path: '/admin/request',
+        component: {template: '<router-view/>'},
+        meta: {breadcrumb: `申請管理`},
+        children: [
+            { path: '', component: require('./components/admin/request/Index.vue').default,meta: {breadcrumb: `申請一覧`}},
+            { path: 'category/:id', component: require('./components/admin/request/Category.vue').default,meta: {breadcrumb: `申請一覧`}},
+            { path: ':id', component: require('./components/admin/request/Request.vue').default, meta: {breadcrumb: `申請詳細情報`} },
+
+        ]
+    },
+
+    // { path: '*', component: require('./components/NotFound.vue').default },
 
     {
         path: '/admin/notification',
@@ -80,10 +94,20 @@ export default [
     {
         path: '/admin/role',
         component: {template: '<router-view/>'},
-        meta: {breadcrumb: `Group`},
+        meta: {breadcrumb: `役割管理`},
         children: [
-            { path: 'create', component: require('./components/admin/role/Role.vue').default, meta: {breadcrumb: `Create`} },
-            { path: 'edit/:id', component: require('./components/admin/role/Role.vue').default, meta: {breadcrumb: `List`} },
+            { path: '', component: require('./components/admin/role/Roles.vue').default, meta: {breadcrumb: `リストの役割`} },
+            { path: 'create', component: require('./components/admin/role/Role.vue').default, meta: {breadcrumb: `役割を作成`} },
+            { path: 'edit/:id', component: require('./components/admin/role/Role.vue').default, meta: {breadcrumb: `役割を編集`} },
+        ]
+    },
+
+    {
+        path: '/admin/page',
+        component: {template: '<router-view/>'},
+        name: 'page', meta: {breadcrumb: `Page`},
+        children: [
+            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Create`} },
         ]
     },
 ];

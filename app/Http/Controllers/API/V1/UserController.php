@@ -59,9 +59,7 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $users = $this->repository->with(['role', 'group', 'clinic'])->paginate(10);
-
-        return new UserCollection($users);
+        return new UserCollection($this->repository->listUser());
     }
 
     /**
@@ -80,7 +78,7 @@ class UserController extends BaseController
             $attributes = $request->validated();
             $user = $this->service->createUser($attributes);
 
-            return $this->sendResponse($user);
+            return $this->sendResponse($user, __('app.popup.create_success'));
         } catch (\Exception $exception) {
             return $this->sendError($exception->getMessage());
         }
@@ -101,7 +99,7 @@ class UserController extends BaseController
             $attributes = $request->validated();
             $user = $this->service->updateUser($id, $attributes);
 
-            return $this->sendResponse($user);
+            return $this->sendResponse($user, __('app.popup.update_success'));
         } catch (\Exception $exception) {
             return $this->sendError($exception->getMessage());
         }
@@ -115,7 +113,7 @@ class UserController extends BaseController
      */
     public function destroy($id)
     {
-        $this->authorize('isAdmin');
+//        $this->authorize('isAdmin');
         $user = User::findOrFail($id);
         // delete the user
         $user->delete();
@@ -125,7 +123,7 @@ class UserController extends BaseController
 
     public function getAllGroup()
     {
-        return new GroupCollection(Group::orderByDesc('id')->get());
+        return new GroupCollection(Group::orderBy('id')->get());
     }
 
     public function getAllGroupDefault()

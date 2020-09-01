@@ -38,14 +38,14 @@ class UserRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'name' => 'required|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users',
+            'name' => 'required|string|max:50',
+            'email' => 'required|string|email|max:255|unique:users',
             'type_id' => 'required',
-            'groups' => 'required',
+//            'groups' => 'required',
             'clinics' => 'required',
             'role' => 'required',
-            'level_id' => 'nullable',
-            'description' => 'nullable',
+//            'level_id' => 'nullable',
+            'description' => 'nullable|max:500',
         ];
     }
 
@@ -57,14 +57,14 @@ class UserRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'name' => 'sometimes|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users,email,' . $this->get('id'),
+            'name' => 'sometimes|string|max:50',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $this->get('id'),
             'type_id' => 'required',
-            'groups' => 'required',
+//            'groups' => 'required',
             'clinics' => 'required',
             'role' => 'required',
-            'level_id' => 'nullable',
-            'description' => 'nullable',
+//            'level_id' => 'nullable',
+            'description' => 'nullable|max:500',
         ];
     }
 }

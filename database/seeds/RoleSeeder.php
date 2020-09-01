@@ -17,7 +17,7 @@ class RoleSeeder extends Seeder
         $roleSuperUser = Role::create([
             'id' => 1,
             'name' => 'super_user',
-            'guard_name' => 'api'
+            'guard_name' => 'web'
         ]);
 
         $superPermissions = $this->getPermissions();
@@ -27,17 +27,19 @@ class RoleSeeder extends Seeder
         $roleAdmin = Role::create([
             'id' => 2,
             'name' => 'admin',
-            'guard_name' => 'api'
+            'guard_name' => 'web'
         ]);
 
         $adminPermissions = $this->getPermissions(['role', 'group']);
+        $adminPermissions = array_merge($adminPermissions, array('role.list', 'api.group.all'));
+        
         $roleAdmin->givePermissionTo($adminPermissions);
 
         //create role operator
         $roleWeb = Role::create([
             'id' => 3,
             'name' => 'staff_web',
-            'guard_name' => 'api'
+            'guard_name' => 'web'
         ]);
 
         $webPermissions = $this->getPermissions(['role', 'group', 'manager']);
@@ -47,11 +49,41 @@ class RoleSeeder extends Seeder
         $roleMobile = Role::create([
             'id' => 4,
             'name' => 'staff_mobile',
-            'guard_name' => 'api'
+            'guard_name' => 'web'
         ]);
 
         $mobilePermissions = $this->getPermissions(['role', 'group', 'manager']);
         $roleMobile->givePermissionTo($mobilePermissions);
+
+        //create role operator
+        $roleStaff = Role::create([
+            'id' => 5,
+            'name' => 'staff_management',
+            'guard_name' => 'web'
+        ]);
+
+        $staffPermissions = $this->getPermissions(['role', 'group', 'manager', 'clinic', 'notification', 'request_template']);
+        $roleStaff->givePermissionTo($staffPermissions);
+
+        //create role operator
+        $clinicStaff = Role::create([
+            'id' => 6,
+            'name' => 'clinic_management',
+            'guard_name' => 'web'
+        ]);
+
+        $clinicPermissions = $this->getPermissions(['role', 'group', 'manager', 'staff', 'notification', 'request_template']);
+        $clinicStaff->givePermissionTo($clinicPermissions);
+
+        //create role operator
+        $requestStaff = Role::create([
+            'id' => 7,
+            'name' => 'template_management',
+            'guard_name' => 'web'
+        ]);
+
+        $requestPermissions = $this->getPermissions(['role', 'group', 'manager', 'staff', 'notification', 'clinic']);
+        $requestStaff->givePermissionTo($requestPermissions);
 
         // DB::table('roles')->insertOrIgnore(
         //     [
@@ -91,7 +123,7 @@ class RoleSeeder extends Seeder
             if (!in_array($item, $permissionsExists)) {
                 $insertPermissions[] = [
                     'name' => $item,
-                    'guard_name' => 'api'
+                    'guard_name' => 'web'
                 ];
             }
         }

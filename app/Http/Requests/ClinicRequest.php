@@ -37,10 +37,10 @@ class ClinicRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'name' => 'required|string|max:200|unique:clinics',
+            'name' => 'required|string|max:50|unique:clinics',
             'post_code' => 'nullable|string|max:50',
-            'address' => 'required|string|max:200',
-            'description' => 'max:1000',
+            'address' => 'required|string|max:100',
+            'description' => 'max:500',
         ];
     }
 
@@ -52,10 +52,10 @@ class ClinicRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'name' => 'required|string|max:200|unique:clinics,name,' . $this->get('id'),
-            'post_code' => 'sometimes|nullable|string|max:50',
-            'address' => 'required|string|max:200',
-            'description' => 'max:1000',
+            'name' => 'required|string|max:50|unique:clinics,name,' . $this->get('id'),
+            'post_code' => 'sometimes|nullable|string|max:100',
+            'address' => 'required|string|max:100',
+            'description' => 'max:500',
         ];
     }
 }

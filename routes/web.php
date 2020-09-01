@@ -9,10 +9,12 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
+Route::get('/blogs', 'HomeController@blog')->name('home.blog');
+
 //Route::get('/admin', 'Admin\HomeController@index')->name('admin_dashboard');
 //Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/admin/template', 'Admin\Template\FormController');
+Route::resource('/admin/template', 'Admin\Template\FormController')->except('index');
 
 Route::prefix('/admin/template')
     ->namespace('Admin\Template')

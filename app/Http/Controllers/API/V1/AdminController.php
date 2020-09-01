@@ -30,8 +30,8 @@ class AdminController extends BaseController
     {
         $roles = $this->roleRepo->pluckName();
         $admins = $this->userRepo->listAdmin($roles, $request->only('role', 'keyword'));
-        
-        return new AdminCollection($admins);        
+
+        return new AdminCollection($admins);
     }
 
     public function store(AdminRequest $request)
@@ -47,24 +47,24 @@ class AdminController extends BaseController
 
     public function show($id)
     {
-        
+
         $admin = $this->userRepo->showAdmin($id);
-        
+
         return $this->sendResponse($admin, 'Admin Details');
     }
 
     public function update(AdminRequest $request, $id)
     {
         $admin = $this->service->updateAdmin($id, $request->all());
-       
+
         return $this->sendResponse($admin, 'Admin Information has been updated');
     }
 
     public function destroy($id)
     {
-        
+
         $roleRoot = $this->roleRepo->show(1);
-        
+
         $admin = $this->user->findOrFail($id);
 
         if ($admin->hasRole($roleRoot->name)) {

@@ -1,24 +1,24 @@
 <template>
     <div class="container-fluid">
+        <div class="page-header row no-gutters py-4">
+            <div class="col-12 col-sm-8 text-center text-sm-left mb-0">
+                <h3 class="page-title">{{ $t('role.title_page') }}</h3>
+            </div>
+            <div class="col-12 col-sm-4 text-center text-sm-right mb-0">
+                <button v-if="!isEdit" type="button" class="btn btn-sm btn-primary float-right" @click="createRole()">
+                    <i class="fa fa-plus-square"></i>
+                    {{ $t('role.button_create') }}
+                </button>
+                <button v-else type="button" class="btn btn-sm btn-primary float-right" @click="updateRole()">
+                    <i class="fa fa-plus-square"></i>
+                    {{ $t('role.button_edit') }}
+                </button>
+            </div>
+        </div>
         <div class="row">
-
             <div class="col-12">
-
-                <div class="card" v-if="$gate.isRoot()">
-                    <div class="card-header border-bottom">
-                        <div class="card-tools">
-                            <button v-if="!isEdit" type="button" class="btn btn-sm btn-primary float-right" @click="createRole()">
-                                <i class="fa fa-plus-square"></i>
-                                {{ $t('role.button_create') }}
-                            </button>
-                            <button v-else type="button" class="btn btn-sm btn-primary float-right" @click="updateRole()">
-                                <i class="fa fa-plus-square"></i>
-                                {{ $t('role.button_edit') }}
-                            </button>
-                        </div>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body table-responsive">
+                <div class="card" v-if="$gate.canPermission('role.store')">
+                    <div class="card-body">
                          <div class="form-group row">
                             <label for="feInputTitle" class="col-sm-2 col-form-label">{{ $t('role.input_name') }} <span style="color:#c4183c;">*</span></label>
                             <div class="col-sm-6">
@@ -59,7 +59,7 @@
                 <!-- /.card -->
             </div>
         </div>
-        <div v-if="!$gate.isRoot()">
+        <div v-if="!$gate.canPermission('role.store')">
             <not-found></not-found>
         </div>
     </div>
@@ -116,14 +116,14 @@ export default {
             this.$Progress.finish();
         },
         createRole () {
-
+            this.$Progress.start();
             this.role.post('/api/role')
             .then((response) => {
+
                 Toast.fire({
                     icon: 'success',
                     title: response.data.message
                 });
-
                 this.$Progress.finish();
                 this.$router.push({path: '/admin/manager/roles'});
             })
@@ -132,21 +132,27 @@ export default {
                     icon: 'error',
                     title: 'Some error occured! Please try again'
                 });
+                this.$Progress.failed();
             })
         },
         updateRole () {
             this.$Progress.start();
-            // console.log('Editing data');
+
             this.role.put('/api/role/'+this.role.id)
             .then((response) => {
-                // success                
+                // success
                 Toast.fire({
                     icon: 'success',
                     title: response.data.message
                 });
-                this.$Progress.finish();                                   
+                this.$Progress.finish();
+                this.$router.push({path: '/admin/manager/roles'});
             })
             .catch(() => {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Some error occured! Please try again'
+                });
                 this.$Progress.fail();
             });
         },

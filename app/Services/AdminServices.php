@@ -32,14 +32,7 @@ class AdminServices
             } catch (\Exception $e) {}
             
             $admin->assignRole($attribute['roles']);
-
-            if( !empty($attribute['type_id'] ?? null)) {
-                TypeUser::insertOrIgnore([
-                    'type_id' => $attribute['type_id'],
-                    'user_id' => $admin->id
-                ]);
-            }
-
+            
             DB::commit();
 
         } catch (\Exception $e) {
@@ -56,15 +49,7 @@ class AdminServices
         try {
             $admin = $this->user->findOrFail($id);
 
-            $admin->update($attribute);
-
-            if( !empty($attribute['type_id'] ?? null)) {
-                TypeUser::where('user_id', $admin->id)->delete();
-                TypeUser::insertOrIgnore([
-                    'type_id' => $attribute['type_id'],
-                    'user_id' => $admin->id
-                ]);
-            }
+            $admin->update($attribute);            
 
             $admin->syncRoles($attribute['roles']);
             DB::commit();

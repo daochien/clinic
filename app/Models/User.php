@@ -16,11 +16,22 @@ class User extends Authenticatable // implements MustVerifyEmail
         'admin@gmail.com'
     ];
 
-    const USER_ROLE = ['Web' => 3, 'Mobile' => 4];
+    public $timestamps = true;
+
+    const USER_ROLE = ['staff_web' => 3, 'staff_mobile' => 4];
+
+    const ROLE_ROOT = 1;
+    const ROLE_ADMIN = 2;
+    const ROLE_STAFF_WEB = 3;
+    const ROLE_STAFF_MOBILE = 4;
+
+    const ADMIN_ID = [1, 2];
+
+    const POSITTION = ['BOD' => 1, 'HR' => 2];
 
     use Notifiable, HasApiTokens, HasRoles;
 
-    protected $guard_name = 'api';
+    //protected $guard_name = 'api';
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +39,7 @@ class User extends Authenticatable // implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'note', 'description'
+        'name', 'email', 'password', 'note', 'description', 'posittion'
     ];
 
     /**
@@ -48,14 +59,15 @@ class User extends Authenticatable // implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public function isAdmin()
     {
-        return $this->roles()->where('name', 'Admin')->exists();
+        return $this->roles()->whereIn('id', self::ADMIN_ID)->exists();
     }
 
     public function isUser()
     {
-        return $this->roles()->where('name', 'User')->exists();
+        return $this->roles()->whereIn('id', array_values(self::USER_ROLE))->exists();
     }
 
     public function clinicUsers()

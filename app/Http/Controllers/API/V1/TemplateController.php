@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\Form\FormDeleted;
 use Illuminate\Http\Request;
 use App\Models\Form;
 
@@ -28,7 +29,7 @@ class TemplateController extends BaseController
      */
     public function index()
     {
-        $templates = Form::paginate();
+        $templates = Form::with(['approvers', 'category'])->paginate(10);
 
         return $this->sendResponse($templates, 'Templates list');
     }
@@ -37,9 +38,22 @@ class TemplateController extends BaseController
     {
         $form = $this->template->where(['id' => $id])
             ->with(['user','category','approvers'])
+            ->where('visibility', Form::FORM_PUBLIC)
             ->withCount('submissions')
             ->firstOrFail();
 
         return $this->sendResponse($form, 'Templates list');
+    }
+
+    public function destroy($id)
+    {
+        $user = auth()->user();
+        $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        $form->delete();
+
+        // dispatch the event
+        event(new FormDeleted($form));
+
+        return $this->sendResponse([$form]);
     }
 }

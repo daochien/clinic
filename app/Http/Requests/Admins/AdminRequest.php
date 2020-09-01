@@ -38,10 +38,10 @@ class AdminRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'name' => 'required|string|max:191',
-            'email' => 'required|string|email|max:191|unique:users',
+            'name' => 'required|string|max:50',
+            'email' => 'required|string|email|max:255|unique:users',
             'roles' => 'required|array',
-            'type_id' => 'required'
+            'posittion' => 'required'
         ];
     }
 
@@ -53,10 +53,10 @@ class AdminRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'name' => 'required|string|max:191',
-            'email' => 'sometimes|string|email|max:191|unique:users,email,' . $this->get('id'),
+            'name' => 'required|string|max:50',
+            'email' => 'sometimes|string|email|max:255|unique:users,email,' . $this->get('id'),
             'roles' => 'required|array',
-            'type_id' => 'required'
+            'posittion' => 'required'
         ];
     }
 }

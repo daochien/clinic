@@ -12,7 +12,7 @@ class Notification extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'content', 'confirm', 'draft', 'schedule_date'
+        'title', 'content', 'confirm', 'draft', 'schedule_date', 'created_by'
     ];
 
     /**
@@ -30,7 +30,7 @@ class Notification extends Model
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'schedule_date' => 'date:Y-m-d'
+        'schedule_date' => 'datetime'
     ];
 
     public function groups()
@@ -61,5 +61,10 @@ class Notification extends Model
     public function usersConfirm()
     {
         return $this->hasMany(NotificationStatus::class)->where('status', '=', 1)->count();
+    }
+
+    public function creator()
+    {
+        return $this->hasOne(User::class, 'id', 'created_by');
     }
 }

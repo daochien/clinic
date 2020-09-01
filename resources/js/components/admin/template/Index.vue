@@ -4,7 +4,11 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('sidebar.staff') }}</h3>
+                <h3 class="page-title">{{ $t('template.page_title') }}</h3>
+            </div>
+            <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
+                <a type="button" class="btn btn-primary pl-5 pr-5" href="/admin/template/create">{{ $t('app.btn.create')}}
+                </a>
             </div>
         </div>
         <!-- End Page Header -->
@@ -14,78 +18,51 @@
                 <div class="col-12">
 
                     <div class="card" v-if="$gate.isAdmin()">
-                        <div class="card-header">
-                            <div class="card-tools">
-                                <router-link class="btn btn-sm btn-primary" to="/admin/template/create">
-                                    <i class="fa fa-plus-square"></i>
-                                    Create Template
-                                </router-link>
-                            </div>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body table-responsive p-0">
+                        <div class="card-body p-0">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th class="ten">Visibility</th>
-                                    <th class="fifteen">Allows Edit?</th>
-                                    <th class="ten">Submissions</th>
-                                    <th class="twenty-five">Actions</th>
+                                    <th>#</th>
+                                    <th>{{ $t('template.title')}}</th>
+                                    <th>{{ $t('template.category_title')}}</th>
+                                    <th>{{$t('template.approver')}}</th>
+                                    <th>{{ $t('template.date_created')}}</th>
+                                    <th>{{ $t('app.label.operator')}}</th>
 
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="form in templates.data" :key="form.id">
-<!--
-
-                                    <td>{{user.id}}</td>
-                                    <td class="text-capitalize">{{user.type}}</td>
-                                    <td class="text-capitalize">{{user.name}}</td>
-                                    <td>{{user.email}}</td>
-                                    <td :inner-html.prop="user.email_verified_at | yesno"></td>
-                                    <td>{{user.created_at}}</td>
-
+                                <tr v-for="(template, index)  in templates.data" :key="template.id">
+                                    <td>{{ index + 1 }}</td>
+                                    <td>{{ template.name }}</td>
+                                    <td>{{ template.category[0].name }}</td>
                                     <td>
-
-                                        <a href="#" @click="editModal(user)">
-                                            <i class="fa fa-edit blue"></i>
-                                        </a>
-                                        /
-                                        <a href="#" @click="deleteUser(user.id)">
-                                            <i class="fa fa-trash red"></i>
-                                        </a>
+                                        <div v-if="template.approvers.length !== 0">
+                                            <span class="badge badge-info ml-1" v-for="approver in template.approvers" :key="'sc_' + approver.id">
+                                                {{ approver.name}}
+                                            </span>
+                                        </div>
                                     </td>
--->
-
-
-
-                                    <td>{{ form.name }}</td>
-                                    <td>{{ form.visibility }}</td>
-                                    <td>{{ form.allowsEdit == 'false' ? 'NO' : 'YES' }}</td>
-                                    <td>{{ form.submissions_count }}</td>
+                                    <td>{{ template.created_at|myDate }}</td>
                                     <td>
-                                        <a href="#" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-th-list"></i> Data
-                                        </a>
-                                        <a href="#" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-eye"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-primary btn-sm" title="Edit form">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <button class="btn btn-primary btn-sm clipboard" data-message="" data-original="" title="Copy form URL to clipboard">
-                                            <i class="fa fa-clipboard"></i>
-                                        </button>
-
-                                        <!--<form action="#" method="POST" id="deleteFormForm_{{ form.id }}" class="d-inline-block">
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button type="submit" class="btn btn-danger btn-sm confirm-form" data-form="deleteFormForm_{{ form.id }}" data-message="Delete form '{{ form.name }}'?" title="Delete form '{{ form.name }}'">
-                                                <i class="fa fa-trash-o"></i>
-                                            </button>
-                                        </form>-->
+                                        <div class="dropdown">
+                                            <i
+                                                class="fa fa-ellipsis-v"
+                                                id="operatingAction"
+                                                data-toggle="dropdown"
+                                                aria-haspopup="true"
+                                                aria-expanded="false"
+                                            ></i>
+                                            <div class="dropdown-menu" aria-labelledby="operatingAction">
+                                                <a class="dropdown-item text-primary"
+                                                             :href="'/admin/template/' + template.id + '/edit'">
+                                                    {{ $t('app.btn.edit')}}
+                                                </a>
+                                                <a class="dropdown-item text-danger" href="#" @click="deleteTemplate(template.id)">
+                                                    {{$t('app.btn.delete')}}
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -112,37 +89,50 @@
     export default {
         data () {
             return {
-                editmode: false,
                 templates : {},
-                form: new Form({
-                    // id : '',
-                    // type : '',
-                    // name: '',
-                    // email: '',
-                    // password: '',
-                    // email_verified_at: '',
-                })
             }
         },
         methods: {
 
             getResults(page = 1) {
+                axios.get("/api/template?page=" + page).then(({ data }) => ( this.templates = data.data));
             },
-            newModal(){
+            deleteTemplate(id) {
+                Swal.fire({
+                    title: this.$t('app').popup.are_you_sure,
+                    text: this.$t('app').popup.you_wont_able_revert,
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: this.$t('app').popup.delete_it
+                }).then((result) => {
+                    // Send request to the server
+                    if (result.value) {
+                        axios.delete('/api/template/' + id).then(() => {
+                            Swal.fire(
+                                this.$t('app').popup.deleted,
+                                this.$t('app').popup.your_item_has_been_deleted,
+                                'success'
+                            );
+                            // Fire.$emit('AfterCreate');
+                            this.loadTemplates();
+                        }).catch((data) => {
+                            Swal.fire(this.$t('app').popup.failed, data.message, "warning");
+                        });
+                    }
+                })
             },
             loadTemplates(){
                 this.$Progress.start();
                 if(this.$gate.isAdmin()){
-                    axios.get("/api/template").then(({ data }) => {
-                        this.templates = data.data;
-                    });
+                    axios.get("/api/template").then(({ data }) => ( this.templates = data.data));
                 }
                 this.$Progress.finish();
             },
 
         },
         mounted() {
-            console.log('User Component mounted.')
+            console.log(this.$t('app').popup.are_you_sure)
         },
         created() {
             // this.$Progress.start();

@@ -45,7 +45,7 @@ import Swal from 'sweetalert2';
 
 const Toast = Swal.mixin({
     toast: true,
-    position: 'top-end',
+    position: 'bottom-end',
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,
@@ -73,6 +73,7 @@ Vue.component('multiselect', Multiselect)
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(require('vue-moment'));
 
 /**
  * Routes imports and assigning
@@ -83,7 +84,8 @@ import routes from './routes';
 
 const router = new VueRouter({
     mode: 'history',
-    routes
+    routes,
+    linkActiveClass: "active"
 });
 // Routes End
 
@@ -129,6 +131,17 @@ Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i
 
 // end Filter
 
+Vue.mixin({
+    methods: {
+        subIsActive(input) {
+            const paths = Array.isArray(input) ? input : [input]
+            return paths.some(path => {
+                console.log(this.$route.path.indexOf(path) === 0)
+                return this.$route.path.indexOf(path) !== 0 // current path starts with this path string
+            })
+        }
+    }
+})
 
 const app = new Vue({
     el: '#app',

@@ -76,39 +76,18 @@
                             <i class="fas fa-clipboard-list"></i>
                             <span>{{ __('sidebar.request') }}</span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-small">
-                            <a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>
-                            {{--<a href="/admin/templates" class="dropdown-item">
-                                {{ __('sidebar.templates') }}
-                            </a>--}}
-                            {{--<a href="/admin/request" class="dropdown-item">
-                                {{ __('sidebar.request') }}
-                            </a>--}}
-                        </div>
-                    </li>
-                    {{--<li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                            <i class="far fa-question-circle"></i>
-                            <span>{{ __('sidebar.inquiry') }}</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-small">
-                            <a href="/admin/inquiry" class="dropdown-item">
+                        <div class="dropdown-menu dropdown-menu-small show">
+                            {{--<a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>--}}
+                            <a href="/admin/template" class="dropdown-item active">
                                 {{ __('sidebar.templates') }}
                             </a>
-                            <a href="/admin/request" class="dropdown-item">
-                                {{ __('sidebar.request') }}
-                            </a>
-                            <a href="/admin/inquiry" class="dropdown-item">
-                                {{ __('sidebar.inquiry') }}
-                            </a>
+                            @foreach (\App\Models\TemplateCategory::getAll() as $category)
+                                <a href="/admin/request/category/{{$category->id}}" class="dropdown-item">
+                                    {{ __($category->name) }}
+                                </a>
+                            @endforeach
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a href="/admin/blog" class="nav-link">
-                            <i class="fas fa-stream"></i>
-                            <span>{{ __('sidebar.blog') }}</span>
-                        </a>
-                    </li>--}}
                 </ul>
 
             </div>
@@ -134,6 +113,8 @@
             </div> <!-- / .main-navbar -->
 
             <div class="main-content-container container-fluid px-4">
+                <router-view></router-view>
+                <vue-progress-bar></vue-progress-bar>
                 <section class="content">
                     @yield('content')
                 </section>
