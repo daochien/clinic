@@ -24,7 +24,7 @@ class PermissionRepository
             if (!in_array($item, $permissionsExists)) {
                 $insertPermissions[] = [
                     'name' => $item,
-                    'guard_name' => 'api'
+                    'guard_name' => 'web'
                 ];
             }
         }

@@ -5,15 +5,15 @@
             'groups' => [
                 'view' => [
                         'name' => 'View list',
-                        'routes' => ['role.index']
+                        'routes' => ['role.index', 'permission.routes']
                     ],
                 'create' => [
                         'name' => 'Create',
-                        'routes' => ['role.store']
+                        'routes' => ['role.store', 'permission.routes']
                     ],
                 'update' => [
                         'name' => 'Update',
-                        'routes' => ['role.update', 'role.show']
+                        'routes' => ['role.update', 'role.show', 'permission.routes']
                     ],
                 'delete' => [
                         'name' => 'Delete',
@@ -68,15 +68,15 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['user.index', 'api.user.search', 'api.group.all', 'api.setting.level', 'api.setting.type', 'api.clinic.all']
+                    'routes' => ['user.index', 'api.user.search', 'api.group.all', 'api.clinic.all']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['user.store', 'api.group.all', 'api.setting.level', 'api.setting.type', 'api.clinic.all'],
+                    'routes' => ['user.store', 'api.group.all', 'api.clinic.all'],
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['user.show', 'user.update', 'api.group.all', 'api.setting.level', 'api.setting.type', 'api.clinic.all']
+                    'routes' => ['user.show', 'user.update', 'api.group.all', 'api.clinic.all']
                 ],
                 'delete' => [
                     'name' => 'Delete',
@@ -147,6 +147,28 @@
                 ]
             ]
         ],
+        'setting' => [
+            'name' => 'Setting management',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => ['api.setting.type', 'api.setting.level', 'api.setting.user.role']
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => [],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => []
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ],
+
         // 'request' => [
         //     'name' => 'Request management',
         //     'groups' => [

@@ -7,11 +7,11 @@
                 <h3 class="page-title">{{ $t('role.title_page') }}</h3>
             </div>
             <div class="col-12 col-sm-4 text-center text-sm-right mb-0">
-                <router-link v-if="$gate.canPermission('role.create')" type="button" class="btn btn-sm btn-primary float-right" :to="{path: '/admin/role/create'}">
+                <router-link v-if="$gate.canPermission('role.store')" type="button" class="btn btn-sm btn-primary float-right" :to="{path: '/admin/role/create'}">
                     <i class="fa fa-plus-square"></i>
                     {{ $t('role.button_create') }}
                 </router-link>
-            </div>            
+            </div>
         </div>
         <!-- End Page Header -->
 
@@ -21,7 +21,7 @@
                 <div class="col-12">
 
                     <div class="card" v-if="$gate.canPermission('role.index')">
-                        
+
                         <!-- /.card-header -->
                         <div class="card-body p-0">
                             <table class="table table-hover">

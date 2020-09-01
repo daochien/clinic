@@ -100,19 +100,14 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <confirm-remove :id="idRemove" @remove-success="removeSuccess"/>
+        </div>        
     </div>
 </template>
 
 <script>
 
-import ConfirmRemove from './ConfirmRemove';
-
 export default {
-    components: {
-        ConfirmRemove
-    },
+    
     data () {
         return {
             admins: [],
@@ -171,14 +166,32 @@ export default {
                 console.log(error);
             });
         },
-        removeAdmin (id) {
-            this.idRemove = id;
-            $('#removeAdmin').modal('show');
-        },
-        removeSuccess () {
-            $('#removeAdmin').modal('hide');
-            this.loadListAdmin();
-        },
+        removeAdmin (id) {            
+            Swal.fire({
+                title: this.$t('app').popup.are_you_sure,
+                text: this.$t('app').popup.you_wont_able_revert,
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: this.$t('app').popup.delete_it
+            }).then((result) => {
+                // Send request to the server
+                if (result.value) {
+                    
+                    axios.delete('/api/manager/'+id).then(() => {
+                        Swal.fire(
+                            this.$t('app').popup.deleted,
+                            this.$t('app').popup.your_item_has_been_deleted,
+                            'success'
+                        );
+                        // Fire.$emit('AfterCreate');
+                        this.loadListAdmin();
+                    }).catch((data) => {
+                        Swal.fire("Failed!", data.message, "warning");
+                    });
+                }
+            })
+        },        
         clearFilter () {
             this.form_filter.role = '';
             this.form_filter.keyword = '';
