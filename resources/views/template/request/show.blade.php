@@ -11,10 +11,10 @@
 
                         <div class="btn-toolbar float-right" role="toolbar">
                             <div class="btn-group" role="group" aria-label="First group">
-                                <a href="{{ route('template.request.index', $submission->form->id) }}" class="btn btn-primary float-md-right btn-sm" title="Back To Submissions">
+                                <a href="#" class="btn btn-primary float-md-right btn-sm" title="Back To Submissions">
                                     <i class="fa fa-arrow-left"></i>
                                 </a>
-                                <form action="{{ route('template.request.destroy', [$submission->form, $submission]) }}" method="POST" id="deleteSubmissionForm_{{ $submission->id }}" class="d-inline-block">
+                                <form action="#" method="POST" id="deleteSubmissionForm_{{ $submission->id }}" class="d-inline-block">
                                     @csrf
                                     @method('DELETE')
 

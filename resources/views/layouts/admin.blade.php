@@ -61,7 +61,7 @@
             </div> <!-- / .main-navbar -->
 
             <div class="main-content-container container-fluid px-4">
-                <router-view></router-view>
+                <router-view :key="$route.fullPath"></router-view>
                 <vue-progress-bar></vue-progress-bar>
                 {{-- /.content --}}
             </div>
@@ -80,6 +80,7 @@
             window.user.is_root = '{!! auth()->user()->isRoot() !!}';
             window.user.roles = @json(auth()->user()->roles);
             window.user.permissions = @json(auth()->user()->getAllPermissions());
+            window.user.posittion = @json(\App\Models\User::POSITTION);
     </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>

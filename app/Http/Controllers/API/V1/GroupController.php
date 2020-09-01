@@ -63,7 +63,7 @@ class GroupController extends BaseController
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name' => 'required|unique:groups',
         ]);
         $tag = $this->group->create([
             'name' => $request->get('name'),

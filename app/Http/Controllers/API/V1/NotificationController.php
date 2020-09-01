@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\Notifications\NotificationRequest;
 use App\Http\Requests\Notifications\SearchNotificationRequest;
+use App\Models\Notification;
+use App\Models\User;
 use App\Repositories\NotificationGroupRepository;
 use App\Repositories\NotificationRepository;
 use App\Services\NotificationService;
@@ -123,12 +125,10 @@ class NotificationController extends BaseController
     public function fetch(Request $request)
     {
         try {
-            if ($request->get('userId')) {
-                $filter['user_id'] = $request->get('userId');
-            }
-
-            $data = $this->service->fetch($filter);
-//            return new NotificationUserCollection($datas);
+            $filters['user_id'] = $request->get('user_id');
+            $filters['from'] = $request->get('from') ?? 0;
+            $data = $this->service->fetch($filters);
+            return response()->json($data);
         } catch (\Exception $exception) {
             return $this->sendError($exception->getCode(), $exception->getMessage());
         }

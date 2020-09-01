@@ -44,14 +44,29 @@ class Submission extends Model
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * A Submission belongs to a Form
-     *
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function form()
     {
         return $this->belongsTo(Form::class);
+    }
+
+    public function requestLogs()
+    {
+        return $this->hasMany(RequestLog::class, 'request_id', 'id');
+    }
+
+    public function requestComments()
+    {
+        return $this->hasMany(RequestComment::class, 'request_id', 'id');
+    }
+
+    public function approvers()
+    {
+        return $this->belongsToMany(User::class, 'template_approvers', 'form_id', 'user_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsToMany(Category::class, 'template_category', 'form_id', 'category_id');
     }
 
     /**

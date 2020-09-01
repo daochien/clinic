@@ -17,6 +17,11 @@ class PageRepository
         $this->model = $page;
     }
 
+    public function getAll($type = 'blog', $limit = 10)
+    {
+        return $this->model->whereType($type)->orderBy('id', 'desc')->paginate($limit);
+    }
+
     /**
      * Create
      * @param array $attributes
@@ -36,6 +41,11 @@ class PageRepository
             'owner_id' => Auth::user()->id,
         ]);
 
+    }
+
+    public function latestPage($type = 'blog', $limit = 5)
+    {
+        return $this->model->where('type', $type)->orderBy('id', 'desc')->paginate($limit);
     }
 
     public function getPathUpload($page, $folder = 'images')

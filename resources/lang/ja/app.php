@@ -69,7 +69,7 @@ return [
         'email' => 'メールアドレス',
         'group' => 'グループ',
         'level' => 'Level',
-        'type' => 'Type',
+        'type' => 'Position',
         'role_label' => 'Role',
         'role_web_label' => 'Web',
         'role_mobile_label' => 'Mobile',

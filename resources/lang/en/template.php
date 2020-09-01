@@ -24,4 +24,13 @@ return [
         'approver' => 'Select approver',
     ],
     'create_success' => 'Template successfully created',
+    'create_failed' => 'Failed to create the template.',
+    'request' => [
+        'submitter' => 'Submitter',
+        'status' => 'Status',
+        'submitted_at' => 'Submitted at',
+        'approved_at' => 'Approved at',
+        'approve' => 'Approve',
+        'reject' => 'Reject',
+    ]
 ];

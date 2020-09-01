@@ -58,11 +58,11 @@
                         </router-link>
                     @endcan
 
-                        @can('group.index')
-                            <router-link to="/admin/group" class="dropdown-item ">
-                                {{ __('sidebar.groups') }}
-                            </router-link>
-                        @endcan
+                    @can('group.index')
+                        <router-link to="/admin/group" class="dropdown-item ">
+                            {{ __('sidebar.groups') }}
+                        </router-link>
+                    @endcan
 
                     @can('user.index')
                         <router-link to="/admin/user" class="dropdown-item">
@@ -91,40 +91,20 @@
                     <router-link to="/admin/template" class="dropdown-item">
                         {{ __('sidebar.templates') }}
                     </router-link>
-                    {{--<router-link to="/admin/request" class="dropdown-item">
-                        {{ __('sidebar.request') }}
-                    </router-link>--}}
+                    @foreach (\App\Models\TemplateCategory::getAll() as $category)
+                        <router-link to="/admin/request/category/{{$category->id}}" class="dropdown-item">
+                            {{ __($category->name) }}
+                        </router-link>
+                    @endforeach
                 </div>
             </li>
-            {{--<li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                    <i class="far fa-question-circle"></i>
-                    <span>{{ __('sidebar.inquiry') }}</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-small">
-                    <router-link to="/admin/inquiry" class="dropdown-item">
-                        {{ __('sidebar.templates') }}
-                    </router-link>
-                    <router-link to="/admin/request" class="dropdown-item">
-                        {{ __('sidebar.request') }}
-                    </router-link>
-                    <router-link to="/admin/inquiry" class="dropdown-item">
-                        {{ __('sidebar.inquiry') }}
-                    </router-link>
-                </div>
-            </li>--}}
-            {{--<li class="nav-item">
-                <router-link to="/admin/blog" class="nav-link">
-                    <i class="fas fa-stream"></i>
-                    <span>{{ __('sidebar.blog') }}</span>
+
+            <li class="nav-item">
+                <router-link to="/admin/page/create" class="nav-link">
+                    <i class="far fa-bell"></i>
+                    <span>{{ __('sidebar.page') }}</span>
                 </router-link>
-            </li>--}}
-        {{-- <li class="nav-item">
-                <router-link to="/admin/manuals" class="nav-link">
-                    <i class="fa fa-users nav-icon blue"></i>
-                    <span>{{ __('sidebar.manual') }}</span>
-                </router-link>
-            </li>--}}
+            </li>
         </ul>
     </div>
 </aside>
