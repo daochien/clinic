@@ -69,6 +69,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('request/category/{id}', 'API\V1\RequestController@indexByCategory')->name('api.request.category.list');
         Route::get('request/{id}', 'API\V1\RequestController@show')->name('api.request.show');
 
+        Route::get('page/blogs', 'API\V1\PageController@blogs')->name('page.blogs');
+        Route::get('page/blog-latest', 'API\V1\PageController@blogLatest')->name('page.blogLatest');
+        Route::get('page/manual-latest', 'API\V1\PageController@manualLatest')->name('page.manualLatest');
+        Route::get('page/faq-latest', 'API\V1\PageController@faqLatest')->name('page.faqLatest');
+
         Route::apiResources([
             'user' => 'API\V1\UserController',
             'clinic' => 'API\V1\ClinicController',

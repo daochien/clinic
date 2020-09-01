@@ -18,5 +18,6 @@ return [
     'contact' => '問い合わせ担当',
     'role' => '役割',
     'permission' => '権限',
-    'groups'=>'グループ管理'
+    'groups'=>'グループ管理',
+    'page' => 'ページ管理'
 ];
