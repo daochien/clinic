@@ -3,6 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+Route::namespace('API\V1')
+    ->prefix('/notification')
+    ->group(function (): void {
+        Route::get('/fetch', 'NotificationController@fetch');
+    });
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/user', function (Request $request) {
@@ -28,7 +34,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::post('/store', 'NotificationController@store');
                 Route::post('/search', 'NotificationController@search');
                 Route::post('/detailSearch', 'NotificationController@detailSearch');
-                Route::get('/fetch', 'NotificationController@fetch');
             });
 
         Route::get('setting/type', 'API\V1\SettingController@getType')->name('api.setting.type');

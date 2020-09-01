@@ -1,4 +1,5 @@
 export default [
+    { path: '/notification', component: require('./components/client/notification/Index.vue').default },
 
     { path: '/blogs', component: require('./components/front-end/Page.vue').default },
 

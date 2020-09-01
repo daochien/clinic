@@ -7,7 +7,13 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => true]);\
+Route::prefix('/notification/')
+    ->namespace('Client')
+    ->name('notification.')
+    ->group(function () {
+        Route::get('/', 'NotificationController@index')->name('index');
+    });
 
 Route::get('/blogs', 'HomeController@blog')->name('home.blog');
 
