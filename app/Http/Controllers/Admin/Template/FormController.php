@@ -14,6 +14,7 @@ use App\Models\Role;
 use App\Models\TemplateApprover;
 use App\Models\TemplateCategory;
 use App\Repositories\CategoryRepository;
+use App\Repositories\PermissionRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -21,12 +22,17 @@ use Throwable;
 class FormController extends Controller
 {
     public $categoryRepository;
+    /**
+     * @var PermissionRepository
+     */
+    private $permissionRepository;
 
 
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(CategoryRepository $categoryRepository, PermissionRepository $permissionRepository)
     {
         $this->middleware('auth');
         $this->categoryRepository = $categoryRepository;
+        $this->permissionRepository = $permissionRepository;
     }
 
     public function index()
@@ -48,7 +54,7 @@ class FormController extends Controller
         // get the roles to use to populate the make the 'Access' section of the form builder work
         $form_roles = FormBuilderHelper::getConfiguredRoles();
 
-        $adminList = Role::findByName('admin')->users()->get();
+        $adminList = $this->permissionRepository->getUserByPermission('template');
 
         return view('template.forms.create', compact('category', 'adminList', 'pageTitle', 'breadCrumbTitle', 'saveURL', 'form_roles'));
     }
@@ -119,7 +125,7 @@ class FormController extends Controller
         $pageTitle = "Preview Form";
         $breadCrumbTitle = __('template.create_breadcrumb_label');
         $category = $this->categoryRepository->getTemplateByCategory(Category::TYPE['template']);
-        $adminList = Role::findByName('admin')->users()->get();
+        $adminList = $this->permissionRepository->getUserByPermission('template');
 
         $saveURL = route('template.update', $form);
 

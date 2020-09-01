@@ -78,7 +78,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-small show">
                             {{--<a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>--}}
-                            <a href="/admin/template" class="dropdown-item">
+                            <a href="/admin/template" class="dropdown-item active">
                                 {{ __('sidebar.templates') }}
                             </a>
                             @foreach (\App\Models\TemplateCategory::getAll() as $category)
