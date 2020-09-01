@@ -82,6 +82,7 @@ class NotificationSeeder extends Seeder
             $webappUser = \App\Models\User::where('email', 'webapp@gmail.com')->first();
 
             $notificationUsersData = [];
+            $notificationStatusData = [];
             $notifications = \App\Models\Notification::all();
             foreach ($notifications as $notification) {
                 $notificationUsersData[] = [
@@ -90,9 +91,18 @@ class NotificationSeeder extends Seeder
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
+
+                $notificationStatusData[] = [
+                    'user_id' => $webappUser->id,
+                    'notification_id' => $notification->id,
+                    'status' =>  rand(0, 100) < 50 ? 2 : 1,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ];
             }
 
             $notificationUsers = DB::table('notification_users')->insert($notificationUsersData);
+            $notificationUsers = DB::table('notification_status')->insert($notificationStatusData);
             DB::commit();
 //        } catch (\Exception $e) {
 //            var_dump($e->getMessage());

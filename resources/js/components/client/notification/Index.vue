@@ -9,14 +9,14 @@
             <div class="container">
                 <aside>
                     <div class="list-group list-group-horizontal" id="sideTab" role="tablist">
-                        <a class="list-group-item list-group-item-action active" id="list-all" data-toggle="list" href="#all" role="tab">All</a>
-                        <a class="list-group-item list-group-item-action" id="list-director" data-toggle="list" href="#director" role="tab">理事長から</a>
-                        <a class="list-group-item list-group-item-action" id="list-hr" data-toggle="list" href="#hr" role="tab">事務局から</a>
+                        <a class="list-group-item list-group-item-action active" id="list-all" data-toggle="list" href="#all" role="tab" @click="from = 0">All</a>
+                        <a class="list-group-item list-group-item-action" id="list-director" data-toggle="list" href="#director" role="tab" @click="from = 1">理事長から</a>
+                        <a class="list-group-item list-group-item-action" id="list-hr" data-toggle="list" href="#hr" role="tab" @click="from = 2">事務局から</a>
                     </div>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="all" role="tabpanel">
                             <div class="notification-list list-group">
-                                <div v-for="item in notifications.data" class="notification-item list-group-item active">
+                                <div v-for="item in notifications.data" :class="`notification-item list-group-item ` + isActive(item)" @click="onSelect(item)">
                                     <div class="col-left">
                                         <span class="source bod">{{ getFromLabel(item) }}</span>
                                         <span class="date">{{ $moment(item.created_at).format('DD/MM/YYYY') }}</span>
@@ -24,325 +24,52 @@
                                     <div class="col-right">
                                         <span class="sub">{{ getFromTitle(item) }}</span>
                                         <span class="title" v-if="item.notification">{{ item.notification.title }}</span>
-                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>
+                                        <p>{{ getTruncateContent(item) }}</p>
                                     </div>
-                                    <div class="status red"></div>
+                                    <div :class="'status ' + getStatusClass(item)"></div>
                                 </div>
-<!--                                <div class="notification-item list-group-item">-->
-<!--                                    <div class="col-left">-->
-<!--                                        <span class="source hr">HR</span>-->
-<!--                                        <span class="date">28/7/2020</span>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-right">-->
-<!--                                        <span class="sub">理事長から</span>-->
-<!--                                        <span class="title">コロナウィルスの影響に関する対応について</span>-->
-<!--                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="status yellow"></div>-->
-<!--                                </div>-->
-<!--                                <div class="notification-item list-group-item">-->
-<!--                                    <div class="col-left">-->
-<!--                                        <span class="source bod">BOD</span>-->
-<!--                                        <span class="date">28/7/2020</span>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-right">-->
-<!--                                        <span class="sub">理事長から</span>-->
-<!--                                        <span class="title">コロナウィルスの影響に関する対応について</span>-->
-<!--                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="status red"></div>-->
-<!--                                </div>-->
-<!--                                <div class="notification-item list-group-item">-->
-<!--                                    <div class="col-left">-->
-<!--                                        <span class="source hr">HR</span>-->
-<!--                                        <span class="date">28/7/2020</span>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-right">-->
-<!--                                        <span class="sub">理事長から</span>-->
-<!--                                        <span class="title">コロナウィルスの影響に関する対応について</span>-->
-<!--                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="status yellow"></div>-->
-<!--                                </div>-->
-<!--                                <div class="notification-item list-group-item">-->
-<!--                                    <div class="col-left">-->
-<!--                                        <span class="source bod">BOD</span>-->
-<!--                                        <span class="date">28/7/2020</span>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-right">-->
-<!--                                        <span class="sub">理事長から</span>-->
-<!--                                        <span class="title">コロナウィルスの影響に関する対応について</span>-->
-<!--                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="status red"></div>-->
-<!--                                </div>-->
-<!--                                <div class="notification-item list-group-item">-->
-<!--                                    <div class="col-left">-->
-<!--                                        <span class="source hr">HR</span>-->
-<!--                                        <span class="date">28/7/2020</span>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-right">-->
-<!--                                        <span class="sub">理事長から</span>-->
-<!--                                        <span class="title">コロナウィルスの影響に関する対応について</span>-->
-<!--                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="status yellow"></div>-->
-<!--                                </div>-->
-<!--                                <div class="notification-item list-group-item">-->
-<!--                                    <div class="col-left">-->
-<!--                                        <span class="source bod">BOD</span>-->
-<!--                                        <span class="date">28/7/2020</span>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-right">-->
-<!--                                        <span class="sub">理事長から</span>-->
-<!--                                        <span class="title">コロナウィルスの影響に関する対応について</span>-->
-<!--                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="status red"></div>-->
-<!--                                </div>-->
-<!--                                <div class="notification-item list-group-item">-->
-<!--                                    <div class="col-left">-->
-<!--                                        <span class="source hr">HR</span>-->
-<!--                                        <span class="date">28/7/2020</span>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-right">-->
-<!--                                        <span class="sub">理事長から</span>-->
-<!--                                        <span class="title">コロナウィルスの影響に関する対応について</span>-->
-<!--                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="status yellow"></div>-->
-<!--                                </div>-->
-<!--                                <div class="notification-item list-group-item">-->
-<!--                                    <div class="col-left">-->
-<!--                                        <span class="source bod">BOD</span>-->
-<!--                                        <span class="date">28/7/2020</span>-->
-<!--                                    </div>-->
-<!--                                    <div class="col-right">-->
-<!--                                        <span class="sub">理事長から</span>-->
-<!--                                        <span class="title">コロナウィルスの影響に関する対応について</span>-->
-<!--                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>-->
-<!--                                    </div>-->
-<!--                                    <div class="status red"></div>-->
-<!--                                </div>-->
                             </div>
                         </div>
                         <div class="tab-pane fade" id="director" role="tabpanel">
                             <div class="notification-list list-group">
-                                <div class="notification-item list-group-item">
+                                <div v-for="item in notifications.data" :class="`notification-item list-group-item ` + isActive(item)" @click="onSelect(item)">
                                     <div class="col-left">
-                                        <span class="source bod">BOD</span>
-                                        <span class="date">28/7/2020</span>
+                                        <span class="source bod">{{ getFromLabel(item) }}</span>
+                                        <span class="date">{{ $moment(item.created_at).format('DD/MM/YYYY') }}</span>
                                     </div>
                                     <div class="col-right">
-                                        <span class="sub">理事長から</span>
-                                        <span class="title">コロナウィルスの影響に関する対応について</span>
-                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>
+                                        <span class="sub">{{ getFromTitle(item) }}</span>
+                                        <span class="title" v-if="item.notification">{{ item.notification.title }}</span>
+                                        <p>{{ getTruncateContent(item) }}</p>
                                     </div>
-                                    <div class="status red"></div>
-                                </div>
-                                <div class="notification-item list-group-item">
-                                    <div class="col-left">
-                                        <span class="source bod">BOD</span>
-                                        <span class="date">28/7/2020</span>
-                                    </div>
-                                    <div class="col-right">
-                                        <span class="sub">理事長から</span>
-                                        <span class="title">コロナウィルスの影響に関する対応について</span>
-                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>
-                                    </div>
-                                    <div class="status red"></div>
-                                </div>
-                                <div class="notification-item list-group-item">
-                                    <div class="col-left">
-                                        <span class="source bod">BOD</span>
-                                        <span class="date">28/7/2020</span>
-                                    </div>
-                                    <div class="col-right">
-                                        <span class="sub">理事長から</span>
-                                        <span class="title">コロナウィルスの影響に関する対応について</span>
-                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>
-                                    </div>
-                                    <div class="status red"></div>
-                                </div>
-                                <div class="notification-item list-group-item">
-                                    <div class="col-left">
-                                        <span class="source bod">BOD</span>
-                                        <span class="date">28/7/2020</span>
-                                    </div>
-                                    <div class="col-right">
-                                        <span class="sub">理事長から</span>
-                                        <span class="title">コロナウィルスの影響に関する対応について</span>
-                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>
-                                    </div>
-                                    <div class="status red"></div>
+                                    <div :class="'status ' + getStatusClass(item)"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="hr" role="tabpanel">
                             <div class="notification-list list-group">
-                                <div class="notification-item list-group-item">
+                                <div v-for="item in notifications.data" :class="`notification-item list-group-item ` + isActive(item)" @click="onSelect(item)">
                                     <div class="col-left">
-                                        <span class="source hr">HR</span>
-                                        <span class="date">28/7/2020</span>
+                                        <span class="source bod">{{ getFromLabel(item) }}</span>
+                                        <span class="date">{{ $moment(item.created_at).format('DD/MM/YYYY') }}</span>
                                     </div>
                                     <div class="col-right">
-                                        <span class="sub">理事長から</span>
-                                        <span class="title">コロナウィルスの影響に関する対応について</span>
-                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>
+                                        <span class="sub">{{ getFromTitle(item) }}</span>
+                                        <span class="title" v-if="item.notification">{{ item.notification.title }}</span>
+                                        <p>{{ getTruncateContent(item) }}</p>
                                     </div>
-                                    <div class="status yellow"></div>
-                                </div>
-                                <div class="notification-item list-group-item">
-                                    <div class="col-left">
-                                        <span class="source hr">HR</span>
-                                        <span class="date">28/7/2020</span>
-                                    </div>
-                                    <div class="col-right">
-                                        <span class="sub">理事長から</span>
-                                        <span class="title">コロナウィルスの影響に関する対応について</span>
-                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>
-                                    </div>
-                                    <div class="status yellow"></div>
-                                </div>
-                                <div class="notification-item list-group-item">
-                                    <div class="col-left">
-                                        <span class="source hr">HR</span>
-                                        <span class="date">28/7/2020</span>
-                                    </div>
-                                    <div class="col-right">
-                                        <span class="sub">理事長から</span>
-                                        <span class="title">コロナウィルスの影響に関する対応について</span>
-                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>
-                                    </div>
-                                    <div class="status yellow"></div>
-                                </div>
-                                <div class="notification-item list-group-item">
-                                    <div class="col-left">
-                                        <span class="source hr">HR</span>
-                                        <span class="date">28/7/2020</span>
-                                    </div>
-                                    <div class="col-right">
-                                        <span class="sub">理事長から</span>
-                                        <span class="title">コロナウィルスの影響に関する対応について</span>
-                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>
-                                    </div>
-                                    <div class="status yellow"></div>
-                                </div>
-                                <div class="notification-item list-group-item">
-                                    <div class="col-left">
-                                        <span class="source hr">HR</span>
-                                        <span class="date">28/7/2020</span>
-                                    </div>
-                                    <div class="col-right">
-                                        <span class="sub">理事長から</span>
-                                        <span class="title">コロナウィルスの影響に関する対応について</span>
-                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>
-                                    </div>
-                                    <div class="status yellow"></div>
-                                </div>
-                                <div class="notification-item list-group-item">
-                                    <div class="col-left">
-                                        <span class="source hr">HR</span>
-                                        <span class="date">28/7/2020</span>
-                                    </div>
-                                    <div class="col-right">
-                                        <span class="sub">理事長から</span>
-                                        <span class="title">コロナウィルスの影響に関する対応について</span>
-                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>
-                                    </div>
-                                    <div class="status yellow"></div>
-                                </div>
-                                <div class="notification-item list-group-item">
-                                    <div class="col-left">
-                                        <span class="source hr">HR</span>
-                                        <span class="date">28/7/2020</span>
-                                    </div>
-                                    <div class="col-right">
-                                        <span class="sub">理事長から</span>
-                                        <span class="title">コロナウィルスの影響に関する対応について</span>
-                                        <p>コロナウィルスの影響に関する対応についてコロナウィルスの影響に関する対応についてコロナウィルスの影 ...</p>
-                                    </div>
-                                    <div class="status yellow"></div>
+                                    <div :class="'status ' + getStatusClass(item)"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </aside>
-                <div class="content-wrapper">
-                    <span class="date">28/7/2020</span>
-                    <h3 class="title">コロナウィルスの影響に関する対応について</h3>
+                <div class="content-wrapper" v-if="selection">
+                    <span class="date">{{ $moment(selection.created_at).format('DD/MM/YYYY') }}</span>
+                    <h3 class="title">{{ getFromTitle(selection) }}</h3>
                     <div class="context">
                         <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
-                        </p>
-                        <p>
-                            今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！
+                            {{ selection.notification.content }}
                         </p>
                     </div>
                 </div>
@@ -357,6 +84,13 @@
         data() {
             return {
                 notifications: null,
+                selection: null,
+                from: 0,
+            }
+        },
+        watch: {
+            from: function (value) {
+                this.fetch();
             }
         },
         created() {
@@ -364,8 +98,9 @@
         },
         methods: {
             fetch(from = 0) {
-                axios.get('/api/notification/fetch').then((response)=>{
+                axios.get(`/api/notification/fetch?user_id=9999&from=${this.from}`).then((response)=>{
                     this.notifications = response.data;
+                    this.selection = this.notifications.data[0];
                 })
                 .catch(()=>{
                     Toast.fire({
@@ -374,8 +109,10 @@
                     });
                 })
             },
+            onSelect(item) {
+                this.selection = item;
+            },
             getFromLabel(item) {
-                console.log(item)
                 if (!_.isEmpty(item.notification) && !_.isEmpty(item.notification.creator)) {
                     return item.notification.creator.posittion == 1 ? 'BOD' : 'HR'
                 }
@@ -388,6 +125,26 @@
                 }
 
                 return '理事長から';
+            },
+            getTruncateContent(item) {
+                return _.truncate(item.notification.content, {
+                    'length': 100,
+                    'separator': ' '
+                });
+            },
+            isActive(item) {
+                if (this.selection) {
+                    return item.notification.id == this.selection.notification.id ? 'active' : '';
+                }
+
+                return '';
+            },
+            getStatusClass(item) {
+                if (!_.isEmpty(item.notification.status)) {
+                    return item.notification.status.status === 1 ? 'yellow' : 'red';
+                }
+
+                return 'yellow';
             }
         }
     }

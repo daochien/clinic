@@ -247,7 +247,7 @@ class NotificationService
 
     public function fetch($filters)
     {
-        $notificationUsers = NotificationUser::with(['userStatus', 'notification', 'notification.creator'])->orderBy('notifications.created_at', 'desc');
+        $notificationUsers = NotificationUser::with(['notification', 'notification.creator', 'notification.status'])->orderBy('notifications.created_at', 'desc');
         if (!empty($filters['user_id'])) {
             $notificationUsers->where('user_id', $filters['user_id']);
         }
