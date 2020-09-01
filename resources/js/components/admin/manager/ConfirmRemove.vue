@@ -3,17 +3,17 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">{{ $t('manager.confirm_remove.title_remove') }}</h5>
+                    <h5 class="modal-title">{{ $t('admin.others._remove_modal_title') }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <span>{{ $t('manager.confirm_remove.content') }}</span>
+                    <span>{{ $t('admin.others._remove_modal_description') }}</span>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ $t('manager.confirm_remove.button_cancel') }}</button>
-                    <button type="submit" class="btn btn-salmon" @click="remove()">{{ $t('manager.confirm_remove.button_success') }}</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ $t('admin.others._remove_modal_no') }}</button>
+                    <button type="submit" class="btn btn-salmon" @click="remove()">{{ $t('admin.others._remove_modal_yes') }}</button>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@ export default {
                 } else {
                     Toast.fire({
                         icon: 'error',
-                        title: 'Some error occured! Please try again'
+                        title: this.$t('admin.list.messages._remove_failed')
                     });
 
                     this.$Progress.failed();
@@ -54,7 +54,7 @@ export default {
             .catch(()=>{
                 Toast.fire({
                     icon: 'error',
-                    title: 'Some error occured! Please try again'
+                    title: this.$t('common.messages._system_err')
                 });
             })
         }

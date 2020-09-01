@@ -3,13 +3,13 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('notification.notifications') }}</h3>
+                <h3 class="page-title">{{ $t('notification.list._page_title') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
                 <router-link
                     :class="'btn btn-primary pl-5 pr-5'"
                     :to="{ path: '/admin/notification/edit'}"
-                >{{ $t('notification.singup')}}
+                >{{ $t('notification.list.others._btn_create')}}
                 </router-link>
             </div>
         </div>
@@ -25,7 +25,7 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <label>{{ $t('notification.target_person')}}</label>
+                                                    <label>{{ $t('notification.attr._target_users')}}</label>
                                                     <select class="form-control" id="targetPerson" v-model="form.group">
                                                         <option
                                                             v-for="(entity) in groups"
@@ -38,12 +38,12 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <label>{{ $t('notification.keyword')}}</label>
+                                                    <label>{{ $t('common.list.search_box._keyword')}}</label>
                                                     <input
                                                         type="text"
                                                         class="form-control"
                                                         v-model="form.keyword"
-                                                        :placeholder="$t('notification.keyword_placeholder')"
+                                                        :placeholder="$t('common.list.search_box._keyword_pl')"
                                                     />
                                                 </div>
                                             </div>
@@ -51,7 +51,7 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <label>{{ $t('notification.release_date')}}</label>
+                                                    <label>{{ $t('notification.list.search_box._public_date')}}</label>
                                                     <date-range-picker
                                                         ref="picker"
                                                         style="width: 100%"
@@ -69,11 +69,11 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <label>{{ $t('notification.status')}}</label>
+                                                    <label>{{ $t('notification.attr._status')}}</label>
                                                     <select class="form-control" id="targetPerson"
                                                             v-model="form.status">
-                                                        <option value="0">{{ $t('notification.publish')}}</option>
-                                                        <option value="1">{{ $t('notification.unpublish')}}</option>
+                                                        <option value="0">{{ $t('notification.attr.status._public')}}</option>
+                                                        <option value="1">{{ $t('notification.attr.status._private')}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -84,7 +84,7 @@
                                                     type="reset"
                                                     class="btn btn-outline-secondary pl-4 pr-4"
                                                     @click="resetForm()"
-                                                >{{ $t('notification.clear_condition')}}
+                                                >{{ $t('common.list.search_box._btn_reset')}}
                                                 </button>
                                             </div>
                                             <div class="col-6">
@@ -92,7 +92,7 @@
                                                     type="button"
                                                     class="btn btn-outline-primary pl-4 pr-4"
                                                     @click="searchData()"
-                                                >{{ $t('notification.search_condition')}}
+                                                >{{ $t('common.list.search_box._btn_search')}}
                                                 </button>
                                             </div>
                                         </div>
@@ -110,15 +110,15 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">{{ $t('notification.title')}}</th>
-                                    <th scope="col">{{ $t('notification.target_person')}}</th>
-                                    <th scope="col">{{ $t('notification.total_number_diliveries')}}</th>
-                                    <th scope="col">{{ $t('notification.exist_number')}}</th>
-                                    <th scope="col">{{ $t('notification.number_people_confirm')}}</th>
-                                    <th scope="col">{{ $t('notification.release_date')}}</th>
-                                    <th scope="col">{{ $t('notification.status')}}</th>
-                                    <th scope="col">{{ $t('notification.operating')}}</th>
+                                    <th scope="col">{{ $t('common.list.data_table._id') }}</th>
+                                    <th scope="col">{{ $t('notification.attr._title')}}</th>
+                                    <th scope="col">{{ $t('notification.attr._target_users')}}</th>
+                                    <th scope="col">{{ $t('notification.list.data_table._sent_count')}}</th>
+                                    <th scope="col">{{ $t('notification.list.data_table._read_count')}}</th>
+                                    <th scope="col">{{ $t('notification.list.data_table._confirmed_count')}}</th>
+                                    <th scope="col">{{ $t('notification.attr._public_at')}}</th>
+                                    <th scope="col">{{ $t('notification.attr._status')}}</th>
+                                    <th scope="col">{{ $t('common.list.data_table._actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -148,8 +148,8 @@
                                     </td>
                                     <td>{{ $moment(entity.schedule_date).format('YYYY-MM-DD hh:mm:ss') }}</td>
                                     <td>
-                                        <label class="text-secondary" v-if="entity.draft">{{ $t('notification.unpublish')}}</label>
-                                        <label class="text-warning" v-else>{{ $t('notification.publish')}}</label>
+                                        <label class="text-secondary" v-if="entity.draft">{{ $t('notification.attr.status._private')}}</label>
+                                        <label class="text-warning" v-else>{{ $t('notification.attr.status._public')}}</label>
                                     </td>
                                     <td>
                                         <div class="btn-group">
@@ -168,17 +168,17 @@
                                                     v-if="new Date(entity.schedule_date) >= new Date()"
                                                     class="dropdown-item text-primary"
                                                     @click="publishAnnouncement(entity)"
-                                                >{{ $t('notification.publish_announcement')}}
+                                                >{{ $t('notification.list.data_table.actions._act_public')}}
                                                 </button>
                                                 <router-link
                                                     :class="'dropdown-item text-primary'"
                                                     :to="{ name: 'edit_notification', params: { id: entity.id }}"
-                                                >{{ $t('notification.edit')}}
+                                                >{{ $t('notification.list.data_table.actions._act_edit')}}
                                                 </router-link>
                                                 <button
                                                     class="dropdown-item text-danger"
                                                     @click="deleteNotification()"
-                                                >{{ $t('notification.delete')}}
+                                                >{{ $t('notification.list.data_table.actions._act_remove')}}
                                                 </button>
                                             </div>
                                         </div>

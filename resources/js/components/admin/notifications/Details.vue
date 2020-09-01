@@ -3,7 +3,7 @@
     <!-- Page Header -->
     <div class="page-header row no-gutters py-4">
       <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-        <h3 class="page-title">{{ $t('notification.details_information') }}</h3>
+        <h3 class="page-title">{{ $t('notification.noti_users._page_title') }}</h3>
       </div>
       <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0"></div>
     </div>
@@ -19,7 +19,7 @@
                     <div class="row">
                       <div class="col-6">
                         <div class="form-group">
-                          <label>{{ $t('notification.clinic')}}</label>
+                          <label>{{ $t('staff.attr._clinic')}}</label>
                           <select class="form-control" id="clinic" v-model="form.clinic">
                             <option
                               v-for="(entity) in clinics"
@@ -31,11 +31,11 @@
                       </div>
                       <div class="col-6">
                         <div class="form-group">
-                          <label>{{ $t('notification.status')}}</label>
+                          <label>{{ $t('notification.noti_users.attr._status')}}</label>
                           <select class="form-control" id="status" v-model="form.status">
-                            <option value="0">{{ $t('notification.all_status')}}</option>
-                            <option value="1">{{ $t('notification.un_read')}}</option>
-                            <option value="2">{{ $t('notification.already_read')}}</option>
+                            <option value="0">{{ $t('notification.noti_users.search_box._status_df')}}</option>
+                            <option value="1">{{ $t('notification.noti_users.attr.status._unread')}}</option>
+                            <option value="2">{{ $t('notification.noti_users.attr.status._read')}}</option>
                           </select>
                         </div>
                       </div>
@@ -44,12 +44,12 @@
                     <div class="row mt-2">
                       <div class="col-12">
                         <div class="form-group">
-                          <label>{{ $t('notification.keyword')}}</label>
+                          <label>{{ $t('common.list.search_box._keyword')}}</label>
                           <input
                             type="text"
                             class="form-control"
                             v-model="form.keyword"
-                            :placeholder="$t('notification.keyword_placeholder')"
+                            :placeholder="$t('common.list.search_box._keyword_pl')"
                           />
                         </div>
                       </div>
@@ -61,14 +61,14 @@
                           type="reset"
                           class="btn btn-outline-secondary pl-4 pr-4"
                           @click="resetForm()"
-                        >{{ $t('notification.clear_condition')}}</button>
+                        >{{ $t('common.list.search_box._btn_reset')}}</button>
                       </div>
                       <div class="col-6">
                         <button
                           type="button"
                           class="btn btn-outline-primary pl-4 pr-4"
                           @click="searchData()"
-                        >{{ $t('notification.search_condition')}}</button>
+                        >{{ $t('common.list.search_box._btn_search')}}</button>
                       </div>
                     </div>
                   </form>
@@ -85,13 +85,13 @@
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">{{ $t('notification.username')}}</th>
-                    <th scope="col">{{ $t('notification.mail_address')}}</th>
-                    <th scope="col">{{ $t('notification.profession')}}</th>
-                    <th scope="col">{{ $t('notification.clinic')}}</th>
-                    <th scope="col">{{ $t('notification.status')}}</th>
-                    <th scope="col">{{ $t('notification.confirm_date_and_time')}}</th>
+                    <th scope="col">{{ $t('common.list.data_table._id') }}</th>
+                    <th scope="col">{{ $t('staff.attr._username')}}</th>
+                    <th scope="col">{{ $t('staff.attr._mail_address')}}</th>
+                    <th scope="col">{{ $t('staff.attr._position')}}</th>
+                    <th scope="col">{{ $t('staff.attr._clinic')}}</th>
+                    <th scope="col">{{ $t('notification.noti_users.attr._status')}}</th>
+                    <th scope="col">{{ $t('notification.noti_users.data_table._confirmed_at')}}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -124,11 +124,11 @@
                         <span
                           v-if="entity.user_status.status == 1"
                           class="text-secondary"
-                        >{{ $t('notification.un_read') }}</span>
+                        >{{ $t('notification.noti_users.attr.status._unread') }}</span>
                         <span
                           v-else-if="entity.user_status.status == 2"
                           class="text-primary"
-                        >{{ $t('notification.already_read') }}</span>
+                        >{{ $t('notification.noti_users.attr.status._read') }}</span>
                         <span v-else>-</span>
                       </div>
                       <div v-else>-</div>
@@ -138,7 +138,7 @@
                         <span
                           v-if="entity.user_status.status == 1"
                           class="text-secondary"
-                        >{{ $t('notification.no_read_date') }}</span>
+                        >{{ $t('notification.noti_users.others._unconfirm') }}</span>
                         <span
                           v-else-if="entity.user_status.status == 2"
                           class="text-primary"

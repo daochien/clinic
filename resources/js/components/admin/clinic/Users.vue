@@ -3,7 +3,7 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('app.clinic.header.list-user') }}</h3>
+                <h3 class="page-title">{{ $t('clinic.clinic_users._page_title') }}</h3>
             </div>
         </div>
         <!-- End Page Header -->
@@ -17,11 +17,11 @@
                                 <tr>
                                     <th scope="col"><input type="checkbox" class="custom-control-input"
                                                            id="formsAgreeField"></th>
-                                    <th scope="col">{{ $t('app.user.name')}}</th>
-                                    <th scope="col">{{ $t('app.user.email')}}</th>
-                                    <th scope="col">{{ $t('app.user.group')}}</th>
-                                    <th scope="col">{{ $t('app.user.register_date')}}</th>
-                                    <th scope="col">{{ $t('app.user.last_login_date')}}</th>
+                                    <th scope="col">{{ $t('staff.attr._name')}}</th>
+                                    <th scope="col">{{ $t('staff.attr._mail_address')}}</th>
+                                    <th scope="col">{{ $t('staff.attr._position')}}</th>
+                                    <th scope="col">{{ $t('staff.list.data_table._registered_at')}}</th>
+                                    <th scope="col">{{ $t('staff.list.data_table._last_login_at')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -104,7 +104,7 @@
                         } else {
                             Toast.fire({
                                 icon: 'error',
-                                title: 'Some error occured! Please try again'
+                                title: this.$t('clinic.clinic_users.messages._update_failed')
                             });
 
                             this.$Progress.failed();
@@ -113,7 +113,7 @@
                     .catch(() => {
                         Toast.fire({
                             icon: 'error',
-                            title: 'Some error occured! Please try again'
+                            title: this.$t('common.messages._system_err')
                         });
                     })
             },

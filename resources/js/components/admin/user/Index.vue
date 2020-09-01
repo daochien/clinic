@@ -3,10 +3,10 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('app.user.title.index') }}</h3>
+                <h3 class="page-title">{{ $t('staff.list._page_title') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <router-link type="button" class="btn btn-primary pl-5 pr-5" to="/admin/user/create">{{ $t('app.btn.create')}}
+                <router-link type="button" class="btn btn-primary pl-5 pr-5" to="/admin/user/create">{{ $t('staff.list.others._btn_create')}}
                 </router-link>
             </div>
         </div>
@@ -21,18 +21,18 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label>{{ $t('app.user.group')}}</label>
+                                                <label>{{ $t('staff.attr._position')}}</label>
                                                 <select class="form-control" id="groups" v-model="groupSelected">
-                                                    <option value="" selected>{{ $t('app.user.group_select_all') }}</option>
+                                                    <option value="" selected>{{ $t('staff.list.search_box._position_df') }}</option>
                                                     <option v-for="group in groups" :key="'group_' + group.id" :value="group.id" >{{ group.name }}</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label>{{ $t('app.user.clinic_name')}}</label>
+                                                <label>{{ $t('staff.attr._clinic')}}</label>
                                                 <select class="form-control" id="clinics" v-model="clinicSelected">
-                                                    <option value="" selected>{{ $t('app.user.clinic_select_all') }}</option>
+                                                    <option value="" selected>{{ $t('staff.list.search_box._clinic_df') }}</option>
                                                     <option v-for="clinic in clinics" :key="'clinic_' + clinic.id" :value="clinic.id">{{ clinic.name }}</option>
                                                 </select>
                                             </div>
@@ -41,12 +41,12 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>{{ $t('app.form.keyword')}}</label>
+                                                <label>{{ $t('common.list.search_box._keyword')}}</label>
                                                 <input
                                                     v-model="keyword"
                                                     type="text"
                                                     class="form-control"
-                                                    :placeholder="$t('app.form.keyword_placeholder')"
+                                                    :placeholder="$t('common.list.search_box._keyword_pl')"
                                                 />
                                             </div>
                                         </div>
@@ -57,12 +57,12 @@
                                             <button
                                                 type="reset"
                                                 class="btn btn-outline-secondary pl-4 pr-4" @click="resetKeyword()"
-                                            >{{ $t('app.form.clear_form')}}
+                                            >{{ $t('common.list.search_box._btn_reset')}}
                                             </button>
                                         </div>
                                         <div class="col-6">
                                             <button type="button" class="btn btn-outline-primary pl-4 pr-4" @click="getResults()">
-                                                {{ $t('app.form.submit_form')}}
+                                                {{ $t('common.list.search_box._btn_search')}}
                                             </button>
                                         </div>
                                     </div>
@@ -80,13 +80,13 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>{{ $t('app.user.name') }}</th>
-                                    <th>{{ $t('app.user.email') }}</th>
-                                    <th>{{ $t('app.user.group') }}</th>
-                                    <th>{{ $t('app.user.clinic_name') }}</th>
-                                    <th>{{ $t('app.user.last_login_date') }}</th>
-                                    <th>{{ $t('app.label.operator') }}</th>
+                                    <th>{{ $t('common.list.data_table._id') }}</th>
+                                    <th>{{ $t('staff.attr._username') }}</th>
+                                    <th>{{ $t('staff.attr._mail_address') }}</th>
+                                    <th>{{ $t('staff.attr._position') }}</th>
+                                    <th>{{ $t('staff.attr._clinic') }}</th>
+                                    <th>{{ $t('staff.list.data_table._last_login_at') }}</th>
+                                    <th>{{ $t('common.list.data_table._actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -123,10 +123,10 @@
                                                 <div class="dropdown-menu" aria-labelledby="operatingAction">
                                                     <router-link class="dropdown-item text-primary"
                                                                  :to="{ name: 'user.edit', params: { id: user.id }} ">
-                                                        {{ $t('app.btn.edit')}}
+                                                        {{ $t('staff.list.data_table.actions._act_edit')}}
                                                     </router-link>
                                                     <a class="dropdown-item text-danger" href="#" @click="deleteUser(user.id)">
-                                                        {{$t('app.btn.delete')}}
+                                                        {{$t('staff.list.data_table.actions._act_remove')}}
                                                     </a>
                                                 </div>
                                         </div>

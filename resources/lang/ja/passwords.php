@@ -13,14 +13,14 @@ return [
     |
     */
 
-    'reset' => 'Your password has been reset!',
+    'reset' => 'パスワード再設定が成功しました。',
     'failed' => 'パスワード再設定に失敗しました。',
     'sent' => 'パスワード再設定のメールを送信しました。',
     'token' => 'This password reset token is invalid.',
     'user' => "※メールアドレスを必ず入力してください。",
     'throttled' => 'Please wait before retrying.',
     'form_title' => 'パスワード再設定',
-    'submit_btn' => '送信',
+    'submit_btn' => '送信する',
     'back_to_login' => 'ログインページへ戻す',
 
 ];

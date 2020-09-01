@@ -4,12 +4,12 @@
       <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-8 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('role.title_page') }}</h3>
+                <h3 class="page-title">{{ $t('role.list._page_title') }}</h3>
             </div>
             <div class="col-12 col-sm-4 text-center text-sm-right mb-0">
                 <router-link v-if="$gate.canPermission('role.create')" type="button" class="btn btn-sm btn-primary float-right" :to="{path: '/admin/role/create'}">
                     <i class="fa fa-plus-square"></i>
-                    {{ $t('role.button_create') }}
+                    {{ $t('role.list.others._btn_create') }}
                 </router-link>
             </div>            
         </div>
@@ -27,11 +27,11 @@
                             <table class="table table-hover">
                             <thead>
                                 <tr>
-                                <th>#</th>
-                                <th>{{ $t('role.manage.name') }}</th>
+                                <th>{{ $t('common.list.data_table._id') }}</th>
+                                <th>{{ $t('role.attr._name') }}</th>
                                 <!-- <th>permissions</th> -->
                                 <!-- <th>{{ $t('role.manage.created_at') }}</th> -->
-                                <th>{{ $t('role.manage.action') }}</th>
+                                <th>{{ $t('common.list.data_table._actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
