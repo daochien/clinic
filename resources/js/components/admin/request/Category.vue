@@ -100,14 +100,14 @@
                     if (data.data.success) {
                         Toast.fire({
                             icon: "success",
-                            title: data.data.data,
+                            title: this.$t('request').list.messages._approve_success,
                         });
                         this.loadRequests();
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('app').popup.failed
+                            title: this.$t('request').list.messages._approve_failed,
                         });
                         this.$Progress.failed();
                     }
@@ -115,18 +115,19 @@
                 .catch(() => {
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('app').popup.failed
+                        title: this.$t('request').list.messages._approve_failed,
                     });
                 })
             },
             reject(id) {
                 Swal.fire({
-                    title: this.$t('app').popup.are_you_sure,
-                    text: this.$t('app').popup.you_wont_able_revert,
+                    title: this.$t('request').others._reject_modal_title,
+                    text: this.$t('request').others._reject_modal_description,
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('app').popup.reject
+                    confirmButtonText: this.$t('request').others._reject_modal_yes,
+                    cancelButtonText: this.$t('request').others._modal_no,
                 }).then((result) => {
                     // Send request to the server
                     if (result.value) {
@@ -138,14 +139,14 @@
                             if (data.data.success) {
                                 Toast.fire({
                                     icon: "success",
-                                    title: data.data.data,
+                                    title: this.$t('request').list.messages._reject_success,
                                 });
                                 this.loadRequests();
                                 this.$Progress.finish();
                             } else {
                                 Toast.fire({
                                     icon: 'error',
-                                    title: this.$t('app').popup.failed
+                                    title: this.$t('request').list.messages._reject_failed,
                                 });
                                 this.$Progress.failed();
                             }
@@ -153,7 +154,7 @@
                         .catch(() => {
                             Toast.fire({
                                 icon: 'error',
-                                title: this.$t('app').popup.failed
+                                title: this.$t('request').list.messages._reject_failed,
                             });
                         })
                     }

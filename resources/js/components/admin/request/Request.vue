@@ -112,14 +112,14 @@
                     if (data.data.success) {
                         Toast.fire({
                             icon: "success",
-                            title: data.data.data,
+                            title: this.$t('request').list.messages._approve_success,
                         });
                         this.$router.push("/admin/request/category/" + this.submission.form.category[0].id)
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('app').popup.failed
+                            title: this.$t('request').list.messages._approve_failed,
                         });
                         this.$Progress.failed();
                     }
@@ -127,7 +127,7 @@
                 .catch(() => {
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('app').popup.failed
+                        title: this.$t('request').list.messages._approve_failed,
                     });
                 })
             },
@@ -149,14 +149,14 @@
                             if (data.data.success) {
                                 Toast.fire({
                                     icon: "success",
-                                    title: data.data.data,
+                                    title: this.$t('request').list.messages._reject_success,
                                 });
                                 this.$router.push("/admin/request/category/" + this.submission.form.category[0].id)
                                 this.$Progress.finish();
                             } else {
                                 Toast.fire({
                                     icon: 'error',
-                                    title: this.$t('app').popup.failed
+                                    title: this.$t('request').list.messages._reject_failed,
                                 });
                                 this.$Progress.failed();
                             }
@@ -164,7 +164,7 @@
                         .catch(() => {
                             Toast.fire({
                                 icon: 'error',
-                                title: this.$t('app').popup.failed
+                                title: this.$t('request').list.messages._reject_failed,
                             });
                         })
                     }
@@ -178,7 +178,6 @@
                 });
                 this.$Progress.finish();
             },
-
         },
         mounted() {
         },
