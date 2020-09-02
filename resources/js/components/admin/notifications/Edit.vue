@@ -3,15 +3,15 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('notification.notification_management') }}</h3>
+                <h3 class="page-title">{{ $t('notification.info._page_title') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0" v-if="!disableForm">
-                <label class="pt-2 mr-4" @click="saveNotification(1)" style="cursor: pointer">{{ $t('notification.save_draft')}}</label>
+                <label class="pt-2 mr-4" @click="saveNotification(1)" style="cursor: pointer">{{ $t('notification.info.others._btn_draft_save')}}</label>
                 <button
                     type="button"
                     class="btn btn-primary pl-5 pr-5"
                     @click="saveNotification(0)"
-                >{{ $t('notification.singup')}}
+                >{{ $t('notification.info.others._btn_create')}}
                 </button>
             </div>
         </div>
@@ -26,7 +26,7 @@
                                     <form>
                                         <div class="row">
                                             <div class="col-12">
-                                                <label>{{ $t('notification.notice_information')}}</label>
+                                                <label>{{ $t('notification.info.form._subtitle')}}</label>
                                             </div>
                                         </div>
                                         <hr class="mt-2 mb-4"/>
@@ -35,13 +35,13 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>
-                                                        {{ $t('notification.title_info')}}
+                                                        {{ $t('notification.attr._title')}}
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <input
                                                         type="text"
                                                         class="form-control"
-                                                        :placeholder="$t('notification.please_enter_title')"
+                                                        :placeholder="$t('notification.info.form._title_pl')"
                                                         v-model="form.title"
                                                         :disabled="disableForm"
                                                     />
@@ -53,10 +53,10 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>
-                                                        {{ $t('notification.target_audience')}}
+                                                        {{ $t('notification.attr._target_users')}}
                                                         <span class="text-danger">*</span>
                                                         <br/>
-                                                        <small>{{ $t('notification.target_help')}}</small>
+                                                        <small>{{ $t('notification.info.form._target_users_des')}}</small>
                                                     </label>
                                                     <multiselect
                                                         v-model="form.groups"
@@ -65,7 +65,7 @@
                                                         :disabled="!manual || disableForm"
                                                         label="name"
                                                         track-by="id"
-                                                        :placeholder="$t('notification.please_enter_target')"
+                                                        :placeholder="$t('notification.info.form.target_user_opt._manual_pl')"
                                                     ></multiselect>
                                                 </div>
                                                 <div class="form-group row">
@@ -75,7 +75,7 @@
                                                             name="check-button"
                                                             @change="changeCheckedDR"
                                                             :disabled="disableForm"
-                                                        >DR
+                                                        >{{ $t('notification.info.form.target_user_opt._dr')}}
                                                         </b-form-checkbox>
                                                     </div>
                                                     <div class="col-1">
@@ -84,7 +84,7 @@
                                                             name="check-button"
                                                             @change="changeCheckedDH"
                                                             :disabled="disableForm"
-                                                        >DH
+                                                        >{{ $t('notification.info.form.target_user_opt._dh')}}
                                                         </b-form-checkbox>
                                                     </div>
                                                     <div class="col-1">
@@ -92,7 +92,7 @@
                                                             v-model="manual"
                                                             name="check-button"
                                                             :disabled="disableForm"
-                                                        >Manual
+                                                        >{{ $t('notification.info.form.target_user_opt._manual')}}
                                                         </b-form-checkbox>
                                                     </div>
                                                 </div>
@@ -103,7 +103,7 @@
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>
-                                                        Confirm require
+                                                        {{ $t('notification.attr._confirm_required')}}
                                                     </label>
                                                     <b-form-checkbox
                                                         v-model="form.confirm"
@@ -118,7 +118,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label class="col-form-label">{{ $t('notification.release_date')}}</label>
+                                                    <label class="col-form-label">{{ $t('notification.attr._public_at')}}</label>
                                                     <datetime
                                                         ref="datetime"
                                                         :required="true"
@@ -132,7 +132,7 @@
                                         <div class="row mt-3">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label>{{ $t('notification.notice_content')}}</label>
+                                                    <label>{{ $t('notification.attr._content')}}</label>
                                                     <quill-editor
                                                         ref="quill"
                                                         :content="form.content"

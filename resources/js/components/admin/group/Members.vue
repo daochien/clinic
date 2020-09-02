@@ -4,11 +4,11 @@
 
             <div class="page-header row no-gutters py-4">
                 <div class="col-6 text-center text-sm-left mb-0">
-                    <h3 class="page-title">{{ $t('group.registered_group')}}</h3>
+                    <h3 class="page-title">{{ $t('group.group_users._page_title')}}</h3>
                 </div>
                 <div class="col-6 text-center text-sm-right mb-0">
                     <div class="card-tools">
-                        <button type="button" class="btn btn-primary" :disabled="!addButton" @click="addToGroup()">{{ $t('group.add_to_group')}} {{group}}</button>
+                        <button type="button" class="btn btn-primary" :disabled="!addButton" @click="addToGroup()">{{ $t('group.group_users.others._btn_update')}} {{group}}</button>
                         <button type="button" class="btn btn-danger"  :disabled="!removeButton" @click="removeToGroup()">{{ $t('group.remove_from_group')}} {{group}}</button>
                     </div>
                 </div>
@@ -22,15 +22,15 @@
                             <form>
 
                                 <div class="form-group">
-                                    <label>{{ $t('group.keyword')}} <span class="text-danger">*</span></label>
+                                    <label>{{ $t('common.list.search_box._keyword')}} <span class="text-danger">*</span></label>
                                     <input v-model="value" type="text" name="keyword"
-                                           :placeholder="$t('group.address_placeholder')"
+                                           :placeholder="$t('common.list.search_box._keyword_pl')"
                                            class="form-control" >
                                 </div>
 
                                 <div class="form-group d-flex justify-content-center">
-                                    <button type="button" @click="removeCondition()"  class="btn btn-light border mr-3">{{ $t('group.remove_condition')}}</button>
-                                    <button type="button" @click="filter()" class="btn btn-light text-primary border-primary">{{ $t('group.search_by_condition')}}</button>
+                                    <button type="button" @click="removeCondition()"  class="btn btn-light border mr-3">{{ $t('common.list.search_box._btn_reset')}}</button>
+                                    <button type="button" @click="filter()" class="btn btn-light text-primary border-primary">{{ $t('common.list.search_box._btn_search')}}</button>
                                 </div>
 
                             </form>
@@ -52,11 +52,11 @@
                                 <thead>
                                 <tr>
                                     <th><input type="checkbox" v-model="selectAll"></th>
-                                    <th>{{ $t('group.name_account')}}</th>
-                                    <th>{{ $t('group.email')}}</th>
-                                    <th>{{ $t('group.group')}}</th>
-                                    <th>{{ $t('group.created_at')}}</th>
-                                    <th>{{ $t('group.last_login')}}</th>
+                                    <th>{{ $t('staff.attr._username')}}</th>
+                                    <th>{{ $t('staff.attr._mail_address')}}</th>
+                                    <th>{{ $t('staff.attr._position')}}</th>
+                                    <th>{{ $t('staff.list.data_table._registered_at')}}</th>
+                                    <th>{{ $t('staff.list.data_table._last_login_at')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -170,7 +170,7 @@
                             .catch(()=>{
                                 Toast.fire({
                                     icon: 'error',
-                                    title: 'Some error occured! Please try again'
+                                    title: this.$t('common.messages._system_err')
                                 });
                             })
                     }
@@ -199,14 +199,14 @@
 
                         Toast.fire({
                             icon: 'success',
-                            title: 'add success to group '
+                            title: this.$t('group.group_users.messages._update_success')
                         });
                         this.$Progress.finish();
 
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: 'You have not chosen user! Please try again'
+                            title: this.$t('group.group_users.messages._update_failed')
                         });
                     }
                 }
@@ -250,13 +250,13 @@
                             .catch(() => {
                                 Toast.fire({
                                     icon: 'error',
-                                    title: 'You have not chosen Group! Please try again'
+                                    title: this.$t('group.group_users.messages._update_success')
                                 });
                             })
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: 'You have not chosen user! Please try again'
+                            title: this.$t('group.group_users.messages._update_failed')
                         });
                     }
                 }

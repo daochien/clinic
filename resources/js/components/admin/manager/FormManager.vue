@@ -2,56 +2,57 @@
     <div class="container-fluid">
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-8 text-center text-sm-left mb-0">
-                <h3 class="page-title">{{ isEdit ? $t('manager.title_page_edit') : $t('manager.title_page_create') }}</h3>
+                <h3 class="page-title">{{ isEdit ? $t('admin.info._page_title_edit') : $t('admin.info._page_title_create') }}</h3>
             </div>
             <div class="col-12 col-sm-4 text-center text-sm-right mb-0">
-                <button v-if="isEdit" class="btn mb-2 btn-sm btn-salmon" @click="removeAdmin(manager.id)">{{ $t('manager.form_create.button_remove') }}</button>
-                <button class="mb-2 btn btn-sm btn-primary" v-if="!isEdit" @click="createAdmin()"> {{ $t('manager.form_create.button_create') }}</button>
-                <button class="mb-2 btn btn-sm btn-primary" v-else @click="updateAdmin()"> {{ $t('manager.form_create.button_edit') }}</button>
+                <button v-if="isEdit" class="btn mb-2 btn-sm btn-salmon" @click="removeAdmin(manager.id)">{{ $t('admin.info._btn_remove') }}</button>
+                <button class="mb-2 btn btn-sm btn-primary" v-if="!isEdit" @click="createAdmin()"> {{ $t('admin.info._btn_create') }}</button>
+                <button class="mb-2 btn btn-sm btn-primary" v-else @click="updateAdmin()"> {{ $t('admin.info._btn_edit') }}</button>
             </div>  
         </div>
         <div class="col-12 col-sm-10 offset-sm-1">
             <div class="card card-small mb-3">
                 <div class="card-header border-bottom">
-                    <h6 class="m-0">{{ $t('manager.form_create.title') }}</h6>
+                    <h6 class="m-0">{{ $t('admin.info.form._subtitle') }}</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="form-group col-12 col-sm-6">
-                            <label for="feInputTitle">{{ $t('manager.form_create.input_name') }} <span style="color:#c4183c;">*</span></label>
+                            <label for="feInputTitle">{{ $t('admin.attr._username') }} <span style="color:#c4183c;">*</span></label>
                             <input
+                            :placeholder="$t('admin.info.form._username_pl')"
                             :class="['form-control', {'is-invalid': $v.manager.name.$error}]"
                             type="text"
                             v-model.trim="$v.manager.name.$model">
-                            <div class="invalid-feedback" v-if="!$v.manager.name.required">{{ $t('manager.validator.name_required') }}</div>
-                            <div class="invalid-feedback" v-if="!$v.manager.name.maxLength">{{ $t('manager.validator.name_maxLength') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.name.required">{{ $t('validator.name_required') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.name.maxLength">{{ $t('validator.name_maxLength') }}</div>
                         </div>
                         <div class="form-group col-12 col-sm-6">
-                            <label for="feInputTitle">{{ $t('manager.form_create.input_email') }} <span style="color:#c4183c;">*</span></label>
+                            <label for="feInputTitle">{{ $t('admin.attr._mail_address') }} <span style="color:#c4183c;">*</span></label>
                             <input
+                            :placeholder="$t('admin.info.form._mail_address_pl')"
                             :class="['form-control', {'is-invalid': $v.manager.email.$error}]"
                             type="text" v-model.trim="$v.manager.email.$model">
-                            <div class="invalid-feedback" v-if="!$v.manager.email.required">{{ $t('manager.validator.email_required') }}</div>
-                            <div class="invalid-feedback" v-if="!$v.manager.email.email">{{ $t('manager.validator.email_valid') }}</div>
-                            <div class="invalid-feedback" v-if="!$v.manager.name.maxLength">{{ $t('manager.validator.email_maxLength') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.email.required">{{ $t('validator.email_required') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.email.email">{{ $t('validator.email_valid') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.name.maxLength">{{ $t('validator.email_maxLength') }}</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label>{{ $t('manager.form_create.posittion') }}</label>
+                                <label>{{ $t('admin.attr._posittion') }}</label>
                                 <span class="text-danger">*</span>
                                 <select :class="['form-control', {'is-invalid': $v.manager.posittion.$error}]" id="types" v-model="$v.manager.posittion.$model" >
-                                    <option value="" selected>{{ $t('app.user.place_holder.type') }}</option>
+                                    <option value="" selected>{{ $t('admin.info.form._position_df') }}</option>
                                     <option v-for="(item, index) in posittion" :key="index" :value="item" >{{ index }}</option>
-                                    
                                 </select>
                                 <div class="invalid-feedback" v-if="!$v.manager.posittion.required">{{ $t('validation.required') }}</div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="col-12">
-                                {{ $t('manager.form_create.role') }} <span style="color:#c4183c;">*</span>
+                                {{ $t('admin.attr._role') }} <span style="color:#c4183c;">*</span>
                             </div>
                             <div class="col-12" style="margin-top: 12px;">
                                 <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index">
@@ -78,13 +79,14 @@
                     </div>                    
                     <div class="row">
                         <div class="form-group col-12">
-                            <label for="feInputTitle">{{ $t('manager.form_create.note') }}</label>
+                            <label for="feInputTitle">{{ $t('admin.attr._memo_pl') }}</label>
                             <textarea
+                            :placeholder="$t('admin.info.form._mail_address_pl')"
                             :class="['form-control', {'is-invalid': $v.manager.description.$error}]"
                             v-model="$v.manager.description.$model"
                             class="form-control"
                             cols="30" rows="10"></textarea>
-                            <div class="invalid-feedback" v-if="!$v.manager.description.maxLength">{{ $t('manager.validator.note_maxLength') }}</div>
+                            <div class="invalid-feedback" v-if="!$v.manager.description.maxLength">{{ $t('validator.note_maxLength') }}</div>
                         </div>
                     </div>                    
                 </div>                
@@ -177,27 +179,25 @@ export default {
                         this.$router.push({path: '/admin/manager'});
                         Toast.fire({
                             icon: 'success',
-                            title: this.$t('manager.form_create.alert_create_success')
+                            title: this.$t('admin.info.form.messages._create_success')
                         });
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('manager.form_create.alert_error')
+                            title: this.$t('admin.info.form.messages._create_failed')
                         });
 
                         this.$Progress.failed();
                     }
                 })
                 .catch(()=>{
-
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('manager.form_create.alert_error')
+                        title: this.$t('common.messages._system_err')
                     });
                 })
             }
-
         },
         infoAdmin () {
             if (this.isEdit) {
@@ -236,13 +236,13 @@ export default {
                         this.$router.push({path: '/admin/manager'});                        
                         Toast.fire({
                             icon: 'success',
-                            title: this.$t('manager.form_create.alert_edit_success')
+                            title: this.$t('admin.info.form.messages._edit_success')
                         });
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('manager.form_create.alert_error')
+                            title: this.$t('admin.info.form.messages._edit_failed')
                         });
 
                         this.$Progress.failed();
@@ -251,7 +251,7 @@ export default {
                 .catch(()=>{
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('manager.form_create.alert_error')
+                        title: this.$t('common.messages._system_err')
                     });
                 })
             }

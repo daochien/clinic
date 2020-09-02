@@ -4,7 +4,7 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('template.request.page_title') }}</h3>
+                <h3 class="page-title">{{ $t('request.list._page_title') }}</h3>
             </div>
         </div>
         <!-- End Page Header -->
@@ -18,12 +18,12 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>{{ $t('template.request.submitter')}}</th>
-                                    <th>{{ $t('template.approver')}}</th>
-                                    <th>{{ $t('template.request.status')}}</th>
-                                    <th>{{ $t('template.request.submitted_at')}}</th>
-                                    <th>{{ $t('template.request.approved_at')}}</th>
+                                    <th>{{ $t('common.list.data_table._id') }}</th>
+                                    <th>{{ $t('request.attr._sender')}}</th>
+                                    <th>{{ $t('request.attr._approver')}}</th>
+                                    <th>{{ $t('request.attr._status')}}</th>
+                                    <th>{{ $t('request.list.data_table._request_at')}}</th>
+                                    <th>{{ $t('request.list.data_table._last_approved_at')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
