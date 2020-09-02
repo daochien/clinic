@@ -19,4 +19,5 @@ return [
     'contact' => 'Contact',
     'role' => 'Role',
     'permission' => 'Permission',
+    'page' => 'Page Management',
 ];

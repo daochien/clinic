@@ -1,4 +1,8 @@
 export default [
+    { path: '/notification', component: require('./components/client/notification/Index.vue').default },
+
+    { path: '/blogs', component: require('./components/front-end/Page.vue').default },
+
     { path: '/admin/dashboard', component: require('./components/admin/Dashboard.vue').default },
     { path: '/admin/profile', component: require('./components/admin/Profile.vue').default },
 
@@ -102,7 +106,7 @@ export default [
     {
         path: '/admin/page',
         component: {template: '<router-view/>'},
-        name: 'role', meta: {breadcrumb: `Page`},
+        name: 'page', meta: {breadcrumb: `Page`},
         children: [
             { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Create`} },
         ]
