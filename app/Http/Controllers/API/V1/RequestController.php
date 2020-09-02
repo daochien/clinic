@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Models\Category;
+use App\Models\RequestLog;
 use App\Models\Submission;
 use Illuminate\Http\Request;
 use App\Models\Form;
@@ -11,7 +12,6 @@ class RequestController extends BaseController
 {
 
     protected $template = '';
-
 
     /**
      * Create a new controller instance.
@@ -44,5 +44,26 @@ class RequestController extends BaseController
         $form_headers = $submission->form->getEntriesHeader();
 
         return $this->sendResponse(['submission' => $submission, 'form_headers' => $form_headers]);
+    }
+
+    public function changeStatus(Request $request, $id)
+    {
+        try {
+            $status = $request->get('status');
+            if (!in_array($status, array_values(RequestLog::STATUS))) {
+                return $this->sendError(__('app.template.request.error.invalid_status'));
+            }
+
+            $user = auth()->user();
+            RequestLog::create([
+                'request_id' => $id,
+                'approver_id' => $user->id,
+                'status' => $status
+            ]);
+
+            return $this->sendResponse(__('app.popup.update_success'));
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getMessage());
+        }
     }
 }

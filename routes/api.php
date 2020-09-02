@@ -66,6 +66,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::get('request/category/{id}', 'API\V1\RequestController@indexByCategory')->name('api.request.category.list');
         Route::get('request/{id}', 'API\V1\RequestController@show')->name('api.request.show');
+        Route::post('request/{id}', 'API\V1\RequestController@changeStatus')->name('api.request.change_status');
 
         Route::get('page/blogs', 'API\V1\PageController@blogs')->name('page.blogs');
         Route::get('page/blog-latest', 'API\V1\PageController@blogLatest')->name('page.blogLatest');

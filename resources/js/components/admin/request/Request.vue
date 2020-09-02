@@ -14,11 +14,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-10 offset-1">
-                    <div class="card">
+                    <div class="card mb-5">
                         <div class="card-header">
                             <label class="font-weight-bold">{{ $t('template.basic_info')}}</label>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body border-bottom">
                             <div class="row">
                                 <div class="col-2">
                                     <div class="form-group">
@@ -84,6 +84,8 @@
                                 </div>
                                 <div class="col-10" v-html="submission.content[value.name]"></div>
                             </div>
+                            <button class="btn btn-primary float-right mr-3" @click="approve()">Approve</button>
+                            <button type="button" class="btn btn-outline-danger mr-3 float-right" @click="reject()">Reject</button>
                         </div>
                     </div>
                 </div>
@@ -102,11 +104,35 @@
             }
         },
         methods: {
-            approve(id) {
-                console.log(id);
+            approve() {
+                axios.post("/api/request/" + this.submission.id, {
+                    status: 1,
+                })
+                .then((data) => {
+                    if (data.data.success) {
+                        Toast.fire({
+                            icon: "success",
+                            title: data.data.message,
+                        });
+                        this.$router.push("/admin/request/category/" + this.submission.form.category[0].id)
+                        this.$Progress.finish();
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: this.$t('app').popup.failed
+                        });
+
+                        this.$Progress.failed();
+                    }
+                })
+                .catch(() => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: this.$t('app').popup.failed
+                    });
+                })
             },
-            reject(id) {
-                console.log(id);
+            reject() {
             },
             loadRequests(){
                 this.$Progress.start();

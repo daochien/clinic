@@ -37,5 +37,8 @@ return [
         'pending' => '承認待ち',
         'approved' => '承認済み',
         'processing' => '承認中',
+        'error' => [
+            'invalid_status' => 'Invalid status',
+        ]
     ]
 ];
