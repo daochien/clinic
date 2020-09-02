@@ -112,7 +112,7 @@
                     if (data.data.success) {
                         Toast.fire({
                             icon: "success",
-                            title: data.data.message,
+                            title: data.data.data,
                         });
                         this.$router.push("/admin/request/category/" + this.submission.form.category[0].id)
                         this.$Progress.finish();
@@ -121,7 +121,6 @@
                             icon: 'error',
                             title: this.$t('app').popup.failed
                         });
-
                         this.$Progress.failed();
                     }
                 })
@@ -133,6 +132,43 @@
                 })
             },
             reject() {
+                Swal.fire({
+                    title: this.$t('app').popup.are_you_sure,
+                    text: this.$t('app').popup.you_wont_able_revert,
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: this.$t('app').popup.reject
+                }).then((result) => {
+                    // Send request to the server
+                    if (result.value) {
+                        axios.post("/api/request/" + this.submission.id, {
+                            status: 2,
+                        })
+                        .then((data) => {
+                            if (data.data.success) {
+                                Toast.fire({
+                                    icon: "success",
+                                    title: data.data.data,
+                                });
+                                this.$router.push("/admin/request/category/" + this.submission.form.category[0].id)
+                                this.$Progress.finish();
+                            } else {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: this.$t('app').popup.failed
+                                });
+                                this.$Progress.failed();
+                            }
+                        })
+                        .catch(() => {
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('app').popup.failed
+                            });
+                        })
+                    }
+                })
             },
             loadRequests(){
                 this.$Progress.start();

@@ -17,7 +17,8 @@ return [
         'failed' => 'Failed!',
         'your_item_has_been_deleted' => 'Your item has been deleted.',
         'create_success' => 'Create successfully',
-        'update_success' => 'Update successfully'
+        'update_success' => 'Update successfully',
+        'reject' => 'リジェクトする'
     ],
     'total' => 'Total',
     'label' => [

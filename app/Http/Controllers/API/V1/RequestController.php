@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API\V1;
 use App\Models\Category;
 use App\Models\RequestLog;
 use App\Models\Submission;
+use App\Services\RequestLogService;
+use App\Services\RequestService;
 use Illuminate\Http\Request;
 use App\Models\Form;
 
@@ -12,35 +14,35 @@ class RequestController extends BaseController
 {
 
     protected $template = '';
+    /**
+     * @var RequestService
+     */
+    private $requestService;
+    /**
+     * @var RequestLogService
+     */
+    private $requestLogService;
 
     /**
      * Create a new controller instance.
      *
      * @param Form $template
      */
-    public function __construct(Form $template)
+    public function __construct(Form $template, RequestService $requestService, RequestLogService $requestLogService)
     {
         $this->template = $template;
+        $this->requestService = $requestService;
+        $this->requestLogService = $requestLogService;
     }
 
     public function indexByCategory($categoryId)
     {
-        $requests = Submission::from('form_submissions as s')
-            ->join('template_category as tc', 'tc.form_id', 's.form_id')
-            ->where('tc.category_id', $categoryId)
-            ->with(['requestLogs', 'requestComments', 'user', 'form.approvers'])
-            ->latest()
-            ->paginate(10);
-
-        return $this->sendResponse($requests);
+        return $this->sendResponse($this->requestService->getRequestByCategory($categoryId));
     }
 
     public function show($id)
     {
-        $submission = Submission::with('user', 'form', 'form.approvers','form.category')
-            ->where('id', $id)
-            ->firstOrFail();
-
+        $submission = $this->requestService->getRequest($id);
         $form_headers = $submission->form->getEntriesHeader();
 
         return $this->sendResponse(['submission' => $submission, 'form_headers' => $form_headers]);
@@ -53,17 +55,15 @@ class RequestController extends BaseController
             if (!in_array($status, array_values(RequestLog::STATUS))) {
                 return $this->sendError(__('app.template.request.error.invalid_status'));
             }
-
             $user = auth()->user();
-            RequestLog::create([
-                'request_id' => $id,
-                'approver_id' => $user->id,
-                'status' => $status
-            ]);
+            $this->requestLogService->createLog($id, $user->id, $status);
 
             return $this->sendResponse(__('app.popup.update_success'));
         } catch (\Exception $exception) {
             return $this->sendError($exception->getMessage());
         }
     }
+
+
+
 }

@@ -54,7 +54,7 @@
                                                    :to="'/admin/request/' + request.id">
                                                     {{ $t('template.request.detail')}}
                                                 </router-link>
-                                                <a class="dropdown-item text-danger" href="#" @click="approve(request.id)">
+                                                <a class="dropdown-item text-primary" href="#" @click="approve(request.id)">
                                                     {{$t('template.request.approve')}}
                                                 </a>
                                                 <a class="dropdown-item text-danger" href="#" @click="reject(request.id)">
@@ -88,39 +88,76 @@
             }
         },
         methods: {
-
             getResults(page = 1) {
                 axios.get("/api/request/category/"  + this.$route.params.id + "/?page=" + page).then(({ data }) => ( this.requests = data.data));
             },
-            /*deleteTemplate(id) {
+            approve(id) {
+                this.$Progress.start();
+                axios.post("/api/request/" + id, {
+                    status: 1,
+                })
+                .then((data) => {
+                    if (data.data.success) {
+                        Toast.fire({
+                            icon: "success",
+                            title: data.data.data,
+                        });
+                        this.loadRequests();
+                        this.$Progress.finish();
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: this.$t('app').popup.failed
+                        });
+                        this.$Progress.failed();
+                    }
+                })
+                .catch(() => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: this.$t('app').popup.failed
+                    });
+                })
+            },
+            reject(id) {
                 Swal.fire({
                     title: this.$t('app').popup.are_you_sure,
                     text: this.$t('app').popup.you_wont_able_revert,
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('app').popup.delete_it
+                    confirmButtonText: this.$t('app').popup.reject
                 }).then((result) => {
                     // Send request to the server
                     if (result.value) {
-                        axios.delete('/api/template/' + id).then(() => {
-                            Swal.fire(
-                                this.$t('app').popup.deleted,
-                                this.$t('app').popup.your_item_has_been_deleted,
-                                'success'
-                            );
-                            // Fire.$emit('AfterCreate');
-                            this.loadRequests();
-                        }).catch((data) => {
-                            Swal.fire(this.$t('app').popup.failed, data.message, "warning");
-                        });
+                        this.$Progress.start();
+                        axios.post("/api/request/" + id, {
+                            status: 2,
+                        })
+                        .then((data) => {
+                            if (data.data.success) {
+                                Toast.fire({
+                                    icon: "success",
+                                    title: data.data.data,
+                                });
+                                this.loadRequests();
+                                this.$Progress.finish();
+                            } else {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: this.$t('app').popup.failed
+                                });
+                                this.$Progress.failed();
+                            }
+                        })
+                        .catch(() => {
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('app').popup.failed
+                            });
+                        })
                     }
                 })
-            },*/
-            approve(id) {
-            },
-            reject(id) {
-
             },
             loadRequests(){
                 axios.get("/api/request/category/"  + this.$route.params.id).then(({ data }) => ( this.requests = data.data));
