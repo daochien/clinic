@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
     'attr' => [
         '_username' => 'アカウント名',

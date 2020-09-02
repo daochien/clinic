@@ -8,7 +8,7 @@
                 <button v-if="isEdit" class="btn mb-2 btn-sm btn-salmon" @click="removeAdmin(manager.id)">{{ $t('admin.info._btn_remove') }}</button>
                 <button class="mb-2 btn btn-sm btn-primary" v-if="!isEdit" @click="createAdmin()"> {{ $t('admin.info._btn_create') }}</button>
                 <button class="mb-2 btn btn-sm btn-primary" v-else @click="updateAdmin()"> {{ $t('admin.info._btn_edit') }}</button>
-            </div>  
+            </div>
         </div>
         <div class="col-12 col-sm-10 offset-sm-1">
             <div class="card card-small mb-3">
@@ -41,7 +41,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label>{{ $t('admin.attr._posittion') }}</label>
+                                <label>{{ $t('admin.attr._position') }}</label>
                                 <span class="text-danger">*</span>
                                 <select :class="['form-control', {'is-invalid': $v.manager.posittion.$error}]" id="types" v-model="$v.manager.posittion.$model" >
                                     <option value="" selected>{{ $t('admin.info.form._position_df') }}</option>
@@ -56,12 +56,12 @@
                             </div>
                             <div class="col-12" style="margin-top: 12px;">
                                 <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index">
-                                    <input                                
+                                    <input
                                     type="checkbox"
                                     :class="['custom-control-input', {'is-invalid': $v.manager.roles.$error}]"
                                     class="custom-control-input"
                                     v-model="$v.manager.roles.$model"
-                                    :id="'formsCheckboxChecked_'+index"                                
+                                    :id="'formsCheckboxChecked_'+index"
                                     :value="role">
                                     <label class="custom-control-label" :for="'formsCheckboxChecked_'+index">{{ role }}</label>
                                 </div>
@@ -76,10 +76,10 @@
                                 </select>
                             </div>
                         </div> -->
-                    </div>                    
+                    </div>
                     <div class="row">
                         <div class="form-group col-12">
-                            <label for="feInputTitle">{{ $t('admin.attr._memo_pl') }}</label>
+                            <label for="feInputTitle">{{ $t('admin.attr._memo') }}</label>
                             <textarea
                             :placeholder="$t('admin.info.form._mail_address_pl')"
                             :class="['form-control', {'is-invalid': $v.manager.description.$error}]"
@@ -88,8 +88,8 @@
                             cols="30" rows="10"></textarea>
                             <div class="invalid-feedback" v-if="!$v.manager.description.maxLength">{{ $t('validator.note_maxLength') }}</div>
                         </div>
-                    </div>                    
-                </div>                
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -102,7 +102,7 @@ import { required, minLength, between, requiredIf, email, maxLength, numeric, mi
 export default {
     props: {
         isEdit: Boolean
-    },    
+    },
     data () {
         return {
             manager: {
@@ -149,10 +149,10 @@ export default {
         this.loadLevel();
         this.infoAdmin();
         this.loadRoles();
-        
+
     },
     computed : {
-        
+
     },
     methods: {
         loadRoles () {
@@ -223,7 +223,7 @@ export default {
                 data.roles.forEach(item => {
                     this.manager.roles.push(item.name);
                 });
-            }            
+            }
         },
         updateAdmin () {
             this.$v.manager.$touch();
@@ -233,7 +233,7 @@ export default {
                 axios.put('/api/manager/'+this.manager.id, this.manager)
                 .then( (data) => {
                     if(data.data.success) {
-                        this.$router.push({path: '/admin/manager'});                        
+                        this.$router.push({path: '/admin/manager'});
                         Toast.fire({
                             icon: 'success',
                             title: this.$t('admin.info.form.messages._edit_success')
@@ -256,7 +256,7 @@ export default {
                 })
             }
         },
-        removeAdmin (id) {            
+        removeAdmin (id) {
             Swal.fire({
                 title: this.$t('app').popup.are_you_sure,
                 text: this.$t('app').popup.you_wont_able_revert,
@@ -267,7 +267,7 @@ export default {
             }).then((result) => {
                 // Send request to the server
                 if (result.value) {
-                    
+
                     axios.delete('/api/manager/'+id).then(() => {
                         Swal.fire(
                             this.$t('app').popup.deleted,
@@ -281,7 +281,7 @@ export default {
                     });
                 }
             })
-        },        
+        },
     }
 
 }

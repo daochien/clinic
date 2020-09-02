@@ -102,7 +102,7 @@
             <li class="nav-item">
                 <router-link to="/admin/page/create" class="nav-link">
                     <i class="far fa-bell"></i>
-                    <span>{{ __('sidebar.page') }}</span>
+                    <span>Page Managerment</span>
                 </router-link>
             </li>
         </ul>
