@@ -4,7 +4,7 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('template.request.page_title') }}</h3>
+                <h3 class="page-title">{{ $t('request.template._page_title') }}</h3>
             </div>
         </div>
         <!-- End Page Header -->
@@ -19,11 +19,11 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{ $t('template.request.submitter')}}</th>
+                                    <th>{{ $t('request.template.submitter')}}</th>
                                     <th>{{ $t('template.approver')}}</th>
-                                    <th>{{ $t('template.request.status')}}</th>
-                                    <th>{{ $t('template.request.submitted_at')}}</th>
-                                    <th>{{ $t('template.request.approved_at')}}</th>
+                                    <th>{{ $t('request.template.status')}}</th>
+                                    <th>{{ $t('request.template.submitted_at')}}</th>
+                                    <th>{{ $t('request.template.approved_at')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -52,13 +52,13 @@
                                             <div class="dropdown-menu" aria-labelledby="operatingAction">
                                                 <router-link class="dropdown-item text-primary"
                                                    :to="'/admin/request/' + request.id">
-                                                    {{ $t('template.request.detail')}}
+                                                    {{ $t('request.template.detail')}}
                                                 </router-link>
                                                 <a class="dropdown-item text-danger" href="#" @click="approve(request.id)">
-                                                    {{$t('template.request.approve')}}
+                                                    {{$t('request.template.approve')}}
                                                 </a>
                                                 <a class="dropdown-item text-danger" href="#" @click="reject(request.id)">
-                                                    {{$t('template.request.reject')}}
+                                                    {{$t('request.template.reject')}}
                                                 </a>
                                             </div>
                                         </div>
