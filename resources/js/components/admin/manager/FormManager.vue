@@ -5,9 +5,9 @@
                 <h3 class="page-title">{{ isEdit ? $t('admin.info._page_title_edit') : $t('admin.info._page_title_create') }}</h3>
             </div>
             <div class="col-12 col-sm-4 text-center text-sm-right mb-0">
-                <button v-if="isEdit" class="btn mb-2 btn-sm btn-salmon" @click="removeAdmin(manager.id)">{{ $t('admin.info._btn_remove') }}</button>
-                <button class="mb-2 btn btn-sm btn-primary" v-if="!isEdit" @click="createAdmin()"> {{ $t('admin.info._btn_create') }}</button>
-                <button class="mb-2 btn btn-sm btn-primary" v-else @click="updateAdmin()"> {{ $t('admin.info._btn_edit') }}</button>
+                <button v-if="isEdit" class="btn mb-2 btn-sm btn-salmon" @click="removeAdmin(manager.id)">{{ $t('admin.info.others._btn_remove') }}</button>
+                <button class="mb-2 btn btn-sm btn-primary" v-if="!isEdit" @click="createAdmin()"> {{ $t('admin.info.others._btn_create') }}</button>
+                <button class="mb-2 btn btn-sm btn-primary" v-else @click="updateAdmin()"> {{ $t('admin.info.others._btn_edit') }}</button>
             </div>
         </div>
         <div class="col-12 col-sm-10 offset-sm-1">

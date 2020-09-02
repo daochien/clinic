@@ -6,12 +6,13 @@ return [
         '_sender' => '申請者',
         '_approver' => '承認担当者',
         '_status' => 'ステータス',
-        'statuses' => [
+        'status' => [
             '_open' => '承認待ち',
             '_in_progress' => '承認中',
             '_approved' => '承認済み',
             '_rejected' => '却下',
         ],
+        '_all_approval' => '全員承認',
         '_approval_comment' => '承認欄',
         'approval_comment' => [
             '_yes' => 'あり',
@@ -73,22 +74,56 @@ return [
         ],
     ],
     'template' => [
-        '_og_title' => '友伸會ポータル管理画面｜申請管理・申請テンプレート一覧',
-        '_page_title' => '申請テンプレート一覧',
-        'data_table' => [
-            '_created_at' => '作成日時',
-            'actions' => [
-                '_act_edit' => '編集する',
-                '_act_remvoe' => '削除する',
+        'list' => [
+            '_og_title_' => '友伸會ポータル管理画面｜申請管理・申請テンプレート一覧',
+            '_page_title' => '申請テンプレート一覧',
+            'data_table' => [
+                '_created_at' => '作成日時',
+                'actions' => [
+                    '_act_edit' => '編集する',
+                    '_act_remove' => '削除する',
+                ],
+            ],
+            'messages' => [
+                '_remove_success' => '申請テンプレートの削除が成功しました。',
+                '_remove_failed' => '申請テンプレートの削除に失敗しました。',
+            ],
+            'others' => [
+                '_btn_draft_save' => '下書きとして保存',
+                '_btn_create' => '新規テンプレート作成',
+                '_no_data' => '申請テンプレートが存在しません。',
             ],
         ],
-        'messages' => [
-            '_remove_success' => '申請テンプレートの削除が成功しました。',
-            '_remove_failed' => '申請テンプレートの削除に失敗しました。',
-        ],
-        'others' => [
-            '_btn_create' => '新規テンプレート作成',
-            '_no_data' => '申請テンプレートが存在しません。',
+        'info' => [
+            '_og_title_create' => '友伸會ポータル管理画面｜申請管理・新規テンプレート作成',
+            '_og_title_create' => '友伸會ポータル管理画面｜申請管理・申請テンプレート編集',
+            '_page_title_create' => '新規テンプレート作成',
+            '_page_title_edit' => '申請テンプレート編集',
+            'basic_form' => [
+                '_subtitle' => '基本情報',
+                '_title_pl' => '申請テンプレートのタイトルを入力してください',
+                '_approver_pl' => '承認担当者のアカウント名を指定してください',
+                '_category_df' => 'カテゴリーを選択してください',
+                '_memo_pl' => 'メモを入力してください',
+            ],
+            'question_form' => [
+                '_subtitle' => '申請情報',
+                '_description' => '※右側の設問テンプレートから申請項目ゾーンにドラッグ・ドロップし、設問の詳細を定義してください。',
+            ],
+            'messages' => [
+                '_create_success' => '新規申請テンプレートの作成が成功しました。',
+                '_create_failed' => '新規申請テンプレートの作成に失敗しました。',
+                '_edit_success' => '新規申請テンプレートの編集が成功しました。',
+                '_edit_failed' => '新規申請テンプレートの編集に失敗しました。',
+                '_draft_save_success' => '申請テンプレートのの下書き保存が成功しました。',
+                '_draft_save_failed' => '申請テンプレートのの下書き保存に失敗しました。',
+            ],
+            'others' => [
+                '_btn_draft_save' => '下書きとして保存',
+                '_btn_create' => '作成する',
+                '_btn_edit' => '編集する',
+                '_no_data' => '申請テンプレートが存在しません。',
+            ],
         ],
     ],
     'others' => [

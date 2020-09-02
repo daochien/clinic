@@ -7,11 +7,11 @@
             <div class="col-12 col-sm-4 text-center text-sm-right mb-0">
                 <button v-if="!isEdit" type="button" class="btn btn-sm btn-primary float-right" @click="createRole()">
                     <i class="fa fa-plus-square"></i>
-                    {{ $t('role.others._btn_create') }}
+                    {{ $t('role.info.others._btn_create') }}
                 </button>
                 <button v-else type="button" class="btn btn-sm btn-primary float-right" @click="updateRole()">
                     <i class="fa fa-plus-square"></i>
-                    {{ $t('role.others._btn_edit') }}
+                    {{ $t('role.info.others._btn_edit') }}
                 </button>
             </div>
         </div>
