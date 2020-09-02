@@ -1,88 +1,35 @@
 <?php
-
 return [
-    'name' => 'Clinic portal',
-    'setting' => 'Setting',
-    'btn' => [
-        'create' => 'Create',
-        'edit' => 'Edit',
-        'update' => 'Update',
-        'delete' => 'Delete',
-        'submit' => 'Submit',
-    ],
-    'popup' => [
-        'are_you_sure' => 'Are you sure?',
-        'you_wont_able_revert' => 'You won\'t be able to revert this!',
-        'delete_it' => 'Yes, delete it!',
-        'deleted' => 'Deleted!',
-        'failed' => 'Failed!',
-        'your_item_has_been_deleted' => 'Your item has been deleted.',
-        'create_success' => 'Create successfully',
-        'update_success' => 'Update successfully',
-        'reject' => 'Reject'
-    ],
-    'total' => 'Total',
-    'label' => [
-        'description' => 'Description',
-        'operator' => 'Operator',
-    ],
-    'form' => [
-        'keyword' =>  'Keyword',
-        'keyword_placeholder' =>  'keyword',
-        'clear_form' =>  'clear form',
-        'submit_form' =>  'Search',
-    ],
-    'clinic' => [
-        'header' => [
-            'create' =>  'Create clinic',
-            'info' => 'Information',
-            'list-user' => 'List Users',
+    'name' => '友伸會ポータル管理画面',
+    'menu' => [
+        'top' => [
+            '_logout' => 'ログアウト',
         ],
-        'place_holder' => [
-            'name' => 'Name',
-            'post_code' => 'Post code',
-            'address' => 'Address',
-            'description' => 'Description',
-        ],
-        'name' => 'Name',
-        'post_code' => 'Post code',
-        'address' => 'Address',
-        'description' => 'Description',
-        'manage_user' => 'Manage user',
-        'users_count' => 'User count',
+        'sidebar' => [
+            'admin_management' => [
+                '_main' => '管理者アカウント管理',
+                '_admin_list' => '管理者一覧',
+                '_role_list' => '管理者役割一覧',
+            ],
+            'staff_management' => [
+                '_main' => 'スタッフ管理',
+                '_clinic_list' => 'クリニック一覧',
+                '_staff_list' => 'スタッフ一覧',
+                '_group_list' => 'グループ一覧',
+            ],
+            'notification_management' => [
+                '_main' => 'お知らせ管理',
+            ],
+            'request_management' => [
+                '_main' => '申請管理',
+                '_request_template_list' => '申請テンプレート一覧',
+            ],
+            'inquiry_management' => [
+                '_main' => '問合せ管理',
+            ],
+            'page_management' => [
+                '_main' => 'ページ管理',
+            ],
+        ]
     ],
-    'user' => [
-        'title' => [
-            'index' => 'List',
-            'create' => 'Create',
-            'edit' => 'Edit',
-        ],
-        'place_holder' => [
-            'name' => 'Name',
-            'email' => 'Email',
-            'group' => 'Select Group',
-            'clinic' => 'Select Clinic',
-            'description' => 'Description',
-            'level' => 'Select Position',
-            'type' => 'Select type',
-        ],
-        'remove_staff' => 'Remove staff',
-        'name' => 'Name',
-        'email' => 'Email',
-        'group' => 'Group',
-        'level' => 'Level',
-        'type' => 'Position',
-        'role_label' => 'Role',
-        'role_web_label' => 'Web',
-        'role_mobile_label' => 'Mobile',
-        'register_date' => 'Register date',
-        'last_login_date' => 'Last login',
-        'clinic_name' => 'Clinic',
-        'group_select_all' => 'All Group',
-        'clinic_select_all' => 'All Clinic',
-    ],
-    'delete_head' => 'Are you sure?',
-    'delete_question' => 'You won\'t be able to revert this!',
-    'delete_yes' => 'Yes, delete it!',
-    'delete_cancel' => 'Cancel'
 ];

@@ -2,16 +2,16 @@
     <div class="container-fluid">
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-8 text-center text-sm-left mb-0">
-                <h3 class="page-title">{{ $t('role.title_page') }}</h3>
+                <h3 class="page-title">{{ $t('role.info._page_title_create') }}</h3>
             </div>
             <div class="col-12 col-sm-4 text-center text-sm-right mb-0">
                 <button v-if="!isEdit" type="button" class="btn btn-sm btn-primary float-right" @click="createRole()">
                     <i class="fa fa-plus-square"></i>
-                    {{ $t('role.button_create') }}
+                    {{ $t('role.info.others._btn_create') }}
                 </button>
                 <button v-else type="button" class="btn btn-sm btn-primary float-right" @click="updateRole()">
                     <i class="fa fa-plus-square"></i>
-                    {{ $t('role.button_edit') }}
+                    {{ $t('role.info.others._btn_edit') }}
                 </button>
             </div>
         </div>
@@ -20,9 +20,10 @@
                 <div class="card" v-if="$gate.canPermission('role.store')">
                     <div class="card-body">
                          <div class="form-group row">
-                            <label for="feInputTitle" class="col-sm-2 col-form-label">{{ $t('role.input_name') }} <span style="color:#c4183c;">*</span></label>
+                            <label for="feInputTitle" class="col-sm-2 col-form-label">{{ $t('role.attr._name') }} <span style="color:#c4183c;">*</span></label>
                             <div class="col-sm-6">
                                 <input
+                                :placeholder="$t('role.info.form._name_pl')"
                                 :class="['form-control', {'is-invalid': role.errors.has('name')}]"
                                 type="text"
                                 v-model.trim="role.name"
@@ -33,12 +34,12 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                <th>{{ $t('role.table.name') }}</th>
-                                <th>{{ $t('role.table.select_all') }}</th>
-                                <th>{{ $t('role.table.permission_view_list') }}</th>
-                                <th>{{ $t('role.table.permission_create') }}</th>
-                                <th>{{ $t('role.table.permission_update') }}</th>
-                                <th>{{ $t('role.table.permission_delete') }}</th>
+                                <th>{{ $t('role.info.form.permission_data._feature_list') }}</th>
+                                <th>{{ $t('role.info.form.permission_data._all_permission') }}</th>
+                                <th>{{ $t('role.info.form.permission_data._read') }}</th>
+                                <th>{{ $t('role.info.form.permission_data._create') }}</th>
+                                <th>{{ $t('role.info.form.permission_data._update') }}</th>
+                                <th>{{ $t('role.info.form.permission_data._remove') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -130,7 +131,7 @@ export default {
             .catch(()=>{
                 Toast.fire({
                     icon: 'error',
-                    title: 'Some error occured! Please try again'
+                    title: this.$t('common.messages._system_err')
                 });
                 this.$Progress.failed();
             })

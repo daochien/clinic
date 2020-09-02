@@ -4,7 +4,7 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="pr-5 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('template.request.page_title') }}</h3>
+                <h3 class="page-title">{{ $t('request.info._page_title') }}</h3>
             </div>
             <div class="col-1 col-sm-8 text-right text-sm-left mb-4 mb-sm-0">
                 <div class="mb-2 btn btn-sm btn-warning mr-1">{{ $t('template.request.pending') }}</div>
@@ -16,14 +16,14 @@
                 <div class="col-md-10 offset-1">
                     <div class="card mb-5">
                         <div class="card-header">
-                            <label class="font-weight-bold">{{ $t('template.basic_info')}}</label>
+                            <label class="font-weight-bold">{{ $t('request.info.basic_info._subtitle')}}</label>
                         </div>
                         <div class="card-body border-bottom">
                             <div class="row">
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label>
-                                            {{ $t('template.title')}}
+                                            {{ $t('request.attr._title')}}
                                         </label>
                                     </div>
                                 </div>
@@ -33,7 +33,7 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label>
-                                            {{ $t('template.category')}}
+                                            {{ $t('request.attr._category')}}
                                         </label>
                                     </div>
                                 </div>
@@ -44,7 +44,7 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label>
-                                            {{ $t('template.approver')}}
+                                            {{ $t('request.attr._approver')}}
                                         </label>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label>
-                                            <label>{{ $t('app.label.description')}}</label>
+                                            <label>{{ $t('request.attr._memo')}}</label>
                                         </label>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                         </div>
 
                         <div class="card-header">
-                            <label class="font-weight-bold">{{ $t('template.setting')}}</label>
+                            <label class="font-weight-bold">{{ $t('request.info.form._subtitle')}}</label>
                         </div>
                         <div class="card-body">
                             <div class="row" v-for="(value, index) in form_headers" :key="'title_' + index">

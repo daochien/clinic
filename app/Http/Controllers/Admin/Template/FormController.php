@@ -47,7 +47,7 @@ class FormController extends Controller
     public function create()
     {
         $pageTitle = "Create New Form";
-        $breadCrumbTitle = __('template.create_breadcrumb_label');
+        $breadCrumbTitle = __('request.template.info._page_title_create');
         $category = $this->categoryRepository->getTemplateByCategory(Category::TYPE['template']);
 
         $saveURL = route('template.store');
@@ -92,14 +92,14 @@ class FormController extends Controller
             return response()
                     ->json([
                         'success' => true,
-                        'details' => __('create_success'),
+                        'details' => __('request.template.info.messages._create_success'),
                         'dest' => config('app.url') . "/admin/template",
                     ]);
         } catch (Throwable $e) {
             info($e);
             DB::rollback();
 
-            return response()->json(['success' => false, 'details' => __('create_failed')]);
+            return response()->json(['success' => false, 'details' => __('common.messages._system_err')]);
         }
     }
 
@@ -123,7 +123,7 @@ class FormController extends Controller
         $form = Form::where(['user_id' => $user->id, 'id' => $id])->with(['approvers', 'category'])->firstOrFail();
 
         $pageTitle = "Preview Form";
-        $breadCrumbTitle = __('template.create_breadcrumb_label');
+        $breadCrumbTitle = __('request.template.info._page_title_edit');
         $category = $this->categoryRepository->getTemplateByCategory(Category::TYPE['template']);
         $adminList = $this->permissionRepository->getUserByPermission('template');
 
@@ -167,17 +167,17 @@ class FormController extends Controller
                 return response()
                         ->json([
                             'success' => true,
-                            'details' => __('create_success'),
+                            'details' => __('request.template.info.messages._edit_success'),
                             'dest' => config('app.url') . "/admin/template",
                         ]);
             } else {
-                response()->json(['success' => false, 'details' => __('create_failed')]);
+                response()->json(['success' => false, 'details' => __('request.template.info.messages._edit_failed')]);
             }
         } catch (Throwable $e) {
             info($e);
             DB::rollback();
 
-            return response()->json(['success' => false, 'details' => __('create_failed')]);
+            return response()->json(['success' => false, 'details' => __('common.messages._system_err')]);
         }
     }
 

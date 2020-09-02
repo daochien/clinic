@@ -7,20 +7,20 @@
             <div class="row no-gutters h-100">
                 <div class="col-lg-6 col-md-6 mx-auto my-auto no-gutters">
                     <div class="mt-5 mb-5">
-                        <h1 class="text-center">{{ __('auth.title_form') }}</h1>
+                        <h1 class="text-center">{{ __('auth.reset_pwd._page_title') }}</h1>
                     </div>
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-8 mx-auto my-auto">
-                                    <h3 class="auth-form__title text-center mb-4">{{ __('passwords.form_title') }}</h3>
+                                    <h3 class="auth-form__title text-center mb-4">{{ __('auth.reset_pwd.form._subtitle') }}</h3>
                                     <form method="POST" action="{{ route('password.email') }}">
                                         @csrf
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">{{ __('auth.email_title') }}</label>
+                                            <label for="exampleInputEmail1">{{ __('auth.reset_pwd.form._mail_address') }}</label>
                                             <input type="email" class="form-control  @error('email') is-invalid @enderror" name="email"
                                                    value="{{ old('email') }}" required autocomplete="email" autofocus id="exampleInputEmail1"
-                                                   aria-describedby="emailHelp" placeholder="{{ __('auth.email_holder') }}">
+                                                   aria-describedby="emailHelp" placeholder="{{ __('auth.reset_pwd.form._mail_address_pl') }}">
                                             @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -29,7 +29,7 @@
                                         </div>
 
                                         <button type="submit" class="col-12 btn btn-primary mt-3">
-                                            {{ __('passwords.back_to_login') }}
+                                            {{ __('auth.reset_pwd.others._link_back_to_login') }}
                                         </button>
 
                                     </form>

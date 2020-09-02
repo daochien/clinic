@@ -4,7 +4,7 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('template.request.page_title') }}</h3>
+                <h3 class="page-title">{{ $t('request.list._page_title') }}</h3>
             </div>
         </div>
         <!-- End Page Header -->
@@ -18,12 +18,12 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>{{ $t('template.request.submitter')}}</th>
-                                    <th>{{ $t('template.approver')}}</th>
-                                    <th>{{ $t('template.request.status')}}</th>
-                                    <th>{{ $t('template.request.submitted_at')}}</th>
-                                    <th>{{ $t('template.request.approved_at')}}</th>
+                                    <th>{{ $t('common.list.data_table._id') }}</th>
+                                    <th>{{ $t('request.attr._sender')}}</th>
+                                    <th>{{ $t('request.attr._approver')}}</th>
+                                    <th>{{ $t('request.attr._status')}}</th>
+                                    <th>{{ $t('request.list.data_table._request_at')}}</th>
+                                    <th>{{ $t('request.list.data_table._last_approved_at')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -52,13 +52,13 @@
                                             <div class="dropdown-menu" aria-labelledby="operatingAction">
                                                 <router-link class="dropdown-item text-primary"
                                                    :to="'/admin/request/' + request.id">
-                                                    {{ $t('template.request.detail')}}
+                                                    {{ $t('request.list.data_table.actions._act_show_details')}}
                                                 </router-link>
                                                 <a class="dropdown-item text-primary" href="#" @click="approve(request.id)">
-                                                    {{$t('template.request.approve')}}
+                                                    {{$t('request.list.data_table.actions._act_approve')}}
                                                 </a>
                                                 <a class="dropdown-item text-danger" href="#" @click="reject(request.id)">
-                                                    {{$t('template.request.reject')}}
+                                                    {{$t('request.list.data_table.actions._act_reject')}}
                                                 </a>
                                             </div>
                                         </div>
