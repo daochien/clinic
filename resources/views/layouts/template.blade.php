@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('vendor/formbuilder/js/footable/css/footable.standalone.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('vendor/formbuilder/css/styles.css') }}{{ jazmy\FormBuilder\Helper::bustCache() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     @stack('styles')
 </head>
 <body class="h-100">
@@ -199,7 +200,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
 <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
-
 <script type="text/javascript">
     window.FormBuilder = {
         csrfToken: '{{ csrf_token() }}',
@@ -215,6 +215,7 @@
 <script src="{{ asset('vendor/formbuilder/js/footable/js/footable.min.js') }}" defer></script>
 <script src="{{ asset('vendor/formbuilder/js/script.js') }}{{ jazmy\FormBuilder\Helper::bustCache() }}" defer></script>
 
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 @stack('fb-scripts')
 @yield('page-js-files')
 @yield('page-js-script')

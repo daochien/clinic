@@ -66,6 +66,24 @@ jQuery(function() {
         },
     }
 
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-bottom-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "1500",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+
     formBuilder = fbEditor.formBuilder(fbOptions)
 
     var fbClearBtn = $('.fb-clear-btn')
@@ -141,26 +159,14 @@ jQuery(function() {
                 if (response.success) {
                     // the form has been created
                     // send the user to the form index page
-                    swal({
-                        title: "Form Saved!",
-                        text: response.details || '',
-                        icon: 'success',
-                    })
+                    toastr["info"](response.details || '')
 
                     setTimeout(function() {
                         window.location = response.dest
                     }, 1500);
 
-                    // clear out the form
-                    // $('#name').val('')
-                    // $('#visibility').val('')
-                    // $('#allows_edit').val('0')
                 } else {
-                    swal({
-                        title: "Error",
-                        text: response.details || 'Error',
-                        icon: 'error',
-                    })
+                    toastr["error"](response.details || 'Error')
                 }
             }, function(error) {
                 handleAjaxError(error)
