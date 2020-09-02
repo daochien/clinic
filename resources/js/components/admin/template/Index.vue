@@ -4,10 +4,10 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('request.template._page_title') }}</h3>
+                <h3 class="page-title">{{ $t('request.template.list._page_title') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <a type="button" class="btn btn-primary pl-5 pr-5" href="/admin/template/create">{{ $t('request.template.others._btn_create')}}
+                <a type="button" class="btn btn-primary pl-5 pr-5" href="/admin/template/create">{{ $t('request.template.list.others._btn_create')}}
                 </a>
             </div>
         </div>
@@ -26,7 +26,7 @@
                                     <th>{{ $t('request.attr._title')}}</th>
                                     <th>{{ $t('request.attr._category')}}</th>
                                     <th>{{ $t('request.attr._approver')}}</th>
-                                    <th>{{ $t('request.template.data_table._created_at')}}</th>
+                                    <th>{{ $t('request.template.list.data_table._created_at')}}</th>
                                     <th>{{ $t('common.list.data_table._actions') }}</th>
 
                                 </tr>
@@ -56,10 +56,10 @@
                                             <div class="dropdown-menu" aria-labelledby="operatingAction">
                                                 <a class="dropdown-item text-primary"
                                                              :href="'/admin/template/' + template.id + '/edit'">
-                                                    {{ $t('request.template.data_table.actions._act_edit')}}
+                                                    {{ $t('request.template.list.data_table.actions._act_edit')}}
                                                 </a>
                                                 <a class="dropdown-item text-danger" href="#" @click="deleteTemplate(template.id)">
-                                                    {{$t('request.template.data_table.actions._act_remove')}}
+                                                    {{$t('request.template.list.data_table.actions._act_remove')}}
                                                 </a>
                                             </div>
                                         </div>

@@ -8,8 +8,8 @@
                 </div>
                 <div class="col-6 text-center text-sm-right mb-0">
                     <div class="card-tools">
-                        <button type="button" class="btn btn-primary" :disabled="!addButton" @click="addToGroup()">{{ $t('group.group_users.others._btn_update')}} {{group}}</button>
-                        <button type="button" class="btn btn-danger"  :disabled="!removeButton" @click="removeToGroup()">{{ $t('group.remove_from_group')}} {{group}}</button>
+                        <button type="button" class="btn btn-primary" :disabled="!addButton" @click="addToGroup()">{{ $t('group.group_users.others._btn_update')}}</button>
+                        <!-- <button type="button" class="btn btn-danger"  :disabled="!removeButton" @click="removeToGroup()">{{ $t('group.remove_from_group')}}</button> -->
                     </div>
                 </div>
             </div>
