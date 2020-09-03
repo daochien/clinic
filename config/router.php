@@ -1,7 +1,7 @@
 <?php
     return [
         'role' => [
-            'name' => 'Role management',
+            'name' => '管理者役割管理',
             'groups' => [
                 'view' => [
                         'name' => 'View list',
@@ -22,7 +22,7 @@
             ]
         ],
         'manager' => [
-            'name' => 'Admin management',
+            'name' => '管理者アカウント管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
@@ -43,7 +43,7 @@
             ]
         ],
         'clinic' => [
-            'name' => 'Clinic management',
+            'name' => 'クリニック管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
@@ -64,7 +64,7 @@
             ]
         ],
         'staff' => [
-            'name' => 'Staff management',
+            'name' => 'スタッフ管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
@@ -85,7 +85,7 @@
             ]
         ],
         'group' => [
-            'name' => 'Group management',
+            'name' => 'グループ管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
@@ -106,7 +106,7 @@
             ]
         ],
         'notification' => [
-            'name' => 'Notification management',
+            'name' => 'お知らせ管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
@@ -127,7 +127,7 @@
             ]
         ],
         'request_template' => [
-            'name' => 'Request template management',
+            'name' => '申請テンプレート管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
@@ -212,7 +212,7 @@
         //     ]
         // ],
         'page' => [
-            'name' => 'Page management',
+            'name' => 'ページ管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
