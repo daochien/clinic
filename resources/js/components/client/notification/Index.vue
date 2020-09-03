@@ -114,10 +114,10 @@
             },
             getFromLabel(item) {
                 if (!_.isEmpty(item.notification) && !_.isEmpty(item.notification.creator)) {
-                    return item.notification.creator.posittion == 1 ? 'BOD' : 'HR'
+                    return item.notification.creator.posittion == 1 ? '理事長' : '事務局'
                 }
 
-                return 'HR';
+                return '事務局';
             },
             getFromTitle(item) {
                 if (!_.isEmpty(item.notification) && !_.isEmpty(item.notification.creator)) {

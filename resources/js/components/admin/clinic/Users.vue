@@ -17,7 +17,7 @@
                                 <tr>
                                     <th scope="col"><input type="checkbox" class="custom-control-input"
                                                            id="formsAgreeField"></th>
-                                    <th scope="col">{{ $t('staff.attr._name')}}</th>
+                                    <th scope="col">{{ $t('staff.attr._username')}}</th>
                                     <th scope="col">{{ $t('staff.attr._mail_address')}}</th>
                                     <th scope="col">{{ $t('staff.attr._position')}}</th>
                                     <th scope="col">{{ $t('staff.list.data_table._registered_at')}}</th>
