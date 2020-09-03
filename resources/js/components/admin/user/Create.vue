@@ -96,7 +96,7 @@
                                                 <div>{{ $t('staff.attr._user_type')}}</div>
                                                 <div>
                                                     <template v-for="role in roles">
-                                                        <div class="col-3 float-left">
+                                                        <div class="col-5 float-left">
                                                             <div class="custom-control custom-radio mb-1 col-1">
                                                                 <input type="radio" class="custom-control-input"
                                                                        name="role" v-bind:id="role.id + '-user'"
