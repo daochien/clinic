@@ -32,7 +32,7 @@ class RequestService
      */
     public function getRequest($id)
     {
-        $submission = Submission::with('user', 'form', 'form.approvers', 'form.category')
+        $submission = Submission::with('requestLogs', 'requestComments', 'user', 'form.approvers', 'form.category')
             ->where('id', $id)
             ->firstOrFail();
         return $submission;

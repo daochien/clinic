@@ -37,9 +37,9 @@
                                             </span>
                                         </div>
                                     </td>
-                                    <td> <span class="text-warning">承認待ち</span> </td>
+                                    <td> {{getStatus(request)}}</td>
                                     <td>{{ request.created_at|myDate }}</td>
-                                    <td>-</td>
+                                    <td>{{ getLastRequestLog(request)|myDate }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <i
@@ -85,6 +85,7 @@
         data () {
             return {
                 requests : {},
+                status_label: '',
             }
         },
         methods: {
@@ -163,7 +164,37 @@
             loadRequests(){
                 axios.get("/api/request/category/"  + this.$route.params.id).then(({ data }) => ( this.requests = data.data));
             },
+            getStatus(object) {
+                self = this;
+                if (object.request_logs.length === 0) {
+                    this.status_label = 'btn-warning';
+                    return this.$t('request').attr.status._open;
+                }
 
+                let approvedCount = 0;
+                _.forEach(object.request_logs, function (log, logKey) {
+                    if (log.status === 2) {
+                        self.status_label = 'btn-secondary';
+                        return self.$t('request').attr.status._rejected;
+                    }
+                    approvedCount++;
+                });
+
+                if (approvedCount === object.form.approvers.length) {
+                    this.status_label = 'btn-info';
+                    return this.$t('request').attr.status._approved;
+                }
+
+                this.status_label = 'btn-primary';
+                return this.$t('request').attr.status._in_progress;
+            },
+            getLastRequestLog(object) {
+                self = this;
+                if (object.request_logs.length === 0) {
+                    return '';
+                }
+                return object.request_logs[0].created_at;
+            }
         },
         mounted() {
         },
