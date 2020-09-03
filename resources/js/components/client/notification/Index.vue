@@ -40,7 +40,7 @@
                                     <div class="col-right">
                                         <span class="sub">{{ getFromTitle(item) }}</span>
                                         <span class="title" v-if="item.notification">{{ item.notification.title }}</span>
-                                        <p>{{ getTruncateContent(item) }}</p>
+                                        <p v-html="getTruncateContent(item)"></p>
                                     </div>
                                     <div :class="'status ' + getStatusClass(item)"></div>
                                 </div>
@@ -68,8 +68,7 @@
                     <span class="date">{{ $moment(selection.created_at).format('DD/MM/YYYY') }}</span>
                     <h3 class="title">{{ getFromTitle(selection) }}</h3>
                     <div class="context">
-                        <p>
-                            {{ selection.notification.content }}
+                        <p v-html="selection.notification.content">
                         </p>
                     </div>
                 </div>
