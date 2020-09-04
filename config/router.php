@@ -169,27 +169,27 @@
             ]
         ],
 
-        // 'request' => [
-        //     'name' => 'Request management',
-        //     'groups' => [
-        //         'view' => [
-        //             'name' => 'View list',
-        //             'routes' => []
-        //         ],
-        //         'create' => [
-        //             'name' => 'Create',
-        //             'routes' => [],
-        //         ],
-        //         'update' => [
-        //             'name' => 'Update',
-        //             'routes' => []
-        //         ],
-        //         'delete' => [
-        //             'name' => 'Delete',
-        //             'routes' => []
-        //         ]
-        //     ]
-        // ],
+        'request' => [
+            'name' => 'リクエスト管理',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => ['api.request.category.list']
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => [],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => ['api.request.show', 'api.request.change_status']
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ],
         // 'inquiry' => [
         //     'name' => 'Inquiry management',
         //     'groups' => [
@@ -216,7 +216,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['page.blogs', 'page.blogLatest', 'page.manualLatest', 'page.faqLatest']
+                    'routes' => ['page.index', 'page.blogs', 'page.blogLatest', 'page.manualLatest', 'page.faqLatest']
                 ],
                 'create' => [
                     'name' => 'Create',

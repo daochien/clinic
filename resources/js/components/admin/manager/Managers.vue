@@ -100,14 +100,14 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </template>
 
 <script>
 
 export default {
-    
+
     data () {
         return {
             admins: [],
@@ -122,6 +122,7 @@ export default {
     },
 
     created () {
+        console.log(this.$t('x.list'))
         this.loadRoles();
         this.loadListAdmin();
     },
@@ -166,22 +167,22 @@ export default {
                 console.log(error);
             });
         },
-        removeAdmin (id) {            
+        removeAdmin (id) {
             Swal.fire({
-                title: this.$t('app').popup.are_you_sure,
-                text: this.$t('app').popup.you_wont_able_revert,
+                title: this.$t('admin.popup.are_you_sure'),
+                text: this.$t('admin.popup.you_wont_able_revert'),
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: this.$t('app').popup.delete_it
+                confirmButtonText: this.$t('admin.popup.delete_it')
             }).then((result) => {
                 // Send request to the server
                 if (result.value) {
-                    
+
                     axios.delete('/api/manager/'+id).then(() => {
                         Swal.fire(
-                            this.$t('app').popup.deleted,
-                            this.$t('app').popup.your_item_has_been_deleted,
+                            this.$t('admin.popup.deleted'),
+                            this.$t('admin.popup.your_item_has_been_deleted'),
                             'success'
                         );
                         // Fire.$emit('AfterCreate');
@@ -191,7 +192,7 @@ export default {
                     });
                 }
             })
-        },        
+        },
         clearFilter () {
             this.form_filter.role = '';
             this.form_filter.keyword = '';

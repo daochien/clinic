@@ -114,20 +114,20 @@ export default {
 
         deleteRole (id) {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: this.$t('admin.popup.are_you_sure'),
+                text: this.$t('admin.popup.you_wont_able_revert'),
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: this.$t('admin.popup.delete_it')
                 }).then((result) => {
 
                     // Send request to the server
                     if (result.value) {
                         this.role.delete('/api/role/'+id).then(()=>{
                                 Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
+                                this.$t('admin.popup.deleted'),
+                                this.$t('admin.popup.your_item_has_been_deleted'),
                                 'success'
                                 );
                             // Fire.$emit('AfterCreate');
