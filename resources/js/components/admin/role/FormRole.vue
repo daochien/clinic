@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <div class="page-header row no-gutters py-4">
+        <div class="page-header row no-gutters py-4" v-if="$gate.canPermission('role.store')">
             <div class="col-12 col-sm-8 text-center text-sm-left mb-0">
                 <h3 class="page-title">{{ $t('role.info._page_title_create') }}</h3>
             </div>

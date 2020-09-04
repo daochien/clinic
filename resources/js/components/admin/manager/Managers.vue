@@ -1,6 +1,6 @@
 <template>
     <div class="page-managers">
-        <div class="page-header row no-gutters py-4">
+        <div class="page-header row no-gutters py-4" v-if="$gate.canPermission('manager.index')">
             <div class="col-12 col-sm-8 text-center text-sm-left mb-0">
                 <h3 class="page-title">{{ $t('admin.list._page_title') }}</h3>
             </div>
@@ -12,7 +12,7 @@
                 </router-link>
             </div>
         </div>
-        <div class="row page-filter  mb-5">
+        <div class="row page-filter  mb-5" v-if="$gate.canPermission('manager.index')">
             <div class="col-12 col-sm-8 offset-sm-2">
                 <div class="card card-small">
                     <div class="card-body">
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="$gate.canPermission('manager.index')">
             <div class="col-12 col-sm-12">
                 <div class="card">
                     <div class="card-body p-0">
@@ -100,6 +100,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div v-if="!$gate.canPermission('manager.index')">
+            <not-found></not-found>
         </div>
     </div>
 </template>

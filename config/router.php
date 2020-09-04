@@ -47,11 +47,11 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['clinic.index', 'api.clinic.all']
+                    'routes' => ['clinic.index', 'api.clinic.all', 'clinic.get.users']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['clinic.store', 'clinic.get.users', 'clinic.add.users'],
+                    'routes' => ['clinic.store', 'clinic.add.users'],
                 ],
                 'update' => [
                     'name' => 'Update',
