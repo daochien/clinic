@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Http\Requests\Pages\PageRequest;
 use Illuminate\Http\Request;
 use App\Repositories\PageRepository;
 use Illuminate\Support\Facades\DB;
 use App\Services\PageServices;
+use App\Services\S3Service;
 use App\Http\Resources\BlogCollection;
 use App\Http\Resources\FAQCollection;
 use App\Http\Resources\ManualCollection;
@@ -15,11 +17,13 @@ class PageController extends BaseController
 
     protected $pageRepo;
     protected $pageService;
+    protected $s3Service;
 
-    public function __construct(PageRepository $pageRepo, PageServices $pageService)
+    public function __construct(PageRepository $pageRepo, PageServices $pageService, S3Service $s3Service)
     {
         $this->pageRepo = $pageRepo;
         $this->pageService = $pageService;
+        $this->s3Service = $s3Service;
     }
 
     public function index()
@@ -27,24 +31,20 @@ class PageController extends BaseController
 
     }
 
-    public function store(Request $request)
+    public function store(PageRequest $request)
     {
         try {
-
             $page = $this->pageService->createPage($request->all());
-
             return $this->sendResponse($page, 'Page Created Successfully');
         } catch (\Exception $exception) {
             return $this->sendError($exception->getMessage());
         }
-
     }
 
     public function uploadImageContent(Request $request)
-    {
-        $pathUpload = 'page/content/'.time();
-        $image = $this->pageRepo->uploadFile($request->image, $pathUpload);
-        return $this->sendResponse($image, 'Image Created Successfully');
+    {        
+        $pathFile = $this->s3Service->store($request->image, 'pages/images');
+        return $this->sendResponse($pathFile, 'Image Created Successfully');
     }
 
     public function show()

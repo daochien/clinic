@@ -108,7 +108,8 @@ export default [
         component: {template: '<router-view/>'},
         name: 'page', meta: {breadcrumb: `Page`},
         children: [
-            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Create`} },
+            { path: '', component: require('./components/admin/page/Index.vue').default, meta: {breadcrumb: `Manager Page`} },
+            { path: 'create', component: require('./components/admin/page/Create.vue').default, meta: {breadcrumb: `Create`} },            
         ]
     },
 ];
