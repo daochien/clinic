@@ -28,7 +28,6 @@
                                     <th>{{ $t('request.attr._approver')}}</th>
                                     <th>{{ $t('request.template.list.data_table._created_at')}}</th>
                                     <th>{{ $t('common.list.data_table._actions') }}</th>
-
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -95,30 +94,47 @@
         methods: {
 
             getResults(page = 1) {
+                this.$Progress.start();
                 axios.get("/api/template?page=" + page).then(({ data }) => ( this.templates = data.data));
+                this.$Progress.finish();
             },
             deleteTemplate(id) {
+                this.$Progress.start();
                 Swal.fire({
-                    title: this.$t('app').popup.are_you_sure,
-                    text: this.$t('app').popup.you_wont_able_revert,
+                    title: this.$t('request').others._remove_modal_title,
+                    text: this.$t('request').others._remove_modal_description,
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('app').popup.delete_it
+                    confirmButtonText: this.$t('request').others._remove_modal_yes,
+                    cancelButtonText: this.$t('request').others._remove_modal_no,
                 }).then((result) => {
                     // Send request to the server
                     if (result.value) {
-                        axios.delete('/api/template/' + id).then(() => {
-                            Swal.fire(
-                                this.$t('app').popup.deleted,
-                                this.$t('app').popup.your_item_has_been_deleted,
-                                'success'
-                            );
-                            // Fire.$emit('AfterCreate');
-                            this.loadTemplates();
-                        }).catch((data) => {
-                            Swal.fire(this.$t('app').popup.failed, data.message, "warning");
-                        });
+                        axios.delete('/api/template/' + id)
+                            .then((data) => {
+                                if (data.data.success) {
+                                    Toast.fire({
+                                        icon: "success",
+                                        title: this.$t('request').template.info.messages._delete_success,
+                                    });
+                                    this.loadTemplates();
+                                } else {
+                                    Toast.fire({
+                                        icon: 'error',
+                                        title: this.$t('request').list.messages._approve_failed,
+                                    });
+                                    this.$Progress.failed();
+                                }
+
+                                this.$Progress.finish();
+                        })
+                        .catch(() => {
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('request').list.messages._approve_failed,
+                            });
+                        })
                     }
                 })
             },
@@ -132,11 +148,9 @@
 
         },
         mounted() {
-            console.log(this.$t('app').popup.are_you_sure)
         },
         created() {
             // this.$Progress.start();
-            console.log('created')
             this.loadTemplates();
             // this.$Progress.finish();
         }

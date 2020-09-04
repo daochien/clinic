@@ -1358,7 +1358,9 @@ export default {
                         "_edit_success": "新規申請テンプレートの編集が成功しました。",
                         "_edit_failed": "新規申請テンプレートの編集に失敗しました。",
                         "_draft_save_success": "申請テンプレートのの下書き保存が成功しました。",
-                        "_draft_save_failed": "申請テンプレートのの下書き保存に失敗しました。"
+                        "_draft_save_failed": "申請テンプレートのの下書き保存に失敗しました。",
+                        "_delete_success": "Delete success。",
+                        "_delete_failed": "Delete failed。"
                     },
                     "others": {
                         "_btn_draft_save": "下書きとして保存",
