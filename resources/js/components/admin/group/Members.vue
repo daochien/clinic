@@ -60,16 +60,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="item in members.data" :key="item.id">
-                                    <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
-                                    <td>{{item.name}}</td>
-                                    <td>{{item.email}}</td>
-                                    <td>{{group}}</td>
-                                    <td>{{item.created_at}}</td>
-                                    <td>{{item.last_login}}</td>
-                                </tr>
+                                <template v-if="members.data.length">
+                                    <tr v-for="item in members.data" :key="item.id">
+                                        <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.email}}</td>
+                                        <td>{{group}}</td>
+                                        <td>{{item.created_at}}</td>
+                                        <td>{{item.last_login}}</td>
+                                    </tr>
+                                </template>
+
+
+
                                 </tbody>
                             </table>
+                            <template v-if="!members.data.length">
+                                <div class="user_not_found">
+                                    {{ $t('group.not_found_user')}}
+                                </div>
+                            </template>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -288,14 +298,13 @@
         },
         created() {
             this.$Progress.start();
-
             this.loadData();
-
             this.$Progress.finish();
         }
     }
 </script>
 <style scoped>
+    .user_not_found{width:100%;text-align: center;padding:10px}
     .table-hover th{font-weight: 200;font-size:13px}
     .dropdown-menu{border-radius: 0}
     .dropdown-item{font-weight: normal; font-size: 11px;line-height: 13px}

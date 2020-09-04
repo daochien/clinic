@@ -43,4 +43,5 @@ return [
     'group'=>'グループ',
     'created_at'=>'登録日付',
     'last_login'=>'最終ログイン日時',
+    'not_found_user' =>'ユーザーが見つかりません'
 ];
