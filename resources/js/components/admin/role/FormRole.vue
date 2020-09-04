@@ -123,7 +123,7 @@ export default {
 
                 Toast.fire({
                     icon: 'success',
-                    title: this.$t('admin.info.form.messages._create_success')
+                    title: this.$t('admin.info.messages._create_success')
                 });
                 this.$Progress.finish();
                 this.$router.push({path: '/admin/manager/roles'});
@@ -144,7 +144,7 @@ export default {
                 // success
                 Toast.fire({
                     icon: 'success',
-                    title: this.$t('admin.info.form.messages._create_success')
+                    title: this.$t('admin.info.messages._create_success')
                 });
                 this.$Progress.finish();
                 this.$router.push({path: '/admin/manager/roles'});
