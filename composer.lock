@@ -245,7 +245,17 @@
                 "brick",
                 "math"
             ],
+<<<<<<< Updated upstream
             "time": "2020-04-15T15:59:35+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/brick/math",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-18T23:57:15+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "cakephp/chronos",
@@ -1426,7 +1436,37 @@
                 "md",
                 "parser"
             ],
+<<<<<<< Updated upstream
             "time": "2020-07-19T22:47:30+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://enjoy.gitstore.app/repositories/thephpleague/commonmark",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.colinodell.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.paypal.me/colinpodell/10.00",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/colinodell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/colinodell",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/league/commonmark",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-18T01:19:12+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "league/flysystem",
@@ -1511,7 +1551,17 @@
                 "sftp",
                 "storage"
             ],
+<<<<<<< Updated upstream
             "time": "2020-08-12T14:23:41+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://offset.earth/frankdejonge",
+                    "type": "other"
+                }
+            ],
+            "time": "2020-08-23T07:39:11+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "league/flysystem-aws-s3-v3",
@@ -1816,7 +1866,21 @@
                 "datetime",
                 "time"
             ],
+<<<<<<< Updated upstream
             "time": "2020-08-04T19:12:46+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://opencollective.com/Carbon",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/nesbot/carbon",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-24T12:35:58+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "nikic/php-parser",
@@ -2574,7 +2638,17 @@
                 "identifier",
                 "uuid"
             ],
+<<<<<<< Updated upstream
             "time": "2020-07-28T16:51:01+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://github.com/ramsey",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-18T17:17:46+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "spatie/laravel-permission",
@@ -2642,7 +2716,17 @@
                 "security",
                 "spatie"
             ],
+<<<<<<< Updated upstream
             "time": "2020-08-15T20:32:30+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-08-18T17:14:06+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2783,7 +2867,25 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2020-07-06T13:23:11+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-09-02T07:07:40+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/css-selector",
@@ -2836,6 +2938,20 @@
             ],
             "description": "Symfony CssSelector Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-05-20T17:43:50+00:00"
         },
         {
@@ -2943,7 +3059,25 @@
             ],
             "description": "Symfony ErrorHandler Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2020-07-23T08:36:24+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-17T10:01:29+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/event-dispatcher",
@@ -3015,7 +3149,25 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2020-06-18T18:24:02+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-13T14:19:42+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -3126,7 +3278,25 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2020-05-20T17:43:50+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-17T10:01:29+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/http-foundation",
@@ -3187,7 +3357,25 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2020-07-23T10:04:31+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-17T07:48:54+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/http-kernel",
@@ -3286,7 +3474,25 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2020-07-24T04:22:56+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-09-02T08:15:18+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/mime",
@@ -3349,7 +3555,25 @@
                 "mime",
                 "mime-type"
             ],
+<<<<<<< Updated upstream
             "time": "2020-07-23T10:04:31+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-17T10:01:29+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -4039,6 +4263,20 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-07-23T08:36:24+00:00"
         },
         {
@@ -4117,7 +4355,25 @@
                 "uri",
                 "url"
             ],
+<<<<<<< Updated upstream
             "time": "2020-06-18T18:24:02+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-10T08:03:57+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/service-contracts",
@@ -4250,7 +4506,25 @@
                 "utf-8",
                 "utf8"
             ],
+<<<<<<< Updated upstream
             "time": "2020-07-08T08:27:49+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-17T07:48:54+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/translation",
@@ -4328,7 +4602,25 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2020-06-30T17:42:22+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-17T10:01:29+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/translation-contracts",
@@ -4465,7 +4757,25 @@
                 "debug",
                 "dump"
             ],
+<<<<<<< Updated upstream
             "time": "2020-06-24T13:36:18+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-17T07:42:30+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -4703,7 +5013,11 @@
                     "type": "github"
                 }
             ],
+<<<<<<< Updated upstream
             "time": "2020-08-11T10:30:51+00:00"
+=======
+            "time": "2020-08-30T07:08:17+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -4882,7 +5196,25 @@
                 "ssl",
                 "tls"
             ],
+<<<<<<< Updated upstream
             "time": "2020-04-08T08:27:21+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-23T12:54:47+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "composer/composer",
@@ -5127,7 +5459,25 @@
                 "Xdebug",
                 "performance"
             ],
+<<<<<<< Updated upstream
             "time": "2020-06-04T11:16:35+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-19T10:27:58+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "doctrine/cache",
@@ -5303,7 +5653,25 @@
                 "sqlserver",
                 "sqlsrv"
             ],
+<<<<<<< Updated upstream
             "time": "2020-04-20T17:19:26+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://www.doctrine-project.org/sponsorship.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://www.patreon.com/phpdoctrine",
+                    "type": "patreon"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/doctrine%2Fdbal",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-09-02T01:35:42+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "doctrine/event-manager",
@@ -5491,7 +5859,17 @@
                 "flare",
                 "reporting"
             ],
+<<<<<<< Updated upstream
             "time": "2020-07-13T23:25:57+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-26T18:06:23+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "facade/ignition",
@@ -6738,7 +7116,17 @@
                 "highlight.php",
                 "syntax"
             ],
+<<<<<<< Updated upstream
             "time": "2020-03-02T05:59:21+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://github.com/allejo",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-08-27T03:24:44+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -7402,7 +7790,21 @@
                 "parser",
                 "validator"
             ],
+<<<<<<< Updated upstream
             "time": "2020-08-13T09:07:59+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://github.com/Seldaek",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/seld/jsonlint",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-25T06:56:57+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "seld/phar-utils",
@@ -7517,7 +7919,11 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< Updated upstream
             "time": "2020-07-23T08:31:43+00:00"
+=======
+            "time": "2020-08-10T07:47:39+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "symfony/filesystem",
@@ -7567,7 +7973,25 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
+<<<<<<< Updated upstream
             "time": "2020-05-30T20:35:19+00:00"
+=======
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-08-21T17:19:47+00:00"
+>>>>>>> Stashed changes
         },
         {
             "name": "theseer/tokenizer",

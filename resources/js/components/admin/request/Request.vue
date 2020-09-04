@@ -87,8 +87,24 @@
                             <button type="button" class="btn btn-outline-danger mr-3 float-right" @click="reject()">{{ $t('request.info.others._btn_reject')}}</button>
                         </div>
                     </div>
-                </div>
 
+                    <div class="card mb-5">
+                        <div class="card-header">
+                            <label class="font-weight-bold" v-html="$t('request.chat._discussion')"></label>
+                        </div>
+                        <div class="card-body">
+                            <div class="blog-comments__item d-flex p-3">
+                                <div class="blog-comments__content">
+                                    <div class="blog-comments__meta text-muted mb-3">
+                                        <a class="text-secondary float-left" href="#">James Johnson</a>
+                                        <span class="text-muted float-right">–3 days ago</span>
+                                    </div>
+                                    <p class="m-0 my-1 mb-2 text-muted">Well, the way they make shows is, they make one show ...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

@@ -73,6 +73,9 @@ return [
             '_btn_reply' => '返信する',
         ],
     ],
+    'chat' => [
+        '_discussion' => 'Discussion',
+    ],
     'template' => [
         'list' => [
             '_og_title_' => '友伸會ポータル管理画面｜申請管理・申請テンプレート一覧',

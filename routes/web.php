@@ -7,7 +7,7 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Auth::routes(['verify' => true]);\
+Auth::routes(['verify' => true]);
 Route::prefix('/notification/')
     ->namespace('Client')
     ->name('notification.')
@@ -40,6 +40,6 @@ Route::prefix('/admin/template')
     });
 
 
-Route::get('/{vue_capture?}', function () {    
+Route::get('/{vue_capture?}', function () {
     return view('home');
 })->where('vue_capture', '[\/\w\.-]*')->middleware('auth');
