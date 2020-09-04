@@ -110,7 +110,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['notification.index']
+                    'routes' => ['notification.index', 'notification.members', 'notification.show', 'notification.search', 'notification.search.detail']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -118,7 +118,7 @@
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['notification.update', 'notification.show', 'notification.store']
+                    'routes' => ['notification.update', 'notification.store']
                 ],
                 'delete' => [
                     'name' => 'Delete',
