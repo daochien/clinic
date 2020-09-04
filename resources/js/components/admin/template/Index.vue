@@ -1,13 +1,13 @@
 <template>
-    <section class="content">
+    <section class="content" v-if="$gate.canPermission('template.index')">
 
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('template.page_title') }}</h3>
+                <h3 class="page-title">{{ $t('request.template.list._page_title') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <a type="button" class="btn btn-primary pl-5 pr-5" href="/admin/template/create">{{ $t('app.btn.create')}}
+                <a type="button" class="btn btn-primary pl-5 pr-5" href="/admin/template/create">{{ $t('request.template.list.others._btn_create')}}
                 </a>
             </div>
         </div>
@@ -22,13 +22,12 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>{{ $t('template.title')}}</th>
-                                    <th class="ten">{{ $t('template.category_title')}}</th>
-                                    <th class="fifteen">{{ $t('template.approver')}}</th>
-                                    <th class="ten">{{ $t('template.date_created')}}</th>
-                                    <th class="twenty-five">{{ $t('app.label.operator')}}</th>
-
+                                    <th>{{ $t('common.list.data_table._id') }}</th>
+                                    <th>{{ $t('request.attr._title')}}</th>
+                                    <th>{{ $t('request.attr._category')}}</th>
+                                    <th>{{ $t('request.attr._approver')}}</th>
+                                    <th>{{ $t('request.template.list.data_table._created_at')}}</th>
+                                    <th>{{ $t('common.list.data_table._actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -56,10 +55,10 @@
                                             <div class="dropdown-menu" aria-labelledby="operatingAction">
                                                 <a class="dropdown-item text-primary"
                                                              :href="'/admin/template/' + template.id + '/edit'">
-                                                    {{ $t('app.btn.edit')}}
+                                                    {{ $t('request.template.list.data_table.actions._act_edit')}}
                                                 </a>
                                                 <a class="dropdown-item text-danger" href="#" @click="deleteTemplate(template.id)">
-                                                    {{$t('app.btn.delete')}}
+                                                    {{$t('request.template.list.data_table.actions._act_remove')}}
                                                 </a>
                                             </div>
                                         </div>
@@ -76,13 +75,11 @@
                     <!-- /.card -->
                 </div>
             </div>
-
-
-            <div v-if="!$gate.isAdmin()">
-                <not-found></not-found>
-            </div>
         </div>
     </section>
+     <div v-else>
+        <not-found></not-found>
+    </div>
 </template>
 
 <script>
@@ -95,30 +92,47 @@
         methods: {
 
             getResults(page = 1) {
+                this.$Progress.start();
                 axios.get("/api/template?page=" + page).then(({ data }) => ( this.templates = data.data));
+                this.$Progress.finish();
             },
             deleteTemplate(id) {
+                this.$Progress.start();
                 Swal.fire({
-                    title: this.$t('app').popup.are_you_sure,
-                    text: this.$t('app').popup.you_wont_able_revert,
+                    title: this.$t('request').others._remove_modal_title,
+                    text: this.$t('request').others._remove_modal_description,
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('app').popup.delete_it
+                    confirmButtonText: this.$t('request').others._remove_modal_yes,
+                    cancelButtonText: this.$t('request').others._remove_modal_no,
                 }).then((result) => {
                     // Send request to the server
                     if (result.value) {
-                        axios.delete('/api/template/' + id).then(() => {
-                            Swal.fire(
-                                this.$t('app').popup.deleted,
-                                this.$t('app').popup.your_item_has_been_deleted,
-                                'success'
-                            );
-                            // Fire.$emit('AfterCreate');
-                            this.loadTemplates();
-                        }).catch((data) => {
-                            Swal.fire(this.$t('app').popup.failed, data.message, "warning");
-                        });
+                        axios.delete('/api/template/' + id)
+                            .then((data) => {
+                                if (data.data.success) {
+                                    Toast.fire({
+                                        icon: "success",
+                                        title: this.$t('request').template.info.messages._delete_success,
+                                    });
+                                    this.loadTemplates();
+                                } else {
+                                    Toast.fire({
+                                        icon: 'error',
+                                        title: this.$t('request').list.messages._approve_failed,
+                                    });
+                                    this.$Progress.failed();
+                                }
+
+                                this.$Progress.finish();
+                        })
+                        .catch(() => {
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('request').list.messages._approve_failed,
+                            });
+                        })
                     }
                 })
             },
@@ -132,11 +146,9 @@
 
         },
         mounted() {
-            console.log(this.$t('app').popup.are_you_sure)
         },
         created() {
             // this.$Progress.start();
-            console.log('created')
             this.loadTemplates();
             // this.$Progress.finish();
         }

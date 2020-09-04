@@ -10,6 +10,7 @@ use App\Repositories\UserRepository;
 use App\Repositories\RoleRepository;
 use App\Services\AdminServices;
 use App\Http\Resources\AdminCollection;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends BaseController
 {

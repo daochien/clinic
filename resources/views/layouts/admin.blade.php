@@ -40,7 +40,7 @@
                             <div class="dropdown-menu dropdown-menu-small">
                                 <a class="dropdown-item text-danger" href="#"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="material-icons text-danger">&#xE879;</i>
-                                    {{ __('auth.logout') }}
+                                    {{ __('app.menu.top._logout') }}
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
@@ -61,7 +61,7 @@
             </div> <!-- / .main-navbar -->
 
             <div class="main-content-container container-fluid px-4">
-                <router-view></router-view>
+                <router-view :key="$route.fullPath"></router-view>
                 <vue-progress-bar></vue-progress-bar>
                 {{-- /.content --}}
             </div>

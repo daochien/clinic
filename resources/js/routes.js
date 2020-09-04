@@ -1,4 +1,8 @@
 export default [
+    { path: '/notification', component: require('./components/client/notification/Index.vue').default },
+
+    { path: '/blogs', component: require('./components/front-end/Page.vue').default },
+
     { path: '/admin/dashboard', component: require('./components/admin/Dashboard.vue').default },
     { path: '/admin/profile', component: require('./components/admin/Profile.vue').default },
 
@@ -31,7 +35,19 @@ export default [
         component: {template: '<router-view/>'},
         meta: {breadcrumb: `申請管理`},
         children: [
-            { path: '', component: require('./components/admin/template/Index.vue').default, meta: {breadcrumb: `申請テンプレート`} },
+            { path: '', component: require('./components/admin/template/Index.vue').default, name:'template.list', meta: {breadcrumb: `申請テンプレート`} },
+        ]
+    },
+
+    {
+        path: '/admin/request',
+        component: {template: '<router-view/>'},
+        meta: {breadcrumb: `申請管理`},
+        children: [
+            { path: '', component: require('./components/admin/request/Index.vue').default,meta: {breadcrumb: `申請一覧`}},
+            { path: 'category/:id', component: require('./components/admin/request/Category.vue').default,meta: {breadcrumb: `申請一覧`}},
+            { path: ':id', component: require('./components/admin/request/Request.vue').default, meta: {breadcrumb: `申請詳細情報`} },
+
         ]
     },
 
@@ -90,7 +106,7 @@ export default [
     {
         path: '/admin/page',
         component: {template: '<router-view/>'},
-        name: 'role', meta: {breadcrumb: `Page`},
+        name: 'page', meta: {breadcrumb: `Page`},
         children: [
             { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Create`} },
         ]

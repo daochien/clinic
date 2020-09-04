@@ -4,12 +4,12 @@
       <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-8 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('role.title_page') }}</h3>
+                <h3 class="page-title">{{ $t('role.list._page_title') }}</h3>
             </div>
             <div class="col-12 col-sm-4 text-center text-sm-right mb-0">
                 <router-link v-if="$gate.canPermission('role.store')" type="button" class="btn btn-sm btn-primary float-right" :to="{path: '/admin/role/create'}">
                     <i class="fa fa-plus-square"></i>
-                    {{ $t('role.button_create') }}
+                    {{ $t('role.list.others._btn_create') }}
                 </router-link>
             </div>
         </div>
@@ -27,11 +27,11 @@
                             <table class="table table-hover">
                             <thead>
                                 <tr>
-                                <th>#</th>
-                                <th>{{ $t('role.manage.name') }}</th>
+                                <th>{{ $t('common.list.data_table._id') }}</th>
+                                <th>{{ $t('role.attr._name') }}</th>
                                 <!-- <th>permissions</th> -->
                                 <!-- <th>{{ $t('role.manage.created_at') }}</th> -->
-                                <th>{{ $t('role.manage.action') }}</th>
+                                <th>{{ $t('common.list.data_table._actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -114,20 +114,20 @@ export default {
 
         deleteRole (id) {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: this.$t('admin.popup.are_you_sure'),
+                text: this.$t('admin.popup.you_wont_able_revert'),
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: this.$t('admin.popup.delete_it')
                 }).then((result) => {
 
                     // Send request to the server
                     if (result.value) {
                         this.role.delete('/api/role/'+id).then(()=>{
                                 Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
+                                this.$t('admin.popup.deleted'),
+                                this.$t('admin.popup.your_item_has_been_deleted'),
                                 'success'
                                 );
                             // Fire.$emit('AfterCreate');

@@ -5,15 +5,21 @@ namespace App\Http\Controllers\API\V1;
 use Illuminate\Http\Request;
 use App\Repositories\PageRepository;
 use Illuminate\Support\Facades\DB;
+use App\Services\PageServices;
+use App\Http\Resources\BlogCollection;
+use App\Http\Resources\FAQCollection;
+use App\Http\Resources\ManualCollection;
 
 class PageController extends BaseController
 {
 
     protected $pageRepo;
+    protected $pageService;
 
-    public function __construct(PageRepository $pageRepo)
+    public function __construct(PageRepository $pageRepo, PageServices $pageService)
     {
         $this->pageRepo = $pageRepo;
+        $this->pageService = $pageService;
     }
 
     public function index()
@@ -23,36 +29,15 @@ class PageController extends BaseController
 
     public function store(Request $request)
     {
-        DB::beginTransaction();
         try {
 
-            $page = $this->pageRepo->create($request->all());
-
-            if (!empty($request->image)) {
-                $pathUploadImage = $this->pageRepo->getPathUpload($page);
-                $image = $this->pageRepo->uploadFile($request->image, $pathUploadImage);
-                if ($image) {
-                    $page->image = $image;
-                }
-            }
-
-            if (!empty($request->files)) {
-                $pathUploadFile = $this->pageRepo->getPathUpload($page, 'files');
-                $files = $this->pageRepo->uploadFiles($request->only('files'), $pathUploadFile);
-                if ($files) {
-                    $page->files = json_encode($files);
-                }
-            }
-
-            $page->save();
-
-            DB::commit();
+            $page = $this->pageService->createPage($request->all());
 
             return $this->sendResponse($page, 'Page Created Successfully');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return $this->sendError($e->getMessage());
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getMessage());
         }
+
     }
 
     public function uploadImageContent(Request $request)
@@ -75,5 +60,29 @@ class PageController extends BaseController
     public function destroy()
     {
 
+    }
+
+    public function blogs()
+    {
+        $blogs = $this->pageRepo->getAll('blog', 4);
+        return new BlogCollection($blogs);
+    }
+
+    public function blogLatest()
+    {
+        $blogsLatest = $this->pageRepo->latestPage('blog', 5);
+        return new BlogCollection($blogsLatest);
+    }
+
+    public function manualLatest()
+    {
+        $manuals = $this->pageRepo->latestPage('manual', 8);
+        return new ManualCollection($manuals);
+    }
+
+    public function faqLatest()
+    {
+        $faqs = $this->pageRepo->latestPage('faq', 4);
+        return new FAQCollection($faqs);
     }
 }

@@ -27,17 +27,17 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
                     <i class="fa fa-users nav-icon blue"></i>
-                    <span>{{ __('sidebar.admin_manage') }}</span>
+                    <span>{{ __('app.menu.sidebar.admin_management._main') }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-small">
                     @can('manager.index')
                         <router-link to="/admin/manager" class="dropdown-item">
-                            <span>{{ __('sidebar.admin_list_manage') }}</span>
+                            <span>{{ __('app.menu.sidebar.admin_management._admin_list') }}</span>
                         </router-link>
                     @endcan
                     @can(['role.index','role.store', 'role.update'])
                         <router-link to="/admin/manager/roles" class="dropdown-item">
-                            <span>{{ __('sidebar.role') }}</span>
+                            <span>{{ __('app.menu.sidebar.admin_management._role_list') }}</span>
                         </router-link>
                     @endcan
                 </div>
@@ -48,25 +48,25 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
                     <i class="far fa-address-book"></i>
-                    <span>{{ __('sidebar.staff_manage') }}</span>
+                    <span>{{ __('app.menu.sidebar.staff_management._main') }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-small" id="notClose">
 
                     @can('clinic.index')
                         <router-link to="/admin/clinic" class="dropdown-item ">
-                            {{ __('sidebar.clinics') }}
+                            {{ __('app.menu.sidebar.staff_management._clinic_list') }}
                         </router-link>
                     @endcan
 
-                        @can('group.index')
-                            <router-link to="/admin/group" class="dropdown-item ">
-                                {{ __('sidebar.groups') }}
-                            </router-link>
-                        @endcan
+                    @can('group.index')
+                        <router-link to="/admin/group" class="dropdown-item ">
+                            {{ __('app.menu.sidebar.staff_management._group_list') }}
+                        </router-link>
+                    @endcan
 
                     @can('user.index')
                         <router-link to="/admin/user" class="dropdown-item">
-                            {{ __('sidebar.staff') }}
+                            {{ __('app.menu.sidebar.staff_management._staff_list') }}
                         </router-link>
                     @endcan
                 </div>
@@ -77,54 +77,41 @@
             <li class="nav-item">
                 <router-link to="/admin/notification" class="nav-link">
                     <i class="far fa-bell"></i>
-                    <span>{{ __('sidebar.notification') }}</span>
+                    <span>{{ __('app.menu.sidebar.notification_management._main') }}</span>
                 </router-link>
             </li>
             @endcanany
-
+            @canany(['template.index', 'api.request.category.list'])
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
                     <i class="fas fa-clipboard-list"></i>
-                    <span>{{ __('sidebar.request') }}</span>
+                    <span>{{ __('app.menu.sidebar.request_management._main') }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-small">
+                    @can('template.index')
                     <router-link to="/admin/template" class="dropdown-item">
-                        {{ __('sidebar.templates') }}
+                        {{ __('app.menu.sidebar.request_management._request_template_list') }}
                     </router-link>
-                    {{--<router-link to="/admin/request" class="dropdown-item">
-                        {{ __('sidebar.request') }}
-                    </router-link>--}}
+                    @endcan
+
+                    @can('api.request.category.list')
+                    @foreach (\App\Models\TemplateCategory::getAll() as $category)
+                        <router-link to="/admin/request/category/{{$category->id}}" class="dropdown-item">
+                            {{ __($category->name) }}
+                        </router-link>
+                    @endforeach
+                    @endcan
                 </div>
             </li>
-            {{--<li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                    <i class="far fa-question-circle"></i>
-                    <span>{{ __('sidebar.inquiry') }}</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-small">
-                    <router-link to="/admin/inquiry" class="dropdown-item">
-                        {{ __('sidebar.templates') }}
-                    </router-link>
-                    <router-link to="/admin/request" class="dropdown-item">
-                        {{ __('sidebar.request') }}
-                    </router-link>
-                    <router-link to="/admin/inquiry" class="dropdown-item">
-                        {{ __('sidebar.inquiry') }}
-                    </router-link>
-                </div>
-            </li>--}}
-            {{--<li class="nav-item">
-                <router-link to="/admin/blog" class="nav-link">
-                    <i class="fas fa-stream"></i>
-                    <span>{{ __('sidebar.blog') }}</span>
+            @endcanany
+            @can('page.index')
+            <li class="nav-item">
+                <router-link to="/admin/page/create" class="nav-link">
+                    <i class="far fa-bell"></i>
+                    <span>{{ __('app.menu.sidebar.page_management._main') }}</span>
                 </router-link>
-            </li>--}}
-        {{-- <li class="nav-item">
-                <router-link to="/admin/manuals" class="nav-link">
-                    <i class="fa fa-users nav-icon blue"></i>
-                    <span>{{ __('sidebar.manual') }}</span>
-                </router-link>
-            </li>--}}
+            </li>
+            @endcan
         </ul>
     </div>
 </aside>

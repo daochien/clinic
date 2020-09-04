@@ -1,14 +1,14 @@
 <template>
   <section class="content">
-    <div class="container-fluid" v-if="this.$gate.isRoot()">
+    <div class="container-fluid" v-if="$gate.canPermission('group.index')">
 
         <div class="page-header row no-gutters py-4">
             <div class="col-6 text-center text-sm-left mb-0">
-                <h3 class="page-title">{{ $t('group.group_list')}}</h3>
+                <h3 class="page-title">{{ $t('group.list._page_title')}}</h3>
             </div>
             <div class="col-6 text-center text-sm-right mb-0" >
                 <div class="card-tools">
-                        <router-link :to="{name:'add_group'}" class="btn btn-sm btn-primary">{{ $t('group.add_new')}}</router-link>
+                        <router-link :to="{name:'add_group'}" class="btn btn-sm btn-primary">{{ $t('group.list.others._btn_create')}}</router-link>
                 </div>
             </div>
         </div>
@@ -23,10 +23,10 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>#</th>
-                      <th>{{ $t('group.name')}}</th>
-                      <th>{{ $t('group.number_staff')}}</th>
-                      <th>{{ $t('group.action')}}</th>
+                      <th>{{ $t('common.list.data_table._id') }}</th>
+                      <th>{{ $t('group.attr._name')}}</th>
+                      <th>{{ $t('group.list.data_table._staff_count')}}</th>
+                      <th>{{ $t('common.list.data_table._actions') }}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -45,9 +45,9 @@
                                      aria-expanded="false"
                                  ></i>
                                  <div class="dropdown-menu" aria-labelledby="operatingAction">
-                                     <router-link :to="{name:'users_group', params: { id: item.id }}"  class="dropdown-item text-primary">{{ $t('group.user_in_group')}}</router-link>
-                                     <router-link v-if="!(item.forced)"  :to="{name:'edit_group', params: { id: item.id }}" class="dropdown-item text-primary">{{ $t('group.edit_group_info')}}</router-link>
-                                     <a v-if="!(item.forced)" class="dropdown-item text-danger" href="#" @click="deleteGroup(item.id)">{{ $t('group.remove_group')}}</a>
+                                     <router-link :to="{name:'users_group', params: { id: item.id }}"  class="dropdown-item text-primary">{{ $t('group.list.data_table.actions._act_add_user')}}</router-link>
+                                     <router-link v-if="!(item.forced)"  :to="{name:'edit_group', params: { id: item.id }}" class="dropdown-item text-primary">{{ $t('group.list.data_table.actions._act_edit')}}</router-link>
+                                     <a v-if="!(item.forced)" class="dropdown-item text-danger" href="#" @click="deleteGroup(item.id)">{{ $t('group.list.data_table.actions._act_remove')}}</a>
                                  </div>
                              </div>
                          </td>
@@ -90,9 +90,9 @@
             },
 
           loadGroup(){
-            if(this.$gate.isRoot()){
+            //if(this.$gate.isRoot()){
               axios.get("/api/group").then(({ data }) => {this.group = data.data});
-            }
+            //}
           },
 
             deleteGroup(id){
