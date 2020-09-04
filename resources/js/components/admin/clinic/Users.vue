@@ -1,5 +1,5 @@
 <template>
-    <section class="content" v-if="$gate.isAdmin()">
+    <section class="content" v-if="$gate.canPermission('clinic.get.users')">
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
@@ -10,14 +10,14 @@
         <div class="container-fluid">
             <div class="row mt-5">
                 <div class="col-12">
-                    <div class="card" v-if="$gate.isAdmin()">
+                    <div class="card" v-if="$gate.canPermission('clinic.get.users')">
                         <div class="card-body p-0">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th scope="col"><input type="checkbox" class="custom-control-input"
                                                            id="formsAgreeField"></th>
-                                    <th scope="col">{{ $t('staff.attr._name')}}</th>
+                                    <th scope="col">{{ $t('staff.attr._username')}}</th>
                                     <th scope="col">{{ $t('staff.attr._mail_address')}}</th>
                                     <th scope="col">{{ $t('staff.attr._position')}}</th>
                                     <th scope="col">{{ $t('staff.list.data_table._registered_at')}}</th>

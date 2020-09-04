@@ -24,12 +24,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::namespace('API\V1')
             ->prefix('/notification')
+            ->as('notification.')
             ->group(function (): void {
-                Route::get('/{id}/members', 'NotificationController@members');
-                Route::get('/{id}/show', 'NotificationController@show');
-                Route::post('/store', 'NotificationController@store')->name('notification.store');
-                Route::post('/search', 'NotificationController@search');
-                Route::post('/detailSearch', 'NotificationController@detailSearch');
+                Route::get('/{id}/members', 'NotificationController@members')->name('members');
+                Route::get('/{id}/show', 'NotificationController@show')->name('show');
+                Route::post('/store', 'NotificationController@store')->name('store');
+                Route::post('/search', 'NotificationController@search')->name('search');
+                Route::post('/detailSearch', 'NotificationController@detailSearch')->name('search.detail');
             });
 
         Route::get('profile', 'API\V1\ProfileController@profile')->name('profile.index');

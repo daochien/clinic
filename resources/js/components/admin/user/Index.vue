@@ -5,14 +5,14 @@
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
                 <h3 class="page-title">{{ $t('staff.list._page_title') }}</h3>
             </div>
-            <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
+            <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0" v-if="$gate.canPermission('user.store')">
                 <router-link type="button" class="btn btn-primary pl-5 pr-5" to="/admin/user/create">{{ $t('staff.list.others._btn_create')}}
                 </router-link>
             </div>
         </div>
         <!-- End Page Header -->
-        <div class="container-fluid">
-            <div class="row mb-5">
+        <div class="container-fluid" >
+            <div class="row mb-5" v-if="$gate.canPermission('user.index')">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -74,7 +74,7 @@
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="card" v-if="$gate.isAdmin()">
+                    <div class="card" v-if="$gate.canPermission('user.index')">
                         <!-- /.card-header -->
                         <div class="card-body p-0">
                             <table class="table table-hover">
@@ -143,7 +143,7 @@
                     <!-- /.card -->
                 </div>
             </div>
-            <div v-if="!$gate.isAdmin()">
+            <div v-if="!$gate.canPermission('user.index')">
                 <not-found></not-found>
             </div>
         </div>

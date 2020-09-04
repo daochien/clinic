@@ -21,7 +21,7 @@ class PageServices
     }
 
     public function createPage($attribute)
-    {
+    {        
         DB::beginTransaction();
         try {
 

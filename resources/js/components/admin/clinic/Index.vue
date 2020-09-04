@@ -1,5 +1,5 @@
 <template>
-    <section class="content" v-if="$gate.isAdmin()">
+    <section class="content" v-if="$gate.canPermission('clinic.index')">
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
@@ -14,7 +14,7 @@
         <div class="container-fluid">
             <div class="row mt-5">
                 <div class="col-12">
-                    <div class="card" v-if="$gate.isAdmin()">
+                    <div class="card" v-if="$gate.canPermission('clinic.index')">
                         <div class="card-body p-0">
                             <table class="table table-hover">
                                 <thead>

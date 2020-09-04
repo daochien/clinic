@@ -65,7 +65,7 @@ return [
         ],
         'others' => [
             '_btn_create' => '登録する',
-            '_btn_create' => '編集する',
+            '_btn_edit' => '編集する',
             '_btn_remove' => '削除する',
         ],
     ],

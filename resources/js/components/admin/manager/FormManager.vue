@@ -21,21 +21,18 @@
                             <label for="feInputTitle">{{ $t('admin.attr._username') }} <span style="color:#c4183c;">*</span></label>
                             <input
                             :placeholder="$t('admin.info.form._username_pl')"
-                            :class="['form-control', {'is-invalid': $v.manager.name.$error}]"
+                            :class="['form-control', {'is-invalid': manager.errors.has('name')}]"
                             type="text"
-                            v-model.trim="$v.manager.name.$model">
-                            <div class="invalid-feedback" v-if="!$v.manager.name.required">{{ $t('validator.name_required') }}</div>
-                            <div class="invalid-feedback" v-if="!$v.manager.name.maxLength">{{ $t('validator.name_maxLength') }}</div>
+                            v-model.trim="manager.name">
+                            <has-error :form="manager" field="name"></has-error>
                         </div>
                         <div class="form-group col-12 col-sm-6">
                             <label for="feInputTitle">{{ $t('admin.attr._mail_address') }} <span style="color:#c4183c;">*</span></label>
                             <input
                             :placeholder="$t('admin.info.form._mail_address_pl')"
-                            :class="['form-control', {'is-invalid': $v.manager.email.$error}]"
-                            type="text" v-model.trim="$v.manager.email.$model">
-                            <div class="invalid-feedback" v-if="!$v.manager.email.required">{{ $t('validator.email_required') }}</div>
-                            <div class="invalid-feedback" v-if="!$v.manager.email.email">{{ $t('validator.email_valid') }}</div>
-                            <div class="invalid-feedback" v-if="!$v.manager.name.maxLength">{{ $t('validator.email_maxLength') }}</div>
+                            :class="['form-control', {'is-invalid': manager.errors.has('email')}]"
+                            type="text" v-model.trim="manager.email">
+                            <has-error :form="manager" field="email"></has-error>
                         </div>
                     </div>
                     <div class="row">
@@ -43,11 +40,11 @@
                             <div class="form-group">
                                 <label>{{ $t('admin.attr._position') }}</label>
                                 <span class="text-danger">*</span>
-                                <select :class="['form-control', {'is-invalid': $v.manager.posittion.$error}]" id="types" v-model="$v.manager.posittion.$model" >
+                                <select :class="['form-control', {'is-invalid': manager.errors.has('posittion')}]" id="types" v-model="manager.posittion" >
                                     <option value="" selected>{{ $t('admin.info.form._position_df') }}</option>
                                     <option v-for="(item, index) in posittion" :key="index" :value="item" >{{ index }}</option>
                                 </select>
-                                <div class="invalid-feedback" v-if="!$v.manager.posittion.required">{{ $t('validation.required') }}</div>
+                                <has-error :form="manager" field="posittion"></has-error>
                             </div>
                         </div>
                         <div class="col-6">
@@ -58,9 +55,9 @@
                                 <div class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index">
                                     <input
                                     type="checkbox"
-                                    :class="['custom-control-input', {'is-invalid': $v.manager.roles.$error}]"
+                                    :class="['custom-control-input', {'is-invalid': manager.errors.has('roles')}]"
                                     class="custom-control-input"
-                                    v-model="$v.manager.roles.$model"
+                                    v-model="manager.roles"
                                     :id="'formsCheckboxChecked_'+index"
                                     :value="role">
                                     <label class="custom-control-label" :for="'formsCheckboxChecked_'+index">{{ role }}</label>
@@ -82,11 +79,11 @@
                             <label for="feInputTitle">{{ $t('admin.attr._memo') }}</label>
                             <textarea
                             :placeholder="$t('admin.info.form._mail_address_pl')"
-                            :class="['form-control', {'is-invalid': $v.manager.description.$error}]"
-                            v-model="$v.manager.description.$model"
+                            :class="['form-control', {'is-invalid': manager.errors.has('description')}]"
+                            v-model="manager.description"
                             class="form-control"
                             cols="30" rows="10"></textarea>
-                            <div class="invalid-feedback" v-if="!$v.manager.description.maxLength">{{ $t('validator.note_maxLength') }}</div>
+                            <has-error :form="manager" field="description"></has-error>
                         </div>
                     </div>
                 </div>
@@ -105,14 +102,14 @@ export default {
     },
     data () {
         return {
-            manager: {
+            manager: new Form( {
                 name: '',
                 email: '',
                 roles: [],
                 description: '',
                 posittion: 1,
                 // level_id: ''
-            },
+            }),
             roles: [],
             types: [],
             levels: [],
@@ -169,23 +166,23 @@ export default {
             });
         },
         createAdmin() {
-            this.$v.manager.$touch();
-            if (!this.$v.manager.$invalid) {
+            // this.$v.manager.$touch();
+            // if (!this.$v.manager.$invalid) {
 
                 this.$Progress.start();
-                axios.post('/api/manager', this.manager)
+                this.manager.post('/api/manager')
                 .then( (data) => {
                     if(data.data.success) {
                         this.$router.push({path: '/admin/manager'});
                         Toast.fire({
                             icon: 'success',
-                            title: this.$t('admin.info.form.messages._create_success')
+                            title: this.$t('admin.info.messages._create_success')
                         });
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('admin.info.form.messages._create_failed')
+                            title: this.$t('admin.info.messages._create_failed')
                         });
 
                         this.$Progress.failed();
@@ -197,7 +194,7 @@ export default {
                         title: this.$t('common.messages._system_err')
                     });
                 })
-            }
+            //}
         },
         infoAdmin () {
             if (this.isEdit) {
@@ -226,52 +223,50 @@ export default {
             }
         },
         updateAdmin () {
-            this.$v.manager.$touch();
-            if (!this.$v.manager.$invalid) {
 
-                this.$Progress.start();
-                axios.put('/api/manager/'+this.manager.id, this.manager)
-                .then( (data) => {
-                    if(data.data.success) {
-                        this.$router.push({path: '/admin/manager'});
-                        Toast.fire({
-                            icon: 'success',
-                            title: this.$t('admin.info.form.messages._edit_success')
-                        });
-                        this.$Progress.finish();
-                    } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: this.$t('admin.info.form.messages._edit_failed')
-                        });
-
-                        this.$Progress.failed();
-                    }
-                })
-                .catch(()=>{
+            this.$Progress.start();
+            this.manager.put('/api/manager/'+this.manager.id, this.manager)
+            .then( (data) => {
+                if(data.data.success) {
+                    this.$router.push({path: '/admin/manager'});
+                    Toast.fire({
+                        icon: 'success',
+                        title: this.$t('admin.info.form.messages._edit_success')
+                    });
+                    this.$Progress.finish();
+                } else {
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('common.messages._system_err')
+                        title: this.$t('admin.info.form.messages._edit_failed')
                     });
-                })
-            }
+
+                    this.$Progress.failed();
+                }
+            })
+            .catch(()=>{
+                Toast.fire({
+                    icon: 'error',
+                    title: this.$t('common.messages._system_err')
+                });
+            })
+
         },
         removeAdmin (id) {
             Swal.fire({
-                title: this.$t('app').popup.are_you_sure,
-                text: this.$t('app').popup.you_wont_able_revert,
+                title: this.$t('admin.popup.are_you_sure'),
+                text: this.$t('admin.popup.you_wont_able_revert'),
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: this.$t('app').popup.delete_it
+                confirmButtonText: this.$t('admin.popup.delete_it')
             }).then((result) => {
                 // Send request to the server
                 if (result.value) {
 
                     axios.delete('/api/manager/'+id).then(() => {
                         Swal.fire(
-                            this.$t('app').popup.deleted,
-                            this.$t('app').popup.your_item_has_been_deleted,
+                            this.$t('admin.popup.deleted'),
+                            this.$t('admin.popup.your_item_has_been_deleted'),
                             'success'
                         );
                         // Fire.$emit('AfterCreate');

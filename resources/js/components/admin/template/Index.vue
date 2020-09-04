@@ -1,5 +1,5 @@
 <template>
-    <section class="content">
+    <section class="content" v-if="$gate.canPermission('template.index')">
 
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
@@ -75,13 +75,11 @@
                     <!-- /.card -->
                 </div>
             </div>
-
-
-            <div v-if="!$gate.isAdmin()">
-                <not-found></not-found>
-            </div>
         </div>
     </section>
+     <div v-else>
+        <not-found></not-found>
+    </div>
 </template>
 
 <script>

@@ -1,12 +1,12 @@
 <template>
-    <section class="content" v-if="$gate.isAdmin()">
+    <section class="content" v-if="$gate.canPermission('clinic.add.users')">
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
                 <h3 class="page-title">{{ $t('clinic.clinic_users._page_title') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <button type="button" class="btn btn-primary pl-5 pr-5" @click="updateUsers()">{{ $t('clinic.clinic_users._btn_update')}}
+                <button type="button" class="btn btn-primary pl-5 pr-5" @click="updateUsers()">{{ $t('clinic.clinic_users.others._btn_update')}}
                 </button>
             </div>
         </div>
@@ -63,7 +63,7 @@
                                     <th scope="col">
                                         <!--<input type="checkbox" @change="selectAll" v-model="allSelected">-->
                                     </th>
-                                    <th scope="col">{{ $t('staff.attr._name')}}</th>
+                                    <th scope="col">{{ $t('staff.attr._username')}}</th>
                                     <th scope="col">{{ $t('staff.attr._mail_address')}}</th>
                                     <th scope="col">{{ $t('staff.attr._position')}}</th>
                                     <th scope="col">{{ $t('staff.list.data_table._registered_at')}}</th>

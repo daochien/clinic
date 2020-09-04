@@ -1,6 +1,6 @@
 <template>
     <div class="page-managers">
-        <div class="page-header row no-gutters py-4">
+        <div class="page-header row no-gutters py-4" v-if="$gate.canPermission('manager.index')">
             <div class="col-12 col-sm-8 text-center text-sm-left mb-0">
                 <h3 class="page-title">{{ $t('admin.list._page_title') }}</h3>
             </div>
@@ -12,7 +12,7 @@
                 </router-link>
             </div>
         </div>
-        <div class="row page-filter  mb-5">
+        <div class="row page-filter  mb-5" v-if="$gate.canPermission('manager.index')">
             <div class="col-12 col-sm-8 offset-sm-2">
                 <div class="card card-small">
                     <div class="card-body">
@@ -43,7 +43,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" v-if="$gate.canPermission('manager.index')">
             <div class="col-12 col-sm-12">
                 <div class="card">
                     <div class="card-body p-0">
@@ -100,14 +100,17 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
+        <div v-if="!$gate.canPermission('manager.index')">
+            <not-found></not-found>
+        </div>
     </div>
 </template>
 
 <script>
 
 export default {
-    
+
     data () {
         return {
             admins: [],
@@ -122,6 +125,7 @@ export default {
     },
 
     created () {
+        console.log(this.$t('x.list'))
         this.loadRoles();
         this.loadListAdmin();
     },
@@ -166,22 +170,22 @@ export default {
                 console.log(error);
             });
         },
-        removeAdmin (id) {            
+        removeAdmin (id) {
             Swal.fire({
-                title: this.$t('app').popup.are_you_sure,
-                text: this.$t('app').popup.you_wont_able_revert,
+                title: this.$t('admin.popup.are_you_sure'),
+                text: this.$t('admin.popup.you_wont_able_revert'),
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: this.$t('app').popup.delete_it
+                confirmButtonText: this.$t('admin.popup.delete_it')
             }).then((result) => {
                 // Send request to the server
                 if (result.value) {
-                    
+
                     axios.delete('/api/manager/'+id).then(() => {
                         Swal.fire(
-                            this.$t('app').popup.deleted,
-                            this.$t('app').popup.your_item_has_been_deleted,
+                            this.$t('admin.popup.deleted'),
+                            this.$t('admin.popup.your_item_has_been_deleted'),
                             'success'
                         );
                         // Fire.$emit('AfterCreate');
@@ -191,7 +195,7 @@ export default {
                     });
                 }
             })
-        },        
+        },
         clearFilter () {
             this.form_filter.role = '';
             this.form_filter.keyword = '';
