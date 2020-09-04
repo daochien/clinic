@@ -48,7 +48,7 @@ class TemplateController extends BaseController
     public function destroy($id)
     {
         $user = auth()->user();
-        $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        $form = Form::find($id);
         $form->delete();
 
         // dispatch the event
