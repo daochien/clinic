@@ -176,13 +176,13 @@ export default {
                         this.$router.push({path: '/admin/manager'});
                         Toast.fire({
                             icon: 'success',
-                            title: this.$t('admin.info.form.messages._create_success')
+                            title: this.$t('admin.info.messages._create_success')
                         });
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('admin.info.form.messages._create_failed')
+                            title: this.$t('admin.info.messages._create_failed')
                         });
 
                         this.$Progress.failed();

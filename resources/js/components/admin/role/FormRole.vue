@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <div class="page-header row no-gutters py-4">
+        <div class="page-header row no-gutters py-4" v-if="$gate.canPermission('role.store')">
             <div class="col-12 col-sm-8 text-center text-sm-left mb-0">
                 <h3 class="page-title">{{ $t('role.info._page_title_create') }}</h3>
             </div>
@@ -123,7 +123,7 @@ export default {
 
                 Toast.fire({
                     icon: 'success',
-                    title: this.$t('admin.info.form.messages._create_success')
+                    title: this.$t('admin.info.messages._create_success')
                 });
                 this.$Progress.finish();
                 this.$router.push({path: '/admin/manager/roles'});
@@ -144,7 +144,7 @@ export default {
                 // success
                 Toast.fire({
                     icon: 'success',
-                    title: this.$t('admin.info.form.messages._create_success')
+                    title: this.$t('admin.info.messages._create_success')
                 });
                 this.$Progress.finish();
                 this.$router.push({path: '/admin/manager/roles'});

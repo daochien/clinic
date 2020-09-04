@@ -1,7 +1,7 @@
 <template>
-    <section class="content">
+    <section class="content" v-if="(editmode && $gate.canPermission('notification.update') || (!editmode && $gate.canPermission('notification.store') ) )">
         <!-- Page Header -->
-        <div class="page-header row no-gutters py-4">
+        <div class="page-header row no-gutters py-4" >
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
                 <h3 class="page-title">{{ $t('notification.info._page_title') }}</h3>
             </div>
@@ -17,7 +17,7 @@
         </div>
         <!-- End Page Header -->
         <div class="container-fluid">
-            <div class="row mb-5">
+            <div class="row mb-5" >
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -149,12 +149,11 @@
                     </div>
                 </div>
             </div>
-
-            <div v-if="!$gate.isAdmin()">
-                <not-found></not-found>
-            </div>
         </div>
     </section>
+    <div v-else>
+        <not-found></not-found>
+    </div>
 </template>
 
 <script>

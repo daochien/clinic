@@ -1,6 +1,6 @@
 <template>
   <section class="content">
-    <div class="container-fluid" v-if="this.$gate.isRoot()">
+    <div class="container-fluid" v-if="$gate.canPermission('group.store')">
 
         <div class="page-header row no-gutters py-4">
             <div class="col-6 text-center text-sm-left mb-0">

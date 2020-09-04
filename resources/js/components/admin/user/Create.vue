@@ -1,7 +1,7 @@
 <template>
     <section class="content">
         <!-- Page Header -->
-        <div class="page-header row no-gutters py-4">
+        <div class="page-header row no-gutters py-4" v-if="$gate.canPermission('user.store')">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
                 <h3 class="page-title">{{ $t('staff.info._page_title_create') }}</h3>
             </div>
@@ -11,7 +11,7 @@
         </div>
         <!-- End Page Header -->
         <div class="container-fluid">
-            <div class="row mb-5">
+            <div class="row mb-5" v-if="$gate.canPermission('user.store')">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -140,7 +140,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="!$gate.isAdmin()">
+            <div v-if="!$gate.canPermission('user.store')">
                 <not-found></not-found>
             </div>
         </div>

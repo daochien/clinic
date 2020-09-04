@@ -1,6 +1,6 @@
 <template>
   <section class="content">
-    <div class="container-fluid" v-if="this.$gate.isRoot()">
+    <div class="container-fluid" v-if="$gate.canPermission('group.index')">
 
         <div class="page-header row no-gutters py-4">
             <div class="col-6 text-center text-sm-left mb-0">
@@ -90,9 +90,9 @@
             },
 
           loadGroup(){
-            if(this.$gate.isRoot()){
+            //if(this.$gate.isRoot()){
               axios.get("/api/group").then(({ data }) => {this.group = data.data});
-            }
+            //}
           },
 
             deleteGroup(id){
