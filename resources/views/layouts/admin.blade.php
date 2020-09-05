@@ -81,6 +81,7 @@
             window.user.roles = @json(auth()->user()->roles);
             window.user.permissions = @json(auth()->user()->getAllPermissions());
             window.user.posittion = @json(\App\Models\User::POSITTION);
+            window.base_url = "{{config('app.url')}}"
     </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>
