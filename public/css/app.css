@@ -57,6 +57,10 @@
   border: 1px solid #e1e5eb !important;
 }
 
+#request-discussion .d-content {
+  font-size: 12px;
+}
+
 .select2-container {
   box-sizing: border-box;
   display: inline-block;

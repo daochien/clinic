@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Models\Category;
+use App\Models\RequestComment;
 use App\Models\RequestLog;
 use App\Models\Submission;
 use App\Services\RequestLogService;
@@ -64,6 +65,18 @@ class RequestController extends BaseController
         }
     }
 
+    public function comment(Request $request, $id)
+    {
+        try {
+            $message = $request->get('message');
+            $this->requestService->createRequestComment($id, $message);
+            $allComment = RequestComment::where(['request_id' => $id])->with('user')->get();
+
+            return $this->sendResponse($allComment);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getMessage());
+        }
+    }
 
 
 }

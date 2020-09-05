@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\RequestComment;
 use App\Models\Submission;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class RequestService
@@ -32,9 +34,22 @@ class RequestService
      */
     public function getRequest($id)
     {
-        $submission = Submission::with('requestLogs', 'requestComments', 'user', 'form.approvers', 'form.category')
+        $submission = Submission::with('requestLogs', 'requestComments.user', 'user', 'form.approvers', 'form.category')
             ->where('id', $id)
             ->firstOrFail();
         return $submission;
+    }
+
+    /**
+     * @param $id
+     * @param $message
+     */
+    public function createRequestComment($id, $message): void
+    {
+        RequestComment::create([
+            'user_id' => $user = auth()->user()->id,
+            'request_id' => $id,
+            'message' => $message
+        ]);
     }
 }

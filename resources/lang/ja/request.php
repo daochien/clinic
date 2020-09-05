@@ -73,6 +73,14 @@ return [
             '_btn_reply' => '返信する',
         ],
     ],
+    'discussion' => [
+        '_title' => 'Discussion',
+        '_comment_here' => 'ここにメッセージ',
+        '_send' => '送信する',
+        '_upload_placeholder' => 'Choose a file or drop it here...',
+        '_upload_drop_placeholder' => 'Drop file here...',
+        '_comment_success' => 'Comment success'
+    ],
     'template' => [
         'list' => [
             '_og_title_' => '友伸會ポータル管理画面｜申請管理・申請テンプレート一覧',
