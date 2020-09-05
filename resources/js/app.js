@@ -124,6 +124,11 @@ Vue.filter('myDate', function (created) {
     return "-";
 });
 
+Vue.filter('formatAttachFile', function (fileName) {
+    let props = _.split(fileName,'_____', 2);
+    return props[1];
+})
+
 Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i class="fas fa-times red"></i>'));
 
 // end Filter
