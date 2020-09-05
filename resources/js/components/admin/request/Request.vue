@@ -1,5 +1,5 @@
 <template>
-    <section class="content" v-model="submission">
+    <section class="content">
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="pr-5 text-center text-sm-left mb-4 mb-sm-0">
@@ -88,20 +88,45 @@
                         </div>
                     </div>
 
-                    <div class="card mb-5">
-                        <div class="card-header">
-                            <label class="font-weight-bold" v-html="$t('request.chat._discussion')"></label>
+                    <div class="card mb-5" v-if="submission.request_comments.length > 0"  id="request-discussion">
+                        <div class="card-header border-bottom">
+                            <label class="font-weight-bold" v-html="$t('request.discussion._title')"></label>
                         </div>
-                        <div class="card-body">
-                            <div class="blog-comments__item d-flex p-3">
-                                <div class="blog-comments__content">
-                                    <div class="blog-comments__meta text-muted mb-3">
-                                        <a class="text-secondary float-left" href="#">James Johnson</a>
-                                        <span class="text-muted float-right">–3 days ago</span>
-                                    </div>
-                                    <p class="m-0 my-1 mb-2 text-muted">Well, the way they make shows is, they make one show ...</p>
+                        <div class="card-body p-0 pl-3 d-content">
+                            <div class="blog-comments__item d-flex p-3 row" v-for="(comment, index) in submission.request_comments" :key="'comment_' + index">
+                                <div class="col-10 d-user-name">
+                                    {{ comment.user.name }}
+                                </div>
+                                <div class="col-2 text-right d-created_at">
+                                    {{ comment.created_at | myDate }}
+                                </div>
+                                <div class="col-12 mt-3 d-message">
+                                    {{ comment.message }}
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="card mb-5">
+                        <div class="card-body">
+                            <b-form @submit="onSubmit" >
+                                <b-form-textarea
+                                    class="mb-3"
+                                    id="textarea"
+                                    required
+                                    v-model="discussion.message"
+                                    :placeholder="$t('request.discussion._comment_here')"
+                                    rows="3"
+                                    max-rows="6"
+                                ></b-form-textarea>
+                                <b-form-file
+                                    class="mb-3"
+                                    accept="image/*,.doc,.docx,.xls,xlsx,.mp4,.mpeg,.txt,.csv"
+                                    v-model="discussion.file"
+                                    :placeholder="$t('request.discussion._upload_placeholder') "
+                                    :drop-placeholder="$t('request.discussion._upload_drop_placeholder')"
+                                ></b-form-file>
+                                <b-button type="submit" variant="primary" class="float-right">Submit</b-button>
+                            </b-form>
                         </div>
                     </div>
                 </div>
@@ -114,12 +139,54 @@
     export default {
         data () {
             return {
-                submission : {},
+                submission : {
+                    form: {
+                        approvers: {},
+                        category: [
+                            { name : '' },
+                        ],
+                    },
+                    request_logs: {},
+                    request_comments: [],
+                },
                 form_headers : {},
                 status_label: '',
+                discussion: new Form({
+                    text: '',
+                    file: null,
+                })
             }
         },
         methods: {
+            onSubmit(evt) {
+                this.$Progress.start();
+                evt.preventDefault();
+                this.discussion.post("/api/request/" + this.submission.id + "/comment")
+                    .then((response)=>{
+                        if(response.data.success){
+                            Toast.fire({
+                                icon: "success",
+                                title: this.$t('request').discussion._comment_success,
+                            });
+                            this.submission.request_comments = response.data.data;
+                            this.discussion.reset();
+                            this.$Progress.finish();
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('common').messsages._system_err,
+                            });
+                            this.$Progress.finish();
+                        }
+                    })
+                    // .catch(()=>{
+                    //     Toast.fire({
+                    //         icon: 'error',
+                    //         title: this.$t('common').messsages._system_err,
+                    //     });
+                    //     this.$Progress.finish();
+                    // })
+            },
             approve() {
                 axios.post("/api/request/" + this.submission.id, {
                     status: 1,
@@ -192,6 +259,13 @@
                 axios.get("/api/request/"  + this.$route.params.id).then((response ) => {
                     this.submission = response.data.data.submission;
                     this.form_headers = response.data.data.form_headers;
+                });
+                this.$Progress.finish();
+            },
+            loadComment(){
+                this.$Progress.start();
+                axios.get("/api/request/"  + this.$route.params.id + "/comment").then((response ) => {
+                    this.submission.request_comments = response.data.data;
                 });
                 this.$Progress.finish();
             },
