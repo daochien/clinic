@@ -100,8 +100,11 @@
                                 <div class="col-2 text-right d-created_at">
                                     {{ comment.created_at | myDate }}
                                 </div>
-                                <div class="col-12 mt-3 d-message">
-                                    {{ comment.message }}
+                                <div class="col-12 mt-3 d-message" v-html="comment.message"></div>
+                                <div class="col-12 mt-3 d-message" v-for="(attachment, index) in comment.attachments" :key="'att_' + index">
+                                    <a :href="base_url + '/request/attachment/download/' + attachment.title">
+                                        {{attachment.title}}
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -119,12 +122,14 @@
                                     max-rows="6"
                                 ></b-form-textarea>
                                 <b-form-file
+                                    @change="preUploadFile($event)"
                                     class="mb-3"
                                     accept="image/*,.doc,.docx,.xls,xlsx,.mp4,.mpeg,.txt,.csv"
                                     v-model="discussion.file"
                                     :placeholder="$t('request.discussion._upload_placeholder') "
                                     :drop-placeholder="$t('request.discussion._upload_drop_placeholder')"
                                 ></b-form-file>
+<!--                                <div class="mt-3">Selected file: {{ discussion.file ? discussion.file.name : '' }}</div>-->
                                 <b-button type="submit" variant="primary" class="float-right">Submit</b-button>
                             </b-form>
                         </div>
@@ -151,41 +156,55 @@
                 },
                 form_headers : {},
                 status_label: '',
-                discussion: new Form({
-                    text: '',
-                    file: null,
-                })
+                discussion: {
+                    message: '',
+                    file: {}
+                },
+                base_url: base_url,
             }
         },
         methods: {
+            preUploadFile(event){
+                console.log(event.target.files[0]);
+                this.discussion.file = event.target.files[0]
+                console.log(this.discussion.file);
+            },
             onSubmit(evt) {
                 this.$Progress.start();
+                let formData = new FormData();
+                formData.append('file', this.discussion.file);
+                formData.append('message', this.discussion.message);
+
                 evt.preventDefault();
-                this.discussion.post("/api/request/" + this.submission.id + "/comment")
-                    .then((response)=>{
-                        if(response.data.success){
-                            Toast.fire({
-                                icon: "success",
-                                title: this.$t('request').discussion._comment_success,
-                            });
-                            this.submission.request_comments = response.data.data;
-                            this.discussion.reset();
-                            this.$Progress.finish();
-                        } else {
-                            Toast.fire({
-                                icon: 'error',
-                                title: this.$t('common').messsages._system_err,
-                            });
-                            this.$Progress.finish();
-                        }
-                    })
-                    // .catch(()=>{
-                    //     Toast.fire({
-                    //         icon: 'error',
-                    //         title: this.$t('common').messsages._system_err,
-                    //     });
-                    //     this.$Progress.finish();
-                    // })
+                axios.post("/api/request/" + this.submission.id + "/comment", formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then((response)=>{
+                    if(response.data.success){
+                        Toast.fire({
+                            icon: "success",
+                            title: this.$t('request').discussion._comment_success,
+                        });
+                        this.submission.request_comments = response.data.data;
+                        this.discussion.reset();
+                        this.$Progress.finish();
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: this.$t('common').messsages._system_err,
+                        });
+                        this.$Progress.finish();
+                    }
+                })
+                .catch(()=>{
+                    Toast.fire({
+                        icon: 'error',
+                        title: this.$t('common').messsages._system_err,
+                    });
+                    this.$Progress.finish();
+                })
             },
             approve() {
                 axios.post("/api/request/" + this.submission.id, {

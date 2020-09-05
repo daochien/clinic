@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\Attachment;
 use App\Models\RequestComment;
+use App\Models\RequestCommentAttachment;
 use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class RequestService
 {
@@ -34,7 +37,7 @@ class RequestService
      */
     public function getRequest($id)
     {
-        $submission = Submission::with('requestLogs', 'requestComments.user', 'user', 'form.approvers', 'form.category')
+        $submission = Submission::with('requestLogs', 'requestComments.user', 'requestComments.attachments', 'user', 'form.approvers', 'form.category')
             ->where('id', $id)
             ->firstOrFail();
         return $submission;
@@ -42,14 +45,42 @@ class RequestService
 
     /**
      * @param $id
-     * @param $message
+     * @param $request
+     * @throws \Exception
      */
-    public function createRequestComment($id, $message): void
+    public function createRequestComment($id, $request): void
     {
-        RequestComment::create([
-            'user_id' => $user = auth()->user()->id,
-            'request_id' => $id,
-            'message' => $message
-        ]);
+        try {
+            DB::beginTransaction();
+
+            $message = $request->get('message');
+
+            $requestComment = RequestComment::create([
+                'user_id' => auth()->user()->id,
+                'request_id' => $id,
+                'message' => $message
+            ]);
+
+            if (!empty($request->file)) {
+                $fileName = time() . '_____' . $request->file->getClientOriginalName();
+                $extension = $request->file->extension();
+                $path = Storage::putFileAs(
+                    'attachment', $request->file, $fileName
+                );
+                $attachment = Attachment::create([
+                    'title' => $fileName,
+                    'url' => $path,
+                    'type' => $extension,
+                ]);
+                RequestCommentAttachment::insertOrIgnore([
+                    'attachment_id' => $attachment->id,
+                    'request_comment_id' => $requestComment->id,
+                ]);
+            }
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            throw  $exception;
+        }
     }
 }

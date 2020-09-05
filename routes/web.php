@@ -21,6 +21,7 @@ Route::get('/blogs', 'HomeController@blog')->name('home.blog');
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/admin/template', 'Admin\Template\FormController')->except('index');
+Route::get('request/attachment/download/{filename}', 'API\V1\RequestController@downloadAttachment')->name('request.attachment.download');
 
 Route::prefix('/admin/template')
     ->namespace('Admin\Template')

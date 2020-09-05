@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use App\Models\Category;
 use App\Models\RequestComment;
 use App\Models\RequestLog;
 use App\Models\Submission;
@@ -10,6 +9,7 @@ use App\Services\RequestLogService;
 use App\Services\RequestService;
 use Illuminate\Http\Request;
 use App\Models\Form;
+use Illuminate\Support\Facades\Storage;
 
 class RequestController extends BaseController
 {
@@ -49,6 +49,11 @@ class RequestController extends BaseController
         return $this->sendResponse(['submission' => $submission, 'form_headers' => $form_headers]);
     }
 
+    public function downloadAttachment(Request $request, $fileName)
+    {
+        return Storage::download("attachment/{$fileName}");
+    }
+
     public function changeStatus(Request $request, $id)
     {
         try {
@@ -68,9 +73,8 @@ class RequestController extends BaseController
     public function comment(Request $request, $id)
     {
         try {
-            $message = $request->get('message');
-            $this->requestService->createRequestComment($id, $message);
-            $allComment = RequestComment::where(['request_id' => $id])->with('user')->get();
+            $this->requestService->createRequestComment($id, $request);
+            $allComment = RequestComment::where(['request_id' => $id])->with('user', 'attachments')->get();
 
             return $this->sendResponse($allComment);
         } catch (\Exception $exception) {

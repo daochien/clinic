@@ -14,4 +14,10 @@ class RequestComment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function attachments()
+    {
+        return $this->belongsToMany(Attachment::class, 'request_comment_attachments', 'request_comment_id', 'attachment_id');
+    }
+
 }
