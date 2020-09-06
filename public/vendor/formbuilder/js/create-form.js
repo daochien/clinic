@@ -10,7 +10,13 @@ jQuery(function() {
             $('#allows_edit').val('0')
         }
     });
-
+    var locale = document.head.querySelector('meta[name="locale"]').content;
+    var formLang = '';
+    if (locale === 'ja') {
+        formLang = 'ja-JP'
+    } else {
+        formLang = ''
+    }
     // create the form editor
     var fbEditor = $(document.getElementById('fb-editor'))
     var formBuilder
@@ -32,7 +38,6 @@ jQuery(function() {
             'button', // buttons are not needed since we are the one handling the submission
             'hidden',
             'autocomplete',
-            'number',
         ],  // field types that should not be shown
         disabledAttrs: [
             // 'access',
@@ -67,6 +72,7 @@ jQuery(function() {
             // var formData = formBuilder.formData
             // console.log(formData)
         },
+        i18n: {locale: formLang}
     }
 
     toastr.options = {
