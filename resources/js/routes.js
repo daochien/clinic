@@ -109,7 +109,8 @@ export default [
         name: 'page', meta: {breadcrumb: `Page`},
         children: [
             { path: '', component: require('./components/admin/page/Index.vue').default, meta: {breadcrumb: `Manager Page`} },
-            { path: 'create', component: require('./components/admin/page/Create.vue').default, meta: {breadcrumb: `Create`} },            
+            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Create`} },            
+            { path: 'edit/:id', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Edit`} },            
         ]
     },
 ];
