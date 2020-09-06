@@ -15,7 +15,7 @@ jQuery(function() {
     if (locale === 'ja') {
         formLang = 'ja-JP'
     } else {
-        formLang = ''
+        formLang = 'en-US'
     }
     // create the form editor
     var fbEditor = $(document.getElementById('fb-editor'))
