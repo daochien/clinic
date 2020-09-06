@@ -169,7 +169,7 @@ class GroupController extends BaseController
         if(count($users)){
             return $this->sendResponse($users, 'Users list');
         }
-        $data = null;
+        $data = [];
         return $this->sendResponse($data, 'Empty');
     }
 

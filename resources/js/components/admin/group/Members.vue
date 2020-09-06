@@ -60,7 +60,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <template v-if="members.data.length">
+                                <template v-if="typeof  members.data != 'undefined'">
                                     <tr v-for="item in members.data" :key="item.id">
                                         <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
                                         <td>{{item.name}}</td>
@@ -75,7 +75,7 @@
 
                                 </tbody>
                             </table>
-                            <template v-if="!members.data.length">
+                            <template v-if="typeof members.data == 'undefined'">
                                 <div class="user_not_found">
                                     {{ $t('group.not_found_user')}}
                                 </div>
