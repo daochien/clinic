@@ -47,7 +47,6 @@ class TemplateController extends BaseController
 
     public function destroy($id)
     {
-        $user = auth()->user();
         $form = Form::find($id);
         $form->delete();
 
