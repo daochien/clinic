@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use \Illuminate\Http\JsonResponse;
 
 class BaseController extends Controller
 {
@@ -13,9 +13,9 @@ class BaseController extends Controller
      * @param $result
      * @param $message
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function sendResponse($result, $message = '')
+    public function sendResponse($result = null, $message = '')
     {
         $response = [
             'success' => true,
@@ -37,7 +37,7 @@ class BaseController extends Controller
      * @param  array  $errorMessages
      * @param  int  $code
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function sendError($error, $errorMessages = [], $code = 404)
     {
@@ -62,7 +62,7 @@ class BaseController extends Controller
      * @param $error
      * @param  int  $code
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function unauthorizedResponse($error = 'Forbidden', $code = 403)
     {

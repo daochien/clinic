@@ -40,14 +40,13 @@ class TemplateController extends BaseController
             ->with(['user','category','approvers'])
             ->where('visibility', Form::FORM_PUBLIC)
             ->withCount('submissions')
-            ->firstOrFail();
+            ->first();
 
         return $this->sendResponse($form, 'Templates list');
     }
 
     public function destroy($id)
     {
-        $user = auth()->user();
         $form = Form::find($id);
         $form->delete();
 

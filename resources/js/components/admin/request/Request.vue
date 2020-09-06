@@ -1,12 +1,12 @@
 <template>
-    <section class="content">
+    <section class="content" v-if="submission">
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="pr-5 text-center text-sm-left mb-4 mb-sm-0">
                 <h3 class="page-title">{{ $t('request.info._page_title') }}</h3>
             </div>
-            <div class="col-1 col-sm-8 text-right text-sm-left mb-4 mb-sm-0">
-                <div class="mb-2 btn btn-sm mr-1" :class="status_label" v-html="getStatus(submission)"></div>
+            <div class="col-1 col-sm-8 text-right text-sm-left mb-4 mb-sm-0" >
+                <div class="mb-2 btn btn-sm mr-1" :class="status_label" v-html="status"></div>
             </div>
         </div>
         <!-- End Page Header -->
@@ -101,9 +101,9 @@
                                     {{ comment.created_at | myDate }}
                                 </div>
                                 <div class="col-12 mt-3 d-message" v-html="comment.message"></div>
-                                <div class="col-12 mt-3 d-message" v-for="(attachment, index) in comment.attachments" :key="'att_' + index">
+                                <div class="col-12 mt-3" v-for="(attachment, index) in comment.attachments" :key="'att_' + index">
                                     <a :href="base_url + '/request/attachment/download/' + attachment.title">
-                                        {{attachment.title}}
+                                        {{attachment.title | formatAttachFile}} <i class="fas fa-cloud-download-alt"></i>
                                     </a>
                                 </div>
                             </div>
@@ -123,13 +123,12 @@
                                 ></b-form-textarea>
                                 <b-form-file
                                     @change="preUploadFile($event)"
+                                    ref="fileInput"
                                     class="mb-3"
                                     accept="image/*,.doc,.docx,.xls,xlsx,.mp4,.mpeg,.txt,.csv"
-                                    v-model="discussion.file"
                                     :placeholder="$t('request.discussion._upload_placeholder') "
                                     :drop-placeholder="$t('request.discussion._upload_drop_placeholder')"
                                 ></b-form-file>
-<!--                                <div class="mt-3">Selected file: {{ discussion.file ? discussion.file.name : '' }}</div>-->
                                 <b-button type="submit" variant="primary" class="float-right">Submit</b-button>
                             </b-form>
                         </div>
@@ -158,16 +157,15 @@
                 status_label: '',
                 discussion: {
                     message: '',
-                    file: {}
+                    file: null
                 },
                 base_url: base_url,
+                status : '',
             }
         },
         methods: {
             preUploadFile(event){
-                console.log(event.target.files[0]);
                 this.discussion.file = event.target.files[0]
-                console.log(this.discussion.file);
             },
             onSubmit(evt) {
                 this.$Progress.start();
@@ -188,7 +186,7 @@
                             title: this.$t('request').discussion._comment_success,
                         });
                         this.submission.request_comments = response.data.data;
-                        this.discussion.reset();
+                        this.resetChat();
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
@@ -198,13 +196,13 @@
                         this.$Progress.finish();
                     }
                 })
-                .catch(()=>{
-                    Toast.fire({
-                        icon: 'error',
-                        title: this.$t('common').messsages._system_err,
-                    });
-                    this.$Progress.finish();
-                })
+            },
+            resetChat() {
+                this.$refs.fileInput.reset();
+                this.discussion = {
+                    message: '',
+                    file: null
+                };
             },
             approve() {
                 axios.post("/api/request/" + this.submission.id, {
@@ -278,6 +276,7 @@
                 axios.get("/api/request/"  + this.$route.params.id).then((response ) => {
                     this.submission = response.data.data.submission;
                     this.form_headers = response.data.data.form_headers;
+                    this.status = this.getStatus();
                 });
                 this.$Progress.finish();
             },
@@ -288,15 +287,15 @@
                 });
                 this.$Progress.finish();
             },
-            getStatus(object) {
+            getStatus() {
                 self = this;
-                if (object.request_logs.length === 0) {
+                if (this.submission.request_logs.length === 0) {
                     this.status_label = 'btn-warning';
                     return this.$t('request').attr.status._open;
                 }
 
                 let approvedCount = 0;
-                _.forEach(object.request_logs, function (log, logKey) {
+                _.forEach(this.submission.request_logs, function (log, logKey) {
                     if (log.status === 2) {
                         self.status_label = 'btn-secondary';
                         return self.$t('request').attr.status._rejected;
@@ -304,7 +303,7 @@
                     approvedCount++;
                 });
 
-                if (approvedCount === object.form.approvers.length) {
+                if (approvedCount === this.submission.form.approvers.length) {
                     this.status_label = 'btn-info';
                     return this.$t('request').attr.status._approved;
                 }
@@ -320,3 +319,6 @@
         }
     }
 </script>
+<style type="text/css">
+.d-message { white-space: pre-wrap; }
+</style>
