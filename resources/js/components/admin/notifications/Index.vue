@@ -143,8 +143,8 @@
                                     <td>{{ entity.users_count }}</td>
                                     <td>{{ entity.users_read }}</td>
                                     <td>
-                                        <label v-if="entity.confirm === 0">{{ entity.users_count}}</label>
-                                        <label v-else>{{ entity.users_confirm }}</label>
+                                        <label v-if="entity.confirm === 1">{{ entity.users_confirm }}</label>
+                                        <label v-else> -- </label>
                                     </td>
                                     <td>{{ $moment(entity.schedule_date).format('YYYY-MM-DD hh:mm:ss') }}</td>
                                     <td>

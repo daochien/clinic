@@ -25,20 +25,11 @@ class NotificationResource extends JsonResource
             "schedule_date" => $this->schedule_date,
             "created_at" => $this->created_at,
             'groups' => $this->notificationGroups,
-            'users_count' => $this->usersCount(),
-            'users_read' => $this->usersRead(),
-            'users_confirm' => $this->usersConfirm(),
+            'users_count' => $this->users_count,
+            'users_read' => $this->users_read_count,
+            'users_confirm' => $this->users_confirm_count,
             'users' => UserResource::collection($this->whenLoaded('users')),
         ];
-
-//        if (App::isLocale('ja')) {
-//            $datas["created_at"] = DateHelper::toJaDate($this->created_at);
-//            if(isset($this->schedule_date)){
-//                $datas["schedule_date"] = DateHelper::toJaDate($this->schedule_date);
-//            }else{
-//                $datas["schedule_date"] = DateHelper::toJaDate($this->created_at);
-//            }
-//        }
 
         return $datas;
     }

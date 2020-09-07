@@ -2,7 +2,7 @@
 
 namespace App\Console;
 
-use App\Jobs\SendNotificationJob;
+use App\Console\Commands\SendNotificationCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        SendNotificationJob::class,
+        SendNotificationCommand::class,
     ];
 
     /**

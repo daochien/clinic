@@ -33,14 +33,19 @@ class SendNotificationJob implements ShouldQueue
      */
     public function handle()
     {
-        $notification = Notification::where('id', $this->notificationId)->first();
-        $notificationUsers = NotificationUser::where('notification_id', $this->notificationId)->get();
-        foreach ($notificationUsers as $notificationUser) {
-            PublishNotificationJob::dispatch([
-                'title' => $notification->title,
-                'content' => $notification->content,
-                'user_id' => $notificationUser->user_id,
-            ])->onQueue('publish-notification');
+        try {
+            $notification = Notification::where('id', $this->notificationId)->first();
+            $notificationUsers = NotificationUser::where('notification_id', $this->notificationId)->get();
+            foreach ($notificationUsers as $notificationUser) {
+                PublishNotificationJob::dispatch([
+                    'title' => $notification->title,
+                    'content' => $notification->content,
+                    'user_id' => $notificationUser->user_id,
+                ])->onQueue('publish-notification');
+            }
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());die;
+            report($e);
         }
     }
 }

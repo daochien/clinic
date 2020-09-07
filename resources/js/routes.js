@@ -59,7 +59,7 @@ export default [
         meta: {breadcrumb: `お知らせ管理`},
         children: [
             { path: '', component: require('./components/admin/notifications/Index.vue').default, meta: {breadcrumb: `お知らせ一覧`} },
-            { path: 'details', component: require('./components/admin/notifications/Details.vue').default, name: 'details_notification', meta: {breadcrumb: `お知らせ詳細情報`} },
+            { path: ':id(\\d+)/details', component: require('./components/admin/notifications/Details.vue').default, name: 'details_notification', meta: {breadcrumb: `お知らせ詳細情報`} },
             { path: 'edit', component: require('./components/admin/notifications/Edit.vue').default, name: 'edit_notification' , meta: {breadcrumb: `お知らせ一覧`}},
         ]
     },

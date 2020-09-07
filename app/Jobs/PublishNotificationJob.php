@@ -17,7 +17,6 @@ class PublishNotificationJob implements ShouldQueue
 
     private $message;
     private $userId;
-    private $SNSService;
 
     /**
      * Create a new job instance.
@@ -30,7 +29,6 @@ class PublishNotificationJob implements ShouldQueue
         $this->message['title'] = $data['title'];
         $this->message['content'] = $data['content'];
         $this->userId = $data['user_id'];
-        $this->SNSService = app(SNSService::class);
     }
 
     /**
@@ -41,15 +39,17 @@ class PublishNotificationJob implements ShouldQueue
     public function handle()
     {
         $userDevices = UserDeviceToken::where('user_id', $this->userId)->whereNotNull('arn')->get();
+        $SNSService = app(SNSService::class);
         foreach ($userDevices as $userDevice) {
             try {
-                $this->SNSService->publish([
+                $SNSService->publish([
                     'arn' => $userDevice->arn,
                     'title' => $this->message['title'],
                     'content' => $this->message['content'],
                 ]);
             } catch (\Exception $exception) {
                 Log::channel('notification')->info("Notification Error {$userDevice->user_id} _ {$userDevice->id}: {$exception->getMessage()}");
+                report($exception);
             }
         }
     }
