@@ -2,11 +2,22 @@
     <div class="page-form-create">
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-                <h3 class="page-title">Create Page</h3>
+                <h3 class="page-title">{{ isEdit ? $t('admin.info._page_title_edit') : $t('admin.info._page_title_create') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-center text-sm-right mb-0">
-                <button class="btn btn-primary float-right" style="font-size: 16px; width: 140px;" @click="createPage()">
-                    Create New
+                <button 
+                v-if="!isEdit"
+                class="btn btn-primary float-right" 
+                style="font-size: 16px; width: 140px;"
+                @click="createPage()">
+                    {{ $t('admin.info.others._btn_create') }}
+                </button>
+                <button 
+                v-if="isEdit"
+                class="btn btn-primary float-right" 
+                style="font-size: 16px; width: 140px;"
+                @click="updatePage()">
+                    {{ $t('admin.info.others._btn_edit') }}
                 </button>
             </div>
         </div>
@@ -47,20 +58,20 @@
                                 </div>
                             </div>
                             <div class="form-group row border-bottom">
-                                <label class="col-sm-2 col-form-label">Release </label>
+                                <label class="col-sm-2 col-form-label">Public </label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="switchToggle">
-                                        <input type="checkbox" id="switch1" v-model="page.release">
+                                        <input type="checkbox" id="switch1" v-model="page.public">
                                         <label for="switch1">Toggle</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">Release Date </label>
+                                <label class="col-sm-2 col-form-label">Public Date </label>
                                 <div class="col-sm-10 row">
                                     <div class="col-sm-4">
                                         <datepicker
-                                            v-model="page.release_date"
+                                            v-model="page.public_date"
                                             :format="formatUnix"
                                             :calendar-button="true"
                                             :calendar-button-icon="'fa fa-calendar'"
@@ -85,18 +96,18 @@
                                 </div>
                             </div>
                             <div class="form-group row border-bottom">
-                                <label class="col-sm-2 col-form-label">Public</label>
+                                <label class="col-sm-2 col-form-label">Status</label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="switchToggle">
-                                        <input type="checkbox" id="switch2" v-model="page.public">
+                                        <input type="checkbox" id="switch2" v-model="page.status">
                                         <label for="switch2">Toggle</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">Public destination</label>
+                                <label class="col-sm-2 col-form-label">URL destination</label>
                                 <div class="col-sm-10">
-                                    <input v-model="page.public_destination" type="text" class="form-control" placeholder="Please specify the publication destination">
+                                    <input v-model="page.url" type="text" class="form-control" placeholder="Please specify the publication destination">
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
@@ -225,6 +236,9 @@ import 'quill/dist/quill.bubble.css'
 import { quillEditor } from 'vue-quill-editor'
 
 export default {
+    props: {
+        isEdit: Boolean
+    },
     components: {
         Datepicker,
         quillEditor,
@@ -250,12 +264,12 @@ export default {
             page: {
                 type: 'blog',
                 title: '',
-                release: true,
-                release_date: '',
+                public: true,
+                public_date: '',
                 hours: '',
                 minute: '',
-                public: false,
-                public_destination: '',
+                status: false,
+                url: '',
                 content: '',
                 files: [],
                 image: '',
@@ -273,6 +287,7 @@ export default {
     },
     created () {
         this.loadCategory();
+        this.infoPage();
     },
     mounted () {
         this.$refs.quill.quill.getModule("toolbar").addHandler("image", this.imageHandler);
@@ -343,38 +358,19 @@ export default {
                     title: 'Some error occured! Please try again'
                 });
             }
-            this.$Progress.finish();
-            
-           
-            // .then((data)=>{
-            //     console.log(data);
-            //     Toast.fire({
-            //         icon: 'success',
-            //         title: data.data.message
-            //     });
-
-            //     this.$Progress.finish();
-
-            // })
-            // .catch(e => {
-            //     console.log(e.data.errors);
-            //     Toast.fire({
-            //         icon: 'error',
-            //         title: 'Some error occured! Please try again'
-            //     });
-            // })
+            this.$Progress.finish();                                   
         },
         handleSubmit () {
             let data = new FormData();
             data.append('type', this.page.type);
             data.append('image', this.page.image);
             data.append('title', this.page.title);
-            data.append('release', this.page.release == true ? 1 : 0);
-            data.append('release_date', this.formatDate(this.page.release_date));
+            data.append('public', this.page.release == true ? 1 : 0);
+            data.append('public_date', this.formatDate(this.page.release_date));
             data.append('hours', this.page.hours);
             data.append('minute', this.page.minute);
-            data.append('public', this.page.public == true ? 1 : 0);
-            data.append('public_destination', this.page.public_destination);
+            data.append('status', this.page.public == true ? 1 : 0);
+            data.append('url', this.page.public_destination);
             data.append('category_id', this.page.category_id);
             data.append('content', this.page.content);
 
@@ -454,7 +450,80 @@ export default {
                         title: this.$t('common.messages._system_err')
                     });
                 })
-        }
+        },
+
+        infoPage () {
+            if (this.isEdit) {
+                axios.get("/api/page/"+this.$route.params.id)
+                .then(({ data }) => {
+                    if (data.data) {
+                        this.syncRespone(data.data);
+                        this.isEdit = true;
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            }
+        },
+
+        syncRespone (data) {
+            this.page.id = data.id;
+            this.page.title = data.title;
+            this.page.type = data.type;
+            this.page.public = data.public == 1 ? true: false;
+            this.page.public_date = data.public_date;
+            this.page.status = data.status;
+            this.page.url = data.url;
+            this.page.content = data.content;
+            this.page.category_id = data.category_id;
+            this.previewImage = data.image;            
+            if (data.files) {
+                let objFile = JSON.parse(data.files);                
+                this.$refs.myVueDropzone.manuallyAddFile({
+                    name: objFile.name,
+                    size: objFile.size,
+                    type: objFile.type
+                }, objFile.path); 
+            }            
+        },
+
+        async updatePage () {
+
+            this.$Progress.start();
+            try {
+                let params = this.handleSubmit();
+                let {data} = await axios.post('/api/page/'+this.page.id, params, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                if (data.success) {
+                    this.$router.push({path: '/admin/page'});
+                    Toast.fire({
+                        icon: 'success',
+                        title: this.$t('admin.info.form.messages._edit_success')
+                    });
+                } else {                    
+                    if (data.code == '01') {                        
+                        this.pageFormErrors.errors.errors = data.errors;
+                    }
+                    Toast.fire({
+                        icon: 'error',
+                        title: this.$t('admin.info.form.messages._edit_failed')
+                    });
+                }
+
+            } catch (error) {
+                console.log(error);
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Some error occured! Please try again'
+                });
+            }
+            this.$Progress.finish();          
+
+        },
     }
 }
 </script>
