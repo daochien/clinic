@@ -1,27 +1,40 @@
 <?php
 return [
     'attr' => [
-        '_type' => 'Type',
-        '_title' => 'Title',
-        '_public' => 'Public',
-        '_public_date' => 'Public date',
-        '_status' => 'Status',
-        '_url' => 'URL destination',
-        '_category' => 'Category',
-        '_image' => 'Image'
+        '_type' => '書類',
+        '_title' => 'タイトル',
+        '_public' => '公開',
+        '_public_date' => '公開日時',
+        '_status' => '全員公開',
+        '_url' => '公開先',
+        '_category' => 'カテゴリ',
+        '_image' => 'アイキャッチ画像'
     ],
     'list' => [
         '_og_title' => '友伸會ポータル管理画面｜管理者アカウント管理・管理者一覧',
-        '_page_title' => '管理者一覧',
+        '_page_title' => '記事一覧',
         'search_box' => [
-            '_role_df' => 'すべての役割',
+            '_type' => '書類',
+            '_type_pl' => 'すべての書類',
+            '_status' => 'ステータス',
+            '_status_pl' => 'すべてのステータス',
+            '_date' => '公開日付',
+            '_keyword' => 'キーワード',
+            '_keyword_pl' => 'キーワードを入力してください',
+            '_btn_clear' => '条件をクリアする',
+            '_btn_search' => 'この条件で検索'
         ],
         'data_table' => [
+            '_title' => '書類タイトル',
+            '_type' => '種類',
+            '_category' => 'カテゴリー',
+            'public_date' => '公開日付',
+            'status' => 'ステータス',
             '_registered_at' => '登録日時',
             '_last_login_at' => '最終ログイン日時',
             'actions' => [
-                '_act_edit' => '管理者情報を編集する',
-                '_act_remove' => '管理者情報を削除する',
+                '_act_edit' => '編集する',
+                '_act_remove' => '削除する',
             ],
         ],
         'messages' => [
@@ -29,7 +42,7 @@ return [
             '_remove_failed' => '管理者情報の削除に失敗しました。',
         ],
         'others' => [
-            '_btn_create' => '新規アカウント登録',
+            '_btn_create' => '新規作成',
             '_no_data' => '管理者アカウントが存在しません。',
             '_no_search_result' => '該当する管理者情報が存在しません。',
         ],
@@ -37,21 +50,21 @@ return [
     'info' => [
         '_og_title_create' => '友伸會ポータル管理画面｜管理者アカウント管理・新規アカウント登録',
         '_og_title_edit' => '友伸會ポータル管理画面｜管理者アカウント管理・管理者情報編集',
-        '_page_title_create' => 'Create Page',
-        '_page_title_edit' => 'Edit Page',
-        '_basic_info' => 'Basic information',
-        '_article_content' => 'Article content',
+        '_page_title_create' => '記事作成',
+        '_page_title_edit' => '投稿を編集',
+        '_basic_info' => '基本情報',
+        '_article_content' => '記事内容',
         'tabs' => [
-            '_manual' => 'Manual Setting',
-            '_file' => 'File Upload'
+            '_manual' => 'マニュアル設定',
+            '_file' => 'ファイルアップロード'
         ],
         'form' => [
-            '_title_pl' => 'Please enter a title',
-            '_url_pl' => 'Please specify the publication destination',
-            '_category_pl' => 'Please specify a category',
-            '_title_upload' => 'Please choose the file',
-            '_content_upload' => 'Please upload the document (pdf, docx ppt), image file (png, jpg) or video (mp4).',
-            '_btn_upload' => 'Upload file'
+            '_title_pl' => 'タイトルを入力してください',
+            '_url_pl' => '公開先を指定してください',
+            '_category_pl' => 'カテゴリーを指定してください',
+            '_title_upload' => 'ファイルを選択してください',
+            '_content_upload' => 'ドキュメント（pdf, docx ppt）、画像ファイル（png, jpg）または動画（mp4）をアップロードしてくだい',
+            '_btn_upload' => 'ファイルを選択'
         ],
         'messages' => [
             '_create_success' => '管理者アカウントの登録が成功しました。',
@@ -65,12 +78,12 @@ return [
             '_btn_remove' => '削除する',
         ],
         'popup' => [
-            '_create_title' => 'Create Category',
-            '_btn_create' => 'Create',
-            '_btn_close' => 'Close',
-            '_btn_show_popup_category' => 'Add Category',
+            '_create_title' => 'ディレクトリを作成する',
+            '_btn_create' => '新しく作る',
+            '_btn_close' => 'キャンセル',
+            '_btn_show_popup_category' => '新しいカテゴリーを追加',
             'attr' => [
-                '_name' => 'Name'
+                '_name' => '種別名'
             ]
         ]
     ],

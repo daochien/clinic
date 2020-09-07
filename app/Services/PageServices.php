@@ -68,6 +68,11 @@ class PageServices
                 $image = $this->s3Service->store($attribute['image'], 'pages/images');
                 $page->image = $image;
                 $page->save();
+            } else {
+                if (!empty($attribute['is_remove_image'])) {
+                    $page->image = null;
+                    $page->save();
+                }
             }
 
             if ($attribute->hasFile('files')) {
@@ -83,6 +88,11 @@ class PageServices
                 }
                 $page->files = json_encode($files);
                 $page->save();
+            } else {
+                if (!empty($attribute['is_remove_file'])) {
+                    $page->files = null;
+                    $page->save();
+                }
             }
 
             DB::commit();

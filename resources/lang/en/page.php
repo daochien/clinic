@@ -12,16 +12,29 @@ return [
     ],
     'list' => [
         '_og_title' => '友伸會ポータル管理画面｜管理者アカウント管理・管理者一覧',
-        '_page_title' => '管理者一覧',
+        '_page_title' => 'List of articles',
         'search_box' => [
-            '_role_df' => 'すべての役割',
+            '_type' => 'Documents',
+            '_type_pl' => 'All documents',
+            '_status' => 'status',
+            '_status_pl' => 'All status',
+            '_date' => 'Publication date',
+            '_keyword' => 'Keyword',
+            '_keyword_pl' => 'Please enter a keyword',
+            '_btn_clear' => 'Clear the condition',
+            '_btn_search' => 'Search by this condition'
         ],
         'data_table' => [
+            '_title' => '書類タイトル',
+            '_type' => '種類',
+            '_category' => 'カテゴリー',
+            'public_date' => '公開日付',
+            'status' => 'ステータス',
             '_registered_at' => '登録日時',
             '_last_login_at' => '最終ログイン日時',
             'actions' => [
-                '_act_edit' => '管理者情報を編集する',
-                '_act_remove' => '管理者情報を削除する',
+                '_act_edit' => '編集する',
+                '_act_remove' => '削除する',
             ],
         ],
         'messages' => [
@@ -29,7 +42,7 @@ return [
             '_remove_failed' => '管理者情報の削除に失敗しました。',
         ],
         'others' => [
-            '_btn_create' => '新規アカウント登録',
+            '_btn_create' => 'Create New',
             '_no_data' => '管理者アカウントが存在しません。',
             '_no_search_result' => '該当する管理者情報が存在しません。',
         ],

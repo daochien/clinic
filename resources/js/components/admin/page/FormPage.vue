@@ -34,15 +34,15 @@
                                 <div class="col-sm-10 col-form-label">
                                     <div class="custom-control custom-radio form-check-inline float-left">
                                         <input class="custom-control-input" type="radio" id="inlineArticle" v-model="page.type" :value="'blog'">
-                                        <label class="custom-control-label" for="inlineArticle">Article</label>
+                                        <label class="custom-control-label" for="inlineArticle">記事</label>
                                     </div>
                                     <div class="custom-control custom-radio form-check-inline float-left">
                                         <input class="custom-control-input" type="radio" id="inlineManual" v-model="page.type" :value="'manual'">
-                                        <label class="custom-control-label" for="inlineManual">Manual</label>
+                                        <label class="custom-control-label" for="inlineManual">マニュアル</label>
                                     </div>
                                     <div class="custom-control custom-radio form-check-inline float-left">
                                         <input class="custom-control-input" type="radio" id="inlineFAQ" v-model="page.type" :value="'faq'">
-                                        <label class="custom-control-label" for="inlineFAQ">FAQ</label>
+                                        <label class="custom-control-label" for="inlineFAQ">よくある質問</label>
                                     </div>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@
                                     type="text"
                                     :class="['form-control', {'is-invalid': pageFormErrors.errors.has('title')}]"
                                     v-model="page.title"
-                                    :placeholder="$t('page.attr._title_pl')">
+                                    :placeholder="$t('page.info.form._title_pl')">
                                     <has-error :form="pageFormErrors" field="title"></has-error>
                                 </div>
                             </div>
@@ -114,21 +114,24 @@
                                     </select>
                                     <has-error :form="pageFormErrors" field="category_id"></has-error>
                                 </div>
-                                <label @click="showModalCategory()" class="col-sm-2 col-form-label" style="color:#007BFF; cursor:pointer;">+ {{ $t('page.info.popup._btn_show_popup_category') }}</label>
+                                <label @click="showModalCategory()" class="col-sm-4 col-form-label" style="color:#007BFF; cursor:pointer;">+ {{ $t('page.info.popup._btn_show_popup_category') }}</label>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._image') }}</label>
                                 <div class="col-sm-4" v-show="previewImage">
                                     <img :src="previewImage" style="width:100%;">
+                                    <span @click="removeImage()" style="color: #EB5757; font-size: 10px; cursor: pointer;">アイキャッチ画像を削除する</span>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="custom-file">
+                                    <div class="custom-file">                                        
                                         <input
+                                        ref="file"
                                         type="file"
                                         :class="['custom-file-input', {'is-invalid': pageFormErrors.errors.has('image')}]"
                                         id="uploadImage"
+                                        style="display: none;"
                                         @change="onImageChange">
-                                        <label class="custom-file-label" for="uploadImage">Choose file...</label>
+                                        <button @click.prevent="$refs.file.click()" type="button" class="mb-2 btn btn-sm btn-white mr-1">ファイルを選択</button>
                                     </div>
                                     <has-error :form="pageFormErrors" field="image"></has-error>
                                 </div>
@@ -172,7 +175,7 @@
                                     <div class="dropzone-custom-content">
                                         <h3 class="dropzone-custom-title">{{ $t('page.info.form._title_upload') }}</h3>
                                         <div class="subtitle">{{ $t('page.info.form._content_upload') }}</div>
-                                        <button class="btn btn-white">{{ $t('page.info.form._btn_upload') }}</button>
+                                        <button class="btn btn-white" style="margin-top:15px;">{{ $t('page.info.form._btn_upload') }}</button>
                                     </div>
                                 </vue-dropzone>
                             </div>
@@ -263,7 +266,9 @@ export default {
                 content: '',
                 files: [],
                 image: '',
-                category_id: ''
+                category_id: '',
+                isRemoveImage: false,
+                isRemoveFile: false,
             },
             pageFormErrors: new Form({}),
             disableForm: false,
@@ -287,7 +292,22 @@ export default {
             this.formCategory.reset();
             $('#addCategory').modal('show');
         },
-
+        removeImage () {
+            if (!this.isEdit) {
+                const input = this.$refs.file;
+                input.type = 'text';
+                input.type = 'file';
+                this.previewImage = '';
+                this.page.image = '';
+            } else {
+                const input = this.$refs.file;
+                input.type = 'text';
+                input.type = 'file';
+                this.previewImage = '';
+                this.page.image = '';
+                this.page.isRemoveImage = true;
+            }
+        },
         onImageChange (e) {
             try {
                 let files = e.target.files || e.dataTransfer.files;
@@ -312,6 +332,9 @@ export default {
         removeFile (file, error, xhr) {
             let index = this.page.files.indexOf(file);
             this.page.files.splice(index, 1);
+            if (this.isEdit && this.page.files.length == 0) {
+                this.page.isRemoveFile = true;
+            }
         },
         async createPage () {
             this.$Progress.start();
@@ -360,6 +383,8 @@ export default {
             data.append('url', this.page.url);
             data.append('category_id', this.page.category_id);
             data.append('content', this.page.content);
+            data.append('is_remove_image', this.page.isRemoveImage);
+            data.append('is_remove_file', this.page.isRemoveFile);
 
             if (this.page.files.length > 0) {
                 for (let i = 0; i < this.page.files.length; i++) {
@@ -516,11 +541,11 @@ export default {
 </script>
 <style scoped>
 .switchToggle input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
-.switchToggle label {cursor: pointer; text-indent: -9999px; width: 70px; max-width: 70px; height: 22px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
+.switchToggle label {cursor: pointer; text-indent: -9999px; width: 50px; max-width: 70px; height: 22px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
 .switchToggle label:after {content: ''; position: absolute; top: 0px; left: 2px; width: 22px; height: 22px; background: #fff; border-radius: 90px; transition: 0.3s; }
 .switchToggle input:checked + label, .switchToggle input:checked + input + label  {background: #3e98d3; }
-.switchToggle input + label:before, .switchToggle input + input + label:before {content: 'No'; position: absolute; top: 0px; left: 35px; width: 26px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
-.switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {content: 'Yes'; position: absolute; top: 0px; left: 10px; width: 26px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
+.switchToggle input + label:before, .switchToggle input + input + label:before {content: ''; position: absolute; top: 0px; left: 35px; width: 26px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
+.switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {content: ''; position: absolute; top: 0px; left: 10px; width: 26px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
 .switchToggle input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
 .switchToggle label:active:after {width: 60px; }
 .toggle-switchArea { margin: 10px 0 10px 0; }
