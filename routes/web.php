@@ -8,6 +8,12 @@ Route::get('/', function () {
 });
 
 Auth::routes(['verify' => true]);
+Route::prefix('/notification/')
+    ->namespace('Client')
+    ->name('notification.')
+    ->group(function () {
+        Route::get('/', 'NotificationController@index')->name('index');
+    });
 
 Route::get('/blogs', 'HomeController@blog')->name('home.blog');
 
@@ -15,6 +21,7 @@ Route::get('/blogs', 'HomeController@blog')->name('home.blog');
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/admin/template', 'Admin\Template\FormController')->except('index');
+Route::get('request/attachment/download/{filename}', 'API\V1\RequestController@downloadAttachment')->name('request.attachment.download');
 
 Route::prefix('/admin/template')
     ->namespace('Admin\Template')

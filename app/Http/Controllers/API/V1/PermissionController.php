@@ -18,7 +18,7 @@ class PermissionController extends BaseController
     {
         $routes = config('router');
 
-        return $this->sendResponse($routes, 'Route list');
+        return $this->sendSuccessResponse($routes, 'Route list');
     }
 
 }

@@ -1,130 +1,146 @@
-
 <template>
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header p-2">
-                            <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link" href="#activity" data-toggle="tab">Activity</a></li>
-                                <li class="nav-item"><a class="nav-link active show" href="#settings" data-toggle="tab">Settings</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#change-password" data-toggle="tab">Change Password</a></li>
-                            </ul>
-                        </div><!-- /.card-header -->
-                        <div class="card-body">
-                            <div class="tab-content">
-                                <!-- Activity Tab -->
-                                <div class="tab-pane" id="activity">
-                                    <h3 class="text-center">Display User Activity</h3>
-                                </div>
-                                <!-- Setting Tab -->
-                                <div class="tab-pane active show" id="settings">
-                                    <form @click.prevent="updateInfo" class="form-horizontal">
-                                        <div class="form-group">
-                                            <label for="inputName" class="col-sm-2 control-label">Name</label>
-
-                                            <div class="col-sm-12">
-                                            <input type="" v-model="form.name" class="form-control" id="inputName" placeholder="Name" :class="{ 'is-invalid': form.errors.has('name') }">
-                                            <has-error :form="form" field="name"></has-error>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-
-                                            <div class="col-sm-12">
-                                                <input type="email" v-model="form.email" class="form-control" id="inputEmail" placeholder="Email"  :class="{ 'is-invalid': form.errors.has('email') }">
-                                                <has-error :form="form" field="email"></has-error>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <button type="submit" class="btn btn-success">Update Profile</button>
-                                                <div class="float-right d-sm-inline text-muted">Member since: <span>{{form.created_at|myDate}}</span></div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-
-                                <!-- Setting Tab -->
-                                <div class="tab-pane" id="change-password">
-                                    <form class="form-horizontal">
-                                    <div class="form-group">
-                                        <label for="current_password" class="col-sm-2 control-label">Current Password</label>
-
-                                        <div class="col-sm-12">
-                                            <input type="password"
-                                                v-model="form.current_password"
-                                                class="form-control"
-                                                id="current_password"
-                                                placeholder="Current Password"
-                                                :class="{ 'is-invalid': form.errors.has('current_password') }"
-                                            >
-                                            <has-error :form="form" field="current_password"></has-error>
-                                        
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="new_password" class="col-sm-2 control-label">New Password</label>
-
-                                        <div class="col-sm-12">
-                                            <input type="password"
-                                                v-model="form.new_password"
-                                                class="form-control"
-                                                id="new_password"
-                                                placeholder="New Password"
-                                                :class="{ 'is-invalid': form.errors.has('new_password') }"
-                                            >
-                                            <has-error :form="form" field="new_password"></has-error>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="confirm_password" class="col-sm-2 control-label">Confirm Password</label>
-
-                                        <div class="col-sm-12">
-                                            <input type="password"
-                                                v-model="form.confirm_password"
-                                                class="form-control"
-                                                id="confirm_password"
-                                                placeholder="Confirm Password"
-                                                :class="{ 'is-invalid': form.errors.has('confirm_password') }"
-                                            >
-                                            <has-error :form="form" field="confirm_password"></has-error>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-12">
-                                        <button @click.prevent="updatePassword" type="submit" class="btn btn-success">Update Password</button>
-                                        </div>
-                                    </div>
-                                    </form>
-                                </div>
-                            <!-- /.tab-pane -->
-                            </div>
-                            <!-- /.tab-content -->
-                        </div><!-- /.card-body -->
-                    </div>
-                    <!-- /.nav-tabs-custom -->
+    <div class="container-fluid">
+        <section class="content">
+            <!-- Page Header -->
+            <div class="page-header row no-gutters py-4">
+                <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
+                    <h3 class="page-title">{{ $t('admin.my_account._page_title') }}</h3>
+                </div>
             </div>
+            <div class="col-12 col-sm-10 offset-sm-1">
+                <div class="card card-small mb-3">
+                    <div class="card-header border-bottom">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active show" href="#settings" data-toggle="tab">{{ $t('admin.my_account.basic_info._title') }}</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#change-password" data-toggle="tab">{{ $t('admin.my_account.change_password._title') }}</a></li>
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <!-- Setting Tab -->
+                            <div class="tab-pane active show" id="settings">
+                                <form class="form-horizontal">
+                                    <div class="row">
+                                        <div class="form-group col-12 col-sm-6">
+                                            <label for="username">{{ $t('admin.attr._username') }} <span style="color:#c4183c;">*</span></label>
+                                            <input
+                                                id="username"
+                                                :placeholder="$t('admin.info.form._username_pl')"
+                                                :class="['form-control', {'is-invalid': manager.errors.has('name')}]"
+                                                type="text"
+                                                v-model.trim="manager.name">
+                                            <has-error :form="manager" field="name"></has-error>
+                                        </div>
+                                        <div class="form-group col-12 col-sm-6">
+                                            <label for="email">{{ $t('admin.attr._mail_address') }} <span style="color:#c4183c;">*</span></label>
+                                            <input
+                                                id="email"
+                                                :placeholder="$t('admin.info.form._mail_address_pl')"
+                                                :class="['form-control', {'is-invalid': manager.errors.has('email')}]"
+                                                type="text" v-model.trim="manager.email">
+                                            <has-error :form="manager" field="email"></has-error>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>{{ $t('admin.attr._position') }}</label>
+                                                <span class="text-danger">*</span>
+                                                <select :class="['form-control', {'is-invalid': manager.errors.has('posittion')}]" id="types" v-model="manager.posittion" >
+                                                    <option value="" selected>{{ $t('admin.info.form._position_df') }}</option>
+                                                    <option v-for="(item, index) in posittion" :key="index" :value="item" >{{ index }}</option>
+                                                </select>
+                                                <has-error :form="manager" field="posittion"></has-error>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-12">
+                                            <label for="description">{{ $t('admin.attr._memo') }}</label>
+                                            <textarea
+                                                id="description"
+                                                :placeholder="$t('admin.info.form._mail_address_pl')"
+                                                :class="['form-control', {'is-invalid': manager.errors.has('description')}]"
+                                                v-model="manager.description"
+                                                class="form-control"
+                                                cols="30" rows="10"></textarea>
+                                            <has-error :form="manager" field="description"></has-error>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button @click.prevent="updateInfo" type="submit" class="btn btn-primary float-right">{{ $t('admin.my_account._btn_update') }}</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- Setting Tab -->
+                            <div class="tab-pane" id="change-password">
+                                <form class="form-horizontal">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label for="current_password" class="control-label">{{ $t('admin.my_account.change_password._current_pass') }}</label>
+                                                <input type="password"
+                                                       v-model="manager.current_password"
+                                                       class="form-control"
+                                                       id="current_password"
+                                                       :placeholder="$t('admin.my_account.change_password._current_pass_place_holder')"
+                                                       :class="{ 'is-invalid': manager.errors.has('current_password') }"
+                                                >
+                                                <has-error :form="manager" field="current_password"></has-error>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label for="new_password" class="control-label">{{ $t('admin.my_account.change_password._new_pass') }}</label>
+                                            <input type="password"
+                                                   v-model="manager.new_password"
+                                                   class="form-control"
+                                                   id="new_password"
+                                                   :placeholder="$t('admin.my_account.change_password._new_pass_place_holder')"
+                                                   :class="{ 'is-invalid': manager.errors.has('new_password') }"
+                                            >
+                                            <has-error :form="manager" field="new_password"></has-error>
+                                        </div>
+
+                                        <div class="form-group col-md-4">
+                                            <label for="confirm_password" class="control-label">{{ $t('admin.my_account.change_password._verify_pass') }}</label>
+                                            <input type="password"
+                                                   v-model="manager.confirm_password"
+                                                   class="form-control"
+                                                   id="confirm_password"
+                                                   :placeholder="$t('admin.my_account.change_password._verify_pass_place_holder')"
+                                                   :class="{ 'is-invalid': manager.errors.has('confirm_password') }"
+                                            >
+                                            <has-error :form="manager" field="confirm_password"></has-error>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button @click.prevent="updatePassword" type="submit" class="btn btn-primary float-right">{{ $t('admin.my_account._btn_update') }}</button>
+                                    </div>
+                                </form>
+                            </div>
+                        <!-- /.tab-pane -->
+                        </div>
+                        <!-- /.tab-content -->
+                    </div><!-- /.card-body -->
+                </div>
+                <!-- /.nav-tabs-custom -->
             <!-- end tabs -->
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </template>
 
 <script>
     export default {
         data(){
             return {
-                 form: new Form({
-                    id:'',
-                    name : '',
-                    email: '',
-                    password: '',
-                    created_at: ''
-                })
+                 manager: new Form({
+                     id:'',
+                     name : '',
+                     email: '',
+                     password: '',
+                     description: '',
+                     posittion: 1,
+                }),
+                isEdit: true,
             }
         },
         mounted() {
@@ -134,15 +150,15 @@
 
             updateInfo(){
                 this.$Progress.start();
-                if(this.form.password == ''){
-                    this.form.password = undefined;
+                if(this.manager.password == ''){
+                    this.manager.password = undefined;
                 }
-                this.form.put('api/profile')
+                this.manager.put('/api/profile')
                 .then((data)=>{
                     this.$Progress.finish();
                     Toast.fire({
                         icon: 'success',
-                        title: data.data.message
+                        title: this.$t('admin.my_account.basic_info._profile_changed')
                     });
                 })
                 .catch((data) => {
@@ -150,24 +166,24 @@
 
                     Toast.fire({
                         icon: 'error',
-                        title: 'Some error occured! Please try again'
+                        title: this.$t('admin.my_account.basic_info._profile_update_failed')
                     });
                 });
             },
 
             updatePassword(){
                 this.$Progress.start();
-                this.form.post('api/change-password')
+                this.manager.post('/api/change-my-password')
                 .then((data)=>{
                     //  Fire.$emit('AfterCreate');
                     this.$Progress.finish();
-                    this.form.current_password = '';
-                    this.form.new_password = '';
-                    this.form.confirm_password = '';
+                    this.manager.current_password = '';
+                    this.manager.new_password = '';
+                    this.manager.confirm_password = '';
 
                     Toast.fire({
                         icon: 'success',
-                        title: data.data.message
+                        title: this.$t('admin.info._password_changed')
                     });
                 })
                 .catch(() => {
@@ -175,19 +191,18 @@
 
                     Toast.fire({
                         icon: 'error',
-                        title: 'Some error occured! Please try again'
+                        title: this.$t('admin.info._password_update_failed')
                     });
                 });
             }
         },
 
         created() {
-
             this.$Progress.start();
+            this.posittion = window.user.posittion;
+            axios.get("/api/profile")
+            .then(({ data }) => (this.manager.fill(data.data)));
 
-            axios.get("api/profile")
-            .then(({ data }) => (this.form.fill(data.data)));
-            
             this.$Progress.finish();
         }
     }

@@ -21,7 +21,7 @@ class PageServices
     }
 
     public function createPage($attribute)
-    {
+    {        
         DB::beginTransaction();
         try {
 
@@ -37,9 +37,14 @@ class PageServices
                 $files = array();
                 foreach ($attribute['files'] as $file) {
                     $pathFile = $this->s3Service->store($file, 'pages/files');
-                    $files[] = $pathFile;
+                    $files = [
+                        'name' => $file->getClientOriginalName(),
+                        'path' => $pathFile,
+                        'size' => $file->getSize(),
+                        'extension' => $file->getClientOriginalExtension()
+                    ];
                 }
-                $page->files = json_encode($pathFile);
+                $page->files = json_encode($files);
                 $page->save();
             }
 
@@ -50,6 +55,11 @@ class PageServices
             DB::rollBack();
             throw $e;
         }
+    }
+
+    public function updatePage($id, $attribute)
+    {
+        
     }
 
     public function blogLatest()

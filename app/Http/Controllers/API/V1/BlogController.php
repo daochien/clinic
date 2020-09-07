@@ -23,9 +23,9 @@ class BlogController extends BaseController
     {
         $post = $this->blogRepo->create($request->validated());
         if (!$post) {
-            return $this->sendError('Server error!');
+            return $this->sendErrorResponse('Server error!');
         }
-        return $this->sendResponse($post, 'create blog success');
+        return $this->sendSuccessResponse($post, 'create blog success');
     }
 
 }

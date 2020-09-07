@@ -1,4 +1,5 @@
 export default [
+    { path: '/notification', component: require('./components/client/notification/Index.vue').default },
 
     { path: '/blogs', component: require('./components/front-end/Page.vue').default },
 
@@ -107,7 +108,9 @@ export default [
         component: {template: '<router-view/>'},
         name: 'page', meta: {breadcrumb: `Page`},
         children: [
-            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Create`} },
+            { path: '', component: require('./components/admin/page/Index.vue').default, meta: {breadcrumb: `Manager Page`} },
+            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Create`} },            
+            { path: 'edit/:id', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Edit`} },            
         ]
     },
 ];

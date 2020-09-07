@@ -2,47 +2,85 @@
 
 namespace App\Http\Controllers\API\V1;
 
-use App\Models\Category;
+use App\Models\RequestComment;
+use App\Models\RequestLog;
 use App\Models\Submission;
+use App\Services\RequestLogService;
+use App\Services\RequestService;
 use Illuminate\Http\Request;
 use App\Models\Form;
+use Illuminate\Support\Facades\Storage;
 
 class RequestController extends BaseController
 {
 
     protected $template = '';
-
+    /**
+     * @var RequestService
+     */
+    private $requestService;
+    /**
+     * @var RequestLogService
+     */
+    private $requestLogService;
 
     /**
      * Create a new controller instance.
      *
      * @param Form $template
      */
-    public function __construct(Form $template)
+    public function __construct(Form $template, RequestService $requestService, RequestLogService $requestLogService)
     {
         $this->template = $template;
+        $this->requestService = $requestService;
+        $this->requestLogService = $requestLogService;
     }
 
     public function indexByCategory($categoryId)
     {
-        $requests = Submission::from('form_submissions as s')
-            ->join('template_category as tc', 'tc.form_id', 's.form_id')
-            ->where('tc.category_id', $categoryId)
-            ->with(['requestLogs', 'requestComments', 'user', 'form.approvers'])
-            ->latest()
-            ->paginate(10);
-
-        return $this->sendResponse($requests);
+        return $this->sendSuccessResponse($this->requestService->getRequestByCategory($categoryId));
     }
 
     public function show($id)
     {
-        $submission = Submission::with('user', 'form', 'form.approvers','form.category')
-            ->where('id', $id)
-            ->firstOrFail();
-
+        $submission = $this->requestService->getRequest($id);
         $form_headers = $submission->form->getEntriesHeader();
 
-        return $this->sendResponse(['submission' => $submission, 'form_headers' => $form_headers]);
+        return $this->sendSuccessResponse(['submission' => $submission, 'form_headers' => $form_headers]);
     }
+
+    public function downloadAttachment(Request $request, $fileName)
+    {
+        return Storage::download("attachment/{$fileName}");
+    }
+
+    public function changeStatus(Request $request, $id)
+    {
+        try {
+            $status = $request->get('status');
+            if (!in_array($status, array_values(RequestLog::STATUS))) {
+                return $this->sendErrorResponse(__('app.template.request.error.invalid_status'));
+            }
+            $user = auth()->user();
+            $this->requestLogService->createLog($id, $user->id, $status);
+
+            return $this->sendSuccessResponse(__('app.popup.update_success'));
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getMessage());
+        }
+    }
+
+    public function comment(Request $request, $id)
+    {
+        try {
+            $this->requestService->createRequestComment($id, $request);
+            $allComment = RequestComment::where(['request_id' => $id])->with('user', 'attachments')->get();
+
+            return $this->sendSuccessResponse($allComment);
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getMessage());
+        }
+    }
+
+
 }
