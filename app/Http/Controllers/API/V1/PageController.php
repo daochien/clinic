@@ -45,16 +45,16 @@ class PageController extends BaseController
     {
         try {                        
             $page = $this->pageService->createPage($request->all());
-            return $this->sendResponse($page, 'Page Created Successfully');
+            return $this->sendSuccessResponse($page, 'Page Created Successfully');
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getMessage());
+            return $this->sendErrorResponse($exception->getMessage());
         }
     }
 
     public function uploadImageContent(Request $request)
-    {        
+    {
         $pathFile = $this->s3Service->store($request->image, 'pages/images');
-        return $this->sendResponse($pathFile, 'Image Created Successfully');
+        return $this->sendSuccessResponse($pathFile, 'Image Created Successfully');
     }
 
     public function show($id)

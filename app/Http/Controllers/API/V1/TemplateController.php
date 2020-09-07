@@ -31,7 +31,7 @@ class TemplateController extends BaseController
     {
         $templates = Form::with(['approvers', 'category'])->paginate(10);
 
-        return $this->sendResponse($templates, 'Templates list');
+        return $this->sendSuccessResponse($templates, 'Templates list');
     }
 
     public function show(Request $request, $id)
@@ -42,7 +42,7 @@ class TemplateController extends BaseController
             ->withCount('submissions')
             ->first();
 
-        return $this->sendResponse($form, 'Templates list');
+        return $this->sendSuccessResponse($form, 'Templates list');
     }
 
     public function destroy($id)
@@ -53,6 +53,6 @@ class TemplateController extends BaseController
         // dispatch the event
         event(new FormDeleted($form));
 
-        return $this->sendResponse([$form]);
+        return $this->sendSuccessResponse([$form]);
     }
 }

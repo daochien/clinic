@@ -24,6 +24,6 @@ class LoginController extends BaseController
         $token = $authUser->createToken($request->device_name);
         LoginLog::create(['user_id' => $authUser->id]);
 
-        return $this->sendResponse(['token' => $token->plainTextToken]);
+        return $this->sendSuccessResponse(['token' => $token->plainTextToken]);
     }
 }

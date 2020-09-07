@@ -49,13 +49,13 @@ class NotificationController extends BaseController
             }
 
             if ($id > 0) {
-                return $this->sendResponse($this->service->update($request, $id), __('notification.create_successfuly'));
+                return $this->sendSuccessResponse($this->service->update($request, $id), __('notification.create_successfuly'));
             }
 
             $entity = $this->service->add($request);
-            return $this->sendResponse($entity,  __('notification.update_successfuly'));
+            return $this->sendSuccessResponse($entity,  __('notification.update_successfuly'));
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
 
@@ -67,7 +67,7 @@ class NotificationController extends BaseController
     public function show($id)
     {
         $data = $this->repository->show($id);
-        return $this->sendResponse($data);
+        return $this->sendSuccessResponse($data);
     }
 
     public function update(NotificationRequest $request, $id)
@@ -75,9 +75,9 @@ class NotificationController extends BaseController
         try {
             $result = $this->repository->update($id, $request->validated());
 
-            return $this->sendResponse($result, __('notification.update_successfuly'));
+            return $this->sendSuccessResponse($result, __('notification.update_successfuly'));
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
 
@@ -85,9 +85,9 @@ class NotificationController extends BaseController
     {
         try {
             $result = $this->service->delete($id);
-            return $this->sendResponse($result);
+            return $this->sendSuccessResponse($result);
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
 
@@ -108,7 +108,7 @@ class NotificationController extends BaseController
             $datas = $this->service->search($request);
             return new NotificationCollection($datas);
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
 
@@ -118,7 +118,7 @@ class NotificationController extends BaseController
             $datas = $this->service->detailSearch($request);
             return new NotificationUserCollection($datas);
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
 
@@ -130,7 +130,7 @@ class NotificationController extends BaseController
             $data = $this->service->fetch($filters);
             return response()->json($data);
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
 
     }

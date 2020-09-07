@@ -38,7 +38,7 @@ class RequestController extends BaseController
 
     public function indexByCategory($categoryId)
     {
-        return $this->sendResponse($this->requestService->getRequestByCategory($categoryId));
+        return $this->sendSuccessResponse($this->requestService->getRequestByCategory($categoryId));
     }
 
     public function show($id)
@@ -46,7 +46,7 @@ class RequestController extends BaseController
         $submission = $this->requestService->getRequest($id);
         $form_headers = $submission->form->getEntriesHeader();
 
-        return $this->sendResponse(['submission' => $submission, 'form_headers' => $form_headers]);
+        return $this->sendSuccessResponse(['submission' => $submission, 'form_headers' => $form_headers]);
     }
 
     public function downloadAttachment(Request $request, $fileName)
@@ -59,14 +59,14 @@ class RequestController extends BaseController
         try {
             $status = $request->get('status');
             if (!in_array($status, array_values(RequestLog::STATUS))) {
-                return $this->sendError(__('app.template.request.error.invalid_status'));
+                return $this->sendErrorResponse(__('app.template.request.error.invalid_status'));
             }
             $user = auth()->user();
             $this->requestLogService->createLog($id, $user->id, $status);
 
-            return $this->sendResponse(__('app.popup.update_success'));
+            return $this->sendSuccessResponse(__('app.popup.update_success'));
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getMessage());
+            return $this->sendErrorResponse($exception->getMessage());
         }
     }
 
@@ -76,9 +76,9 @@ class RequestController extends BaseController
             $this->requestService->createRequestComment($id, $request);
             $allComment = RequestComment::where(['request_id' => $id])->with('user', 'attachments')->get();
 
-            return $this->sendResponse($allComment);
+            return $this->sendSuccessResponse($allComment);
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getMessage());
+            return $this->sendErrorResponse($exception->getMessage());
         }
     }
 
