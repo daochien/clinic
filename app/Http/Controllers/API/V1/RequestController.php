@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Helper\FormBuilderHelper as Helper;
 use App\Models\RequestComment;
 use App\Models\RequestLog;
 use App\Models\Submission;
@@ -9,6 +10,7 @@ use App\Services\RequestLogService;
 use App\Services\RequestService;
 use Illuminate\Http\Request;
 use App\Models\Form;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class RequestController extends BaseController
@@ -82,5 +84,14 @@ class RequestController extends BaseController
         }
     }
 
+    public function store(Request $request, $identifier)
+    {
+        try {
+            $submission = $this->requestService->createRequest($request, $identifier);
 
+            return $this->sendResponse($submission);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getMessage());
+        }
+    }
 }

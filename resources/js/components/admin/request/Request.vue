@@ -205,7 +205,7 @@
                 };
             },
             approve() {
-                axios.post("/api/request/" + this.submission.id, {
+                axios.post("/api/request/" + this.submission.id + "/status", {
                     status: 1,
                 })
                 .then((data) => {
@@ -243,7 +243,7 @@
                 }).then((result) => {
                     // Send request to the server
                     if (result.value) {
-                        axios.post("/api/request/" + this.submission.id, {
+                        axios.post("/api/request/" + this.submission.id + "/status", {
                             status: 2,
                         })
                         .then((data) => {

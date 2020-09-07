@@ -69,9 +69,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('request/category/{id}', 'API\V1\RequestController@indexByCategory')->name('api.request.category.list');
         Route::get('request/{id}', 'API\V1\RequestController@show')->name('api.request.show');
         Route::get('request/attachment/download/{filename}', 'API\V1\RequestController@downloadAttachment')->name('api.request.attachment.download');
-        Route::post('request/{id}', 'API\V1\RequestController@changeStatus')->name('api.request.change_status');
+        Route::post('request/{id}/status', 'API\V1\RequestController@changeStatus')->name('api.request.change_status');
         Route::post('request/{id}/comment', 'API\V1\RequestController@comment')->name('api.request.comment');
-        
+        Route::post('request/{id}', 'API\V1\RequestController@store')->name('api.request.store');
+
         Route::get('page/blogs', 'API\V1\PageController@blogs')->name('page.blogs');
         Route::get('page/blog-latest', 'API\V1\PageController@blogLatest')->name('page.blogLatest');
         Route::get('page/manual-latest', 'API\V1\PageController@manualLatest')->name('page.manualLatest');
