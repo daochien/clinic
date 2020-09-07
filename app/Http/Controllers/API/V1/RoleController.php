@@ -34,7 +34,7 @@ class RoleController extends BaseController
     {
         $roles = $this->roleRepo->get();
 
-        return $this->sendResponse($roles, 'Role list');
+        return $this->sendSuccessResponse($roles, 'Role list');
     }
 
     public function list()
@@ -47,7 +47,7 @@ class RoleController extends BaseController
             $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_ADMIN, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->pluck('name', 'id');
         }
 
-        return $this->sendResponse($roles, 'Role list');
+        return $this->sendSuccessResponse($roles, 'Role list');
     }
 
     public function store(RoleRequest $request)
@@ -67,14 +67,14 @@ class RoleController extends BaseController
             $role->givePermissionTo($permissions);
         }
 
-        return $this->sendResponse($role, 'Role Created Successfully');
+        return $this->sendSuccessResponse($role, 'Role Created Successfully');
     }
 
     public function show($id)
     {
         $role = $this->roleRepo->show($id);
 
-        return $this->sendResponse($role, 'Role Details');
+        return $this->sendSuccessResponse($role, 'Role Details');
     }
 
     public function update(RoleRequest $request, $id)
@@ -94,7 +94,7 @@ class RoleController extends BaseController
             $role->syncPermissions($permissions);
         }
 
-        return $this->sendResponse($role, 'Role Updated Successfully');
+        return $this->sendSuccessResponse($role, 'Role Updated Successfully');
     }
 
     public function destroy($id)
@@ -106,6 +106,6 @@ class RoleController extends BaseController
 
         $role->delete();
 
-        return $this->sendResponse($role, 'Role has been Deleted');
+        return $this->sendSuccessResponse($role, 'Role has been Deleted');
     }
 }

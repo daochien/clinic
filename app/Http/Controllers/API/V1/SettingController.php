@@ -14,16 +14,16 @@ class SettingController extends BaseController
 
     public function getLevel()
     {
-        return $this->sendResponse(Level::all(['id', 'name']));
+        return $this->sendSuccessResponse(Level::all(['id', 'name']));
     }
 
     public function getType()
     {
-        return $this->sendResponse(Type::all(['id', 'name']));
+        return $this->sendSuccessResponse(Type::all(['id', 'name']));
     }
 
     public function getUserRoles()
     {
-        return $this->sendResponse(Role::whereIn('id',[3,4])->get(['id', 'name']));
+        return $this->sendSuccessResponse(Role::whereIn('id',[3,4])->get(['id', 'name']));
     }
 }

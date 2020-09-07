@@ -40,9 +40,9 @@ class AdminController extends BaseController
         try {
             $attributes = $request->all();
             $admin = $this->service->createAdmin($attributes);
-            return $this->sendResponse($admin, 'Admin Created Successfully');
+            return $this->sendSuccessResponse($admin, 'Admin Created Successfully');
         } catch (\Exception $e) {
-            return $this->sendError($e->getMessage());
+            return $this->sendErrorResponse($e->getMessage());
         }
     }
 
@@ -51,14 +51,26 @@ class AdminController extends BaseController
 
         $admin = $this->userRepo->showAdmin($id);
 
-        return $this->sendResponse($admin, 'Admin Details');
+        return $this->sendSuccessResponse($admin, 'Admin Details');
+    }
+
+    /**
+     * Return the user data
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function profile()
+    {
+        $profile = $this->userRepo->showAdmin(auth()->user()->id);
+
+        return $this->sendSuccessResponse($profile);
     }
 
     public function update(AdminRequest $request, $id)
     {
         $admin = $this->service->updateAdmin($id, $request->all());
 
-        return $this->sendResponse($admin, 'Admin Information has been updated');
+        return $this->sendSuccessResponse($admin, 'Admin Information has been updated');
     }
 
     public function destroy($id)
@@ -69,11 +81,11 @@ class AdminController extends BaseController
         $admin = $this->user->findOrFail($id);
 
         if ($admin->hasRole($roleRoot->name)) {
-            return $this->sendError('Cannot remove super_user');
+            return $this->sendErrorResponse('Cannot remove super_user');
         }
 
         $admin->delete();
 
-        return $this->sendResponse($admin, 'Admin has been Deleted');
+        return $this->sendSuccessResponse($admin, 'Admin has been Deleted');
     }
 }
