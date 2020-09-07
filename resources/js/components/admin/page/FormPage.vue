@@ -2,35 +2,35 @@
     <div class="page-form-create">
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
-                <h3 class="page-title">{{ isEdit ? $t('admin.info._page_title_edit') : $t('admin.info._page_title_create') }}</h3>
+                <h3 class="page-title">{{ isEdit ? $t('page.info._page_title_edit') : $t('page.info._page_title_create') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-center text-sm-right mb-0">
-                <button 
+                <button
                 v-if="!isEdit"
-                class="btn btn-primary float-right" 
+                class="btn btn-primary float-right"
                 style="font-size: 16px; width: 140px;"
                 @click="createPage()">
-                    {{ $t('admin.info.others._btn_create') }}
+                    {{ $t('page.info.others._btn_create') }}
                 </button>
-                <button 
+                <button
                 v-if="isEdit"
-                class="btn btn-primary float-right" 
+                class="btn btn-primary float-right"
                 style="font-size: 16px; width: 140px;"
                 @click="updatePage()">
-                    {{ $t('admin.info.others._btn_edit') }}
+                    {{ $t('page.info.others._btn_edit') }}
                 </button>
             </div>
         </div>
-        <div class="container-fluid">            
+        <div class="container-fluid">
             <div class="row" style="margin-bottom: 30px;">
                 <div class="col-10 offset-1">
                     <div class="title">
-                        <span style="font-size: 18px;">Basic information</span>
+                        <span style="font-size: 18px;">{{ $t('page.info._basic_info') }}</span>
                     </div>
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group row border-bottom">
-                                <label class="col-sm-2 col-form-label">Type <span color="color:#c4183c;">*</span></label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._type') }} <span color="color:#c4183c;">*</span></label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="custom-control custom-radio form-check-inline float-left">
                                         <input class="custom-control-input" type="radio" id="inlineArticle" v-model="page.type" :value="'blog'">
@@ -47,83 +47,77 @@
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">Title <span color="color:#c4183c;">*</span></label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._title') }} <span color="color:#c4183c;">*</span></label>
                                 <div class="col-sm-10 ">
-                                    <input 
-                                    type="text" 
+                                    <input
+                                    type="text"
                                     :class="['form-control', {'is-invalid': pageFormErrors.errors.has('title')}]"
-                                    v-model="page.title" 
-                                    placeholder="Please enter a title">
+                                    v-model="page.title"
+                                    :placeholder="$t('page.attr._title_pl')">
                                     <has-error :form="pageFormErrors" field="title"></has-error>
                                 </div>
                             </div>
                             <div class="form-group row border-bottom">
-                                <label class="col-sm-2 col-form-label">Public </label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._public') }} </label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="switchToggle">
                                         <input type="checkbox" id="switch1" v-model="page.public">
                                         <label for="switch1">Toggle</label>
                                     </div>
+                                    <has-error :form="pageFormErrors" field="public"></has-error>
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">Public Date </label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._public_date') }} </label>
                                 <div class="col-sm-10 row">
                                     <div class="col-sm-4">
-                                        <datepicker
-                                            v-model="page.public_date"
-                                            :format="formatUnix"
-                                            :calendar-button="true"
-                                            :calendar-button-icon="'fa fa-calendar'"
-                                            :clear-button="true"
-                                            :wrapper-class="'custom-datepicker'"
-                                            :disabledDates="disabledDateStart"
-                                            :input-class="{'form-control': true, 'is-invalid': false}">
-                                        </datepicker>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <select class="form-control" v-model="page.hours">
-                                            <option value="">Hours</option>
-                                            <option v-for="i in 24" :key="i">{{ i - 1 }}</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <select class="form-control" v-model="page.minute">
-                                            <option value="">Minute</option>
-                                            <option v-for="i in 60" :key="i">{{ i - 1 }}</option>
-                                        </select>
+                                        <datetime
+                                        ref="datetime"
+                                        :required="true"
+                                        format="YYYY-MM-DD h:i:s"
+                                        v-model='page.public_date'
+                                        :disabled-dates="{ to: new Date(Date.now()) }"></datetime>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row border-bottom">
-                                <label class="col-sm-2 col-form-label">Status</label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._status') }}</label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="switchToggle">
                                         <input type="checkbox" id="switch2" v-model="page.status">
                                         <label for="switch2">Toggle</label>
                                     </div>
+                                    <has-error :form="pageFormErrors" field="status"></has-error>
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">URL destination</label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._url') }}</label>
                                 <div class="col-sm-10">
-                                    <input v-model="page.url" type="text" class="form-control" placeholder="Please specify the publication destination">
+                                    <input
+                                    v-model="page.url"
+                                    type="text"
+                                    :class="['form-control', {'is-invalid': pageFormErrors.errors.has('url')}]"
+                                    :placeholder="$t('page.info.form._url_pl')">
+                                    <has-error :form="pageFormErrors" field="url"></has-error>
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">Category</label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._category') }} <span color="color:#c4183c;">*</span></label>
                                 <div class="col-sm-4">
-                                    <select class="form-control" v-model="page.category_id">
-                                        <option value="">Please specify a category</option>
+                                    <select
+                                    :class="['form-control', {'is-invalid': pageFormErrors.errors.has('category_id')}]"
+                                    v-model="page.category_id">
+                                        <option value="">{{ $t('page.info.form._category_pl') }}</option>
                                         <option
                                         v-for="(cat,index) in categories" :key="index"
                                         :value="cat.id">{{ cat.name }}</option>
                                     </select>
+                                    <has-error :form="pageFormErrors" field="category_id"></has-error>
                                 </div>
-                                <label @click="showModalCategory()" class="col-sm-2 col-form-label" style="color:#007BFF; cursor:pointer;">+ Add Category</label>
+                                <label @click="showModalCategory()" class="col-sm-2 col-form-label" style="color:#007BFF; cursor:pointer;">+ {{ $t('page.info.popup._btn_show_popup_category') }}</label>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">Image</label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._image') }}</label>
                                 <div class="col-sm-4" v-show="previewImage">
                                     <img :src="previewImage" style="width:100%;">
                                 </div>
@@ -131,11 +125,12 @@
                                     <div class="custom-file">
                                         <input
                                         type="file"
-                                        :class="['custom-file-input', {'is-invalid': false}]"
+                                        :class="['custom-file-input', {'is-invalid': pageFormErrors.errors.has('image')}]"
                                         id="uploadImage"
                                         @change="onImageChange">
                                         <label class="custom-file-label" for="uploadImage">Choose file...</label>
                                     </div>
+                                    <has-error :form="pageFormErrors" field="image"></has-error>
                                 </div>
                             </div>
                         </div>
@@ -146,20 +141,19 @@
 
                 <div class="col-10 offset-1">
                     <div class="title">
-                        <span style="font-size: 18px;">Article content</span>
+                        <span style="font-size: 18px;">{{ $t('page.info._article_content') }}</span>
                     </div>
                     <div class="card">
                         <ul class="nav nav-tabs">
                             <li class="nav-item col-sm-6">
-                                <a class="nav-link active" data-toggle="tab" href="#home">Manual setting</a>
+                                <a class="nav-link active" data-toggle="tab" href="#home">{{ $t('page.info.tabs._manual') }}</a>
                             </li>
                             <li class="nav-item col-sm-6">
-                                <a class="nav-link" data-toggle="tab" href="#menu1">File upload</a>
+                                <a class="nav-link" data-toggle="tab" href="#menu1">{{ $t('page.info.tabs._file') }}</a>
                             </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane container active" id="home">
-                                <!-- <vue-editor id="editor" useCustomImageHandler @image-added="handleImageAdded" v-model="page.content"></vue-editor> -->
                                 <quill-editor
                                     ref="quill"
                                     :content="page.content"
@@ -176,9 +170,9 @@
                                 :options="dropzoneOptions"
                                 :useCustomSlot=true>
                                     <div class="dropzone-custom-content">
-                                        <h3 class="dropzone-custom-title">Please choose the file</h3>
-                                        <div class="subtitle">Please upload the document (pdf, docx ppt), image file (png, jpg) or video (mp4).</div>
-                                        <button class="btn btn-white">Upload file</button>
+                                        <h3 class="dropzone-custom-title">{{ $t('page.info.form._title_upload') }}</h3>
+                                        <div class="subtitle">{{ $t('page.info.form._content_upload') }}</div>
+                                        <button class="btn btn-white">{{ $t('page.info.form._btn_upload') }}</button>
                                     </div>
                                 </vue-dropzone>
                             </div>
@@ -192,26 +186,24 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" >Create Category</h5>                        
+                            <h5 class="modal-title">{{ $t('page.info.popup._create_title') }}</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <form @submit.prevent="createCategory()">
                             <div class="modal-body">
-                                
-                                    <div class="form-group">
-                                        <label>Name</label>
-                                        <input v-model="formCategory.name" type="text" name="name"
-                                            class="form-control" :class="{ 'is-invalid': formCategory.errors.has('name') }">
-                                        <has-error :form="formCategory" field="name"></has-error>
-                                    </div>
-                                
+                                <div class="form-group">
+                                    <label>{{ $t('page.info.popup.attr._name') }}</label>
+                                    <input v-model="formCategory.name" type="text" name="name"
+                                        class="form-control" :class="{ 'is-invalid': formCategory.errors.has('name') }">
+                                    <has-error :form="formCategory" field="name"></has-error>
+                                </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-success">Create</button>                            
-                            </div>                    
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ $t('page.info.popup._btn_close') }}</button>
+                                <button type="submit" class="btn btn-success">{{ $t('page.info.popup._btn_create') }}</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -223,8 +215,7 @@
 
 import { VueEditor } from "vue2-editor";
 
-import moment from 'moment';
-import Datepicker from 'vuejs-datepicker';
+import datetime from 'vuejs-datetimepicker';
 
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
@@ -240,7 +231,7 @@ export default {
         isEdit: Boolean
     },
     components: {
-        Datepicker,
+        datetime,
         quillEditor,
         vueDropzone: vue2Dropzone,
     },
@@ -256,18 +247,17 @@ export default {
                 autoProcessQueue: false,
                 url: 'https://httpbin.org/post',
                 thumbnailWidth: 170,
-                maxFilesize: 0.5,
+                maxFilesize: 50,
                 addRemoveLinks: true,
                 duplicateCheck: true,
-                maxFiles: 1
+                maxFiles: 1,
+                acceptedFiles: '.jpeg,.png,.jpg,.zip,.pdf,.ppt,.pptx,.xlx,.xlsx,.docx,.doc,.gif,.webm,.mp4,.mpeg'
             },
             page: {
                 type: 'blog',
                 title: '',
                 public: true,
                 public_date: '',
-                hours: '',
-                minute: '',
                 status: false,
                 url: '',
                 content: '',
@@ -275,10 +265,10 @@ export default {
                 image: '',
                 category_id: ''
             },
-            pageFormErrors: new Form({}),            
+            pageFormErrors: new Form({}),
             disableForm: false,
-            counter: 0,            
-            formCategory: new Form({                                
+            counter: 0,
+            formCategory: new Form({
                 name: '',
                 type: 1
             }),
@@ -297,12 +287,7 @@ export default {
             this.formCategory.reset();
             $('#addCategory').modal('show');
         },
-        formatUnix (date) {
-            return moment(date).format('DD/MM/YYYY');
-        },
-        formatDate (date) {
-            return moment(date).format('YYYY-MM-DD');
-        },
+
         onImageChange (e) {
             try {
                 let files = e.target.files || e.dataTransfer.files;
@@ -314,7 +299,9 @@ export default {
                     this.previewImage = URL.createObjectURL(files[0]);
                 } else {
                     this.page.image = '';
-                    this.previewImage = '';
+                    if (!this.isEdit) {
+                        this.previewImage = '';
+                    }
                     alert('File error');
                 }
             } catch(error) {}
@@ -341,8 +328,8 @@ export default {
                         icon: 'success',
                         title: this.$t('admin.info.form.messages._create_success')
                     });
-                } else {                    
-                    if (data.code == '01') {                        
+                } else {
+                    if (data.code == '01') {
                         this.pageFormErrors.errors.errors = data.errors;
                     }
                     Toast.fire({
@@ -358,19 +345,19 @@ export default {
                     title: 'Some error occured! Please try again'
                 });
             }
-            this.$Progress.finish();                                   
+            this.$Progress.finish();
         },
         handleSubmit () {
             let data = new FormData();
             data.append('type', this.page.type);
             data.append('image', this.page.image);
             data.append('title', this.page.title);
-            data.append('public', this.page.release == true ? 1 : 0);
-            data.append('public_date', this.formatDate(this.page.release_date));
+            data.append('public', this.page.public == true ? 1 : 0);
+            data.append('public_date', this.page.public_date);
             data.append('hours', this.page.hours);
             data.append('minute', this.page.minute);
-            data.append('status', this.page.public == true ? 1 : 0);
-            data.append('url', this.page.public_destination);
+            data.append('status', this.page.status == true ? 1 : 0);
+            data.append('url', this.page.url);
             data.append('category_id', this.page.category_id);
             data.append('content', this.page.content);
 
@@ -477,15 +464,15 @@ export default {
             this.page.url = data.url;
             this.page.content = data.content;
             this.page.category_id = data.category_id;
-            this.previewImage = data.image;            
+            this.previewImage = data.image;
             if (data.files) {
-                let objFile = JSON.parse(data.files);                
+                let objFile = JSON.parse(data.files);
                 this.$refs.myVueDropzone.manuallyAddFile({
                     name: objFile.name,
                     size: objFile.size,
                     type: objFile.type
-                }, objFile.path); 
-            }            
+                }, objFile.path);
+            }
         },
 
         async updatePage () {
@@ -504,8 +491,8 @@ export default {
                         icon: 'success',
                         title: this.$t('admin.info.form.messages._edit_success')
                     });
-                } else {                    
-                    if (data.code == '01') {                        
+                } else {
+                    if (data.code == '01') {
                         this.pageFormErrors.errors.errors = data.errors;
                     }
                     Toast.fire({
@@ -521,7 +508,7 @@ export default {
                     title: 'Some error occured! Please try again'
                 });
             }
-            this.$Progress.finish();          
+            this.$Progress.finish();
 
         },
     }
@@ -582,4 +569,15 @@ export default {
     max-width: 170px;
     margin-right: unset;
 }
+</style>
+<style>
+    #tj-datetime-input {
+        height: 33px;
+        /* font-size: 0.8125rem; */
+        border-radius: 4px;
+        padding-left: 10px;
+    }
+    #tj-datetime-input:focus {
+        outline: none;
+    }
 </style>

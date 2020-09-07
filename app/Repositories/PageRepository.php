@@ -23,7 +23,7 @@ class PageRepository
         if (!empty($params['type'])) {
             $query->where('type', $params['type']);
         }
-        
+
         if (!empty($params['status'])) {
             $query->whereStatus($params['status']);
         }
@@ -33,16 +33,16 @@ class PageRepository
         }
 
         if (!empty($params['release_date'])) {
-            
+
             $rangeDate = json_decode($params['release_date'], true);
             if (!empty($rangeDate['startDate']) && !empty($rangeDate['endDate'])) {
-                $dateStart = date_format(date_create($rangeDate['startDate']), 'Y-m-d 00:00:00');            
-                $dateEnd = date_format(date_create($rangeDate['endDate']), 'Y-m-d 23:59:59');                        
+                $dateStart = date_format(date_create($rangeDate['startDate']), 'Y-m-d 00:00:00');
+                $dateEnd = date_format(date_create($rangeDate['endDate']), 'Y-m-d 23:59:59');
                 $query->where([
                     ['created_at', '>=', $dateStart],
                     ['created_at', '<=', $dateEnd]
-                ]);    
-            }                    
+                ]);
+            }
         }
 
         return $query->paginate($limit);
@@ -59,10 +59,10 @@ class PageRepository
         return $this->model->create([
             'title' => $attributes['title'],
             'content' => $attributes['content'],
-            'release' => $attributes['release'],
-            'release_date' => $attributes['release_date'],
             'public' => $attributes['public'],
-            'public_destination' => $attributes['public_destination'],
+            'public_date' => $attributes['public_date'],
+            'status' => $attributes['status'],
+            'url' => $attributes['url'],
             'category_id' => $attributes['category_id'],
             'owner_id' => Auth::user()->id,
         ]);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Http\Requests\Pages\PageEditRequest;
 use App\Http\Requests\Pages\PageRequest;
 use Illuminate\Http\Request;
 use App\Repositories\PageRepository;
@@ -31,19 +32,14 @@ class PageController extends BaseController
     }
 
     public function index(Request $request)
-    {            
-        $pages = $this->pageRepo->getAll($request->all());        
-        return new PageCollection($pages);
-    }
-
-    public function updateData(Request $request)
     {
-        dd($request->all());
+        $pages = $this->pageRepo->getAll($request->all());
+        return new PageCollection($pages);
     }
 
     public function store(PageRequest $request)
     {
-        try {                        
+        try {
             $page = $this->pageService->createPage($request->all());
             return $this->sendSuccessResponse($page, 'Page Created Successfully');
         } catch (\Exception $exception) {
@@ -60,25 +56,24 @@ class PageController extends BaseController
     public function show($id)
     {
         $page = $this->page->find($id);
-       
-        return $this->sendResponse($page, 'Page Details');
+
+        return $this->sendSuccessResponse($page, 'Page Details');
     }
 
-    public function update(Request $request, $id)
+    public function update(PageEditRequest $request, $id)
     {
-        try {            
-            dd($request->all());
-            $page = $this->pageService->updatePage($id, $request->all());
-            return $this->sendResponse($page, 'Page update Successfully');
+        try {
+            $page = $this->pageService->updatePage($id, $request);
+            return $this->sendSuccessResponse($page, 'Page update Successfully');
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getMessage());
-        } 
+            return $this->sendErrorResponse($exception->getMessage());
+        }
     }
 
     public function destroy($id)
     {
-        
-        $page = $this->page->findOrFail($id);        
+
+        $page = $this->page->findOrFail($id);
 
         $page->delete();
 
@@ -93,7 +88,7 @@ class PageController extends BaseController
         } catch (\Exception $exception) {
             return $this->sendError($exception->getMessage());
         }
-        
+
     }
 
     public function blogs()

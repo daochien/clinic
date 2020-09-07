@@ -21,7 +21,7 @@ class PageServices
     }
 
     public function createPage($attribute)
-    {        
+    {
         DB::beginTransaction();
         try {
 
@@ -59,7 +59,53 @@ class PageServices
 
     public function updatePage($id, $attribute)
     {
-        
+        DB::beginTransaction();
+        try {
+            $page = $this->page->findOrFail($id);
+            $page->update($this->_buildDataUpdate($attribute->all()));
+
+            if (!empty($attribute['image'])) {
+                $image = $this->s3Service->store($attribute['image'], 'pages/images');
+                $page->image = $image;
+                $page->save();
+            }
+
+            if ($attribute->hasFile('files')) {
+                $files = array();
+                foreach ($attribute['files'] as $file) {
+                    $pathFile = $this->s3Service->store($file, 'pages/files');
+                    $files = [
+                        'name' => $file->getClientOriginalName(),
+                        'path' => $pathFile,
+                        'size' => $file->getSize(),
+                        'extension' => $file->getClientOriginalExtension()
+                    ];
+                }
+                $page->files = json_encode($files);
+                $page->save();
+            }
+
+            DB::commit();
+
+            return $page;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    protected function _buildDataUpdate($attribute)
+    {
+        return [
+            'type' => $attribute['type'],
+            'title' => $attribute['title'],
+            'public' => $attribute['public'],
+            'public_date' => $attribute['public_date'],
+            'status' => $attribute['status'],
+            'url' => $attribute['url'],
+            'category_id' => $attribute['category_id'],
+            'content' => $attribute['content'],
+        ];
     }
 
     public function blogLatest()

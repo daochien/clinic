@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class PageRequest extends FormRequest
+class PageEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,7 +30,7 @@ class PageRequest extends FormRequest
             'type' => 'required',
             'category_id' => 'required',
             'public' => 'required|boolean',
-            'status' => 'required|boolean'
+            'status' => 'required|boolean',
         ];
 
         if (!empty($this->url)) {

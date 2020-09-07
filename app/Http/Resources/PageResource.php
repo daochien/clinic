@@ -24,14 +24,14 @@ class PageResource extends JsonResource
             'files' => $this->_getFile($this->files),
             'category_id' => $this->category_id,
             'category_name' => $this->categorys->name,
-            'created_at' => $this->created_at            
+            'created_at' => $this->created_at
         ];
     }
 
     protected function _getFile($files)
     {
         if (!empty($files)) {
-            $files = json_decode($files, true);            
+            $files = json_decode($files, true);
             return @$files['path'];
         }
 
