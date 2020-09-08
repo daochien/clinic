@@ -46,7 +46,7 @@ class PageSeeder extends Seeder
                 'public' => rand(0,1),
                 'public_date' => \Carbon\Carbon::now(),
                 'status' => rand(0,1),
-                'url_destination' => $domain,
+                'url' => $domain,
                 'files' => json_encode([$file]),
                 'owner_id' => 1
             ]);

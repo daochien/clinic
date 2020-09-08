@@ -172,20 +172,21 @@ export default {
         },
         removeAdmin (id) {
             Swal.fire({
-                title: this.$t('admin.popup.are_you_sure'),
-                text: this.$t('admin.popup.you_wont_able_revert'),
+                title: this.$t('admin.others._remove_modal_title'),
+                text: this.$t('admin.others._remove_modal_description'),
                 showCancelButton: true,
+                cancelButtonText: this.$t('admin.others._remove_modal_no'),
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: this.$t('admin.popup.delete_it')
+                confirmButtonText: this.$t('admin.others._remove_modal_yes')
             }).then((result) => {
                 // Send request to the server
                 if (result.value) {
 
                     axios.delete('/api/manager/'+id).then(() => {
                         Swal.fire(
-                            this.$t('admin.popup.deleted'),
-                            this.$t('admin.popup.your_item_has_been_deleted'),
+                            this.$t('admin.others._remove_modal_deleted'),
+                            this.$t('admin.others._your_item_has_been_deleted'),
                             'success'
                         );
                         // Fire.$emit('AfterCreate');

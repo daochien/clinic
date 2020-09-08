@@ -64,7 +64,9 @@ export default {
                 "_remove_modal_yes": "はい",
                 "_remove_modal_no": "いいえ",
                 "_remove_modal_title": "管理者情報を削除",
-                "_remove_modal_description": "この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
+                "_remove_modal_description": "この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。",
+                "_remove_modal_deleted": "仕上げ",
+                "_your_item_has_been_deleted": "管理者が削除しました"
             }
         },
         "app": {
@@ -954,7 +956,9 @@ export default {
                 "_remove_modal_yes": "はい",
                 "_remove_modal_no": "いいえ",
                 "_remove_modal_title": "管理者情報を削除",
-                "_remove_modal_description": "この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
+                "_remove_modal_description": "この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。",
+                "_remove_modal_deleted": "仕上げ",
+                "_your_item_has_been_deleted": "管理者が削除しました"
             }
         },
         "app": {
