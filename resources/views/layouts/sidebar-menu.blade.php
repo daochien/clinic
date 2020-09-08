@@ -106,7 +106,7 @@
             @endcanany
             @can('page.index')
             <li class="nav-item">
-                <router-link to="/admin/page/create" class="nav-link">
+                <router-link to="/admin/page" class="nav-link">
                     <i class="far fa-bell"></i>
                     <span>{{ __('app.menu.sidebar.page_management._main') }}</span>
                 </router-link>

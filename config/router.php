@@ -224,7 +224,7 @@
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['page.show', 'page.store']
+                    'routes' => ['page.show', 'page.update']
                 ],
                 'delete' => [
                     'name' => 'Delete',

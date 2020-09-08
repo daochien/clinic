@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Page extends Model
 {
     protected $fillable = [
-        'owner_id', 'type', 'title', 'content', 'image', 'public', 'public_date', 'public', 'url', 'files', 'category_id'
+        'owner_id', 'type', 'title', 'content', 'image', 'public', 'public_date', 'status', 'url', 'files', 'category_id'
     ];
 
     public $timestamps = true;
