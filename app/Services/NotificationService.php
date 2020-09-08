@@ -78,16 +78,54 @@ class NotificationService
         return $entity;
     }
 
-    public function getMember($id = 0)
+    public function getMembers($filter = [])
     {
-        return NotificationUser::where('notification_id', $id)
+        $members = NotificationUser::where('notification_id', $filter['id'])
             ->with([
                 'userStatus',
                 'notification',
                 'user',
                 'user.clinic',
                 'user.group'
-            ])->paginate(10);
+            ]);
+        if (!empty($filter['clinic'])) {
+            $members->whereHas(
+                'user.clinic',
+                function ($qclinic) use ($filter) {
+                    if (isset($filter['clinic']) && strlen($filter['clinic']) > 0) {
+                        $qclinic->where('name', '=', $filter['clinic']);
+                    }
+                }
+            );
+        }
+
+        if (!empty($filter['keyword'])) {
+            $members->whereHas('user', function ($quser) use ($filter) {
+                    if (isset($filter['keyword']) && strlen($filter['keyword']) > 0) {
+                        if (strpos($filter['keyword'], '@') === false) {
+                            $quser->where('name', 'like', '%' . $filter['keyword'] . '%');
+                        } else {
+                            $quser->where('email', 'like', '%' . explode("@", $filter['keyword'])[0] . '%');
+                        }
+                    }
+                }
+            );
+        }
+
+        if (!empty($filter['status'])) {
+            $members->whereHas(
+                'userStatus',
+                function ($qstatus) use ($filter) {
+                    if ($filter['status'] == '0') {
+                        $qstatus->whereIn('status', [1, 2, 3]);
+                    } else {
+                        $qstatus->where('status', '=', $filter['status']);
+                    }
+                }
+            );
+        }
+
+        return $members->paginate(10);
     }
 
     public function delete($id)
@@ -200,53 +238,6 @@ class NotificationService
             )
             ->with([
                 'notificationGroups.group'
-            ]);
-
-        return $datas->paginate(10);
-    }
-
-    public function detailSearch(SearchNotificationRequest $request)
-    {
-        if (!isset($request['notification_id'])) {
-            return null;
-        }
-        $id = $request['notification_id'];
-        $datas = NotificationUser::where('notification_id', $id)
-            ->whereHas(
-                'userStatus',
-                function ($qstatus) use ($request) {
-                    if ($request['status'] == '0') {
-                        $qstatus->whereIn('status', [1, 2, 3]);
-                    } else {
-                        $qstatus->where('status', '=', $request['status']);
-                    }
-                }
-            )
-            ->whereHas(
-                'user',
-                function ($quser) use ($request) {
-                    if (isset($request['keyword']) && strlen($request['keyword']) > 0) {
-                        if (strpos($request['keyword'], '@') === false) {
-                            $quser->where('name', 'like', '%' . $request['keyword'] . '%');
-                        } else {
-                            $quser->where('email', 'like', '%' . explode("@", $request['keyword'])[0] . '%');
-                        }
-                    }
-                }
-            )
-            ->whereHas(
-                'user.clinic',
-                function ($qclinic) use ($request) {
-                    if (isset($request['clinic']) && strlen($request['clinic']) > 0) {
-                        $qclinic->where('name', '=', $request['clinic']);
-                    }
-                }
-            )
-            ->with([
-                'userStatus',
-                'notification',
-                'user.clinic',
-                'user.group'
             ]);
 
         return $datas->paginate(10);

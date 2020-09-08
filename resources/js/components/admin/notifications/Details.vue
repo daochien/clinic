@@ -191,7 +191,7 @@
             this.$Progress.start();
             this.notification_id = this.$route.params.id;
             this.form.notification_id = this.notification_id;
-            this.loadNotification();
+            this.getResults();
             this.loadClinic();
             this.$Progress.finish();
         },
@@ -207,21 +207,8 @@
             },
             getResults(page = 1) {
                 this.$Progress.start();
-                console.log("get Results");
-                axios
-                    .get(
-                        "/api/notification/" + this.notification_id + "/members?page=" + page
-                    )
+                axios.get("/api/notification/" + this.notification_id + "/members?page=" + page)
                     .then(({data}) => (this.members = data));
-                this.$Progress.finish();
-            },
-            loadNotification() {
-                this.$Progress.start();
-                if (this.$gate.isAdmin()) {
-                    axios
-                        .get("/api/notification/" + this.notification_id + "/members")
-                        .then(({data}) => (this.members = data));
-                }
                 this.$Progress.finish();
             },
             loadClinic() {

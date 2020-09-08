@@ -93,7 +93,7 @@ class NotificationController extends BaseController
 
     public function members($id)
     {
-        $datas =  $this->service->getMember($id);
+        $datas = $this->service->getMembers(['id' => $id]);
         return new NotificationUserCollection($datas);
     }
 
@@ -115,7 +115,12 @@ class NotificationController extends BaseController
     public function detailSearch(SearchNotificationRequest $request)
     {
         try {
-            $datas = $this->service->detailSearch($request);
+            $datas = $this->service->getMembers([
+                'id' => $request->get('notification_id'),
+                'clinic' => $request->get('clinic') ?? '',
+                'keyword' => $request->get('keyword') ?? '',
+                'status' => $request->get('status') ?? 0,
+            ]);
             return new NotificationUserCollection($datas);
         } catch (\Exception $exception) {
             return $this->sendError($exception->getCode(), $exception->getMessage());
