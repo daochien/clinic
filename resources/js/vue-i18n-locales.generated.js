@@ -916,7 +916,8 @@ export default {
             "name": "友伸會ポータル管理画面",
             "menu": {
                 "top": {
-                    "_logout": "ログアウト"
+                    "_logout": "ログアウト",
+                    "_profile": "マイアカウント"
                 },
                 "sidebar": {
                     "admin_management": {
