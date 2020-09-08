@@ -84,6 +84,7 @@ class NotificationService
             ->with([
                 'userStatus',
                 'notification',
+                'user',
                 'user.clinic',
                 'user.group'
             ])->paginate(10);
