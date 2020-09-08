@@ -30,7 +30,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group row border-bottom">
-                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._type') }} <span color="color:#c4183c;">*</span></label>
+                                <label class="col-sm-2 col-form-label" >{{ $t('page.attr._type') }} <span color="color:#c4183c;">*</span></label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="custom-control custom-radio form-check-inline float-left">
                                         <input class="custom-control-input" type="radio" id="inlineArticle" v-model="page.type" :value="'blog'">
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._title') }} <span color="color:#c4183c;">*</span></label>
+                                <label :class="['col-sm-2 col-form-label', { 'form-label-error': pageFormErrors.errors.has('title') }] ">{{ $t('page.attr._title') }} <span color="color:#c4183c;">*</span></label>
                                 <div class="col-sm-10 ">
                                     <input
                                     type="text"
@@ -67,7 +67,7 @@
                                     <has-error :form="pageFormErrors" field="public"></has-error>
                                 </div>
                             </div>
-                            <div class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <div v-show="showMore && page.type != 'faq'" class="form-group row border-bottom" style="padding-bottom: 10px;">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._public_date') }} </label>
                                 <div class="col-sm-10 row">
                                     <div class="col-sm-4">
@@ -80,7 +80,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row border-bottom">
+                            <div class="form-group row border-bottom" v-show="page.type != 'faq'">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._status') }}</label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="switchToggle">
@@ -90,7 +90,7 @@
                                     <has-error :form="pageFormErrors" field="status"></has-error>
                                 </div>
                             </div>
-                            <div class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <div v-show="showMore && page.type != 'faq'" class="form-group row border-bottom" style="padding-bottom: 10px;">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._url') }}</label>
                                 <div class="col-sm-10">
                                     <input
@@ -116,7 +116,7 @@
                                 </div>
                                 <label @click="showModalCategory()" class="col-sm-4 col-form-label" style="color:#007BFF; cursor:pointer;">+ {{ $t('page.info.popup._btn_show_popup_category') }}</label>
                             </div>
-                            <div class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <div v-show="showMore && page.type != 'faq'" class="form-group row border-bottom" style="padding-bottom: 10px;">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._image') }}</label>
                                 <div class="col-sm-4" v-show="previewImage">
                                     <img :src="previewImage" style="width:100%;">
@@ -134,6 +134,26 @@
                                         <button @click.prevent="$refs.file.click()" type="button" class="mb-2 btn btn-sm btn-white mr-1">ファイルを選択</button>
                                     </div>
                                     <has-error :form="pageFormErrors" field="image"></has-error>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="text-align: right;" v-if="page.type != 'faq'">                               
+                                <div class="col-sm-12">
+                                    <span v-if="!showMore" @click="showMore = !showMore" style="cursor:pointer;">
+                                        すべての設定を表示
+                                        <span>
+                                            <svg width="19" height="11" viewBox="0 0 19 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2.38615 0.394216L0.837402 1.95172L9.4999 10.6055L18.1624 1.94297L16.6137 0.394216L9.4999 7.50797L2.38615 0.394216Z" fill="#3D5170"/>
+                                            </svg>
+                                        </span>
+                                    </span>
+                                    <span v-if="showMore" @click="showMore = !showMore" style="cursor:pointer;">
+                                        主な設定だけ表示
+                                        <span>
+                                            <svg width="19" height="11" viewBox="0 0 19 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M16.6138 10.6058L18.1626 9.04828L9.5001 0.394531L0.837597 9.05703L2.38635 10.6058L9.5001 3.49203L16.6138 10.6058Z" fill="#3D5170"/>
+                                            </svg>
+                                        </span>
+                                    </span>                                    
                                 </div>
                             </div>
                         </div>
@@ -277,7 +297,8 @@ export default {
                 name: '',
                 type: 1
             }),
-            categories: []
+            categories: [],
+            showMore: false
         }
     },
     created () {
@@ -604,5 +625,8 @@ export default {
     }
     #tj-datetime-input:focus {
         outline: none;
+    }
+    .form-label-error {
+        color: #c4183c;
     }
 </style>

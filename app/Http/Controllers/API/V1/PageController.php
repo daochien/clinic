@@ -77,16 +77,16 @@ class PageController extends BaseController
 
         $page->delete();
 
-        return $this->sendResponse($page, 'Page has been Deleted');
+        return $this->sendSuccessResponse($page, 'Page has been Deleted');
     }
 
     public function changeStatus($id)
     {
         try {
             $page = $this->pageRepo->changeStatus($id);
-            return $this->sendResponse($page, 'Page Created Successfully');
+            return $this->sendSuccessResponse($page, 'Page Created Successfully');
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getMessage());
+            return $this->sendErrorResponse($exception->getMessage());
         }
 
     }
