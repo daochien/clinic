@@ -4,6 +4,7 @@ return [
     'menu' => [
         'top' => [
             '_logout' => 'ログアウト',
+            '_profile' => 'マイアカウント',
         ],
         'sidebar' => [
             'admin_management' => [

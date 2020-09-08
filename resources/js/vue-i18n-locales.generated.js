@@ -961,7 +961,8 @@ export default {
             "name": "友伸會ポータル管理画面",
             "menu": {
                 "top": {
-                    "_logout": "ログアウト"
+                    "_logout": "ログアウト",
+                    "_profile": "マイアカウント"
                 },
                 "sidebar": {
                     "admin_management": {
@@ -1130,7 +1131,8 @@ export default {
                 }
             },
             "messsages": {
-                "_system_err": "システムエラーが発生しました。しばらく時間をおいてから再度お試しください。"
+                "_system_err": "システムエラーが発生しました。しばらく時間をおいてから再度お試しください。",
+                "_not_found": "Not Found。"
             }
         },
         "group": {
