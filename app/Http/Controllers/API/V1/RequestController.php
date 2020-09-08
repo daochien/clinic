@@ -89,9 +89,9 @@ class RequestController extends BaseController
         try {
             $submission = $this->requestService->createRequest($request, $identifier);
 
-            return $this->sendResponse($submission);
+            return $this->sendSuccessResponse($submission);
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getMessage());
+            return $this->sendErrorResponse($exception->getMessage());
         }
     }
 }
