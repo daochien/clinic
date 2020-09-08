@@ -9,12 +9,16 @@
             </div>
             <div class="col-12 col-sm-10 offset-sm-1">
                 <div class="card card-small mb-3">
-                    <div class="card-header border-bottom">
-                        <ul class="nav nav-pills">
-                            <li class="nav-item"><a class="nav-link active show" href="#settings" data-toggle="tab">{{ $t('admin.my_account.basic_info._title') }}</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#change-password" data-toggle="tab">{{ $t('admin.my_account.change_password._title') }}</a></li>
+                    <div class="border-bottom clearfix d-flex mt-3">
+                        <ul class="nav nav-tabs border-0 mt-auto mx-4 pt-2">
+                            <li class="nav-item">
+                                <a class="nav-link active show" href="#settings" data-toggle="tab">{{ $t('admin.my_account.basic_info._title') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#change-password" data-toggle="tab">{{ $t('admin.my_account.change_password._title') }}</a>
+                            </li>
                         </ul>
-                    </div><!-- /.card-header -->
+                    </div>
                     <div class="card-body">
                         <div class="tab-content">
                             <!-- Setting Tab -->
