@@ -6,7 +6,7 @@
                 <h3 class="page-title">{{ $t('request.info._page_title') }}</h3>
             </div>
             <div class="col-1 col-sm-8 text-right text-sm-left mb-4 mb-sm-0" >
-                <div class="mb-2 btn btn-sm mr-1" :class="status_label" v-html="status"></div>
+                <div class="mb-2 btn btn-sm mr-1" :class="status_label" v-html="status_text"></div>
             </div>
         </div>
         <!-- End Page Header -->
@@ -155,6 +155,7 @@
                 },
                 form_headers : {},
                 status_label: '',
+                status_text: '',
                 discussion: {
                     message: '',
                     file: null
@@ -291,25 +292,33 @@
                 self = this;
                 if (this.submission.request_logs.length === 0) {
                     this.status_label = 'btn-warning';
-                    return this.$t('request').attr.status._open;
+                    this.status_text = this.$t('request').attr.status._open;
+                    return;
                 }
 
                 let approvedCount = 0;
+                let reject = false;
                 _.forEach(this.submission.request_logs, function (log, logKey) {
                     if (log.status === 2) {
                         self.status_label = 'btn-secondary';
-                        return self.$t('request').attr.status._rejected;
+                        self.status_text = self.$t('request').attr.status._rejected;
+                        reject = true;
+                        return false;
                     }
                     approvedCount++;
                 });
-
+                if (reject) {
+                    return ;
+                }
                 if (approvedCount === this.submission.form.approvers.length) {
-                    this.status_label = 'btn-info';
-                    return this.$t('request').attr.status._approved;
+                    this.status_label = 'btn-info'
+                    this.status_text = this.$t('request').attr.status._approved;
+                    return;
                 }
 
                 this.status_label = 'btn-primary';
-                return this.$t('request').attr.status._in_progress;
+                this.status_text = this.$t('request').attr.status._in_progress;
+
             }
         },
         mounted() {
