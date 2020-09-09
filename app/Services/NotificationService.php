@@ -178,7 +178,7 @@ class NotificationService
                 foreach ($datas as $user) {
                     NotificationUser::insertOrIgnore([
                         'notification_id' => $entity->id,
-                        'user_id' => $user->id,
+                        'user_id' => $user->user_id,
                         'created_at' => now(),
                         'updated_at' => now()
                     ]);
@@ -186,7 +186,7 @@ class NotificationService
                     if ($request['confirm'] == true) {
                         NotificationStatus::insertOrIgnore([
                             'notification_id' => $entity->id,
-                            'user_id' => $user->id,
+                            'user_id' => $user->user_id,
                             'status' => 1,
                             'created_at' => now(),
                             'updated_at' => now()

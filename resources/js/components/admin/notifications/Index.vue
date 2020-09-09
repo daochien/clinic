@@ -140,7 +140,7 @@
                                         </div>
                                         <div v-else>-</div>
                                     </td>
-                                    <td>{{ entity.users_count }}</td>
+                                    <td>{{ entity.notification_users_count }}</td>
                                     <td>{{ entity.users_read }}</td>
                                     <td>
                                         <label v-if="entity.confirm === 1">{{ entity.users_confirm }}</label>

@@ -106,10 +106,10 @@
                                 <tbody>
                                 <tr v-for="(entity, index) in members.data" :key="entity.id">
                                     <td>{{ index + 1 }}</td>
-                                    <td>{{ entity.user.name }}</td>
-                                    <td>{{ entity.user.email }}</td>
+                                    <td>{{ entity.user ? entity.user.name : '' }}</td>
+                                    <td>{{ entity.user ? entity.user.email : '' }}</td>
                                     <td>
-                                        <div v-if="entity.user.group.length !== 0">
+                                        <div v-if="entity.user && entity.user.group.length !== 0">
                                             <span
                                                 class="badge badge-info ml-1"
                                                 v-for="group in entity.user.group"
@@ -119,7 +119,7 @@
                                         <div v-else>-</div>
                                     </td>
                                     <td>
-                                        <div v-if="entity.user.clinic.length !== 0">
+                                        <div v-if="entity.user && entity.user.clinic.length !== 0">
                                             <span
                                                 class="badge badge-info ml-1"
                                                 v-for="clinic in entity.user.clinic"

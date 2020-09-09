@@ -25,7 +25,7 @@ class NotificationResource extends JsonResource
             "schedule_date" => $this->schedule_date,
             "created_at" => $this->created_at,
             'groups' => $this->notificationGroups,
-            'users_count' => $this->users_count,
+            'notification_users_count' => $this->notification_users_count,
             'users_read' => $this->users_read_count,
             'users_confirm' => $this->users_confirm_count,
             'users' => UserResource::collection($this->whenLoaded('users')),

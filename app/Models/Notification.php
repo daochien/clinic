@@ -53,6 +53,11 @@ class Notification extends Model
         return $this->belongsToMany(User::class, 'notification_users', 'notification_id', 'user_id');
     }
 
+    public function notificationUsers()
+    {
+        return $this->hasMany(NotificationUser::class, 'notification_id', 'id');
+    }
+
     public function usersRead()
     {
         return $this->hasMany(NotificationStatus::class)->where('status', [2, 3]);
