@@ -39,9 +39,9 @@ class CategoryController extends BaseController
     }
 
     public function getByType(Request $request, $type)
-    {
+    {        
         $categories = $this->repository->getTemplateByCategory(Category::TYPE[$type]);
-
+        
         return $this->sendSuccessResponse($categories, 'Category list');
     }
 
@@ -72,7 +72,7 @@ class CategoryController extends BaseController
         $tag = $this->category->create([
             'name' => $request->get('name'),
             'description' => $request->get('description'),
-            'type' => $request->get('type')
+            'type' => Category::TYPE[$request->get('type')]
         ]);
 
         return $this->sendSuccessResponse($tag, 'Category Created Successfully');

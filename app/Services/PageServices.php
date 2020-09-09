@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Helpers\PasswordHelper;
 use App\Models\Page;
+use App\Models\PageGroup;
 use App\Repositories\PageRepository;
 use App\Services\S3Service;
 use Illuminate\Support\Facades\DB;
@@ -23,9 +24,20 @@ class PageServices
     public function createPage($attribute)
     {
         DB::beginTransaction();
-        try {
-
+        try {            
             $page = $this->pageRepo->create($attribute);
+
+            if (isset($attribute['groups'])) {
+                $groups = json_decode($attribute['groups'], true);
+                if (!empty($groups)) {
+                    foreach ($groups as $group) {
+                        PageGroup::insertOrIgnore([
+                            'page_id' => $page->id,
+                            'group_id' => $group['id']
+                        ]);
+                    }
+                }
+            }
 
             if (!empty($attribute['image'])) {
                 $image = $this->s3Service->store($attribute['image'], 'pages/images');
@@ -63,6 +75,20 @@ class PageServices
         try {
             $page = $this->page->findOrFail($id);
             $page->update($this->_buildDataUpdate($attribute->all()));
+
+            if (isset($attribute['groups'])) {
+                $groups = json_decode($attribute['groups'], true);
+                if (!empty($groups)) {
+                    PageGroup::where('page_id', $page->id)->delete();
+
+                    foreach ($groups as $group) {
+                        PageGroup::insertOrIgnore([
+                            'page_id' => $page->id,
+                            'group_id' => $group['id']
+                        ]);
+                    }
+                }
+            }
 
             if (!empty($attribute['image'])) {
                 $image = $this->s3Service->store($attribute['image'], 'pages/images');

@@ -195,7 +195,7 @@ export default {
             .then((response) => {
                 Toast.fire({
                     icon: 'success',
-                    title: this.$t('page.info.form.messages._create_success')
+                    title: this.$t('page.info.messages._change_status_success')
                 });
                 this.$Progress.finish();
             })
@@ -203,7 +203,7 @@ export default {
                 this.$Progress.failed();
                 Toast.fire({
                     icon: 'error',
-                    title: this.$t('page.info.form.messages._create_failed')
+                    title: this.$t('page.info.messages._change_status_failed')
                 });
             })
         },        
@@ -219,20 +219,21 @@ export default {
 
         removePage (id) {
             Swal.fire({
-                title: this.$t('page.popup.are_you_sure'),
-                text: this.$t('page.popup.you_wont_able_revert'),
+                title: this.$t('page.others._remove_modal_title'),
+                text: this.$t('page.others._remove_modal_description'),
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: this.$t('page.popup.delete_it')
+                cancelButtonText: this.$t('page.others._remove_modal_no'),
+                confirmButtonText: this.$t('page.others._remove_modal_yes')
             }).then((result) => {
                 // Send request to the server
                 if (result.value) {
 
                     axios.delete('/api/page/'+id).then(() => {
                         Swal.fire(
-                            this.$t('page.popup.deleted'),
-                            this.$t('page.popup.your_item_has_been_deleted'),
+                            this.$t('page.list.messages._remove_success'),
+                            this.$t('page.list.messages._remove_success'),
                             'success'
                         );
                         // Fire.$emit('AfterCreate');

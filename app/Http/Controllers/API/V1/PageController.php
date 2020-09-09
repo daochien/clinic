@@ -55,7 +55,7 @@ class PageController extends BaseController
 
     public function show($id)
     {
-        $page = $this->page->find($id);
+        $page = $this->pageRepo->show($id);
 
         return $this->sendSuccessResponse($page, 'Page Details');
     }
