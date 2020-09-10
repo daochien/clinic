@@ -184,15 +184,17 @@ export default {
                 if (result.value) {
 
                     axios.delete('/api/manager/'+id).then(() => {
-                        Swal.fire(
-                            this.$t('admin.others._remove_modal_deleted'),
-                            this.$t('admin.others._your_item_has_been_deleted'),
-                            'success'
-                        );
+                        Toast.fire({
+                            icon: 'success',
+                            title: this.$t('admin.others._remove_modal_deleted')
+                        });
                         // Fire.$emit('AfterCreate');
                         this.loadListAdmin();
                     }).catch((data) => {
-                        Swal.fire("Failed!", data.message, "warning");
+                        Toast.fire({
+                            icon: 'error',
+                            title: this.$t('common.messages._system_err')
+                        });
                     });
                 }
             })
