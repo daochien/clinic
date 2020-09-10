@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\Notifications\NotificationRequest;
 use App\Http\Requests\Notifications\SearchNotificationRequest;
+use App\Http\Resources\NotificationFetchCollection;
+use App\Http\Resources\NotificationFetchResource;
 use App\Models\Notification;
 use App\Models\User;
 use App\Repositories\NotificationGroupRepository;
@@ -23,7 +25,8 @@ class NotificationController extends BaseController
         NotificationService $notiService,
         NotificationRepository $notiRepository,
         NotificationGroupRepository $notiGroupRepository
-    ) {
+    )
+    {
         $this->service = $notiService;
         $this->repository = $notiRepository;
         $this->repositoryGroup = $notiGroupRepository;
@@ -53,7 +56,7 @@ class NotificationController extends BaseController
             }
 
             $entity = $this->service->add($request);
-            return $this->sendResponse($entity,  __('notification.update_successfuly'));
+            return $this->sendResponse($entity, __('notification.update_successfuly'));
         } catch (\Exception $exception) {
             return $this->sendError($exception->getCode(), $exception->getMessage());
         }
@@ -127,16 +130,31 @@ class NotificationController extends BaseController
         }
     }
 
+    public function updateStatus(Request $request)
+    {
+        try {
+            $notificationId = $request->get('notification_id');
+            $userId = $request->get('user_id');
+            $status = $request->get('status');
+            $this->service->updateStatus($userId, $notificationId, $status);
+            return response()->json([
+                'status' => true,
+            ]);
+        } catch (\Exception $exception) {
+            return $this->sendError($exception->getMessage(), [] , $exception->getCode());
+        }
+
+    }
+
     public function fetch(Request $request)
     {
         try {
-            $filters['user_id'] = $request->get('user_id');
+            $filters['user_id'] = $request->get('user_id') ?? 9999;
             $filters['from'] = $request->get('from') ?? 0;
             $data = $this->service->fetch($filters);
-            return response()->json($data);
+            return new NotificationFetchCollection($data);
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendError($exception->getMessage(), [] , $exception->getCode());
         }
-
     }
 }

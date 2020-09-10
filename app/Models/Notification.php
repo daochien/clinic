@@ -43,11 +43,6 @@ class Notification extends Model
         return $this->hasMany(NotificationGroup::class, 'notification_id');
     }
 
-    public function status()
-    {
-        return $this->hasOne(NotificationStatus::class, 'notification_id', 'id');
-    }
-
     public function users()
     {
         return $this->belongsToMany(User::class, 'notification_users', 'notification_id', 'user_id');
