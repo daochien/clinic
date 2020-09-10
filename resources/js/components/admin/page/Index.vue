@@ -34,7 +34,7 @@
                                     <select class="form-control" v-model="form_filter.status">
                                         <option value="">{{ $t('page.list.search_box._status_pl') }}</option>
                                         <option value="1">可能にする</option>
-                                        <option value="0">無効にする</option>                                        
+                                        <option value="0">無効にする</option>
                                     </select>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@ export default {
                 this.$Progress.finish();
             }).catch (error => {
                 this.$Progress.failed();
-            });            
+            });
         },
 
         changeStatus (id) {
@@ -206,7 +206,7 @@ export default {
                     title: this.$t('page.info.messages._change_status_failed')
                 });
             })
-        },        
+        },
 
         clearFilter () {
             this.form_filter.type = '';
@@ -231,15 +231,18 @@ export default {
                 if (result.value) {
 
                     axios.delete('/api/page/'+id).then(() => {
-                        Swal.fire(
-                            this.$t('page.list.messages._remove_success'),
-                            this.$t('page.list.messages._remove_success'),
-                            'success'
-                        );
+
+                        Toast.fire({
+                            icon: 'success',
+                            title: this.$t('page.list.messages._remove_success')
+                        });
                         // Fire.$emit('AfterCreate');
                         this.getResults();
                     }).catch((data) => {
-                        Swal.fire("Failed!", data.message, "warning");
+                        Toast.fire({
+                            icon: 'error',
+                            title: this.$t('common.messages._system_err')
+                        });
                     });
                 }
             })
