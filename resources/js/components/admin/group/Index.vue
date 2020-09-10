@@ -30,11 +30,11 @@
                     </tr>
                   </thead>
                   <tbody>
-                     <tr v-for="(item, index) in group.data" :key="item.id">
+                     <tr v-for="(item, index) in groups.data" :key="item.id">
 
                       <td>{{index + 1}}</td>
                       <td>{{item.name}}</td>
-                         <td>{{item.group_users_count}}</td>
+                         <td>{{item.users_count}}</td>
                          <td style="width:80px">
                              <div class="dropdown">
                                  <i
@@ -58,7 +58,7 @@
               </div>
               <!-- /.card-body -->
                 <div class="card-footer">
-                    <pagination :data="group" @pagination-change-page="getResults"></pagination>
+                    <pagination :data="paginator" @pagination-change-page="getResults"></pagination>
                 </div>
             </div>
             <!-- /.card -->
@@ -77,7 +77,8 @@
     export default {
         data () {
             return {
-              group : {},
+              groups : [],
+                paginator:{}
             }
         },
 
@@ -85,14 +86,14 @@
             getResults(page = 1) {
                 this.$Progress.start();
                 axios.get('/api/group?page=' + page)
-                    .then(({data}) => {this.group = data.data});
+                    .then((response)=>{this.groups = response.data; this.paginator = response.data.meta});
                 this.$Progress.finish();
             },
 
           loadGroup(){
-            //if(this.$gate.isRoot()){
-              axios.get("/api/group").then(({ data }) => {this.group = data.data});
-            //}
+            if(this.$gate.isRoot()){
+              axios.get("/api/group").then( (response)=>{this.groups = response.data; this.paginator = response.data.meta});
+            }
           },
 
             deleteGroup(id){
@@ -136,11 +137,8 @@
         },
         created() {
             this.$Progress.start();
-
             this.loadGroup();
-
             this.$Progress.finish();
-
         }
     }
 </script>

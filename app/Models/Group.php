@@ -41,10 +41,21 @@ class Group extends Model
         return $this->hasMany(GroupUser::class,'group_id');
     }
 
+    public function groupUsers()
+    {
+        return $this->hasMany(GroupUser::class,'group_id');
+    }
+
 
     public function users()
     {
         return $this->belongsToMany(User::class, 'group_users', 'user_id');
+    }
+
+
+    public function usersCount()
+    {
+        return $this->hasMany(GroupUser::class)->count();
     }
 
 }

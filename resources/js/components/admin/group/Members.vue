@@ -82,6 +82,9 @@
                             </template>
                         </div>
                         <!-- /.card-body -->
+                        <div class="card-footer">
+                            <pagination :data="members" @pagination-change-page="getResults"></pagination>
+                        </div>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -147,6 +150,13 @@
             }
         },
         methods: {
+
+            getResults(page = 1) {
+                this.$Progress.start();
+                axios.get('/api/group/members/'+this.id+'/?page=' + page)
+                    .then(({data}) => {this.members = data.data});
+                this.$Progress.finish();
+            },
 
             loadMembers(){
                 if(this.$gate.isRoot()){

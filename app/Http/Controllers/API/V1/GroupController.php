@@ -7,23 +7,29 @@ use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Models\GroupUser;
 use Illuminate\Support\Facades\DB;
-
+use App\Repositories\GroupRepository;
+use App\Services\GroupService;
 use App\Http\Requests\Groups\GroupRequest;
 use App\Models\User;
-
+use App\Http\Resources\GroupCollection;
+use App\Http\Resources\GroupResource;
 
 class GroupController extends BaseController
 {
     protected $group = '';
-
+    protected $repository;
+    protected $service;
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param Group $group
+     * @param GroupRepository $groupRepository
      */
-    public function __construct(Group $group)
+    public function __construct(Group $group, GroupRepository $groupRepository, GroupService $groupService)
     {
         $this->group = $group;
+        $this->repository = $groupRepository;
+        $this->service = $groupService;
     }
 
 
@@ -34,8 +40,10 @@ class GroupController extends BaseController
      */
     public function index()
     {
-        $group = $this->group->latest()->withCount('group_users')->orderBy('id', 'desc')->paginate(10);
-        return $this->sendSuccessResponse($group, 'Group list');
+//        $group = $this->group->latest()->withCount('group_users')->orderBy('id', 'desc')->paginate(10);
+//        return $this->sendSuccessResponse($group, 'Group list');
+          $groups = $this->repository->get();
+          return new GroupCollection($groups);
     }
 
     /**
@@ -140,7 +148,7 @@ class GroupController extends BaseController
     {
         $users_id = GroupUser::where('group_id', $id)->pluck('user_id');
         if(count($users_id)){
-            $users = DB::table('users')->whereIn('id', $users_id)->paginate(20);
+            $users = DB::table('users')->whereIn('id', $users_id)->paginate(10);
             return $this->sendSuccessResponse($users, 'Members list');
         }
         return response()->json(['data' => ['data' => []]]);
@@ -158,12 +166,6 @@ class GroupController extends BaseController
     {
         $query = "SELECT users.id, users.name, users.email, users.created_at from users WHERE id in (select DISTINCT(users.id) from users LEFT JOIN group_users on users.id = group_users.user_id where 1 and users.id not in (select users.id from users JOIN group_users on group_users.user_id = users.id where group_users.group_id = 6)) and users.name like '%$value%'";
 
-//        $users = DB::table('users')
-//            ->select('users.*', 'group_users.group_id')
-//            ->join('group_users', 'users.id', '=', 'group_users.user_id')
-//            ->where('name', 'LIKE', '%' . $value . '%')
-//            ->where('group_users.group_id','!=',$id)
-//            ->get();
         $users = DB::select( DB::raw($query));
         if(count($users)){
             return $this->sendSuccessResponse($users, 'Users list');
