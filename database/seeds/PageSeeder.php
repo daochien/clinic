@@ -37,31 +37,31 @@ class PageSeeder extends Seeder
         }
 
         $file = $domain.'/front-end/files/demo.docx';;
-        
+
         for ($i = 0; $i < $limit; $i++) {
-            
+
             Page::create([
                 'type' => 'manual',
-                'title' => $faker->sentence($nbWords = 20, $variableNbWords = true),                
+                'title' => $faker->sentence($nbWords = 20, $variableNbWords = true),
                 'public' => rand(0,1),
                 'public_date' => \Carbon\Carbon::now(),
                 'status' => rand(0,1),
-                'url_destination' => $domain,
+                'url' => $domain,
                 'files' => json_encode([$file]),
                 'owner_id' => 1
             ]);
         }
-                
+
         for ($i = 0; $i < $limit; $i++) {
-            
+
             Page::create([
                 'type' => 'faq',
                 'title' => $faker->sentence($nbWords = 20, $variableNbWords = true),
-                'content' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),                
+                'content' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
                 'public' => rand(0,1),
                 'public_date' => \Carbon\Carbon::now(),
                 'status' => rand(0,1),
-                //'public_destination' => $domain,                
+                //'public_destination' => $domain,
                 'owner_id' => 1
             ]);
         }
