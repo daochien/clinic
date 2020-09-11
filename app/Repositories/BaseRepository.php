@@ -54,13 +54,9 @@ abstract class BaseRepository
      */
     public function update($id, array $attributes)
     {
-        $result = $this->find($id);
-        if ($result) {
-            $result->update($attributes);
-            return $result;
-        }
-
-        return false;
+        return $this->model->updateOrCreate([
+            'id' => $id,
+        ], $attributes);
     }
 
     /**

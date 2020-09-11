@@ -7,10 +7,10 @@ Route::namespace('API\V1')
     ->prefix('/notification')
     ->group(function (): void {
         Route::get('/fetch', 'NotificationController@fetch');
+        Route::put('/status', 'NotificationController@updateStatus');
     });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
