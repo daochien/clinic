@@ -116,7 +116,7 @@ export default {
           this.$Progress.start();
           this.form.post('/api/clinic')
               .then((data)=>{
-                  if(data.data.success){
+                  if(data.data.status){
                       Toast.fire({
                           icon: "success",
                           title: data.data.message,
