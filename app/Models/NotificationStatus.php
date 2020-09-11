@@ -15,9 +15,7 @@ class NotificationStatus extends Model
         'read' => 2,
     ];
 
-    protected $fillable = [
-        'notification_id', 'user_id', 'status'
-    ];
+    protected $guarded= [];
 
     protected $casts = [
         'created_at' => 'datetime',

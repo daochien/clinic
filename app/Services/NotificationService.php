@@ -263,8 +263,10 @@ class NotificationService
 
     public function updateStatus($userId, $notificationId, $status)
     {
-        return NotificationStatus::join('notification_users', 'notification_users.id', 'notification_status.notification_user_id')->updateOrCreate([],[
+        $notificationUser = NotificationUser::where('user_id', $userId)->where('notification_id', $notificationId)->first();
+        return NotificationStatus::firstOrCreate([
+            'notification_user_id' => $notificationUser->id,
             'status' => $status
-        ])->where('notification_users.user_id', $userId)->where('notification_users.notification_id', $notificationId);
+        ]);
     }
 }

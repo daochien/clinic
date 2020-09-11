@@ -13,7 +13,10 @@ use App\Repositories\NotificationRepository;
 use App\Services\NotificationService;
 use App\Http\Resources\NotificationCollection;
 use App\Http\Resources\NotificationUserCollection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class NotificationController extends BaseController
 {
@@ -133,6 +136,21 @@ class NotificationController extends BaseController
     public function updateStatus(Request $request)
     {
         try {
+            $validator = Validator::make($request->all(), [
+                'notification_id' => [
+                    'required',
+                    Rule::exists('notification_users')->where(function ($query) use ($request) {
+                        $query->where('notification_id', $request->get('notification_id'));
+                        $query->where('user_id', $request->get('user_id'));
+                    }),
+                ],
+                'user_id' => 'required',
+                'status' => 'required|numeric',
+            ]);
+            if ($validator->fails()) {
+                throw new \Exception('The given data was invalid', JsonResponse::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
             $notificationId = $request->get('notification_id');
             $userId = $request->get('user_id');
             $status = $request->get('status');
@@ -143,7 +161,6 @@ class NotificationController extends BaseController
         } catch (\Exception $exception) {
             return $this->sendError($exception->getMessage(), [] , $exception->getCode());
         }
-
     }
 
     public function fetch(Request $request)
