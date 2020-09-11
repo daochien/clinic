@@ -36,15 +36,8 @@ class Group extends Model
         return $this->belongsToMany(Notification::class, 'notification_groups', 'group_id');
     }
 
-    public function group_users()
-    {
-        return $this->hasMany(GroupUser::class,'group_id');
-    }
-
-
     public function users()
     {
-        return $this->belongsToMany(User::class, 'group_users', 'user_id');
+        return $this->belongsToMany(User::class, 'group_users', 'group_id', 'user_id');
     }
-
 }

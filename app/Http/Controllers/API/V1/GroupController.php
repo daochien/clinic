@@ -34,8 +34,8 @@ class GroupController extends BaseController
      */
     public function index()
     {
-        $group = $this->group->latest()->withCount('group_users')->orderBy('id', 'desc')->paginate(10);
-        return $this->sendResponse($group, 'Group list');
+        $group = $this->group->latest()->withCount('users')->orderBy('id', 'desc')->paginate(10);
+        return $this->sendSuccessResponse($group, 'Group list');
     }
 
     /**
@@ -47,7 +47,7 @@ class GroupController extends BaseController
     {
         $group = $this->group->pluck('name', 'id');
 
-        return $this->sendResponse($group, 'Group list');
+        return $this->sendSuccessResponse($group, 'Group list');
     }
 
 
@@ -71,7 +71,7 @@ class GroupController extends BaseController
             'forced' => $request->get('forced'),
         ]);
 
-        return $this->sendResponse($tag, 'Group Created Successfully');
+        return $this->sendSuccessResponse($tag, 'Group Created Successfully');
     }
 
     /**
@@ -91,14 +91,14 @@ class GroupController extends BaseController
 
         $group->update($request->all());
 
-        return $this->sendResponse($group, 'Group Information has been updated');
+        return $this->sendSuccessResponse($group, 'Group Information has been updated');
     }
 
     public function show($id)
     {
         // get a groups by id
         $group  = $this->group->findOrFail($id);
-        return $this->sendResponse($group, 'Group information');
+        return $this->sendSuccessResponse($group, 'Group information');
     }
 
     /**
@@ -116,14 +116,14 @@ class GroupController extends BaseController
 
         $entity->delete();
 
-        return $this->sendResponse([$entity], 'Group has been Deleted');
+        return $this->sendSuccessResponse([$entity], 'Group has been Deleted');
     }
 
     public function all()
     {
         $group = $this->group->all();
 
-        return $this->sendResponse($group, 'Group list');
+        return $this->sendSuccessResponse($group, 'Group list');
     }
 
     public function members($id)
@@ -131,7 +131,7 @@ class GroupController extends BaseController
         $entity = GroupUser::where('group_id', $id)->first();
         if (isset($entity->group_id)) {
             $data = $entity->users()->paginate(10);
-            return $this->sendResponse($data, 'Members list');
+            return $this->sendSuccessResponse($data, 'Members list');
         }
         return response()->json(['data' => ['data' => []]]);
     }
@@ -141,7 +141,7 @@ class GroupController extends BaseController
         $users_id = GroupUser::where('group_id', $id)->pluck('user_id');
         if(count($users_id)){
             $users = DB::table('users')->whereIn('id', $users_id)->paginate(20);
-            return $this->sendResponse($users, 'Members list');
+            return $this->sendSuccessResponse($users, 'Members list');
         }
         return response()->json(['data' => ['data' => []]]);
     }
@@ -149,7 +149,7 @@ class GroupController extends BaseController
     public function  getGroupUsersByGroup($id){
         $ids = GroupUser::where('group_id', $id)->get();
         if(count($ids)){
-            return $this->sendResponse($ids, 'Id Group Users list');
+            return $this->sendSuccessResponse($ids, 'Id Group Users list');
         }
         return response()->json(['data' => ['data' => []]]);
     }
@@ -166,10 +166,10 @@ class GroupController extends BaseController
 //            ->get();
         $users = DB::select( DB::raw($query));
         if(count($users)){
-            return $this->sendResponse($users, 'Users list');
+            return $this->sendSuccessResponse($users, 'Users list');
         }
         $data = null;
-        return $this->sendResponse($data, 'Group empty');
+        return $this->sendSuccessResponse($data, 'Group empty');
     }
 
     public function addUsers(Request $request)
@@ -177,13 +177,13 @@ class GroupController extends BaseController
         $temp = GroupUser::where('user_id', $request->get('user_id'))->where('group_id', $request->get('group_id'))->get();
         if(count($temp)){
             $data = ['data' => ['data' => []]];
-            return $this->sendResponse($data, 'User Already In Group');
+            return $this->sendSuccessResponse($data, 'User Already In Group');
         }else{
             $tag = GroupUser::create([
                 'user_id' => $request->get('user_id'),
                 'group_id' => $request->get('group_id'),
             ]);
-            return $this->sendResponse($tag, 'User Added Successfully');
+            return $this->sendSuccessResponse($tag, 'User Added Successfully');
         }
     }
 
@@ -191,6 +191,6 @@ class GroupController extends BaseController
     {
         GroupUser::whereIn('id', $request->get('ids'))->delete();
         $data = ['data' => ['data' => []]];
-        return $this->sendResponse($data, 'User Remove Successfully');
+        return $this->sendSuccessResponse($data, 'User Remove Successfully');
     }
 }

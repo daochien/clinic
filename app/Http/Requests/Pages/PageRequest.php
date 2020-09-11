@@ -25,29 +25,23 @@ class PageRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->isMethod('post')) {
-            return $this->createRules();
-        } elseif ($this->isMethod('put')) {
-            return $this->updateRules();
+        $rules = [
+            'title' => 'required|string|max:100',
+            'type' => 'required',
+            'category_id' => 'required',
+            'public' => 'required|boolean',
+            'status' => 'required|boolean'
+        ];
+        
+        if (!empty($this->files)) {
+            $rules['files.*'] = 'mimes:jpeg,png,jpg,zip,pdf,ppt,pptx,xlx,xlsx,docx,doc,gif,webm,mp4,mpeg|max:51200';
         }
-    }
 
-    public function createRules(): array
-    {
-        return [
-            'title' => 'required|string|max:100',
-            'type' => 'required',
-            'category_id' => 'required'                        
-        ];
-    }
+        if (!empty($this->image)) {
+            $rules['image'] = 'image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        }
 
-    public function updateRules(): array
-    {
-        return [
-            'title' => 'required|string|max:100',
-            'type' => 'required',
-            'category_id' => 'required' 
-        ];
+        return $rules;
     }
 
     protected function failedValidation(Validator $validator)

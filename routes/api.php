@@ -7,10 +7,10 @@ Route::namespace('API\V1')
     ->prefix('/notification')
     ->group(function (): void {
         Route::get('/fetch', 'NotificationController@fetch');
+        Route::put('/status', 'NotificationController@updateStatus');
     });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
@@ -33,9 +33,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::post('/detailSearch', 'NotificationController@detailSearch')->name('search.detail');
             });
 
-        Route::get('profile', 'API\V1\ProfileController@profile')->name('profile.index');
+        Route::get('profile', 'API\V1\AdminController@profile')->name('profile.index');
         Route::put('profile', 'API\V1\ProfileController@updateProfile')->name('profile.update');
         Route::post('change-password', 'API\V1\ProfileController@changePassword')->name('profile.change.password');
+        Route::post('change-my-password', 'API\V1\ProfileController@changeMyPassword')->name('profile.change.my.password');
         Route::get('category/type/{type}', 'API\V1\CategoryController@getByType')->name('category.list.by.type');
         Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
         Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
@@ -77,6 +78,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('page/manual-latest', 'API\V1\PageController@manualLatest')->name('page.manualLatest');
         Route::get('page/faq-latest', 'API\V1\PageController@faqLatest')->name('page.faqLatest');
         Route::post('page/upload-image-content', 'API\V1\PageController@uploadImageContent')->name('page.uploadImageContent');
+        Route::put('page/{id}/change-status', 'API\V1\PageController@changeStatus')->name('page.changeStatus');
+        Route::post('page/{id}', 'API\V1\PageController@update')->name('page.update');
 
         Route::apiResources([
             'user' => 'API\V1\UserController',

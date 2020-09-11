@@ -35,14 +35,14 @@ class CategoryController extends BaseController
     {
         $categories = $this->category->latest()->paginate(10);
 
-        return $this->sendResponse($categories, 'Category list');
+        return $this->sendSuccessResponse($categories, 'Category list');
     }
 
     public function getByType(Request $request, $type)
-    {
+    {        
         $categories = $this->repository->getTemplateByCategory(Category::TYPE[$type]);
-
-        return $this->sendResponse($categories, 'Category list');
+        
+        return $this->sendSuccessResponse($categories, 'Category list');
     }
 
     /**
@@ -54,7 +54,7 @@ class CategoryController extends BaseController
     {
         $categories = $this->category->pluck('name', 'id');
 
-        return $this->sendResponse($categories, 'Category list');
+        return $this->sendSuccessResponse($categories, 'Category list');
     }
 
 
@@ -72,10 +72,10 @@ class CategoryController extends BaseController
         $tag = $this->category->create([
             'name' => $request->get('name'),
             'description' => $request->get('description'),
-            'type' => $request->get('type')
+            'type' => Category::TYPE[$request->get('type')]
         ]);
 
-        return $this->sendResponse($tag, 'Category Created Successfully');
+        return $this->sendSuccessResponse($tag, 'Category Created Successfully');
     }
 
     /**
@@ -92,6 +92,6 @@ class CategoryController extends BaseController
 
         $tag->update($request->all());
 
-        return $this->sendResponse($tag, 'Category Information has been updated');
+        return $this->sendSuccessResponse($tag, 'Category Information has been updated');
     }
 }

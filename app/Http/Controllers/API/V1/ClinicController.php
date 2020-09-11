@@ -56,9 +56,9 @@ class ClinicController extends BaseController
         try {
             $clinic = $this->service->createClinic($request->validated());
 
-            return $this->sendResponse($clinic, __('clinic.info.messages._create_success'));
+            return $this->sendSuccessResponse($clinic, __('clinic.info.messages._create_success'));
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
 
@@ -72,7 +72,7 @@ class ClinicController extends BaseController
     {
         $clinic = $this->repository->show($id);
 
-        return $this->sendResponse(new ClinicResource($clinic->load(['users'])));
+        return $this->sendSuccessResponse(new ClinicResource($clinic->load(['users'])));
     }
 
     /**
@@ -87,9 +87,9 @@ class ClinicController extends BaseController
         try {
             $result = $this->repository->update($id, $request->validated());
 
-            return $this->sendResponse($result, __('clinic.info.messages._edit_success'));
+            return $this->sendSuccessResponse($result, __('clinic.info.messages._edit_success'));
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
 
@@ -99,9 +99,9 @@ class ClinicController extends BaseController
             $userIds = $request->get('user_ids');
             $this->service->addRelationUser($clinicId, $userIds);
 
-            return $this->sendResponse([], __('clinic.clinic_users.messages._update_success'));
+            return $this->sendSuccessResponse([], __('clinic.clinic_users.messages._update_success'));
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
 
     }
@@ -123,9 +123,9 @@ class ClinicController extends BaseController
         try {
             $result = $this->service->delete($id);
 
-            return $this->sendResponse($result);
+            return $this->sendSuccessResponse($result);
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
 

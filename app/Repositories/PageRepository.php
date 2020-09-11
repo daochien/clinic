@@ -17,9 +17,35 @@ class PageRepository
         $this->model = $page;
     }
 
-    public function getAll($type = 'blog', $limit = 10)
+    public function getAll($params = [], $limit = 10)
     {
-        return $this->model->whereType($type)->orderBy('id', 'desc')->paginate($limit);
+        $query = $this->model->orderBy('id', 'desc');
+        if (!empty($params['type'])) {
+            $query->where('type', $params['type']);
+        }
+
+        if (!empty($params['status'])) {
+            $query->whereStatus($params['status']);
+        }
+
+        if (!empty($params['keyword'])) {
+            $query->where('title', 'like', '%' . $params['keyword'] . '%');
+        }
+
+        if (!empty($params['release_date'])) {
+
+            $rangeDate = json_decode($params['release_date'], true);
+            if (!empty($rangeDate['startDate']) && !empty($rangeDate['endDate'])) {
+                $dateStart = date_format(date_create($rangeDate['startDate']), 'Y-m-d 00:00:00');
+                $dateEnd = date_format(date_create($rangeDate['endDate']), 'Y-m-d 23:59:59');
+                $query->where([
+                    ['created_at', '>=', $dateStart],
+                    ['created_at', '<=', $dateEnd]
+                ]);
+            }
+        }
+
+        return $query->paginate($limit);
     }
 
     /**
@@ -33,14 +59,27 @@ class PageRepository
         return $this->model->create([
             'title' => $attributes['title'],
             'content' => $attributes['content'],
-            'release' => $attributes['release'],
-            'release_date' => $attributes['release_date'],
             'public' => $attributes['public'],
-            'public_destination' => $attributes['public_destination'],
+            'public_date' => $attributes['public_date'],
+            'status' => $attributes['status'],
+            'url' => $attributes['url'],
             'category_id' => $attributes['category_id'],
             'owner_id' => Auth::user()->id,
         ]);
 
+    }
+
+    public function changeStatus($id)
+    {
+        $page = $this->model->findOrFail($id);
+        $page->status = $page->status == 1 ? 0 : 1;
+        $page->save();
+        return $page;
+    }
+
+    public function show($id)
+    {
+        return $this->model->with('groups')->find($id);
     }
 
     public function latestPage($type = 'blog', $limit = 5)

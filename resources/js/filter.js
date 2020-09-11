@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import moment from 'moment';
 
 function limitString(value) {
 
@@ -26,6 +27,11 @@ function limitString20(value) {
     }
 }
 
+function dateFormat(date) {
+    return moment(date).format('d/m/Y');
+}
+
 Vue.filter('limitString', limitString);
 Vue.filter('limitString20', limitString20);
+Vue.filter('dateFormat', dateFormat);
 

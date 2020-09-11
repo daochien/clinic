@@ -34,7 +34,7 @@
 
                       <td>{{index + 1}}</td>
                       <td>{{item.name}}</td>
-                         <td>{{item.group_users_count}}</td>
+                         <td>{{item.users_count}}</td>
                          <td style="width:80px">
                              <div class="dropdown">
                                  <i

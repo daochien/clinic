@@ -95,6 +95,11 @@ return [
             'driver' => 'monolog',
             'handler' => NullHandler::class,
         ],
+        'notification' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/notification-' . str_replace('-', '', php_sapi_name() ?? 'php') . '.log'),
+            'level' => 'debug',
+        ],
     ],
 
 ];
