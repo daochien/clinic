@@ -172,7 +172,7 @@ export default {
                 this.$Progress.start();
                 this.manager.post('/api/manager')
                 .then( (data) => {
-                    if(data.data.success) {
+                    if(data.data.status) {
                         this.$router.push({path: '/admin/manager'});
                         Toast.fire({
                             icon: 'success',
@@ -227,7 +227,7 @@ export default {
             this.$Progress.start();
             this.manager.put('/api/manager/'+this.manager.id, this.manager)
             .then( (data) => {
-                if(data.data.success) {
+                if(data.data.status) {
                     this.$router.push({path: '/admin/manager'});
                     Toast.fire({
                         icon: 'success',
@@ -253,26 +253,30 @@ export default {
         },
         removeAdmin (id) {
             Swal.fire({
-                title: this.$t('admin.popup.are_you_sure'),
-                text: this.$t('admin.popup.you_wont_able_revert'),
+                title: this.$t('admin.others._remove_modal_title'),
+                text: this.$t('admin.others._remove_modal_description'),
                 showCancelButton: true,
+                cancelButtonText: this.$t('admin.others._remove_modal_no'),
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: this.$t('admin.popup.delete_it')
+                confirmButtonText: this.$t('admin.others._remove_modal_yes')
             }).then((result) => {
                 // Send request to the server
                 if (result.value) {
 
                     axios.delete('/api/manager/'+id).then(() => {
-                        Swal.fire(
-                            this.$t('admin.popup.deleted'),
-                            this.$t('admin.popup.your_item_has_been_deleted'),
-                            'success'
-                        );
+                        Toast.fire({
+                            icon: 'success',
+                            title: this.$t('admin.others._remove_modal_deleted')
+                        });
+
                         // Fire.$emit('AfterCreate');
                         this.$router.push({path: '/admin/manager'});
                     }).catch((data) => {
-                        Swal.fire("Failed!", data.message, "warning");
+                        Toast.fire({
+                            icon: 'error',
+                            title: this.$t('common.messages._system_err')
+                        });
                     });
                 }
             })

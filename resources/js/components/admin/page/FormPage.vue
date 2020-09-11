@@ -102,7 +102,7 @@
                                     <multiselect
                                         v-model="page.groups"
                                         :options="groups"
-                                        :multiple="true"                                        
+                                        :multiple="true"
                                         label="name"
                                         track-by="id"
                                         :placeholder="$t('page.info.form._url_pl')"
@@ -131,7 +131,7 @@
                                     <span @click="removeImage()" style="color: #EB5757; font-size: 10px; cursor: pointer;">アイキャッチ画像を削除する</span>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="custom-file">                                        
+                                    <div class="custom-file">
                                         <input
                                         ref="file"
                                         type="file"
@@ -144,7 +144,7 @@
                                     <has-error :form="pageFormErrors" field="image"></has-error>
                                 </div>
                             </div>
-                            <div class="form-group row" style="text-align: right;" v-if="page.type != 'faq'">                               
+                            <div class="form-group row" style="text-align: right;" v-if="page.type != 'faq'">
                                 <div class="col-sm-12">
                                     <span v-if="!showMore" @click="showMore = !showMore" style="cursor:pointer;">
                                         すべての設定を表示
@@ -161,7 +161,7 @@
                                                 <path d="M16.6138 10.6058L18.1626 9.04828L9.5001 0.394531L0.837597 9.05703L2.38635 10.6058L9.5001 3.49203L16.6138 10.6058Z" fill="#3D5170"/>
                                             </svg>
                                         </span>
-                                    </span>                                    
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -344,7 +344,7 @@ export default {
         }
     },
     methods: {
-        showModalCategory () {            
+        showModalCategory () {
             $('#addCategory').modal('show');
         },
         removeImage () {
@@ -576,10 +576,10 @@ export default {
                 }, objFile.path);
             }
         },
-        
+
         loadGroup () {
             axios.get("/api/group/all").then(({data}) => {
-                this.groups = data.data;                
+                this.groups = data.data;
             });
         },
 

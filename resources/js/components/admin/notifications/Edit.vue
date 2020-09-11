@@ -87,7 +87,7 @@
                                                         >{{ $t('notification.info.form.target_user_opt._dh')}}
                                                         </b-form-checkbox>
                                                     </div>
-                                                    <div class="col-1">
+                                                    <div class="col-4">
                                                         <b-form-checkbox
                                                             v-model="manual"
                                                             name="check-button"

@@ -54,7 +54,7 @@ class NotificationController extends BaseController
                 $id = $request['notification_id'];
             }
 
-            return $this->sendResponse($this->service->update($request, $id), __('notification.info._create_success'));
+            return $this->sendSuccessResponse($this->service->update($request, $id), __('notification.info._create_success'));
         } catch (\Exception $exception) {
             return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
@@ -166,7 +166,7 @@ class NotificationController extends BaseController
             $data = $this->service->fetch($filters);
             return new NotificationFetchCollection($data);
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getMessage(), [] , $exception->getCode());
+            return $this->sendErrorResponse($exception->getMessage(), [] , $exception->getCode());
         }
     }
 }

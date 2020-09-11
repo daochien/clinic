@@ -177,7 +177,7 @@
                 this.$Progress.start();
                 this.form.post('/api/user')
                     .then((data)=>{
-                        if(data.data.success){
+                        if(data.data.status){
                             Toast.fire({
                                 icon: "success",
                                 title: data.data.message,

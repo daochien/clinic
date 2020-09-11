@@ -34,7 +34,7 @@ class GroupController extends BaseController
      */
     public function index()
     {
-        $group = $this->group->latest()->withCount('group_users')->orderBy('id', 'desc')->paginate(10);
+        $group = $this->group->latest()->withCount('users')->orderBy('id', 'desc')->paginate(10);
         return $this->sendSuccessResponse($group, 'Group list');
     }
 
