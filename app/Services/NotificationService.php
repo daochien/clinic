@@ -82,7 +82,7 @@ class NotificationService
     {
         $members = NotificationUser::where('notification_id', $filter['id'])
             ->with([
-                'userStatus',
+                'status',
                 'notification',
                 'user',
                 'user.clinic',
@@ -176,18 +176,15 @@ class NotificationService
                 // Create notification user in group
                 $datas = GroupUser::where('group_id', $group['id'])->get();
                 foreach ($datas as $user) {
-                    NotificationUser::insertOrIgnore([
+                    $notificationUser = NotificationUser::firstOrCreate([
                         'notification_id' => $entity->id,
                         'user_id' => $user->user_id,
-                        'created_at' => now(),
-                        'updated_at' => now()
                     ]);
 
                     if ($request['confirm'] == true) {
                         NotificationStatus::insertOrIgnore([
-                            'notification_id' => $entity->id,
-                            'user_id' => $user->user_id,
-                            'status' => 1,
+                            'notification_user_id' => $notificationUser->id,
+                            'status' => NotificationStatus::STATUS['unconfirmed'],
                             'created_at' => now(),
                             'updated_at' => now()
                         ]);

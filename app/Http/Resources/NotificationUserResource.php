@@ -21,7 +21,7 @@ class NotificationUserResource extends JsonResource
             'notification_id' => $this->notification_id,
             "user" => $this->user,
             "notification" => $this->notification,
-            "user_status" => $this->userStatus,
+            "status" => $this->status,
             "user_confirm_date" => $this->userStatus->updated_at ?? null,
         ];
 

@@ -129,30 +129,25 @@
                                         <div v-else>-</div>
                                     </td>
                                     <td>
-                                        <div v-if="entity.notification.confirm == true">
+                                        <div>
                                             <span
-                                                v-if="entity.user_status.status == 1"
+                                                v-if="!status(entity, 1)"
                                                 class="text-secondary"
                                             >{{ $t('notification.noti_users.attr.status._unread') }}</span>
                                             <span
-                                                v-else-if="entity.user_status.status == 2"
+                                                v-else
                                                 class="text-primary"
                                             >{{ $t('notification.noti_users.attr.status._read') }}</span>
-                                            <span v-else>-</span>
                                         </div>
-                                        <div v-else>-</div>
                                     </td>
                                     <td>
                                         <div v-if="entity.notification.confirm == true">
                                             <span
-                                                v-if="entity.user_status.status == 1"
-                                                class="text-secondary"
+                                                v-if="status(entity, 2)"
                                             >{{ $t('notification.noti_users.others._unconfirm') }}</span>
                                             <span
-                                                v-else-if="entity.user_status.status == 2"
-                                                class="text-primary"
-                                            >{{ $moment(entity.user_confirm_date).format('YYYY-MM-DD HH:mm:ss') }}</span>
-                                            <span v-else>-</span>
+                                                v-if="status(entity, 3)"
+                                            >{{ $moment(status(entity, 3).created_at).format('YYYY-MM-DD HH:mm:ss') }}</span>
                                         </div>
                                         <div v-else>-</div>
                                     </td>
@@ -237,6 +232,17 @@
                 this.$Progress.finish();
                 this.$forceUpdate();
             },
+            status(notificationUser, status) {
+                if (!_.isEmpty(notificationUser.status)) {
+                    for(let i = 0; i< notificationUser.status.length; i++) {
+                        if (notificationUser.status[i].status == status) {
+                            return notificationUser.status[i];
+                        }
+                    }
+                }
+
+                return null;
+            }
         }
     };
 </script>

@@ -11,8 +11,9 @@ class NotificationStatus extends Model
     protected $table = 'notification_status';
 
     const STATUS = [
-        'unread' => 1,
-        'read' => 2,
+        'read' => 1,
+        'unconfirmed' => 2,
+        'confirmed' => 3,
     ];
 
     protected $guarded= [];

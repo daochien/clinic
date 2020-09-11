@@ -14,7 +14,10 @@ class NotificationRepository extends BaseRepository
 
     public function get()
     {
-        return $this->model->latest()->with(['notificationGroups.group'])->withCount(['notificationUsers', 'usersRead', 'usersConfirm'])->paginate(10);
+        return $this->model->latest()
+            ->with(['notificationGroups.group'])
+            ->withCount(['notificationUsers', 'usersRead', 'usersConfirmed'])
+            ->paginate(10);
     }
 
     public function getAll()

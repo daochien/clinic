@@ -55,12 +55,12 @@ class Notification extends Model
 
     public function usersRead()
     {
-        return $this->hasMany(NotificationStatus::class)->where('status', [2, 3]);
+        return $this->hasManyThrough(NotificationStatus::class, NotificationUser::class, 'notification_id', 'notification_user_id', 'id', 'id')->where('status', '=', NotificationStatus::STATUS['read']);
     }
 
-    public function usersConfirm()
+    public function usersConfirmed()
     {
-        return $this->hasMany(NotificationStatus::class)->where('status', '=', 1);
+        return $this->hasManyThrough(NotificationStatus::class, NotificationUser::class, 'notification_id', 'notification_user_id', 'id', 'id')->where('status', '=', NotificationStatus::STATUS['confirmed']);
     }
 
     public function creator()
