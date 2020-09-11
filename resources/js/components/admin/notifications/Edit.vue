@@ -166,6 +166,7 @@
     import { quillEditor } from 'vue-quill-editor'
 
     export default {
+        name: "EditCreateNotification",
         components: {
             Multiselect,
             datetime,
@@ -193,7 +194,10 @@
         },
         created() {
             this.$Progress.start();
-            this.form.notification_id = this.$route.params.id;
+            if (this.$route.params.id) {
+                this.form.notification_id = this.$route.params.id;
+            }
+
             this.loadNotification();
             this.$Progress.finish();
 

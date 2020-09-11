@@ -71,6 +71,10 @@ return [
             '_create_failed' => '管理者アカウントの登録に失敗しました。',
             '_edit_success' => '管理者情報の編集が成功しました。',
             '_edit_failed' => '管理者情報の編集に失敗しました。',
+            '_change_status_success' => 'Change status success',
+            '_change_status_failed' => 'Change status failed',
+            '_create_category_success' => 'Create Category Success',
+            '_create_category_failed' => 'Create Category Faild',            
         ],
         'others' => [
             '_btn_create' => '登録する',

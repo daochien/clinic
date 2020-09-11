@@ -14,10 +14,10 @@ class CreateNotificationUsersTable extends Migration
     public function up()
     {
         Schema::create('notification_users', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id');
+            $table->increments('id');
+            $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('notification_id')->index();
             $table->timestamps();
-            $table->primary(['user_id', 'notification_id'], 'pri_key_notification_users');
         });
     }
 

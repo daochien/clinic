@@ -172,7 +172,7 @@ export default {
                 this.$Progress.start();
                 this.manager.post('/api/manager')
                 .then( (data) => {
-                    if(data.data.success) {
+                    if(data.data.status) {
                         this.$router.push({path: '/admin/manager'});
                         Toast.fire({
                             icon: 'success',
@@ -227,7 +227,7 @@ export default {
             this.$Progress.start();
             this.manager.put('/api/manager/'+this.manager.id, this.manager)
             .then( (data) => {
-                if(data.data.success) {
+                if(data.data.status) {
                     this.$router.push({path: '/admin/manager'});
                     Toast.fire({
                         icon: 'success',

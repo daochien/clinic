@@ -77,6 +77,11 @@ class PageRepository
         return $page;
     }
 
+    public function show($id)
+    {
+        return $this->model->with('groups')->find($id);
+    }
+
     public function latestPage($type = 'blog', $limit = 5)
     {
         return $this->model->where('type', $type)->orderBy('id', 'desc')->paginate($limit);
