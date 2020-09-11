@@ -96,26 +96,29 @@
             },
             deleteClinic(id){
                 Swal.fire({
-                    title: this.$t('app').popup.are_you_sure,
-                    text: this.$t('app').popup.you_wont_able_revert,
+                    title: this.$t('clinic').others._remove_modal_title,
+                    text: this.$t('clinic').others._remove_modal_description,
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('app').popup.delete_it
+                    confirmButtonText: this.$t('clinic').others._remove_modal_yes,
+                    cancelButtonText: this.$t('clinic').others._remove_modal_no,
                 }).then((result) => {
                     if (result.value) {
                         axios
                             .delete("/api/clinic/"+id)
                             .then(() => {
-                                Swal.fire(
-                                    this.$t('app').popup.deleted,
-                                    this.$t('app').popup.your_item_has_been_deleted,
-                                    'success'
-                                );
+                                Toast.fire({
+                                    icon: "success",
+                                    title: this.$t('clinic').list._remove_success,
+                                });
                                 // Fire.$emit('AfterCreate');
                                 this.loadClinics();
                             }).catch((data)=> {
-                            Swal.fire("Failed!", data.message, "warning");
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('clinic').list._remove_failed,
+                            });
                         });
                     }
                 })
