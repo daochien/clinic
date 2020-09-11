@@ -176,25 +176,28 @@
             },
             deleteUser(id) {
                 Swal.fire({
-                    title: this.$t('app').popup.are_you_sure,
-                    text: this.$t('app').popup.you_wont_able_revert,
+                    title: this.$t('staff').others._remove_modal_title,
+                    text: this.$t('staff').others._remove_modal_description,
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('app').popup.delete_it
+                    confirmButtonText: this.$t('staff').others._remove_modal_yes,
+                    cancelButtonText: this.$t('staff').others._remove_modal_no,
                 }).then((result) => {
                     // Send request to the server
                     if (result.value) {
                         axios.delete('/api/user/' + id).then(() => {
-                            Swal.fire(
-                                this.$t('app').popup.deleted,
-                                this.$t('app').popup.your_item_has_been_deleted,
-                                'success'
-                            );
+                            Toast.fire({
+                                icon: "success",
+                                title: this.$t('staff').list._remove_success,
+                            });
                             // Fire.$emit('AfterCreate');
                             this.loadUsers();
                         }).catch((data) => {
-                            Swal.fire("Failed!", data.message, "warning");
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('staff').list._remove_failed,
+                            });
                         });
                     }
                 })

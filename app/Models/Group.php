@@ -13,6 +13,7 @@ class Group extends Model
      */
     protected $fillable = ['name', 'description', 'forced'];
 
+    public $timestamps = true;
 
     /**
      * The attributes that should be hidden for arrays.
