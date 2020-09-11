@@ -106,11 +106,11 @@ export default [
     {
         path: '/admin/page',
         component: {template: '<router-view/>'},
-        name: 'page', meta: {breadcrumb: `Page`},
+        name: 'page', meta: {breadcrumb: `記事管理`},
         children: [
-            { path: '', component: require('./components/admin/page/Index.vue').default, meta: {breadcrumb: `Manager Page`} },
-            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Create`} },            
-            { path: 'edit/:id', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `Edit`} },            
+            { path: '', component: require('./components/admin/page/Index.vue').default, meta: {breadcrumb: `記事一覧`} },
+            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `記事作成`} },            
+            { path: 'edit/:id', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `記事編集`} },            
         ]
     },
 ];

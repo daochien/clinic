@@ -131,7 +131,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['template.index']
+                    'routes' => ['template.index', 'api.template.show']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -143,7 +143,7 @@
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'routes' => ['template.destroy']
+                    'routes' => ['api.template.destroy']
                 ]
             ]
         ],
@@ -174,15 +174,15 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['api.request.category.list']
+                    'routes' => ['api.request.category.list', 'api.request.show', 'api.request.attachment.download']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => [],
+                    'routes' => ['api.request.store'],
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['api.request.show', 'api.request.change_status']
+                    'routes' => ['api.request.comment', 'api.request.change_status']
                 ],
                 'delete' => [
                     'name' => 'Delete',
@@ -224,7 +224,7 @@
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['page.show', 'page.store']
+                    'routes' => ['page.show', 'page.update']
                 ],
                 'delete' => [
                     'name' => 'Delete',

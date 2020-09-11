@@ -94,7 +94,7 @@
             },
             approve(id) {
                 this.$Progress.start();
-                axios.post("/api/request/" + id, {
+                axios.post("/api/request/" + id + "/status", {
                     status: 1,
                 })
                 .then((data) => {
@@ -133,7 +133,7 @@
                     // Send request to the server
                     if (result.value) {
                         this.$Progress.start();
-                        axios.post("/api/request/" + id, {
+                        axios.post("/api/request/" + id + "/status", {
                             status: 2,
                         })
                         .then((data) => {

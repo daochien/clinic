@@ -399,53 +399,98 @@ export default {
             }
         },
         "page": {
-            "title_page_list": "Page management",
-            "title_page_create": "Page create",
-            "title_page_edit": "Page edit",
-            "button_create": "Create page",
-            "form_filter": {
-                "placeholder_input_keyword": "Please enter a keyword",
-                "select_all_roles": "All role",
-                "select_roles": "Role",
-                "input_text_search": "Keyword",
-                "button_clear": "Clear",
-                "button_search": "Search"
+            "attr": {
+                "_type": "Type",
+                "_title": "Title",
+                "_public": "Public",
+                "_public_date": "Public date",
+                "_status": "Status",
+                "_url": "URL destination",
+                "_category": "Category",
+                "_image": "Image"
             },
-            "table": {
-                "name": "Name",
-                "email": "Email",
-                "role": "Role",
-                "note": "Note",
-                "last_login": "Last Login",
-                "action": "Action",
-                "action_edit": "Edit",
-                "action_delete": "Remove"
+            "list": {
+                "_og_title": "友伸會ポータル管理画面｜管理者アカウント管理・管理者一覧",
+                "_page_title": "List of articles",
+                "search_box": {
+                    "_type": "Documents",
+                    "_type_pl": "All documents",
+                    "_status": "status",
+                    "_status_pl": "All status",
+                    "_date": "Publication date",
+                    "_keyword": "Keyword",
+                    "_keyword_pl": "Please enter a keyword",
+                    "_btn_clear": "Clear the condition",
+                    "_btn_search": "Search by this condition"
+                },
+                "data_table": {
+                    "_title": "書類タイトル",
+                    "_type": "種類",
+                    "_category": "カテゴリー",
+                    "public_date": "公開日付",
+                    "status": "ステータス",
+                    "_registered_at": "登録日時",
+                    "_last_login_at": "最終ログイン日時",
+                    "actions": {
+                        "_act_edit": "編集する",
+                        "_act_remove": "削除する"
+                    }
+                },
+                "messages": {
+                    "_remove_success": "管理者情報の削除が成功しました。",
+                    "_remove_failed": "管理者情報の削除に失敗しました。"
+                },
+                "others": {
+                    "_btn_create": "Create New",
+                    "_no_data": "管理者アカウントが存在しません。",
+                    "_no_search_result": "該当する管理者情報が存在しません。"
+                }
             },
-            "form_create": {
-                "title": "Account Info",
-                "input_name": "Name",
-                "input_email": "Email",
-                "role": "Role",
-                "note": "Note",
-                "button_create": "Register",
-                "button_edit": "Save",
-                "button_remove": "Remove account",
-                "alert_create_success": "create admin success",
-                "alert_edit_success": "update admin success",
-                "alert_error": "Some error occured! Please try again"
+            "info": {
+                "_og_title_create": "友伸會ポータル管理画面｜管理者アカウント管理・新規アカウント登録",
+                "_og_title_edit": "友伸會ポータル管理画面｜管理者アカウント管理・管理者情報編集",
+                "_page_title_create": "Create Page",
+                "_page_title_edit": "Edit Page",
+                "_basic_info": "Basic information",
+                "_article_content": "Article content",
+                "tabs": {
+                    "_manual": "Manual Setting",
+                    "_file": "File Upload"
+                },
+                "form": {
+                    "_title_pl": "Please enter a title",
+                    "_url_pl": "Please specify the publication destination",
+                    "_category_pl": "Please specify a category",
+                    "_title_upload": "Please choose the file",
+                    "_content_upload": "Please upload the document (pdf, docx ppt), image file (png, jpg) or video (mp4).",
+                    "_btn_upload": "Upload file"
+                },
+                "messages": {
+                    "_create_success": "管理者アカウントの登録が成功しました。",
+                    "_create_failed": "管理者アカウントの登録に失敗しました。",
+                    "_edit_success": "管理者情報の編集が成功しました。",
+                    "_edit_failed": "管理者情報の編集に失敗しました。"
+                },
+                "others": {
+                    "_btn_create": "登録する",
+                    "_btn_edit": "編集する",
+                    "_btn_remove": "削除する"
+                },
+                "popup": {
+                    "_create_title": "Create Category",
+                    "_btn_create": "Create",
+                    "_btn_close": "Close",
+                    "_btn_show_popup_category": "Add Category",
+                    "attr": {
+                        "_name": "Name"
+                    }
+                }
             },
-            "confirm_remove": {
-                "title_remove": "Are you sure？",
-                "content": "If you delete your account, all information such as email address and application data will be deleted.",
-                "button_cancel": "Cancel",
-                "button_success": "Delete account"
-            },
-            "validator": {
-                "name_required": "name is required",
-                "name_maxLength": "name cannot exceed 255 characters",
-                "email_required": "email is required",
-                "email_valid": "incorrect email format",
-                "email_maxLength": "email cannot exceed 255 characters"
+            "others": {
+                "_remove_modal_yes": "はい",
+                "_remove_modal_no": "いいえ",
+                "_remove_modal_title": "管理者情報を削除",
+                "_remove_modal_description": "この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
             }
         },
         "pagination": {
@@ -916,7 +961,8 @@ export default {
             "name": "友伸會ポータル管理画面",
             "menu": {
                 "top": {
-                    "_logout": "ログアウト"
+                    "_logout": "ログアウト",
+                    "_profile": "マイアカウント"
                 },
                 "sidebar": {
                     "admin_management": {
@@ -1085,7 +1131,8 @@ export default {
                 }
             },
             "messsages": {
-                "_system_err": "システムエラーが発生しました。しばらく時間をおいてから再度お試しください。"
+                "_system_err": "システムエラーが発生しました。しばらく時間をおいてから再度お試しください。",
+                "_not_found": "Not Found。"
             }
         },
         "group": {
@@ -1257,6 +1304,101 @@ export default {
                 "_remove_modal_no": "いいえ",
                 "_remove_modal_title": "お知らせを削除",
                 "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。"
+            }
+        },
+        "page": {
+            "attr": {
+                "_type": "書類",
+                "_title": "タイトル",
+                "_public": "公開",
+                "_public_date": "公開日時",
+                "_status": "全員公開",
+                "_url": "公開先",
+                "_category": "カテゴリ",
+                "_image": "アイキャッチ画像"
+            },
+            "list": {
+                "_og_title": "友伸會ポータル管理画面｜管理者アカウント管理・管理者一覧",
+                "_page_title": "記事一覧",
+                "search_box": {
+                    "_type": "書類",
+                    "_type_pl": "すべての書類",
+                    "_status": "ステータス",
+                    "_status_pl": "すべてのステータス",
+                    "_date": "公開日付",
+                    "_keyword": "キーワード",
+                    "_keyword_pl": "キーワードを入力してください",
+                    "_btn_clear": "条件をクリアする",
+                    "_btn_search": "この条件で検索"
+                },
+                "data_table": {
+                    "_title": "書類タイトル",
+                    "_type": "種類",
+                    "_category": "カテゴリー",
+                    "public_date": "公開日付",
+                    "status": "ステータス",
+                    "_registered_at": "登録日時",
+                    "_last_login_at": "最終ログイン日時",
+                    "actions": {
+                        "_act_edit": "編集する",
+                        "_act_remove": "削除する"
+                    }
+                },
+                "messages": {
+                    "_remove_success": "管理者情報の削除が成功しました。",
+                    "_remove_failed": "管理者情報の削除に失敗しました。"
+                },
+                "others": {
+                    "_btn_create": "新規作成",
+                    "_no_data": "管理者アカウントが存在しません。",
+                    "_no_search_result": "該当する管理者情報が存在しません。"
+                }
+            },
+            "info": {
+                "_og_title_create": "友伸會ポータル管理画面｜管理者アカウント管理・新規アカウント登録",
+                "_og_title_edit": "友伸會ポータル管理画面｜管理者アカウント管理・管理者情報編集",
+                "_page_title_create": "記事作成",
+                "_page_title_edit": "投稿を編集",
+                "_basic_info": "基本情報",
+                "_article_content": "記事内容",
+                "tabs": {
+                    "_manual": "マニュアル設定",
+                    "_file": "ファイルアップロード"
+                },
+                "form": {
+                    "_title_pl": "タイトルを入力してください",
+                    "_url_pl": "公開先を指定してください",
+                    "_category_pl": "カテゴリーを指定してください",
+                    "_title_upload": "ファイルを選択してください",
+                    "_content_upload": "ドキュメント（pdf, docx ppt）、画像ファイル（png, jpg）または動画（mp4）をアップロードしてくだい",
+                    "_btn_upload": "ファイルを選択"
+                },
+                "messages": {
+                    "_create_success": "管理者アカウントの登録が成功しました。",
+                    "_create_failed": "管理者アカウントの登録に失敗しました。",
+                    "_edit_success": "管理者情報の編集が成功しました。",
+                    "_edit_failed": "管理者情報の編集に失敗しました。"
+                },
+                "others": {
+                    "_btn_create": "登録する",
+                    "_btn_edit": "編集する",
+                    "_btn_remove": "削除する"
+                },
+                "popup": {
+                    "_create_title": "ディレクトリを作成する",
+                    "_btn_create": "新しく作る",
+                    "_btn_close": "キャンセル",
+                    "_btn_show_popup_category": "新しいカテゴリーを追加",
+                    "attr": {
+                        "_name": "種別名"
+                    }
+                }
+            },
+            "others": {
+                "_remove_modal_yes": "はい",
+                "_remove_modal_no": "いいえ",
+                "_remove_modal_title": "管理者情報を削除",
+                "_remove_modal_description": "この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
             }
         },
         "pagination": {
