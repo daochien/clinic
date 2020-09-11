@@ -400,7 +400,7 @@ export default {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
-                if (data.success) {
+                if (data.status) {
                     this.$router.push({path: '/admin/page'});
                     Toast.fire({
                         icon: 'success',
@@ -441,8 +441,8 @@ export default {
             if (this.page.groups.length > 0) {
                 data.append('groups', JSON.stringify(this.page.groups));
             }
-            data.append('is_remove_image', this.page.isRemoveImage);
-            data.append('is_remove_file', this.page.isRemoveFile);
+            data.append('is_remove_image', this.page.isRemoveImage ? 1: 0);
+            data.append('is_remove_file', this.page.isRemoveFile ? 1 : 0);
 
             if (this.page.files.length > 0) {
                 for (let i = 0; i < this.page.files.length; i++) {
@@ -504,7 +504,7 @@ export default {
             this.$Progress.start();
             this.formCategory.post('/api/category')
                 .then( ({data}) => {
-                    if(data.success) {
+                    if(data.status) {
                         this.formCategory.reset();
                         $('#addCategory').modal('hide');
                         this.loadCategory();
@@ -593,7 +593,7 @@ export default {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
-                if (data.success) {
+                if (data.status) {
                     this.$router.push({path: '/admin/page'});
                     Toast.fire({
                         icon: 'success',
