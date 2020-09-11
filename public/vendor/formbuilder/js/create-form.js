@@ -135,7 +135,7 @@ jQuery(function() {
         }
 
         // ask for confirmation
-        sConfirm("Save this form definition?", function() {
+        sConfirm("このテンプレート定義を保存します?", function() {
             fbSaveBtn.attr('disabled', 'disabled');
             fbClearBtn.attr('disabled', 'disabled');
 
@@ -206,7 +206,7 @@ jQuery(function() {
         }
 
         // ask for confirmation
-        sConfirm("Save this form definition?", function() {
+        sConfirm("このテンプレート定義を保存します?", function() {
             fbSaveBtn.attr('disabled', 'disabled');
             fbClearBtn.attr('disabled', 'disabled');
 
