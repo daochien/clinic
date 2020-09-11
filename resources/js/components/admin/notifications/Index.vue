@@ -8,7 +8,7 @@
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
                 <router-link
                     :class="'btn btn-primary pl-5 pr-5'"
-                    :to="{ path: '/admin/notification/edit'}"
+                    :to="{ name: 'create_notification'}"
                 >{{ $t('notification.list.others._btn_create')}}
                 </router-link>
             </div>
@@ -140,11 +140,11 @@
                                         </div>
                                         <div v-else>-</div>
                                     </td>
-                                    <td>{{ entity.users_count }}</td>
+                                    <td>{{ entity.notification_users_count }}</td>
                                     <td>{{ entity.users_read }}</td>
                                     <td>
-                                        <label v-if="entity.confirm === 0">{{ entity.users_count}}</label>
-                                        <label v-else>{{ entity.users_confirm }}</label>
+                                        <label v-if="entity.confirm === 1">{{ entity.users_confirm }}</label>
+                                        <label v-else> -- </label>
                                     </td>
                                     <td>{{ $moment(entity.schedule_date).format('YYYY-MM-DD hh:mm:ss') }}</td>
                                     <td>
@@ -165,7 +165,7 @@
                                                 aria-labelledby="operatingAction"
                                             >
                                                 <button
-                                                    v-if="new Date(entity.schedule_date) >= new Date()"
+                                                    v-if="new Date(entity.schedule_date) >= new Date() && !entity.draft"
                                                     class="dropdown-item text-primary"
                                                     @click="publishAnnouncement(entity)"
                                                 >{{ $t('notification.list.data_table.actions._act_public')}}
@@ -274,13 +274,13 @@
             },
             deleteNotification() {
                 Swal.fire({
-                    title: this.$t("app").delete_head,
-                    text: this.$t("app").delete_question,
+                    title: this.$t("notification.others._remove_modal_title"),
+                    text: this.$t("notification.others._remove_modal_description"),
                     showCancelButton: true,
                     confirmButtonColor: "#d33",
                     cancelButtonColor: "#3085d6",
-                    confirmButtonText: this.$t("app").delete_yes,
-                    cancelButtonText: this.$t("app").delete_cancel,
+                    confirmButtonText: this.$t("notification.others._remove_modal_yes"),
+                    cancelButtonText: this.$t("notification.others._remove_modal_no"),
                 }).then((result) => {
                     if (result.value) {
                     }
@@ -303,7 +303,7 @@
                     .catch(() => {
                         Toast.fire({
                             icon: "error",
-                            title: this.$t('app').notification.some_error,
+                            title: this.$t("common.messages._system_err"),
                         });
                     }).finally(() => {
                         notification.groups = groups;
@@ -324,7 +324,7 @@
                     .catch(() => {
                         Toast.fire({
                             icon: "error",
-                            title: this.$t("app").notification.some_error,
+                            title: this.$t("common.messages._system_err"),
                         });
                     });
                 this.$Progress.finish();

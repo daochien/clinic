@@ -22,8 +22,8 @@ class NotificationUser extends Model
         return $this->belongsTo(Notification::class, 'notification_id', 'id');
     }
 
-    public function userStatus()
+    public function status()
     {
-        return $this->belongsTo(NotificationStatus::class, 'user_id', 'user_id');
+        return $this->hasMany(NotificationStatus::class, 'notification_user_id', 'id');
     }
 }

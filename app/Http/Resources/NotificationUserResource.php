@@ -21,13 +21,9 @@ class NotificationUserResource extends JsonResource
             'notification_id' => $this->notification_id,
             "user" => $this->user,
             "notification" => $this->notification,
-            "user_status" => $this->userStatus,            
-            "user_confirm_date" => $this->userStatus->updated_at
+            "status" => $this->status,
+            "user_confirm_date" => $this->userStatus->updated_at ?? null,
         ];
-
-        if (App::isLocale('ja')) {
-            $datas["user_confirm_date"] = DateHelper::toJaDate($this->userStatus->updated_at);
-        }
 
         return $datas;
     }

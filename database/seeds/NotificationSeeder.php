@@ -92,17 +92,17 @@ class NotificationSeeder extends Seeder
                     'updated_at' => now(),
                 ];
 
-                $notificationStatusData[] = [
-                    'user_id' => $webappUser->id,
-                    'notification_id' => $notification->id,
-                    'status' =>  rand(0, 100) < 50 ? 2 : 1,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ];
+//                $notificationStatusData[] = [
+//                    'user_id' => $webappUser->id,
+//                    'notification_id' => $notification->id,
+//                    'status' =>  rand(0, 100) < 50 ? 2 : 1,
+//                    'created_at' => now(),
+//                    'updated_at' => now(),
+//                ];
             }
 
             $notificationUsers = DB::table('notification_users')->insert($notificationUsersData);
-            $notificationUsers = DB::table('notification_status')->insert($notificationStatusData);
+//            $notificationUsers = DB::table('notification_status')->insert($notificationStatusData);
             DB::commit();
 //        } catch (\Exception $e) {
 //            var_dump($e->getMessage());
