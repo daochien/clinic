@@ -12,7 +12,7 @@
         "aws/aws-sdk-php-laravel": "^3.5",
         "brian2694/laravel-toastr": "^5.54",
         "fideloper/proxy": "^4.0",
-        "fruitcake/laravel-cors": "^2.0",
+        "fruitcake/laravel-cors": "^2.0",        
         "jazmy/jaz-form-builder": "dev-master",
         "laravel-notification-channels/aws-sns": "^1.1",
         "laravel/framework": "^7.0",
