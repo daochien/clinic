@@ -2,6 +2,7 @@ export default [
     { path: '/notification', component: require('./components/client/notification/Index.vue').default },
 
     { path: '/blogs', component: require('./components/front-end/Page.vue').default },
+    { path: '/blogs/:id', component: require('./components/front-end/PageDetail.vue').default },
 
     { path: '/admin/dashboard', component: require('./components/admin/Dashboard.vue').default },
     { path: '/admin/profile', component: require('./components/admin/Profile.vue').default },
@@ -109,8 +110,8 @@ export default [
         name: 'page', meta: {breadcrumb: `記事管理`},
         children: [
             { path: '', component: require('./components/admin/page/Index.vue').default, meta: {breadcrumb: `記事一覧`} },
-            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `記事作成`} },            
-            { path: 'edit/:id', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `記事編集`} },            
+            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `記事作成`} },
+            { path: 'edit/:id', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `記事編集`} },
         ]
     },
 ];
