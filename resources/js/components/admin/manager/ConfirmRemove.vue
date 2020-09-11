@@ -35,7 +35,7 @@ export default {
             this.$Progress.start();
             axios.delete('/api/manager/'+this.id)
             .then( (data) => {
-                if(data.data.success) {
+                if(data.data.status) {
                     this.$emit('remove-success', true);
                     Toast.fire({
                         icon: 'success',

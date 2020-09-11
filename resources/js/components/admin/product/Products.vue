@@ -199,7 +199,7 @@
 
               this.form.post('/api/product')
               .then((data)=>{
-                if(data.data.success){
+                if(data.data.status){
                   $('#addNew').modal('hide');
 
                   Toast.fire({

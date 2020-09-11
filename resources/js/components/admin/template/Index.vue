@@ -111,7 +111,7 @@
                     if (result.value) {
                         axios.delete('/api/template/' + id)
                             .then((data) => {
-                                if (data.data.success) {
+                                if (data.data.status) {
                                     Toast.fire({
                                         icon: "success",
                                         title: this.$t('request').template.info.messages._delete_success,
