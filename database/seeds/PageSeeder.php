@@ -47,7 +47,12 @@ class PageSeeder extends Seeder
                 'public_date' => \Carbon\Carbon::now(),
                 'status' => rand(0,1),
                 'url' => $domain,
-                'files' => json_encode([$file]),
+                'files' => json_encode([
+                    'name' => 'docs api',
+                    'path' => $file,
+                    'size' => '1024KB',
+                    'extension' => 'docs'
+                ]),
                 'owner_id' => 1
             ]);
         }

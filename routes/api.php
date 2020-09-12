@@ -72,13 +72,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('request/{id}/status', 'API\V1\RequestController@changeStatus')->name('api.request.change_status');
         Route::post('request/{id}/comment', 'API\V1\RequestController@comment')->name('api.request.comment');
         Route::post('request/{id}', 'API\V1\RequestController@store')->name('api.request.store');
-
-        Route::get('page/blogs', 'API\V1\PageController@blogs')->name('page.blogs');
-        Route::get('page/blog-latest', 'API\V1\PageController@blogLatest')->name('page.blogLatest');
-        Route::get('page/manual-latest', 'API\V1\PageController@manualLatest')->name('page.manualLatest');
-        Route::get('page/faq-latest', 'API\V1\PageController@faqLatest')->name('page.faqLatest');
+        
+        Route::get('page/manual-latest', 'API\V1\PageController@manualLatest')->name('page.manualLatest');        
         Route::post('page/upload-image-content', 'API\V1\PageController@uploadImageContent')->name('page.uploadImageContent');
         Route::put('page/{id}/change-status', 'API\V1\PageController@changeStatus')->name('page.changeStatus');
+        Route::put('page/{id}/rating', 'API\V1\PageController@rating')->name('page.rating');
         Route::post('page/{id}', 'API\V1\PageController@update')->name('page.update');
 
         Route::apiResources([

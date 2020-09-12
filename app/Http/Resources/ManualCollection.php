@@ -8,6 +8,9 @@ class ManualCollection extends ResourceCollection
 {
     public function toArray($request)
     {
-        return ManualResource::collection($this->collection);
+        return [
+            'status' => true,
+            'data' => ManualResource::collection($this->collection)
+        ];
     }
 }

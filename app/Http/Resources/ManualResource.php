@@ -20,10 +20,12 @@ class ManualResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'files' => $this->getFile($this->files),
-            'short_title' => Str::limit($this->title, 40),
-            // 'email' => $this->email,
-            // 'description' => $this->description,
-            'created_at' => $this->created_at->format('d/m/Y'),
+            'type' => $this->type,
+            'image' => $this->image,
+            'category_id' => $this->category_id,
+            'catetory_name' => @$this->categorys->name,                        
+            'content' => $this->content,
+            'created_at' => $this->created_at,
         ];
     }
 
@@ -31,7 +33,7 @@ class ManualResource extends JsonResource
     {
         if (!empty($files)) {
             $files = json_decode($files);
-            return $files[0];
+            return $files;
         }
         return '';
     }
