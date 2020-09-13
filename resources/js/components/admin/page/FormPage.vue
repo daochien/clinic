@@ -5,17 +5,21 @@
                 <h3 class="page-title">{{ isEdit ? $t('page.info._page_title_edit') : $t('page.info._page_title_create') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-center text-sm-right mb-0">
+                <button 
+                v-if="isEdit" 
+                class="btn btn-salmon mr-2" 
+                @click="removePage(page.id)">{{ $t('page.info.form._btn_remove') }}</button>
                 <button
                 v-if="!isEdit"
                 class="btn btn-primary float-right"
-                style="font-size: 16px; width: 140px;"
+                
                 @click="createPage()">
                     {{ $t('page.info.others._btn_create') }}
                 </button>
                 <button
                 v-if="isEdit"
                 class="btn btn-primary float-right"
-                style="font-size: 16px; width: 140px;"
+                
                 @click="updatePage()">
                     {{ $t('page.info.others._btn_edit') }}
                 </button>
@@ -33,15 +37,15 @@
                                 <label class="col-sm-2 col-form-label" style="color:#c4183c;">{{ $t('page.attr._type') }} <span>*</span></label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="custom-control custom-radio form-check-inline float-left">
-                                        <input class="custom-control-input" type="radio" id="inlineArticle" v-model="page.type" :value="'blog'">
+                                        <input class="custom-control-input" :disabled="isEdit && page.type !='blog' " type="radio" id="inlineArticle" v-model="page.type" :value="'blog'">
                                         <label class="custom-control-label" for="inlineArticle">記事</label>
                                     </div>
                                     <div class="custom-control custom-radio form-check-inline float-left">
-                                        <input class="custom-control-input" type="radio" id="inlineManual" v-model="page.type" :value="'manual'">
+                                        <input class="custom-control-input" :disabled="isEdit && page.type !='manual' " type="radio" id="inlineManual" v-model="page.type" :value="'manual'">
                                         <label class="custom-control-label" for="inlineManual">マニュアル</label>
                                     </div>
                                     <div class="custom-control custom-radio form-check-inline float-left">
-                                        <input class="custom-control-input" type="radio" id="inlineFAQ" v-model="page.type" :value="'faq'">
+                                        <input class="custom-control-input" :disabled="isEdit  && page.type !='faq'" type="radio" id="inlineFAQ" v-model="page.type" :value="'faq'">
                                         <label class="custom-control-label" for="inlineFAQ">よくある質問</label>
                                     </div>
                                 </div>
@@ -323,6 +327,7 @@ export default {
         this.$refs.quill.quill.getModule("toolbar").addHandler("image", this.imageHandler);
     },
     computed: {
+        
         pageType () {
             return this.page.type;
         },
@@ -627,7 +632,37 @@ export default {
                 });
             }
             this.$Progress.finish();
+        },
+        removePage (id) {
+            Swal.fire({
+                title: this.$t('page.others._remove_modal_title'),
+                text: this.$t('page.others._remove_modal_description'),
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: this.$t('page.others._remove_modal_no'),
+                confirmButtonText: this.$t('page.others._remove_modal_yes')
+            }).then((result) => {
+                // Send request to the server
+                if (result.value) {
 
+                    axios.delete('/api/page/'+id).then(() => {
+
+                        Toast.fire({
+                            icon: 'success',
+                            title: this.$t('page.list.messages._remove_success')
+                        });
+
+                        // Fire.$emit('AfterCreate');
+                        this.$router.push({path: '/admin/page'});
+                    }).catch((data) => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: this.$t('common.messages._system_err')
+                        });
+                    });
+                }
+            })
         },
     }
 }
