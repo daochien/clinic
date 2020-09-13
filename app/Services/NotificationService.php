@@ -112,15 +112,11 @@ class NotificationService
             );
         }
 
-        if (!empty($filter['status'])) {
+        if (!empty($filter['status']) && $filter['status'] > -1) {
             $members->whereHas(
-                'userStatus',
+                'status',
                 function ($qstatus) use ($filter) {
-                    if ($filter['status'] == '0') {
-                        $qstatus->whereIn('status', [1, 2, 3]);
-                    } else {
-                        $qstatus->where('status', '=', $filter['status']);
-                    }
+                    $qstatus->where('status', '=', $filter['status']);
                 }
             );
         }

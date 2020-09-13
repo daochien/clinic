@@ -34,14 +34,20 @@
                                                 <div class="form-group">
                                                     <label>{{ $t('notification.noti_users.attr._status')}}</label>
                                                     <select class="form-control" id="status" v-model="form.status">
-                                                        <option value="0">{{
+                                                        <option value="-1">{{
                                                             $t('notification.noti_users.search_box._status_df')}}
                                                         </option>
-                                                        <option value="1">{{
+                                                        <option value="0">{{
                                                             $t('notification.noti_users.attr.status._unread')}}
                                                         </option>
-                                                        <option value="2">{{
+                                                        <option value="1">{{
                                                             $t('notification.noti_users.attr.status._read')}}
+                                                        </option>
+                                                        <option value="2">{{
+                                                            $t('notification.noti_users.attr.status._unconfirmed')}}
+                                                        </option>
+                                                        <option value="3">{{
+                                                            $t('notification.noti_users.attr.status._confirmed')}}
                                                         </option>
                                                     </select>
                                                 </div>
@@ -214,8 +220,7 @@
             searchData() {
                 this.$Progress.start();
                 var app = this;
-                axios
-                    .post("/api/notification/detailSearch", this.form)
+                axios.post("/api/notification/detailSearch", this.form)
                     .then((data) => {
                         app.members = data.data;
                         Toast.fire({
@@ -223,7 +228,8 @@
                             title: data.data.message,
                         });
                     })
-                    .catch(() => {
+                    .catch((error) => {
+                        console.log(error);
                         Toast.fire({
                             icon: "error",
                             title: this.$t("app").notification.some_error,
