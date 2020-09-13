@@ -24,9 +24,9 @@
                 <div class="side-content">
                 <ul>
                     <li v-for="(manual, index) in manuals" :key="index">
-                        <a :href="manual.files" target="blank">
-                            <span class="title">{{ manual.short_title}}</span>
-                            <span class="info">1.5mb <img src="/front-end/images/download-icon-2.png" alt=""></span>
+                        <a href="javascript:void(0)" >
+                            <span class="title">{{ manual.title}}</span>
+                            <span class="info">{{ manual.files.size }} <img @click="downloadManual(manual)" src="/front-end/images/download-icon-2.png" alt=""></span>
                         </a>
                     </li>
                 </ul>
@@ -34,29 +34,14 @@
             </div>
             </aside>
             <div class="blog-content content-wrapper">
-            <h2>Blog detail title Blog detail title Blog detail title Blog detail title Blog detail title </h2>
-            <span class="date">05/08/2020</span>
+            <h2>
+                {{ page.title }}
+            </h2>
+            <span class="date">{{ page.created_at | dateFormat }}</span>
             <div class="blog-main-img">
-                <img src="/front-end/images/news-detail.jpg" alt="news detail">
+                <img :src="page.image" alt="news detail">
             </div>
-            <div class="blog-detail-content">
-
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
-                <p>今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！Instagramマーケティングで知っておきたい基礎知識今さら聞けない！今さら聞けない！</p>
+            <div class="blog-detail-content" v-html="page.content">                
             </div>
             </div>
         </div>
@@ -69,6 +54,7 @@ export default {
         return {
             manuals: [],
             categories: [],
+            page: {}
         }
     },
     created () {
@@ -77,6 +63,7 @@ export default {
     mounted () {
         this.loadCategorys();
         this.loadManualLatest();
+        this.loadPage();
     },
     methods: {
         async loadCategorys () {
@@ -92,6 +79,34 @@ export default {
                 console.log(error);
             }
         },
+        loadPage () {
+            axios.get("/api/page/"+this.$route.params.id)
+            .then(({ data }) => {                
+                if (data.data) {
+                    this.page = data.data;                                        
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+        async downloadManual (manual) {
+            if (manual.files.path) {
+                try {
+                    let {data} = await axios.put(`api/page/${manual.id}/rating`, {
+                        type: 'download'
+                    });
+                    if (data.status) {
+                        window.open(
+                            manual.files.path,
+                            '_blank' // <- This is what makes it open in a new window.
+                        );
+                    }                    
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }
     }
 }
 </script>
