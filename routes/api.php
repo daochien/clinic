@@ -99,3 +99,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::post('/login', 'API\V1\Auth\LoginController@login')->name('api.login');
 Route::post('/password/forgot', 'API\V1\Auth\ForgotPasswordController@sendResetLinkEmail')->name('api.password.forgot');
+Route::post('/password/reset', 'API\V1\Auth\ResetPasswordController@reset')->name('api.reset.password');
