@@ -26,6 +26,6 @@ class MatchOldPassword implements Rule
      */
     public function message()
     {
-        return 'The :attribute is not match with old password.';
+        return __('admin.my_account.change_password._current_pass_not_match');
     }
 }

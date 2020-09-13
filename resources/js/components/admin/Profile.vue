@@ -154,7 +154,7 @@
 
             updateInfo(){
                 this.$Progress.start();
-                if(this.manager.password == ''){
+                if(this.manager.password === ''){
                     this.manager.password = undefined;
                 }
                 this.manager.put('/api/profile')
@@ -162,7 +162,7 @@
                     this.$Progress.finish();
                     Toast.fire({
                         icon: 'success',
-                        title: this.$t('admin.my_account.basic_info._profile_changed')
+                        title: this.$t('admin.info.messages._edit_success')
                     });
                 })
                 .catch((data) => {
@@ -170,7 +170,7 @@
 
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('admin.my_account.basic_info._profile_update_failed')
+                        title: this.$t('admin.info.messages._edit_failed')
                     });
                 });
             },
@@ -187,7 +187,7 @@
 
                     Toast.fire({
                         icon: 'success',
-                        title: this.$t('admin.info._password_changed')
+                        title: this.$t('admin.my_account.change_password._password_changed')
                     });
                 })
                 .catch(() => {
@@ -195,7 +195,7 @@
 
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('admin.info._password_update_failed')
+                        title: this.$t('admin.my_account.change_password._password_update_failed')
                     });
                 });
             }
