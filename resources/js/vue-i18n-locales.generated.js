@@ -32,6 +32,26 @@ export default {
                     "_no_search_result": "該当する管理者情報が存在しません。"
                 }
             },
+            "my_account": {
+                "_page_title": "マイアカウント",
+                "basic_info": {
+                    "_title": "アカウント情報",
+                    "_subtitle": "アカウント情報"
+                },
+                "change_password": {
+                    "_title": "パスワード再設定",
+                    "_current_pass": "現在のパスワード",
+                    "_current_pass_place_holder": "現在のパスワードを入力してください",
+                    "_new_pass_place_holder": "新しいパスワードを入力してください",
+                    "_verify_pass_place_holder": "確認用パスワードを入力してください",
+                    "_new_pass": "新しいパスワード",
+                    "_verify_pass": "新しいパスワード",
+                    "_password_changed": "管理者情報の編集が成功しました。",
+                    "_password_update_failed": "管理者情報の編集に失敗しました。",
+                    "_current_pass_not_match": "The current password is not match with old password."
+                },
+                "_btn_update": "保存"
+            },
             "info": {
                 "_og_title_create": "友伸會ポータル管理画面｜管理者アカウント管理・新規アカウント登録",
                 "_og_title_edit": "友伸會ポータル管理画面｜管理者アカウント管理・管理者情報編集",
@@ -925,9 +945,7 @@ export default {
                 "_page_title": "マイアカウント",
                 "basic_info": {
                     "_title": "アカウント情報",
-                    "_subtitle": "アカウント情報",
-                    "_profile_changed": "Update password success",
-                    "_profile_update_failed": "Password update failed"
+                    "_subtitle": "アカウント情報"
                 },
                 "change_password": {
                     "_title": "パスワード再設定",
@@ -937,8 +955,9 @@ export default {
                     "_verify_pass_place_holder": "確認用パスワードを入力してください",
                     "_new_pass": "新しいパスワード",
                     "_verify_pass": "新しいパスワード",
-                    "_password_changed": "Update password success",
-                    "_password_update_failed": "Password update failed"
+                    "_password_changed": "管理者情報の編集が成功しました。",
+                    "_password_update_failed": "管理者情報の編集に失敗しました。",
+                    "_current_pass_not_match": "現在のパスワードは古いパスワードと一致しません。"
                 },
                 "_btn_update": "保存"
             },
