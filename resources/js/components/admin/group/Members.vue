@@ -60,26 +60,23 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <template v-if="typeof  members.data != 'undefined'">
-                                    <tr v-for="item in members.data" :key="item.id">
-                                        <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
-                                        <td>{{item.name}}</td>
-                                        <td>{{item.email}}</td>
-                                        <td>{{group}}</td>
-                                        <td>{{item.created_at}}</td>
-                                        <td>{{item.last_login}}</td>
-                                    </tr>
-                                </template>
 
-
+                                    <!-- <div class="user_not_found"  v-if="haveData">
+                                        {{ $t('group.group_users._not_found_user')}}
+                                    </div> -->
+                                    
+                                        <tr v-for="item in members.data" :key="item.id">
+                                            <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
+                                            <td>{{item.name}}</td>
+                                            <td>{{item.email}}</td>
+                                            <td>{{group}}</td>
+                                            <td>{{item.created_at}}</td>
+                                            <td>{{item.last_login}}</td>
+                                        </tr>
 
                                 </tbody>
                             </table>
-                            <template v-if="typeof members.data == 'undefined'">
-                                <div class="user_not_found">
-                                    {{ $t('group.not_found_user')}}
-                                </div>
-                            </template>
+                            
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
@@ -123,6 +120,13 @@
                     return false;
                 }
             },
+
+            haveData:function(){
+                // if(Object.keys(this.members).length === 0 && Object.keys(this.groupUsers).length === 0) return false;
+                // else return true
+                
+            },
+
             removeButton:function(){
                 if(this.selected.length){
                     if(this.removeAllow){
@@ -176,7 +180,7 @@
             filter(){
                 if(this.$gate.isRoot()){
                     this.$Progress.start();
-
+                    console.log(this.id +'- '+ this.value);
                     axios.get('/api/group/members/filter/'+this.id +'/'+this.value)
                             .then((data)=>{
                                 this.members = data.data
@@ -211,6 +215,7 @@
                             axios.post("/api/group/members/add", {user_id: element, group_id: this.id})
                                 .then((data) => {
                                     this.loadData();
+                                    this.removeCondition();
                                     this.selected = [];
                                 })
                                 .catch(() => {
@@ -309,6 +314,7 @@
         created() {
             this.$Progress.start();
             this.loadData();
+            console.log(Object.keys(this.members).length);
             this.$Progress.finish();
         }
     }

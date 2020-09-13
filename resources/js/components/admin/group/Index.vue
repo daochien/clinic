@@ -98,36 +98,38 @@
 
             deleteGroup(id){
               if (id >3){
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                  var temp = Swal.fire({
+                    title: this.$t('group.popup._are_you_sure'),
+                    text: this.$t('group.popup._you_wont_able_revert'),
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: this.$t('group.popup._delete_it'),
+                    cancelButtonText: this.$t('group.popup._cancel'),
                 }).then((result) => {
-
+                  console.log(result);
                     // Send request to the server
                     if (result.value) {
                         axios.delete('/api/group/'+id).then(()=>{
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            );
+                            Toast.fire({
+                                icon:"success",
+                                title: this.$t('group.popup._deleted'),
+                            });
                             // Fire.$emit('AfterCreate');
                             this.loadGroup();
                         }).catch((data)=> {
-                            Swal.fire("Failed!", data.message, "warning");
+                            Toast.fire({
+                                icon:"error",
+                                title: data.message
+                            })
                         });
                     }
                 })
               }else{
-                  Swal.fire(
-                      'Cannot do this Action!',
-                      'Your cannot delete this group.',
-                      'error'
-                  );
+                  Toast.fire({
+                      title:this.$t(group.popup._cannot_do_this_action),
+                      icon:"error"
+                  });
               }
             },
 

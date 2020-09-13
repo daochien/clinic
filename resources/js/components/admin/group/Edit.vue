@@ -74,7 +74,8 @@
                     name: '',
                     description: '',
                     created_at:'',
-                    updated_at:''
+                    updated_at:'',
+                    forced: 0
                 })
             }
         },
@@ -85,7 +86,6 @@
                 // if(this.$gate.isAdmin()){
                 axios.get("/api/group/"+this.id).then(({ data }) =>
                 {
-                    console.log(data.data);
                     this.group = data.data;
                     let group = JSON.parse(JSON.stringify(this.group))
                     this.form.fill(group);

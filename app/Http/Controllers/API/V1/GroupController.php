@@ -40,8 +40,6 @@ class GroupController extends BaseController
      */
     public function index()
     {
-//        $group = $this->group->latest()->withCount('group_users')->orderBy('id', 'desc')->paginate(10);
-//        return $this->sendSuccessResponse($group, 'Group list');
           $groups = $this->repository->get();
           return new GroupCollection($groups);
     }
@@ -53,9 +51,7 @@ class GroupController extends BaseController
      */
     public function list()
     {
-        $group = $this->group->pluck('name', 'id');
-
-        return $this->sendSuccessResponse($group, 'Group list');
+        return new GroupCollection($this->repository->getAll());
     }
 
 
@@ -68,18 +64,23 @@ class GroupController extends BaseController
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(GroupRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:groups',
-        ]);
-        $tag = $this->group->create([
-            'name' => $request->get('name'),
-            'description' => $request->get('description'),
-            'forced' => $request->get('forced'),
-        ]);
+        try {
+            $group = $this->service->createGroup($request->validated());
+            return $this->sendSuccessResponse($group, __('group.infor.info.messages._create_success'));
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
+        }
+    }
 
-        return $this->sendSuccessResponse($tag, 'Group Created Successfully');
+    public function show($id)
+    {
+        try {
+            return $this->sendSuccessResponse(new GroupResource($this->repository->show($id)));
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
+        }
     }
 
     /**
@@ -90,24 +91,16 @@ class GroupController extends BaseController
      * @return \Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, $id)
+    public function update(GroupRequest $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-        ]);
-        $group = $this->group->findOrFail($id);
-
-        $group->update($request->all());
-
-        return $this->sendSuccessResponse($group, 'Group Information has been updated');
+        try {
+            $result = $this->repository->update($id, $request->validated());
+            return $this->sendSuccessResponse($result, __('group.infor.info.messages._edit_success'));
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
+        }
     }
 
-    public function show($id)
-    {
-        // get a groups by id
-        $group  = $this->group->findOrFail($id);
-        return $this->sendSuccessResponse($group, 'Group information');
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -117,82 +110,101 @@ class GroupController extends BaseController
      */
     public function destroy($id)
     {
-//        $this->authorize('isAdmin');
-
-        $entity = Group::findOrFail($id);
-        // delete the entity
-
-        $entity->delete();
-
-        return $this->sendSuccessResponse([$entity], 'Group has been Deleted');
+        try {
+            $result = $this->service->delete($id);
+            return $this->sendSuccessResponse($result);
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
+        }
     }
 
     public function all()
     {
-        $group = $this->group->all();
-
-        return $this->sendSuccessResponse($group, 'Group list');
+        try{
+            $group = $this->group->all();
+            return $this->sendSuccessResponse($group, __('group.infor.messages._data_result'));
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
+        }
     }
 
     public function members($id)
     {
-        $entity = GroupUser::where('group_id', $id)->first();
-        if (isset($entity->group_id)) {
-            $data = $entity->users()->paginate(10);
-            return $this->sendSuccessResponse($data, 'Members list');
+        try{
+            $group = $this->repository->find($id);
+            return new UserCollection($group->users()->paginate(10));
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
-        return response()->json(['data' => ['data' => []]]);
     }
 
     public function users($id)
     {
-        $users_id = GroupUser::where('group_id', $id)->pluck('user_id');
-        if(count($users_id)){
-            $users = DB::table('users')->whereIn('id', $users_id)->paginate(10);
-            return $this->sendSuccessResponse($users, 'Members list');
+        try{
+            $users_id = GroupUser::where('group_id', $id)->pluck('user_id');
+            if(count($users_id)){
+                $users = DB::table('users')->whereIn('id', $users_id)->paginate(10);
+                return $this->sendSuccessResponse($users, __('group.infor.others._data_result'));
+            }
+            return response()->json(['data' => ['data' => []]]);
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
-        return response()->json(['data' => ['data' => []]]);
+        
     }
 
-    public function  getGroupUsersByGroup($id){
-        $ids = GroupUser::where('group_id', $id)->get();
-        if(count($ids)){
-            return $this->sendSuccessResponse($ids, 'Id Group Users list');
+    public function getGroupUsersByGroup($id){
+        try{
+            $ids = GroupUser::where('group_id', $id)->get();
+            if(count($ids)){
+                return $this->sendSuccessResponse($ids, __('group.group_users.messages._data_result'));
+            }
+            return response()->json(['data' => ['data' => []]]);
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
-        return response()->json(['data' => ['data' => []]]);
+        
     }
 
     public function filter($id, $value)
     {
-        $query = "SELECT users.id, users.name, users.email, users.created_at from users WHERE id in (select DISTINCT(users.id) from users LEFT JOIN group_users on users.id = group_users.user_id where 1 and users.id not in (select users.id from users JOIN group_users on group_users.user_id = users.id where group_users.group_id = 6)) and users.name like '%$value%'";
+        try {
+            $query = "SELECT users.id, users.name, users.email, users.created_at from users WHERE id in (select DISTINCT(users.id) from users LEFT JOIN group_users on users.id = group_users.user_id where users.id not in (select users.id from users JOIN group_users on group_users.user_id = users.id where group_users.group_id = $id)) and users.name like '%$value%'";
 
-        $users = DB::select( DB::raw($query));
-        if(count($users)){
-            return $this->sendSuccessResponse($users, 'Users list');
+            $users = DB::select( DB::raw($query));
+            if(count($users)){
+                return $this->sendSuccessResponse($users,  __('group.group_users.others._data_result'));
+            }
+            return $this->sendSuccessResponse([], __('group.group_users.others._no_search_result'));
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
-        $data = null;
-        return $this->sendSuccessResponse($data, 'Group empty');
     }
 
     public function addUsers(Request $request)
     {
-        $temp = GroupUser::where('user_id', $request->get('user_id'))->where('group_id', $request->get('group_id'))->get();
-        if(count($temp)){
-            $data = ['data' => ['data' => []]];
-            return $this->sendSuccessResponse($data, 'User Already In Group');
-        }else{
-            $tag = GroupUser::create([
-                'user_id' => $request->get('user_id'),
-                'group_id' => $request->get('group_id'),
-            ]);
-            return $this->sendSuccessResponse($tag, 'User Added Successfully');
+        try {
+            $group = DB::table('groups')->where('id', $request->get('group_id'))->first();
+            if($group->name){
+                        GroupUser::create([
+                            'user_id' => $request->get('user_id'),
+                            'group_id' => $group->id,
+                        ]);
+            }
+            return $this->sendSuccessResponse([], __('group.infor.messages._update_success'));
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
 
     public function removeUsers(Request $request)
     {
-        GroupUser::whereIn('id', $request->get('ids'))->delete();
-        $data = ['data' => ['data' => []]];
-        return $this->sendSuccessResponse($data, 'User Remove Successfully');
+        try {
+            GroupUser::whereIn('id', $request->get('ids'))->delete();
+            $data = ['data' => ['data' => []]];
+            return $this->sendSuccessResponse($data,  __('group.infor.messages._update_success'));
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
+        }
     }
 }

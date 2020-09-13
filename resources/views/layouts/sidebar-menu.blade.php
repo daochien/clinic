@@ -31,12 +31,12 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-small">
                     @can('manager.index')
-                        <router-link to="/admin/manager" class="dropdown-item">
+                        <router-link to="/admin/manager" class="dropdown-item" onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
                             <span>{{ __('app.menu.sidebar.admin_management._admin_list') }}</span>
                         </router-link>
                     @endcan
                     @can(['role.index','role.store', 'role.update'])
-                        <router-link to="/admin/manager/roles" class="dropdown-item">
+                        <router-link to="/admin/manager/roles" class="dropdown-item" onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
                             <span>{{ __('app.menu.sidebar.admin_management._role_list') }}</span>
                         </router-link>
                     @endcan
@@ -53,19 +53,19 @@
                 <div class="dropdown-menu dropdown-menu-small" id="notClose">
 
                     @can('clinic.index')
-                        <router-link to="/admin/clinic" class="dropdown-item ">
+                        <router-link to="/admin/clinic" class="dropdown-item " onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
                             {{ __('app.menu.sidebar.staff_management._clinic_list') }}
                         </router-link>
                     @endcan
 
                     @can('group.index')
-                        <router-link to="/admin/group" class="dropdown-item ">
+                        <router-link to="/admin/group" class="dropdown-item " onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
                             {{ __('app.menu.sidebar.staff_management._group_list') }}
                         </router-link>
                     @endcan
 
                     @can('user.index')
-                        <router-link to="/admin/user" class="dropdown-item">
+                        <router-link to="/admin/user" class="dropdown-item" onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
                             {{ __('app.menu.sidebar.staff_management._staff_list') }}
                         </router-link>
                     @endcan
@@ -89,14 +89,14 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-small">
                     @can('template.index')
-                    <router-link to="/admin/template" class="dropdown-item">
+                    <router-link to="/admin/template" class="dropdown-item " onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
                         {{ __('app.menu.sidebar.request_management._request_template_list') }}
                     </router-link>
                     @endcan
 
                     @can('api.request.category.list')
                     @foreach (\App\Models\TemplateCategory::getAll() as $category)
-                        <router-link to="/admin/request/category/{{$category->id}}" class="dropdown-item">
+                        <router-link to="/admin/request/category/{{$category->id}}" class="dropdown-item" onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
                             {{ __($category->name) }}
                         </router-link>
                     @endforeach
