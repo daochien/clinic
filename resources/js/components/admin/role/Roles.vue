@@ -125,15 +125,17 @@ export default {
                     // Send request to the server
                     if (result.value) {
                         this.role.delete('/api/role/'+id).then(()=>{
-                                Swal.fire(
-                                this.$t('admin.popup.deleted'),
-                                this.$t('admin.popup.your_item_has_been_deleted'),
-                                'success'
-                                );
+                            Toast.fire({
+                                icon: 'success',
+                                title: this.$t('admin.others._remove_modal_deleted')
+                            });
                             // Fire.$emit('AfterCreate');
                             this.getResults(1);
                         }).catch((data)=> {
-                            Swal.fire("Failed!", data.message, "warning");
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('common.messages._system_err')
+                            });
                         });
                     }
                 })

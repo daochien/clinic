@@ -60,18 +60,28 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="item in members.data" :key="item.id">
-                                    <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
-                                    <td>{{item.name}}</td>
-                                    <td>{{item.email}}</td>
-                                    <td>{{group}}</td>
-                                    <td>{{item.created_at}}</td>
-                                    <td>{{item.last_login}}</td>
-                                </tr>
+
+                                    <!-- <div class="user_not_found"  v-if="haveData">
+                                        {{ $t('group.group_users._not_found_user')}}
+                                    </div> -->
+                                    
+                                        <tr v-for="item in members.data" :key="item.id">
+                                            <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
+                                            <td>{{item.name}}</td>
+                                            <td>{{item.email}}</td>
+                                            <td>{{group}}</td>
+                                            <td>{{item.created_at}}</td>
+                                            <td>{{item.last_login}}</td>
+                                        </tr>
+
                                 </tbody>
                             </table>
+                            
                         </div>
                         <!-- /.card-body -->
+                        <div class="card-footer">
+                            <pagination :data="members" @pagination-change-page="getResults"></pagination>
+                        </div>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -110,6 +120,13 @@
                     return false;
                 }
             },
+
+            haveData:function(){
+                // if(Object.keys(this.members).length === 0 && Object.keys(this.groupUsers).length === 0) return false;
+                // else return true
+                
+            },
+
             removeButton:function(){
                 if(this.selected.length){
                     if(this.removeAllow){
@@ -138,6 +155,13 @@
         },
         methods: {
 
+            getResults(page = 1) {
+                this.$Progress.start();
+                axios.get('/api/group/members/'+this.id+'/?page=' + page)
+                    .then(({data}) => {this.members = data.data});
+                this.$Progress.finish();
+            },
+
             loadMembers(){
                 if(this.$gate.isRoot()){
                     axios.get("/api/group/members/"+this.id).then(({ data }) => {
@@ -156,7 +180,7 @@
             filter(){
                 if(this.$gate.isRoot()){
                     this.$Progress.start();
-
+                    console.log(this.id +'- '+ this.value);
                     axios.get('/api/group/members/filter/'+this.id +'/'+this.value)
                             .then((data)=>{
                                 this.members = data.data
@@ -191,6 +215,7 @@
                             axios.post("/api/group/members/add", {user_id: element, group_id: this.id})
                                 .then((data) => {
                                     this.loadData();
+                                    this.removeCondition();
                                     this.selected = [];
                                 })
                                 .catch(() => {
@@ -288,14 +313,14 @@
         },
         created() {
             this.$Progress.start();
-
             this.loadData();
-
+            console.log(Object.keys(this.members).length);
             this.$Progress.finish();
         }
     }
 </script>
 <style scoped>
+    .user_not_found{width:100%;text-align: center;padding:10px}
     .table-hover th{font-weight: 200;font-size:13px}
     .dropdown-menu{border-radius: 0}
     .dropdown-item{font-weight: normal; font-size: 11px;line-height: 13px}

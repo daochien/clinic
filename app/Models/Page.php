@@ -6,8 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
+
+    CONST PAGE_TYPE = [
+        'blog' => 'blog',
+        'manual' => 'manual',
+        'faq' => 'faq'
+    ];
+
     protected $fillable = [
-        'owner_id', 'type', 'title', 'content', 'image', 'public', 'public_date', 'status', 'url', 'files', 'category_id'
+        'owner_id', 'type', 'title', 'content', 'image', 'public', 'public_date', 'status', 'url', 'files', 'category_id', 'downloads', 'views'
     ];
 
     public $timestamps = true;

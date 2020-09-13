@@ -49,9 +49,9 @@
                         <div class="side-content">
                         <ul>
                             <li v-for="(manual, index) in manuals" :key="index">
-                                <a :href="manual.files" target="blank">
-                                    <span class="title">{{ manual.short_title}}</span>
-                                    <span class="info">1.5mb <img src="/front-end/images/download-icon-2.png" alt=""></span>
+                                <a href="javascript:void(0)" >
+                                    <span class="title">{{ manual.title}}</span>
+                                    <span class="info">{{ manual.files.size }} <img @click="downloadManual(manual)" src="/front-end/images/download-icon-2.png" alt=""></span>
                                 </a>
                             </li>
 
@@ -63,21 +63,21 @@
                     <div class="blogs-list">
                         <div class="blog-item" v-for="(blog, index) in blogs" :key="index" v-if="index > 4">
                             <div class="blog-img">
-                                <a href="#">
+                                <router-link :to="{path: 'blogs/'+blog.id}">
                                     <img :src="blog.image" alt="">
-                                </a>
+                                </router-link>
                             </div>
                             <div class="blog-info">
-                                <a href="#" class="title">
+                                <router-link :to="{path: 'blogs/'+blog.id}" class="title">
                                 {{ blog.title }}
-                                </a>
+                                </router-link>
                                 <p>
                                 {{ blog.content }}
                                 </p>
                                 <div class="blog-meta">
-                                <span>{{ blog.created_at }}</span>
-                                <!-- <span>|</span>
-                                <span>記事</span> -->
+                                <span>{{ blog.created_at | dateFormat }}</span>
+                                <span>|</span>
+                                <span>記事</span>
                                 </div>
                             </div>
                         </div>
@@ -107,10 +107,11 @@ export default {
 
     },
     async mounted () {
-        this.loadCategorys();
-        this.loadManualLatest();
         await this.loadBlogs();
         await this.reloadSlick();
+        this.loadCategorys();
+        this.loadManualLatest();
+        
     },
     methods: {
         async loadCategorys () {
@@ -119,7 +120,7 @@ export default {
             this.$Progress.finish();
         },
         async loadBlogs (page = 1) {
-            this.$Progress.start();
+            this.$Progress.start();            
             try {
                 let {data} = await axios.get('api/page?type=blog&page='+page);
                 this.blogs = this.blogs.concat(data.data);
@@ -138,7 +139,6 @@ export default {
             }
         },
         showMore () {
-
             this.pagination.current_page ++;
             if (this.pagination.current_page <= this.pagination.last_page ) {
                 this.loadBlogs(this.pagination.current_page);
@@ -146,6 +146,23 @@ export default {
         },
         reloadSlick () {
             $('.news-slider').slick('refresh');
+        },
+        async downloadManual (manual) {
+            if (manual.files.path) {
+                try {
+                    let {data} = await axios.put(`api/page/${manual.id}/rating`, {
+                        type: 'download'
+                    });
+                    if (data.status) {
+                        window.open(
+                            manual.files.path,
+                            '_blank' // <- This is what makes it open in a new window.
+                        );
+                    }                    
+                } catch (error) {
+                    console.log(error);
+                }
+            }
         }
     }
 }
