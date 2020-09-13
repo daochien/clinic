@@ -204,40 +204,45 @@ class NotificationService
 
     public function search($request)
     {
-        $datas = Notification::where(
-            function ($qstatus) use ($request) {
-                if (isset($request['status'])) {
-                    $qstatus->where('draft', '=', $request['status']);
-                }
+        $query = Notification::with([
+            'notificationGroups.group'
+        ])->withCount(['notificationUsers', 'usersRead', 'usersConfirmed']);
+
+        $query->where(function ($qstatus) use ($request) {
+            if (isset($request['status'])) {
+                $qstatus->where('draft', '=', $request['status']);
             }
-        )
-            ->where(
-                function ($qtitle) use ($request) {
-                    if (isset($request['keyword']) && strlen($request['keyword']) > 0) {
-                        $qtitle->where('title', 'like', '%' . $request['keyword'] . '%');
-                    }
+        });
+
+        if (!empty($request['keyword'])) {
+            $query->where(function ($qtitle) use ($request) {
+                if (isset($request['keyword']) && strlen($request['keyword']) > 0) {
+                    $qtitle->where('title', 'like', '%' . $request['keyword'] . '%');
                 }
-            )
-            ->where(
+            });
+        }
+
+        if (!empty($request['release_date']) && !empty($request['release_date']['startDate']) && !empty($request['release_date']['endDate'])) {
+            $query->where(
                 function ($qdate) use ($request) {
                     if (!empty($request['release_date'])) {
                         $qdate->whereBetween('schedule_date', [new \Carbon\Carbon($request['release_date']['startDate']), new \Carbon\Carbon($request['release_date']['endDate'])]);
                     }
-                }
-            )
-            ->whereHas(
+                });
+        }
+
+        if (!empty($request['group'])) {
+            $query->whereHas(
                 'notificationGroups.group',
                 function ($qgroup) use ($request) {
                     if (isset($request['group']) && strlen($request['group']) > 0) {
                         $qgroup->where('name', '=', $request['group']);
                     }
                 }
-            )
-            ->with([
-                'notificationGroups.group'
-            ]);
+            );
+        }
 
-        return $datas->paginate(10);
+        return $query->paginate(10);
     }
 
     public function fetch($filters)
