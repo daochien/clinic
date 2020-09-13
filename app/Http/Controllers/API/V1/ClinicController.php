@@ -8,9 +8,11 @@ use App\Http\Resources\ClinicResource;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\Clinic;
+use App\Models\GroupUser;
 use App\Repositories\ClinicRepository;
 use App\Services\ClinicService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClinicController extends BaseController
 {
@@ -96,6 +98,20 @@ class ClinicController extends BaseController
     public function addUsers(Request $request, $clinicId)
     {
         try {
+            $clinic = DB::table('clinics')->where('id', $clinicId)->first();
+            if($clinic->name){
+                $group = DB::table('groups')->where('name', $clinic->name)->first();
+                if($group){
+                    $Ids = $request->get('user_ids');
+                    foreach ($Ids as $value){
+                        GroupUser::create([
+                            'user_id' => $value,
+                            'group_id' => $group->id,
+                        ]);
+                    }
+                }
+            }
+
             $userIds = $request->get('user_ids');
             $this->service->addRelationUser($clinicId, $userIds);
 

@@ -49,6 +49,7 @@ return [
     'group_users' => [
         '_og_title' => '友伸會ポータル管理画面｜スタッフ管理・グループユーザー登録',
         '_page_title' => 'グループユーザー登録',
+        '_not_found_user'=>'ユーザーが見つかりません',
         'data_table' => [
             '_cur_staff_count' => '現在のスタッフ数',
         ],
@@ -57,10 +58,23 @@ return [
             '_update_failed' => 'グループユーザーの更新に失敗しました。',
         ],
         'others' => [
+            '_data_result' => 'データ結果',
             '_btn_update' => '更新する',
             '_no_data' => 'ユーザーが存在しません。',
             '_no_search_result' => '該当するユーザー情報が存在しません。',
         ],
+    ],
+    'form' =>[
+        '_name' => '名前',
+    ],
+    'popup' =>[
+        '_are_you_sure' => '本気ですか',
+        '_you_wont_able_revert' => 'あなたは元に戻すことができません',
+        '_delete_it' => '消して',
+        '_deleted' => 'ファイルが削除されました',
+        '_failed' => '失敗した',
+        '_cannot_do_this_action' => 'このアクションは実行できません',
+        '_cancel'=> 'キャンセル'
     ],
     'others' => [
         '_remove_modal_yes' => 'はい',
