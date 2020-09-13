@@ -285,14 +285,14 @@ export default {
                 addRemoveLinks: true,
                 duplicateCheck: true,
                 maxFiles: 1,
-                acceptedFiles: '.jpeg,.png,.jpg,.zip,.pdf,.ppt,.pptx,.xlx,.xlsx,.docx,.doc,.gif,.webm,.mp4,.mpeg'
+                acceptedFiles: '.jpeg,.png,.jpg,.pdf,.gif,.webm,.mp4,.mpeg'
             },
             page: {
                 type: 'blog',
                 title: '',
                 public: true,
                 public_date: '',
-                status: false,
+                status: true,
                 url: '',
                 content: '',
                 files: [],
@@ -325,6 +325,9 @@ export default {
     computed: {
         pageType () {
             return this.page.type;
+        },
+        pageStatus () {
+            return this.page.status;
         }
     },
     watch: {
@@ -340,7 +343,11 @@ export default {
             this.page.category_id = '';
             this.formCategory.type = type;
             this.loadCategory();
-
+        },
+        pageStatus (newVal, oldVal) {
+            if (newVal == false) {
+                this.showMore = true;
+            }
         }
     },
     methods: {
@@ -377,7 +384,10 @@ export default {
                     if (!this.isEdit) {
                         this.previewImage = '';
                     }
-                    alert('File error');
+                    Toast.fire({
+                        icon: 'error',
+                        title: '画像形式が正しくない'
+                    });
                 }
             } catch(error) {}
         },

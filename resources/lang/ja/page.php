@@ -63,7 +63,7 @@ return [
             '_url_pl' => '公開先を指定してください',
             '_category_pl' => 'カテゴリーを指定してください',
             '_title_upload' => 'ファイルを選択してください',
-            '_content_upload' => 'ドキュメント（pdf, docx ppt）、画像ファイル（png, jpg）または動画（mp4）をアップロードしてくだい',
+            '_content_upload' => 'ドキュメント（pdf）、画像ファイル（png, jpg）または動画（mp4）をアップロードしてくだい',
             '_btn_upload' => 'ファイルを選択'
         ],
         'messages' => [

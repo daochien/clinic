@@ -63,7 +63,7 @@ return [
             '_url_pl' => 'Please specify the publication destination',
             '_category_pl' => 'Please specify a category',
             '_title_upload' => 'Please choose the file',
-            '_content_upload' => 'Please upload the document (pdf, docx ppt), image file (png, jpg) or video (mp4).',
+            '_content_upload' => 'Please upload the document (pdf), image file (png, jpg) or video (mp4).',
             '_btn_upload' => 'Upload file'
         ],
         'messages' => [
