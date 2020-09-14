@@ -145,6 +145,7 @@ class NotificationService
                 'content' => $request['content'],
                 'confirm' => $request['confirm'],
                 'draft' => $request['draft'],
+                'created_by' => Auth::id(),
             ];
 
             if (isset($request['schedule_date'])) {
