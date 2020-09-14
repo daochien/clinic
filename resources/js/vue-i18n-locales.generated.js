@@ -303,8 +303,9 @@ export default {
                     "_url_pl": "Please specify the publication destination",
                     "_category_pl": "Please specify a category",
                     "_title_upload": "Please choose the file",
-                    "_content_upload": "Please upload the document (pdf, docx ppt), image file (png, jpg) or video (mp4).",
-                    "_btn_upload": "Upload file"
+                    "_content_upload": "Please upload the document (pdf), image file (png, jpg) or video (mp4).",
+                    "_btn_upload": "Upload file",
+                    "_btn_remove": "Remove Page"
                 },
                 "messages": {
                     "_create_success": "管理者アカウントの登録が成功しました。",
@@ -1360,8 +1361,9 @@ export default {
                     "_url_pl": "公開先を指定してください",
                     "_category_pl": "カテゴリーを指定してください",
                     "_title_upload": "ファイルを選択してください",
-                    "_content_upload": "ドキュメント（pdf, docx ppt）、画像ファイル（png, jpg）または動画（mp4）をアップロードしてくだい",
-                    "_btn_upload": "ファイルを選択"
+                    "_content_upload": "ドキュメント（pdf）、画像ファイル（png, jpg）または動画（mp4）をアップロードしてくだい",
+                    "_btn_upload": "ファイルを選択",
+                    "_btn_remove": "記事を削除する"
                 },
                 "messages": {
                     "_create_success": "管理者アカウントの登録が成功しました。",

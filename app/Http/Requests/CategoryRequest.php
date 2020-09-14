@@ -47,4 +47,11 @@ class CategoryRequest extends FormRequest
             'description' => 'max:500',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.unique' => '指定の名前は既に使用されています',            
+        ];
+    }
 }

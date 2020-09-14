@@ -106,13 +106,11 @@ export default {
     created () {
 
     },
-    async mounted () {
-        await this.loadBlogs();
-        await this.reloadSlick();
+    mounted () {
+        this.loadBlogs();        
         this.loadCategorys();
-        this.loadManualLatest();
-        
-    },
+        this.loadManualLatest();        
+    },    
     methods: {
         async loadCategorys () {
             this.$Progress.start();
@@ -125,6 +123,9 @@ export default {
                 let {data} = await axios.get('api/page?type=blog&page='+page);
                 this.blogs = this.blogs.concat(data.data);
                 this.pagination = data.meta;
+                this.$nextTick(function () {
+                    this.reloadSlick();
+                });
             } catch (error) {
                 console.log(error);
             }

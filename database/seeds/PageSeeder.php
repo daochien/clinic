@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Page;
+use Illuminate\Support\Facades\DB;
 
 class PageSeeder extends Seeder
 {
@@ -12,6 +13,7 @@ class PageSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('pages')->delete();
         $domain = url('');
         $faker = Faker\Factory::create();
 
@@ -36,7 +38,7 @@ class PageSeeder extends Seeder
             ]);
         }
 
-        $file = $domain.'/front-end/files/demo.docx';;
+        $file = 'https://s3.us-east-2.amazonaws.com/clinic.dev/pages/files/2020091323d0eef3cf15afe5babfc2c7263b3f768e/2AcsQaeJBP67z7efS1j90Q4MHrXs2VmjgA71NrTr.docx';
 
         for ($i = 0; $i < $limit; $i++) {
 
