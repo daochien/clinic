@@ -139,6 +139,7 @@
                                         <input
                                         ref="file"
                                         type="file"
+                                        accept=".jpeg,.png,.jpg,.gif"
                                         :class="['custom-file-input', {'is-invalid': pageFormErrors.errors.has('image')}]"
                                         id="uploadImage"
                                         style="display: none;"
