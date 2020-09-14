@@ -28,11 +28,18 @@ class Inquiry extends Model
 
     public function inquiryComments()
     {
-        return $this->hasMany(InquiryComment::class);
+        return $this->hasMany(InquiryComment::class,);
     }
 
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public static function allCategory()
+    {
+        return Category::from('categories as c')
+            ->where('c.type', Category::TYPE['inquiry'])
+            ->get();
     }
 }

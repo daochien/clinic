@@ -190,27 +190,27 @@
                 ]
             ]
         ],
-        // 'inquiry' => [
-        //     'name' => 'Inquiry management',
-        //     'groups' => [
-        //         'view' => [
-        //             'name' => 'View list',
-        //             'routes' => []
-        //         ],
-        //         'create' => [
-        //             'name' => 'Create',
-        //             'routes' => [],
-        //         ],
-        //         'update' => [
-        //             'name' => 'Update',
-        //             'routes' => []
-        //         ],
-        //         'delete' => [
-        //             'name' => 'Delete',
-        //             'routes' => []
-        //         ]
-        //     ]
-        // ],
+        'inquiry' => [
+            'name' => '問合せ管理',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => ['api.inquiry.category.list', 'api.inquiry.show', 'api.inquiry.attachment.download']
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => ['api.inquiry.store'],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => ['api.inquiry.comment', 'api.inquiry.change_status']
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ],
         'page' => [
             'name' => 'ページ管理',
             'groups' => [

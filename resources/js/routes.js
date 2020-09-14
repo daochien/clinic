@@ -52,6 +52,17 @@ export default [
         ]
     },
 
+    {
+        path: '/admin/inquiry',
+        component: {template: '<router-view/>'},
+        meta: {breadcrumb: `問合せ管理`},
+        children: [
+            { path: 'category/:id', component: require('./components/admin/inquiry/Category.vue').default,meta: {breadcrumb: `問合せ一覧`}},
+            { path: ':id', component: require('./components/admin/inquiry/Inquiry.vue').default, meta: {breadcrumb: `問合せ詳細情報`} },
+
+        ]
+    },
+
     // { path: '*', component: require('./components/NotFound.vue').default },
 
     {

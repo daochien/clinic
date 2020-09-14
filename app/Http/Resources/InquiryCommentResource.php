@@ -14,6 +14,10 @@ class InquiryCommentResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'message' => $this->message,
+            'user' => new UserItemResource($this->whenLoaded('user'))
+        ];
     }
 }
