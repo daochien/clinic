@@ -13,4 +13,9 @@ class Category extends Model
     const TYPE = ['document' => 1,'blog' => 2, 'inquiry' => 3, 'template' => 4, 'faq' => 5];
 
     protected $hidden = ['created_at', 'updated_at'];
+
+    public function inquiry()
+    {
+        return $this->hasMany(Inquiry::class);
+    }
 }

@@ -46,4 +46,5 @@ return [
     'title_reset' => 'パスワードを忘れた方はこちら?',
     'confirm_password' => 'パスワードを認証する',
     'reset_btn' => 'リセット',
+    'failed' => 'ログインに失敗しました。',
 ];

@@ -26,11 +26,11 @@ class InquiryService
     {
         return Inquiry::from('inquiry as i')
             ->join('categories as c', 'c.id', 'i.category_id')
-            ->join('users as u' ,'u.id', 'i.created_by')
+            ->leftJoin('inquiry_logs as l', 'l.inquiry_id', 'i.id')
             ->where('c.id', $categoryId)
-            ->with(['createdBy', 'closedBy','inquiryComments'])
+            ->with('inquiryComments.user', 'createdBy', 'closedBy', 'category')
             ->latest('i.created_at')
-            ->select('i.*', 'u.name as created_by')
+            ->select('i.*', 'l.created_at as closed_at')
             ->paginate(10);
     }
 
@@ -40,7 +40,7 @@ class InquiryService
      */
     public function getDetail($id)
     {
-        return Inquiry::with('inquiryComments', 'createdBy', 'closedBy')
+        return Inquiry::with('inquiryComments.user', 'createdBy', 'closedBy', 'category')
             ->where('id', $id)
             ->first();
     }
@@ -112,6 +112,8 @@ class InquiryService
         InquiryLog::insert([
             'inquiry_id' => $id,
             'user_id' => $user->id,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }

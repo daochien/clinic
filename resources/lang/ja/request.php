@@ -29,6 +29,7 @@ return [
         'data_table' => [
             '_request_at' => '申請日時',
             '_last_approved_at' => '最終承認日時',
+            '_action' => '操作',
             'actions' => [
                 '_act_show_details' => '詳細を確認する',
                 '_act_approve' => '承認する',

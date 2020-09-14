@@ -20,9 +20,12 @@ class InquiryResource extends JsonResource
             "title" => $this->title,
             "question" => $this->question,
             "status" => $this->status,
-            "created_by" => $this->created_by,
+            "created_at" => $this->created_at,
+            "created_by" => new UserItemResource($this->whenLoaded('createdBy')),
             'inquiry_comments' => InquiryCommentResource::collection($this->whenLoaded('inquiryComments')),
             'closed_by' => UserItemResource::collection($this->whenLoaded('closedBy')),
+            'category' => new CategoryResource($this->whenLoaded('category')),
+            'closed_at' => $this->closed_at
         ];
     }
 }

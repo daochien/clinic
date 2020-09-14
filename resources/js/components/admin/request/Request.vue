@@ -129,7 +129,7 @@
                                     :placeholder="$t('request.discussion._upload_placeholder') "
                                     :drop-placeholder="$t('request.discussion._upload_drop_placeholder')"
                                 ></b-form-file>
-                                <b-button type="submit" variant="primary" class="float-right">Submit</b-button>
+                                <b-button type="submit" variant="primary" class="float-right">{{$t('request.discussion._send')}}</b-button>
                             </b-form>
                         </div>
                     </div>

@@ -110,14 +110,14 @@
                             .then(() => {
                                 Toast.fire({
                                     icon: "success",
-                                    title: this.$t('clinic').list._remove_success,
+                                    title: this.$t('clinic').list.messages._remove_success,
                                 });
                                 // Fire.$emit('AfterCreate');
                                 this.loadClinics();
                             }).catch((data)=> {
                             Toast.fire({
                                 icon: 'error',
-                                title: this.$t('clinic').list._remove_failed,
+                                title: this.$t('clinic').list.messages._remove_failed,
                             });
                         });
                     }

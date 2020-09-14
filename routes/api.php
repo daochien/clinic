@@ -74,7 +74,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('request/{id}', 'API\V1\RequestController@store')->name('api.request.store');
 
         Route::get('inquiry/category/{id}', 'API\V1\InquiryController@indexByCategory')->name('api.inquiry.category.list');
-        Route::post('inquiry/{id}/status', 'API\V1\InquiryController@changeStatus')->name('api.inquiry.change_status');
+        Route::post('inquiry/{id}/close', 'API\V1\InquiryController@changeStatus')->name('api.inquiry.change_status');
         Route::post('inquiry/{id}/comment', 'API\V1\InquiryController@comment')->name('api.inquiry.comment');
 
         Route::get('page/manual-latest', 'API\V1\PageController@manualLatest')->name('page.manualLatest');

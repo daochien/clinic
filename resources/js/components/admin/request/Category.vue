@@ -24,6 +24,7 @@
                                     <th>{{ $t('request.attr._status')}}</th>
                                     <th>{{ $t('request.list.data_table._request_at')}}</th>
                                     <th>{{ $t('request.list.data_table._last_approved_at')}}</th>
+                                    <th>{{ $t('request.list.data_table._action')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
