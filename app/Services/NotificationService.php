@@ -57,18 +57,15 @@ class NotificationService
             // Create notification user in group
             $datas = GroupUser::where('group_id', $group['id'])->get();
             foreach ($datas as $user) {
-                NotificationUser::insertOrIgnore([
+                $notificationUser = NotificationUser::firstOrCreate([
                     'notification_id' => $entity->id,
-                    'user_id' => $user->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
+                    'user_id' => $user->user_id,
                 ]);
 
                 if ($request['confirm'] == true) {
                     NotificationStatus::insertOrIgnore([
-                        'notification_id' => $entity->id,
-                        'user_id' => $user->id,
-                        'status' => 1,
+                        'notification_user_id' => $notificationUser->id,
+                        'status' => NotificationStatus::STATUS['unconfirmed'],
                         'created_at' => now(),
                         'updated_at' => now()
                     ]);
@@ -185,7 +182,9 @@ class NotificationService
                             'updated_at' => now()
                         ]);
                     } else {
-                        NotificationStatus::where('notification_id', '=', $id)->delete();
+                        NotificationStatus::join('notification_users', 'notification_users.id', 'notification_status.notification_user_id')
+                            ->where('notification_users.notification_id', '=', $id)
+                            ->delete();
                     }
                 }
             }
@@ -243,7 +242,7 @@ class NotificationService
 
     public function fetch($filters)
     {
-        $notificationUsers = NotificationUser::with(['notification', 'notification.creator', 'status'])->orderBy('notifications.created_at', 'desc');
+        $notificationUsers = NotificationUser::with(['notification', 'notification.creator', 'status'])->orderBy('notification_users.created_at', 'desc');
         if (!empty($filters['user_id'])) {
             $notificationUsers->where('user_id', $filters['user_id']);
         }

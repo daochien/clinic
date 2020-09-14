@@ -100,6 +100,12 @@ return [
             'path' => storage_path('logs/notification-' . str_replace('-', '', php_sapi_name() ?? 'php') . '.log'),
             'level' => 'debug',
         ],
+        'files' => [ // For local environment
+            'driver' => 'daily',
+            'path'   => storage_path('logs/query_' . str_replace('-', '', PHP_SAPI ?? 'php') . '.log'),
+            'level'  => 'debug',
+            'days'   => 14,
+        ],
     ],
 
 ];
