@@ -57,4 +57,11 @@ class GroupRequest extends FormRequest
             'forced' => 'required|integer'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.unique' => '指定の名前は既に使用されています',            
+        ];
+    }
 }

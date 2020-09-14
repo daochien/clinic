@@ -35,7 +35,7 @@
                       <td>{{index + 1}}</td>
                       <td>{{item.name}}</td>
                          <td>{{item.users_count}}</td>
-                         <td style="width:80px">
+                         <td style="width:160px">
                              <div class="dropdown">
                                  <i
                                      class="fa fa-ellipsis-v"
@@ -145,6 +145,12 @@
     }
 </script>
 <style scoped>
+tr th:last-child{text-align: right;padding-right: 1.25rem;}
+      .dropdown .fa, .dropdown .material-icons {
+          color: #c3c7cc;
+          margin-right: 1.25rem;
+          float: right;
+      }
     .table-hover th{font-weight: 200;font-size:13px}
     .dropdown-menu{border-radius: 0}
     .dropdown-item{font-weight: normal; font-size: 11px;line-height: 13px}

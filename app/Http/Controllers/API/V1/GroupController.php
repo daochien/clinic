@@ -170,17 +170,20 @@ class GroupController extends BaseController
 
     public function filter($id, $value)
     {
-        try {
-            $query = "SELECT users.id, users.name, users.email, users.created_at from users WHERE id in (select DISTINCT(users.id) from users LEFT JOIN group_users on users.id = group_users.user_id where users.id not in (select users.id from users JOIN group_users on group_users.user_id = users.id where group_users.group_id = $id)) and users.name like '%$value%'";
+        // try {
+        //     $query = "SELECT users.id, users.name, users.email, users.created_at from users WHERE id in (select DISTINCT(users.id) from users LEFT JOIN group_users on users.id = group_users.user_id where users.id not in (select users.id from users JOIN group_users on group_users.user_id = users.id where group_users.group_id = $id)) and users.name like '%$value%'";
 
-            $users = DB::select( DB::raw($query));
-            if(count($users)){
-                return $this->sendSuccessResponse($users,  __('group.group_users.others._data_result'));
-            }
-            return $this->sendSuccessResponse([], __('group.group_users.others._no_search_result'));
-        } catch (\Exception $exception) {
-            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
-        }
+        //     $users = DB::select( DB::raw($query));
+        //     if(count($users)){
+        //         return $this->sendSuccessResponse($users,  __('group.group_users.others._data_result'));
+        //     }
+        //     return $this->sendSuccessResponse([], __('group.group_users.others._no_search_result'));
+        // } catch (\Exception $exception) {
+        //     return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
+        // }
+
+        $result = $this->repository->filter($id, $value);
+        dd($result);
     }
 
     public function addUsers(Request $request)
