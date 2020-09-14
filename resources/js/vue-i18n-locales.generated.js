@@ -169,7 +169,8 @@ export default {
             "forgot_password": "パスワードを忘れた方はこちら?",
             "title_reset": "パスワードを忘れた方はこちら?",
             "confirm_password": "パスワードを認証する",
-            "reset_btn": "リセット"
+            "reset_btn": "リセット",
+            "failed": "ログインに失敗しました。"
         },
         "clinic": {
             "attr": {
@@ -537,7 +538,7 @@ export default {
             "previous": "&laquo; 前へ",
             "next": "次へ &raquo;"
         },
-        "password": {
+        "passwords": {
             "reset": "パスワードをリセットしました。",
             "sent": "パスワードリマインダーを送信しました。",
             "throttled": "時間を置いて再度お試しください。",
@@ -1086,7 +1087,8 @@ export default {
             "forgot_password": "パスワードを忘れた方はこちら?",
             "title_reset": "パスワードを忘れた方はこちら?",
             "confirm_password": "パスワードを認証する",
-            "reset_btn": "リセット"
+            "reset_btn": "リセット",
+            "failed": "ログインに失敗しました。"
         },
         "clinic": {
             "attr": {
@@ -1609,7 +1611,7 @@ export default {
             "previous": "&laquo; 前へ",
             "next": "次へ &raquo;"
         },
-        "password": {
+        "passwords": {
             "reset": "パスワードをリセットしました。",
             "sent": "パスワードリマインダーを送信しました。",
             "throttled": "時間を置いて再度お試しください。",
