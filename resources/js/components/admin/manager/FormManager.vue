@@ -231,13 +231,13 @@ export default {
                     this.$router.push({path: '/admin/manager'});
                     Toast.fire({
                         icon: 'success',
-                        title: this.$t('admin.info.form.messages._edit_success')
+                        title: this.$t('admin.info.messages._edit_success')
                     });
                     this.$Progress.finish();
                 } else {
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('admin.info.form.messages._edit_failed')
+                        title: this.$t('admin.info.messages._edit_failed')
                     });
 
                     this.$Progress.failed();
