@@ -7,10 +7,10 @@ Route::namespace('API\V1')
     ->prefix('/notification')
     ->group(function (): void {
         Route::get('/fetch', 'NotificationController@fetch');
+        Route::put('/status', 'NotificationController@updateStatus');
     });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
@@ -73,18 +73,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('request/{id}/comment', 'API\V1\RequestController@comment')->name('api.request.comment');
         Route::post('request/{id}', 'API\V1\RequestController@store')->name('api.request.store');
 
-        Route::get('page/blogs', 'API\V1\PageController@blogs')->name('page.blogs');
-        Route::get('page/blog-latest', 'API\V1\PageController@blogLatest')->name('page.blogLatest');
+        Route::get('inquiry/category/{id}', 'API\V1\InquiryController@indexByCategory')->name('api.inquiry.category.list');
+        Route::post('inquiry/{id}/status', 'API\V1\InquiryController@changeStatus')->name('api.inquiry.change_status');
+        Route::post('inquiry/{id}/comment', 'API\V1\InquiryController@comment')->name('api.inquiry.comment');
+
         Route::get('page/manual-latest', 'API\V1\PageController@manualLatest')->name('page.manualLatest');
-        Route::get('page/faq-latest', 'API\V1\PageController@faqLatest')->name('page.faqLatest');
         Route::post('page/upload-image-content', 'API\V1\PageController@uploadImageContent')->name('page.uploadImageContent');
         Route::put('page/{id}/change-status', 'API\V1\PageController@changeStatus')->name('page.changeStatus');
+        Route::put('page/{id}/rating', 'API\V1\PageController@rating')->name('page.rating');
         Route::post('page/{id}', 'API\V1\PageController@update')->name('page.update');
+        Route::post('category', 'API\V1\CategoryController@store')->name('category.store');
 
         Route::apiResources([
             'user' => 'API\V1\UserController',
             'clinic' => 'API\V1\ClinicController',
-            'category' => 'API\V1\CategoryController',
+            'inquiry' => 'API\V1\InquiryController',
             'notification' => 'API\V1\NotificationController',
             'group' => 'API\V1\GroupController',
             'page' => 'API\V1\PageController',
@@ -97,3 +100,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::post('/login', 'API\V1\Auth\LoginController@login')->name('api.login');
 Route::post('/password/forgot', 'API\V1\Auth\ForgotPasswordController@sendResetLinkEmail')->name('api.password.forgot');
+Route::post('/password/reset', 'API\V1\Auth\ResetPasswordController@reset')->name('api.reset.password');

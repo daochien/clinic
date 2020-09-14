@@ -43,29 +43,24 @@ class Notification extends Model
         return $this->hasMany(NotificationGroup::class, 'notification_id');
     }
 
-    public function status()
-    {
-        return $this->hasOne(NotificationStatus::class, 'notification_id', 'id');
-    }
-
-    public function usersCount()
-    {
-        return $this->hasMany(NotificationUser::class)->count();
-    }
-
     public function users()
     {
-        return $this->belongsToMany(User::class, 'notification_users', 'user_id');
+        return $this->belongsToMany(User::class, 'notification_users', 'notification_id', 'user_id');
+    }
+
+    public function notificationUsers()
+    {
+        return $this->hasMany(NotificationUser::class, 'notification_id', 'id');
     }
 
     public function usersRead()
     {
-        return $this->hasMany(NotificationStatus::class)->where('status', [2, 3])->count();
+        return $this->hasManyThrough(NotificationStatus::class, NotificationUser::class, 'notification_id', 'notification_user_id', 'id', 'id')->where('status', '=', NotificationStatus::STATUS['read']);
     }
 
-    public function usersConfirm()
+    public function usersConfirmed()
     {
-        return $this->hasMany(NotificationStatus::class)->where('status', '=', 1)->count();
+        return $this->hasManyThrough(NotificationStatus::class, NotificationUser::class, 'notification_id', 'notification_user_id', 'id', 'id')->where('status', '=', NotificationStatus::STATUS['confirmed']);
     }
 
     public function creator()

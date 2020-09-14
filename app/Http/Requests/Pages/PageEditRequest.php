@@ -32,13 +32,9 @@ class PageEditRequest extends FormRequest
             'public' => 'required|boolean',
             'status' => 'required|boolean',
         ];
-
-        if (!empty($this->url)) {
-            $rules['url'] = 'url';
-        }
-
+        
         if (!empty($this->files) && count($this->files)) {            
-            $rules['files.*'] = 'mimes:jpeg,png,jpg,zip,pdf,ppt,pptx,xlx,xlsx,docx,doc,gif,webm,mp4,mpeg|max:51200';
+            $rules['files.*'] = 'mimes:jpeg,png,jpg,pdf,gif,webm,mp4,mpeg|max:51200';
         }
 
         if (!empty($this->image)) {

@@ -63,14 +63,19 @@ return [
             '_url_pl' => 'Please specify the publication destination',
             '_category_pl' => 'Please specify a category',
             '_title_upload' => 'Please choose the file',
-            '_content_upload' => 'Please upload the document (pdf, docx ppt), image file (png, jpg) or video (mp4).',
-            '_btn_upload' => 'Upload file'
+            '_content_upload' => 'Please upload the document (pdf), image file (png, jpg) or video (mp4).',
+            '_btn_upload' => 'Upload file',
+            '_btn_remove' => 'Remove Page'
         ],
         'messages' => [
             '_create_success' => '管理者アカウントの登録が成功しました。',
             '_create_failed' => '管理者アカウントの登録に失敗しました。',
             '_edit_success' => '管理者情報の編集が成功しました。',
             '_edit_failed' => '管理者情報の編集に失敗しました。',
+            '_change_status_success' => 'Change status success',
+            '_change_status_failed' => 'Change status failed',
+            '_create_category_success' => 'Create Category Success',
+            '_create_category_failed' => 'Create Category Faild',            
         ],
         'others' => [
             '_btn_create' => '登録する',

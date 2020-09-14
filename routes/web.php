@@ -15,7 +15,15 @@ Route::prefix('/notification/')
         Route::get('/', 'NotificationController@index')->name('index');
     });
 
-Route::get('/blogs', 'HomeController@blog')->name('home.blog');
+Route::prefix('/blogs/')
+    ->namespace('Client')
+    ->name('blog.')
+    ->group(function () {
+        Route::get('/', 'PageController@index')->name('index');
+        Route::get('/{id}', 'PageController@index')->name('detail');
+    });
+
+
 
 //Route::get('/admin', 'Admin\HomeController@index')->name('admin_dashboard');
 //Route::get('/home', 'HomeController@index')->name('home');

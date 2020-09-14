@@ -1,7 +1,8 @@
 export default [
     { path: '/notification', component: require('./components/client/notification/Index.vue').default },
 
-    { path: '/blogs', component: require('./components/front-end/Page.vue').default },
+    { path: '/blogs', component: require('./components/front-end/Page.vue').default, name: 'client.blog', meta: {breadcrumb: `クリニック一覧`} },
+    { path: '/blogs/:id', component: require('./components/front-end/PageDetail.vue').default, name: 'client.blogDetail' },
 
     { path: '/admin/dashboard', component: require('./components/admin/Dashboard.vue').default },
     { path: '/admin/profile', component: require('./components/admin/Profile.vue').default },
@@ -59,8 +60,9 @@ export default [
         meta: {breadcrumb: `お知らせ管理`},
         children: [
             { path: '', component: require('./components/admin/notifications/Index.vue').default, meta: {breadcrumb: `お知らせ一覧`} },
-            { path: 'details', component: require('./components/admin/notifications/Details.vue').default, name: 'details_notification', meta: {breadcrumb: `お知らせ詳細情報`} },
-            { path: 'edit', component: require('./components/admin/notifications/Edit.vue').default, name: 'edit_notification' , meta: {breadcrumb: `お知らせ一覧`}},
+            { path: 'details/:id(\\d+)', component: require('./components/admin/notifications/Details.vue').default, name: 'details_notification', meta: {breadcrumb: `お知らせ詳細情報`} },
+            { path: 'edit/:id(\\d+)', component: require('./components/admin/notifications/Edit.vue').default, name: 'edit_notification' , meta: {breadcrumb: `お知らせ一覧`}},
+            { path: 'create', component: require('./components/admin/notifications/Edit.vue').default, name: 'create_notification' , meta: {breadcrumb: `お知らせ一覧`}},
         ]
     },
 
@@ -109,8 +111,8 @@ export default [
         name: 'page', meta: {breadcrumb: `記事管理`},
         children: [
             { path: '', component: require('./components/admin/page/Index.vue').default, meta: {breadcrumb: `記事一覧`} },
-            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `記事作成`} },            
-            { path: 'edit/:id', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `記事編集`} },            
+            { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `記事作成`} },
+            { path: 'edit/:id', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `記事編集`} },
         ]
     },
 ];

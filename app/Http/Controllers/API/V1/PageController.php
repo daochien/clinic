@@ -4,14 +4,11 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Requests\Pages\PageEditRequest;
 use App\Http\Requests\Pages\PageRequest;
+use App\Http\Resources\ManualCollection;
 use Illuminate\Http\Request;
 use App\Repositories\PageRepository;
-use Illuminate\Support\Facades\DB;
 use App\Services\PageServices;
 use App\Services\S3Service;
-use App\Http\Resources\BlogCollection;
-use App\Http\Resources\FAQCollection;
-use App\Http\Resources\ManualCollection;
 use App\Http\Resources\PageCollection;
 use App\Models\Page;
 
@@ -55,7 +52,7 @@ class PageController extends BaseController
 
     public function show($id)
     {
-        $page = $this->page->find($id);
+        $page = $this->pageRepo->show($id);
 
         return $this->sendSuccessResponse($page, 'Page Details');
     }
@@ -77,41 +74,39 @@ class PageController extends BaseController
 
         $page->delete();
 
-        return $this->sendResponse($page, 'Page has been Deleted');
+        return $this->sendSuccessResponse($page, 'Page has been Deleted');
     }
 
     public function changeStatus($id)
     {
         try {
             $page = $this->pageRepo->changeStatus($id);
-            return $this->sendResponse($page, 'Page Created Successfully');
+            return $this->sendSuccessResponse($page, 'Page Created Successfully');
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getMessage());
+            return $this->sendErrorResponse($exception->getMessage());
         }
 
     }
 
-    public function blogs()
+    public function rating(Request $request, $id)
     {
-        $blogs = $this->pageRepo->getAll(['type' => 'blog'], 4);
-        return new BlogCollection($blogs);
+        try {
+            $result = $this->pageService->rating($id, $request->only('type'));
+            return $this->sendSuccessResponse($result, 'Update rating Successfully');
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getMessage()); 
+        }
     }
-
-    public function blogLatest()
-    {
-        $blogsLatest = $this->pageRepo->latestPage('blog', 5);
-        return new BlogCollection($blogsLatest);
-    }
-
+    
     public function manualLatest()
     {
-        $manuals = $this->pageRepo->latestPage('manual', 8);
-        return new ManualCollection($manuals);
+        try {
+            $manuals = $this->pageRepo->latestManual();            
+            return new ManualCollection($manuals);            
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getMessage());
+        }
+        
     }
-
-    public function faqLatest()
-    {
-        $faqs = $this->pageRepo->latestPage('faq', 4);
-        return new FAQCollection($faqs);
-    }
+    
 }

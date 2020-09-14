@@ -87,7 +87,7 @@
                                                         >{{ $t('notification.info.form.target_user_opt._dh')}}
                                                         </b-form-checkbox>
                                                     </div>
-                                                    <div class="col-1">
+                                                    <div class="col-4">
                                                         <b-form-checkbox
                                                             v-model="manual"
                                                             name="check-button"
@@ -166,6 +166,7 @@
     import { quillEditor } from 'vue-quill-editor'
 
     export default {
+        name: "EditCreateNotification",
         components: {
             Multiselect,
             datetime,
@@ -193,7 +194,10 @@
         },
         created() {
             this.$Progress.start();
-            this.form.notification_id = this.$route.params.id;
+            if (this.$route.params.id) {
+                this.form.notification_id = this.$route.params.id;
+            }
+
             this.loadNotification();
             this.$Progress.finish();
 

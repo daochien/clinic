@@ -5,8 +5,8 @@ function handleAjaxError(error) {
 	console.log(error)
 	// check if this is a validation error
 	if (error.status === 422) {
-		var json = error.responseJSON 
-		if (json && json.message) errTitle = json.message 
+		var json = error.responseJSON
+		if (json && json.message) errTitle = json.message
 
 		if (json.errors) {
 			errMsg = ''
@@ -38,7 +38,7 @@ function sConfirm(message, callback, type, title, cancelled) {
 	var cancelled = cancelled || function () {}
 
 	swal({
-	  title: title,
+	  // title: title,
 	  text: message,
 	  icon: type,
 	  cancelButtonColor: '#d33',
@@ -89,7 +89,7 @@ jQuery(function($){
 function initilizeConfirmListeners() {
 	$('.confirm').click( function( e ) {
 		e.preventDefault()
-		
+
 		var ref = $(this)
 		var data = ref.data()
 

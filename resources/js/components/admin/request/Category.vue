@@ -98,7 +98,7 @@
                     status: 1,
                 })
                 .then((data) => {
-                    if (data.data.success) {
+                    if (data.data.status) {
                         Toast.fire({
                             icon: "success",
                             title: this.$t('request').list.messages._approve_success,
@@ -137,7 +137,7 @@
                             status: 2,
                         })
                         .then((data) => {
-                            if (data.data.success) {
+                            if (data.data.status) {
                                 Toast.fire({
                                     icon: "success",
                                     title: this.$t('request').list.messages._reject_success,

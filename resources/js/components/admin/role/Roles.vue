@@ -114,26 +114,29 @@ export default {
 
         deleteRole (id) {
             Swal.fire({
-                title: this.$t('admin.popup.are_you_sure'),
-                text: this.$t('admin.popup.you_wont_able_revert'),
+                title: this.$t('role.others._remove_modal_title'),
+                text: this.$t('role.others._remove_modal_description'),
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: this.$t('admin.popup.delete_it')
+                confirmButtonText: this.$t('role.others._remove_modal_yes'),
+                cancelButtonText: this.$t('role.others._remove_modal_no'),
                 }).then((result) => {
 
                     // Send request to the server
                     if (result.value) {
                         this.role.delete('/api/role/'+id).then(()=>{
-                                Swal.fire(
-                                this.$t('admin.popup.deleted'),
-                                this.$t('admin.popup.your_item_has_been_deleted'),
-                                'success'
-                                );
+                            Toast.fire({
+                                icon: 'success',
+                                title: this.$t('role.others._remove_success')
+                            });
                             // Fire.$emit('AfterCreate');
                             this.getResults(1);
                         }).catch((data)=> {
-                            Swal.fire("Failed!", data.message, "warning");
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('common.messages._system_err')
+                            });
                         });
                     }
                 })

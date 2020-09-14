@@ -15,6 +15,9 @@ class PageCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return PageResource::collection($this->collection);
+        return [
+            'status' => true,
+            'data' =>PageResource::collection($this->collection)
+        ];
     }
 }

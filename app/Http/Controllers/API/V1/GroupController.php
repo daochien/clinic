@@ -40,6 +40,8 @@ class GroupController extends BaseController
      */
     public function index()
     {
+        //$group = $this->group->latest()->withCount('users')->orderBy('id', 'desc')->paginate(10);
+        //return $this->sendSuccessResponse($group, 'Group list');
           $groups = $this->repository->get();
           return new GroupCollection($groups);
     }
@@ -150,7 +152,7 @@ class GroupController extends BaseController
         } catch (\Exception $exception) {
             return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
-        
+
     }
 
     public function getGroupUsersByGroup($id){
@@ -163,7 +165,7 @@ class GroupController extends BaseController
         } catch (\Exception $exception) {
             return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
-        
+
     }
 
     public function filter($id, $value)

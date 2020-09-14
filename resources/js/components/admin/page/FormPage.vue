@@ -5,17 +5,21 @@
                 <h3 class="page-title">{{ isEdit ? $t('page.info._page_title_edit') : $t('page.info._page_title_create') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-center text-sm-right mb-0">
+                <button 
+                v-if="isEdit" 
+                class="btn btn-salmon mr-2" 
+                @click="removePage(page.id)">{{ $t('page.info.form._btn_remove') }}</button>
                 <button
                 v-if="!isEdit"
                 class="btn btn-primary float-right"
-                style="font-size: 16px; width: 140px;"
+                
                 @click="createPage()">
                     {{ $t('page.info.others._btn_create') }}
                 </button>
                 <button
                 v-if="isEdit"
                 class="btn btn-primary float-right"
-                style="font-size: 16px; width: 140px;"
+                
                 @click="updatePage()">
                     {{ $t('page.info.others._btn_edit') }}
                 </button>
@@ -30,24 +34,24 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group row border-bottom">
-                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._type') }} <span color="color:#c4183c;">*</span></label>
+                                <label class="col-sm-2 col-form-label" style="color:#c4183c;">{{ $t('page.attr._type') }} <span>*</span></label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="custom-control custom-radio form-check-inline float-left">
-                                        <input class="custom-control-input" type="radio" id="inlineArticle" v-model="page.type" :value="'blog'">
+                                        <input class="custom-control-input" :disabled="isEdit && page.type !='blog' " type="radio" id="inlineArticle" v-model="page.type" :value="'blog'">
                                         <label class="custom-control-label" for="inlineArticle">記事</label>
                                     </div>
                                     <div class="custom-control custom-radio form-check-inline float-left">
-                                        <input class="custom-control-input" type="radio" id="inlineManual" v-model="page.type" :value="'manual'">
+                                        <input class="custom-control-input" :disabled="isEdit && page.type !='manual' " type="radio" id="inlineManual" v-model="page.type" :value="'manual'">
                                         <label class="custom-control-label" for="inlineManual">マニュアル</label>
                                     </div>
                                     <div class="custom-control custom-radio form-check-inline float-left">
-                                        <input class="custom-control-input" type="radio" id="inlineFAQ" v-model="page.type" :value="'faq'">
+                                        <input class="custom-control-input" :disabled="isEdit  && page.type !='faq'" type="radio" id="inlineFAQ" v-model="page.type" :value="'faq'">
                                         <label class="custom-control-label" for="inlineFAQ">よくある質問</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._title') }} <span color="color:#c4183c;">*</span></label>
+                                <label style="color:#c4183c;" :class="['col-sm-2 col-form-label']">{{ $t('page.attr._title') }} <span>*</span></label>
                                 <div class="col-sm-10 ">
                                     <input
                                     type="text"
@@ -67,7 +71,7 @@
                                     <has-error :form="pageFormErrors" field="public"></has-error>
                                 </div>
                             </div>
-                            <div class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <div v-show="showMore && page.type != 'faq'" class="form-group row border-bottom" style="padding-bottom: 10px;">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._public_date') }} </label>
                                 <div class="col-sm-10 row">
                                     <div class="col-sm-4">
@@ -80,7 +84,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group row border-bottom">
+                            <div class="form-group row border-bottom" v-show="page.type != 'faq'">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._status') }}</label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="switchToggle">
@@ -90,19 +94,27 @@
                                     <has-error :form="pageFormErrors" field="status"></has-error>
                                 </div>
                             </div>
-                            <div class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <div v-show="showMore && page.type != 'faq' && !page.status" class="form-group row border-bottom" style="padding-bottom: 10px;">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._url') }}</label>
                                 <div class="col-sm-10">
-                                    <input
+                                    <!-- <input
                                     v-model="page.url"
                                     type="text"
                                     :class="['form-control', {'is-invalid': pageFormErrors.errors.has('url')}]"
                                     :placeholder="$t('page.info.form._url_pl')">
-                                    <has-error :form="pageFormErrors" field="url"></has-error>
+                                    <has-error :form="pageFormErrors" field="url"></has-error> -->
+                                    <multiselect
+                                        v-model="page.groups"
+                                        :options="groups"
+                                        :multiple="true"
+                                        label="name"
+                                        track-by="id"
+                                        :placeholder="$t('page.info.form._url_pl')"
+                                    ></multiselect>
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._category') }} <span color="color:#c4183c;">*</span></label>
+                                <label style="color:#c4183c;" class="col-sm-2 col-form-label">{{ $t('page.attr._category') }} <span>*</span></label>
                                 <div class="col-sm-4">
                                     <select
                                     :class="['form-control', {'is-invalid': pageFormErrors.errors.has('category_id')}]"
@@ -114,16 +126,16 @@
                                     </select>
                                     <has-error :form="pageFormErrors" field="category_id"></has-error>
                                 </div>
-                                <label @click="showModalCategory()" class="col-sm-4 col-form-label" style="color:#007BFF; cursor:pointer;">+ {{ $t('page.info.popup._btn_show_popup_category') }}</label>
+                                <label v-if="page.type != 'faq'" @click="showModalCategory()" class="col-sm-4 col-form-label" style="color:#007BFF; cursor:pointer;">+ {{ $t('page.info.popup._btn_show_popup_category') }}</label>
                             </div>
-                            <div class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <div v-show="showMore && page.type != 'faq'" class="form-group row border-bottom" style="padding-bottom: 10px;">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._image') }}</label>
                                 <div class="col-sm-4" v-show="previewImage">
                                     <img :src="previewImage" style="width:100%;">
                                     <span @click="removeImage()" style="color: #EB5757; font-size: 10px; cursor: pointer;">アイキャッチ画像を削除する</span>
                                 </div>
                                 <div class="col-sm-4">
-                                    <div class="custom-file">                                        
+                                    <div class="custom-file">
                                         <input
                                         ref="file"
                                         type="file"
@@ -134,6 +146,26 @@
                                         <button @click.prevent="$refs.file.click()" type="button" class="mb-2 btn btn-sm btn-white mr-1">ファイルを選択</button>
                                     </div>
                                     <has-error :form="pageFormErrors" field="image"></has-error>
+                                </div>
+                            </div>
+                            <div class="form-group row" style="text-align: right;" v-if="page.type != 'faq'">
+                                <div class="col-sm-12">
+                                    <span v-if="!showMore" @click="showMore = !showMore" style="cursor:pointer;">
+                                        すべての設定を表示
+                                        <span>
+                                            <svg width="19" height="11" viewBox="0 0 19 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M2.38615 0.394216L0.837402 1.95172L9.4999 10.6055L18.1624 1.94297L16.6137 0.394216L9.4999 7.50797L2.38615 0.394216Z" fill="#3D5170"/>
+                                            </svg>
+                                        </span>
+                                    </span>
+                                    <span v-if="showMore" @click="showMore = !showMore" style="cursor:pointer;">
+                                        主な設定だけ表示
+                                        <span>
+                                            <svg width="19" height="11" viewBox="0 0 19 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M16.6138 10.6058L18.1626 9.04828L9.5001 0.394531L0.837597 9.05703L2.38635 10.6058L9.5001 3.49203L16.6138 10.6058Z" fill="#3D5170"/>
+                                            </svg>
+                                        </span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -229,6 +261,8 @@ import 'quill/dist/quill.bubble.css'
 
 import { quillEditor } from 'vue-quill-editor'
 
+import Multiselect from "vue-multiselect";
+
 export default {
     props: {
         isEdit: Boolean
@@ -237,6 +271,7 @@ export default {
         datetime,
         quillEditor,
         vueDropzone: vue2Dropzone,
+        Multiselect
     },
     data () {
         return {
@@ -254,19 +289,20 @@ export default {
                 addRemoveLinks: true,
                 duplicateCheck: true,
                 maxFiles: 1,
-                acceptedFiles: '.jpeg,.png,.jpg,.zip,.pdf,.ppt,.pptx,.xlx,.xlsx,.docx,.doc,.gif,.webm,.mp4,.mpeg'
+                acceptedFiles: '.jpeg,.png,.jpg,.pdf,.gif,.webm,.mp4,.mpeg'
             },
             page: {
                 type: 'blog',
                 title: '',
                 public: true,
                 public_date: '',
-                status: false,
+                status: true,
                 url: '',
                 content: '',
                 files: [],
                 image: '',
                 category_id: '',
+                groups: [],
                 isRemoveImage: false,
                 isRemoveFile: false,
             },
@@ -275,21 +311,52 @@ export default {
             counter: 0,
             formCategory: new Form({
                 name: '',
-                type: 1
+                type: 'blog'
             }),
-            categories: []
+            categories: [],
+            groups: [],
+            showMore: false
         }
     },
     created () {
         this.loadCategory();
+        this.loadGroup();
         this.infoPage();
     },
     mounted () {
         this.$refs.quill.quill.getModule("toolbar").addHandler("image", this.imageHandler);
     },
+    computed: {
+        
+        pageType () {
+            return this.page.type;
+        },
+        pageStatus () {
+            return this.page.status;
+        }
+    },
+    watch: {
+        pageType (newVal, oldVal) {
+            let type = 'blog';
+            if (newVal == 'blog') {
+                type = 'blog';
+            } else if (newVal == 'manual') {
+                type = 'document';
+            } else {
+                type = 'faq';
+            }
+            this.page.category_id = '';
+            this.formCategory.type = type;
+            this.loadCategory();
+        },
+        pageStatus (newVal, oldVal) {
+            if (newVal == false) {
+                this.showMore = true;
+            }
+        }
+    },
     methods: {
         showModalCategory () {
-            this.formCategory.reset();
             $('#addCategory').modal('show');
         },
         removeImage () {
@@ -322,7 +389,10 @@ export default {
                     if (!this.isEdit) {
                         this.previewImage = '';
                     }
-                    alert('File error');
+                    Toast.fire({
+                        icon: 'error',
+                        title: '画像形式が正しくない'
+                    });
                 }
             } catch(error) {}
         },
@@ -345,11 +415,11 @@ export default {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
-                if (data.success) {
+                if (data.status) {
                     this.$router.push({path: '/admin/page'});
                     Toast.fire({
                         icon: 'success',
-                        title: this.$t('admin.info.form.messages._create_success')
+                        title: this.$t('page.info.messages._create_success')
                     });
                 } else {
                     if (data.code == '01') {
@@ -357,7 +427,7 @@ export default {
                     }
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('admin.info.form.messages._create_failed')
+                        title: this.$t('page.info.messages._create_failed')
                     });
                 }
 
@@ -383,8 +453,11 @@ export default {
             data.append('url', this.page.url);
             data.append('category_id', this.page.category_id);
             data.append('content', this.page.content);
-            data.append('is_remove_image', this.page.isRemoveImage);
-            data.append('is_remove_file', this.page.isRemoveFile);
+            if (this.page.groups.length > 0) {
+                data.append('groups', JSON.stringify(this.page.groups));
+            }
+            data.append('is_remove_image', this.page.isRemoveImage ? 1: 0);
+            data.append('is_remove_file', this.page.isRemoveFile ? 1 : 0);
 
             if (this.page.files.length > 0) {
                 for (let i = 0; i < this.page.files.length; i++) {
@@ -432,25 +505,34 @@ export default {
                 });
         },
         loadCategory () {
-            axios.get("/api/category/type/document").then(({ data }) => (this.categories = data.data));
+            let type = 'blog';
+            if (this.page.type == 'blog') {
+                type = 'blog';
+            } else if (this.page.type == 'manual') {
+                type = 'document';
+            } else {
+                type = 'faq';
+            }
+            axios.get("/api/category/type/"+type).then(({ data }) => (this.categories = data.data));
         },
         createCategory () {
             this.$Progress.start();
             this.formCategory.post('/api/category')
                 .then( ({data}) => {
-                    if(data.success) {
+                    if(data.status) {
+                        this.formCategory.reset();
                         $('#addCategory').modal('hide');
                         this.loadCategory();
                         this.page.category_id = data.data.id;
                         Toast.fire({
                             icon: 'success',
-                            title: this.$t('admin.info.form.messages._create_success')
+                            title: this.$t('page.info.messages._create_category_success')
                         });
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('admin.info.form.messages._create_failed')
+                            title: this.$t('page.info.messages._create_category_failed')
                         });
 
                         this.$Progress.failed();
@@ -490,6 +572,16 @@ export default {
             this.page.content = data.content;
             this.page.category_id = data.category_id;
             this.previewImage = data.image;
+
+            if (data.groups.length > 0) {
+                data.groups.forEach((item) => {
+                    this.page.groups.push({
+                        id: item.id,
+                        name: item.name
+                    });
+                });
+            }
+
             if (data.files) {
                 let objFile = JSON.parse(data.files);
                 this.$refs.myVueDropzone.manuallyAddFile({
@@ -498,6 +590,12 @@ export default {
                     type: objFile.type
                 }, objFile.path);
             }
+        },
+
+        loadGroup () {
+            axios.get("/api/group/all").then(({data}) => {
+                this.groups = data.data;
+            });
         },
 
         async updatePage () {
@@ -510,11 +608,11 @@ export default {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
-                if (data.success) {
+                if (data.status) {
                     this.$router.push({path: '/admin/page'});
                     Toast.fire({
                         icon: 'success',
-                        title: this.$t('admin.info.form.messages._edit_success')
+                        title: this.$t('page.info.messages._edit_success')
                     });
                 } else {
                     if (data.code == '01') {
@@ -522,7 +620,7 @@ export default {
                     }
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('admin.info.form.messages._edit_failed')
+                        title: this.$t('page.info.messages._edit_failed')
                     });
                 }
 
@@ -534,7 +632,37 @@ export default {
                 });
             }
             this.$Progress.finish();
+        },
+        removePage (id) {
+            Swal.fire({
+                title: this.$t('page.others._remove_modal_title'),
+                text: this.$t('page.others._remove_modal_description'),
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: this.$t('page.others._remove_modal_no'),
+                confirmButtonText: this.$t('page.others._remove_modal_yes')
+            }).then((result) => {
+                // Send request to the server
+                if (result.value) {
 
+                    axios.delete('/api/page/'+id).then(() => {
+
+                        Toast.fire({
+                            icon: 'success',
+                            title: this.$t('page.list.messages._remove_success')
+                        });
+
+                        // Fire.$emit('AfterCreate');
+                        this.$router.push({path: '/admin/page'});
+                    }).catch((data) => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: this.$t('common.messages._system_err')
+                        });
+                    });
+                }
+            })
         },
     }
 }
@@ -605,4 +733,8 @@ export default {
     #tj-datetime-input:focus {
         outline: none;
     }
+    .form-label-error {
+        color: #c4183c;
+    }
 </style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

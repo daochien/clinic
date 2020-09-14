@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Helpers\PasswordHelper;
 use App\Models\Page;
+use App\Models\PageGroup;
 use App\Repositories\PageRepository;
 use App\Services\S3Service;
 use Illuminate\Support\Facades\DB;
@@ -23,9 +24,20 @@ class PageServices
     public function createPage($attribute)
     {
         DB::beginTransaction();
-        try {
-
+        try {            
             $page = $this->pageRepo->create($attribute);
+
+            if (isset($attribute['groups'])) {
+                $groups = json_decode($attribute['groups'], true);
+                if (!empty($groups)) {
+                    foreach ($groups as $group) {
+                        PageGroup::insertOrIgnore([
+                            'page_id' => $page->id,
+                            'group_id' => $group['id']
+                        ]);
+                    }
+                }
+            }
 
             if (!empty($attribute['image'])) {
                 $image = $this->s3Service->store($attribute['image'], 'pages/images');
@@ -64,15 +76,30 @@ class PageServices
             $page = $this->page->findOrFail($id);
             $page->update($this->_buildDataUpdate($attribute->all()));
 
+            if (isset($attribute['groups'])) {
+                $groups = json_decode($attribute['groups'], true);
+                if (!empty($groups)) {
+                    PageGroup::where('page_id', $page->id)->delete();
+
+                    foreach ($groups as $group) {
+                        PageGroup::insertOrIgnore([
+                            'page_id' => $page->id,
+                            'group_id' => $group['id']
+                        ]);
+                    }
+                }
+            }
+            
             if (!empty($attribute['image'])) {
                 $image = $this->s3Service->store($attribute['image'], 'pages/images');
                 $page->image = $image;
                 $page->save();
             } else {
                 if (!empty($attribute['is_remove_image'])) {
+                    
                     $page->image = null;
                     $page->save();
-                }
+                }                
             }
 
             if ($attribute->hasFile('files')) {
@@ -105,32 +132,39 @@ class PageServices
     }
 
     protected function _buildDataUpdate($attribute)
-    {
-        return [
+    {        
+        $update = [
             'type' => $attribute['type'],
             'title' => $attribute['title'],
-            'public' => $attribute['public'],
-            'public_date' => $attribute['public_date'],
+            'public' => $attribute['public'],            
             'status' => $attribute['status'],
             'url' => $attribute['url'],
             'category_id' => $attribute['category_id'],
             'content' => $attribute['content'],
         ];
+        if (!empty($attribute['public_date']) && $attribute['public_date'] != 'null') {
+            $update['public_date'] = $attribute['public_date'];
+        }
+        return $update;
     }
 
-    public function blogLatest()
+    public function rating($id, $params)
     {
-        return $this->pageRepo->latestPage('blog', 5);
+        if (!empty($params['type'])) {
+            if ($params['type'] == 'download') {
+                $update = $this->page::where('id', $id)->update([
+                    'downloads' => DB::raw("`downloads`+1")
+                ]);                
+            }
+            if ($params['type'] == 'view') {
+                $this->page::where('id', $id)->update([
+                    'views' => DB::raw('views + 1')
+                ]);
+            }
+            return true;
+        }
+        return false;
     }
-
-    public function manualLatest()
-    {
-        return $this->pageRepo->latestPage('manual', 8);
-    }
-
-    public function faqLatest()
-    {
-        return $this->pageRepo->latestPage('faq', 4);
-    }
+    
 }
 ?>

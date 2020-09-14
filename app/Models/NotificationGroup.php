@@ -9,6 +9,7 @@ use App\Models\Group;
 class NotificationGroup extends Model
 {
     protected $table = 'notification_groups';
+    protected $primaryKey = 'notification_id';
 
     public $timestamps = false;
 
@@ -24,5 +25,10 @@ class NotificationGroup extends Model
     public function group()
     {
         return $this->belongsTo(Group::class, 'group_id', 'id');
+    }
+
+    public function users()
+    {
+        return $this->hasManyThrough(User::class,Group::class);
     }
 }

@@ -23,7 +23,7 @@ class PageResource extends JsonResource
             'status' => $this->status,
             'files' => $this->_getFile($this->files),
             'category_id' => $this->category_id,
-            'category_name' => $this->categorys->name,
+            'category_name' => @$this->categorys->name,
             'created_at' => $this->created_at
         ];
     }

@@ -95,7 +95,7 @@
 
                 axios.post("/api/clinic/" + this.$route.params.id + "/user")
                     .then((data) => {
-                        if (data.data.success) {
+                        if (data.data.status) {
                             Toast.fire({
                                 icon: 'success',
                                 title: data.data.message

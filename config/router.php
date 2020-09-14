@@ -47,7 +47,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['clinic.index', 'api.clinic.all', 'clinic.get.users']
+                    'routes' => ['clinic.index', 'clinic.get.users']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -89,7 +89,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['group.index', 'api.group.all']
+                    'routes' => ['group.index']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -152,11 +152,11 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['api.setting.type', 'api.setting.level', 'api.setting.user.role']
+                    'routes' => ['api.setting.type', 'api.setting.level', 'api.setting.user.role', 's3.store', 'api.group.all', 'api.clinic.all', 'category.list.by.type' ]
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => [],
+                    'routes' => ['category.store'],
                 ],
                 'update' => [
                     'name' => 'Update',

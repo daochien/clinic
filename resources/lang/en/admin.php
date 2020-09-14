@@ -1,4 +1,4 @@
-<?php 
+<?php
 return [
     'attr' => [
         '_username' => 'アカウント名',
@@ -30,6 +30,26 @@ return [
             '_no_data' => '管理者アカウントが存在しません。',
             '_no_search_result' => '該当する管理者情報が存在しません。',
         ],
+    ],
+    'my_account' => [
+        '_page_title' => 'マイアカウント',
+        'basic_info' => [
+            '_title' => 'アカウント情報',
+            '_subtitle' => 'アカウント情報',
+        ],
+        'change_password' => [
+            '_title' => 'パスワード再設定',
+            '_current_pass' => '現在のパスワード',
+            '_current_pass_place_holder' => '現在のパスワードを入力してください',
+            '_new_pass_place_holder' => '新しいパスワードを入力してください',
+            '_verify_pass_place_holder' => '確認用パスワードを入力してください',
+            '_new_pass' => '新しいパスワード',
+            '_verify_pass' => '新しいパスワード',
+            '_password_changed' => '管理者情報の編集が成功しました。',
+            '_password_update_failed' => '管理者情報の編集に失敗しました。',
+            '_current_pass_not_match' => 'The current password is not match with old password.'
+        ],
+        '_btn_update' => '保存',
     ],
     'info' => [
         '_og_title_create' => '友伸會ポータル管理画面｜管理者アカウント管理・新規アカウント登録',
@@ -64,5 +84,7 @@ return [
         '_remove_modal_no' => 'いいえ',
         '_remove_modal_title' => '管理者情報を削除',
         '_remove_modal_description' => 'この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。',
+        '_remove_modal_deleted' => '仕上げ',
+        '_your_item_has_been_deleted' => '管理者が削除しました'
     ],
 ];

@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Page;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PageRepository
@@ -77,45 +78,20 @@ class PageRepository
         return $page;
     }
 
+    public function show($id)
+    {
+        return $this->model->with('groups')->find($id);
+    }
+
     public function latestPage($type = 'blog', $limit = 5)
     {
         return $this->model->where('type', $type)->orderBy('id', 'desc')->paginate($limit);
     }
-
-    public function getPathUpload($page, $folder = 'images')
+    
+    public function latestManual($limit = 8)
     {
-        if (!empty($page)) {
-            return $page->type.'/'.$page->id.'/'.$folder;
-        }
-        return 'page/content';
-    }
-
-    public function uploadFile($file, $pathFolder)
-    {
-        try {
-            $path = Storage::disk('s3')->put($pathFolder, $file, 'public');
-            return Storage::disk('s3')->url($path);
-        } catch (\Exception $e) {
-            return false;
-        }
-    }
-
-    public function uploadFiles($files, $pathFolder)
-    {
-        try {
-
-            $paths = array();
-            foreach ($files['files'] as $file) {
-                $path = Storage::disk('s3')->put($pathFolder, $file, 'public');
-                $path = Storage::disk('s3')->url($path);
-                $paths[] = $path;
-            }
-            return $paths;
-
-        } catch (\Exception $e) {
-
-            return false;
-        }
+        return $this->model->where('type', Page::PAGE_TYPE['manual'])->orderBy(DB::raw("`views` + `downloads` "), 'desc')->limit($limit)->get();
+        
     }
 
     /**
