@@ -34,7 +34,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group row border-bottom">
-                                <label class="col-sm-2 col-form-label" style="color:#c4183c;">{{ $t('page.attr._type') }} <span>*</span></label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._type') }} <span style="color:#c4183c;">*</span></label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="custom-control custom-radio form-check-inline float-left">
                                         <input class="custom-control-input" :disabled="isEdit && page.type !='blog' " type="radio" id="inlineArticle" v-model="page.type" :value="'blog'">
@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label style="color:#c4183c;" :class="['col-sm-2 col-form-label']">{{ $t('page.attr._title') }} <span>*</span></label>
+                                <label :class="['col-sm-2 col-form-label']">{{ $t('page.attr._title') }} <span style="color:#c4183c;">*</span></label>
                                 <div class="col-sm-10 ">
                                     <input
                                     type="text"
@@ -114,7 +114,7 @@
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label style="color:#c4183c;" class="col-sm-2 col-form-label">{{ $t('page.attr._category') }} <span>*</span></label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._category') }} <span style="color:#c4183c;">*</span></label>
                                 <div class="col-sm-4">
                                     <select
                                     :class="['form-control', {'is-invalid': pageFormErrors.errors.has('category_id')}]"
