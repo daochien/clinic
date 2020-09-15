@@ -22,9 +22,9 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>{{ $t('staff.attr._position')}}</label>
-                                                <select class="form-control" id="groups" v-model="groupSelected">
+                                                <select class="form-control" id="types"  v-model="typeSelected">
                                                     <option value="" selected>{{ $t('staff.list.search_box._position_df') }}</option>
-                                                    <option v-for="group in groups" :key="'group_' + group.id" :value="group.id" >{{ group.name }}</option>
+                                                    <option v-for="type_ in types" :key="'type_' + type_.id" :value="type_.id" >{{ type_.name }}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -156,7 +156,7 @@
             return {
                 users: [],
                 clinics: [],
-                type: [],
+                types: [],
                 paginator: {},
                 keyword: "",
                 clinicSelected: "",
@@ -210,7 +210,7 @@
             },
             loadType() {
                 axios.get("/api/setting/type").then((response) => {
-                    this.type = response.data.data;
+                    this.types = response.data.data;
                 });
             },
             loadClinic() {
