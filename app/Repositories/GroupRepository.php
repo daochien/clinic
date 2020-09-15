@@ -170,4 +170,28 @@ class GroupRepository
             return $this->model->$method(...$arguments);
         }
     }
+
+    public function filter($id, $value){
+        $temp = DB::table('users')
+            ->select('users.id')
+            ->distinct()
+            ->leftJoin('group_users', 'group_users.user_id', '=', 'users.id')
+            ->whereNotIn('users.id', function($sql) use ($id) {
+                $sql->select('users.id')
+                ->from('users')
+                ->leftJoin('group_users', 'group_users.user_id', '=', 'users.id')
+                ->where('group_users.group_id', '=' ,$id);
+            })
+            ->get()
+            ->toArray();
+            
+            $array  = array_column($temp, 'id');
+
+            $users = DB::table('users')
+            ->whereIn('id', $array)
+            ->where('name', 'like', '%'.$value.'%')
+            ->get()
+            ->toArray();
+            return $users;
+    }
 }

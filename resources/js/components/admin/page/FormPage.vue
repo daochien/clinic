@@ -5,17 +5,21 @@
                 <h3 class="page-title">{{ isEdit ? $t('page.info._page_title_edit') : $t('page.info._page_title_create') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-center text-sm-right mb-0">
+                <button 
+                v-if="isEdit" 
+                class="btn btn-salmon mr-2" 
+                @click="removePage(page.id)">{{ $t('page.info.form._btn_remove') }}</button>
                 <button
                 v-if="!isEdit"
                 class="btn btn-primary float-right"
-                style="font-size: 16px; width: 140px;"
+                
                 @click="createPage()">
                     {{ $t('page.info.others._btn_create') }}
                 </button>
                 <button
                 v-if="isEdit"
                 class="btn btn-primary float-right"
-                style="font-size: 16px; width: 140px;"
+                
                 @click="updatePage()">
                     {{ $t('page.info.others._btn_edit') }}
                 </button>
@@ -30,24 +34,24 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form-group row border-bottom">
-                                <label class="col-sm-2 col-form-label" >{{ $t('page.attr._type') }} <span color="color:#c4183c;">*</span></label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._type') }} <span style="color:#c4183c;">*</span></label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="custom-control custom-radio form-check-inline float-left">
-                                        <input class="custom-control-input" type="radio" id="inlineArticle" v-model="page.type" :value="'blog'">
+                                        <input class="custom-control-input" :disabled="isEdit && page.type !='blog' " type="radio" id="inlineArticle" v-model="page.type" :value="'blog'">
                                         <label class="custom-control-label" for="inlineArticle">記事</label>
                                     </div>
                                     <div class="custom-control custom-radio form-check-inline float-left">
-                                        <input class="custom-control-input" type="radio" id="inlineManual" v-model="page.type" :value="'manual'">
+                                        <input class="custom-control-input" :disabled="isEdit && page.type !='manual' " type="radio" id="inlineManual" v-model="page.type" :value="'manual'">
                                         <label class="custom-control-label" for="inlineManual">マニュアル</label>
                                     </div>
                                     <div class="custom-control custom-radio form-check-inline float-left">
-                                        <input class="custom-control-input" type="radio" id="inlineFAQ" v-model="page.type" :value="'faq'">
+                                        <input class="custom-control-input" :disabled="isEdit  && page.type !='faq'" type="radio" id="inlineFAQ" v-model="page.type" :value="'faq'">
                                         <label class="custom-control-label" for="inlineFAQ">よくある質問</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label :class="['col-sm-2 col-form-label', { 'form-label-error': pageFormErrors.errors.has('title') }] ">{{ $t('page.attr._title') }} <span color="color:#c4183c;">*</span></label>
+                                <label :class="['col-sm-2 col-form-label']">{{ $t('page.attr._title') }} <span style="color:#c4183c;">*</span></label>
                                 <div class="col-sm-10 ">
                                     <input
                                     type="text"
@@ -110,7 +114,7 @@
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._category') }} <span color="color:#c4183c;">*</span></label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._category') }} <span style="color:#c4183c;">*</span></label>
                                 <div class="col-sm-4">
                                     <select
                                     :class="['form-control', {'is-invalid': pageFormErrors.errors.has('category_id')}]"
@@ -135,6 +139,7 @@
                                         <input
                                         ref="file"
                                         type="file"
+                                        accept=".jpeg,.png,.jpg,.gif"
                                         :class="['custom-file-input', {'is-invalid': pageFormErrors.errors.has('image')}]"
                                         id="uploadImage"
                                         style="display: none;"
@@ -285,14 +290,14 @@ export default {
                 addRemoveLinks: true,
                 duplicateCheck: true,
                 maxFiles: 1,
-                acceptedFiles: '.jpeg,.png,.jpg,.zip,.pdf,.ppt,.pptx,.xlx,.xlsx,.docx,.doc,.gif,.webm,.mp4,.mpeg'
+                acceptedFiles: '.jpeg,.png,.jpg,.pdf,.gif,.webm,.mp4,.mpeg'
             },
             page: {
                 type: 'blog',
                 title: '',
                 public: true,
                 public_date: '',
-                status: false,
+                status: true,
                 url: '',
                 content: '',
                 files: [],
@@ -323,8 +328,12 @@ export default {
         this.$refs.quill.quill.getModule("toolbar").addHandler("image", this.imageHandler);
     },
     computed: {
+        
         pageType () {
             return this.page.type;
+        },
+        pageStatus () {
+            return this.page.status;
         }
     },
     watch: {
@@ -340,7 +349,11 @@ export default {
             this.page.category_id = '';
             this.formCategory.type = type;
             this.loadCategory();
-
+        },
+        pageStatus (newVal, oldVal) {
+            if (newVal == false) {
+                this.showMore = true;
+            }
         }
     },
     methods: {
@@ -377,7 +390,10 @@ export default {
                     if (!this.isEdit) {
                         this.previewImage = '';
                     }
-                    alert('File error');
+                    Toast.fire({
+                        icon: 'error',
+                        title: '画像形式が正しくない'
+                    });
                 }
             } catch(error) {}
         },
@@ -404,7 +420,7 @@ export default {
                     this.$router.push({path: '/admin/page'});
                     Toast.fire({
                         icon: 'success',
-                        title: this.$t('page.info.form.messages._create_success')
+                        title: this.$t('page.info.messages._create_success')
                     });
                 } else {
                     if (data.code == '01') {
@@ -412,7 +428,7 @@ export default {
                     }
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('page.info.form.messages._create_failed')
+                        title: this.$t('page.info.messages._create_failed')
                     });
                 }
 
@@ -511,13 +527,13 @@ export default {
                         this.page.category_id = data.data.id;
                         Toast.fire({
                             icon: 'success',
-                            title: this.$t('page.info.form.messages._create_category_success')
+                            title: this.$t('page.info.messages._create_category_success')
                         });
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('page.info.form.messages._create_category_failed')
+                            title: this.$t('page.info.messages._create_category_failed')
                         });
 
                         this.$Progress.failed();
@@ -597,7 +613,7 @@ export default {
                     this.$router.push({path: '/admin/page'});
                     Toast.fire({
                         icon: 'success',
-                        title: this.$t('page.info.form.messages._edit_success')
+                        title: this.$t('page.info.messages._edit_success')
                     });
                 } else {
                     if (data.code == '01') {
@@ -605,7 +621,7 @@ export default {
                     }
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('page.info.form.messages._edit_failed')
+                        title: this.$t('page.info.messages._edit_failed')
                     });
                 }
 
@@ -617,7 +633,37 @@ export default {
                 });
             }
             this.$Progress.finish();
+        },
+        removePage (id) {
+            Swal.fire({
+                title: this.$t('page.others._remove_modal_title'),
+                text: this.$t('page.others._remove_modal_description'),
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                cancelButtonText: this.$t('page.others._remove_modal_no'),
+                confirmButtonText: this.$t('page.others._remove_modal_yes')
+            }).then((result) => {
+                // Send request to the server
+                if (result.value) {
 
+                    axios.delete('/api/page/'+id).then(() => {
+
+                        Toast.fire({
+                            icon: 'success',
+                            title: this.$t('page.list.messages._remove_success')
+                        });
+
+                        // Fire.$emit('AfterCreate');
+                        this.$router.push({path: '/admin/page'});
+                    }).catch((data) => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: this.$t('common.messages._system_err')
+                        });
+                    });
+                }
+            })
         },
     }
 }

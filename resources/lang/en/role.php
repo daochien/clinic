@@ -68,5 +68,6 @@ return [
         '_remove_modal_no' => 'いいえ',
         '_remove_modal_title' => '管理者役割を削除',
         '_remove_modal_description' => 'この管理者役割を削除してもよろしいですか？一度削除された情報は復旧することはできません。',
+        '_remove_success' => '役割を削除しました'
     ],
 ];

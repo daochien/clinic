@@ -35,7 +35,7 @@
                       <td>{{index + 1}}</td>
                       <td>{{item.name}}</td>
                          <td>{{item.users_count}}</td>
-                         <td style="width:80px">
+                         <td style="width:160px">
                              <div class="dropdown">
                                  <i
                                      class="fa fa-ellipsis-v"
@@ -99,13 +99,13 @@
             deleteGroup(id){
               if (id >3){
                   var temp = Swal.fire({
-                    title: this.$t('group.popup._are_you_sure'),
-                    text: this.$t('group.popup._you_wont_able_revert'),
+                    title: this.$t('group.others._remove_modal_title'),
+                    text: this.$t('group.others._remove_modal_description'),
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('group.popup._delete_it'),
-                    cancelButtonText: this.$t('group.popup._cancel'),
+                    confirmButtonText: this.$t('group.others._remove_modal_yes'),
+                    cancelButtonText: this.$t('group.others._remove_modal_no'),
                 }).then((result) => {
                   console.log(result);
                     // Send request to the server
@@ -113,7 +113,7 @@
                         axios.delete('/api/group/'+id).then(()=>{
                             Toast.fire({
                                 icon:"success",
-                                title: this.$t('group.popup._deleted'),
+                                title: this.$t('group.messages._update_success'),
                             });
                             // Fire.$emit('AfterCreate');
                             this.loadGroup();
@@ -145,6 +145,12 @@
     }
 </script>
 <style scoped>
+tr th:last-child{text-align: right;padding-right: 1.25rem;}
+      .dropdown .fa, .dropdown .material-icons {
+          color: #c3c7cc;
+          margin-right: 1.25rem;
+          float: right;
+      }
     .table-hover th{font-weight: 200;font-size:13px}
     .dropdown-menu{border-radius: 0}
     .dropdown-item{font-weight: normal; font-size: 11px;line-height: 13px}

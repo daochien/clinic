@@ -79,6 +79,8 @@ return [
             'status' => [
                 '_unread' => '未読',
                 '_read' => '既読',
+                '_unconfirmed' => 'Unconfirmed',
+                '_confirmed' => 'Confirmed',
             ],
         ],
         'search_box' => [

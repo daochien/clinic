@@ -57,18 +57,15 @@ class NotificationService
             // Create notification user in group
             $datas = GroupUser::where('group_id', $group['id'])->get();
             foreach ($datas as $user) {
-                NotificationUser::insertOrIgnore([
+                $notificationUser = NotificationUser::firstOrCreate([
                     'notification_id' => $entity->id,
-                    'user_id' => $user->id,
-                    'created_at' => now(),
-                    'updated_at' => now()
+                    'user_id' => $user->user_id,
                 ]);
 
                 if ($request['confirm'] == true) {
                     NotificationStatus::insertOrIgnore([
-                        'notification_id' => $entity->id,
-                        'user_id' => $user->id,
-                        'status' => 1,
+                        'notification_user_id' => $notificationUser->id,
+                        'status' => NotificationStatus::STATUS['unconfirmed'],
                         'created_at' => now(),
                         'updated_at' => now()
                     ]);
@@ -112,15 +109,11 @@ class NotificationService
             );
         }
 
-        if (!empty($filter['status'])) {
+        if (!empty($filter['status']) && $filter['status'] > -1) {
             $members->whereHas(
-                'userStatus',
+                'status',
                 function ($qstatus) use ($filter) {
-                    if ($filter['status'] == '0') {
-                        $qstatus->whereIn('status', [1, 2, 3]);
-                    } else {
-                        $qstatus->where('status', '=', $filter['status']);
-                    }
+                    $qstatus->where('status', '=', $filter['status']);
                 }
             );
         }
@@ -152,6 +145,7 @@ class NotificationService
                 'content' => $request['content'],
                 'confirm' => $request['confirm'],
                 'draft' => $request['draft'],
+                'created_by' => Auth::id(),
             ];
 
             if (isset($request['schedule_date'])) {
@@ -189,7 +183,9 @@ class NotificationService
                             'updated_at' => now()
                         ]);
                     } else {
-                        NotificationStatus::where('notification_id', '=', $id)->delete();
+                        NotificationStatus::join('notification_users', 'notification_users.id', 'notification_status.notification_user_id')
+                            ->where('notification_users.notification_id', '=', $id)
+                            ->delete();
                     }
                 }
             }
@@ -204,45 +200,50 @@ class NotificationService
 
     public function search($request)
     {
-        $datas = Notification::where(
-            function ($qstatus) use ($request) {
-                if (isset($request['status'])) {
-                    $qstatus->where('draft', '=', $request['status']);
-                }
+        $query = Notification::with([
+            'notificationGroups.group'
+        ])->withCount(['notificationUsers', 'usersRead', 'usersConfirmed']);
+
+        $query->where(function ($qstatus) use ($request) {
+            if (isset($request['status'])) {
+                $qstatus->where('draft', '=', $request['status']);
             }
-        )
-            ->where(
-                function ($qtitle) use ($request) {
-                    if (isset($request['keyword']) && strlen($request['keyword']) > 0) {
-                        $qtitle->where('title', 'like', '%' . $request['keyword'] . '%');
-                    }
+        });
+
+        if (!empty($request['keyword'])) {
+            $query->where(function ($qtitle) use ($request) {
+                if (isset($request['keyword']) && strlen($request['keyword']) > 0) {
+                    $qtitle->where('title', 'like', '%' . $request['keyword'] . '%');
                 }
-            )
-            ->where(
+            });
+        }
+
+        if (!empty($request['release_date']) && !empty($request['release_date']['startDate']) && !empty($request['release_date']['endDate'])) {
+            $query->where(
                 function ($qdate) use ($request) {
                     if (!empty($request['release_date'])) {
                         $qdate->whereBetween('schedule_date', [new \Carbon\Carbon($request['release_date']['startDate']), new \Carbon\Carbon($request['release_date']['endDate'])]);
                     }
-                }
-            )
-            ->whereHas(
+                });
+        }
+
+        if (!empty($request['group'])) {
+            $query->whereHas(
                 'notificationGroups.group',
                 function ($qgroup) use ($request) {
                     if (isset($request['group']) && strlen($request['group']) > 0) {
                         $qgroup->where('name', '=', $request['group']);
                     }
                 }
-            )
-            ->with([
-                'notificationGroups.group'
-            ]);
+            );
+        }
 
-        return $datas->paginate(10);
+        return $query->paginate(10);
     }
 
     public function fetch($filters)
     {
-        $notificationUsers = NotificationUser::with(['notification', 'notification.creator', 'status'])->orderBy('notifications.created_at', 'desc');
+        $notificationUsers = NotificationUser::with(['notification', 'notification.creator', 'status'])->orderBy('notification_users.created_at', 'desc');
         if (!empty($filters['user_id'])) {
             $notificationUsers->where('user_id', $filters['user_id']);
         }

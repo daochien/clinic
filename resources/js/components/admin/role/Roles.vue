@@ -114,12 +114,13 @@ export default {
 
         deleteRole (id) {
             Swal.fire({
-                title: this.$t('admin.popup.are_you_sure'),
-                text: this.$t('admin.popup.you_wont_able_revert'),
+                title: this.$t('role.others._remove_modal_title'),
+                text: this.$t('role.others._remove_modal_description'),
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: this.$t('admin.popup.delete_it')
+                confirmButtonText: this.$t('role.others._remove_modal_yes'),
+                cancelButtonText: this.$t('role.others._remove_modal_no'),
                 }).then((result) => {
 
                     // Send request to the server
@@ -127,7 +128,7 @@ export default {
                         this.role.delete('/api/role/'+id).then(()=>{
                             Toast.fire({
                                 icon: 'success',
-                                title: this.$t('admin.others._remove_modal_deleted')
+                                title: this.$t('role.others._remove_success')
                             });
                             // Fire.$emit('AfterCreate');
                             this.getResults(1);

@@ -1,8 +1,8 @@
 export default [
     { path: '/notification', component: require('./components/client/notification/Index.vue').default },
 
-    { path: '/blogs', component: require('./components/front-end/Page.vue').default },
-    { path: '/blogs/:id', component: require('./components/front-end/PageDetail.vue').default },
+    { path: '/blogs', component: require('./components/front-end/Page.vue').default, name: 'client.blog', meta: {breadcrumb: `クリニック一覧`} },
+    { path: '/blogs/:id', component: require('./components/front-end/PageDetail.vue').default, name: 'client.blogDetail' },
 
     { path: '/admin/dashboard', component: require('./components/admin/Dashboard.vue').default },
     { path: '/admin/profile', component: require('./components/admin/Profile.vue').default },

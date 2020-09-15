@@ -82,6 +82,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('page/{id}/change-status', 'API\V1\PageController@changeStatus')->name('page.changeStatus');
         Route::put('page/{id}/rating', 'API\V1\PageController@rating')->name('page.rating');
         Route::post('page/{id}', 'API\V1\PageController@update')->name('page.update');
+        Route::post('category', 'API\V1\CategoryController@store')->name('category.store');
 
         Route::apiResources([
             'user' => 'API\V1\UserController',
