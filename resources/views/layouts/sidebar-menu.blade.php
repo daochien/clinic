@@ -75,7 +75,7 @@
 
             @canany(['notification.index'])
             <li class="nav-item">
-                <router-link to="/admin/notification" class="nav-link">
+                <router-link to="/admin/notification" class="nav-link"  onclick="$('.dropdown').removeClass('active');$(this).addClass('active');">
                     <i class="far fa-bell"></i>
                     <span>{{ __('app.menu.sidebar.notification_management._main') }}</span>
                 </router-link>
@@ -106,7 +106,7 @@
             @endcanany
             @can('page.index')
             <li class="nav-item">
-                <router-link to="/admin/page" class="nav-link">
+                <router-link to="/admin/page" class="nav-link" onclick="$('.dropdown').removeClass('active');$(this).addClass('active');">
                     <i class="far fa-bell"></i>
                     <span>{{ __('app.menu.sidebar.page_management._main') }}</span>
                 </router-link>

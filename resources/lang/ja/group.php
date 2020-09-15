@@ -68,13 +68,7 @@ return [
         '_name' => '名前',
     ],
     'popup' =>[
-        '_are_you_sure' => '本気ですか',
-        '_you_wont_able_revert' => 'あなたは元に戻すことができません',
-        '_delete_it' => '消して',
-        '_deleted' => 'ファイルが削除されました',
-        '_failed' => '失敗した',
         '_cannot_do_this_action' => 'このアクションは実行できません',
-        '_cancel'=> 'キャンセル'
     ],
     'others' => [
         '_remove_modal_yes' => 'はい',

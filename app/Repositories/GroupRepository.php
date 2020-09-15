@@ -172,21 +172,26 @@ class GroupRepository
     }
 
     public function filter($id, $value){
-        $temp = $this->DB::table('users')
-        ->select('users.id')
-        ->distinct()
-        ->leftJoin('group_users', 'group_users.user_id', '=', 'users.id')
-        ->whereNotIn(function($sql) use ($id) {
-            $sql = DB::table('users')
+        $temp = DB::table('users')
             ->select('users.id')
+            ->distinct()
             ->leftJoin('group_users', 'group_users.user_id', '=', 'users.id')
-            ->where('group_users.group_id', '=' ,$id);
-        })
-        ->toArray();
+            ->whereNotIn('users.id', function($sql) use ($id) {
+                $sql->select('users.id')
+                ->from('users')
+                ->leftJoin('group_users', 'group_users.user_id', '=', 'users.id')
+                ->where('group_users.group_id', '=' ,$id);
+            })
+            ->get()
+            ->toArray();
+            
+            $array  = array_column($temp, 'id');
 
-        return $this->model
-        ->whereIn($temp)
-        ->where('users.name', 'like', '%'.$value.'%')
-        ->get();
+            $users = DB::table('users')
+            ->whereIn('id', $array)
+            ->where('name', 'like', '%'.$value.'%')
+            ->get()
+            ->toArray();
+            return $users;
     }
 }
