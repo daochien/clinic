@@ -45,6 +45,43 @@ class InquiryService
             ->first();
     }
 
+    public function search($request)
+    {
+        $query = Inquiry::from('inquiry as i')
+            ->leftJoin('inquiry_logs as l', 'l.inquiry_id', 'i.id');
+
+        if (isset($request['category_id'])) {
+            $query->where('i.category_id', $request['category_id']);
+        }
+
+        if (isset($request['status']) && $request['status'] > 0) {
+            $query->where('i.status', $request['status']);
+        }
+
+        if (isset($request['keyword'])) {
+            $query->where(function ($q) use ($request) {
+                $q->where('i.title', 'LIKE', "%{$request['keyword']}%")
+                    ->orWhere('i.question', 'LIKE', "%{$request['keyword']}%");
+            });
+
+        }
+
+        if (!empty($request['release_date']) && !empty($request['release_date']['startDate']) && !empty($request['release_date']['endDate'])) {
+            $query->where(
+                function ($qdate) use ($request) {
+                    if (!empty($request['release_date'])) {
+                        $qdate->whereBetween('i.created_at', [new \Carbon\Carbon($request['release_date']['startDate']), new \Carbon\Carbon($request['release_date']['endDate'])]);
+                    }
+                });
+        }
+
+        return $query
+            ->with('inquiryComments.user', 'createdBy', 'closedBy', 'category')
+            ->latest('i.created_at')
+            ->select('i.*', 'l.created_at as closed_at')
+            ->paginate(10);
+    }
+
     public function storage($params)
     {
         try {
@@ -109,6 +146,8 @@ class InquiryService
 
     public function closeInquiry($user, $id)
     {
+        Inquiry::where('id', $id)->update(['status' => Inquiry::STATUS['close']]);
+
         InquiryLog::insert([
             'inquiry_id' => $id,
             'user_id' => $user->id,

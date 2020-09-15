@@ -76,6 +76,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('inquiry/category/{id}', 'API\V1\InquiryController@indexByCategory')->name('api.inquiry.category.list');
         Route::post('inquiry/{id}/close', 'API\V1\InquiryController@changeStatus')->name('api.inquiry.change_status');
         Route::post('inquiry/{id}/comment', 'API\V1\InquiryController@comment')->name('api.inquiry.comment');
+        Route::post('inquiry/search', 'API\V1\InquiryController@search')->name('api.inquiry.search');
 
         Route::get('page/manual-latest', 'API\V1\PageController@manualLatest')->name('page.manualLatest');
         Route::post('page/upload-image-content', 'API\V1\PageController@uploadImageContent')->name('page.uploadImageContent');

@@ -1303,6 +1303,12 @@ export default {
                 "others": {
                     "_no_data": "申請データが存在しません。",
                     "_no_search_result": "該当する申請データが存在しません。"
+                },
+                "search": {
+                    "_status": "ステータス",
+                    "_status_place_holder": "全てのステータス",
+                    "_time_range": "問合せ日付",
+                    "_keyword": "キーワード"
                 }
             },
             "info": {
