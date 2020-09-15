@@ -99,13 +99,13 @@
             deleteGroup(id){
               if (id >3){
                   var temp = Swal.fire({
-                    title: this.$t('group.popup._are_you_sure'),
-                    text: this.$t('group.popup._you_wont_able_revert'),
+                    title: this.$t('group.others._remove_modal_title'),
+                    text: this.$t('group.others._remove_modal_description'),
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('group.popup._delete_it'),
-                    cancelButtonText: this.$t('group.popup._cancel'),
+                    confirmButtonText: this.$t('group.others._remove_modal_yes'),
+                    cancelButtonText: this.$t('group.others._remove_modal_no'),
                 }).then((result) => {
                   console.log(result);
                     // Send request to the server
@@ -113,7 +113,7 @@
                         axios.delete('/api/group/'+id).then(()=>{
                             Toast.fire({
                                 icon:"success",
-                                title: this.$t('group.popup._deleted'),
+                                title: this.$t('group.messages._update_success'),
                             });
                             // Fire.$emit('AfterCreate');
                             this.loadGroup();
