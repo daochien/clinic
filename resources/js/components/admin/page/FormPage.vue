@@ -149,6 +149,13 @@
                                     <has-error :form="pageFormErrors" field="image"></has-error>
                                 </div>
                             </div>
+                            <div class="form-group row border-bottom" v-show="showMore">
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._summary') }}</label>
+                                <div class="col-sm-10 col-form-label">
+                                    <textarea v-model="page.summary" placeholder="要約を入力してください" class="form-control" name="feDescription" rows="3"></textarea>
+                                    <has-error :form="pageFormErrors" field="summary"></has-error>
+                                </div>
+                            </div>
                             <div class="form-group row" style="text-align: right;" v-if="page.type != 'faq'">
                                 <div class="col-sm-12">
                                     <span v-if="!showMore" @click="showMore = !showMore" style="cursor:pointer;">
@@ -303,6 +310,7 @@ export default {
                 files: [],
                 image: '',
                 category_id: '',
+                summary: '',
                 groups: [],
                 isRemoveImage: false,
                 isRemoveFile: false,
@@ -454,6 +462,7 @@ export default {
             data.append('url', this.page.url);
             data.append('category_id', this.page.category_id);
             data.append('content', this.page.content);
+            data.append('summary', this.page.summary);
             if (this.page.groups.length > 0) {
                 data.append('groups', JSON.stringify(this.page.groups));
             }
@@ -571,6 +580,7 @@ export default {
             this.page.status = data.status;
             this.page.url = data.url;
             this.page.content = data.content;
+            this.page.summary = data.summary;
             this.page.category_id = data.category_id;
             this.previewImage = data.image;
 

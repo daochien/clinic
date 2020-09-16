@@ -14,13 +14,13 @@
                         <p>私たちはインフォームドコンセントを重視し、歯の悩みをお気軽に相談してもらえる歯医者を目指しています。</p>
                     </div>
                     <div class="col col-right">
-                        <div class="news-slider" ref="slick">
+                        <div class="news-slider" ref="slick" :key="keySlider">
                             <div class="news-slider-item" v-for="(blog, index) in blogs" :key="index" v-if="index < 5">
-                                <router-link :to="{path: 'blogs/'+blog.id}">
+                                <a :href ="'blogs/'+blog.id">
                                     <img :src="blog.image" alt="">
                                     <span class="title">{{ blog.title }}</span>
                                     <span class="date">{{ blog.created_at | dateFormat }}</span>
-                                </router-link>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -51,7 +51,9 @@
                             <li v-for="(manual, index) in manuals" :key="index">
                                 <a href="javascript:void(0)" >
                                     <span class="title">{{ manual.title}}</span>
-                                    <span class="info">{{ manual.files.size }} <img @click="downloadManual(manual)" src="/front-end/images/download-icon-2.png" alt=""></span>
+                                    <span class="info">{{ manual.files.size }} 
+                                        <img @click="downloadManual(manual)" src="/front-end/images/download-icon-2.png" alt="">
+                                    </span>
                                 </a>
                             </li>
 
@@ -63,16 +65,16 @@
                     <div class="blogs-list">
                         <div class="blog-item" v-for="(blog, index) in blogs" :key="index" v-if="index > 4">
                             <div class="blog-img">
-                                <router-link :to="{path: 'blogs/'+blog.id}">
+                                <a :href="'blogs/'+blog.id">
                                     <img :src="blog.image" alt="">
-                                </router-link>
+                                </a>
                             </div>
                             <div class="blog-info">
-                                <router-link :to="{path: 'blogs/'+blog.id}" class="title">
+                                <a :href="'blogs/'+blog.id" class="title">
                                 {{ blog.title }}
-                                </router-link>
+                                </a>
                                 <p>
-                                {{ blog.content }}
+                                {{ blog.summary }}
                                 </p>
                                 <div class="blog-meta">
                                 <span>{{ blog.created_at | dateFormat }}</span>
@@ -92,6 +94,7 @@
 export default {
     data () {
         return {
+            keySlider: Date.now(),
             blogsLatest: [],
             manuals: [],
             faqs: [],
@@ -104,7 +107,7 @@ export default {
         }
     },
     created () {
-
+        console.log('xxx');
     },
     mounted () {
         this.loadBlogs();        

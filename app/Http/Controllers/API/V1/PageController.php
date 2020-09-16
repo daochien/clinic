@@ -30,14 +30,18 @@ class PageController extends BaseController
 
     public function index(Request $request)
     {
-        $pages = $this->pageRepo->getAll($request->all());
-        return new PageCollection($pages);
+        try {
+            $pages = $this->pageRepo->getAll($request->all());            
+            return new PageCollection($pages);
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getMessage());
+        }        
     }
 
     public function store(PageRequest $request)
     {
         try {
-            $page = $this->pageService->createPage($request->all());
+            $page = $this->pageService->createPage($request->all());            
             return $this->sendSuccessResponse($page, 'Page Created Successfully');
         } catch (\Exception $exception) {
             return $this->sendErrorResponse($exception->getMessage());
@@ -52,9 +56,13 @@ class PageController extends BaseController
 
     public function show($id)
     {
-        $page = $this->pageRepo->show($id);
-
-        return $this->sendSuccessResponse($page, 'Page Details');
+        try {
+            $page = $this->pageRepo->show($id);            
+            return $this->sendSuccessResponse($page, 'Page Details');
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getMessage());
+        }
+        
     }
 
     public function update(PageEditRequest $request, $id)

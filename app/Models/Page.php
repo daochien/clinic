@@ -14,7 +14,7 @@ class Page extends Model
     ];
 
     protected $fillable = [
-        'owner_id', 'type', 'title', 'content', 'image', 'public', 'public_date', 'status', 'url', 'files', 'category_id', 'downloads', 'views'
+        'owner_id', 'type', 'title', 'content', 'image', 'public', 'public_date', 'status', 'url', 'files', 'category_id', 'downloads', 'views', 'summary'
     ];
 
     public $timestamps = true;

@@ -27,7 +27,8 @@ class PageSeeder extends Seeder
             }
             Page::create([
                 'type' => 'blog',
-                'title' => $faker->sentence($nbWords = 20, $variableNbWords = true),
+                'title' => $faker->sentence($nbWords = 15, $variableNbWords = true),
+                'summary' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
                 'content' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
                 'image' => $image,
                 'public' => rand(0,1),
@@ -44,7 +45,7 @@ class PageSeeder extends Seeder
 
             Page::create([
                 'type' => 'manual',
-                'title' => $faker->sentence($nbWords = 20, $variableNbWords = true),
+                'title' => $faker->sentence($nbWords = 10, $variableNbWords = true),
                 'public' => rand(0,1),
                 'public_date' => \Carbon\Carbon::now(),
                 'status' => rand(0,1),
@@ -63,7 +64,7 @@ class PageSeeder extends Seeder
 
             Page::create([
                 'type' => 'faq',
-                'title' => $faker->sentence($nbWords = 20, $variableNbWords = true),
+                'title' => $faker->sentence($nbWords = 10, $variableNbWords = true),
                 'content' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
                 'public' => rand(0,1),
                 'public_date' => \Carbon\Carbon::now(),

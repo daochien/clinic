@@ -20,7 +20,9 @@ class PageResource extends JsonResource
             'type' => $this->type,
             'image' => $this->image,
             'content' => $this->content,
+            'public' => $this->public,
             'status' => $this->status,
+            'summary' => $this->summary,
             'files' => $this->_getFile($this->files),
             'category_id' => $this->category_id,
             'category_name' => @$this->categorys->name,
@@ -32,7 +34,7 @@ class PageResource extends JsonResource
     {
         if (!empty($files)) {
             $files = json_decode($files, true);
-            return @$files['path'];
+            return $files;
         }
 
         return '';
