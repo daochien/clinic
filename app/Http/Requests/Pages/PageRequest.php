@@ -30,7 +30,8 @@ class PageRequest extends FormRequest
             'type' => 'required',
             'category_id' => 'required',
             'public' => 'required|boolean',
-            'status' => 'required|boolean'
+            'status' => 'required|boolean',
+            'summary' => 'string|max:500'
         ];
         
         if (!empty($this->files)) {

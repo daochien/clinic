@@ -16,6 +16,7 @@ Route::prefix('/notification/')
     });
 
 Route::prefix('/blogs/')
+    ->middleware('auth')
     ->namespace('Client')
     ->name('blog.')
     ->group(function () {
