@@ -111,8 +111,24 @@
                     });
                 })
             },
+            updateStatus(item) {
+                let self = this;
+                axios.put(`/api/notification/status?notification_id=${item.notification_id}&status=1&user_id=${item.user_id}`)
+                    .then((response)=>{
+
+                    })
+                    .catch(()=>{
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Some error occured! Please try again'
+                        });
+                    })
+            },
             onSelect(item) {
                 this.selection = item;
+                if (_.indexOf(item.status, 1) < 0) {
+                    this.updateStatus(item);
+                }
             },
             getFromLabel(item) {
                 if (!_.isEmpty(item.notification) && !_.isEmpty(item.creator)) {

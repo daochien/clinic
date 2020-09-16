@@ -265,10 +265,25 @@ class NotificationService
 
     public function updateStatus($userId, $notificationId, $status)
     {
-        $notificationUser = NotificationUser::where('user_id', $userId)->where('notification_id', $notificationId)->first();
-        return NotificationStatus::firstOrCreate([
-            'notification_user_id' => $notificationUser->id,
-            'status' => $status
-        ]);
+        try {
+            DB::beginTransaction();
+            $notificationUser = NotificationUser::where('user_id', $userId)->where('notification_id', $notificationId)->first();
+            NotificationStatus::firstOrCreate([
+                'notification_user_id' => $notificationUser->id,
+                'status' => $status
+            ]);
+
+            if ($status == NotificationStatus::STATUS['read']) {
+                NotificationStatus::where('notification_user_id', $notificationUser->id)->where('status', 0)->delete();
+            }
+
+            if ($status == NotificationStatus::STATUS['confirmed']) {
+                NotificationStatus::where('notification_user_id', $notificationUser->id)->where('status', NotificationStatus::STATUS['unconfirmed'])->delete();
+            }
+
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+        }
     }
 }
