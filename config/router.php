@@ -158,14 +158,14 @@
                     'name' => 'Create',
                     'routes' => ['category.store'],
                 ],
-                'update' => [
-                    'name' => 'Update',
-                    'routes' => []
-                ],
-                'delete' => [
-                    'name' => 'Delete',
-                    'routes' => []
-                ]
+//                'update' => [
+//                    'name' => 'Update',
+//                    'routes' => []
+//                ],
+//                'delete' => [
+//                    'name' => 'Delete',
+//                    'routes' => []
+//                ]
             ]
         ],
 
@@ -184,10 +184,10 @@
                     'name' => 'Update',
                     'routes' => ['api.request.comment', 'api.request.change_status']
                 ],
-                'delete' => [
-                    'name' => 'Delete',
-                    'routes' => []
-                ]
+//                'delete' => [
+//                    'name' => 'Delete',
+//                    'routes' => []
+//                ]
             ]
         ],
         'inquiry' => [
@@ -205,10 +205,10 @@
                     'name' => 'Update',
                     'routes' => ['api.inquiry.comment', 'api.inquiry.change_status']
                 ],
-                'delete' => [
-                    'name' => 'Delete',
-                    'routes' => []
-                ]
+//                'delete' => [
+//                    'name' => 'Delete',
+//                    'routes' => []
+//                ]
             ]
         ],
         'page' => [
