@@ -150,4 +150,7 @@ return [
         '_remove_modal_title' => '申請テンプレートを削除',
         '_remove_modal_description' => 'このテンプレートを削除してもよろしいですか？一度削除された情報は復旧することはできません。',
     ],
+    'common' => [
+        'number_file_upload_greater_than' => '5以下のファイルのアップロード数',
+    ]
 ];

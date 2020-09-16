@@ -98,14 +98,22 @@ class RequestService
 
             // check if files were uploaded and process them
             $uploadedFiles = $request->allFiles();
-            foreach ($uploadedFiles as $key => $file) {
-                // store the file and set it's path to the value of the key holding it
-                if ($file->isValid()) {
-                    $fileName = time() . '_____' . $file->getClientOriginalName();
-                    $input[$key] = Storage::putFileAs(
-                        'request_files', $file, $fileName
+            if (count($uploadedFiles) > 5) {
+                throw new \Exception(__('request.common.number_file_upload_greater_than'), 405);
+            }
+            foreach ($uploadedFiles as $key => $files) {
+                if (is_array($files) && count($files) > 5) {
+                    throw new \Exception(__('request.common.number_file_upload_greater_than'), 405);
+                }
+                $input[$key] = [];
+                foreach ($files as $file) {
+                    // store the file and set it's path to the value of the key holding it
+                    if ($file->isValid()) {
+                        $fileName = time() . '_____' . $file->getClientOriginalName();
+                        $input[$key][] = Storage::putFileAs(
+                            'attachment', $file, $fileName
                         );
-
+                    }
                 }
             }
 

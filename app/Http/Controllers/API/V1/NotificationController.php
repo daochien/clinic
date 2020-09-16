@@ -163,6 +163,7 @@ class NotificationController extends BaseController
         try {
             $filters['user_id'] = $request->get('user_id') ?? 9999;
             $filters['from'] = $request->get('from') ?? 0;
+            $filters['notification_id'] = $request->get('notification_id') ?? null;
             $data = $this->service->fetch($filters);
             return new NotificationFetchCollection($data);
         } catch (\Exception $exception) {

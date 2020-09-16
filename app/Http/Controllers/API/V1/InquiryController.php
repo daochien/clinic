@@ -56,6 +56,16 @@ class InquiryController extends BaseController
         return Storage::download("attachment/{$fileName}");
     }
 
+    public function search(Request $request)
+    {
+        try {
+            $data = $this->inquiryService->search($request);
+            return new InquiryCollection($data);
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
+        }
+    }
+
     public function changeStatus(Request $request, $id)
     {
         try {
