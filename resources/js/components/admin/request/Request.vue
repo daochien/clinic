@@ -81,10 +81,17 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-10" v-html="submission.content[value.name]"></div>
+                                <ul id="demo" v-if="isArray((submission.content[value.name]))">
+                                    <li v-for="(attachment, index) in submission.content[value.name]"  :key="'att_' + index" style="list-style:none">
+                                        <a :href="base_url + '/request/download/' + attachment">
+                                            {{attachment | formatAttachFile}} <i class="fas fa-cloud-download-alt"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div v-else class="col-10" v-html="submission.content[value.name]"></div>
                             </div>
-                            <button class="btn btn-primary float-right mr-3" @click="approve()">{{ $t('request.info.others._btn_approve')}}</button>
-                            <button type="button" class="btn btn-outline-danger mr-3 float-right" @click="reject()">{{ $t('request.info.others._btn_reject')}}</button>
+                            <button class="btn btn-primary float-right mr-3" @click="approve()" :disabled="!can_change">{{ $t('request.info.others._btn_approve')}}</button>
+                            <button type="button" class="btn btn-danger mr-3 float-right" @click="reject()" :disabled="!can_change">{{ $t('request.info.others._btn_reject')}}</button>
                         </div>
                     </div>
 
@@ -102,7 +109,7 @@
                                 </div>
                                 <div class="col-12 mt-3 d-message" v-html="comment.message"></div>
                                 <div class="col-12 mt-3" v-for="(attachment, index) in comment.attachments" :key="'att_' + index">
-                                    <a :href="base_url + '/request/attachment/download/' + attachment.title">
+                                    <a :href="base_url + '/request/download/attachment/' + attachment.title">
                                         {{attachment.title | formatAttachFile}} <i class="fas fa-cloud-download-alt"></i>
                                     </a>
                                 </div>
@@ -156,6 +163,7 @@
                 form_headers : {},
                 status_label: '',
                 status_text: '',
+                can_change: false,
                 discussion: {
                     message: '',
                     file: null
@@ -293,6 +301,7 @@
                 if (this.submission.request_logs.length === 0) {
                     this.status_label = 'btn-warning';
                     this.status_text = this.$t('request').attr.status._open;
+                    this.can_change = true;
                     return;
                 }
 
@@ -303,6 +312,7 @@
                         self.status_label = 'btn-secondary';
                         self.status_text = self.$t('request').attr.status._rejected;
                         reject = true;
+                        this.can_change = false;
                         return false;
                     }
                     approvedCount++;
@@ -313,12 +323,16 @@
                 if (approvedCount === this.submission.form.approvers.length) {
                     this.status_label = 'btn-info'
                     this.status_text = this.$t('request').attr.status._approved;
+                    this.can_change = false;
                     return;
                 }
 
+                this.can_change = true;
                 this.status_label = 'btn-primary';
                 this.status_text = this.$t('request').attr.status._in_progress;
-
+            },
+            isArray(value){
+                return _.isArray(value);
             }
         },
         mounted() {

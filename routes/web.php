@@ -29,7 +29,7 @@ Route::prefix('/blogs/')
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/admin/template', 'Admin\Template\FormController')->except('index');
-Route::get('request/attachment/download/{filename}', 'API\V1\RequestController@downloadAttachment')->name('request.attachment.download');
+Route::get('request/download/attachment/{filename}', 'API\V1\RequestController@downloadAttachment')->name('request.attachment.download');
 
 Route::prefix('/admin/template')
     ->namespace('Admin\Template')
