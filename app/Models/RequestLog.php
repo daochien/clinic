@@ -10,5 +10,5 @@ class RequestLog extends Model
 
     public $guarded = [];
 
-    const STATUS = ['watting' => 1, 'approved' => 2, 'rejected'  => 3];
+    const STATUS = ['approve' => 1, 'reject'  => 2];
 }

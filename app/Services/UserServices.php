@@ -64,7 +64,7 @@ class UserServices
             DB::beginTransaction();
             $attribute['password'] = PasswordHelper::randomPassword();
             $user = $this->userRepository->createUser($attribute);
-            event(new CreateUserEvent($user, $attribute['password']));
+            //event(new CreateUserEvent($user, $attribute['password']));
             $user->assignRole($attribute['role']['name']);
 
             if( !empty($attribute['type_id'] ?? null)) {
@@ -101,9 +101,8 @@ class UserServices
     /**
      * @param $clinicNameList
      * @param $user
-     * @return array
      */
-    public function addUserToGroupSameClinicName($clinicNameList, $user): array
+    public function addUserToGroupSameClinicName($clinicNameList, $user)
     {
         $groupUser = [];
         $clinicNames = Clinic::whereIn('name', $clinicNameList)->select('name')->get();
@@ -122,7 +121,7 @@ class UserServices
      * @param $user
      * @return array
      */
-    public function addUserToGroupHaveSameType($attribute, $user): array
+    public function addUserToGroupHaveSameType($attribute, $user)
     {
         $groupUser = [];
         $groupTypeName = Type::find($attribute['type_id'])->name;

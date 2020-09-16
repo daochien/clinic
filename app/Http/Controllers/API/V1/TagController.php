@@ -29,7 +29,7 @@ class TagController extends BaseController
     {
         $tags = $this->tag->latest()->paginate(10);
 
-        return $this->sendResponse($tags, 'Tags list');
+        return $this->sendSuccessResponse($tags, 'Tags list');
     }
 
     /**
@@ -41,7 +41,7 @@ class TagController extends BaseController
     {
         $tags = $this->tag->get(['name', 'id']);
 
-        return $this->sendResponse($tags, 'Tags list');
+        return $this->sendSuccessResponse($tags, 'Tags list');
     }
 
 
@@ -60,7 +60,7 @@ class TagController extends BaseController
             'name' => $request->get('name')
         ]);
 
-        return $this->sendResponse($tag, 'Tag Created Successfully');
+        return $this->sendSuccessResponse($tag, 'Tag Created Successfully');
     }
 
     /**
@@ -77,6 +77,6 @@ class TagController extends BaseController
 
         $tag->update($request->all());
 
-        return $this->sendResponse($tag, 'Tag Information has been updated');
+        return $this->sendSuccessResponse($tag, 'Tag Information has been updated');
     }
 }

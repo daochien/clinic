@@ -7,11 +7,11 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ __('template.title-create') }}</h3>
+                <h3 class="page-title">{{ __('request.template.info._page_title_edit') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <button class="btn btn-outline-accent fb-save-draft-btn">{{ __('template.btn.save-draft')}}</button>
-                <button type="button" class="btn btn-primary pl-5 pr-5 fb-save-btn">{{ __('template.btn.create')}}</button>
+                <button class="btn btn-outline-accent fb-save-draft-btn">{{ __('request.template.info.others._btn_draft_save')}}</button>
+                <button type="button" class="btn btn-primary pl-5 pr-5 fb-save-btn">{{ __('request.template.info.others._btn_edit')}}</button>
             </div>
         </div>
         <!-- End Page Header -->
@@ -19,14 +19,14 @@
             @csrf
             <div class="row mb-5">
                 <div class="col-md-12">
-                    <label class="font-weight-bold">{{ __('template.basic_info')}}</label>
+                    <label class="font-weight-bold">{{ __('request.template.info.basic_form._subtitle')}}</label>
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label>
-                                            {{ __('template.title')}}
+                                            {{ __('request.attr._title')}}
                                             <span class="text-danger">*</span>
                                         </label>
                                     </div>
@@ -34,7 +34,7 @@
                                 <div class="col-10">
                                     <input type="text" name="name" id="name" class="form-control
                                            @error('name') is-invalid @enderror" value="{{$form->name}}"
-                                           placeholder="{{__('template.place_holder.title')}}">
+                                           placeholder="{{__('request.template.info.basic_form._title_pl')}}">
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -46,7 +46,7 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label>
-                                            {{ __('template.category')}}
+                                            {{ __('request.attr._category')}}
                                             <span class="text-danger">*</span>
                                         </label>
                                     </div>
@@ -54,7 +54,7 @@
                                 <div class="col-5">
                                     <select name="category[]" id="category" class="form-control
                                            @error('category') is-invalid @enderror" >
-                                        <option value="">{{ __('template.place_holder.category') }}</option>
+                                        <option value="">{{ __('request.template.info.basic_form._category_df') }}</option>
                                         @foreach($category as $cat)
                                             <option value="{{ $cat['id'] }}" {{ $cat['id'] == $form['category']->toArray()[0]['id'] ? 'selected' : '' }}>
                                                 {{ $cat['name'] }}
@@ -73,7 +73,7 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label>
-                                            {{ __('template.approver')}}
+                                            {{ __('request.attr._approver')}}
                                             <span class="text-danger">*</span>
                                         </label>
                                     </div>
@@ -98,7 +98,7 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label>
-                                            {{ __('template.multi_approve')}}
+                                            {{ __('request.attr._all_approval')}}
                                         </label>
                                     </div>
                                 </div>
@@ -113,14 +113,14 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label>
-                                            <label>{{ __('app.label.description')}}</label>
+                                            <label>{{ __('request.attr._memo')}}</label>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-10">
                                     <div class="form-group">
                                         <textarea rows="12" id="description" name="description"
-                                                  placeholder="{{__('app.user.place_holder.description')}}"
+                                                  placeholder="{{__('request.template.info.basic_form._memo_pl')}}"
                                                   class="form-control
                                                   @error('description') is-invalid @enderror">{{$form['description']}}
                                         </textarea>
@@ -138,14 +138,14 @@
             </div>
             <div class="row mb-5">
                 <div class="col-md-12">
-                    <label class="font-weight-bold">{{ __('template.setting')}}</label>
+                    <label class="font-weight-bold">{{ __('request.template.info.question_form._subtitle')}}</label>
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="alert alert-info" role="alert">
                                         <i class="fa fa-info-circle"></i>
-                                        Click on or drag and drop components onto the main panel to build your form content.
+                                        {{ __('request.template.info.question_form._description')}}
                                     </div>
 
                                     <div id="fb-editor" class="fb-editor"></div>
@@ -167,7 +167,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#approver').select2({
-                placeholder: "{{__('template.place_holder.approver')}}",
+                placeholder: "{{__('request.template.info.basic_form._approver_pl')}}",
             });
         });
         window.FormBuilder = window.FormBuilder || {}

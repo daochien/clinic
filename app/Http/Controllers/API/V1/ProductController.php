@@ -35,7 +35,7 @@ class ProductController extends BaseController
     {
         $products = $this->productRepository->get();
 
-        return $this->sendResponse($products, 'Product list');
+        return $this->sendSuccessResponse($products, 'Product list');
     }
 
     /**
@@ -55,7 +55,7 @@ class ProductController extends BaseController
         }
         $product->tags()->sync($tagIds);
 
-        return $this->sendResponse($product, 'Product Created Successfully');
+        return $this->sendSuccessResponse($product, 'Product Created Successfully');
     }
 
     /**
@@ -68,7 +68,7 @@ class ProductController extends BaseController
     {
         $product = $this->productRepository->show($id);
 
-        return $this->sendResponse($product, 'Product Details');
+        return $this->sendSuccessResponse($product, 'Product Details');
     }
 
     /**
@@ -91,7 +91,7 @@ class ProductController extends BaseController
         }
         $product->tags()->sync($tag_ids);
 
-        return $this->sendResponse($product, 'Product Information has been updated');
+        return $this->sendSuccessResponse($product, 'Product Information has been updated');
     }
 
     /**
@@ -108,7 +108,7 @@ class ProductController extends BaseController
 
         $product->delete();
 
-        return $this->sendResponse($product, 'Product has been Deleted');
+        return $this->sendSuccessResponse($product, 'Product has been Deleted');
     }
 
     public function upload(Request $request)

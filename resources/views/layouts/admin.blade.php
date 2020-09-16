@@ -38,9 +38,12 @@
                                 <span class="d-none d-md-inline-block">{{ Auth::user()->name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-small">
+                                <router-link to="/admin/profile" class="dropdown-item">
+                                    <span>{{ __('app.menu.top._profile') }}</span>
+                                </router-link>
                                 <a class="dropdown-item text-danger" href="#"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="material-icons text-danger">&#xE879;</i>
-                                    {{ __('auth.logout') }}
+                                    {{ __('app.menu.top._logout') }}
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
@@ -81,6 +84,7 @@
             window.user.roles = @json(auth()->user()->roles);
             window.user.permissions = @json(auth()->user()->getAllPermissions());
             window.user.posittion = @json(\App\Models\User::POSITTION);
+            window.base_url = "{{config('app.url')}}"
     </script>
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>

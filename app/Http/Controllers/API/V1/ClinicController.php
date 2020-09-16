@@ -8,9 +8,11 @@ use App\Http\Resources\ClinicResource;
 use App\Http\Resources\UserCollection;
 use App\Http\Resources\UserResource;
 use App\Models\Clinic;
+use App\Models\GroupUser;
 use App\Repositories\ClinicRepository;
 use App\Services\ClinicService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ClinicController extends BaseController
 {
@@ -56,9 +58,9 @@ class ClinicController extends BaseController
         try {
             $clinic = $this->service->createClinic($request->validated());
 
-            return $this->sendResponse($clinic, __('app.popup.create_success'));
+            return $this->sendSuccessResponse($clinic, __('clinic.info.messages._create_success'));
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
 
@@ -72,7 +74,7 @@ class ClinicController extends BaseController
     {
         $clinic = $this->repository->show($id);
 
-        return $this->sendResponse(new ClinicResource($clinic->load(['users'])));
+        return $this->sendSuccessResponse(new ClinicResource($clinic->load(['users'])));
     }
 
     /**
@@ -87,21 +89,35 @@ class ClinicController extends BaseController
         try {
             $result = $this->repository->update($id, $request->validated());
 
-            return $this->sendResponse($result, __('app.popup.update_success'));
+            return $this->sendSuccessResponse($result, __('clinic.info.messages._edit_success'));
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
 
     public function addUsers(Request $request, $clinicId)
     {
         try {
+            $clinic = DB::table('clinics')->where('id', $clinicId)->first();
+            if($clinic->name){
+                $group = DB::table('groups')->where('name', $clinic->name)->first();
+                if($group){
+                    $Ids = $request->get('user_ids');
+                    foreach ($Ids as $value){
+                        GroupUser::create([
+                            'user_id' => $value,
+                            'group_id' => $group->id,
+                        ]);
+                    }
+                }
+            }
+
             $userIds = $request->get('user_ids');
             $this->service->addRelationUser($clinicId, $userIds);
 
-            return $this->sendResponse([], __('app.popup.update_success'));
+            return $this->sendSuccessResponse([], __('clinic.clinic_users.messages._update_success'));
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
 
     }
@@ -123,9 +139,9 @@ class ClinicController extends BaseController
         try {
             $result = $this->service->delete($id);
 
-            return $this->sendResponse($result);
+            return $this->sendSuccessResponse($result);
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getCode(), $exception->getMessage());
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
     }
 

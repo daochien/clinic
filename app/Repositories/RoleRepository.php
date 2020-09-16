@@ -50,6 +50,17 @@ class RoleRepository
             }
         }
 
+        if (!empty($pers)) {
+            $settingRole = config('router.setting.groups');
+            $settingPers = array();
+            foreach ($settingRole as $item) {
+                if (!empty($item['routes'])) {
+                    $settingPers = array_merge($settingPers, $item['routes']);
+                }            
+            }
+            $pers = array_unique(array_merge($pers, $settingPers));
+        }        
+            
         return $pers;
     }
 }

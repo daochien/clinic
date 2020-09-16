@@ -4,12 +4,12 @@
 
             <div class="page-header row no-gutters py-4">
                 <div class="col-6 text-center text-sm-left mb-0">
-                    <h3 class="page-title">{{ $t('group.registered_group')}}</h3>
+                    <h3 class="page-title">{{ $t('group.group_users._page_title')}}</h3>
                 </div>
                 <div class="col-6 text-center text-sm-right mb-0">
                     <div class="card-tools">
-                        <button type="button" class="btn btn-primary" :disabled="!addButton" @click="addToGroup()">{{ $t('group.add_to_group')}} {{group}}</button>
-                        <button type="button" class="btn btn-danger"  :disabled="!removeButton" @click="removeToGroup()">{{ $t('group.remove_from_group')}} {{group}}</button>
+                        <button type="button" class="btn btn-primary" :disabled="!addButton" @click="addToGroup()">{{ $t('group.group_users.others._btn_update')}}</button>
+                        <!-- <button type="button" class="btn btn-danger"  :disabled="!removeButton" @click="removeToGroup()">{{ $t('group.remove_from_group')}}</button> -->
                     </div>
                 </div>
             </div>
@@ -22,15 +22,15 @@
                             <form>
 
                                 <div class="form-group">
-                                    <label>{{ $t('group.keyword')}} <span class="text-danger">*</span></label>
+                                    <label>{{ $t('common.list.search_box._keyword')}} <span class="text-danger">*</span></label>
                                     <input v-model="value" type="text" name="keyword"
-                                           :placeholder="$t('group.address_placeholder')"
+                                           :placeholder="$t('common.list.search_box._keyword_pl')"
                                            class="form-control" >
                                 </div>
 
                                 <div class="form-group d-flex justify-content-center">
-                                    <button type="button" @click="removeCondition()"  class="btn btn-light border mr-3">{{ $t('group.remove_condition')}}</button>
-                                    <button type="button" @click="filter()" class="btn btn-light text-primary border-primary">{{ $t('group.search_by_condition')}}</button>
+                                    <button type="button" @click="removeCondition()"  class="btn btn-light border mr-3">{{ $t('common.list.search_box._btn_reset')}}</button>
+                                    <button type="button" @click="filter()" class="btn btn-light text-primary border-primary">{{ $t('common.list.search_box._btn_search')}}</button>
                                 </div>
 
                             </form>
@@ -52,26 +52,36 @@
                                 <thead>
                                 <tr>
                                     <th><input type="checkbox" v-model="selectAll"></th>
-                                    <th>{{ $t('group.name_account')}}</th>
-                                    <th>{{ $t('group.email')}}</th>
-                                    <th>{{ $t('group.group')}}</th>
-                                    <th>{{ $t('group.created_at')}}</th>
-                                    <th>{{ $t('group.last_login')}}</th>
+                                    <th>{{ $t('staff.attr._username')}}</th>
+                                    <th>{{ $t('staff.attr._mail_address')}}</th>
+                                    <th>{{ $t('staff.attr._position')}}</th>
+                                    <th>{{ $t('staff.list.data_table._registered_at')}}</th>
+                                    <th>{{ $t('staff.list.data_table._last_login_at')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="item in members.data" :key="item.id">
-                                    <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
-                                    <td>{{item.name}}</td>
-                                    <td>{{item.email}}</td>
-                                    <td>{{group}}</td>
-                                    <td>{{item.created_at}}</td>
-                                    <td>{{item.last_login}}</td>
-                                </tr>
+
+                                    <!-- <div class="user_not_found"  v-if="haveData">
+                                        {{ $t('group.group_users._not_found_user')}}
+                                    </div> -->
+                                    
+                                        <tr v-for="item in members.data" :key="item.id">
+                                            <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
+                                            <td>{{item.name}}</td>
+                                            <td>{{item.email}}</td>
+                                            <td>{{group}}</td>
+                                            <td>{{item.created_at}}</td>
+                                            <td>{{item.last_login}}</td>
+                                        </tr>
+
                                 </tbody>
                             </table>
+                            
                         </div>
                         <!-- /.card-body -->
+                        <div class="card-footer">
+                            <pagination :data="members" @pagination-change-page="getResults"></pagination>
+                        </div>
                     </div>
                     <!-- /.card -->
                 </div>
@@ -110,6 +120,13 @@
                     return false;
                 }
             },
+
+            haveData:function(){
+                // if(Object.keys(this.members).length === 0 && Object.keys(this.groupUsers).length === 0) return false;
+                // else return true
+                
+            },
+
             removeButton:function(){
                 if(this.selected.length){
                     if(this.removeAllow){
@@ -138,6 +155,13 @@
         },
         methods: {
 
+            getResults(page = 1) {
+                this.$Progress.start();
+                axios.get('/api/group/members/'+this.id+'/?page=' + page)
+                    .then(({data}) => {this.members = data.data});
+                this.$Progress.finish();
+            },
+
             loadMembers(){
                 if(this.$gate.isRoot()){
                     axios.get("/api/group/members/"+this.id).then(({ data }) => {
@@ -156,7 +180,7 @@
             filter(){
                 if(this.$gate.isRoot()){
                     this.$Progress.start();
-
+                    console.log(this.id +'- '+ this.value);
                     axios.get('/api/group/members/filter/'+this.id +'/'+this.value)
                             .then((data)=>{
                                 this.members = data.data
@@ -170,7 +194,7 @@
                             .catch(()=>{
                                 Toast.fire({
                                     icon: 'error',
-                                    title: 'Some error occured! Please try again'
+                                    title: this.$t('common.messages._system_err')
                                 });
                             })
                     }
@@ -191,6 +215,7 @@
                             axios.post("/api/group/members/add", {user_id: element, group_id: this.id})
                                 .then((data) => {
                                     this.loadData();
+                                    this.removeCondition();
                                     this.selected = [];
                                 })
                                 .catch(() => {
@@ -199,14 +224,14 @@
 
                         Toast.fire({
                             icon: 'success',
-                            title: 'add success to group '
+                            title: this.$t('group.group_users.messages._update_success')
                         });
                         this.$Progress.finish();
 
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: 'You have not chosen user! Please try again'
+                            title: this.$t('group.group_users.messages._update_failed')
                         });
                     }
                 }
@@ -250,13 +275,13 @@
                             .catch(() => {
                                 Toast.fire({
                                     icon: 'error',
-                                    title: 'You have not chosen Group! Please try again'
+                                    title: this.$t('group.group_users.messages._update_success')
                                 });
                             })
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: 'You have not chosen user! Please try again'
+                            title: this.$t('group.group_users.messages._update_failed')
                         });
                     }
                 }
@@ -288,14 +313,14 @@
         },
         created() {
             this.$Progress.start();
-
             this.loadData();
-
+            console.log(Object.keys(this.members).length);
             this.$Progress.finish();
         }
     }
 </script>
 <style scoped>
+    .user_not_found{width:100%;text-align: center;padding:10px}
     .table-hover th{font-weight: 200;font-size:13px}
     .dropdown-menu{border-radius: 0}
     .dropdown-item{font-weight: normal; font-size: 11px;line-height: 13px}

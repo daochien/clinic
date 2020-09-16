@@ -130,6 +130,11 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->belongsToMany(Clinic::class, 'clinic_users', 'user_id', 'clinic_id');
     }
 
+    public function inquiry()
+    {
+        return $this->hasMany(Inquiry::class, 'id', 'created_by');
+    }
+
     public function loginLog()
     {
         return $this->hasMany(LoginLog::class);

@@ -7,7 +7,7 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-Auth::routes(['verify' => true]);\
+Auth::routes(['verify' => true]);
 Route::prefix('/notification/')
     ->namespace('Client')
     ->name('notification.')
@@ -15,12 +15,22 @@ Route::prefix('/notification/')
         Route::get('/', 'NotificationController@index')->name('index');
     });
 
-Route::get('/blogs', 'HomeController@blog')->name('home.blog');
+Route::prefix('/blogs/')
+    ->middleware('auth')
+    ->namespace('Client')
+    ->name('blog.')
+    ->group(function () {
+        Route::get('/', 'PageController@index')->name('index');
+        Route::get('/{id}', 'PageController@index')->name('detail');
+    });
+
+
 
 //Route::get('/admin', 'Admin\HomeController@index')->name('admin_dashboard');
 //Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('/admin/template', 'Admin\Template\FormController')->except('index');
+Route::get('request/download/attachment/{filename}', 'API\V1\RequestController@downloadAttachment')->name('request.attachment.download');
 
 Route::prefix('/admin/template')
     ->namespace('Admin\Template')

@@ -13,6 +13,7 @@ class Group extends Model
      */
     protected $fillable = ['name', 'description', 'forced'];
 
+    public $timestamps = true;
 
     /**
      * The attributes that should be hidden for arrays.
@@ -41,10 +42,21 @@ class Group extends Model
         return $this->hasMany(GroupUser::class,'group_id');
     }
 
+    public function groupUsers()
+    {
+        return $this->hasMany(GroupUser::class,'group_id');
+    }
+
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'group_users', 'user_id');
+        return $this->belongsToMany(User::class, 'group_users', 'group_id', 'user_id');
+    }
+
+
+    public function usersCount()
+    {
+        return $this->hasMany(GroupUser::class)->count();
     }
 
 }

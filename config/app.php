@@ -179,7 +179,8 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        \App\Providers\SqlDebugProvider::class,
+        NotificationChannels\AwsSns\SNSServiceProvider::class,
+        Aws\Laravel\AwsServiceProvider::class,
     ],
 
     /*
@@ -230,7 +231,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'AWS' => Aws\Laravel\AwsFacade::class,
     ],
 
 ];

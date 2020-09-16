@@ -40,7 +40,7 @@
                                     <div class="col-right">
                                         <span class="sub">{{ getFromTitle(item) }}</span>
                                         <span class="title" v-if="item.notification">{{ item.notification.title }}</span>
-                                        <p>{{ getTruncateContent(item) }}</p>
+                                        <p v-html="getTruncateContent(item)"></p>
                                     </div>
                                     <div :class="'status ' + getStatusClass(item)"></div>
                                 </div>
@@ -68,8 +68,7 @@
                     <span class="date">{{ $moment(selection.created_at).format('DD/MM/YYYY') }}</span>
                     <h3 class="title">{{ getFromTitle(selection) }}</h3>
                     <div class="context">
-                        <p>
-                            {{ selection.notification.content }}
+                        <p v-html="selection.content">
                         </p>
                     </div>
                 </div>
@@ -83,7 +82,9 @@
         name: "Index",
         data() {
             return {
-                notifications: null,
+                notifications: {
+                    data : null
+                },
                 selection: null,
                 from: 0,
             }
@@ -93,14 +94,15 @@
                 this.fetch();
             }
         },
-        created() {
+        mounted() {
             this.fetch();
         },
         methods: {
             fetch(from = 0) {
-                axios.get(`/api/notification/fetch?user_id=9999&from=${this.from}`).then((response)=>{
-                    this.notifications = response.data;
-                    this.selection = this.notifications.data[0];
+                let self = this;
+                axios.get(`/api/notification/fetch?user_id=10003&from=${this.from}`).then((response)=>{
+                    self.notifications = response.data;
+                    self.selection = self.notifications.data[0];
                 })
                 .catch(()=>{
                     Toast.fire({
@@ -109,42 +111,63 @@
                     });
                 })
             },
+            updateStatus(item) {
+                let self = this;
+                axios.put(`/api/notification/status?notification_id=${item.notification_id}&status=1&user_id=${item.user_id}`)
+                    .then((response)=>{
+
+                    })
+                    .catch(()=>{
+                        Toast.fire({
+                            icon: 'error',
+                            title: 'Some error occured! Please try again'
+                        });
+                    })
+            },
             onSelect(item) {
                 this.selection = item;
+                if (_.indexOf(item.status, 1) < 0) {
+                    this.updateStatus(item);
+                }
             },
             getFromLabel(item) {
-                if (!_.isEmpty(item.notification) && !_.isEmpty(item.notification.creator)) {
-                    return item.notification.creator.posittion == 1 ? 'BOD' : 'HR'
+                if (!_.isEmpty(item.notification) && !_.isEmpty(item.creator)) {
+                    return item.creator.posittion == 1 ? '理事長' : '事務局'
                 }
 
-                return 'HR';
+                return '事務局';
             },
             getFromTitle(item) {
-                if (!_.isEmpty(item.notification) && !_.isEmpty(item.notification.creator)) {
-                    return  item.notification.creator.posittion == 1 ? '理事長から' : '理事長から'
+                if (!_.isEmpty(item) && !_.isEmpty(item.creator)) {
+                    return  item.creator.posittion == 1 ? '理事長から' : '理事長から'
                 }
 
                 return '理事長から';
             },
             getTruncateContent(item) {
-                return _.truncate(item.notification.content, {
+                return _.truncate(this.stripHtml(item.content), {
                     'length': 100,
                     'separator': ' '
                 });
             },
             isActive(item) {
-                if (this.selection) {
-                    return item.notification.id == this.selection.notification.id ? 'active' : '';
+                if (this.selection && item) {
+                    return item.notification_id == this.selection.notification_id ? 'active' : '';
                 }
 
                 return '';
             },
             getStatusClass(item) {
-                if (!_.isEmpty(item.notification.status)) {
-                    return item.notification.status.status === 1 ? 'yellow' : 'red';
+                if (!_.isEmpty(item.status)) {
+                    return _.indexOf(item.status, 1) > -1 ? 'yellow' : 'red';
                 }
 
                 return 'yellow';
+            },
+            stripHtml(html) {
+                let temporalDivElement = document.createElement("div");
+                temporalDivElement.innerHTML = html;
+                return temporalDivElement.textContent || temporalDivElement.innerText || "";
             }
         }
     }

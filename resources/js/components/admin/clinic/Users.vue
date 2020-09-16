@@ -1,27 +1,27 @@
 <template>
-    <section class="content" v-if="$gate.isAdmin()">
+    <section class="content" v-if="$gate.canPermission('clinic.get.users')">
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('app.clinic.header.list-user') }}</h3>
+                <h3 class="page-title">{{ $t('clinic.clinic_users._page_title') }}</h3>
             </div>
         </div>
         <!-- End Page Header -->
         <div class="container-fluid">
             <div class="row mt-5">
                 <div class="col-12">
-                    <div class="card" v-if="$gate.isAdmin()">
+                    <div class="card" v-if="$gate.canPermission('clinic.get.users')">
                         <div class="card-body p-0">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th scope="col"><input type="checkbox" class="custom-control-input"
                                                            id="formsAgreeField"></th>
-                                    <th scope="col">{{ $t('app.user.name')}}</th>
-                                    <th scope="col">{{ $t('app.user.email')}}</th>
-                                    <th scope="col">{{ $t('app.user.group')}}</th>
-                                    <th scope="col">{{ $t('app.user.register_date')}}</th>
-                                    <th scope="col">{{ $t('app.user.last_login_date')}}</th>
+                                    <th scope="col">{{ $t('staff.attr._username')}}</th>
+                                    <th scope="col">{{ $t('staff.attr._mail_address')}}</th>
+                                    <th scope="col">{{ $t('staff.attr._position')}}</th>
+                                    <th scope="col">{{ $t('staff.list.data_table._registered_at')}}</th>
+                                    <th scope="col">{{ $t('staff.list.data_table._last_login_at')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -95,7 +95,7 @@
 
                 axios.post("/api/clinic/" + this.$route.params.id + "/user")
                     .then((data) => {
-                        if (data.data.success) {
+                        if (data.data.status) {
                             Toast.fire({
                                 icon: 'success',
                                 title: data.data.message
@@ -104,7 +104,7 @@
                         } else {
                             Toast.fire({
                                 icon: 'error',
-                                title: 'Some error occured! Please try again'
+                                title: this.$t('clinic.clinic_users.messages._update_failed')
                             });
 
                             this.$Progress.failed();
@@ -113,7 +113,7 @@
                     .catch(() => {
                         Toast.fire({
                             icon: 'error',
-                            title: 'Some error occured! Please try again'
+                            title: this.$t('common.messages._system_err')
                         });
                     })
             },

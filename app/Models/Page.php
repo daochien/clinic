@@ -6,14 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
 {
+
+    CONST PAGE_TYPE = [
+        'blog' => 'blog',
+        'manual' => 'manual',
+        'faq' => 'faq'
+    ];
+
     protected $fillable = [
-        'owner_id', 'type', 'title', 'content', 'image', 'release', 'release_date', 'public', 'public_destination', 'files', 'category_id'
+        'owner_id', 'type', 'title', 'content', 'image', 'public', 'public_date', 'status', 'url', 'files', 'category_id', 'downloads', 'views', 'summary'
     ];
 
     public $timestamps = true;
 
     public function categorys()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'page_group', 'page_id', 'group_id')->select('name', 'id');
     }
 }

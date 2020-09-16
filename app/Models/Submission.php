@@ -51,7 +51,7 @@ class Submission extends Model
 
     public function requestLogs()
     {
-        return $this->hasMany(RequestLog::class, 'request_id', 'id');
+        return $this->hasMany(RequestLog::class, 'request_id', 'id')->orderByDesc('created_at');
     }
 
     public function requestComments()

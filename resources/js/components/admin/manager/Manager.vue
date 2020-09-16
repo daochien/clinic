@@ -1,7 +1,9 @@
 <template>
     <div class="page-create-manager">
-        
-        <form-manager :is-edit="isEdit"/>
+        <form-manager :is-edit="isEdit" v-if="($gate.canPermission('manager.store') && !isEdit) || ($gate.canPermission('manager.update') && isEdit)"/>
+        <div v-else>
+            <not-found></not-found>
+        </div>
     </div>
 </template>
 
@@ -19,11 +21,11 @@ export default {
     },
 
     created () {
-        
+
     },
 
     methods: {
-                        
+
     }
 
 }

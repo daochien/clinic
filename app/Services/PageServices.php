@@ -3,6 +3,7 @@ namespace App\Services;
 
 use App\Helpers\PasswordHelper;
 use App\Models\Page;
+use App\Models\PageGroup;
 use App\Repositories\PageRepository;
 use App\Services\S3Service;
 use Illuminate\Support\Facades\DB;
@@ -23,9 +24,20 @@ class PageServices
     public function createPage($attribute)
     {
         DB::beginTransaction();
-        try {
-
+        try {            
             $page = $this->pageRepo->create($attribute);
+
+            if (isset($attribute['groups'])) {
+                $groups = json_decode($attribute['groups'], true);
+                if (!empty($groups)) {
+                    foreach ($groups as $group) {
+                        PageGroup::insertOrIgnore([
+                            'page_id' => $page->id,
+                            'group_id' => $group['id']
+                        ]);
+                    }
+                }
+            }
 
             if (!empty($attribute['image'])) {
                 $image = $this->s3Service->store($attribute['image'], 'pages/images');
@@ -37,9 +49,14 @@ class PageServices
                 $files = array();
                 foreach ($attribute['files'] as $file) {
                     $pathFile = $this->s3Service->store($file, 'pages/files');
-                    $files[] = $pathFile;
+                    $files = [
+                        'name' => $file->getClientOriginalName(),
+                        'path' => $pathFile,
+                        'size' => $file->getSize(),
+                        'extension' => $file->getClientOriginalExtension()
+                    ];
                 }
-                $page->files = json_encode($pathFile);
+                $page->files = json_encode($files);
                 $page->save();
             }
 
@@ -52,19 +69,103 @@ class PageServices
         }
     }
 
-    public function blogLatest()
+    public function updatePage($id, $attribute)
     {
-        return $this->pageRepo->latestPage('blog', 5);
+        DB::beginTransaction();
+        try {
+            $page = $this->page->findOrFail($id);
+            $page->update($this->_buildDataUpdate($attribute->all()));
+
+            if (isset($attribute['groups'])) {
+                $groups = json_decode($attribute['groups'], true);
+                if (!empty($groups)) {
+                    PageGroup::where('page_id', $page->id)->delete();
+
+                    foreach ($groups as $group) {
+                        PageGroup::insertOrIgnore([
+                            'page_id' => $page->id,
+                            'group_id' => $group['id']
+                        ]);
+                    }
+                }
+            }
+            
+            if (!empty($attribute['image'])) {
+                $image = $this->s3Service->store($attribute['image'], 'pages/images');
+                $page->image = $image;
+                $page->save();
+            } else {
+                if (!empty($attribute['is_remove_image'])) {
+                    
+                    $page->image = null;
+                    $page->save();
+                }                
+            }
+
+            if ($attribute->hasFile('files')) {
+                $files = array();
+                foreach ($attribute['files'] as $file) {
+                    $pathFile = $this->s3Service->store($file, 'pages/files');
+                    $files = [
+                        'name' => $file->getClientOriginalName(),
+                        'path' => $pathFile,
+                        'size' => $file->getSize(),
+                        'extension' => $file->getClientOriginalExtension()
+                    ];
+                }
+                $page->files = json_encode($files);
+                $page->save();
+            } else {
+                if (!empty($attribute['is_remove_file'])) {
+                    $page->files = null;
+                    $page->save();
+                }
+            }
+
+            DB::commit();
+
+            return $page;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 
-    public function manualLatest()
-    {
-        return $this->pageRepo->latestPage('manual', 8);
+    protected function _buildDataUpdate($attribute)
+    {        
+        $update = [
+            'type' => $attribute['type'],
+            'title' => $attribute['title'],
+            'public' => $attribute['public'],            
+            'status' => $attribute['status'],
+            'url' => $attribute['url'],
+            'category_id' => $attribute['category_id'],
+            'content' => $attribute['content'],
+            'summary' => $attribute['summary']
+        ];
+        if (!empty($attribute['public_date']) && $attribute['public_date'] != 'null') {
+            $update['public_date'] = $attribute['public_date'];
+        }
+        return $update;
     }
 
-    public function faqLatest()
+    public function rating($id, $params)
     {
-        return $this->pageRepo->latestPage('faq', 4);
+        if (!empty($params['type'])) {
+            if ($params['type'] == 'download') {
+                $update = $this->page::where('id', $id)->update([
+                    'downloads' => DB::raw("`downloads`+1")
+                ]);                
+            }
+            if ($params['type'] == 'view') {
+                $this->page::where('id', $id)->update([
+                    'views' => DB::raw('views + 1')
+                ]);
+            }
+            return true;
+        }
+        return false;
     }
+    
 }
 ?>

@@ -38,8 +38,9 @@ class GroupRequest extends FormRequest
     public function createRules(): array
     {
         return [
-            'name' => 'required|string|max:191',
-            'description' => 'required'
+            'name' => 'required|string|max:191|unique:groups',
+            'description' => 'required',
+            'forced' => 'required|integer'
         ];
     }
 
@@ -51,8 +52,16 @@ class GroupRequest extends FormRequest
     public function updateRules(): array
     {
         return [
-            'name' => 'required|string|max:191',
-            'description' => 'required'
+            'name' => 'required|string|max:191|unique:groups',
+            'description' => 'required',
+            'forced' => 'required|integer'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.unique' => '指定の名前は既に使用されています',            
         ];
     }
 }

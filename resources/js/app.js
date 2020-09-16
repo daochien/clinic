@@ -41,14 +41,11 @@ import Gate from "./Gate";
 Vue.prototype.$gate = new Gate(window.user);
 
 import Swal from 'sweetalert2';
-
-
 const Toast = Swal.mixin({
     toast: true,
     position: 'bottom-end',
     showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
+    timer: 30000,
     onOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -126,6 +123,11 @@ Vue.filter('myDate', function (created) {
     }
     return "-";
 });
+
+Vue.filter('formatAttachFile', function (fileName) {
+    let props = _.split(fileName,'_____', 2);
+    return props[1];
+})
 
 Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i class="fas fa-times red"></i>'));
 

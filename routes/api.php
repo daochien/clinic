@@ -7,10 +7,10 @@ Route::namespace('API\V1')
     ->prefix('/notification')
     ->group(function (): void {
         Route::get('/fetch', 'NotificationController@fetch');
+        Route::put('/status', 'NotificationController@updateStatus');
     });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
@@ -24,17 +24,19 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::namespace('API\V1')
             ->prefix('/notification')
+            ->as('notification.')
             ->group(function (): void {
-                Route::get('/{id}/members', 'NotificationController@members');
-                Route::get('/{id}/show', 'NotificationController@show');
-                Route::post('/store', 'NotificationController@store')->name('notification.store');
-                Route::post('/search', 'NotificationController@search');
-                Route::post('/detailSearch', 'NotificationController@detailSearch');
+                Route::get('/{id}/members', 'NotificationController@members')->name('members');
+                Route::get('/{id}/show', 'NotificationController@show')->name('show');
+                Route::post('/store', 'NotificationController@store')->name('store');
+                Route::post('/search', 'NotificationController@search')->name('search');
+                Route::post('/detailSearch', 'NotificationController@detailSearch')->name('search.detail');
             });
 
-        Route::get('profile', 'API\V1\ProfileController@profile')->name('profile.index');
+        Route::get('profile', 'API\V1\AdminController@profile')->name('profile.index');
         Route::put('profile', 'API\V1\ProfileController@updateProfile')->name('profile.update');
         Route::post('change-password', 'API\V1\ProfileController@changePassword')->name('profile.change.password');
+        Route::post('change-my-password', 'API\V1\ProfileController@changeMyPassword')->name('profile.change.my.password');
         Route::get('category/type/{type}', 'API\V1\CategoryController@getByType')->name('category.list.by.type');
         Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
         Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
@@ -66,17 +68,26 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
         Route::get('request/category/{id}', 'API\V1\RequestController@indexByCategory')->name('api.request.category.list');
         Route::get('request/{id}', 'API\V1\RequestController@show')->name('api.request.show');
+        Route::post('request/{id}/status', 'API\V1\RequestController@changeStatus')->name('api.request.change_status');
+        Route::post('request/{id}/comment', 'API\V1\RequestController@comment')->name('api.request.comment');
+        Route::post('request/{id}', 'API\V1\RequestController@store')->name('api.request.store');
 
-        Route::get('page/blogs', 'API\V1\PageController@blogs')->name('page.blogs');
-        Route::get('page/blog-latest', 'API\V1\PageController@blogLatest')->name('page.blogLatest');
+        Route::get('inquiry/category/{id}', 'API\V1\InquiryController@indexByCategory')->name('api.inquiry.category.list');
+        Route::post('inquiry/{id}/close', 'API\V1\InquiryController@changeStatus')->name('api.inquiry.change_status');
+        Route::post('inquiry/{id}/comment', 'API\V1\InquiryController@comment')->name('api.inquiry.comment');
+        Route::post('inquiry/search', 'API\V1\InquiryController@search')->name('api.inquiry.search');
+
         Route::get('page/manual-latest', 'API\V1\PageController@manualLatest')->name('page.manualLatest');
-        Route::get('page/faq-latest', 'API\V1\PageController@faqLatest')->name('page.faqLatest');
         Route::post('page/upload-image-content', 'API\V1\PageController@uploadImageContent')->name('page.uploadImageContent');
+        Route::put('page/{id}/change-status', 'API\V1\PageController@changeStatus')->name('page.changeStatus');
+        Route::put('page/{id}/rating', 'API\V1\PageController@rating')->name('page.rating');
+        Route::post('page/{id}', 'API\V1\PageController@update')->name('page.update');
+        Route::post('category', 'API\V1\CategoryController@store')->name('category.store');
 
         Route::apiResources([
             'user' => 'API\V1\UserController',
             'clinic' => 'API\V1\ClinicController',
-            'category' => 'API\V1\CategoryController',
+            'inquiry' => 'API\V1\InquiryController',
             'notification' => 'API\V1\NotificationController',
             'group' => 'API\V1\GroupController',
             'page' => 'API\V1\PageController',
@@ -89,3 +100,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::post('/login', 'API\V1\Auth\LoginController@login')->name('api.login');
 Route::post('/password/forgot', 'API\V1\Auth\ForgotPasswordController@sendResetLinkEmail')->name('api.password.forgot');
+Route::post('/password/reset', 'API\V1\Auth\ResetPasswordController@reset')->name('api.reset.password');

@@ -45,7 +45,7 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetLinkResponse(Request $request, $response)
     {
-        Toastr::success(__('passwords.sent'));
+        Toastr::success(__('auth.reset_pwd.messages._send_mail_success'));
         return $request->wantsJson()
             ? new JsonResponse(['message' => trans($response)], 200)
             : back()->with('status', trans($response));
@@ -60,7 +60,7 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
-        Toastr::error(__('passwords.failed'));
+        Toastr::error(__('auth.reset_pwd.messages._send_mail_failed'));
         if ($request->wantsJson()) {
             throw ValidationException::withMessages([
                 'email' => [trans($response)],

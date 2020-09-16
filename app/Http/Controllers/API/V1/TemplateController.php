@@ -31,7 +31,7 @@ class TemplateController extends BaseController
     {
         $templates = Form::with(['approvers', 'category'])->paginate(10);
 
-        return $this->sendResponse($templates, 'Templates list');
+        return $this->sendSuccessResponse($templates, 'Templates list');
     }
 
     public function show(Request $request, $id)
@@ -40,20 +40,19 @@ class TemplateController extends BaseController
             ->with(['user','category','approvers'])
             ->where('visibility', Form::FORM_PUBLIC)
             ->withCount('submissions')
-            ->firstOrFail();
+            ->first();
 
-        return $this->sendResponse($form, 'Templates list');
+        return $this->sendSuccessResponse($form, 'Templates list');
     }
 
     public function destroy($id)
     {
-        $user = auth()->user();
-        $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        $form = Form::find($id);
         $form->delete();
 
         // dispatch the event
         event(new FormDeleted($form));
 
-        return $this->sendResponse([$form]);
+        return $this->sendSuccessResponse([$form]);
     }
 }

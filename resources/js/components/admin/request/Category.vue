@@ -4,7 +4,7 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('template.request.page_title') }}</h3>
+                <h3 class="page-title">{{ $t('request.list._page_title') }}</h3>
             </div>
         </div>
         <!-- End Page Header -->
@@ -18,12 +18,13 @@
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>{{ $t('template.request.submitter')}}</th>
-                                    <th>{{ $t('template.approver')}}</th>
-                                    <th>{{ $t('template.request.status')}}</th>
-                                    <th>{{ $t('template.request.submitted_at')}}</th>
-                                    <th>{{ $t('template.request.approved_at')}}</th>
+                                    <th>{{ $t('common.list.data_table._id') }}</th>
+                                    <th>{{ $t('request.attr._sender')}}</th>
+                                    <th>{{ $t('request.attr._approver')}}</th>
+                                    <th>{{ $t('request.attr._status')}}</th>
+                                    <th>{{ $t('request.list.data_table._request_at')}}</th>
+                                    <th>{{ $t('request.list.data_table._last_approved_at')}}</th>
+                                    <th>{{ $t('request.list.data_table._action')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -37,9 +38,9 @@
                                             </span>
                                         </div>
                                     </td>
-                                    <td> <span class="text-warning">承認待ち</span> </td>
+                                    <td> {{getStatus(request)}}</td>
                                     <td>{{ request.created_at|myDate }}</td>
-                                    <td>-</td>
+                                    <td>{{ getLastRequestLog(request)|myDate }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <i
@@ -52,13 +53,13 @@
                                             <div class="dropdown-menu" aria-labelledby="operatingAction">
                                                 <router-link class="dropdown-item text-primary"
                                                    :to="'/admin/request/' + request.id">
-                                                    {{ $t('template.request.detail')}}
+                                                    {{ $t('request.list.data_table.actions._act_show_details')}}
                                                 </router-link>
-                                                <a class="dropdown-item text-danger" href="#" @click="approve(request.id)">
-                                                    {{$t('template.request.approve')}}
+                                                <a class="dropdown-item text-primary" href="#" @click="approve(request.id)">
+                                                    {{$t('request.list.data_table.actions._act_approve')}}
                                                 </a>
                                                 <a class="dropdown-item text-danger" href="#" @click="reject(request.id)">
-                                                    {{$t('template.request.reject')}}
+                                                    {{$t('request.list.data_table.actions._act_reject')}}
                                                 </a>
                                             </div>
                                         </div>
@@ -85,47 +86,116 @@
         data () {
             return {
                 requests : {},
+                status_label: '',
             }
         },
         methods: {
-
             getResults(page = 1) {
                 axios.get("/api/request/category/"  + this.$route.params.id + "/?page=" + page).then(({ data }) => ( this.requests = data.data));
             },
-            /*deleteTemplate(id) {
+            approve(id) {
+                this.$Progress.start();
+                axios.post("/api/request/" + id + "/status", {
+                    status: 1,
+                })
+                .then((data) => {
+                    if (data.data.status) {
+                        Toast.fire({
+                            icon: "success",
+                            title: this.$t('request').list.messages._approve_success,
+                        });
+                        this.loadRequests();
+                        this.$Progress.finish();
+                    } else {
+                        Toast.fire({
+                            icon: 'error',
+                            title: this.$t('request').list.messages._approve_failed,
+                        });
+                        this.$Progress.failed();
+                    }
+                })
+                .catch(() => {
+                    Toast.fire({
+                        icon: 'error',
+                        title: this.$t('request').list.messages._approve_failed,
+                    });
+                })
+            },
+            reject(id) {
                 Swal.fire({
-                    title: this.$t('app').popup.are_you_sure,
-                    text: this.$t('app').popup.you_wont_able_revert,
+                    title: this.$t('request').others._reject_modal_title,
+                    text: this.$t('request').others._reject_modal_description,
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('app').popup.delete_it
+                    confirmButtonText: this.$t('request').others._reject_modal_yes,
+                    cancelButtonText: this.$t('request').others._modal_no,
                 }).then((result) => {
                     // Send request to the server
                     if (result.value) {
-                        axios.delete('/api/template/' + id).then(() => {
-                            Swal.fire(
-                                this.$t('app').popup.deleted,
-                                this.$t('app').popup.your_item_has_been_deleted,
-                                'success'
-                            );
-                            // Fire.$emit('AfterCreate');
-                            this.loadRequests();
-                        }).catch((data) => {
-                            Swal.fire(this.$t('app').popup.failed, data.message, "warning");
-                        });
+                        this.$Progress.start();
+                        axios.post("/api/request/" + id + "/status", {
+                            status: 2,
+                        })
+                        .then((data) => {
+                            if (data.data.status) {
+                                Toast.fire({
+                                    icon: "success",
+                                    title: this.$t('request').list.messages._reject_success,
+                                });
+                                this.loadRequests();
+                                this.$Progress.finish();
+                            } else {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: this.$t('request').list.messages._reject_failed,
+                                });
+                                this.$Progress.failed();
+                            }
+                        })
+                        .catch(() => {
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('request').list.messages._reject_failed,
+                            });
+                        })
                     }
                 })
-            },*/
-            approve(id) {
-            },
-            reject(id) {
-
             },
             loadRequests(){
                 axios.get("/api/request/category/"  + this.$route.params.id).then(({ data }) => ( this.requests = data.data));
             },
+            getStatus(object) {
+                self = this;
+                if (object.request_logs.length === 0) {
+                    this.status_label = 'btn-warning';
+                    return this.$t('request').attr.status._open;
+                }
 
+                let approvedCount = 0;
+                _.forEach(object.request_logs, function (log, logKey) {
+                    if (log.status === 2) {
+                        self.status_label = 'btn-secondary';
+                        return self.$t('request').attr.status._rejected;
+                    }
+                    approvedCount++;
+                });
+
+                if (approvedCount === object.form.approvers.length) {
+                    this.status_label = 'btn-info';
+                    return this.$t('request').attr.status._approved;
+                }
+
+                this.status_label = 'btn-primary';
+                return this.$t('request').attr.status._in_progress;
+            },
+            getLastRequestLog(object) {
+                self = this;
+                if (object.request_logs.length === 0) {
+                    return '';
+                }
+                return object.request_logs[0].created_at;
+            }
         },
         mounted() {
         },

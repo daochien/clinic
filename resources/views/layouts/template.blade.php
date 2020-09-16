@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('vendor/formbuilder/js/footable/css/footable.standalone.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('vendor/formbuilder/css/styles.css') }}{{ jazmy\FormBuilder\Helper::bustCache() }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     @stack('styles')
 </head>
 <body class="h-100">
@@ -45,41 +46,73 @@
             </form>
             <div class="nav-wrapper" style="overflow-y: auto;">
                 <ul class="nav nav--no-borders flex-column">
-                    <li class="nav-item">
-                        <a href="/admin/user" class="nav-link">
-                            <i class="fa fa-users nav-icon blue"></i>
-                            <span>{{ __('sidebar.admin_manage') }}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                            <i class="far fa-address-book"></i>
-                            <span>{{ __('sidebar.staff_manage') }}</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-small">
-                            <a href="/admin/clinic" class="dropdown-item">
-                                {{ __('sidebar.clinics') }}
+                    @canany(['manager.index', 'role.index'])
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                                <i class="fa fa-users nav-icon blue"></i>
+                                <span>{{ __('app.menu.sidebar.admin_management._main') }}</span>
                             </a>
-                            <a href="/admin/user" class="dropdown-item">
-                                {{ __('sidebar.staff') }}
+                            <div class="dropdown-menu dropdown-menu-small">
+                                @can('manager.index')
+                                    <router-link to="/admin/manager" class="dropdown-item">
+                                        <span>{{ __('app.menu.sidebar.admin_management._admin_list') }}</span>
+                                    </router-link>
+                                @endcan
+                                @can(['role.index','role.store', 'role.update'])
+                                    <router-link to="/admin/manager/roles" class="dropdown-item">
+                                        <span>{{ __('app.menu.sidebar.admin_management._role_list') }}</span>
+                                    </router-link>
+                                @endcan
+                            </div>
+                        </li>
+                    @endcanany
+
+                    @canany(['user.index', 'clinic.index'])
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                                <i class="far fa-address-book"></i>
+                                <span>{{ __('app.menu.sidebar.staff_management._main') }}</span>
                             </a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/admin/notification" class="nav-link">
-                            <i class="far fa-bell"></i>
-                            <span>{{ __('sidebar.notification') }}</span>
-                        </a>
-                    </li>
+                            <div class="dropdown-menu dropdown-menu-small" id="notClose">
+
+                                @can('clinic.index')
+                                    <router-link to="/admin/clinic" class="dropdown-item ">
+                                        {{ __('app.menu.sidebar.staff_management._clinic_list') }}
+                                    </router-link>
+                                @endcan
+
+                                @can('group.index')
+                                    <router-link to="/admin/group" class="dropdown-item ">
+                                        {{ __('app.menu.sidebar.staff_management._group_list') }}
+                                    </router-link>
+                                @endcan
+
+                                @can('user.index')
+                                    <router-link to="/admin/user" class="dropdown-item">
+                                        {{ __('app.menu.sidebar.staff_management._staff_list') }}
+                                    </router-link>
+                                @endcan
+                            </div>
+                        </li>
+                    @endcanany
+
+                    @canany(['notification.index'])
+                        <li class="nav-item">
+                            <router-link to="/admin/notification" class="nav-link">
+                                <i class="far fa-bell"></i>
+                                <span>{{ __('app.menu.sidebar.notification_management._main') }}</span>
+                            </router-link>
+                        </li>
+                    @endcanany
+                    @canany(['template.index'])
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
                             <i class="fas fa-clipboard-list"></i>
-                            <span>{{ __('sidebar.request') }}</span>
+                            <span>{{ __('app.menu.sidebar.request_management._main') }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-small show">
-                            {{--<a href="/admin/template" class="dropdown-item">{{ __('sidebar.templates') }}</a>--}}
                             <a href="/admin/template" class="dropdown-item active">
-                                {{ __('sidebar.templates') }}
+                                {{ __('app.menu.sidebar.request_management._request_template_list') }}
                             </a>
                             @foreach (\App\Models\TemplateCategory::getAll() as $category)
                                 <a href="/admin/request/category/{{$category->id}}" class="dropdown-item">
@@ -87,6 +120,13 @@
                                 </a>
                             @endforeach
                         </div>
+                    </li>
+                    @endcanany
+                    <li class="nav-item">
+                        <router-link to="/admin/page/create" class="nav-link">
+                            <i class="far fa-bell"></i>
+                            <span>Page Managerment</span>
+                        </router-link>
                     </li>
                 </ul>
 
@@ -98,20 +138,47 @@
         <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-2 offset-md-3">
             <div class="main-navbar sticky-top bg-white">
                 <!-- Main Navbar -->
-                <div class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
-                    <div class="input-group input-group-seamless ml-3">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="/admin/template"class="router-link-exact-active router-link-active">申請管理</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <span class="router-link-exact-active router-link-active"> {{$breadCrumbTitle ?? '' }}</span>
-                            </li>
-                        </ol>
+                <nav class="navbar align-items-stretch navbar-light flex-md-nowrap p-0">
+                    <div class="main-navbar__search w-100 d-none d-md-flex d-lg-flex">
+                        <div class="input-group input-group-seamless ml-3">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/admin/template"class="router-link-exact-active router-link-active">申請管理</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <span class="router-link-exact-active router-link-active"> {{$breadCrumbTitle ?? '' }}</span>
+                                </li>
+                            </ol>
+                        </div>
                     </div>
-                </div>
-            </div> <!-- / .main-navbar -->
+                    <ul class="navbar-nav border-left flex-row ">
+                        <li class="nav-item dropdown">
+                            <a class="top-nav nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#"
+                               role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="d-none d-md-inline-block">{{ Auth::user()->name }}</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-small">
+                                <a class="dropdown-item text-danger" href="#"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="material-icons text-danger">&#xE879;</i>
+                                    {{ __('app.menu.top._logout') }}
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </a>
 
+                            </div>
+                        </li>
+                    </ul>
+                    <nav class="nav">
+                        <a href="#"
+                           class="nav-link nav-link-icon toggle-sidebar d-sm-inline d-md-none text-center border-left"
+                           data-toggle="collapse" data-target=".header-navbar" aria-expanded="false"
+                           aria-controls="header-navbar">
+                            <i class="material-icons">&#xE5D2;</i>
+                        </a>
+                    </nav>
+                </nav>
+            </div> <!-- / .main-navbar -->
             <div class="main-content-container container-fluid px-4">
                 <router-view></router-view>
                 <vue-progress-bar></vue-progress-bar>
@@ -133,7 +200,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
 <script src="https://unpkg.com/shards-ui@latest/dist/js/shards.min.js"></script>
-
 <script type="text/javascript">
     window.FormBuilder = {
         csrfToken: '{{ csrf_token() }}',
@@ -149,6 +215,7 @@
 <script src="{{ asset('vendor/formbuilder/js/footable/js/footable.min.js') }}" defer></script>
 <script src="{{ asset('vendor/formbuilder/js/script.js') }}{{ jazmy\FormBuilder\Helper::bustCache() }}" defer></script>
 
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
 @stack('fb-scripts')
 @yield('page-js-files')
 @yield('page-js-script')

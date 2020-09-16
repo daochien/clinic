@@ -1,7 +1,7 @@
 <?php
     return [
         'role' => [
-            'name' => 'Role management',
+            'name' => '管理者役割管理',
             'groups' => [
                 'view' => [
                         'name' => 'View list',
@@ -22,7 +22,7 @@
             ]
         ],
         'manager' => [
-            'name' => 'Admin management',
+            'name' => '管理者アカウント管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
@@ -43,15 +43,15 @@
             ]
         ],
         'clinic' => [
-            'name' => 'Clinic management',
+            'name' => 'クリニック管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['clinic.index', 'api.clinic.all']
+                    'routes' => ['clinic.index', 'clinic.get.users']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['clinic.store', 'clinic.get.users', 'clinic.add.users'],
+                    'routes' => ['clinic.store', 'clinic.add.users'],
                 ],
                 'update' => [
                     'name' => 'Update',
@@ -64,7 +64,7 @@
             ]
         ],
         'staff' => [
-            'name' => 'Staff management',
+            'name' => 'スタッフ管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
@@ -85,11 +85,11 @@
             ]
         ],
         'group' => [
-            'name' => 'Group management',
+            'name' => 'グループ管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['group.index', 'api.group.all']
+                    'routes' => ['group.index']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -106,11 +106,11 @@
             ]
         ],
         'notification' => [
-            'name' => 'Notification management',
+            'name' => 'お知らせ管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['notification.index']
+                    'routes' => ['notification.index', 'notification.members', 'notification.show', 'notification.search', 'notification.search.detail']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -118,7 +118,7 @@
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['notification.update', 'notification.show', 'notification.store']
+                    'routes' => ['notification.update', 'notification.store']
                 ],
                 'delete' => [
                     'name' => 'Delete',
@@ -127,11 +127,11 @@
             ]
         ],
         'request_template' => [
-            'name' => 'Request template management',
+            'name' => '申請テンプレート管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['template.index']
+                    'routes' => ['template.index', 'api.template.show']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -143,7 +143,7 @@
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'routes' => ['template.destroy']
+                    'routes' => ['api.template.destroy']
                 ]
             ]
         ],
@@ -152,11 +152,11 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['api.setting.type', 'api.setting.level', 'api.setting.user.role']
+                    'routes' => ['api.setting.type', 'api.setting.level', 'api.setting.user.role', 's3.store', 'api.group.all', 'api.clinic.all', 'category.list.by.type', 'category.store']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => [],
+                    'routes' => ['category.store'],
                 ],
                 'update' => [
                     'name' => 'Update',
@@ -169,54 +169,54 @@
             ]
         ],
 
-        // 'request' => [
-        //     'name' => 'Request management',
-        //     'groups' => [
-        //         'view' => [
-        //             'name' => 'View list',
-        //             'routes' => []
-        //         ],
-        //         'create' => [
-        //             'name' => 'Create',
-        //             'routes' => [],
-        //         ],
-        //         'update' => [
-        //             'name' => 'Update',
-        //             'routes' => []
-        //         ],
-        //         'delete' => [
-        //             'name' => 'Delete',
-        //             'routes' => []
-        //         ]
-        //     ]
-        // ],
-        // 'inquiry' => [
-        //     'name' => 'Inquiry management',
-        //     'groups' => [
-        //         'view' => [
-        //             'name' => 'View list',
-        //             'routes' => []
-        //         ],
-        //         'create' => [
-        //             'name' => 'Create',
-        //             'routes' => [],
-        //         ],
-        //         'update' => [
-        //             'name' => 'Update',
-        //             'routes' => []
-        //         ],
-        //         'delete' => [
-        //             'name' => 'Delete',
-        //             'routes' => []
-        //         ]
-        //     ]
-        // ],
-        'page' => [
-            'name' => 'Page management',
+        'request' => [
+            'name' => 'リクエスト管理',
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['page.blogs', 'page.blogLatest', 'page.manualLatest', 'page.faqLatest']
+                    'routes' => ['api.request.category.list', 'api.request.show', 'api.request.attachment.download']
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => ['api.request.store'],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => ['api.request.comment', 'api.request.change_status']
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ],
+        'inquiry' => [
+            'name' => '問合せ管理',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => ['api.inquiry.category.list', 'api.inquiry.show', 'api.inquiry.attachment.download']
+                ],
+                'create' => [
+                    'name' => 'Create',
+                    'routes' => ['api.inquiry.store'],
+                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => ['api.inquiry.comment', 'api.inquiry.change_status']
+                ],
+                'delete' => [
+                    'name' => 'Delete',
+                    'routes' => []
+                ]
+            ]
+        ],
+        'page' => [
+            'name' => 'ページ管理',
+            'groups' => [
+                'view' => [
+                    'name' => 'View list',
+                    'routes' => ['page.index', 'page.blogs', 'page.blogLatest', 'page.manualLatest', 'page.faqLatest']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -224,7 +224,7 @@
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['page.show', 'page.store']
+                    'routes' => ['page.show', 'page.update']
                 ],
                 'delete' => [
                     'name' => 'Delete',
