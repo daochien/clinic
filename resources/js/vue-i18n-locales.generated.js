@@ -1,8 +1,5 @@
 export default {
     "en": {
-<<<<<<< HEAD
-        "admin": {
-=======
         "group": {
             "attr": {
                 "_name": "グループ名",
@@ -237,7 +234,6 @@ export default {
             "attributes": []
         },
         "page": {
->>>>>>> develop-1.0
             "attr": {
                 "_username": "アカウント名",
                 "_mail_address": "メールアドレス",
