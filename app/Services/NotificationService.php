@@ -256,6 +256,10 @@ class NotificationService
                 ->join('users', 'users.id', 'notifications.created_by')->where('users.posittion', '!=', $filters['from']);
         }
 
+        if (!empty($filters['notification_id'])) {
+            $notificationUsers->whereIn('notification_id', [$filters['notification_id']]);
+        }
+
         return $notificationUsers->whereHas('notification')->select('notification_users.*')->paginate(20);
     }
 
