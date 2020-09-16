@@ -154,7 +154,7 @@ export default {
         async downloadManual (manual) {
             if (manual.files.path) {
                 try {
-                    let {data} = await axios.put(`api/page/${manual.id}/rating`, {
+                    let {data} = await axios.put(`/api/page/${manual.id}/rating`, {
                         type: 'download'
                     });
                     if (data.status) {
