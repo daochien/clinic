@@ -72,7 +72,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('request/{id}/comment', 'API\V1\RequestController@comment')->name('api.request.comment');
         Route::post('request/{id}', 'API\V1\RequestController@store')->name('api.request.store');
 
-        Route::get('inquiry/category/{id}', 'API\V1\InquiryController@indexByCategory')->name('api.inquiry.category.list');
+        Route::get('inquiry', 'API\V1\InquiryController@index')->name('api.inquiry.list');
         Route::post('inquiry/{id}/close', 'API\V1\InquiryController@changeStatus')->name('api.inquiry.change_status');
         Route::post('inquiry/{id}/comment', 'API\V1\InquiryController@comment')->name('api.inquiry.comment');
         Route::post('inquiry/search', 'API\V1\InquiryController@search')->name('api.inquiry.search');

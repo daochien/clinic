@@ -18,6 +18,28 @@ use Illuminate\Support\Facades\Storage;
 
 class InquiryService
 {
+
+
+    /**
+     * @param $param
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function getAll($param): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        $query =  Inquiry::from('inquiry as i')
+            ->join('categories as c', 'c.id', 'i.category_id')
+            ->leftJoin('inquiry_logs as l', 'l.inquiry_id', 'i.id');
+
+        if (!empty($param['category_id'])) {
+            $query ->where('c.id', $param['category_id']);
+        }
+
+        return $query->with('inquiryComments.user', 'createdBy', 'closedBy', 'category')
+            ->latest('i.created_at')
+            ->select('i.*', 'l.created_at as closed_at')
+            ->paginate(10);
+    }
+
     /**
      * @param $categoryId
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
