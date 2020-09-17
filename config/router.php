@@ -26,7 +26,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['manager.index']
+                    'routes' => ['manager.index', 'profile.index']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -34,7 +34,7 @@
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['manager.update', 'manager.show']
+                    'routes' => ['manager.update', 'manager.show', 'profile.update', 'profile.change.password', 'profile.change.my.password']
                 ],
                 'delete' => [
                     'name' => 'Delete',

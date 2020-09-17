@@ -10,6 +10,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends BaseController
@@ -42,10 +43,24 @@ class ProfileController extends BaseController
      */
     public function updateProfile(ProfileUpdateRequest $request)
     {
-        $user = auth()->user();
-        $user->update($request->all());
+        $roles = $request->get('roles');
+        foreach ($roles as $role) {
+            $roleName[] = $role['name'];
+        }
+        try {
+            DB::beginTransaction();
 
-        return $this->sendSuccessResponse(new UserResource($user));
+            $user = auth()->user();
+            $user->update($request->all());
+            $user->syncRoles($roleName);
+            DB::commit();
+
+            return $this->sendSuccessResponse(new UserResource($user));
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return $this->sendErrorResponse($exception->getMessage(), $exception->getCode());
+        }
+
     }
 
 

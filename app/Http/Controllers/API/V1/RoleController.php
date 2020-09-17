@@ -37,16 +37,20 @@ class RoleController extends BaseController
         return $this->sendSuccessResponse($roles, 'Role list');
     }
 
-    public function list()
+    public function list(Request $request)
     {
         $user = Auth::user();
 
         if ( in_array($user->email, User::ROOT_EMAIL_ADMIN) || $user->hasRole('admin')) {
-            $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->pluck('name', 'id');
+            $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->select('name', 'id')->get();
         } else {
-            $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_ADMIN, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->pluck('name', 'id');
+            $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_ADMIN, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->select('name', 'id')->get();
         }
 
+        if (!$request->get('re-format')) {
+            $roles = $roles->pluck('name', 'id');
+        }
+        
         return $this->sendSuccessResponse($roles, 'Role list');
     }
 
