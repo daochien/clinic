@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AdminResource;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admins\AdminRequest;
 use App\Models\User;
@@ -48,7 +49,6 @@ class AdminController extends BaseController
 
     public function show($id)
     {
-
         $admin = $this->userRepo->showAdmin($id);
 
         return $this->sendSuccessResponse($admin, 'Admin Details');
@@ -63,7 +63,7 @@ class AdminController extends BaseController
     {
         $profile = $this->userRepo->showAdmin(auth()->user()->id);
 
-        return $this->sendSuccessResponse($profile);
+        return $this->sendSuccessResponse(new AdminResource($profile));
     }
 
     public function update(AdminRequest $request, $id)
@@ -75,7 +75,6 @@ class AdminController extends BaseController
 
     public function destroy($id)
     {
-
         $roleRoot = $this->roleRepo->show(1);
 
         $admin = $this->user->findOrFail($id);

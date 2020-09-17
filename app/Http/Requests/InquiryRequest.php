@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Inquiry;
 use Illuminate\Foundation\Http\FormRequest;
 
 class InquiryRequest extends FormRequest
@@ -23,9 +24,11 @@ class InquiryRequest extends FormRequest
      */
     public function rules()
     {
+        $inquiryCategory = implode(",", Inquiry::allCategory()->pluck('id')->all());
+
         return [
             'title' => 'required|string|max:200',
-            'category_id' => 'required|integer',
+            'category_id' => "required|integer|in:{$inquiryCategory}",
             'question' => 'required',
         ];
     }
