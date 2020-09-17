@@ -57,6 +57,24 @@
                                                 <has-error :form="manager" field="posittion"></has-error>
                                             </div>
                                         </div>
+                                        <div class="col-6">
+                                            <div class="col-12">
+                                                {{ $t('admin.attr._role') }} <span style="color:#c4183c;">*</span>
+                                            </div>
+                                            <div class="col-12" style="margin-top: 12px;">
+                                                <div v-if="manager" class="custom-control custom-checkbox mb-3 mr-4 float-left" v-for="(role, index) in roles" :key="index">
+                                                    <input
+                                                        :checked="userHasRole(role)"
+                                                        type="checkbox"
+                                                        :class="['custom-control-input', {'is-invalid': manager.errors.has('roles')}]"
+                                                        class="custom-control-input"
+                                                        v-model="manager.roles"
+                                                        :id="'formsCheckboxChecked_'+index"
+                                                        :value="role">
+                                                    <label class="custom-control-label" :for="'formsCheckboxChecked_'+index">{{ role.name }}</label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-12">
@@ -142,9 +160,11 @@
                      email: '',
                      password: '',
                      description: '',
+                     roles: [],
                      posittion: 1,
                 }),
                 isEdit: true,
+                roles: [],
             }
         },
         mounted() {
@@ -174,7 +194,6 @@
                     });
                 });
             },
-
             updatePassword(){
                 this.$Progress.start();
                 this.manager.post('/api/change-my-password')
@@ -198,6 +217,18 @@
                         title: this.$t('admin.my_account.change_password._password_update_failed')
                     });
                 });
+            },
+            loadRoles () {
+                axios.get("/api/role/list?re-format=true").then(({ data }) => (this.roles = data.data));
+            },
+            userHasRole(role) {
+                for (var i=0; i < this.manager.roles.length; i++) {
+                    console.log(this.manager.roles[i].name);
+                    if (this.manager.roles[i].name === role) {
+                        return true;
+                    }
+                }
+                return false;
             }
         },
 
@@ -207,6 +238,7 @@
             axios.get("/api/profile")
             .then(({ data }) => (this.manager.fill(data.data)));
 
+            this.loadRoles();
             this.$Progress.finish();
         }
     }

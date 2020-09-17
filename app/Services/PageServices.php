@@ -141,6 +141,7 @@ class PageServices
             'url' => $attribute['url'],
             'category_id' => $attribute['category_id'],
             'content' => $attribute['content'],
+            'summary' => $attribute['summary']
         ];
         if (!empty($attribute['public_date']) && $attribute['public_date'] != 'null') {
             $update['public_date'] = $attribute['public_date'];

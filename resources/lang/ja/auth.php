@@ -47,4 +47,5 @@ return [
     'confirm_password' => 'パスワードを認証する',
     'reset_btn' => 'リセット',
     'failed' => 'ログインに失敗しました。',
+    'throttle' => 'ログインの試行回数が多すぎます。:seconds 秒後にお試しください。',
 ];

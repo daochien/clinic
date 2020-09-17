@@ -26,7 +26,9 @@
                     <li v-for="(manual, index) in manuals" :key="index">
                         <a href="javascript:void(0)" >
                             <span class="title">{{ manual.title}}</span>
-                            <span class="info">{{ manual.files.size }} <img @click="downloadManual(manual)" src="/front-end/images/download-icon-2.png" alt=""></span>
+                            <span class="info">{{ manual.files.size }} 
+                                <img @click="downloadManual(manual)" src="/front-end/images/download-icon-2.png" alt="">
+                            </span>
                         </a>
                     </li>
                 </ul>
@@ -93,7 +95,7 @@ export default {
         async downloadManual (manual) {
             if (manual.files.path) {
                 try {
-                    let {data} = await axios.put(`api/page/${manual.id}/rating`, {
+                    let {data} = await axios.put(`/api/page/${manual.id}/rating`, {
                         type: 'download'
                     });
                     if (data.status) {

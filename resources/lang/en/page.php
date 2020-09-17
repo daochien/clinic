@@ -8,7 +8,8 @@ return [
         '_status' => 'Status',
         '_url' => 'URL destination',
         '_category' => 'Category',
-        '_image' => 'Image'
+        '_image' => 'Image',
+        '_summary' => 'Summary'
     ],
     'list' => [
         '_og_title' => '友伸會ポータル管理画面｜管理者アカウント管理・管理者一覧',

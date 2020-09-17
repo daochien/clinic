@@ -20,6 +20,9 @@ class PageRepository
 
     public function getAll($params = [], $limit = 10)
     {
+
+        $limit = !empty($params['limit']) ? $params['limit'] : $limit;
+
         $query = $this->model->orderBy('id', 'desc');
         if (!empty($params['type'])) {
             $query->where('type', $params['type']);
@@ -55,8 +58,7 @@ class PageRepository
      * @return mixed
      */
     public function create(array $attributes)
-    {
-
+    {        
         return $this->model->create([
             'title' => $attributes['title'],
             'content' => $attributes['content'],
@@ -65,6 +67,7 @@ class PageRepository
             'status' => $attributes['status'],
             'url' => $attributes['url'],
             'category_id' => $attributes['category_id'],
+            'summary' => $attributes['summary'],
             'owner_id' => Auth::user()->id,
         ]);
 

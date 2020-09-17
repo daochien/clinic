@@ -1,5 +1,5 @@
 <template>
-    <tr>
+    <tr class="border-bottom">
         <td class="text-capitalize">{{dataRoute.name}}</td>
         <td class="text-capitalize">
             <div class="custom-control custom-checkbox mr-4 float-left">
@@ -14,7 +14,8 @@
         </td>
         <td class="text-capitalize"  v-for="(item, index) in dataRoute.groups" :key="index">
             <div>
-                <div class="custom-control custom-checkbox mr-4 float-left">
+                <div class="custom-control custom-checkbox mr-4 float-left"
+                     v-if="item.routes.length > 0">
                     <input
                     type="checkbox"
                     :class="['custom-control-input']"
@@ -25,7 +26,7 @@
                     <label class="custom-control-label" :for="`checkbox_${idx}_${index}`"></label>
                 </div>
             </div>
-        </td>        
+        </td>
 </tr>
 </template>
 <script>
@@ -41,8 +42,8 @@ export default {
         }
     },
     created () {
-        
-    },    
+
+    },
     computed : {
         selectAll: {
             get: function () {
@@ -52,9 +53,9 @@ export default {
                 let selected = [];
 
                 if (value) {
-                    
+
                     let that = this;
-                    Object.entries(this.dataRoute.groups).forEach(([key, value]) => {                                               
+                    Object.entries(this.dataRoute.groups).forEach(([key, value]) => {
                         selected.push(`${this.idx}.groups.${key}`);
                     });
                 }
@@ -79,9 +80,9 @@ export default {
                     //console.log(key, value.routes);
                     if (value.routes.indexOf(item) != -1) {
                         selected.push(`${that.idx}.groups.${key}`);
-                    }                                               
-                    
-                });                
+                    }
+
+                });
             });
             let unique = [...new Set(selected)];
             this.selected = unique;
