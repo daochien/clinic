@@ -189,7 +189,6 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
             },
             searchData() {
                 this.$Progress.start();
-                var app = this;
                 axios
                     .post("/api/inquiry/search", this.form)
                     .then((response) => {
@@ -218,7 +217,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                     // Send request to the server
                     if (result.value) {
                         this.$Progress.start();
-                        axios.post("/api/inquiry/" + id + "/status", {
+                        axios.post("/api/inquiry/" + id + "/close", {
                             status: 2,
                         })
                         .then((data) => {
@@ -247,7 +246,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                 })
             },
             loadInquiry(){
-                axios.get("/api/inquiry/category/"  + this.$route.params.id)
+                axios.get("/api/inquiry?category_id="  + this.$route.params.id)
                     .then((response) => {
                         this.inquirys = response.data.data;
                         this.paginator = response.data.meta;

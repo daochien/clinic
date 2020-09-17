@@ -87,7 +87,7 @@
         methods: {
 
             getResults(page = 1) {
-                axios.get("/api/request/category/"  + this.$route.params.id + "/?page=" + page).then(({ data }) => ( this.requests = data.data));
+                axios.get("/api/request?category_id="  + this.$route.params.id + "/?page=" + page).then(({ data }) => ( this.requests = data.data));
             },
             /*deleteTemplate(id) {
                 Swal.fire({

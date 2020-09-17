@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
+            'posittion' => $this->posittion,
             'created_at' => $this->created_at,
             'groups' => GroupResource::collection($this->group),
             'last_login' => $this->getLastLoginTime(),

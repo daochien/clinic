@@ -81,7 +81,7 @@
                 </router-link>
             </li>
             @endcanany
-            @canany(['template.index', 'api.request.category.list'])
+            @canany(['template.index', 'api.request.list'])
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
                     <i class="fas fa-clipboard-list"></i>
@@ -94,7 +94,7 @@
                     </router-link>
                     @endcan
 
-                    @can('api.request.category.list')
+                    @can('api.request.list')
                     @foreach (\App\Models\TemplateCategory::getAll() as $category)
                         <router-link to="/admin/request/category/{{$category->id}}" class="dropdown-item" onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
                             {{ __($category->name) }}
@@ -104,14 +104,14 @@
                 </div>
             </li>
             @endcanany
-            @canany(['inquiry.index', 'api.inquiry.category.list'])
+            @canany(['inquiry.index', 'api.inquiry.list'])
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
                         <i class="fas fa-clipboard-list"></i>
                         <span>{{ __('app.menu.sidebar.inquiry_management._main') }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-small">
-                        @can('api.inquiry.category.list')
+                        @can('api.inquiry.list')
                             @foreach (\App\Models\Inquiry::allCategory() as $category)
                                 <router-link to="/admin/inquiry/category/{{$category->id}}" class="dropdown-item" onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
                                     {{ __($category->name) }}
