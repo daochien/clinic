@@ -62,7 +62,12 @@ class User extends Authenticatable // implements MustVerifyEmail
 
     public function isAdmin()
     {
-        return $this->roles()->whereIn('id', self::ADMIN_ID)->exists();
+        return $this->roles()->where('id', self::ADMIN_ID)->exists();
+    }
+
+    public function isAdminOrRoot()
+    {
+        return $this->roles()->whereIn('id', [self::ROLE_ROOT, self::ROLE_ADMIN])->exists();
     }
 
     public function isUser()
@@ -70,6 +75,15 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->roles()->whereIn('id', array_values(self::USER_ROLE))->exists();
     }
 
+    public function isWebUser()
+    {
+        return $this->roles()->where('id', self::ROLE_STAFF_WEB)->exists();
+    }
+
+    public function isMobileUser()
+    {
+        return $this->roles()->where('id', self::ROLE_STAFF_MOBILE)->exists();
+    }
     public function clinicUsers()
     {
         return $this->hasMany(ClinicUser::class);
@@ -154,7 +168,6 @@ class User extends Authenticatable // implements MustVerifyEmail
             $clinic->inquiryUsers()->delete();
             $clinic->levelUsers()->delete();
             $clinic->notificationUsers()->delete();
-            $clinic->roleUsers()->delete();
             $clinic->typeUsers()->delete();
         });
     }

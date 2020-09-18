@@ -26,4 +26,9 @@ class SettingController extends BaseController
     {
         return $this->sendSuccessResponse(Role::whereIn('id',[3,4])->get(['id', 'name']));
     }
+
+    public function getUserRole()
+    {
+        return $this->sendResponse(Role::USER_ROLE);
+    }
 }

@@ -21,9 +21,15 @@ class LoginController extends BaseController
             return $this->unauthorizedResponse();
         }
         $authUser = Auth::user();
-        $token = $authUser->createToken($request->device_name);
-        LoginLog::create(['user_id' => $authUser->id]);
 
-        return $this->sendSuccessResponse(['token' => $token->plainTextToken]);
+        if ($authUser->isMobileUser()) {
+            $token = $authUser->createToken($request->device_name);
+            LoginLog::create(['user_id' => $authUser->id]);
+
+            return $this->sendSuccessResponse(['token' => $token->plainTextToken]);
+        }
+
+        Auth::guard('web')->logout();
+        return $this->sendErrorResponse("Invalid", "Permission denied", 403);
     }
 }
