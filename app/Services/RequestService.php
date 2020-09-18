@@ -85,7 +85,7 @@ class RequestService
                 'message' => $message
             ]);
 
-            if ($request->file != "null") {
+            if (!empty($request->file) && $request->file != "null") {
                 $fileName = time() . '_____' . $request->file->getClientOriginalName();
                 $extension = $request->file->extension();
                 $path = Storage::putFileAs(

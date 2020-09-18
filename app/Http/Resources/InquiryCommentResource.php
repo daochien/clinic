@@ -17,6 +17,7 @@ class InquiryCommentResource extends JsonResource
         return [
             'id' => $this->id,
             'message' => $this->message,
+            'attachments' => $this->attachments,
             'user' => new UserItemResource($this->whenLoaded('user'))
         ];
     }

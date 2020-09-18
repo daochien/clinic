@@ -90,6 +90,7 @@
                                     <th>{{ $t('common.list.data_table._id') }}</th>
                                     <th>{{ $t('inquiry.list.data_table._title')}}</th>
                                     <th>{{ $t('inquiry.list.data_table._username')}}</th>
+                                    <th>{{ $t('inquiry.list.data_table._status')}}</th>
                                     <th>{{ $t('inquiry.list.data_table._requested_at')}}</th>
                                     <th>{{ $t('inquiry.list.data_table._closed_at')}}</th>
                                     <th>{{ $t('inquiry.list.data_table._action')}}</th>
@@ -253,7 +254,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                     });
             },
             getStatus(inquiry) {
-                if (inquiry.status === 1) {
+                if (inquiry.closed_by.length === 0) {
                     return this.$t('inquiry').attr.status._open;
                 }
                 return  this.$t('inquiry').attr.status._closed;

@@ -89,6 +89,7 @@
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>
 <script src="{{ ('/js/toastr.min.js') }}"></script>
+<script src='https://cdn.polyfill.io/v2/polyfill.min.js'></script>
 {{--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>
