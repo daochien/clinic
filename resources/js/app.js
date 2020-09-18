@@ -16,13 +16,14 @@ import moment from 'moment';
 import auth from './auth'
 
 Vue.use(Vuex)
-
 export default new Vuex.Store({
     modules: {
         auth
     }
 })
 
+import VueBreadcrumbs from 'vue-2-breadcrumbs';
+Vue.use(VueBreadcrumbs);
 
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';
@@ -40,14 +41,11 @@ import Gate from "./Gate";
 Vue.prototype.$gate = new Gate(window.user);
 
 import Swal from 'sweetalert2';
-
-
 const Toast = Swal.mixin({
     toast: true,
-    position: 'top-end',
+    position: 'bottom-end',
     showConfirmButton: false,
     timer: 3000,
-    timerProgressBar: true,
     onOpen: (toast) => {
         toast.addEventListener('mouseenter', Swal.stopTimer)
         toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -72,6 +70,7 @@ Vue.component('multiselect', Multiselect)
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(require('vue-moment'));
 
 /**
  * Routes imports and assigning
@@ -82,16 +81,21 @@ import routes from './routes';
 
 const router = new VueRouter({
     mode: 'history',
-    routes
+    routes,
+    linkActiveClass: "active"
 });
 // Routes End
 
 /**
  * import Vuelidate form
- */
+*/
 import Vuelidate from 'vuelidate';
 Vue.use(Vuelidate);
 
+/**
+ * import Vue filter
+*/
+import filter from './filter';
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -108,6 +112,9 @@ Vue.component(
     require('./components/NotFound.vue').default
 );
 
+import Vue2Editor from "vue2-editor";
+Vue.use(Vue2Editor);
+
 // Filter Section
 
 Vue.filter('myDate', function (created) {
@@ -117,10 +124,26 @@ Vue.filter('myDate', function (created) {
     return "-";
 });
 
+Vue.filter('formatAttachFile', function (fileName) {
+    let props = _.split(fileName,'_____', 2);
+    return props[1];
+})
+
 Vue.filter('yesno', value => (value ? '<i class="fas fa-check green"></i>' : '<i class="fas fa-times red"></i>'));
 
 // end Filter
 
+Vue.mixin({
+    methods: {
+        subIsActive(input) {
+            const paths = Array.isArray(input) ? input : [input]
+            return paths.some(path => {
+                console.log(this.$route.path.indexOf(path) === 0)
+                return this.$route.path.indexOf(path) !== 0 // current path starts with this path string
+            })
+        }
+    }
+})
 
 const app = new Vue({
     el: '#app',

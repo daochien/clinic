@@ -33,4 +33,33 @@
         //display: none;
     //}
 }
+.breadcrumb {
+    background-color: #fff !important;
+    padding: 1.25rem 1rem 0.75rem 1rem !important;
+    margin-bottom: 0 !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    //content: ">" !important;
+}
+.top-nav.nav-link {
+    padding: 1.25rem 1rem 0.75rem 1rem;
+}
+.parsley-errors-list{
+    list-style-type: none;
+    padding-left: 0;
+    color: red;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: rgba(0, 123, 255, 0.2) !important;
+}
 
+.form-control {
+    height: auto !important;
+    padding: 0.4375rem 0.75rem !important;
+    border: 1px solid #e1e5eb !important;
+}
+#request-discussion {
+    .d-content {
+        font-size: 12px;
+    }
+}

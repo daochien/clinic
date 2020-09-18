@@ -9,23 +9,26 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "aws/aws-sdk-php-laravel": "^3.5",
         "brian2694/laravel-toastr": "^5.54",
         "fideloper/proxy": "^4.0",
-        "fruitcake/laravel-cors": "^2.0",
+        "fruitcake/laravel-cors": "^2.0",        
         "jazmy/jaz-form-builder": "dev-master",
+        "laravel-notification-channels/aws-sns": "^1.1",
         "laravel/framework": "^7.0",
         "laravel/horizon": "^4.3",
         "laravel/sanctum": "^2.4",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
+        "league/flysystem-aws-s3-v3": "~1.0",
         "spatie/laravel-permission": "^3.13"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.4",
         "barryvdh/laravel-ide-helper": "^2.7",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.4",
         "martinlindhe/laravel-vue-i18n-generator": "^0.1.46",
-        "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^4.1",
         "phpunit/phpunit": "^8.5"
     },

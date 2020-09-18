@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateTemplateApproversTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('template_approvers', function (Blueprint $table) {
+            $table->unsignedInteger('form_id');
+            $table->unsignedBigInteger('user_id');
+
+            $table->foreign('form_id')
+                ->references('id')
+                ->on('forms')
+                ->onDelete('cascade');
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
+            $table->primary(['user_id', 'form_id'], 'user_form_primary');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('template_approvers');
+    }
+}

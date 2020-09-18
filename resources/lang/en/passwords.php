@@ -1,10 +1,10 @@
+
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
-    | Password Reset Language Lines
+    | Password Reminder Language Lines
     |--------------------------------------------------------------------------
     |
     | The following language lines are the default lines which match reasons
@@ -13,11 +13,9 @@ return [
     |
     */
 
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have e-mailed your password reset link!',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that e-mail address.",
-    'throttled' => 'Please wait before retrying.',
-    'failed' => 'Password reset failed.',
-
+    'reset'     => 'パスワードをリセットしました。',
+    'sent'      => 'パスワードリマインダーを送信しました。',
+    'throttled' => '時間を置いて再度お試しください。',
+    'token'     => 'このパスワードリセットトークンは無効です。',
+    'user'      => 'このメールアドレスに一致するユーザーを見つけることが出来ませんでした。',
 ];

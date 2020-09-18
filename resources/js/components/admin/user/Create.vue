@@ -1,17 +1,17 @@
 <template>
     <section class="content">
         <!-- Page Header -->
-        <div class="page-header row no-gutters py-4">
+        <div class="page-header row no-gutters py-4" v-if="$gate.canPermission('user.store')">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('app.user.title.create') }}</h3>
+                <h3 class="page-title">{{ $t('staff.info._page_title_create') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <button type="button" class="btn btn-primary pl-5 pr-5" @click="createUser()">{{ $t('app.btn.create')}}</button>
+                <button type="button" class="btn btn-primary pl-5 pr-5" @click="createUser()">{{ $t('staff.info.others._btn_create')}}</button>
             </div>
         </div>
         <!-- End Page Header -->
         <div class="container-fluid">
-            <div class="row mb-5">
+            <div class="row mb-5" v-if="$gate.canPermission('user.store')">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -21,12 +21,12 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>
-                                                    {{ $t('app.user.name')}}
+                                                    {{ $t('staff.attr._username')}}
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <input v-model="form.name" type="text" name="name"
                                                        class="form-control" :class="{ 'is-invalid': form.errors.has('name') }"
-                                                       :placeholder="$t('app.user.place_holder.name')">
+                                                       :placeholder="$t('staff.info.form._username_pl')">
                                                 <has-error :form="form" field="name"></has-error>
                                             </div>
                                         </div>
@@ -34,19 +34,19 @@
                                         <div class="col-6">
                                             <div class="form-group">
                                                 <label>
-                                                    {{ $t('app.user.email')}}
+                                                    {{ $t('staff.attr._mail_address')}}
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <input v-model="form.email" type="email" name="email"
                                                        required autocomplete="email"
                                                        class="form-control" :class="{ 'is-invalid': form.errors.has('email') }"
-                                                       :placeholder="$t('app.user.place_holder.email')">
+                                                       :placeholder="$t('staff.info.form._mail_address_pl')">
                                                 <has-error :form="form" field="email"></has-error>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-6">
+                                        <!--<div class="col-6">
                                             <div class="form-group">
                                                 <label>{{ $t('app.user.group')}}</label>
                                                 <span class="text-danger">*</span>
@@ -61,10 +61,21 @@
                                                 ></multiselect>
                                                 <has-error :form="form" field="groups"></has-error>
                                             </div>
+                                        </div>-->
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <label>{{ $t('staff.attr._position')}}</label>
+                                                <span class="text-danger">*</span>
+                                                <select class="form-control" id="types" v-model="form.type_id" :class="{ 'is-invalid': form.errors.has('type_id') }">
+                                                    <option value="" selected>{{ $t('staff.info.form._position_df') }}</option>
+                                                    <option v-for="type in types" :key="'type_' +type.id" :value="type.id" >{{ type.name }}</option>
+                                                </select>
+                                                <has-error :form="form" field="type_id"></has-error>
+                                            </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label>{{ $t('app.user.clinic_name')}}</label>
+                                                <label>{{ $t('staff.attr._clinic')}}</label>
                                                 <span class="text-danger">*</span>
                                                 <multiselect
                                                     :class="{ 'is-invalid': form.errors.has('clinics') }"
@@ -73,7 +84,7 @@
                                                     :multiple="true"
                                                     label="name"
                                                     track-by="id"
-                                                    :placeholder="$t('app.user.place_holder.clinic')"
+                                                    :placeholder="$t('staff.info.form._clinic_df')"
                                                 ></multiselect>
                                                 <has-error :form="form" field="clinics"></has-error>
                                             </div>
@@ -82,16 +93,24 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <label>{{ $t('app.user.type')}}</label>
-                                                <span class="text-danger">*</span>
-                                                <select class="form-control" id="types" v-model="form.type_id" :class="{ 'is-invalid': form.errors.has('type_id') }">
-                                                    <option value="" selected>{{ $t('app.user.place_holder.type') }}</option>
-                                                    <option v-for="type in types" :key="'type_' +type.id" :value="type.id" >{{ type.name }}</option>
-                                                </select>
-                                                <has-error :form="form" field="type_id"></has-error>
+                                                <div>{{ $t('staff.attr._user_type')}}</div>
+                                                <div>
+                                                    <template v-for="role in roles">
+                                                        <div class="col-5 float-left">
+                                                            <div class="custom-control custom-radio mb-1 col-1">
+                                                                <input type="radio" class="custom-control-input"
+                                                                       name="role" v-bind:id="role.id + '-user'"
+                                                                       v-bind:value="{id: role.id, name: role.name}"
+                                                                       v-model="form.role"
+                                                                       :checked="role.id === form.role.id">
+                                                                <label class="custom-control-label" :for="role.id + '-user'">{{ role.name }}</label>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-6">
+                                        <!--<div class="col-6">
                                             <div class="form-group">
                                                 <label>{{ $t('app.user.level')}}</label>
                                                 <select class="form-control" id="levels" v-model="form.level_id">
@@ -99,14 +118,16 @@
                                                     <option v-for="level in levels" :key="'level_' + level.id" :value="level.id">{{ level.name }}</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>-->
                                     </div>
+                                    <div class="row ml-1">
 
+                                     </div>
                                     <div class="row mt-3">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>{{ $t('app.label.description')}}</label>
-                                                <textarea rows="12" v-model="form.description" name="description" :placeholder="$t('app.user.place_holder.description')"
+                                                <label>{{ $t('staff.attr._memo')}}</label>
+                                                <textarea rows="12" v-model="form.description" name="description" :placeholder="$t('staff.info.form._memo_pl')"
                                                           class="form-control" :class="{ 'is-invalid': form.errors.has('description') }">
                                                 </textarea>
                                                 <has-error :form="form" field="description"></has-error>
@@ -119,7 +140,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="!$gate.isAdmin()">
+            <div v-if="!$gate.canPermission('user.store')">
                 <not-found></not-found>
             </div>
         </div>
@@ -135,15 +156,17 @@
         data() {
             return {
                 clinics: [],
-                groups: [],
+                // groups: [],
                 types: [],
                 levels: [],
+                roles: {},
                 form: new Form({
                     name: '',
                     email: '',
+                    role: [],
                     clinics: [],
-                    groups: [],
-                    level_id: '',
+                    // groups: [],
+                    // level_id: '',
                     type_id: '',
                     description: '',
                 }),
@@ -151,19 +174,38 @@
         },
         methods: {
             createUser() {
+                this.$Progress.start();
                 this.form.post('/api/user')
-                    .then((response) => {
-                        this.$router.push("/admin/users")
-                        this.$Progress.finish();
+                    .then((data)=>{
+                        if(data.data.status){
+                            Toast.fire({
+                                icon: "success",
+                                title: data.data.message,
+                            });
+                            this.$router.push("/admin/user")
+                            this.$Progress.finish();
+
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('staff.info.messages._create_failed')
+                            });
+
+                            this.$Progress.failed();
+                        }
                     })
                     .catch(() => {
+                        Toast.fire({
+                            icon: 'error',
+                            title: this.$t('common.messages._system_err')
+                        });
                     })
             },
-            loadGroup() {
-                axios.get("/api/group/all").then((response) => {
-                    this.groups = response.data.data;
-                });
-            },
+            // loadGroup() {
+            //     axios.get("/api/group/all").then((response) => {
+            //         this.groups = response.data.data;
+            //     });
+            // },
             loadClinic() {
                 axios.get("/api/clinic/all").then((response) => {
                     this.clinics = response.data.data;
@@ -174,18 +216,24 @@
                     this.types = response.data.data;
                 });
             },
-            loadLevel() {
-                axios.get("/api/setting/level").then((response) => {
-                    this.levels = response.data.data;
+            // loadLevel() {
+            //     axios.get("/api/setting/level").then((response) => {
+            //         this.levels = response.data.data;
+            //     });
+            // },
+            loadUserRole() {
+                axios.get("/api/setting/user-role").then((response) => {
+                    this.roles = response.data.data;
                 });
             },
         },
         created() {
             this.$Progress.start();
-            this.loadGroup();
+            // this.loadGroup();
             this.loadClinic();
             this.loadType();
-            this.loadLevel();
+            // this.loadLevel();
+            this.loadUserRole();
             this.$Progress.finish();
         }
     }

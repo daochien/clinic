@@ -7,12 +7,31 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
+use App\Models\GroupUser;
 
 class User extends Authenticatable // implements MustVerifyEmail
 {
+
+    CONST ROOT_EMAIL_ADMIN = [
+        'admin@gmail.com'
+    ];
+
+    public $timestamps = true;
+
+    const USER_ROLE = ['staff_web' => 3, 'staff_mobile' => 4];
+
+    const ROLE_ROOT = 1;
+    const ROLE_ADMIN = 2;
+    const ROLE_STAFF_WEB = 3;
+    const ROLE_STAFF_MOBILE = 4;
+
+    const ADMIN_ID = [1, 2];
+
+    const POSITTION = ['BOD' => 1, 'HR' => 2];
+
     use Notifiable, HasApiTokens, HasRoles;
 
-    protected $guard_name = 'api';
+    //protected $guard_name = 'api';
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +39,7 @@ class User extends Authenticatable // implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'note', 'description'
+        'name', 'email', 'password', 'note', 'description', 'posittion'
     ];
 
     /**
@@ -29,7 +48,7 @@ class User extends Authenticatable // implements MustVerifyEmail
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'updated_at'
     ];
 
     /**
@@ -41,17 +60,14 @@ class User extends Authenticatable // implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function isAdminOrRoot()
-    {
-        return $this->role()
-            ->where('name', 'Admin')
-            ->orWhere('name', 'Root')
-            ->exists();
-    }
-
     public function isAdmin()
     {
-        return $this->role()->where('name', 'Admin')->exists();
+        return $this->roles()->whereIn('id', self::ADMIN_ID)->exists();
+    }
+
+    public function isUser()
+    {
+        return $this->roles()->whereIn('id', array_values(self::USER_ROLE))->exists();
     }
 
     //TODO match record name with Role feature
@@ -64,7 +80,6 @@ class User extends Authenticatable // implements MustVerifyEmail
     {
         return $this->role()->where('name', 'Mobile')->exists();
     }
-
     public function clinicUsers()
     {
         return $this->hasMany(ClinicUser::class);
@@ -100,10 +115,10 @@ class User extends Authenticatable // implements MustVerifyEmail
         return $this->hasMany(TypeUser::class);
     }
 
-    public function role()
-    {
-        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
-    }
+     public function role()
+     {
+         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+     }
 
     public function type()
     {
@@ -123,6 +138,11 @@ class User extends Authenticatable // implements MustVerifyEmail
     public function clinic()
     {
         return $this->belongsToMany(Clinic::class, 'clinic_users', 'user_id', 'clinic_id');
+    }
+
+    public function inquiry()
+    {
+        return $this->hasMany(Inquiry::class, 'id', 'created_by');
     }
 
     public function loginLog()
@@ -147,5 +167,29 @@ class User extends Authenticatable // implements MustVerifyEmail
             $clinic->roleUsers()->delete();
             $clinic->typeUsers()->delete();
         });
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'group_users', 'user_id');
+    }
+
+    public function getRoles()
+    {
+        return $this->belongsToMany(Role::class)->select('roles.id', 'name');
+    }
+    public function isRoot()
+    {
+        if (in_array($this->email, self::ROOT_EMAIL_ADMIN)) {
+            return true;
+        }
+
+        $role = Role::find(Role::ROLE_DEFAULT['root']);
+
+        if ($this->hasRole($role->name)) {
+            return true;
+        }
+
+        return false;
     }
 }

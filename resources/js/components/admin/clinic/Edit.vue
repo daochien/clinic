@@ -1,26 +1,26 @@
 <template>
   <section class="content">
       <!-- Page Header -->
-      <div class="page-header row no-gutters py-4">
+      <div class="page-header row no-gutters py-4" v-if="$gate.canPermission('clinic.update')">
           <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-              <h3 class="page-title">{{ $t('app.clinic.header.create') }}</h3>
+              <h3 class="page-title">{{ $t('clinic.info._page_title_edit') }}</h3>
           </div>
           <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-              <button type="button" class="btn btn-primary pl-5 pr-5" @click="update()">{{ $t('app.btn.create')}}</button>
+              <button type="button" class="btn btn-primary pl-5 pr-5" @click="update()">{{ $t('clinic.info.others._btn_edit')}}</button>
           </div>
       </div>
       <!-- End Page Header -->
       <div class="container-fluid">
-          <div class="row mb-5">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-12">
+            <div class="row mb-5" v-if="$gate.canPermission('clinic.update')">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
                           <div class="card">
                               <div class="card-body">
                                   <form v-on:submit="saveForm()">
                                       <div class="row">
                                           <div class="col-12">
-                                              <label>{{ $t('app.clinic.header.info')}}</label>
+                                              <label>{{ $t('clinic.info.form._form_title')}}</label>
                                           </div>
                                       </div>
                                       <hr class="mt-2 mb-4" />
@@ -29,12 +29,12 @@
                                           <div class="col-6">
                                               <div class="form-group">
                                                   <label>
-                                                      {{ $t('app.clinic.name')}}
+                                                      {{ $t('clinic.attr._name')}}
                                                       <span class="text-danger">*</span>
                                                   </label>
                                                   <input v-model="form.name" type="text" name="name"
                                                          class="form-control" :class="{ 'is-invalid': form.errors.has('name') }"
-                                                         :placeholder="$t('app.clinic.place_holder.name')">
+                                                         :placeholder="$t('clinic.info.form._name_pl')">
                                                   <has-error :form="form" field="name"></has-error>
                                               </div>
                                           </div>
@@ -42,12 +42,12 @@
                                           <div class="col-6">
                                               <div class="form-group">
                                                   <label>
-                                                      {{ $t('app.clinic.post_code')}}
+                                                      {{ $t('clinic.attr._zip_code')}}
                                                       <br />
                                                   </label>
                                                   <input v-model="form.post_code" type="text" name="post_code"
                                                          class="form-control" :class="{ 'is-invalid': form.errors.has('post_code') }"
-                                                         :placeholder="$t('app.clinic.place_holder.post_code')">
+                                                         :placeholder="$t('clinic.info.form._zip_code_pl')">
                                                   <has-error :form="form" field="post_code"></has-error>
                                               </div>
                                           </div>
@@ -57,13 +57,13 @@
                                           <div class="col-12">
                                               <div class="form-group">
                                                   <label>
-                                                      {{ $t('app.clinic.address')}}
+                                                      {{ $t('clinic.attr._address')}}
                                                       <span class="text-danger">*</span>
                                                       <br />
                                                   </label>
                                                   <input v-model="form.address" type="text" name="address"
                                                          class="form-control" :class="{ 'is-invalid': form.errors.has('address') }"
-                                                         :placeholder="$t('app.clinic.place_holder.address')">
+                                                         :placeholder="$t('clinic.info.form._address_pl')">
                                                   <has-error :form="form" field="address"></has-error>
                                               </div>
                                           </div>
@@ -72,10 +72,11 @@
                                       <div class="row mt-3">
                                           <div class="col-12">
                                               <div class="form-group">
-                                                  <label>{{ $t('app.clinic.description')}}</label>
+                                                  <label>{{ $t('clinic.attr._memo')}}</label>
                                                   <textarea rows="12" v-model="form.description" name="description"
-                                                            class="form-control" :class="{ 'is-invalid': form.errors.has('description') }">
-                            </textarea>
+                                                            class="form-control" :class="{ 'is-invalid': form.errors.has('description') }"
+                                                            :placeholder="$t('clinic.info.form._memo_pl')">
+                                                  </textarea>
                                                   <has-error :form="form" field="description"></has-error>
                                               </div>
                                           </div>
@@ -88,7 +89,7 @@
               </div>
           </div>
 
-          <div v-if="!$gate.isAdmin()">
+          <div v-if="!$gate.canPermission('clinic.update')">
               <not-found></not-found>
           </div>
       </div>
@@ -114,9 +115,13 @@
             update() {
                 this.$Progress.start();
                 this.form.put('/api/clinic/'+this.$route.params.id)
-                    .then((response) => {
+                    .then((data) => {
+                        Toast.fire({
+                            icon: "success",
+                            title: data.data.message,
+                        });
+                        this.$router.push('/admin/clinic')
                         this.$Progress.finish();
-                        this.$router.push('/admin/clinics')
                     })
                     .catch(() => {
                         this.$Progress.fail();

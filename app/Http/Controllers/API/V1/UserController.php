@@ -44,7 +44,7 @@ class UserController extends BaseController
     {
         $user = $this->repository->find($id);
 
-        return $this->sendResponse(new UserResource($user));
+        return $this->sendSuccessResponse(new UserResource($user));
     }
 
     public function search(Request $request)
@@ -59,9 +59,7 @@ class UserController extends BaseController
      */
     public function index()
     {
-        $users = $this->repository->with(['role', 'group','clinic'])->paginate(10);
-
-        return new UserCollection($users);
+        return new UserCollection($this->repository->listUser());
     }
 
     /**
@@ -76,13 +74,13 @@ class UserController extends BaseController
      */
     public function store(UserRequest $request)
     {
-        try{
+        try {
             $attributes = $request->validated();
             $user = $this->service->createUser($attributes);
 
-            return $this->sendResponse($user);
+            return $this->sendSuccessResponse($user, __('staff.info.messages._create_success'));
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getMessage());
+            return $this->sendErrorResponse($exception->getMessage());
         }
     }
 
@@ -101,11 +99,10 @@ class UserController extends BaseController
             $attributes = $request->validated();
             $user = $this->service->updateUser($id, $attributes);
 
-            return $this->sendResponse($user);
+            return $this->sendSuccessResponse($user, __('staff.info.messages._edit_success'));
         } catch (\Exception $exception) {
-            return $this->sendError($exception->getMessage());
+            return $this->sendErrorResponse($exception->getMessage());
         }
-
     }
 
     /**
@@ -116,16 +113,21 @@ class UserController extends BaseController
      */
     public function destroy($id)
     {
-        $this->authorize('isAdmin');
+//        $this->authorize('isAdmin');
         $user = User::findOrFail($id);
         // delete the user
         $user->delete();
 
-        return $this->sendResponse([$user]);
+        return $this->sendSuccessResponse([$user]);
     }
 
     public function getAllGroup()
     {
-        return new GroupCollection(Group::orderByDesc('id')->get());
+        return new GroupCollection(Group::orderBy('id')->get());
+    }
+
+    public function getAllGroupDefault()
+    {
+        return new GroupCollection(Group::orderBy('id')->get());
     }
 }

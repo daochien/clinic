@@ -21,6 +21,6 @@ class LogoutController extends BaseController
         $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
         Auth::guard('web')->logout();
 
-        return  new Response('', 204);
+        return $this->sendSuccessResponse();
     }
 }

@@ -18,7 +18,7 @@
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0">
+              <div class="card-body p-0">
                 <table class="table table-hover">
                   <thead>
                     <tr>
@@ -199,7 +199,7 @@
 
               this.form.post('/api/product')
               .then((data)=>{
-                if(data.data.success){
+                if(data.data.status){
                   $('#addNew').modal('hide');
 
                   Toast.fire({

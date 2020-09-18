@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\ChangeMyPasswordRequest;
 use App\Http\Requests\Users\ChangePasswordRequest;
 use App\Http\Requests\Users\ProfileUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends BaseController
@@ -24,11 +27,11 @@ class ProfileController extends BaseController
     /**
      * Return the user data
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function profile()
     {
-        return $this->sendResponse(new UserResource(auth()->user()->load('role')));
+        return $this->sendSuccessResponse(new UserResource(auth()->user()->load('role')));
     }
 
 
@@ -37,15 +40,27 @@ class ProfileController extends BaseController
      *
      * @param  \App\Http\Requests\Users\ProfileUpdateRequest  $request
      *
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Validation\ValidationException
      */
     public function updateProfile(ProfileUpdateRequest $request)
     {
-        $user = auth()->user();
-        $user->update($request->all());
+        $roles = $request->get('roles');
+        foreach ($roles as $role) {
+            $roleName[] = $role['name'];
+        }
+        try {
+            DB::beginTransaction();
 
-        return $this->sendResponse(new UserResource($user));
+            $user = auth()->user();
+            $user->update($request->all());
+            $user->syncRoles($roleName);
+            DB::commit();
+
+            return $this->sendSuccessResponse(new UserResource($user));
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            return $this->sendErrorResponse($exception->getMessage(), $exception->getCode());
+        }
+
     }
 
 
@@ -54,7 +69,6 @@ class ProfileController extends BaseController
      *
      * @param  \App\Http\Requests\Users\ChangePasswordRequest  $request
      *
-     * @return \Illuminate\Http\Response
      */
     public function changePassword(ChangePasswordRequest $request)
     {
@@ -67,6 +81,19 @@ class ProfileController extends BaseController
         Auth::guard('web')->attempt($credentials);
         $token = Auth::guard('web')->user()->createToken($request->device_name);
 
-        return $this->sendResponse(['token' => $token->plainTextToken]);
+        return $this->sendSuccessResponse(['token' => $token->plainTextToken]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\Users\ChangePasswordRequest  $request
+     *
+     */
+    public function changeMyPassword(ChangeMyPasswordRequest $request)
+    {
+        User::find(auth()->user()->id)->update(['password' => Hash::make($request->new_password)]);
+
+        return $this->sendSuccessResponse();
     }
 }

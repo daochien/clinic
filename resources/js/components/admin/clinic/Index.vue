@@ -1,12 +1,12 @@
 <template>
-    <section class="content" v-if="$gate.isAdmin()">
+    <section class="content" v-if="$gate.canPermission('clinic.index')">
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('app.clinic.header.create') }}</h3>
+                <h3 class="page-title">{{ $t('clinic.list._page_title') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <router-link type="button" class="btn btn-primary pl-5 pr-5" to="/admin/clinic/create">{{ $t('app.btn.create')}}
+                <router-link type="button" class="btn btn-primary pl-5 pr-5" to="/admin/clinic/create">{{ $t('clinic.list.others._btn_create')}}
                 </router-link>
             </div>
         </div>
@@ -14,16 +14,16 @@
         <div class="container-fluid">
             <div class="row mt-5">
                 <div class="col-12">
-                    <div class="card" v-if="$gate.isAdmin()">
-                        <div class="card-body table-responsive p-0">
+                    <div class="card" v-if="$gate.canPermission('clinic.index')">
+                        <div class="card-body p-0">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th scope="col" class="col-auto">#</th>
-                                    <th scope="col" class="col-auto">{{ $t('app.clinic.name')}}</th>
-                                    <th scope="col" class="col-auto">{{ $t('app.clinic.address')}}</th>
-                                    <th scope="col" class="col-auto">{{ $t('app.clinic.users_count')}}</th>
-                                    <th scope="col" class="col-auto">{{ $t('app.label.operator')}}</th>
+                                    <th scope="col" class="col-auto">{{ $t('common.list.data_table._id') }}</th>
+                                    <th scope="col" class="col-auto">{{ $t('clinic.attr._name')}}</th>
+                                    <th scope="col" class="col-auto">{{ $t('clinic.attr._address')}}</th>
+                                    <th scope="col" class="col-auto">{{ $t('clinic.list.data_table._staff_count')}}</th>
+                                    <th scope="col" class="col-auto">{{ $t('common.list.data_table._actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -44,14 +44,14 @@
                                             <div class="dropdown-menu" aria-labelledby="operatingAction">
                                                 <router-link class="dropdown-item text-primary"
                                                              :to="{ name: 'clinic.add.user', params: { id: entity.id }} ">
-                                                    {{ $t('app.clinic.manage_user')}}
+                                                    {{ $t('clinic.list.data_table.actions._act_add_user')}}
                                                 </router-link>
                                                 <router-link class="dropdown-item text-primary"
                                                              :to="{ name: 'clinic.edit', params: { id: entity.id }} ">
-                                                    {{ $t('app.btn.edit')}}
+                                                    {{ $t('clinic.list.data_table.actions._act_edit')}}
                                                 </router-link>
                                                 <a class="dropdown-item text-danger" href="#" @click="deleteClinic(entity.id)">
-                                                    {{$t('app.btn.delete')}}
+                                                    {{$t('clinic.list.data_table.actions._act_remove')}}
                                                 </a>
                                             </div>
                                         </div>
@@ -74,7 +74,6 @@
         <not-found></not-found>
     </div>
 </template>
-
 <script>
     export default {
         data() {
@@ -91,36 +90,35 @@
                 this.$Progress.finish();
             },
             loadClinics() {
-                this.$Progress.start();
-                if (this.$gate.isAdmin()) {
-                    axios
-                        .get("/api/clinic")
-                        .then((response) => {this.clinics = response.data; this.paginator = response.data.meta});
-                }
-                this.$Progress.finish();
+                axios
+                    .get("/api/clinic")
+                    .then((response) => {this.clinics = response.data; this.paginator = response.data.meta});
             },
             deleteClinic(id){
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: this.$t('clinic').others._remove_modal_title,
+                    text: this.$t('clinic').others._remove_modal_description,
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: this.$t('clinic').others._remove_modal_yes,
+                    cancelButtonText: this.$t('clinic').others._remove_modal_no,
                 }).then((result) => {
                     if (result.value) {
                         axios
                             .delete("/api/clinic/"+id)
                             .then(() => {
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
-                                    'success'
-                                );
+                                Toast.fire({
+                                    icon: "success",
+                                    title: this.$t('clinic').list.messages._remove_success,
+                                });
                                 // Fire.$emit('AfterCreate');
                                 this.loadClinics();
                             }).catch((data)=> {
-                            Swal.fire("Failed!", data.message, "warning");
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('clinic').list.messages._remove_failed,
+                            });
                         });
                     }
                 })

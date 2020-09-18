@@ -1,12 +1,12 @@
 <template>
-    <section class="content" v-if="$gate.isAdmin()">
+    <section class="content" v-if="$gate.canPermission('clinic.add.users')">
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('app.clinic.header.create') }}</h3>
+                <h3 class="page-title">{{ $t('clinic.clinic_users._page_title') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <button type="button" class="btn btn-primary pl-5 pr-5" @click="updateUsers()">{{ $t('app.btn.create')}}
+                <button type="button" class="btn btn-primary pl-5 pr-5" @click="updateUsers()">{{ $t('clinic.clinic_users.others._btn_update')}}
                 </button>
             </div>
         </div>
@@ -21,12 +21,12 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label>{{ $t('app.form.keyword')}}</label>
+                                                <label>{{ $t('common.list.search_box._keyword')}}</label>
                                                 <input
                                                     v-model="keyword"
                                                     type="text"
                                                     class="form-control"
-                                                    :placeholder="$t('app.form.keyword_placeholder')"
+                                                    :placeholder="$t('common.list.search_box._keyword_pl')"
                                                 />
                                             </div>
                                         </div>
@@ -37,12 +37,12 @@
                                             <button
                                                 type="reset"
                                                 class="btn btn-outline-secondary pl-4 pr-4" @click="resetKeyword()"
-                                            >{{ $t('app.form.clear_form')}}
+                                            >{{ $t('common.list.search_box._btn_reset')}}
                                             </button>
                                         </div>
                                         <div class="col-6">
                                             <button type="button" class="btn btn-outline-primary pl-4 pr-4" @click="getResults()">
-                                                {{ $t('app.form.submit_form')}}
+                                                {{ $t('common.list.search_box._btn_search')}}
                                             </button>
                                         </div>
                                     </div>
@@ -53,26 +53,27 @@
                 </div>
             </div>
             <div class="row mt-5">
+                <div class="col-12 text-lg-right">{{ $t('clinic.clinic_users.data_table._cur_staff_count') }} : {{clinic.users_count}}</div>
                 <div class="col-12">
                     <div class="card" v-if="$gate.isAdmin()">
-                        <div class="card-body table-responsive p-0">
+                        <div class="card-body p-0">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th scope="col">
-                                        <input type="checkbox" @click="selectAll" v-model="allSelected">
+                                        <!--<input type="checkbox" @change="selectAll" v-model="allSelected">-->
                                     </th>
-                                    <th scope="col">{{ $t('app.user.name')}}</th>
-                                    <th scope="col">{{ $t('app.user.email')}}</th>
-                                    <th scope="col">{{ $t('app.user.group')}}</th>
-                                    <th scope="col">{{ $t('app.user.register_date')}}</th>
-                                    <th scope="col">{{ $t('app.user.last_login_date')}}</th>
+                                    <th scope="col">{{ $t('staff.attr._username')}}</th>
+                                    <th scope="col">{{ $t('staff.attr._mail_address')}}</th>
+                                    <th scope="col">{{ $t('staff.attr._position')}}</th>
+                                    <th scope="col">{{ $t('staff.list.data_table._registered_at')}}</th>
+                                    <th scope="col">{{ $t('staff.list.data_table._last_login_at')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr v-for="user in users" :key="user.id">
                                     <td>
-                                        <input type="checkbox" v-model="userIds" @click="select" :value="user.id">
+                                        <input type="checkbox" @click="select" :checked="isChecked(user.id)" :value="user.id" @change="changeChecked">
                                     </td>
                                     <td>{{ user.name }}</td>
                                     <td>{{ user.email }}</td>
@@ -114,8 +115,18 @@
                 keyword: "",
                 selected: [],
                 allSelected: false,
-                userIds: []
+                userIds: [],
+                clinic: {}
             };
+        },
+        watch: {
+            userIds: function (val) {
+                if(_.size(this.users) == _.size(this.userIds)) {
+                    this.allSelected = true;
+                } else {
+                    this.allSelected = false;
+                }
+            }
         },
         methods: {
             getResults(page = 1) {
@@ -135,13 +146,17 @@
                     user_ids: this.userIds,
                 })
                 .then((data) => {
-                    if (data.data.success) {
-                        this.$router.push('/admin/clinics')
+                    if (data.data.status) {
+                        Toast.fire({
+                            icon: "success",
+                            title: data.data.message,
+                        });
+                        this.$router.push('/admin/clinic')
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: 'Some error occured! Please try again'
+                            title: this.$t('clinic.clinic_users.messages._update_failed')
                         });
 
                         this.$Progress.failed();
@@ -150,24 +165,49 @@
                 .catch(() => {
                     Toast.fire({
                         icon: 'error',
-                        title: 'Some error occured! Please try again'
+                        title: this.$t('common.messages._system_err')
                     });
                 })
             },
-            selectAll() {
-                console.log(this.allSelected);
-                if (this.allSelected) {
-                    for (user in this.users) {
-                        this.userIds.push(this.users[user].id);
-                    }
+            selectAll(event) {
+                let self = this;
+                if (event.target.checked) {
+                    _.forEach(self.users, function (user) {
+                        self.userIds = _.union(self.userIds, [user.id]);
+                    })
+                } else {
+                    this.userIds = [];
+                    this.isChecked()
                 }
             },
             select() {
                 this.allSelected = false;
             },
+            isChecked(userId) {
+                return _.indexOf(this.userIds, userId) > -1 ? true : false;
+            },
+            changeChecked(event) {
+                if(event.target.checked) {
+                    this.userIds = _.union(this.userIds, [parseInt(event.target.value)]);
+                } else {
+                    this.userIds = _.without(this.userIds, parseInt(event.target.value));
+                }
+            },
             resetKeyword() {
                 this.keyword = ''
+            },
+            getClinicInfo(){
+                axios.get("/api/clinic/" + this.$route.params.id)
+                    .then(({ data }) => {
+                        this.clinic = data.data;
+                    });
             }
         },
+        created() {
+            this.$Progress.start();;
+            this.getClinicInfo();
+            this.getResults();
+            this.$Progress.finish();
+        }
     };
 </script>
