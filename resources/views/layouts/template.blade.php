@@ -24,7 +24,7 @@
         <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
             <div class="main-navbar">
                 <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
-                    <a class="navbar-brand w-100 mr-0" href="#" style="line-height: 25px;">
+                    <a class="navbar-brand w-100 mr-0" href="/admin/profile" style="line-height: 25px;">
                         <div class="d-table m-auto">
                             <span class="d-none d-md-inline ml-1">{{ __('app.name') }}</span>
                         </div>
@@ -115,19 +115,41 @@
                                 {{ __('app.menu.sidebar.request_management._request_template_list') }}
                             </a>
                             @foreach (\App\Models\TemplateCategory::getAll() as $category)
-                                <a href="/admin/request/category/{{$category->id}}" class="dropdown-item">
+                                <a href="/admin/request?category_id={{$category->id}}" class="dropdown-item">
                                     {{ __($category->name) }}
                                 </a>
                             @endforeach
                         </div>
                     </li>
                     @endcanany
-                    <li class="nav-item">
-                        <router-link to="/admin/page/create" class="nav-link">
-                            <i class="far fa-bell"></i>
-                            <span>Page Managerment</span>
-                        </router-link>
-                    </li>
+                    @canany(['inquiry.index', 'api.inquiry.list'])
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                                <i class="fas fa-clipboard-list"></i>
+                                <span>{{ __('app.menu.sidebar.inquiry_management._main') }}</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-small">
+                                @can('api.inquiry.list')
+                                    @foreach (\App\Models\Inquiry::allCategory() as $category)
+                                        <a href="/admin/inquiry?category_id={{$category->id}}" class="dropdown-item">
+                                            {{ __($category->name) }}
+                                        </a>
+                                    @endforeach
+                                @endcan
+                            </div>
+                        </li>
+                    @endcanany
+                        <li class="nav-item">
+                            <a href="/admin/page" class="nav-link">
+                                <i class="far">
+                                    <svg style="margin-top: -5px;" width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5 4.16667L17.5 15.8333C17.5 16.75 16.75 17.5 15.8333 17.5L4.16667 17.5C3.25 17.5 2.5 16.75 2.5 15.8333L2.5 4.16667C2.5 3.25 3.25 2.5 4.16667 2.5L15.8333 2.5C16.75 2.5 17.5 3.25 17.5 4.16667ZM4.16667 15.8333L4.16667 4.16667L15.8333 4.16667L15.8333 15.8333L4.16667 15.8333ZM5.83334 10.8333L5.83334 9.16667L14.1667 9.16667L14.1667 10.8333L5.83334 10.8333ZM5.83333 7.5L5.83333 5.83333L11.6667 5.83333L11.6667 7.5L5.83333 7.5ZM5.83333 12.5L5.83333 14.1667L9.16667 14.1667L9.16667 12.5L5.83333 12.5Z" fill="#007BFF"/>
+                                    </svg>
+                                </i>
+
+                                <span>{{ __('app.menu.sidebar.page_management._main') }}</span>
+                            </a>
+                        </li>
                 </ul>
 
             </div>

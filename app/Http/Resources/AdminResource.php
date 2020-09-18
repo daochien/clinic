@@ -21,6 +21,7 @@ class AdminResource extends JsonResource
             'email' => $this->email,
             'description' => $this->description,
             'created_at' => $this->created_at,
+            'posittion' => $this->posittion,
             'groups' => GroupResource::collection($this->group),
             'last_login' => $this->getLastLoginTime(),
             'roles' => RoleResource::collection($this->whenLoaded('roles')),

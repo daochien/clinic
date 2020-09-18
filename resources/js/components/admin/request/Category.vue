@@ -28,12 +28,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr v-for="(request, index)  in requests.data" :key="request.id">
+                                <tr v-for="(request, index)  in requests" :key="request.id">
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ request.user.name }}</td>
                                     <td>
-                                        <div v-if="request.form.approvers.length !== 0">
-                                            <span class="badge badge-info ml-1" v-for="approver in request.form.approvers" :key="'sc_' + approver.id">
+                                        <div v-if="request.template.approvers.length !== 0">
+                                            <span class="badge badge-info ml-1" v-for="approver in request.template.approvers" :key="'sc_' + approver.id">
                                                 {{ approver.name}}
                                             </span>
                                         </div>
@@ -70,7 +70,7 @@
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
-                            <pagination :data="requests" @pagination-change-page="getResults"></pagination>
+                            <pagination :data="paginator" @pagination-change-page="getResults"></pagination>
                         </div>
                     </div>
                     <!-- /.card -->
@@ -85,13 +85,18 @@
     export default {
         data () {
             return {
-                requests : {},
+                requests : [],
+                paginator : {},
                 status_label: '',
             }
         },
         methods: {
             getResults(page = 1) {
-                axios.get("/api/request/category/"  + this.$route.params.id + "/?page=" + page).then(({ data }) => ( this.requests = data.data));
+                axios.get("/api/request?category_id="  + this.$route.params.id + "/?page=" + page)
+                    .then(( response ) => {
+                        this.requests = response.data.data;
+                        this.paginator = response.data.meta;
+                    });
             },
             approve(id) {
                 this.$Progress.start();
@@ -163,7 +168,11 @@
                 })
             },
             loadRequests(){
-                axios.get("/api/request/category/"  + this.$route.params.id).then(({ data }) => ( this.requests = data.data));
+                axios.get("/api/request?category_id="  + this.$route.params.id)
+                    .then(( response ) => {
+                        this.requests = response.data.data;
+                        this.paginator = response.data.meta;
+                    });
             },
             getStatus(object) {
                 self = this;
@@ -181,7 +190,7 @@
                     approvedCount++;
                 });
 
-                if (approvedCount === object.form.approvers.length) {
+                if (approvedCount === object.template.approvers.length) {
                     this.status_label = 'btn-info';
                     return this.$t('request').attr.status._approved;
                 }

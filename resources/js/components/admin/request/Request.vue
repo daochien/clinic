@@ -26,7 +26,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-10" v-html="submission.form.name"></div>
+                                <div class="col-10" v-html="submission.template.name"></div>
                             </div>
                             <div class="row">
                                 <div class="col-2">
@@ -36,7 +36,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-5" v-html="submission.form.category[0].name">
+                                <div class="col-5" v-html="submission.template.category[0].name">
                                 </div>
                             </div>
                             <div class="row">
@@ -48,8 +48,8 @@
                                     </div>
                                 </div>
                                 <div class="col-10">
-                                    <div v-if="submission.form.approvers.length !== 0">
-                                        <span class="badge badge-info ml-1" v-for="approver in submission.form.approvers" :key="'sc_' + approver.id">
+                                    <div v-if="submission.template.approvers.length !== 0">
+                                        <span class="badge badge-info ml-1" v-for="approver in submission.template.approvers" :key="'sc_' + approver.id">
                                             {{ approver.name}}
                                         </span>
                                     </div>
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="col-10">
-                                    <div class="form-group" v-html="submission.form.description"></div>
+                                    <div class="form-group" v-html="submission.template.description"></div>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card mb-5">
+                    <div class="card mb-5" v-if="can_change">
                         <div class="card-body">
                             <b-form @submit="onSubmit" >
                                 <b-form-textarea
@@ -223,7 +223,7 @@
                             icon: "success",
                             title: this.$t('request').list.messages._approve_success,
                         });
-                        this.$router.push("/admin/request/category/" + this.submission.form.category[0].id)
+                        this.$router.push("/admin/request/category/" + this.submission.template.category[0].id)
                         this.$Progress.finish();
                     } else {
                         Toast.fire({
@@ -261,7 +261,7 @@
                                     icon: "success",
                                     title: this.$t('request').list.messages._reject_success,
                                 });
-                                this.$router.push("/admin/request/category/" + this.submission.form.category[0].id)
+                                this.$router.push("/admin/request/category/" + this.submission.template.category[0].id)
                                 this.$Progress.finish();
                             } else {
                                 Toast.fire({
@@ -320,7 +320,7 @@
                 if (reject) {
                     return ;
                 }
-                if (approvedCount === this.submission.form.approvers.length) {
+                if (approvedCount === this.submission.template.approvers.length) {
                     this.status_label = 'btn-info'
                     this.status_text = this.$t('request').attr.status._approved;
                     this.can_change = false;

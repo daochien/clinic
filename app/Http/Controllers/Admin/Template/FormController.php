@@ -106,7 +106,7 @@ class FormController extends Controller
     public function show($id)
     {
         $user = auth()->user();
-        $form = Form::where(['user_id' => $user->id, 'id' => $id])
+        $form = Form::where(['id' => $id])
                     ->with('user')
                     ->withCount('submissions')
                     ->firstOrFail();
@@ -120,7 +120,7 @@ class FormController extends Controller
     {
         $user = auth()->user();
 
-        $form = Form::where(['user_id' => $user->id, 'id' => $id])->with(['approvers', 'category'])->firstOrFail();
+        $form = Form::where(['id' => $id])->with(['approvers', 'category'])->firstOrFail();
 
         $pageTitle = "Preview Form";
         $breadCrumbTitle = __('request.template.info._page_title_edit');
@@ -138,7 +138,7 @@ class FormController extends Controller
     public function update(SaveFormRequest $request, $id)
     {
         $user = auth()->user();
-        $form = Form::where(['user_id' => $user->id, 'id' => $id])->with(['approvers', 'category'])->firstOrFail();
+        $form = Form::where(['id' => $id])->with(['approvers', 'category'])->firstOrFail();
 
         $input = $request->except(['_token', 'approver', 'category']);
         try {
@@ -184,7 +184,7 @@ class FormController extends Controller
     public function destroy($id)
     {
         $user = auth()->user();
-        $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        $form = Form::where(['id' => $id])->firstOrFail();
         TemplateApprover::where('form_id', $form->id)->delete();
         TemplateCategory::where('form_id', $form->id)->delete();
         $form->delete();

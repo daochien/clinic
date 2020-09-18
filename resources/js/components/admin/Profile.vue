@@ -161,14 +161,13 @@
                      password: '',
                      description: '',
                      roles: [],
-                     posittion: 1,
+                     posittion: '',
                 }),
                 isEdit: true,
                 roles: [],
             }
         },
         mounted() {
-            console.log('Component mounted.')
         },
         methods:{
 
@@ -223,7 +222,6 @@
             },
             userHasRole(role) {
                 for (var i=0; i < this.manager.roles.length; i++) {
-                    console.log(this.manager.roles[i].name);
                     if (this.manager.roles[i].name === role) {
                         return true;
                     }

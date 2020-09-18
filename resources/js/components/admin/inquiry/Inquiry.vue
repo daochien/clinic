@@ -90,7 +90,7 @@
                                 </div>
                                 <div class="col-12 mt-3 d-message" v-html="comment.message"></div>
                                 <div class="col-12 mt-3" v-for="(attachment, index) in comment.attachments" :key="'att_' + index">
-                                    <a :href="base_url + '/request/attachment/download/' + attachment.title">
+                                    <a :href="base_url + '/request/download/attachment/' + attachment.title">
                                         {{attachment.title | formatAttachFile}} <i class="fas fa-cloud-download-alt"></i>
                                     </a>
                                 </div>
@@ -174,7 +174,7 @@
                             icon: "success",
                             title: this.$t('inquiry').discussion._comment_success,
                         });
-                        this.inquiry.request_comments = response.data.data;
+                        this.inquiry.inquiry_comments = response.data.data;
                         this.resetChat();
                         this.$Progress.finish();
                     } else {

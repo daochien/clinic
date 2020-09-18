@@ -23,6 +23,28 @@ class RequestService
      * @param $categoryId
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
+    public function getAll($param): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        $query = Submission::from('form_submissions as s')
+            ->join('template_category as tc', 'tc.form_id', 's.form_id');
+
+        if (!empty($param['category_id'])) {
+            $query->where('tc.category_id', $param['category_id']);
+        }
+
+        if (!empty($param['template_id'])) {
+            $query->where('tc.form_id', $param['template_id']);
+        }
+
+        return $query->with(['requestLogs', 'requestComments', 'user', 'form.approvers'])
+            ->latest()
+            ->paginate(10);
+    }
+
+    /**
+     * @param $categoryId
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function getRequestByCategory($categoryId): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         return Submission::from('form_submissions as s')
@@ -63,7 +85,7 @@ class RequestService
                 'message' => $message
             ]);
 
-            if (!empty($request->file)) {
+            if (!empty($request->file) && $request->file != "null") {
                 $fileName = time() . '_____' . $request->file->getClientOriginalName();
                 $extension = $request->file->extension();
                 $path = Storage::putFileAs(
