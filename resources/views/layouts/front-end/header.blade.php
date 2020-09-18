@@ -24,7 +24,14 @@
         </li>
         <li class="user">
           <!-- <a href="#"><img src="/front-end/images/user-icon.png" alt=""> Login</a> -->
-          <a href="#"><img src="/front-end/images/user-icon.png" alt="User"> 拠点ユーザー</a>
+{{--            <a href="#"><img src="/front-end/images/user-icon.png" alt="User"> 拠点ユーザー</a>--}}
+            <a href="#"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <img src="/front-end/images/user-icon.png" alt="User">
+                拠点ユーザー
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </a>
         </li>
       </ul>
     </div>

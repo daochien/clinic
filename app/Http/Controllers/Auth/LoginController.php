@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\LoginLog;
+use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -66,14 +67,15 @@ class LoginController extends Controller
         if ($response = $this->authenticated($request, $this->guard()->user())) {
             return $response;
         }
-        $authUser = \Auth::user();
+        /**@var $authUser User */
+        $authUser = auth()->user();
 
         if ($authUser->isAdminOrRoot()) {
             LoginLog::create(['user_id' => $authUser->id]);
             return redirect('/admin');
         } elseif ($authUser->isWebUser()) {
             LoginLog::create(['user_id' => $authUser->id]);
-            return redirect('/home');
+            return redirect('/blogs');
         } else {
             Auth::guard('web')->logout();
             return $request->wantsJson() ? response()->json('Permission Denied', 403) : redirect('/login');

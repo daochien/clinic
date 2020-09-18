@@ -1,8 +1,4 @@
-@if(auth()->user()->isAdminOrRoot())
-    @extends('layouts.admin')
-@else
-    @extends('layouts.app')
-@endif
+@extends(auth()->user()->isAdminOrRoot() ? 'layouts.admin' : 'layouts.blog')
 
 @section('content')
 <div class="container">
