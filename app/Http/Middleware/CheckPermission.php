@@ -25,16 +25,16 @@ class CheckPermission
         }
 
         $routeName = $request->route()->getName();
-        
+
         $permissions = Permission::where('name', $routeName)->pluck('name')->toArray();
-        
+
         if ($user->hasAnyPermission($permissions)) {
             return $next($request);
         }
 
         return response()->json([
             'status' => false,
-            'message' => 'Permission not access'
+            'message' => 'Permission denied!'
         ], 403);
     }
 }
