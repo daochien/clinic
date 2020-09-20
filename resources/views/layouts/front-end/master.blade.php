@@ -14,6 +14,8 @@
   <meta property="og:image" content="">
   <meta property="og:description" content="">
   <meta name="keywords" content="">
+
+  <link rel="icon" type="image/png" href="/front-end/images/logo.png">
   <link href="{{ ('/front-end/vendor/bootstrap-4.5.2-dist/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap" rel="stylesheet">

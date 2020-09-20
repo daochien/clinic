@@ -29,10 +29,11 @@ Route::prefix('/blogs/')
 //Route::get('/admin', 'Admin\HomeController@index')->name('admin_dashboard');
 //Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/admin/template', 'Admin\Template\FormController')->except('index');
-Route::get('request/download/attachment/{filename}', 'API\V1\RequestController@downloadAttachment')->name('request.attachment.download');
+Route::middleware('check.permission')->resource('/admin/template', 'Admin\Template\FormController')->except('index');
+Route::middleware('check.permission')->get('request/download/attachment/{filename}', 'API\V1\RequestController@downloadAttachment')->name('request.attachment.download');
 
 Route::prefix('/admin/template')
+    ->middleware('check.permission')
     ->namespace('Admin\Template')
     ->name('template.')
     ->group(function () {

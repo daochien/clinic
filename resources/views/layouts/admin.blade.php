@@ -9,6 +9,7 @@
 
     <title>{{ __('app.name') }}</title>
 
+    <link rel="icon" type="image/png" href="/front-end/images/logo.png">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">

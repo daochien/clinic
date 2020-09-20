@@ -107,7 +107,7 @@
             @canany(['inquiry.index', 'api.inquiry.list'])
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                        <i class="fas fa-clipboard-list"></i>
+                        <i class="far fa-question-circle"></i>
                         <span>{{ __('app.menu.sidebar.inquiry_management._main') }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-small">
