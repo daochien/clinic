@@ -149,7 +149,11 @@ export default {
             }
         },
         reloadSlick () {
-            $('.news-slider').slick('refresh');
+            try {
+                $('.news-slider').slick('refresh');
+            } catch (error) {
+            }
+            
         },
         async downloadManual (manual) {
             if (manual.files.path) {
