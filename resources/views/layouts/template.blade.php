@@ -9,6 +9,7 @@
 
     <title>{{ __('app.name') }}</title>
 
+    <link rel="icon" type="image/png" href="/front-end/images/logo.png">
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link href="{{ asset('css/shards-dashboards.1.3.1.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('vendor/formbuilder/js/footable/css/footable.standalone.min.css') }}">

@@ -70,12 +70,12 @@ class LoginController extends Controller
         /**@var $authUser User */
         $authUser = auth()->user();
 
-        if ($authUser->isAdminOrRoot()) {
-            LoginLog::create(['user_id' => $authUser->id]);
-            return redirect('/admin');
-        } elseif ($authUser->isWebUser()) {
+        if ($authUser->isWebUser()) {
             LoginLog::create(['user_id' => $authUser->id]);
             return redirect('/blogs');
+        }elseif ($authUser->isAdminOrRoot()) {
+            LoginLog::create(['user_id' => $authUser->id]);
+            return redirect('/admin');
         } else {
             Auth::guard('web')->logout();
             return $request->wantsJson() ? response()->json('Permission Denied', 403) : redirect('/login');
