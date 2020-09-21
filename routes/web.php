@@ -33,7 +33,7 @@ Route::middleware('check.permission')->resource('/admin/template', 'Admin\Templa
 Route::middleware('check.permission')->get('request/download/attachment/{filename}', 'API\V1\RequestController@downloadAttachment')->name('request.attachment.download');
 
 Route::prefix('/admin/template')
-    ->middleware('check.permission')
+    ->middleware(['check.permission'])
     ->namespace('Admin\Template')
     ->name('template.')
     ->group(function () {
@@ -53,4 +53,4 @@ Route::prefix('/admin/template')
 
 Route::get('/{vue_capture?}', function () {
     return view('home');
-})->where('vue_capture', '[\/\w\.-]*')->middleware('auth');
+})->where('vue_capture', '[\/\w\.-]*')->middleware(['auth', 'check.notAdministrator']);
