@@ -28,9 +28,12 @@
                                             @enderror
                                         </div>
 
-                                        <button type="submit" class="col-12 btn btn-primary mt-3">
-                                            {{ __('auth.reset_pwd.others._link_back_to_login') }}
+                                        <button type="submit" class="col-12 btn btn-primary mt-3 mb-2">
+                                            送信
                                         </button>
+                                        <a href="/login">
+                                            {{ __('auth.reset_pwd.others._link_back_to_login') }}
+                                        </a>
 
                                     </form>
                                 </div>

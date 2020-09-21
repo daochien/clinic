@@ -189,14 +189,14 @@
                         axios.delete('/api/user/' + id).then(() => {
                             Toast.fire({
                                 icon: "success",
-                                title: this.$t('staff').list._remove_success,
+                                title: this.$t('staff').list.messages._remove_success,
                             });
                             // Fire.$emit('AfterCreate');
                             this.loadUsers();
                         }).catch((data) => {
                             Toast.fire({
                                 icon: 'error',
-                                title: this.$t('staff').list._remove_failed,
+                                title: this.$t('staff').list.messages._remove_failed,
                             });
                         });
                     }

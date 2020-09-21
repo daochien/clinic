@@ -51,7 +51,7 @@
                             <li v-for="(manual, index) in manuals" :key="index">
                                 <a href="javascript:void(0)" >
                                     <span class="title">{{ manual.title}}</span>
-                                    <span class="info">{{ manual.files.size }} 
+                                    <span class="info">{{ manual.files.size }}
                                         <img @click="downloadManual(manual)" src="/front-end/images/download-icon-2.png" alt="">
                                     </span>
                                 </a>
@@ -110,10 +110,10 @@ export default {
         console.log('xxx');
     },
     mounted () {
-        this.loadBlogs();        
+        this.loadBlogs();
         this.loadCategorys();
-        this.loadManualLatest();        
-    },    
+        this.loadManualLatest();
+    },
     methods: {
         async loadCategorys () {
             this.$Progress.start();
@@ -121,7 +121,7 @@ export default {
             this.$Progress.finish();
         },
         async loadBlogs (page = 1) {
-            this.$Progress.start();            
+            this.$Progress.start();
             try {
                 let {data} = await axios.get('api/page?type=blog&page='+page);
                 this.blogs = this.blogs.concat(data.data);
@@ -149,7 +149,11 @@ export default {
             }
         },
         reloadSlick () {
-            $('.news-slider').slick('refresh');
+            try {
+                $('.news-slider').slick('refresh');
+            } catch (error) {
+            }
+            
         },
         async downloadManual (manual) {
             if (manual.files.path) {
@@ -162,7 +166,7 @@ export default {
                             manual.files.path,
                             '_blank' // <- This is what makes it open in a new window.
                         );
-                    }                    
+                    }
                 } catch (error) {
                     console.log(error);
                 }

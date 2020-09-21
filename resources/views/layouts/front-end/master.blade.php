@@ -14,6 +14,8 @@
   <meta property="og:image" content="">
   <meta property="og:description" content="">
   <meta name="keywords" content="">
+
+  <link rel="icon" type="image/png" href="/front-end/images/logo.png">
   <link href="{{ ('/front-end/vendor/bootstrap-4.5.2-dist/css/bootstrap.min.css') }}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,900&display=swap" rel="stylesheet">
@@ -21,7 +23,7 @@
   <link href="{{ ('/front-end/css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="nav-wrapper">
         @include('layouts.front-end.header')
         <router-view ></router-view>
         <vue-progress-bar></vue-progress-bar>
@@ -33,5 +35,6 @@
   <script src="{{ ('/front-end/vendor/bootstrap-4.5.2-dist/js/bootstrap.min.js') }}"></script>
   <script src="{{ ('/front-end/vendor/slick-1.8.1/slick.min.js') }}"></script>
   <script src="{{ ('/front-end/js/common.js') }}"></script>
+  
 </body>
 </html>

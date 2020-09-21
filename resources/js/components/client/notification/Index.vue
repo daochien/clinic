@@ -100,7 +100,7 @@
         methods: {
             fetch(from = 0) {
                 let self = this;
-                axios.get(`/api/notification/fetch?user_id=10003&from=${this.from}`).then((response)=>{
+                axios.get(`/api/notification/fetch?from=${this.from}`).then((response)=>{
                     self.notifications = response.data;
                     self.selection = self.notifications.data[0];
                 })
@@ -126,9 +126,9 @@
             },
             onSelect(item) {
                 this.selection = item;
-                if (_.indexOf(item.status, 1) < 0) {
-                    this.updateStatus(item);
-                }
+                // if (_.indexOf(item.status, 1) < 0) {
+                //     this.updateStatus(item);
+                // }
             },
             getFromLabel(item) {
                 if (!_.isEmpty(item.notification) && !_.isEmpty(item.creator)) {

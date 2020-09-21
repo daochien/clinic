@@ -44,6 +44,11 @@ class InquiryController extends BaseController
         return new InquiryCollection($this->inquiryService->getRequestByCategory($categoryId));
     }
 
+    public function index(Request $request)
+    {
+        return new InquiryCollection($this->inquiryService->getAll($request->all()));
+    }
+
     public function show($id)
     {
         $inquiry = $this->inquiryService->getDetail($id);

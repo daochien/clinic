@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\V1;
 
 use App\Helper\FormBuilderHelper as Helper;
+use App\Http\Resources\RequestCollection;
+use App\Http\Resources\RequestResource;
 use App\Models\RequestComment;
 use App\Models\RequestLog;
 use App\Models\Submission;
@@ -38,9 +40,9 @@ class RequestController extends BaseController
         $this->requestLogService = $requestLogService;
     }
 
-    public function indexByCategory($categoryId)
+    public function index(Request $request)
     {
-        return $this->sendSuccessResponse($this->requestService->getRequestByCategory($categoryId));
+        return new RequestCollection($this->requestService->getAll($request->all()));
     }
 
     public function show($id)
@@ -48,7 +50,7 @@ class RequestController extends BaseController
         $submission = $this->requestService->getRequest($id);
         $form_headers = $submission->form->getEntriesHeader();
 
-        return $this->sendSuccessResponse(['submission' => $submission, 'form_headers' => $form_headers]);
+        return $this->sendSuccessResponse(['submission' => new RequestResource($submission), 'form_headers' => $form_headers]);
     }
 
     public function downloadAttachment(Request $request, $fileName)

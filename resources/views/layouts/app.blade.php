@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-
+    <meta name="locale" content="{{ App::getLocale() }}"/>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ __('app.name') }}</title>
-
+    <link rel="icon" type="image/png" href="/front-end/images/logo.png">
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link href="{{ asset('css/shards-dashboards.1.3.1.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
+    <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
 </head>
 <body class="h-100">
 <div id="app" class="container-fluid icon-sidebar-nav h-100">

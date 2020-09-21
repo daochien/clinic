@@ -28,7 +28,7 @@ class Inquiry extends Model
 
     public function inquiryComments()
     {
-        return $this->hasMany(InquiryComment::class,);
+        return $this->hasMany(InquiryComment::class);
     }
 
     public function category()

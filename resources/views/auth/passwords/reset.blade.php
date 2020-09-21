@@ -45,6 +45,9 @@
                                             <button type="submit" class="col-12 btn btn-primary mt-3">
                                                 {{ __('auth.reset_btn') }}
                                             </button>
+                                            <a href="/login">
+                                                {{ __('auth.reset_pwd.others._link_back_to_login') }}
+                                            </a>
                                         </form>
                                     </div>
                                 </div>

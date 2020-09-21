@@ -9,6 +9,7 @@
 
     <title>{{ __('app.name') }}</title>
 
+    <link rel="icon" type="image/png" href="/front-end/images/logo.png">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
@@ -89,6 +90,7 @@
 @endauth
 <script src="{{ mix('/js/app.js') }}"></script>
 <script src="{{ ('/js/toastr.min.js') }}"></script>
+<script src='https://cdn.polyfill.io/v2/polyfill.min.js'></script>
 {{--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>

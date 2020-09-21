@@ -4,18 +4,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::namespace('API\V1')
+    ->middleware('check.permission')
     ->prefix('/notification')
     ->group(function (): void {
         Route::get('/fetch', 'NotificationController@fetch');
         Route::put('/status', 'NotificationController@updateStatus');
     });
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', 'check.permission'])->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
-    Route::group(['name' => 'api.', 'middleware' => 'check.permission'], function () {
+    Route::group(['name' => 'api.'], function () {
         Route::namespace('API\V1')
             ->prefix('/s3')
             ->group(function (): void {
@@ -66,13 +67,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('template/{id}', 'API\V1\TemplateController@destroy')->name('api.template.destroy');
         Route::get('template/', 'API\V1\TemplateController@index')->name('template.index');
 
-        Route::get('request/category/{id}', 'API\V1\RequestController@indexByCategory')->name('api.request.category.list');
+        Route::get('request', 'API\V1\RequestController@index')->name('api.request.list');
         Route::get('request/{id}', 'API\V1\RequestController@show')->name('api.request.show');
         Route::post('request/{id}/status', 'API\V1\RequestController@changeStatus')->name('api.request.change_status');
         Route::post('request/{id}/comment', 'API\V1\RequestController@comment')->name('api.request.comment');
         Route::post('request/{id}', 'API\V1\RequestController@store')->name('api.request.store');
 
-        Route::get('inquiry/category/{id}', 'API\V1\InquiryController@indexByCategory')->name('api.inquiry.category.list');
+        Route::get('inquiry', 'API\V1\InquiryController@index')->name('api.inquiry.list');
         Route::post('inquiry/{id}/close', 'API\V1\InquiryController@changeStatus')->name('api.inquiry.change_status');
         Route::post('inquiry/{id}/comment', 'API\V1\InquiryController@comment')->name('api.inquiry.comment');
         Route::post('inquiry/search', 'API\V1\InquiryController@search')->name('api.inquiry.search');

@@ -19,22 +19,21 @@ class CheckPermission
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
-
         if ($user->isRoot()) {
             return $next($request);
         }
 
         $routeName = $request->route()->getName();
-        
+
         $permissions = Permission::where('name', $routeName)->pluck('name')->toArray();
-        
+
         if ($user->hasAnyPermission($permissions)) {
             return $next($request);
         }
 
         return response()->json([
             'status' => false,
-            'message' => 'Permission not access'
+            'message' => 'Permission denied!'
         ], 403);
     }
 }
