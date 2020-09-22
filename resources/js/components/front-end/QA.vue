@@ -4,15 +4,7 @@
         <div class="container">
             <SideBar />
             <div class="blog-content content-wrapper">
-                <h2>
-                    {{ page.title }}
-                </h2>
-                <span class="date">{{ page.created_at | dateFormat }}</span>
-                <div class="blog-main-img">
-                    <img :src="page.image" alt="news detail">
-                </div>
-                <div class="blog-detail-content" v-html="page.content">
-                </div>
+
             </div>
         </div>
     </div>
@@ -21,6 +13,7 @@
 
 <script>
 import SideBar from './SideBar';
+
 export default {
     components: {
         SideBar
