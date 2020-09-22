@@ -24,6 +24,14 @@ Route::prefix('/blogs/')
         Route::get('/{id}', 'PageController@index')->name('detail');
     });
 
+Route::prefix('/qa/')
+    ->middleware('auth')
+    ->namespace('Client')
+    ->name('qa.')
+    ->group(function () {
+        Route::get('/{id}', 'PageController@index')->name('qa');
+    });
+
 
 
 //Route::get('/admin', 'Admin\HomeController@index')->name('admin_dashboard');
