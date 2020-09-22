@@ -67,7 +67,7 @@ class User extends Authenticatable // implements MustVerifyEmail
 
     public function isAdminOrRoot()
     {
-        return $this->roles()->whereIn('id', [self::ROLE_ROOT, self::ROLE_ADMIN])->exists();
+        return $this->roles()->whereNotIn('id', [self::ROLE_STAFF_WEB, self::ROLE_STAFF_MOBILE])->exists();
     }
 
     public function isUser()
@@ -188,6 +188,28 @@ class User extends Authenticatable // implements MustVerifyEmail
         }
 
         $role = Role::find(Role::ROLE_DEFAULT['root']);
+
+        if ($this->hasRole($role->name)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isUserWeb()
+    {
+        $role = Role::find(Role::ROLE_DEFAULT['web']);
+
+        if ($this->hasRole($role->name)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isUserMobile()
+    {
+        $role = Role::find(Role::ROLE_DEFAULT['mobile']);
 
         if ($this->hasRole($role->name)) {
             return true;

@@ -41,7 +41,7 @@ class RoleController extends BaseController
     {
         $user = Auth::user();
 
-        if ( in_array($user->email, User::ROOT_EMAIL_ADMIN) || $user->hasRole('admin')) {
+        if ( in_array($user->email, User::ROOT_EMAIL_ADMIN) || $user->hasRole(1) || $user->hasRole(2)) {
             $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->select('name', 'id')->get();
         } else {
             $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_ADMIN, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->select('name', 'id')->get();
@@ -50,7 +50,7 @@ class RoleController extends BaseController
         if (!$request->get('re-format')) {
             $roles = $roles->pluck('name', 'id');
         }
-        
+
         return $this->sendSuccessResponse($roles, 'Role list');
     }
 
