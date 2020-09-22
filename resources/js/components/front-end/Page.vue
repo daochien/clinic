@@ -51,7 +51,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-loading" @click="showMore()" v-show="pagination.current_page < pagination.last_page">もっと見る...</button>
+                <button class="btn btn-loading" @click="showMore()" v-show="pagination.current_page == 1 || pagination.current_page < pagination.last_page">もっと見る...</button>
             </div>
         </div>
     </div>
@@ -79,21 +79,13 @@ export default {
         }
     },
     created() {
-        console.log('xxx');
+        
     },
     mounted() {
-        this.loadBlogs();
-        this.loadCategorys();
-        this.loadManualLatest();
+        this.loadBlogs();        
     },
     methods: {
-        async loadCategorys() {
-            this.$Progress.start();
-            axios.get("/api/category/type/faq").then(({
-                data
-            }) => (this.categories = data.data));
-            this.$Progress.finish();
-        },
+        
         async loadBlogs(page = 1) {
             this.$Progress.start();
             try {
@@ -110,16 +102,7 @@ export default {
             }
             this.$Progress.finish();
         },
-        async loadManualLatest() {
-            try {
-                let {
-                    data
-                } = await axios.get('api/page/manual-latest');
-                this.manuals = data.data;
-            } catch (error) {
-                console.log(error);
-            }
-        },
+        
         showMore() {
             this.pagination.current_page++;
             if (this.pagination.current_page <= this.pagination.last_page) {
@@ -132,25 +115,7 @@ export default {
             } catch (error) {}
 
         },
-        async downloadManual(manual) {
-            if (manual.files.path) {
-                try {
-                    let {
-                        data
-                    } = await axios.put(`/api/page/${manual.id}/rating`, {
-                        type: 'download'
-                    });
-                    if (data.status) {
-                        window.open(
-                            manual.files.path,
-                            '_blank' // <- This is what makes it open in a new window.
-                        );
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-        }
+        
     }
 }
 </script>
