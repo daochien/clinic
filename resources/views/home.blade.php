@@ -1,4 +1,4 @@
-@extends(auth()->user()->isAdminOrRoot() ? 'layouts.admin' : 'layouts.blog')
+@extends(auth()->user()->isWebUser() ?  'layouts.blog' : 'layouts.admin')
 
 @section('content')
 <div class="container">
