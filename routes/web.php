@@ -24,12 +24,12 @@ Route::prefix('/blogs/')
         Route::get('/{id}', 'PageController@index')->name('detail');
     });
 
-Route::prefix('/qa/')
+Route::prefix('/manual/')
     ->middleware('auth')
     ->namespace('Client')
     ->name('qa.')
     ->group(function () {
-        Route::get('/{id}', 'PageController@index')->name('qa');
+        Route::get('/', 'PageController@index')->name('index');
     });
 
 

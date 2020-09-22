@@ -2,13 +2,16 @@
 <div class="main-wrapper">
     <div class="page-content">
         <div class="container">
-            <SideBar />
+            <SideBar :with-cate-id="page.category_id" />
             <div class="blog-content content-wrapper">
                 <h2>
                     {{ page.title }}
                 </h2>
-                <span class="date">{{ page.created_at | dateFormat }}</span>
-                <div class="blog-main-img">
+                <div class="blog-meta">
+                    <a href="#">{{ page.categorys ? page.categorys.name : '' }}</a>
+                    <span class="date">{{ page.created_at | dateFormat }}</span>
+                </div>                
+                <div class="blog-main-img" v-show="page.image">
                     <img :src="page.image" alt="news detail">
                 </div>
                 <div class="blog-detail-content" v-html="page.content">
@@ -31,39 +34,19 @@ export default {
             categories: [],
             page: {}
         }
-    },
+    },    
     created() {
-
+        
     },
-    mounted() {
-        this.loadCategorys();
-        this.loadManualLatest();
+    mounted() {        
         this.loadPage();
     },
-    methods: {
-        async loadCategorys() {
-            this.$Progress.start();
-            axios.get("/api/category/type/faq").then(({
-                data
-            }) => (this.categories = data.data));
-            this.$Progress.finish();
-        },
-        async loadManualLatest() {
-            try {
-                let {
-                    data
-                } = await axios.get('/api/page/manual-latest');
-                this.manuals = data.data;
-            } catch (error) {
-                console.log(error);
-            }
-        },
+    methods: {        
         loadPage() {
+            
             axios.get("/api/page/" + this.$route.params.id)
-                .then(({
-                    data
-                }) => {
-                    if (data.data) {
+                .then(({data}) => {
+                    if (data.data) {                        
                         this.page = data.data;
                     }
                 })
@@ -71,25 +54,7 @@ export default {
                     console.log(error);
                 });
         },
-        async downloadManual(manual) {
-            if (manual.files.path) {
-                try {
-                    let {
-                        data
-                    } = await axios.put(`/api/page/${manual.id}/rating`, {
-                        type: 'download'
-                    });
-                    if (data.status) {
-                        window.open(
-                            manual.files.path,
-                            '_blank' // <- This is what makes it open in a new window.
-                        );
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-        }
+                
     }
 }
 </script>

@@ -39,9 +39,13 @@ class CategoryController extends BaseController
     }
 
     public function getByType(Request $request, $type)
-    {        
-        $categories = $this->repository->getTemplateByCategory(Category::TYPE[$type]);
-        
+    {    
+        if (!empty($request->show_client)) {
+            $categories = $this->repository->showClientCategoryBlog(Category::TYPE[$type], $request->with_id, $request->latest_page);
+        } else {
+            $categories = $this->repository->getTemplateByCategory(Category::TYPE[$type]);
+        }
+                
         return $this->sendSuccessResponse($categories, 'Category list');
     }
 
