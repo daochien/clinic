@@ -59,4 +59,11 @@ class AdminRequest extends FormRequest
             'posittion' => 'required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'email.unique' => 'アカウントはすでに存在しています',
+        ];
+    }
 }

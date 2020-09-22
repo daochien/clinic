@@ -119,7 +119,7 @@
                                     <select
                                     :class="['form-control', {'is-invalid': pageFormErrors.errors.has('category_id')}]"
                                     v-model="page.category_id">
-                                        <option value="">{{ $t('page.info.form._category_pl') }}</option>
+                                        <option value="" disabled>{{ $t('page.info.form._category_pl') }}</option>
                                         <option
                                         v-for="(cat,index) in categories" :key="index"
                                         :value="cat.id">{{ cat.name }}</option>

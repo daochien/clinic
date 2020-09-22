@@ -24,6 +24,14 @@ Route::prefix('/blogs/')
         Route::get('/{id}', 'PageController@index')->name('detail');
     });
 
+Route::prefix('/manual/')
+    ->middleware('auth')
+    ->namespace('Client')
+    ->name('qa.')
+    ->group(function () {
+        Route::get('/', 'PageController@index')->name('index');
+    });
+
 
 
 //Route::get('/admin', 'Admin\HomeController@index')->name('admin_dashboard');
@@ -52,4 +60,4 @@ Route::prefix('/admin/template')
 
 Route::get('/{vue_capture?}', function () {
     return view('home');
-})->where('vue_capture', '[\/\w\.-]*')->middleware('auth');
+})->where('vue_capture', '[\/\w\.-]*')->middleware(['auth', 'check.notAdministrator']);

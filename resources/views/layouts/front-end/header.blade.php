@@ -3,7 +3,7 @@
       <span>Menu</span>
     </button>
     <div class="col-left">
-      <h1><a href="#"><img src="/front-end/images/logo.png" alt=""> Portal</a></h1>
+      <h1><a href="{{ URL::to('notification') }}"><img src="/front-end/images/logo.png" alt=""> Portal</a></h1>
     </div>
     <div class="header-menu">
       <ul>
