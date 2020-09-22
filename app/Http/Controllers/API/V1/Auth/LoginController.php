@@ -22,7 +22,7 @@ class LoginController extends BaseController
         }
         $authUser = Auth::user();
 
-        if ($authUser->isMobileUser()) {
+        if ($authUser->isMobileUser() || $authUser->isAdminOrRoot()) {
             $token = $authUser->createToken($request->device_name);
             LoginLog::create(['user_id' => $authUser->id]);
 

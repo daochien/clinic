@@ -4,19 +4,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::namespace('API\V1')
-    ->middleware('check.permission')
     ->prefix('/notification')
     ->group(function (): void {
         Route::get('/fetch', 'NotificationController@fetch');
         Route::put('/status', 'NotificationController@updateStatus');
     });
 
-Route::middleware(['auth:sanctum', 'check.permission'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
-    Route::group(['name' => 'api.'], function () {
+    Route::group(['name' => 'api.', 'middleware' => 'check.permission'], function () {
         Route::namespace('API\V1')
             ->prefix('/s3')
             ->group(function (): void {
