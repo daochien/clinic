@@ -10,13 +10,17 @@
         <div class="manual-guide-wrapper">
           <ul class="manual-list">
             <li v-for="(item, index) in manuals" :key="index">
-              <img src="/front-end/images/png-icon.png" alt="">
-              <div class="info">
-                <span class="title">{{ item.title }}</span>
-                <p> {{ item.content }} </p>
-              </div>
-              <button class="download" @click="forceFileDownload(item)">{{ item.files ? item.files.size : '' }} <img src="/front-end/images/download-icon-2.png" alt=""></button>
-            </li>            
+                <img src="/front-end/images/png-icon.png" alt="">
+                <div class="info">
+                    <span class="title">{{ item.title }}</span>
+                    <p> {{ item.content }} </p>
+                </div>
+                <a :href="item.files.path" download="" @click="forceFileDownload(item)">
+                <button class="download" >{{ item.files ? item.files.size : '' }}
+                     <img src="/front-end/images/download-icon-2.png" alt="">
+                </button>
+                </a>
+            </li>
           </ul>
           <nav v-if="pagination.last_page > 1">
             <ul class="pagination">
@@ -27,7 +31,7 @@
                 </li>
                 <li :class="['page-item', {'active': i == pagination.current_page}] " v-for="i in pagination.last_page" :key="i">
                   <a class="page-link" href="javascript:void(0)" @click="loadManual(i)">{{ i }}</a>
-                </li>              
+                </li>
                 <li class="page-item">
                     <a class="page-link" href="javascript:void(0)" aria-label="Next" @click="loadManual(pagination.last_page)">
                         <span aria-hidden="true">&raquo;</span>
@@ -38,8 +42,8 @@
         </div>
       </div>
     </div>
-</div>    
-    
+</div>
+
 </template>
 <script>
 export default {
@@ -50,7 +54,7 @@ export default {
                 page: 1,
                 total: 10
             }
-        }        
+        }
     },
     created () {
         this.loadManual();
@@ -64,7 +68,7 @@ export default {
                 } = await axios.get('api/page?type=manual&page=' + page);
                 this.manuals = data.data;
                 this.pagination = data.meta;
-                
+
             } catch (error) {
                 console.log(error);
             }
@@ -76,18 +80,17 @@ export default {
                     let { data } = await axios.put(`/api/page/${manual.id}/rating`, {
                         type: 'download'
                     });
-                    if (data.status) {
-                        window.open(
-                            manual.files.path,
-                            '_blank' // <- This is what makes it open in a new window.
-                        );
-                    }
                 } catch (error) {
                     console.log(error);
                 }
             }
-            
+
         },
     }
 }
 </script>
+<style scoped>
+.info {
+    width: 90%;
+}
+</style>

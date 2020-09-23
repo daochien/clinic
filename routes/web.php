@@ -9,6 +9,7 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 Route::prefix('/notification/')
+    ->middleware('auth')
     ->namespace('Client')
     ->name('notification.')
     ->group(function () {
