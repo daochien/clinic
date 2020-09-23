@@ -9,6 +9,7 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 Route::prefix('/notification/')
+    ->middleware('auth')
     ->namespace('Client')
     ->name('notification.')
     ->group(function () {
@@ -22,6 +23,14 @@ Route::prefix('/blogs/')
     ->group(function () {
         Route::get('/', 'PageController@index')->name('index');
         Route::get('/{id}', 'PageController@index')->name('detail');
+    });
+
+Route::prefix('/manual/')
+    ->middleware('auth')
+    ->namespace('Client')
+    ->name('qa.')
+    ->group(function () {
+        Route::get('/', 'PageController@index')->name('index');
     });
 
 

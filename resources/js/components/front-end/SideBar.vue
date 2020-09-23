@@ -1,0 +1,144 @@
+<template>
+<aside>
+    <div class="side-panel" v-if="showCategoryBlog">
+        <div class="side-header">
+            <h3><img src="/front-end/images/menu-icon.png" alt="Categories"> Blog Categories</h3>
+        </div>
+        <div class="side-content">
+            <ul>
+                <li :class="[{'active': item.id == withCateId}]" v-for="(item, index) in blogCategorys" :key="index">
+                    <a href="/0311_blog-details.html">
+                    <span class="title">{{item.name}}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="side-panel">
+        <div class="side-header">
+            <h3><img src="/front-end/images/question-icon.png" alt=""> よくある質問</h3>
+        </div>
+        <div class="side-content">
+            <div :class="['faq-block', {'active': item.id == withCateId}]" class="faq-block" v-for="(item, index) in categories" :key="index">
+                <a href="javascript:void(0)" @click="showDetailFAQ(item.latest_page)">
+                    <img :src="`/front-end/images/icon${index + 1}.png`" alt="">
+                    {{ item.name }}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="side-panel">
+        <div class="side-header">
+            <h3><img src="/front-end/images/download-icon.png" alt=""> マニュアル</h3>
+            <a href="/manual">もっと見る</a>
+        </div>
+        <div class="side-content">
+            <ul>
+                <li v-for="(manual, index) in manuals" :key="index">
+                    <a :href="manual.files.path" download="" @click="downloadManual(manual)">
+                        <span class="title">{{ manual.title}}</span>
+                        <span class="info">
+                            {{ manual.files.size }}
+                            <img src="/front-end/images/download-icon-2.png" alt="">
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</aside>
+</template>
+
+<script>
+export default {
+    props: ['withCateId'],
+    data() {
+        return {
+            manuals: [],
+            categories: [],
+            blogCategorys: []
+        }
+    },
+    computed: {
+        showCategoryBlog () {
+            if (this.$route.name === 'client.blogDetail') {
+                return true;
+            }
+            return false;
+        }
+    },
+    watch: {
+        withCateId (newVal, oldVal) {
+            if (this.showCategoryBlog) {
+                this.loadBlogCategorys(newVal);
+            }
+        }
+    },
+    created() {
+
+    },
+    mounted() {
+        this.loadCategorys();
+        this.loadManualLatest();
+    },
+    methods: {
+        async loadCategorys() {
+            this.$Progress.start();
+            axios.get("/api/category/type/faq", {
+                params: {
+                    show_client: 1,
+                    latest_page: 1
+                }
+            }).then(({data}) => (this.categories = data.data));
+            this.$Progress.finish();
+        },
+        async loadManualLatest() {
+            try {
+                let { data } = await axios.get('/api/page/manual-latest');
+                this.manuals = data.data;
+            } catch (error) {
+                console.log(error);
+            }
+        },
+
+        async loadBlogCategorys (cateId) {
+
+            this.$Progress.start();
+            axios.get("/api/category/type/blog", {
+                params : {
+                    show_client: 1,
+                    with_id: cateId
+                }
+            }).then(({ data }) => {
+                this.blogCategorys = data.data;
+                console.log(this.blogCategorys);
+            });
+            this.$Progress.finish();
+        },
+
+        showDetailFAQ (item) {
+            if (item) {
+                window.location.href = '/blogs/'+item.id;
+            }
+        },
+
+        async downloadManual(manual) {
+            if (manual.files.path) {
+                try {
+                    let { data } = await axios.put(`/api/page/${manual.id}/rating`, {
+                        type: 'download'
+                    });
+                    if (data.status) {
+                        // window.open(
+                        //     manual.files.path,
+                        //     '_blank' // <- This is what makes it open in a new window.
+                        // );
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            }
+        }
+    }
+}
+</script>
