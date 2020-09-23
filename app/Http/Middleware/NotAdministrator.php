@@ -16,12 +16,12 @@ class NotAdministrator
      */
     public function handle($request, Closure $next)
     {
-        $user = Auth::user();
-        if ($user->isUserWeb() || $user->isUserMobile()) {
-
-            Auth::logout();
-            return redirect('/login');
-        }
+//        $user = Auth::user();
+//        if ($user->isUserWeb() || $user->isUserMobile()) {
+//
+//            Auth::logout();
+//            return redirect('/login');
+//        }
 
         return $next($request);
     }
