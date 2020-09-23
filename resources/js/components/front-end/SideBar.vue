@@ -1,6 +1,6 @@
 <template>
 <aside>
-    <div class="side-panel">
+    <div class="side-panel" v-if="showCategoryBlog">
         <div class="side-header">
             <h3><img src="/front-end/images/menu-icon.png" alt="Categories"> Blog Categories</h3>
         </div>
@@ -10,16 +10,16 @@
                     <a href="/0311_blog-details.html">
                     <span class="title">{{item.name}}</span>
                     </a>
-                </li>            
+                </li>
             </ul>
         </div>
-        </div>
+    </div>
     <div class="side-panel">
         <div class="side-header">
             <h3><img src="/front-end/images/question-icon.png" alt=""> よくある質問</h3>
         </div>
         <div class="side-content">
-            <div class="faq-block" v-for="(item, index) in categories" :key="index">
+            <div :class="['faq-block', {'active': item.id == withCateId}]" class="faq-block" v-for="(item, index) in categories" :key="index">
                 <a href="javascript:void(0)" @click="showDetailFAQ(item.latest_page)">
                     <img :src="`/front-end/images/icon${index + 1}.png`" alt="">
                     {{ item.name }}
@@ -35,11 +35,11 @@
         <div class="side-content">
             <ul>
                 <li v-for="(manual, index) in manuals" :key="index">
-                    <a href="javascript:void(0)">
+                    <a :href="manual.files.path" download="" @click="downloadManual(manual)">
                         <span class="title">{{ manual.title}}</span>
                         <span class="info">
                             {{ manual.files.size }}
-                            <img @click="downloadManual(manual)" src="/front-end/images/download-icon-2.png" alt="">
+                            <img src="/front-end/images/download-icon-2.png" alt="">
                         </span>
                     </a>
                 </li>
@@ -51,7 +51,7 @@
 
 <script>
 export default {
-    props: ['withCateId'],    
+    props: ['withCateId'],
     data() {
         return {
             manuals: [],
@@ -75,11 +75,11 @@ export default {
         }
     },
     created() {
-        
+
     },
     mounted() {
         this.loadCategorys();
-        this.loadManualLatest();        
+        this.loadManualLatest();
     },
     methods: {
         async loadCategorys() {
@@ -100,15 +100,15 @@ export default {
                 console.log(error);
             }
         },
-        
+
         async loadBlogCategorys (cateId) {
-            
+
             this.$Progress.start();
             axios.get("/api/category/type/blog", {
                 params : {
                     show_client: 1,
                     with_id: cateId
-                }                
+                }
             }).then(({ data }) => {
                 this.blogCategorys = data.data;
                 console.log(this.blogCategorys);
@@ -129,10 +129,10 @@ export default {
                         type: 'download'
                     });
                     if (data.status) {
-                        window.open(
-                            manual.files.path,
-                            '_blank' // <- This is what makes it open in a new window.
-                        );
+                        // window.open(
+                        //     manual.files.path,
+                        //     '_blank' // <- This is what makes it open in a new window.
+                        // );
                     }
                 } catch (error) {
                     console.log(error);

@@ -21,6 +21,6 @@ class Category extends Model
 
     public function latestPage()
     {
-        return $this->hasOne(Page::class, 'category_id')->latest();;
+        return $this->hasOne(Page::class, 'category_id')->latest();
     }
 }
