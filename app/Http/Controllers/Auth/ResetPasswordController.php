@@ -43,4 +43,14 @@ class ResetPasswordController extends Controller
             'password' => 'required|confirmed|min:6',
         ];
     }
+
+    /**
+     * Get the password reset validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+    {
+        return [];
+    }
 }

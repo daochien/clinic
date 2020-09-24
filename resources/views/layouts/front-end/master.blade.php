@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>{{ __('app.name') }} | Pages </title>
+  <title>{{ __('app.name') }} </title>
   <meta name="locale" content="{{ App::getLocale() }}"/>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta charset="utf-8">
@@ -30,11 +30,11 @@
     </div>
   <!-- Script -->
   <script src="{{ mix('/js/app.js') }}"></script>
-  <script src="{{ ('/front-end/js/jquery.min.js') }}"></script>
+  {{--<script src="{{ ('/front-end/js/jquery.min.js') }}"></script>
   <script src="{{ ('/front-end/js/popper.min.js') }}"></script>
-  <script src="{{ ('/front-end/vendor/bootstrap-4.5.2-dist/js/bootstrap.min.js') }}"></script>
+  <script src="{{ ('/front-end/vendor/bootstrap-4.5.2-dist/js/bootstrap.min.js') }}"></script>--}}
   <script src="{{ ('/front-end/vendor/slick-1.8.1/slick.min.js') }}"></script>
   <script src="{{ ('/front-end/js/common.js') }}"></script>
-  
+
 </body>
 </html>
