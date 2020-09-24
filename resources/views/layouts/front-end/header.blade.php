@@ -3,7 +3,7 @@
       <span>Menu</span>
     </button>
     <div class="col-left">
-      <h1><a href="{{ URL::to('notification') }}"><img src="/front-end/images/logo.png" alt=""> Portal</a></h1>
+      <h1><router-link to="{{ URL::to('notification') }}"><img src="/front-end/images/logo.png" alt=""> Portal</router-link></h1>
     </div>
     <div class="header-menu">
       <ul>
@@ -13,14 +13,14 @@
           </a>
         </li>
       <li class="{{ request()->routeIs('blog*') ? 'active' : '' }}">
-          <a href="{{ URL::to('blogs') }}" class="btn">
+          <a href="/blogs" class="btn">
             <img src="/front-end/images/blog-icon.png" alt="Notification"> 記事
           </a>
         </li>
         <li class="{{ request()->routeIs('notification*') ? 'active' : '' }}">
-          <a href="{{ URL::to('notification') }}" class="btn">
+          <router-link to="/notification" class="btn">
             <img src="/front-end/images/notification-icon.png" alt="Notification"> お知らせ
-          </a>
+          </router-link>
         </li>
         <li class="user">
             <div class="dropdown">
@@ -28,9 +28,9 @@
                     <img src="/front-end/images/user-icon.png" alt="拠点ユーザー"> 拠点ユーザー
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a href="/my-account">
+                    <router-link to="/my-account">
                         マイ・アカウント
-                    </a>
+                    </router-link>
                     <a class="dropdown-item" href="#"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         ログアウト
                         <img src="/front-end/images/logout.png">
