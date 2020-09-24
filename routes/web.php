@@ -41,7 +41,7 @@ Route::prefix('/manual/')
 Route::resource('/admin/template', 'Admin\Template\FormController')->except('index');
 Route::get('request/download/attachment/{filename}', 'API\V1\RequestController@downloadAttachment')->name('request.attachment.download');
 
-Route::prefix('/admin/template')    
+Route::prefix('/admin/template')
     ->namespace('Admin\Template')
     ->name('template.')
     ->group(function () {
