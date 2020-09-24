@@ -991,8 +991,8 @@ export default {
                     "_edit_failed": "管理者情報の編集に失敗しました。"
                 },
                 "others": {
-                    "_btn_create": "登録する",
-                    "_btn_edit": "編集する",
+                    "_btn_create": "登録",
+                    "_btn_edit": "更新",
                     "_btn_remove": "削除する"
                 }
             },
