@@ -6,6 +6,8 @@ export default [
 
     { path: '/manual', component: require('./components/front-end/Manual.vue').default, name: 'client.manual' },
 
+    { path: '/my-account', component: require('./components/client/MyAccount').default, name: 'client.my.account' },
+
     { path: '/admin/dashboard', component: require('./components/admin/Dashboard.vue').default },
     { path: '/admin/profile', component: require('./components/admin/Profile.vue').default },
 
@@ -121,7 +123,7 @@ export default [
     {
         path: '/admin/page',
         component: {template: '<router-view/>'},
-        name: 'page', meta: {breadcrumb: `記事管理`},
+        meta: {breadcrumb: `記事管理`},
         children: [
             { path: '', component: require('./components/admin/page/Index.vue').default, meta: {breadcrumb: `記事一覧`} },
             { path: 'create', component: require('./components/admin/page/Page.vue').default, meta: {breadcrumb: `記事作成`} },

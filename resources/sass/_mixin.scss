@@ -1,0 +1,89 @@
+@mixin breakpoint($point) {
+  @if $point == desktop {
+    @media (min-width: $width-large-desktop) {
+      @content;
+    }
+  }
+  @else if $point == sdesktop {
+    @media (max-width: ($width-large-desktop - 1)) {
+      @content;
+    }
+  }
+  @else if $point == tablet {
+    @media (min-width: ($width-tablet)) and (max-width: ($width-desktop - 1)) {
+      @content;
+    }
+  }
+  @else if $point == mobile {
+    @media (max-width: ($width-tablet - 1)) {
+      @content;
+    }
+  }
+  @else if $point == smobile {
+    @media (max-width: ($width-smobile)) {
+      @content;
+    }
+  }
+}
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow: inset $top $left $blur $color;
+    -moz-box-shadow: inset $top $left $blur $color;
+    box-shadow: inset $top $left $blur $color;
+  }
+  @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+@mixin transform-style($val:preserve-3d) {
+  -webkit-transform-style: $val;
+  -ms-transform-style: $val;
+  -moz-transform-style: $val;
+  transform-style: $val;
+}
+@mixin transform($val) {
+  -webkit-transform: $val;
+  -ms-transform: $val;
+  -moz-transform: $val;
+  transform: $val;
+}
+@mixin transition($params: all 300ms ease-in-out) {
+  -webkit-transition: $params;
+  -moz-transition: $params;
+  -ms-transition: $params;
+  transition: $params;
+}
+@mixin transform-origin($val) {
+  -webkit-transform-origin: $val; /* Chrome, Safari, Opera */
+  -ms-transform-origin: $val; /* IE 9 */
+  -moz-transform-origin: $val;
+  transform-origin: $val;
+}
+
+@mixin vertical-align-middle($z-index: 2, $top: 0, $bottom: 0, $translateY: -50%, $wrapper-top: 50%, $wrapper: ".wrapper") {
+  position: absolute;
+  overflow: hidden;
+  top: $top;
+  right: 0;
+  bottom: $bottom;
+  left: 0;
+  z-index: $z-index;
+  @include transform-style(preserve-3d);
+  #{$wrapper} {
+    position: absolute;
+    left: auto;
+    right: auto;
+    width: 100%;
+    top: $wrapper-top;
+    @include transform(translate3d(0, $translateY, 0));
+  }
+}
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity="+$opacity-ie+")";
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
