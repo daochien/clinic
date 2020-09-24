@@ -28,9 +28,12 @@
                     <img src="/front-end/images/user-icon.png" alt="拠点ユーザー"> 拠点ユーザー
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
+                    <a href="/my-account">
+                        マイ・アカウント
+                    </a>
                     <a class="dropdown-item" href="#"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <img src="/front-end/images/logout.png">
                         ログアウト
+                        <img src="/front-end/images/logout.png">
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>

@@ -36,8 +36,3 @@
         </div>
     </div>
 @endsection
-<style type="text/css">
-    .auth-form__title {
-        font-size: 36px !important;
-    }
-</style>
