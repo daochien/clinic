@@ -9,6 +9,7 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 Route::prefix('/notification/')
+    ->middleware('auth')
     ->namespace('Client')
     ->name('notification.')
     ->group(function () {
@@ -24,13 +25,21 @@ Route::prefix('/blogs/')
         Route::get('/{id}', 'PageController@index')->name('detail');
     });
 
+Route::prefix('/manual/')
+    ->middleware('auth')
+    ->namespace('Client')
+    ->name('qa.')
+    ->group(function () {
+        Route::get('/', 'PageController@index')->name('index');
+    });
+
 
 
 //Route::get('/admin', 'Admin\HomeController@index')->name('admin_dashboard');
 //Route::get('/home', 'HomeController@index')->name('home');
 
-Route::middleware('check.permission')->resource('/admin/template', 'Admin\Template\FormController')->except('index');
-Route::middleware('check.permission')->get('request/download/attachment/{filename}', 'API\V1\RequestController@downloadAttachment')->name('request.attachment.download');
+Route::resource('/admin/template', 'Admin\Template\FormController')->except('index');
+Route::get('request/download/attachment/{filename}', 'API\V1\RequestController@downloadAttachment')->name('request.attachment.download');
 
 Route::prefix('/admin/template')
     ->namespace('Admin\Template')
@@ -49,8 +58,11 @@ Route::prefix('/admin/template')
 
     });
 
+Route::prefix('admin')->group(function() {
+    Route::get('/{vue_capture?}', function () {
+        return view('home');
+    })->where('vue_capture', '[\/\w\.-]*')->middleware(['auth', 'check.notAdministrator']);
+});
 
-Route::get('/{vue_capture?}', function () {
-    return view('home');
-})->where('vue_capture', '[\/\w\.-]*')->middleware(['auth', 'check.notAdministrator']);
+
 

@@ -83,7 +83,7 @@ class PageRepository
 
     public function show($id)
     {
-        return $this->model->with('groups')->find($id);
+        return $this->model->with('groups', 'categorys')->find($id);
     }
 
     public function latestPage($type = 'blog', $limit = 5)

@@ -31,10 +31,10 @@ class PageEditRequest extends FormRequest
             'category_id' => 'required',
             'public' => 'required|boolean',
             'status' => 'required|boolean',
-            'summary' => 'string|max:500'
+            'summary' => 'max:500'
         ];
-        
-        if (!empty($this->files) && count($this->files)) {            
+
+        if (!empty($this->files) && count($this->files)) {
             $rules['files.*'] = 'mimes:jpeg,png,jpg,pdf,gif,webm,mp4,mpeg|max:51200';
         }
 

@@ -18,4 +18,9 @@ class Category extends Model
     {
         return $this->hasMany(Inquiry::class);
     }
+
+    public function latestPage()
+    {
+        return $this->hasOne(Page::class, 'category_id')->latest();
+    }
 }
