@@ -138,10 +138,10 @@ class UserServices
     }
 
     /**
-     * @param bool $user
+     * @param $user
      * @throws \Exception
      */
-    public function deleteOldGroupHaveSaveCLinicName(bool $user): void
+    public function deleteOldGroupHaveSaveCLinicName($user): void
     {
         $currentClinicNames = $user->clinic()->select('name')->get();
         if (!empty($currentClinicNames)) {
@@ -155,15 +155,15 @@ class UserServices
     }
 
     /**
-     * @param bool $user
+     * @param $user
      * @param $attribute
      * @throws \Exception
      */
-    public function deleteOldGroupHaveSaveType(bool $user, $attribute): void
+    public function deleteOldGroupHaveSaveType($user, $attribute): void
     {
         $currentTypeUser = TypeUser::where('user_id', $user->id)->first();
 
-        if ($currentTypeUser->type_id != $attribute) {
+        if ($currentTypeUser->type_id != $attribute['type_id']) {
             $currentType = Type::find($currentTypeUser->type_id);
             $currentTypeGroup = Group::where(['name' => $currentType->name])->first();
 
@@ -173,10 +173,10 @@ class UserServices
             }
 
             TypeUser::insertOrIgnore([
-                'type_id' => $attribute,
+                'type_id' => $attribute['type_id'],
                 'user_id' => $user->id
             ]);
-            $newType = Type::find($attribute);
+            $newType = Type::find($attribute['type_id']);
             $newGroup = Group::where(['name' => $newType->name])->first();
             GroupUser::insertOrIgnore([
                 'group_id' => $newGroup->id,

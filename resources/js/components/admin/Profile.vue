@@ -99,7 +99,9 @@
                                 <form class="form-horizontal">
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
-                                            <label for="current_password" class="control-label">{{ $t('admin.my_account.change_password._current_pass') }}</label>
+                                            <label for="current_password" class="control-label">
+                                                {{ $t('admin.my_account.change_password._current_pass') }}<span style="color:#c4183c;">*</span>
+                                            </label>
                                                 <input type="password"
                                                        v-model="manager.current_password"
                                                        class="form-control"
@@ -110,7 +112,10 @@
                                                 <has-error :form="manager" field="current_password"></has-error>
                                         </div>
                                         <div class="form-group col-md-4">
-                                            <label for="new_password" class="control-label">{{ $t('admin.my_account.change_password._new_pass') }}</label>
+                                            <label for="new_password" class="control-label">
+                                                {{ $t('admin.my_account.change_password._new_pass') }}
+                                                <span style="color:#c4183c;">*</span>
+                                            </label>
                                             <input type="password"
                                                    v-model="manager.new_password"
                                                    class="form-control"
@@ -122,7 +127,9 @@
                                         </div>
 
                                         <div class="form-group col-md-4">
-                                            <label for="confirm_password" class="control-label">{{ $t('admin.my_account.change_password._verify_pass') }}</label>
+                                            <label for="confirm_password" class="control-label">
+                                                {{ $t('admin.my_account.change_password._verify_pass') }}<span style="color:#c4183c;">*</span>
+                                            </label>
                                             <input type="password"
                                                    v-model="manager.confirm_password"
                                                    class="form-control"

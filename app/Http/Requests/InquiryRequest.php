@@ -32,4 +32,13 @@ class InquiryRequest extends FormRequest
             'question' => 'required',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            '題名' => 'クリニック名',
+            'カテゴリ' => '郵便番号',
+            '内容' => '住所 ',
+        ];
+    }
 }

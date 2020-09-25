@@ -15,7 +15,7 @@
             </div>
 
             <div class="row mb-5">
-                <div class="col-10 col-ms-12 offset-1">
+                <div class="col-8 offset-2">
                     <div class="card">
                         <!-- /.card-header -->
                         <div class="card-body table-responsive p-4">
@@ -43,7 +43,7 @@
 
             <div class="row mb-5">
 
-                <div class="col-12">
+                <div class="col-10 offset-1">
 
                     <div class="card">
                         <!-- /.card-header -->
@@ -64,7 +64,7 @@
                                     <!-- <div class="user_not_found"  v-if="haveData">
                                         {{ $t('group.group_users._not_found_user')}}
                                     </div> -->
-                                    
+
                                         <tr v-for="item in members.data" :key="item.id">
                                             <td><input type="checkbox" v-model="selected" :value="item.id" number></td>
                                             <td>{{item.name}}</td>
@@ -76,7 +76,7 @@
 
                                 </tbody>
                             </table>
-                            
+
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer">
@@ -124,7 +124,7 @@
             haveData:function(){
                 // if(Object.keys(this.members).length === 0 && Object.keys(this.groupUsers).length === 0) return false;
                 // else return true
-                
+
             },
 
             removeButton:function(){

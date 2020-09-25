@@ -181,6 +181,9 @@
                                 <span class="d-none d-md-inline-block">{{ Auth::user()->name }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-small">
+                                <a href="/admin/profile" class="dropdown-item">
+                                    <span>{{ __('app.menu.top._profile') }}</span>
+                                </a>
                                 <a class="dropdown-item text-danger" href="#"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="material-icons text-danger">&#xE879;</i>
                                     {{ __('app.menu.top._logout') }}

@@ -67,4 +67,16 @@ class UserRequest extends FormRequest
             'description' => 'nullable|max:500',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'ユーザー名 ',
+            'email' => 'メールアドレス',
+            'type_id' => '職業',
+            'clinics' => 'クリニック',
+            'role' => 'ユーザータイプ',
+            'description' => 'メモ',
+        ];
+    }
 }

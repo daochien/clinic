@@ -5,21 +5,21 @@
                 <h3 class="page-title">{{ isEdit ? $t('page.info._page_title_edit') : $t('page.info._page_title_create') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-center text-sm-right mb-0">
-                <button 
-                v-if="isEdit" 
-                class="btn btn-salmon mr-2" 
+                <button
+                v-if="isEdit"
+                class="btn btn-salmon mr-2"
                 @click="removePage(page.id)">{{ $t('page.info.form._btn_remove') }}</button>
                 <button
                 v-if="!isEdit"
                 class="btn btn-primary float-right"
-                
+
                 @click="createPage()">
                     {{ $t('page.info.others._btn_create') }}
                 </button>
                 <button
                 v-if="isEdit"
                 class="btn btn-primary float-right"
-                
+
                 @click="updatePage()">
                     {{ $t('page.info.others._btn_edit') }}
                 </button>
@@ -336,7 +336,7 @@ export default {
         this.$refs.quill.quill.getModule("toolbar").addHandler("image", this.imageHandler);
     },
     computed: {
-        
+
         pageType () {
             return this.page.type;
         },

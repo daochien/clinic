@@ -15,7 +15,7 @@
             <div class="row mb-5" v-if="$gate.canPermission('user.index')">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-10 offset-1">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -73,7 +73,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-10 offset-1">
                     <div class="card" v-if="$gate.canPermission('user.index')">
                         <!-- /.card-header -->
                         <div class="card-body p-0">

@@ -17,6 +17,7 @@ return [
 
     'version' => env('APP_VERSION', '1.0.1'),
 
+    'contact' => env('MAIL_CONTACT', env('APP_URL')),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

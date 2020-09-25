@@ -9,7 +9,7 @@
         <!-- End Page Header -->
         <div class="container-fluid">
             <div class="row mt-5">
-                <div class="col-12">
+                <div class="col-10 offset-1">
                     <div class="card" v-if="$gate.canPermission('clinic.get.users')">
                         <div class="card-body p-0">
                             <table class="table table-hover">

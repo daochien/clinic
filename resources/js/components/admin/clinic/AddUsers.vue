@@ -15,7 +15,7 @@
             <div class="row mb-5">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-10 offset-1">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row">
@@ -53,8 +53,8 @@
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="col-12 text-lg-right">{{ $t('clinic.clinic_users.data_table._cur_staff_count') }} : {{clinic.users_count}}</div>
-                <div class="col-12">
+                <div class="col-10 offset-1 text-lg-right">{{ $t('clinic.clinic_users.data_table._cur_staff_count') }} : {{clinic.users_count}}</div>
+                <div class="col-10 offset-1">
                     <div class="card" v-if="$gate.isAdmin()">
                         <div class="card-body p-0">
                             <table class="table table-hover">
