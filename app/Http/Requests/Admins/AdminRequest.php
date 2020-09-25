@@ -63,7 +63,7 @@ class AdminRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.unique' => 'アカウントはすでに存在しています',
+            'email.unique' => 'メールアドレスはすでに存在しています',
         ];
     }
 }
