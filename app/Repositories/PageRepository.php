@@ -28,7 +28,7 @@ class PageRepository
             $query->where('type', $params['type']);
         }
 
-        if (!empty($params['status'])) {
+        if (isset($params['status'])) {
             $query->whereStatus($params['status']);
         }
 

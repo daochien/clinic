@@ -33,8 +33,8 @@
                                     <label for="feInputTitle">{{ $t('page.list.search_box._status') }}</label>
                                     <select class="form-control" v-model="form_filter.status">
                                         <option value="">{{ $t('page.list.search_box._status_pl') }}</option>
-                                        <option value="1">可能にする</option>
-                                        <option value="0">無効にする</option>
+                                        <option value="1">公開</option>
+                                        <option value="0">非公開</option>
                                     </select>
                                 </div>
                             </div>
@@ -93,8 +93,8 @@
                             <tbody>
                                 <tr v-for="(item, index) in pages" :key="index">
                                     <td>{{ index + 1 }}</td>
-                                    <td>{{ item.title | limitString20 }}</td>
-                                    <td>{{ item.type }}</td>
+                                    <td style="width: 350px;">{{ item.title }}</td>
+                                    <td>{{ getLableType(item.type) }}</td>
                                     <td>
                                         {{ item.category_name }}
                                     </td>
@@ -175,6 +175,19 @@ export default {
         this.getResults();
     },
     methods: {
+
+        getLableType (type) {
+            if (type == 'blog') {
+                return '記事';
+            } else if (type == 'manual') {
+                return 'マニュアル';
+            } else if (type == 'faq') {
+                return 'よくある質問';
+            } else {
+                return '-';
+            }
+        },
+
         async getResults (page = 1) {
             this.$Progress.start();
             this.form_filter.page = page;
@@ -252,11 +265,11 @@ export default {
 </script>
 <style scoped>
 .switchToggle input[type=checkbox]{height: 0; width: 0; visibility: hidden; position: absolute; }
-.switchToggle label {cursor: pointer; text-indent: -9999px; width: 50px; max-width: 70px; height: 22px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
+.switchToggle label {cursor: pointer; text-indent: -9999px; width: 80px; max-width: 80px; height: 22px; background: #d1d1d1; display: block; border-radius: 100px; position: relative; }
 .switchToggle label:after {content: ''; position: absolute; top: 0px; left: 2px; width: 22px; height: 22px; background: #fff; border-radius: 90px; transition: 0.3s; }
 .switchToggle input:checked + label, .switchToggle input:checked + input + label  {background: #3e98d3; }
-.switchToggle input + label:before, .switchToggle input + input + label:before {content: ''; position: absolute; top: 0px; left: 35px; width: 26px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
-.switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {content: ''; position: absolute; top: 0px; left: 10px; width: 26px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
+.switchToggle input + label:before, .switchToggle input + input + label:before {font-size: 12px; content: '非公開'; position: absolute; top: 2px; left: 35px; width: 40px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
+.switchToggle input:checked + label:before, .switchToggle input:checked + input + label:before {font-size: 12px; content: '公開'; position: absolute; top: 2px; left: 10px; width: 40px; height: 26px; border-radius: 90px; transition: 0.3s; text-indent: 0; color: #fff; }
 .switchToggle input:checked + label:after, .switchToggle input:checked + input + label:after {left: calc(100% - 2px); transform: translateX(-100%); }
 .switchToggle label:active:after {width: 60px; }
 .toggle-switchArea { margin: 10px 0 10px 0; }
