@@ -71,6 +71,10 @@
   font-size: 12px;
 }
 
+.main-sidebar .dropdown-menu .dropdown-item {
+  padding-left: 55px !important;
+}
+
 .select2-container {
   box-sizing: border-box;
   display: inline-block;

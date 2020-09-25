@@ -105,7 +105,7 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <div>{{ $t('staff.attr._user_type')}}</div>
+                                                <div>{{ $t('staff.attr._user_type')}}<span class="text-danger">*</span></div>
                                                 <div>
                                                     <template v-for="role in roles">
                                                         <div class="col-3 float-left">

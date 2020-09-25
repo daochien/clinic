@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12">
+            <div class="col-10 offset-1">
                 <div class="card" v-if="$gate.canPermission('role.store')">
                     <div class="card-body">
                          <div class="form-group row">

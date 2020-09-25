@@ -6,14 +6,15 @@
                 <h3 class="page-title">{{ $t('clinic.list._page_title') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0">
-                <router-link type="button" class="btn btn-primary pl-5 pr-5" to="/admin/clinic/create">{{ $t('clinic.list.others._btn_create')}}
+                <router-link type="button" class="btn btn-primary pl-5 pr-5" to="/admin/clinic/create">
+                    {{ $t('clinic.list.others._btn_create')}}
                 </router-link>
             </div>
         </div>
         <!-- End Page Header -->
         <div class="container-fluid">
             <div class="row mt-5">
-                <div class="col-12">
+                <div class="col-10 offset-1">
                     <div class="card" v-if="$gate.canPermission('clinic.index')">
                         <div class="card-body p-0">
                             <table class="table table-hover">
@@ -31,7 +32,7 @@
                                     <td>{{ index + 1}}</td>
                                     <td>{{ entity.name }}</td>
                                     <td>{{ entity.address }}</td>
-                                    <td>{{ entity.users_count }}</td>
+                                    <td class="text-right" style="width: 110px;padding-right: 25px;">{{ entity.users_count }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <i

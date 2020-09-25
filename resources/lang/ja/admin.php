@@ -44,7 +44,7 @@ return [
             '_new_pass_place_holder' => '新しいパスワードを入力してください',
             '_verify_pass_place_holder' => '確認用パスワードを入力してください',
             '_new_pass' => '新しいパスワード',
-            '_verify_pass' => '新しいパスワード',
+            '_verify_pass' => '新しいパスワード（確認用）',
             '_password_changed' => '管理者情報の編集が成功しました。',
             '_password_update_failed' => '管理者情報の編集に失敗しました。',
             '_current_pass_not_match' => '現在のパスワードは古いパスワードと一致しません。',

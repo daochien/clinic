@@ -58,4 +58,13 @@ class ClinicRequest extends FormRequest
             'description' => 'max:500',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'クリニック名',
+            'post_code' => '郵便番号',
+            'address' => '住所 ',
+        ];
+    }
 }

@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="row page-filter  mb-5" v-if="$gate.canPermission('manager.index')">
-            <div class="col-12 col-sm-8 offset-sm-2">
+            <div class="col-10 offset-1 col-sm-8 offset-sm-2">
                 <div class="card card-small">
                     <div class="card-body">
                         <div class="row">
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="row" v-if="$gate.canPermission('manager.index')">
-            <div class="col-12 col-sm-12">
+            <div class="col-10 offset-1">
                 <div class="card">
                     <div class="card-body p-0">
                         <table class="table table-hover">

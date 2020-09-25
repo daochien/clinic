@@ -31,4 +31,14 @@ class ChangePasswordRequest extends FormRequest
             'device_name' => 'required',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'current_password' => '現在のパスワード',
+            'new_password' => '新しいパスワード',
+            'confirm_password' => '新しいパスワード',
+            'device_name' => '装置名',
+        ];
+    }
 }

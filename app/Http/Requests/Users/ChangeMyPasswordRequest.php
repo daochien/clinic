@@ -30,4 +30,13 @@ class ChangeMyPasswordRequest extends FormRequest
             'confirm_password' => 'required|same:new_password',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'current_password' => '現在のパスワード',
+            'new_password' => '新しいパスワード',
+            'confirm_password' => '新しいパスワード',
+        ];
+    }
 }

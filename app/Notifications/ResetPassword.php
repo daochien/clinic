@@ -49,7 +49,7 @@ class ResetPassword extends Notification implements ShouldQueue
         ], false));
 
         return (new MailMessage)
-            ->subject("[" . config('app.name') . "] Reset password")
+            ->subject("[" . config('app.name') . "] パスワード再発⾏のお知らせ")
             ->markdown('emails.reset-password', ['resetLink' => $resetLink]);
     }
 

@@ -10,7 +10,7 @@
                 <button class="mb-2 btn btn-sm btn-primary" v-else @click="updateAdmin()"> {{ $t('admin.info.others._btn_edit') }}</button>
             </div>
         </div>
-        <div class="col-12 col-sm-10 offset-sm-1">
+        <div class="col-10 offset-1 col-sm-10 offset-sm-1">
             <div class="card card-small mb-3">
                 <div class="card-header border-bottom">
                     <h6 class="m-0">{{ $t('admin.info.form._subtitle') }}</h6>

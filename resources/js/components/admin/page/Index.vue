@@ -13,7 +13,7 @@
             </div>
         </div>
         <div class="row page-filter mb-5">
-            <div class="col-12 col-sm-10 offset-sm-1">
+            <div class="col-8 offset-2">
                 <div class="card card-small">
                     <div class="card-body">
                         <div class="row">
@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-sm-12">
+            <div class="col-10 offset-1">
                 <div class="card">
                     <div class="card-body p-0">
                         <table class="table table-hover">

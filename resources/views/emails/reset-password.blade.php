@@ -1,20 +1,19 @@
 @component('mail::message')
-# 【{{ config('app.name')}}】パスワード再発⾏のお知らせ
+# 【{{ config('app.name')}}】パスワード再発⾏のお知らせ <br />
 --------------------------------------
-※本メールは【{{ config('app.name')}}】よりパスワード再発⾏⼿続きを希望された⽅にお送りしています。
+※本メールは【{{ config('app.name')}}】よりパスワード再発⾏⼿続きを希望された⽅にお送りしています。 <br />
 --------------------------------------
-パスワードが再発⾏されましたので、ご連絡いたします。
+パスワードが再発⾏されましたので、ご連絡いたします。 <br /> <br />
 
 @component('mail::button', ['url' => $resetLink ])
-ResetPassword
+パスワード再設定
 @endcomponent
-{{ Lang::get('This password reset link will expire in :count minutes.',
-['count' => config('auth.passwords.'.config('auth.defaults.passwords').'.expire')])}}
+このパスワードリセットリンクは60分で期限切れになります。 <br />
 
-このパスワードは{サービス名}システムが⾃動的に発⾏したものですので、お早めにご変更ください。
-ログインはこちら
-{{ config('app.url')}}
-【このメールにお当たりのない⽅へ】
-もしお⼼当たりが無い場合は、その旨「{inquiry_mail_address}」までご連絡いただければ幸いです。
+このパスワードは{サービス名}システムが⾃動的に発⾏したものですので、お早めにご変更ください。 <br />
+ログインはこちら <br />
+{{ config('app.url')}} <br />
+【このメールにお当たりのない⽅へ】 <br />
+もしお⼼当たりが無い場合は、その旨「config('app.contact')」までご連絡いただければ幸いです。 <br />
 
 @endcomponent

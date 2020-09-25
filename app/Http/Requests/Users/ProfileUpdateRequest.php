@@ -28,4 +28,12 @@ class ProfileUpdateRequest extends FormRequest
             'email' => 'required|string|email|max:191|unique:users,email,' . $this->user()->id
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'アカウント名 ',
+            'email' => 'メールアドレス',
+        ];
+    }
 }

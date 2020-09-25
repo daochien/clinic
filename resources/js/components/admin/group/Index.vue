@@ -15,7 +15,7 @@
 
         <div class="row">
 
-          <div class="col-12">
+            <div class="col-10 offset-1">
 
             <div class="card">
               <!-- /.card-header -->

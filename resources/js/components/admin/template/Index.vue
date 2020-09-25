@@ -1,6 +1,5 @@
 <template>
     <section class="content" v-if="$gate.canPermission('template.index')">
-
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
@@ -14,9 +13,7 @@
         <!-- End Page Header -->
         <div class="container-fluid">
             <div class="row">
-
-                <div class="col-12">
-
+                <div class="col-10 offset-1">
                     <div class="card" v-if="$gate.isAdmin()">
                         <div class="card-body p-0">
                             <table class="table table-hover">
