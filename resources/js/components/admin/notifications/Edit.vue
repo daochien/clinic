@@ -3,7 +3,8 @@
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4" >
             <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('notification.info._page_title') }}</h3>
+                <h3 class="page-title" v-if="!this.form.notification_id">{{ $t('notification.info._page_title') }}</h3>
+                <h3 class="page-title" v-else>{{ $t('notification.info._page_title_edit') }}</h3>
             </div>
             <div class="col-12 col-sm-8 text-right text-sm-right mb-4 mb-sm-0" v-if="!disableForm">
                 <label class="pt-2 mr-4" @click="saveNotification(1)" style="cursor: pointer">{{ $t('notification.info.others._btn_draft_save')}}</label>
@@ -45,6 +46,7 @@
                                                         v-model="form.title"
                                                         :disabled="disableForm"
                                                     />
+                                                    <div class="invalid-feedback" v-if="errors.title" style="display: block">{{ errors.title }}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -67,6 +69,7 @@
                                                         track-by="id"
                                                         :placeholder="$t('notification.info.form.target_user_opt._manual_pl')"
                                                     ></multiselect>
+                                                    <div class="invalid-feedback" v-if="errors.group" style="display: block">{{ errors.group }}</div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-1">
@@ -124,7 +127,9 @@
                                                         :required="true"
                                                         format="YYYY-MM-DD h:i:s"
                                                         v-model='form.schedule_date'
-                                                        :disabled-dates="{ to: new Date(Date.now()) }"></datetime>
+                                                        name="datetime"
+                                                        :disabled-dates="disabledDates"></datetime>
+                                                    <div class="invalid-feedback" v-if="errors.schedule_date" style="display: block">{{ errors.schedule_date }}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -140,6 +145,7 @@
                                                         v-model="form.content"
                                                         :disabled='disableForm'
                                                     />
+                                                    <div class="invalid-feedback" v-if="errors.content" style="display: block">{{ errors.content }}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -205,6 +211,15 @@
                     draft: false,
                     schedule_date: "",
                 }),
+                errors: {
+                    title: '',
+                    content: '',
+                    group: '',
+                    schedule_date: '',
+                },
+                disabledDates: {
+                    to: new Date(Date.now() - 8640000)
+                },
                 groups: [],
                 manual: false,
                 checkedDR: false,
@@ -279,8 +294,9 @@
                             if (this.disableForm) {
                                 $('#tj-datetime-input').prop( "disabled", true );
                             }
-
-                            this.form.schedule_date = this.$moment(data.data.schedule_date).format('YYYY-MM-DD hh:mm:ss');
+                            if (data.data.schedule_date) {
+                                this.form.schedule_date = this.$moment(data.data.schedule_date).format('YYYY-MM-DD hh:mm:ss');
+                            }
                             if (data.data.confirm == 1) {
                                 this.form.confirm = true;
                             } else {
@@ -295,25 +311,44 @@
                 this.$Progress.finish();
             },
             validateForm() {
+                this.errors = {
+                    title: '',
+                    content: '',
+                    group: '',
+                    schedule_date: '',
+                };
+                
                 this.isValidate = true;
                 if (this.form.title.length <= 0) {
+                    this.errors.title = this.$t('notification').others.require_title;
                     Toast.fire({
                         icon: "error",
-                        title: this.$t('app').notification.require_title,
+                        title: this.$t('notification').others.require_title,
                     });
                     this.isValidate = false;
                 }
                 if (this.form.groups.length <= 0) {
+                    this.errors.group = this.$t('notification').others.require_group;
                     Toast.fire({
                         icon: "error",
-                        title: this.$t('app').notification.require_group,
+                        title: this.$t('notification').others.require_group,
                     });
                     this.isValidate = false;
                 }
                 if (this.form.content.length <= 0) {
+                    this.errors.content = this.$t('notification').others.require_content;
                     Toast.fire({
                         icon: "error",
-                        title: this.$t('app').notification.require_content,
+                        title: this.$t('notification').others.require_content,
+                    });
+                    this.isValidate = false;
+                }
+
+                if (this.form.schedule_date && new Date(this.form.schedule_date) <= new Date()) {
+                    this.errors.schedule_date = this.$t('notification').others.schedule_date_lte_now;
+                    Toast.fire({
+                        icon: "error",
+                        title: this.$t('notification').others.schedule_date_lte_now,
                     });
                     this.isValidate = false;
                 }

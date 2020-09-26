@@ -48,6 +48,7 @@ return [
     'info' => [
         '_og_title' => '友伸會ポータル管理画面｜お知らせ管理・お知らせ作成',
         '_page_title' => 'お知らせ作成',
+        '_page_title_edit' => 'お知らせ編集',
         'form' => [
             '_subtitle' => 'お知らせ情報',
             '_title_pl' => 'タイトルを入力してください',
@@ -100,5 +101,9 @@ return [
         '_remove_modal_no' => 'いいえ',
         '_remove_modal_title' => 'お知らせを削除',
         '_remove_modal_description' => 'このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。',
+        'require_title' => 'Title is required',
+        'require_group' => 'Group is required',
+        'require_content' => 'Content is required',
+        'schedule_date_lte_now' => 'Schedule date must be greater than now',
     ],
 ];
