@@ -1,10 +1,9 @@
 <template>
     <section class="content">
-
         <!-- Page Header -->
         <div class="page-header row no-gutters py-4">
-            <div class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
-                <h3 class="page-title">{{ $t('inquiry.list._page_title') }}</h3>
+            <div v-if="category_name" class="col-12 col-sm-4 text-center text-sm-left mb-4 mb-sm-0">
+                <h3 class="page-title">{{category_name}}の問い合わせ一覧</h3>
             </div>
         </div>
         <!-- End Page Header -->
@@ -149,6 +148,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
         data () {
             return {
                 inquirys : [],
+                category_name: '',
                 paginator: {},
                 statusSelected: '',
                 form: new Form({
@@ -158,7 +158,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                         endDate: null
                     },
                     status: 0,
-                    category_id: this.$route.params.id
+                    category_id: this.$route.params.id,
                 }),
                 localeData: {
                     direction: 'ltr',
@@ -204,6 +204,9 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                     });
                 this.$Progress.finish();
                 this.$forceUpdate();
+            },
+            getCategory(){
+                this.category_name = this.inquirys[0].category.name ?? '';
             },
             close(id) {
                 Swal.fire({
@@ -251,6 +254,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                     .then((response) => {
                         this.inquirys = response.data.data;
                         this.paginator = response.data.meta;
+                        this.getCategory();
                     });
             },
             getStatus(inquiry) {

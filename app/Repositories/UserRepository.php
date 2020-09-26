@@ -105,7 +105,7 @@ class UserRepository extends BaseRepository
             });
         }
 
-        return $query->with(['role', 'type','clinic'])->select('u.*')->paginate(10);
+        return $query->distinct()->with(['role', 'type','clinic'])->select('u.*')->paginate(10);
     }
 
     /**
