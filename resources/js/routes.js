@@ -1,7 +1,7 @@
 export default [
     { path: '/notification', component: require('./components/client/notification/Index.vue').default },
 
-    { path: '/blogs', component: require('./components/front-end/Page.vue').default, name: 'client.blog', meta: {breadcrumb: `クリニック一覧`} },
+    { path: '/blogs', component: require('./components/front-end/Page.vue').default, name: 'client.blog', meta: {breadcrumb: `グループ一覧 `} },
     { path: '/blogs/:id', component: require('./components/front-end/PageDetail.vue').default, name: 'client.blogDetail' },
 
     { path: '/manual', component: require('./components/front-end/Manual.vue').default, name: 'client.manual' },
@@ -16,11 +16,11 @@ export default [
         component: { template: '<router-view/>' },
         meta: {breadcrumb: `スタッフ管理`},
         children: [
-            { path: '', component: require('./components/admin/clinic/Index.vue').default, name: 'clinic.list', meta: {breadcrumb: `クリニック一覧`}},
-            { path: ':id/edit',component: require('./components/admin/clinic/Edit.vue').default,name: 'clinic.edit',meta: {breadcrumb: `クリニック一覧`}},
-            { path: 'create',component: require('./components/admin/clinic/Create.vue').default,name: 'clinic.create',meta: {breadcrumb: 'クリニック一覧'}},
-            { path: ':id/user', component: require('./components/admin/clinic/Users.vue').default, name: 'clinic.user',meta: {breadcrumb: `クリニック一覧`}},
-            { path: ':id/add-user', component: require('./components/admin/clinic/AddUsers.vue').default, name: 'clinic.add.user',meta: {breadcrumb: `クリニック一覧`}},
+            { path: '', component: require('./components/admin/clinic/Index.vue').default, name: 'clinic.list', meta: {breadcrumb: `グループ一覧 `}},
+            { path: ':id/edit',component: require('./components/admin/clinic/Edit.vue').default,name: 'clinic.edit',meta: {breadcrumb: `グループ一覧 `}},
+            { path: 'create',component: require('./components/admin/clinic/Create.vue').default,name: 'clinic.create',meta: {breadcrumb: 'グループ一覧 '}},
+            { path: ':id/user', component: require('./components/admin/clinic/Users.vue').default, name: 'clinic.user',meta: {breadcrumb: `グループ一覧 `}},
+            { path: ':id/add-user', component: require('./components/admin/clinic/AddUsers.vue').default, name: 'clinic.add.user',meta: {breadcrumb: `グループ一覧 `}},
         ]
     },
 
@@ -101,10 +101,10 @@ export default [
         component: {template: '<router-view/>'},
         meta: {breadcrumb: `スタッフ管理`},
         children: [
-            { path: '', component: require('./components/admin/group/Index.vue').default, meta: {breadcrumb: `クリニック一覧`} },
-            { path: 'add', component: require('./components/admin/group/Add.vue').default, name:'add_group', meta: {breadcrumb: `クリニック一覧`} },
-            { path: 'edit', component: require('./components/admin/group/Edit.vue').default, name:'edit_group', meta: {breadcrumb: `クリニック一覧`} },
-            { path: 'users', component: require('./components/admin/group/Members.vue').default, name:'users_group', meta: {breadcrumb: `クリニック一覧`} },
+            { path: '', component: require('./components/admin/group/Index.vue').default, meta: {breadcrumb: `グループ一覧 `} },
+            { path: 'add', component: require('./components/admin/group/Add.vue').default, name:'add_group', meta: {breadcrumb: `グループ一覧 `} },
+            { path: 'edit', component: require('./components/admin/group/Edit.vue').default, name:'edit_group', meta: {breadcrumb: `グループ一覧 `} },
+            { path: 'users', component: require('./components/admin/group/Members.vue').default, name:'users_group', meta: {breadcrumb: `グループ一覧 `} },
         ]
     },
 

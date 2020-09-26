@@ -91,9 +91,8 @@
             },
 
           loadGroup(){
-            if(this.$gate.isRoot()){
               axios.get("/api/group").then( (response)=>{this.groups = response.data; this.paginator = response.data.meta});
-            }
+            
           },
 
             deleteGroup(id){
