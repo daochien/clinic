@@ -56,21 +56,21 @@ class RoleController extends BaseController
 
     public function store(RoleRequest $request)
     {
-
+        
         $role = $this->role->create([
             'name' => strtolower($request->name),
             'guard_name' => 'web'
         ]);
 
         $permissions = $this->roleRepo->getNamePermissions($request->permissions);
-
+        
         if (!empty($permissions)) {
             //sync permissions to db
             $this->permission->sync($permissions);
             //asign permission to role
             $role->givePermissionTo($permissions);
         }
-
+        
         return $this->sendSuccessResponse($role, 'Role Created Successfully');
     }
 
