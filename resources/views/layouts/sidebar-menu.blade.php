@@ -96,8 +96,9 @@
 
                     @can('api.request.list')
                     @foreach (\App\Models\TemplateCategory::getAll() as $category)
+
                         <router-link to="/admin/request/category/{{$category->id}}" class="dropdown-item" onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
-                            {{ __($category->name) }}
+                            {{ __($category->name) }} ({{$category->countRequestNeedProcess($category->id)}})
                         </router-link>
                     @endforeach
                     @endcan
@@ -114,7 +115,7 @@
                         @can('api.inquiry.list')
                             @foreach (\App\Models\Inquiry::allCategory() as $category)
                                 <router-link to="/admin/inquiry/category/{{$category->id}}" class="dropdown-item" onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
-                                    {{ __($category->name) }}
+                                    {{ __($category->name) }} ({{$category->countInquiryNotClosed($category->id)}})
                                 </router-link>
                             @endforeach
                         @endcan

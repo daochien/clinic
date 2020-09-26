@@ -23,4 +23,42 @@ class Category extends Model
     {
         return $this->hasOne(Page::class, 'category_id')->latest();
     }
+
+    public function countRequestNeedProcess($catId)
+    {
+        $requestMultiApproverNeedProcess = Submission::from('form_submissions as fs')
+            ->join('forms as f', 'f.id', 'fs.form_id')
+            ->join('template_category as tc', 'tc.form_id', 'fs.form_id')
+            ->join('template_approvers as ta', 'ta.form_id','fs.form_id')
+            ->leftJoin('request_logs as rl', function($join) {
+                $join->on('fs.id', 'rl.request_id');
+                $join->on('ta.user_id', 'rl.approver_id');
+            })
+            ->whereNull('rl.approver_id')
+            ->where('tc.category_id', $catId)
+            ->where('f.multi_approve', 1)
+            ->groupBy('fs.id')
+            ->get('fs.id', 'fs.id as request_id');
+
+        $requestOnceApproverNeedProcess = Submission::from('form_submissions as fs')
+            ->join('forms as f', 'f.id', 'fs.form_id')
+            ->join('template_category as tc', 'tc.form_id', 'fs.form_id')
+            ->leftJoin('request_logs as rl', 'fs.id', 'rl.request_id')
+            ->whereNull('rl.approver_id')
+            ->where('tc.category_id', $catId)
+            ->where('f.multi_approve', 0)
+            ->groupBy('fs.id')
+            ->get('fs.id', 'fs.id as request_id');
+
+        return $requestMultiApproverNeedProcess->count() + $requestOnceApproverNeedProcess->count();
+    }
+
+    public function countInquiryNotClosed($catId)
+    {
+        return Inquiry::from('inquiry as i')
+            ->join('categories as c', 'c.id', 'i.category_id')
+            ->where('c.id', $catId)
+            ->where('i.status', Inquiry::STATUS['open'])
+            ->count();
+    }
 }

@@ -7,6 +7,7 @@ use App\Models\Attachment;
 use App\Models\Form;
 use App\Models\RequestComment;
 use App\Models\RequestCommentAttachment;
+use App\Models\RequestLog;
 use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,11 +15,6 @@ use Illuminate\Support\Facades\Storage;
 
 class RequestService
 {
-
-    public function __construct()
-    {
-    }
-
     /**
      * @param $categoryId
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
@@ -26,7 +22,12 @@ class RequestService
     public function getAll($param): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         $query = Submission::from('form_submissions as s')
-            ->join('template_category as tc', 'tc.form_id', 's.form_id');
+            ->join('template_category as tc', 'tc.form_id', 's.form_id')
+            ->join('users as u', 'u.id', 's.user_id');
+
+        if (!empty($param['keyword'])) {
+            $query->where('u.name', 'LIKE', "%{$param['keyword']}%");
+        }
 
         if (!empty($param['category_id'])) {
             $query->where('tc.category_id', $param['category_id']);
@@ -36,8 +37,60 @@ class RequestService
             $query->where('tc.form_id', $param['template_id']);
         }
 
-        return $query->with(['requestLogs', 'requestComments', 'user', 'form.approvers'])
-            ->latest()
+        if (!empty($param['start_date']) && !empty($param['end_date']) && $param['start_date'] != '1970-01-01T00:00:00.000Z') {
+            $query->where(
+                function ($qDate) use ($param) {
+                        $qDate->whereBetween('s.created_at', [new \Carbon\Carbon($param['start_date']), new \Carbon\Carbon($param['end_date'])]);
+                });
+        }
+
+        if (!empty($param['status'])) {
+            switch ($param['status']) {
+                //rejected request
+                case "4":
+                    $query->join('request_logs as rl', function ($join) {
+                        $join->on('rl.request_id', 's.id');
+                        $join->where('rl.status', RequestLog::STATUS['reject']);
+                    })
+                        ->groupBy('s.id')
+                        ->addSelect(['rl.approver_id', 'rl.status', 'rl.created_at']);
+                    break;
+                //open request
+                case "1":
+                    $query->leftJoin('request_logs as rl', function ($join) {
+                        $join->on('rl.request_id', 's.id');
+                    });
+                    $query->whereNull('rl.status')
+                        ->groupBy('s.id')
+                        ->addSelect(['rl.approver_id', 'rl.status', 'rl.created_at']);
+                    break;
+                // processing request
+                //TODO: remove open request in this filter
+                case "2":
+                    $query->join('template_approvers as ta', 'ta.form_id', 's.form_id');
+                    $query->leftJoin('request_logs as rl', function ($join) {
+                        $join->on('ta.user_id', 'rl.approver_id');
+                        $join->on('rl.request_id', 's.id');
+                    });
+                    $query->whereNull('rl.status')
+                        ->groupBy('s.id')
+                        ->addSelect(['rl.approver_id', 'rl.status', 'rl.created_at']);
+                    break;
+                // approved request
+                case "3":
+                    $query->join('template_approvers as ta', 'ta.form_id', 's.form_id');
+                    $query->join('request_logs as rl', function ($join) {
+                        $join->on('ta.user_id', 'rl.approver_id');
+                        $join->on('rl.request_id', 's.id');
+                        $join->where('rl.status', RequestLog::STATUS['approve']);
+                    })->groupBy('s.id')->addSelect(['rl.approver_id', 'rl.status', 'rl.created_at']);
+                    break;
+            }
+        }
+
+        return $query->with(['requestLogs', 'requestComments', 'user', 'form.approvers', 'form.category'])
+            ->select(['s.*'])
+            ->orderByDesc('s.created_at')
             ->paginate(10);
     }
 
@@ -61,10 +114,9 @@ class RequestService
      */
     public function getRequest($id)
     {
-        $submission = Submission::with('requestLogs', 'requestComments.user', 'requestComments.attachments', 'user', 'form.approvers', 'form.category')
+        return Submission::with('requestLogs', 'requestComments.user', 'requestComments.attachments', 'user', 'form.approvers', 'form.category')
             ->where('id', $id)
             ->firstOrFail();
-        return $submission;
     }
 
     /**

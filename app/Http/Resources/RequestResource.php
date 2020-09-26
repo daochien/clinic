@@ -17,12 +17,11 @@ class RequestResource extends JsonResource
         return [
             'id' => $this->id,
             'template_id' => $this->form_id,
-            "content" => $this->content,
+            "content" => (object) $this->content,
             "request_logs" => $this->requestLogs,
             "request_comments" => $this->requestComments,
             "template" => $this->form,
             "created_at" => $this->created_at,
-            "user" => new UserItemResource($this->whenLoaded('user')),
             "user" => new UserItemResource($this->whenLoaded('user')),
         ];
     }
