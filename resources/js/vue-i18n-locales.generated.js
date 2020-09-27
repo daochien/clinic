@@ -432,12 +432,8 @@ export default {
                 "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。",
                 "require_title": "Title is required",
                 "require_group": "Group is required",
-<<<<<<< HEAD
-                "require_content": "Content is required"
-=======
                 "require_content": "Content is required",
                 "schedule_date_lte_now": "Schedule date must be greater than now"
->>>>>>> develop-1.0
             }
         },
         "page": {
@@ -1085,22 +1081,6 @@ export default {
                     "_link_back_to_login": "ログイン画面へ戻す"
                 }
             },
-<<<<<<< HEAD
-            "others": {
-                "_remove_modal_yes": "はい",
-                "_remove_modal_no": "いいえ",
-                "_remove_modal_title": "お知らせを削除",
-                "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。",
-                "require_title": "Title is required",
-                "require_group": "Group is required",
-<<<<<<< HEAD
-                "require_content": "Content is required"
-=======
-                "require_content": "Content is required",
-                "schedule_date_lte_now": "Schedule date must be greater than now"
->>>>>>> develop-1.0
-            }
-=======
             "title_form": "社内ポータルサイト",
             "email_title": "メールアドレス",
             "email_holder": "メールアドレスを入力してください",
@@ -1114,7 +1094,6 @@ export default {
             "reset_btn": "リセット",
             "failed": "ログインに失敗しました。",
             "throttle": "ログインの試行回数が多すぎます。{seconds} 秒後にお試しください。"
->>>>>>> fix-feedback
         },
         "clinic": {
             "attr": {
@@ -1484,7 +1463,8 @@ export default {
                 "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。",
                 "require_title": "Title is required",
                 "require_group": "Group is required",
-                "require_content": "Content is required"
+                "require_content": "Content is required",
+                "schedule_date_lte_now": "Schedule date must be greater than now"
             }
         },
         "page": {
