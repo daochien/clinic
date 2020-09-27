@@ -20,6 +20,7 @@ class NotificationFetchResource extends JsonResource
             'title' => $this->notification->title,
             'content' => $this->notification->content,
             'status' => $this->status->pluck('status'),
+            'confirm' => $this->notification->confirm,
             'created_at' => $this->created_at,
             'creator' => [
                 'name' => $this->notification->creator->name,
