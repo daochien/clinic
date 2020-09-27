@@ -109,7 +109,7 @@
                                             </span>
                                         </div>
                                     </td>
-                                    <td> {{getStatus(request)}}</td>
+                                    <td> <span :class="statusLabelClass">{{getStatus(request)}}</span></td>
                                     <td>{{ request.created_at|myDate }}</td>
                                     <td>{{ getLastRequestLog(request)|myDate }}</td>
                                     <td>
@@ -171,6 +171,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                 paginator : {},
                 status_label: '',
                 category_name: '',
+                statusLabelClass: '',
                 localeData: {
                     direction: 'ltr',
                     format: 'mm/dd/yyyy',
@@ -301,6 +302,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
             getStatus(object) {
                 self = this;
                 if (object.request_logs.length === 0) {
+                    this.statusLabelClass = 'text-warning';
                     this.status_label = 'btn-warning';
                     return this.$t('request').attr.status._open;
                 }
@@ -308,6 +310,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                 let approvedCount = 0;
                 _.forEach(object.request_logs, function (log, logKey) {
                     if (log.status === 2) {
+                        self.statusLabelClass = 'text-secondary';
                         self.status_label = 'btn-secondary';
                         return self.$t('request').attr.status._rejected;
                     }
@@ -315,10 +318,12 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                 });
 
                 if (approvedCount === object.template.approvers.length) {
+                    this.statusLabelClass = 'text-info';
                     this.status_label = 'btn-info';
                     return this.$t('request').attr.status._approved;
                 }
 
+                this.statusLabelClass = 'text-primary';
                 this.status_label = 'btn-primary';
                 return this.$t('request').attr.status._in_progress;
             },

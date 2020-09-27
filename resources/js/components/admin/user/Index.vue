@@ -164,6 +164,12 @@
             }
         },
         methods: {
+            resetKeyword() {
+                this.keyword = '';
+                this.clinicSelected = '';
+                this.typeSelected = '';
+                this.getResults();
+            },
             getResults(page = 1) {
                 this.$Progress.start();
                 axios

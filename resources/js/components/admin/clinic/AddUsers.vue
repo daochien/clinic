@@ -35,7 +35,7 @@
                                     <div class="row mt-2">
                                         <div class="col-6 text-right">
                                             <button
-                                                type="reset"
+                                                type="button"
                                                 class="btn btn-outline-secondary pl-4 pr-4" @click="resetKeyword()"
                                             >{{ $t('common.list.search_box._btn_reset')}}
                                             </button>
