@@ -43,10 +43,15 @@ class ResetPassword extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $resetLink = url(route('password.reset', [
+        $user = auth()->user();
+        $resetUrl = route('password.reset');
+        if ($user->isMobileUser()) {
+            $resetUrl = env('APP_MOBILE_ID') . '://password_reset';
+        }
+        $resetLink = url($resetUrl, [
             'token' => $this->token,
             'email' => $notifiable->getEmailForPasswordReset(),
-        ], false));
+        ], false);
 
         return (new MailMessage)
             ->subject("[" . config('app.name') . "] パスワード再発⾏のお知らせ")

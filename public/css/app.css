@@ -75,6 +75,11 @@
   padding-left: 55px !important;
 }
 
+i#operatingAction {
+  display: block;
+  width: 100% !important;
+}
+
 .select2-container {
   box-sizing: border-box;
   display: inline-block;

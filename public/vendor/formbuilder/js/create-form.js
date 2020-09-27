@@ -126,10 +126,13 @@ jQuery(function() {
 
         // make sure the form builder is not empty
         if (! formBuilder.actions.getData().length) {
-            swal({
-                title: "Error",
-                text: "The form builder cannot be empty",
-                icon: 'error',
+            swal.fire({
+                title: "エラー",
+                text: "テンプレートを空にすることはできません",
+                // showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'はい',
+                // cancelButtonText: 'キャンセル',
             })
             return
         }
@@ -197,10 +200,14 @@ jQuery(function() {
 
         // make sure the form builder is not empty
         if (! formBuilder.actions.getData().length) {
-            swal({
-                title: "Error",
-                text: "The form builder cannot be empty",
-                icon: 'error',
+            swal.fire({
+                title: "エラー",
+                text: "テンプレートを空にすることはできません",
+                // showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'はい',
+                // cancelButtonText: 'キャンセル',
             })
             return
         }
@@ -237,27 +244,15 @@ jQuery(function() {
                     fbClearBtn.removeAttr('disabled')
 
                     if (response.success) {
-                        // the form has been created
-                        // send the user to the form index page
-                        swal({
-                            title: "Form Saved!",
-                            text: response.details || '',
-                            icon: 'success',
-                        })
-
-                        setTimeout(function() {
-                            window.location = response.dest
-                        }, 1500);
-
-                        // clear out the form
-                        // $('#name').val('')
-                        // $('#visibility').val('')
-                        // $('#allows_edit').val('0')
+                        window.location = response.dest
                     } else {
-                        swal({
-                            title: "Error",
-                            text: response.details || 'Error',
-                            icon: 'error',
+                        swal.fire({
+                            title: "エラー",
+                            text: response.message || "新規申請テンプレートの作成に失敗しました",
+                            // showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            cancelButtonColor: '#3085d6',
+                            confirmButtonText: 'はい',
                         })
                     }
                 }, function(error) {

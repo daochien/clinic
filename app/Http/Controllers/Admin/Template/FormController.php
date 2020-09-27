@@ -96,7 +96,6 @@ class FormController extends Controller
                         'dest' => config('app.url') . "/admin/template",
                     ]);
         } catch (Throwable $e) {
-            info($e);
             DB::rollback();
 
             return response()->json(['success' => false, 'details' => __('common.messages._system_err')]);

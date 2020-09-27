@@ -39,7 +39,7 @@ class NotificationRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:50',
-            'content' => 'required',
+            'content' => 'required|max:500',
             'confirm' => 'required|boolean',
             'draft' => 'required|boolean'
         ];
@@ -54,7 +54,7 @@ class NotificationRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:50',
-            'content' => 'required',
+            'content' => 'required|max:500',
             'confirm' => 'required|boolean',
             'draft' => 'required|boolean'
         ];

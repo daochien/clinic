@@ -39,7 +39,7 @@ class GroupRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:191|unique:groups',
-            'description' => 'required',
+            'description' => 'required|max:500',
             'forced' => 'required|integer'
         ];
     }
@@ -53,7 +53,7 @@ class GroupRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:191|unique:groups',
-            'description' => 'required',
+            'description' => 'required|max:500',
             'forced' => 'required|integer'
         ];
     }
@@ -61,7 +61,7 @@ class GroupRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.unique' => '指定の名前は既に使用されています',            
+            'name.unique' => '指定の名前は既に使用されています',
         ];
     }
 }
