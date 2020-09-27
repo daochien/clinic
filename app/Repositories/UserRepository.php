@@ -38,7 +38,7 @@ class UserRepository extends BaseRepository
             $query->where('name', 'like', '%' . $params['keyword'] . '%');
         }
 
-        return $query->with('roles')->latest()->paginate($limit);
+        return $query->whereNotIn('id', User::ID_USER_ROOT)->with('roles')->latest()->paginate($limit);
 
         // if (!empty($params['role'])) {
         //     $roles = is_array($params['role']) ? $params['role'] : [$params['role']];

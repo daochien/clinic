@@ -78,7 +78,6 @@
         methods: {
           createGroup(){
               this.$Progress.start();
-            console.log(this.form);
               this.form.post('/api/group')
               .then((data)=>{
                   Toast.fire({

@@ -29,6 +29,8 @@ class User extends Authenticatable // implements MustVerifyEmail
 
     const POSITTION = ['BOD' => 1, 'HR' => 2];
 
+    const ID_USER_ROOT = [1];
+
     use Notifiable, HasApiTokens, HasRoles;
 
     //protected $guard_name = 'api';

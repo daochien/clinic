@@ -46,6 +46,7 @@
                                 <permission
                                 v-for="(route, index) in listRoutes"
                                 :key="index"
+                                v-show="index != 'setting'"
                                 :data-route="route"
                                 :idx="index"
                                 :has-pers="roleHasPermissions"
@@ -85,7 +86,7 @@ export default {
             listRoutes: [],
         }
     },
-     created () {
+     created () {        
         this.loadRoutes();
     },
     methods: {
@@ -112,6 +113,7 @@ export default {
             this.$Progress.start();
             axios.get('/api/permission/routes').then(({ data }) => {
                 this.listRoutes = data.data;
+                console.log(this.listRoutes);
                 this.infoRole();
             });
             this.$Progress.finish();
