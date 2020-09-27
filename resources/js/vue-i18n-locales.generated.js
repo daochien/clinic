@@ -450,7 +450,12 @@ export default {
                 "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。",
                 "require_title": "Title is required",
                 "require_group": "Group is required",
+<<<<<<< HEAD
                 "require_content": "Content is required"
+=======
+                "require_content": "Content is required",
+                "schedule_date_lte_now": "Schedule date must be greater than now"
+>>>>>>> develop-1.0
             }
         },
         "role": {
@@ -1386,7 +1391,12 @@ export default {
                 "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。",
                 "require_title": "Title is required",
                 "require_group": "Group is required",
+<<<<<<< HEAD
                 "require_content": "Content is required"
+=======
+                "require_content": "Content is required",
+                "schedule_date_lte_now": "Schedule date must be greater than now"
+>>>>>>> develop-1.0
             }
         },
         "role": {

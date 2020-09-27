@@ -104,5 +104,6 @@ return [
         'require_title' => 'Title is required',
         'require_group' => 'Group is required',
         'require_content' => 'Content is required',
+        'schedule_date_lte_now' => 'Schedule date must be greater than now',
     ],
 ];

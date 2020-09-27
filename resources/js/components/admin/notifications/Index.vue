@@ -146,13 +146,16 @@
                                         <label v-if="entity.confirm === 1">{{ entity.users_confirm }}</label>
                                         <label v-else> -- </label>
                                     </td>
-                                    <td>{{ $moment(entity.schedule_date).format('YYYY-MM-DD hh:mm:ss') }}</td>
+                                    <td>
+                                        <span v-if="!entity.schedule_date"> -- </span>
+                                        <span v-else>{{ $moment(entity.schedule_date).format('YYYY-MM-DD hh:mm:ss') }}</span>
+                                    </td>
                                     <td>
                                         <label class="text-secondary" v-if="entity.draft">{{ $t('notification.attr.status._private')}}</label>
                                         <label class="text-warning" v-else>{{ $t('notification.attr.status._public')}}</label>
                                     </td>
                                     <td>
-                                        <div class="btn-group">
+                                        <div class="dropdown">
                                             <i
                                                 class="fa fa-ellipsis-v fa-fw"
                                                 id="operatingAction"

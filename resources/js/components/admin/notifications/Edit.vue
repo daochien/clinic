@@ -127,7 +127,9 @@
                                                         :required="true"
                                                         format="YYYY-MM-DD h:i:s"
                                                         v-model='form.schedule_date'
-                                                        :disabled-dates="{ to: new Date(Date.now()) }"></datetime>
+                                                        name="datetime"
+                                                        :disabled-dates="disabledDates"></datetime>
+                                                    <div class="invalid-feedback" v-if="errors.schedule_date" style="display: block">{{ errors.schedule_date }}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -213,6 +215,10 @@
                     title: '',
                     content: '',
                     group: '',
+                    schedule_date: '',
+                },
+                disabledDates: {
+                    to: new Date(Date.now() - 8640000)
                 },
                 groups: [],
                 manual: false,
@@ -305,6 +311,13 @@
                 this.$Progress.finish();
             },
             validateForm() {
+                this.errors = {
+                    title: '',
+                    content: '',
+                    group: '',
+                    schedule_date: '',
+                };
+
                 this.isValidate = true;
                 if (this.form.title.length <= 0) {
                     this.errors.title = this.$t('notification').others.require_title;
@@ -327,6 +340,15 @@
                     Toast.fire({
                         icon: "error",
                         title: this.$t('notification').others.require_content,
+                    });
+                    this.isValidate = false;
+                }
+
+                if (this.form.schedule_date && new Date(this.form.schedule_date) <= new Date()) {
+                    this.errors.schedule_date = this.$t('notification').others.schedule_date_lte_now;
+                    Toast.fire({
+                        icon: "error",
+                        title: this.$t('notification').others.schedule_date_lte_now,
                     });
                     this.isValidate = false;
                 }
