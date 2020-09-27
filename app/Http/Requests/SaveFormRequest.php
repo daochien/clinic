@@ -36,4 +36,16 @@ class SaveFormRequest extends FormRequest
             'form_builder_json' => 'required|json',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'タイトル',
+            'category' => '申請項目',
+            'approver' => '承認担当者',
+            'description' => 'メモ',
+            'multi_approve' => '全員承認',
+            'form_builder_json' => '申請情報',
+        ];
+    }
 }
