@@ -92,7 +92,7 @@
                                 <tbody>
                                 <tr v-for="(user, index) in users" :key="'user_' + user.id">
                                     <td>{{index + 1}}</td>
-                                    <td class="text-capitalize">{{user.name}}</td>
+                                    <td>{{user.name}}</td>
                                     <td>{{user.email}}</td>
                                     <td>
                                         <template v-if="user.type.length !== 0">
