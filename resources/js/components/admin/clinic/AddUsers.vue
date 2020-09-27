@@ -73,7 +73,7 @@
                                 <tbody>
                                 <tr v-for="user in users" :key="user.id">
                                     <td>
-                                        <input type="checkbox" @click="select" :checked="isChecked(user.id)" :value="user.id" @change="changeChecked">
+                                        <input :disabled="belongToClinic(user.id)" type="checkbox" @click="select" :checked="isChecked(user.id)" :value="user.id" @change="changeChecked">
                                     </td>
                                     <td>{{ user.name }}</td>
                                     <td>{{ user.email }}</td>
@@ -129,6 +129,9 @@
             }
         },
         methods: {
+            belongToClinic(id) {
+               return  _.findIndex(this.clinic.users, ['id', id]) >= 0;
+            },
             getResults(page = 1) {
                 this.$Progress.start();
                 axios
