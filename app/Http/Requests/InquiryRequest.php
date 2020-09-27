@@ -29,16 +29,16 @@ class InquiryRequest extends FormRequest
         return [
             'title' => 'required|string|max:200',
             'category_id' => "required|integer|in:{$inquiryCategory}",
-            'question' => 'required',
+            'question' => 'required|max:500',
         ];
     }
 
     public function attributes()
     {
         return [
-            '題名' => 'クリニック名',
-            'カテゴリ' => '郵便番号',
-            '内容' => '住所 ',
+            'title' => '題名',
+            'category_id' => 'カテゴリ',
+            'question' => '内容 ',
         ];
     }
 }

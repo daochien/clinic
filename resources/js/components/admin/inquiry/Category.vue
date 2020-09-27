@@ -100,7 +100,7 @@
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ inquiry.title }}</td>
                                     <td>{{ inquiry.created_by.name }}</td>
-                                    <td> {{getStatus(inquiry)}}</td>
+                                    <td> <span :class="statusLabelClass">{{getStatus(inquiry)}}</span></td>
                                     <td>{{ inquiry.created_at|myDate }}</td>
                                     <td>{{ inquiry.closed_at|myDate }}</td>
                                     <td>
@@ -151,6 +151,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                 category_name: '',
                 paginator: {},
                 statusSelected: '',
+                statusLabelClass: '',
                 form: new Form({
                     keyword: "",
                     release_date: {
@@ -259,8 +260,11 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
             },
             getStatus(inquiry) {
                 if (inquiry.closed_by.length === 0) {
+                    this.statusLabelClass = "text-warning";
                     return this.$t('inquiry').attr.status._open;
                 }
+
+                this.statusLabelClass = "text-primary";
                 return  this.$t('inquiry').attr.status._closed;
             },
         },

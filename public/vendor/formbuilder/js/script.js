@@ -2,7 +2,6 @@ function handleAjaxError(error) {
 	var errMsg = "An error occurred while processing your request"
 	var errTitle = "Error"
 
-	console.log(error)
 	// check if this is a validation error
 	if (error.status === 422) {
 		var json = error.responseJSON
@@ -14,16 +13,16 @@ function handleAjaxError(error) {
 				var messages = json.errors[key]
 				console.log(key, messages)
 				messages.forEach(function(message) {
-					errMsg += key.toUpperCase() + ': ' + message + '\n'
+					errMsg += key + ': ' + message + '\r\n'
 				})
 			})
 		}
 	}
 
-	swal({
-	    title: errTitle,
+	swal.fire({
+	    // title: errTitle,
 	    text: errMsg,
-	    icon: 'error',
+	    // icon: 'error',
 	})
 
 	return errMsg
@@ -31,23 +30,24 @@ function handleAjaxError(error) {
 
 
 function sConfirm(message, callback, type, title, cancelled) {
-	var title = title || 'Are you sure?'
+	// var title = title || 'Are you sure?'
 	var type = type || 'warning'
 	var message = message || 'Message'
 	var callback = callback || function () {}
 	var cancelled = cancelled || function () {}
 
-	swal({
-	  // title: title,
-	  text: message,
-	  icon: type,
-	  cancelButtonColor: '#d33',
-	  disableButtonsOnConfirm: true,
-	  dangerMode: (type == 'warning' || type == 'danger'),
-	  buttons: true,
+	swal.fire({
+        title: title,
+        text: message,
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'はい',
+        cancelButtonText: 'キャンセル',
 	})
-	.then(function(result) {
-		if (result) {
+	.then((result) =>  {
+	    console.log(result);
+		if (result.value) {
 			callback()
 		} else {
 			cancelled()
