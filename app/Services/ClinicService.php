@@ -39,6 +39,10 @@ class ClinicService
             $group = Group::where('name', $clinic->name)->first();
 
             DB::beginTransaction();
+            // delete all old relation
+            ClinicUser::where('clinic_id', $clinic->id)->delete();
+            GroupUser::where('group_id', $group->id)->delete();
+            //create new relation
             $clinicUserData = [];
             $groupUserData = [];
             foreach ( $userIds as $userId) {
