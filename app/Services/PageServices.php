@@ -24,7 +24,7 @@ class PageServices
     public function createPage($attribute)
     {
         DB::beginTransaction();
-        try {            
+        try {                        
             $page = $this->pageRepo->create($attribute);
 
             if (isset($attribute['groups'])) {
@@ -52,7 +52,7 @@ class PageServices
                     $files = [
                         'name' => $file->getClientOriginalName(),
                         'path' => $pathFile,
-                        'size' => $file->getSize(),
+                        'size' => $this->_convertSizeToMB($file->getSize()),
                         'extension' => $file->getClientOriginalExtension()
                     ];
                 }
@@ -73,6 +73,7 @@ class PageServices
     {
         DB::beginTransaction();
         try {
+            
             $page = $this->page->findOrFail($id);
             $page->update($this->_buildDataUpdate($attribute->all()));
 
@@ -109,7 +110,7 @@ class PageServices
                     $files = [
                         'name' => $file->getClientOriginalName(),
                         'path' => $pathFile,
-                        'size' => $file->getSize(),
+                        'size' => $this->_convertSizeToMB($file->getSize()),
                         'extension' => $file->getClientOriginalExtension()
                     ];
                 }
@@ -167,5 +168,14 @@ class PageServices
         return false;
     }
     
+    protected function _convertSizeToMB($size)
+    {
+        try {
+            $size = number_format($size / 1048576, 2);            
+            return $size . ' MB';
+        } catch (\Exception $e) {
+            return '0 MB';
+        }
+    }
 }
 ?>
