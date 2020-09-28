@@ -73,7 +73,7 @@
                                 <tbody>
                                 <tr v-for="user in users" :key="user.id">
                                     <td>
-                                        <input :disabled="belongToClinic(user.id)" type="checkbox" @click="select" :checked="isChecked(user.id)" :value="user.id" @change="changeChecked">
+                                        <input :checked="belongToClinic(user.id)" type="checkbox" @click="select" :value="user.id" @change="changeChecked">
                                     </td>
                                     <td>{{ user.name }}</td>
                                     <td>{{ user.email }}</td>
@@ -119,18 +119,26 @@
                 clinic: {}
             };
         },
-        watch: {
-            userIds: function (val) {
-                if(_.size(this.users) == _.size(this.userIds)) {
-                    this.allSelected = true;
-                } else {
-                    this.allSelected = false;
-                }
-            }
-        },
+        // watch: {
+        //     userIds: function (val) {
+        //         if(_.size(this.users) == _.size(this.userIds)) {
+        //             this.allSelected = true;
+        //         } else {
+        //             this.allSelected = false;
+        //         }
+        //     }
+        // },
         methods: {
             belongToClinic(id) {
-               return  _.findIndex(this.clinic.users, ['id', id]) >= 0;
+                let added = _.findIndex(this.clinic.users, ['id', id]) >= 0;
+                if (added){
+                   return true;
+                }
+               //
+               //  if (!firstTime && (_.indexOf(this.userIds, id) > -1)) {
+               //     return true;
+               // }
+               return false;
             },
             getResults(page = 1) {
                 this.$Progress.start();
@@ -186,11 +194,9 @@
             select() {
                 this.allSelected = false;
             },
-            isChecked(userId) {
-                return _.indexOf(this.userIds, userId) > -1 ? true : false;
-            },
             changeChecked(event) {
-                if(event.target.checked) {
+                let userChecked = (_.indexOf(this.userIds, parseInt(event.target.value)) > -1);
+                if(!userChecked) {
                     this.userIds = _.union(this.userIds, [parseInt(event.target.value)]);
                 } else {
                     this.userIds = _.without(this.userIds, parseInt(event.target.value));
@@ -203,7 +209,14 @@
                 axios.get("/api/clinic/" + this.$route.params.id)
                     .then(({ data }) => {
                         this.clinic = data.data;
+                        this.initUserSelected();
                     });
+            },
+            initUserSelected() {
+                self = this;
+                _.forEach(this.clinic.users, function (user) {
+                    self.userIds = _.union(self.userIds, [user.id]);
+                })
             }
         },
         created() {
