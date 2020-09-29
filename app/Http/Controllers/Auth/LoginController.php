@@ -75,7 +75,7 @@ class LoginController extends Controller
             return $request->wantsJson() ? response()->json('Permission Denied', 403) : redirect('/login');
         } elseif ($authUser->isWebUser()) {
             LoginLog::create(['user_id' => $authUser->id]);
-            return redirect('/blogs');
+            return redirect('/notification');
         }else {
             LoginLog::create(['user_id' => $authUser->id]);
             return redirect()->intended($this->redirectPath());

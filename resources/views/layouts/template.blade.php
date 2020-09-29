@@ -117,7 +117,7 @@
                             </a>
                             @foreach (\App\Models\TemplateCategory::getAll() as $category)
                                 <a href="/admin/request?category_id={{$category->id}}" class="dropdown-item">
-                                    {{ __($category->name) }}
+                                    {{ __($category->name) }} ({{$category->countRequestNeedProcess($category->id)}})
                                 </a>
                             @endforeach
                         </div>
@@ -133,7 +133,7 @@
                                 @can('api.inquiry.list')
                                     @foreach (\App\Models\Inquiry::allCategory() as $category)
                                         <a href="/admin/inquiry?category_id={{$category->id}}" class="dropdown-item">
-                                            {{ __($category->name) }}
+                                            {{ __($category->name) }} ({{$category->countInquiryNotClosed($category->id)}})
                                         </a>
                                     @endforeach
                                 @endcan
@@ -221,6 +221,17 @@
 </div>
 {{-- ./wrapper --}}
 
+@auth
+    <script>
+        {{--window.user = @json(auth()->user())--}}
+        window.user = @json(\App\Models\User::where('id', auth()->user()->id)->with(['typeUsers.type', 'roleUsers.role'])->first());
+        window.user.is_root = '{!! auth()->user()->isRoot() !!}';
+        window.user.roles = @json(auth()->user()->roles);
+        window.user.permissions = @json(auth()->user()->getAllPermissions());
+        window.user.posittion = @json(\App\Models\User::POSITTION);
+        window.base_url = "{{config('app.url')}}"
+    </script>
+@endauth
 <script src="{{ mix('/js/app.js') }}"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
@@ -231,6 +242,7 @@
         csrfToken: '{{ csrf_token() }}',
     }
 </script>
+
 <script src="{{ asset('vendor/formbuilder/js/jquery-ui.min.js') }}" defer></script>
 <script src="{{ asset('vendor/formbuilder/js/sweetalert2.all.min.js') }}" defer></script>
 <script src="{{ asset('vendor/formbuilder/js/jquery-formbuilder/form-builder.min.js') }}" defer></script>
