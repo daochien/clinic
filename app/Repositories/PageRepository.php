@@ -69,6 +69,7 @@ class PageRepository
             'category_id' => $attributes['category_id'],
             'summary' => $attributes['summary'],
             'owner_id' => Auth::user()->id,
+            'type' => $attributes['type']
         ]);
 
     }
