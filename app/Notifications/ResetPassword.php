@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -43,15 +44,14 @@ class ResetPassword extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $user = auth()->user();
-        $resetUrl = route('password.reset');
-        if ($user->isMobileUser()) {
-            $resetUrl = env('APP_MOBILE_ID') . '://password_reset';
-        }
-        $resetLink = url($resetUrl, [
+        $email = $notifiable->getEmailForPasswordReset();
+        $user  = User::where('email', $email)->first();
+
+        $params = [
             'token' => $this->token,
             'email' => $notifiable->getEmailForPasswordReset(),
-        ], false);
+        ];
+        $resetLink = url($user->isMobileUser() ? route('password.mobile.reset', $params, false) : route('password.reset', $params, false));
 
         return (new MailMessage)
             ->subject("[" . config('app.name') . "] パスワード再発⾏のお知らせ")
