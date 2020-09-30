@@ -14,15 +14,19 @@
                     <p>私たちはインフォームドコンセントを重視し、歯の悩みをお気軽に相談してもらえる歯医者を目指しています。</p>
                 </div>
                 <div class="col col-right">
-                    <div class="news-slider" ref="slick" :key="keySlider">
-                        <div class="news-slider-item" v-for="(blog, index) in blogs" :key="index" v-if="index < 5">
-                            <a :href="'blogs/'+blog.id">
-                                <img :src="blog.image" alt="">
-                                <span class="title">{{ blog.title }}</span>
-                                <span class="date">{{ blog.created_at | dateFormat }}</span>
-                            </a>
-                        </div>
-                    </div>
+                    <!-- <div class="news-slider" ref="slick" > -->
+                        <slick class="news-slider" ref="slick" :options="slickOptions">
+                            
+                            <div class="news-slider-item" v-for="(blog, index) in blogs" :key="index" v-if="index < 5">
+                                <router-link :to="'blogs/'+blog.id">
+                                    <img v-if="blog.image" :src="blog.image" alt="">
+                                    <img v-else src="/front-end/images/news-slider-img.png" alt="">
+                                    <span class="title">{{ blog.title }}</span>
+                                    <span class="date">{{ $moment(blog.created_at).format('DD/MM/YYYY') }}</span>
+                                </router-link>
+                            </div>
+                        </slick>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
@@ -44,7 +48,7 @@
                                 {{ blog.summary }}
                             </p>
                             <div class="blog-meta">
-                                <span>{{ blog.created_at | dateFormat }}</span>
+                                <span>{{ $moment(blog.created_at).format('DD/MM/YYYY') }}</span>
                                 <span>|</span>
                                 <span>記事</span>
                             </div>
@@ -59,14 +63,16 @@
 </template>
 
 <script>
+
+import Slick from 'vue-slick';
 import SideBar from './SideBar';
 export default {
     components: {
-        SideBar
+        SideBar,
+        Slick
     },
     data() {
-        return {
-            keySlider: Date.now(),
+        return {            
             blogsLatest: [],
             manuals: [],
             faqs: [],
@@ -75,14 +81,32 @@ export default {
             pagination: {
                 page: 1,
                 total: 10
+            },
+            slickOptions: {
+                dots: false,
+                autoplay: true,
+                autoplaySpeed: 5000,
+                arrows: true,
+                infinite: true,
+                speed: 500,
+                fade: false,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                variableWidth: true
             }
         }
     },
     created() {
-        
+        this.loadBlogs();
     },
+    
     mounted() {
-        this.loadBlogs();        
+                 
+        //this.reloadSlick();
+    },
+    updated () {
+        // console.log('xx');
+        //this.reloadSlick();
     },
     methods: {
         
@@ -94,9 +118,13 @@ export default {
                 } = await axios.get('api/page?type=blog&page=' + page);
                 this.blogs = this.blogs.concat(data.data);
                 this.pagination = data.meta;
-                this.$nextTick(function () {
-                    this.reloadSlick();
-                });
+                 let currIndex = this.$refs.slick.currentSlide()
+                this.$refs.slick.destroy()
+                this.$nextTick(() => {
+                    this.$refs.slick.create()
+                    this.$refs.slick.goTo(currIndex, true)
+                })
+
             } catch (error) {
                 console.log(error);
             }
@@ -108,17 +136,13 @@ export default {
             if (this.pagination.current_page <= this.pagination.last_page) {
                 this.loadBlogs(this.pagination.current_page);
             }
-        },
-        reloadSlick() {
-            try {
-                $('.news-slider').slick('refresh');
-            } catch (error) {}
-
-        },
-        
+        },                
     }
 }
 </script>
+<style >
+    @import '../../../../../node_modules/slick-carousel/slick/slick.css';
+</style>
 
 <style lang="scss" scoped>
 .blog-info {
