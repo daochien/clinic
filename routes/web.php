@@ -8,6 +8,7 @@ Route::get('/', function () {
 });
 
 Auth::routes(['verify' => true]);
+Route::get('/password/reset/app/{token}', 'Auth\ResetPasswordController@resetPasswordByApp')->name('password.mobile.reset');
 Route::prefix('/notification/')
     ->middleware('auth')
     ->namespace('Client')

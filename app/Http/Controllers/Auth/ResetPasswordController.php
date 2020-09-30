@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\JsonResponse;
@@ -52,5 +53,21 @@ class ResetPasswordController extends Controller
     protected function validationErrorMessages()
     {
         return [];
+    }
+
+    public function resetPasswordByApp(Request $request, $token)
+    {
+        $email = $request->input('email');
+        if (empty($token) || empty($email)) {
+            return null;
+        }
+        $user  = User::where('email', $email)->first();
+
+        if (!$user->isMobileUser()) {
+            return null;
+        }
+        $resetUrl = env('APP_MOBILE_ID') . "://password_reset/{$token}?email={$email}";
+
+        return view('auth.passwords.mobile.reset')->with(['resetUrl' => $resetUrl]);
     }
 }
