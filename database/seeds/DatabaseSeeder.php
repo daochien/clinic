@@ -17,18 +17,9 @@ class DatabaseSeeder extends Seeder
         $this->call(LevelSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(CategoriesTemplateSeeder::class);
+        $this->call(CategoriesInquirySeeder::class);
         $this->call(CategoryFAQSeeder::class);
         $this->call(PageSeeder::class);
         $this->call(UpdateRoleOperatorSeeder::class);
-//        $this->call(GroupUsersTableSeeder::class);
-        //        $this->call(CategoriesTableSeeder::class);
-        //        $this->call(TagsTableSeeder::class);
-        //        $this->call(ProductsTableSeeder::class);
-        //duplicate product for data
-        //        $this->call(ProductsTableSeeder::class);
-        //        $this->call(GroupsTableSeeder::class);
-
-        //        $this->call(NotificationsTableSeeder::class);
-        //        $this->call(NotificationGroupsTableSeeder::class);
     }
 }

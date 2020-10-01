@@ -100,7 +100,7 @@
                                     <td>{{ index + 1 }}</td>
                                     <td>{{ inquiry.title }}</td>
                                     <td>{{ inquiry.created_by.name }}</td>
-                                    <td> <span :class="statusLabelClass">{{getStatus(inquiry)}}</span></td>
+                                    <td v-html="getStatus(inquiry)"></td>
                                     <td>{{ inquiry.created_at|myDate }}</td>
                                     <td>{{ inquiry.closed_at|myDate }}</td>
                                     <td>
@@ -260,12 +260,10 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
             },
             getStatus(inquiry) {
                 if (inquiry.closed_by.length === 0) {
-                    this.statusLabelClass = "text-warning";
-                    return this.$t('inquiry').attr.status._open;
+                    return '<span class="text-warning">' + this.$t('inquiry').attr.status._open + '</span>'
                 }
 
-                this.statusLabelClass = "text-primary";
-                return  this.$t('inquiry').attr.status._closed;
+                return '<span class="text-primary">' + this.$t('inquiry').attr.status._closed + '</span>'
             },
         },
         mounted() {
