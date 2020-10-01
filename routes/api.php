@@ -84,6 +84,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('page/{id}', 'API\V1\PageController@update')->name('page.update');
         Route::post('category', 'API\V1\CategoryController@store')->name('category.store');
 
+        Route::get('manager/roles', 'API\V1\AdminController@roles')->name('manager.roles');
+
         Route::apiResources([
             'user' => 'API\V1\UserController',
             'clinic' => 'API\V1\ClinicController',

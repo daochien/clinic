@@ -153,7 +153,7 @@ export default {
     },
     methods: {
         loadRoles () {
-            axios.get("/api/role/list").then(({ data }) => (this.roles = data.data));
+            axios.get("/api/manager/roles").then(({ data }) => (this.roles = data.data));
         },
         loadType() {
             axios.get("/api/setting/type").then((response) => {

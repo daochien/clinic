@@ -132,7 +132,7 @@ export default {
 
     methods: {
         loadRoles () {
-            axios.get("/api/role/list").then(({ data }) => (this.roles = data.data));
+            axios.get("/api/manager/roles").then(({ data }) => (this.roles = data.data));
         },
         getResults(page = 1) {
             this.$Progress.start();
