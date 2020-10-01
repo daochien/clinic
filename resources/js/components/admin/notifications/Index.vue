@@ -143,7 +143,7 @@
                                     <td>{{ entity.notification_users_count }}</td>
                                     <td>{{ entity.users_read }}</td>
                                     <td>
-                                        <label v-if="entity.confirm === 1">{{ entity.users_confirm }}</label>
+                                        <label v-if="entity.confirm === 1">{{ entity.users_confirmed_count }}</label>
                                         <label v-else> -- </label>
                                     </td>
                                     <td>
@@ -173,6 +173,11 @@
                                                     @click="publishAnnouncement(entity)"
                                                 >{{ $t('notification.list.data_table.actions._act_public')}}
                                                 </button>
+                                                <router-link
+                                                    :class="'dropdown-item text-primary'"
+                                                    :to="{ name: 'details_notification', params: { id: entity.id }}"
+                                                >{{ $t('notification.list.data_table.actions._act_show_list_user')}}
+                                                </router-link>
                                                 <router-link
                                                     :class="'dropdown-item text-primary'"
                                                     :to="{ name: 'edit_notification', params: { id: entity.id }}"

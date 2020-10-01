@@ -36,6 +36,7 @@ class UserRepository extends BaseRepository
 
         if (!empty($params['keyword'])) {
             $query->where('name', 'like', '%' . $params['keyword'] . '%');
+            $query->orWhere('email', 'like', '%' . $params['keyword'] . '%');
         }
 
         return $query->whereNotIn('id', User::ID_USER_ROOT)->with('roles')->latest()->paginate($limit);

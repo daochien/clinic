@@ -207,7 +207,7 @@
                     title: "",
                     groups: [],
                     content: "",
-                    confirm: false,
+                    confirm: true,
                     draft: false,
                     schedule_date: "",
                 }),
@@ -254,7 +254,7 @@
                     title: "",
                     groups: [],
                     content: "",
-                    confirm: false,
+                    confirm: true,
                     draft: false,
                     schedule_date: "",
                 });

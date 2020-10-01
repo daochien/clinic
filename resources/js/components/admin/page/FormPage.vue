@@ -1,5 +1,9 @@
 <template>
     <div class="page-form-create">
+         <loading :active.sync="isLoading" 
+        :can-cancel="true" 
+        
+        :is-full-page="fullPage"></loading>
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
                 <h3 class="page-title">{{ isEdit ? $t('page.info._page_title_edit') : $t('page.info._page_title_create') }}</h3>
@@ -271,6 +275,9 @@ import { quillEditor } from 'vue-quill-editor'
 
 import Multiselect from "vue-multiselect";
 
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
 export default {
     props: {
         isEdit: Boolean
@@ -279,10 +286,13 @@ export default {
         datetime,
         quillEditor,
         vueDropzone: vue2Dropzone,
-        Multiselect
+        Multiselect,
+        Loading
     },
     data () {
         return {
+            isLoading: false,
+            fullPage: true,
             disabledDateStart: {
                 to: new Date(Date.now() - 8640000),
                 from: '',
@@ -354,8 +364,11 @@ export default {
             } else {
                 type = 'faq';
             }
-            this.page.category_id = '';
-            this.formCategory.type = type;
+            if (!this.isEdit) {
+                
+                this.page.category_id = '';
+                this.formCategory.type = type;
+            }            
             this.loadCategory();
         },
         pageStatus (newVal, oldVal) {
@@ -417,6 +430,7 @@ export default {
         },
         async createPage () {
             this.$Progress.start();
+            this.isLoading = true;
             try {
                 let params = this.handleSubmit();
                 let {data} = await axios.post('/api/page', params, {
@@ -447,6 +461,7 @@ export default {
                     title: 'Some error occured! Please try again'
                 });
             }
+            this.isLoading = false;
             this.$Progress.finish();
         },
         handleSubmit () {
@@ -461,8 +476,8 @@ export default {
             data.append('status', this.page.status == true ? 1 : 0);
             data.append('url', this.page.url);
             data.append('category_id', this.page.category_id);
-            data.append('content', this.page.content);
-            data.append('summary', this.page.summary);
+            data.append('content', this.page.content ? this.page.content : '');
+            data.append('summary', this.page.summary ? this.page.summary : '');
             if (this.page.groups.length > 0) {
                 data.append('groups', JSON.stringify(this.page.groups));
             }
@@ -583,7 +598,7 @@ export default {
             this.page.summary = data.summary;
             this.page.category_id = data.category_id;
             this.previewImage = data.image;
-
+            console.log(data.category_i, this.page.ca);
             if (data.groups.length > 0) {
                 data.groups.forEach((item) => {
                     this.page.groups.push({
@@ -612,6 +627,7 @@ export default {
         async updatePage () {
 
             this.$Progress.start();
+            this.isLoading = true;
             try {
                 let params = this.handleSubmit();
                 let {data} = await axios.post('/api/page/'+this.page.id, params, {
@@ -642,6 +658,7 @@ export default {
                     title: 'Some error occured! Please try again'
                 });
             }
+            this.isLoading = false;
             this.$Progress.finish();
         },
         removePage (id) {

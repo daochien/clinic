@@ -1,10 +1,10 @@
 export default [
     { path: '/notification', component: require('./components/client/notification/Index.vue').default },
 
-    { path: '/blogs', component: require('./components/front-end/Page.vue').default, name: 'client.blog', meta: {breadcrumb: `グループ一覧 `} },
-    { path: '/blogs/:id', component: require('./components/front-end/PageDetail.vue').default, name: 'client.blogDetail' },
+    { path: '/blogs', component: require('./components/client/page/Page.vue').default, name: 'client.blog', meta: {breadcrumb: `グループ一覧 `} },
+    { path: '/blogs/:id', component: require('./components/client/page/PageDetail.vue').default, name: 'client.blogDetail' },
 
-    { path: '/manual', component: require('./components/front-end/Manual.vue').default, name: 'client.manual' },
+    { path: '/manual', component: require('./components/client/page/Manual.vue').default, name: 'client.manual' },
 
     { path: '/my-account', component: require('./components/client/MyAccount').default, name: 'client.my.account' },
 

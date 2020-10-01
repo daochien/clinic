@@ -31,6 +31,7 @@ return [
                 '_act_edit' => '編集する',
                 '_act_remove' => '削除する',
                 '_act_show_details' => '詳細を確認んする',
+                '_act_show_list_user' => '送信対象者一覧を確認する',
             ],
         ],
         'messages' => [
