@@ -9,7 +9,7 @@
                 </h2>
                 <div class="blog-meta">
                     <a href="#">{{ page.categorys ? page.categorys.name : '' }}</a>
-                    <span class="date">{{ page.created_at | dateFormat }}</span>
+                    <span class="date">{{ $moment(page.created_at).format('DD/MM/YYYY') }}</span>
                 </div>                
                 <div class="blog-main-img" v-show="page.image">
                     <img :src="page.image" alt="news detail">

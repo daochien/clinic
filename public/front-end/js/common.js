@@ -24,18 +24,18 @@ $(document).ready(function(){
     $('body').addClass('overflow-hidden');
     e.preventDefault;
   });
-  $('.news-slider').slick({
-    dots: false,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    arrows: true,
-    infinite: true,
-    speed: 500,
-    fade: false,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    variableWidth: true
-  });
+  // $('.news-slider').slick({
+  //   dots: false,
+  //   autoplay: true,
+  //   autoplaySpeed: 5000,
+  //   arrows: true,
+  //   infinite: true,
+  //   speed: 500,
+  //   fade: false,
+  //   slidesToShow: 3,
+  //   slidesToScroll: 1,
+  //   variableWidth: true
+  // });
   $('.btn-menu-display').on('click', function(e) {
     $(this).toggleClass('expanded');
     $('aside').toggleClass('expanded');

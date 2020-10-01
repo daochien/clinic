@@ -34,7 +34,7 @@ class PageEditRequest extends FormRequest
             'summary' => 'max:500'
         ];
 
-        if (!empty($this->files) && count($this->files)) {
+        if (!empty($this->files) && count($this->files) && !empty($this->is_remove_file)) {
             $rules['files.*'] = 'mimes:jpeg,png,jpg,pdf,gif,webm,mp4,mpeg|max:51200';
         }
 
