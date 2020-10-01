@@ -37,16 +37,22 @@ class UserRequest extends FormRequest
      */
     public function createRules(): array
     {
-        return [
+        $rules =  [
             'name' => 'required|string|max:50',
             'email' => 'required|string|email|max:255|unique:users',
-            'type_id' => 'required',
 //            'groups' => 'required',
             'clinics' => 'required',
             'role' => 'required',
 //            'level_id' => 'nullable',
             'description' => 'nullable|max:500',
         ];
+
+        if ($this->role['id'] == 4 )
+        {
+            $rules['type_id'] = 'required';
+        }
+
+        return $rules;
     }
 
     /**
@@ -56,7 +62,7 @@ class UserRequest extends FormRequest
      */
     public function updateRules(): array
     {
-        return [
+        $rules =  [
             'name' => 'sometimes|string|max:50',
             'email' => 'required|string|email|max:255|unique:users,email,' . $this->get('id'),
             'type_id' => 'required',
@@ -66,6 +72,13 @@ class UserRequest extends FormRequest
 //            'level_id' => 'nullable',
             'description' => 'nullable|max:500',
         ];
+
+        if ($this->role['id'] == 4 )
+        {
+            $rules['type_id'] = 'required';
+        }
+
+        return $rules;
     }
 
     public function attributes()

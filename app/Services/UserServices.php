@@ -72,8 +72,9 @@ class UserServices
                     'type_id' => $attribute['type_id'],
                     'user_id' => $user->id
                 ]);
-            }
 
+                $this->addUserToGroupHaveSameType($attribute, $user);
+            }
             $clinicUser = [];
             $clinicNameList = [];
             foreach ($attribute['clinics'] as $clinic){
@@ -84,10 +85,7 @@ class UserServices
                 ];
             }
             ClinicUser::insertOrIgnore($clinicUser);
-
-            $groupUser = $this->addUserToGroupSameClinicName($clinicNameList, $user);
-            $groupUser[] = $this->addUserToGroupHaveSameType($attribute, $user);
-            GroupUser::insertOrIgnore($groupUser);
+            $this->addUserToGroupSameClinicName($clinicNameList, $user);
 
             DB::commit();
         } catch (\Exception $exception) {
@@ -123,18 +121,16 @@ class UserServices
      */
     public function addUserToGroupHaveSameType($attribute, $user)
     {
-        $groupUser = [];
         $groupTypeName = Type::find($attribute['type_id'])->name;
-
         $group = Group::where(['name' => $groupTypeName])->first();
+
         if ($group) {
-            return [
+            GroupUser::insertOrIgnore([
                 'group_id' => $group->id,
                 'user_id' => $user->id
-            ];
+            ]);
         }
 
-        return [];
     }
 
     /**

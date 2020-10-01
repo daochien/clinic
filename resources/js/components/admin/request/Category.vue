@@ -109,7 +109,7 @@
                                             </span>
                                         </div>
                                     </td>
-                                    <td> <span :class="statusLabelClass">{{getStatus(request)}}</span></td>
+                                    <td v-html="getStatus(request)"> </td>
                                     <td>{{ request.created_at|myDate }}</td>
                                     <td>{{ getLastRequestLog(request)|myDate }}</td>
                                     <td>
@@ -302,30 +302,26 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
             getStatus(object) {
                 self = this;
                 if (object.request_logs.length === 0) {
-                    this.statusLabelClass = 'text-warning';
                     this.status_label = 'btn-warning';
-                    return this.$t('request').attr.status._open;
+                    return '<span class="text-warning">' + this.$t('request').attr.status._open + '</span>'
                 }
 
                 let approvedCount = 0;
                 _.forEach(object.request_logs, function (log, logKey) {
                     if (log.status === 2) {
-                        self.statusLabelClass = 'text-secondary';
                         self.status_label = 'btn-secondary';
-                        return self.$t('request').attr.status._rejected;
+                        return '<span class="text-secondary">' + self.$t('request').attr.status._rejected + '</span>'
                     }
                     approvedCount++;
                 });
 
                 if (approvedCount === object.template.approvers.length) {
-                    this.statusLabelClass = 'text-info';
                     this.status_label = 'btn-info';
-                    return this.$t('request').attr.status._approved;
+                    return '<span class="text-info">' + this.$t('request').attr.status._approved + '</span>'
                 }
 
-                this.statusLabelClass = 'text-primary';
                 this.status_label = 'btn-primary';
-                return this.$t('request').attr.status._in_progress;
+                return '<span class="text-primary">' + this.$t('request').attr.status._in_progress + '</span>'
             },
             getLastRequestLog(object) {
                 self = this;

@@ -55,14 +55,14 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-small">
                                 @can('manager.index')
-                                    <router-link to="/admin/manager" class="dropdown-item">
+                                    <a href="/admin/manager" class="dropdown-item">
                                         <span>{{ __('app.menu.sidebar.admin_management._admin_list') }}</span>
-                                    </router-link>
+                                    </a>
                                 @endcan
                                 @can(['role.index','role.store', 'role.update'])
-                                    <router-link to="/admin/manager/roles" class="dropdown-item">
+                                    <a href="/admin/manager/roles" class="dropdown-item">
                                         <span>{{ __('app.menu.sidebar.admin_management._role_list') }}</span>
-                                    </router-link>
+                                    </a>
                                 @endcan
                             </div>
                         </li>
@@ -77,21 +77,21 @@
                             <div class="dropdown-menu dropdown-menu-small" id="notClose">
 
                                 @can('clinic.index')
-                                    <router-link to="/admin/clinic" class="dropdown-item ">
+                                    <a href="/admin/clinic" class="dropdown-item ">
                                         {{ __('app.menu.sidebar.staff_management._clinic_list') }}
-                                    </router-link>
+                                    </a>
                                 @endcan
 
                                 @can('group.index')
-                                    <router-link to="/admin/group" class="dropdown-item ">
+                                    <a href="/admin/group" class="dropdown-item ">
                                         {{ __('app.menu.sidebar.staff_management._group_list') }}
-                                    </router-link>
+                                    </a>
                                 @endcan
 
                                 @can('user.index')
-                                    <router-link to="/admin/user" class="dropdown-item">
+                                    <a href="/admin/user" class="dropdown-item">
                                         {{ __('app.menu.sidebar.staff_management._staff_list') }}
-                                    </router-link>
+                                    </a>
                                 @endcan
                             </div>
                         </li>
@@ -99,10 +99,10 @@
 
                     @canany(['notification.index'])
                         <li class="nav-item">
-                            <router-link to="/admin/notification" class="nav-link">
+                            <a href="/admin/notification" class="nav-link">
                                 <i class="far fa-bell"></i>
                                 <span>{{ __('app.menu.sidebar.notification_management._main') }}</span>
-                            </router-link>
+                            </a>
                         </li>
                     @endcanany
                     @canany(['template.index'])
@@ -116,7 +116,7 @@
                                 {{ __('app.menu.sidebar.request_management._request_template_list') }}
                             </a>
                             @foreach (\App\Models\TemplateCategory::getAll() as $category)
-                                <a href="/admin/request?category_id={{$category->id}}" class="dropdown-item">
+                                <a href="/admin/request/category/{{$category->id}}" class="dropdown-item">
                                     {{ __($category->name) }} ({{$category->countRequestNeedProcess($category->id)}})
                                 </a>
                             @endforeach
@@ -132,7 +132,7 @@
                             <div class="dropdown-menu dropdown-menu-small">
                                 @can('api.inquiry.list')
                                     @foreach (\App\Models\Inquiry::allCategory() as $category)
-                                        <a href="/admin/inquiry?category_id={{$category->id}}" class="dropdown-item">
+                                        <a href="/admin/inquiry/category/{{$category->id}}" class="dropdown-item">
                                             {{ __($category->name) }} ({{$category->countInquiryNotClosed($category->id)}})
                                         </a>
                                     @endforeach
@@ -166,10 +166,10 @@
                         <div class="input-group input-group-seamless ml-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/admin/template"class="router-link-exact-active router-link-active">申請管理</a>
+                                    <a href="/admin/template"class="a-exact-active a-active">申請管理</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <span class="router-link-exact-active router-link-active"> {{$breadCrumbTitle ?? '' }}</span>
+                                    <span class="a-exact-active a-active"> {{$breadCrumbTitle ?? '' }}</span>
                                 </li>
                             </ol>
                         </div>
@@ -206,8 +206,6 @@
                 </nav>
             </div> <!-- / .main-navbar -->
             <div class="main-content-container container-fluid px-4">
-                <router-view></router-view>
-                <vue-progress-bar></vue-progress-bar>
                 <section class="content">
                     @yield('content')
                 </section>
