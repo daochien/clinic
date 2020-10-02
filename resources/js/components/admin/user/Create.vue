@@ -165,7 +165,7 @@
                 form: new Form({
                     name: '',
                     email: '',
-                    role: [],
+                    role: {},
                     clinics: [],
                     // groups: [],
                     // level_id: '',
@@ -231,6 +231,8 @@
             loadUserRole() {
                 axios.get("/api/setting/user-role").then((response) => {
                     this.roles = response.data.data;
+                    // let staff_role = _.indexOf(this.roles, 3);
+                    this.form.role = this.roles[0];
                 });
             },
         },
