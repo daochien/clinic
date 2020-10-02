@@ -74,7 +74,6 @@
                                     <td>
                                         <div class="dropdown">
                                             <i
-                                                style="cursor: pointer;"
                                                 class="fa fa-ellipsis-v"
                                                 id="operatingAction"
                                                 data-toggle="dropdown"
