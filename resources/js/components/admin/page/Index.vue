@@ -100,10 +100,16 @@
                                     </td>
                                     <td>{{ item.created_at | myDate }}</td>
                                     <td>
-                                        <div class="switchToggle">
+                                        <span class="badge badge-info ml-1" v-if="item.status">
+                                            公開
+                                        </span>
+                                        <span class="badge badge-secondary ml-1" v-else>
+                                            非公開
+                                        </span>
+                                        <!-- <div class="switchToggle">
                                             <input type="checkbox" :id="'switch'+item.id" :checked="item.status" @change="changeStatus(item.id)">
                                             <label :for="'switch'+item.id">Toggle</label>
-                                        </div>
+                                        </div> -->
                                     </td>
                                     <td>
                                         <div class="dropdown">
