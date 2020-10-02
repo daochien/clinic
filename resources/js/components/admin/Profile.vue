@@ -225,7 +225,7 @@
                 });
             },
             loadRoles () {
-                axios.get("/api/role/list?re-format=true").then(({ data }) => (this.roles = data.data));
+                axios.get("/api/manager/roles?re-format=true").then(({ data }) => (this.roles = data.data));
             },
             userHasRole(role) {
                 for (var i=0; i < this.manager.roles.length; i++) {
