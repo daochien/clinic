@@ -14,6 +14,6 @@
 ログインはこちら <br />
 {{ config('app.url')}} <br />
 【このメールにお当たりのない⽅へ】 <br />
-もしお⼼当たりが無い場合は、その旨「config('app.contact')」までご連絡いただければ幸いです。 <br />
+もしお⼼当たりが無い場合は、その旨「{{config('app.contact')}}」までご連絡いただければ幸いです。 <br />
 
 @endcomponent

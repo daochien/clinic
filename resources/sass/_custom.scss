@@ -70,3 +70,6 @@ i#operatingAction{
     display: block;
     width: 100% !important;
 }
+.content .dropdown-menu.show {
+    transform: translate3d(-214px, 15px, 0px) !important;
+}

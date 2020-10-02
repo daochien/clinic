@@ -18,6 +18,8 @@ return [
     'version' => env('APP_VERSION', '1.0.1'),
 
     'contact' => env('MAIL_CONTACT', env('APP_URL')),
+
+    'inquiry_mail_address' => env('INQUIRY_MAIL_CONTACT', env('MAIL_CONTACT')),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

@@ -80,6 +80,10 @@ i#operatingAction {
   width: 100% !important;
 }
 
+.content .dropdown-menu.show {
+  transform: translate3d(-214px, 15px, 0px) !important;
+}
+
 .select2-container {
   box-sizing: border-box;
   display: inline-block;

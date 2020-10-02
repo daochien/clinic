@@ -38,7 +38,7 @@
                                role="button" aria-haspopup="true" aria-expanded="false">
                                 <span class="d-none d-md-inline-block">{{ Auth::user()->name }}</span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-small">
+                            <div class="dropdown-menu dropdown-menu-small top-menu">
                                 <router-link to="/admin/profile" class="dropdown-item">
                                     <span>{{ __('app.menu.top._profile') }}</span>
                                 </router-link>
