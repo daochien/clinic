@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ClinicResource;
 use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
@@ -38,14 +40,27 @@ class CategoryController extends BaseController
         return $this->sendSuccessResponse($categories, 'Category list');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $category = $this->repository->find($id);
+
+        return $this->sendSuccessResponse(new CategoryResource($category));
+    }
+
     public function getByType(Request $request, $type)
-    {    
+    {
         if (!empty($request->show_client)) {
             $categories = $this->repository->showClientCategoryBlog(Category::TYPE[$type], $request->with_id, $request->latest_page);
         } else {
             $categories = $this->repository->getTemplateByCategory(Category::TYPE[$type]);
         }
-                
+
         return $this->sendSuccessResponse($categories, 'Category list');
     }
 
