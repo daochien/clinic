@@ -58,11 +58,11 @@ class RoleController extends BaseController
     {
         
         $role = $this->role->create([
-            'name' => strtolower($request->name),
+            'name' => $request->name,
             'guard_name' => 'web'
         ]);
 
-        $permissions = $this->roleRepo->getNamePermissions($request->permissions);
+        $permissions = $this->roleRepo->getNamePermissions($request->permissions, $role->id);
         
         if (!empty($permissions)) {
             //sync permissions to db
@@ -86,11 +86,11 @@ class RoleController extends BaseController
         $role = $this->role->findOrFail($id);
         $role->update([
             'id' => $request->id,
-            'name' => strtolower($request->name)
+            'name' => $request->name
         ]);
-
-        $permissions = $this->roleRepo->getNamePermissions($request->permissions);
-
+        
+        $permissions = $this->roleRepo->getNamePermissions($request->permissions, $role->id);
+        
         if (!empty($permissions)) {
             //sync permissions to db
             $this->permission->sync($permissions);

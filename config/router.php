@@ -26,7 +26,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['manager.index', 'profile.index', 'manager.roles']
+                    'routes' => ['manager.index', 'profile.index']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -152,7 +152,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['api.setting.type', 'api.setting.level', 'api.setting.user.role', 's3.store', 'api.group.all', 'api.clinic.all', 'category.list.by.type', 'category.store']
+                    'routes' => ['api.setting.type', 'api.setting.level', 'api.setting.user.role', 's3.store', 'api.group.all', 'api.clinic.all', 'category.list.by.type', 'category.store', 'manager.roles']
                 ],
                 'create' => [
                     'name' => 'Create',

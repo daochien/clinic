@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Role as ModelsRole;
 use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Model;
 
@@ -32,7 +33,7 @@ class RoleRepository
         return $this->model->with('permissions')->findOrFail($id);
     }
 
-    public function getNamePermissions($pemissions)
+    public function getNamePermissions($pemissions, $roleId = '')
     {
         if (empty($pemissions)) {
             return [];
@@ -49,8 +50,8 @@ class RoleRepository
                 }
             }
         }
-
-        if (!empty($pers)) {
+        
+        if (!empty($pers) && !in_array($roleId, [ModelsRole::ROLE_DEFAULT['web'], ModelsRole::ROLE_DEFAULT['mobile']])) {
             $settingRole = config('router.setting.groups');
             $settingPers = array();
             foreach ($settingRole as $item) {
@@ -58,6 +59,7 @@ class RoleRepository
                     $settingPers = array_merge($settingPers, $item['routes']);
                 }            
             }
+            
             $pers = array_unique(array_merge($pers, $settingPers));
         }        
             
