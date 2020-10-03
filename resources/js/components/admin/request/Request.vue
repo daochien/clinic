@@ -17,7 +17,7 @@
                         <div class="card-header">
                             <label class="font-weight-bold" v-html="$t('request.info.basic_info._subtitle')"></label>
                         </div>
-                        <div class="card-body border-bottom">
+                        <div class="card-body border-bottom pt-0 pb-0">
                             <div class="row">
                                 <div class="col-2">
                                     <div class="form-group">
@@ -72,7 +72,7 @@
                         <div class="card-header">
                             <label class="font-weight-bold">{{ $t('request.info.form._subtitle')}}</label>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body pt-0">
                             <div class="row" v-for="(value, index) in form_headers" :key="'title_' + index">
                                 <div class="col-2">
                                     <div class="form-group">
@@ -96,7 +96,7 @@
                     </div>
 
                     <div class="card mb-5" v-if="submission.request_comments.length > 0"  id="request-discussion">
-                        <div class="card-header border-bottom">
+                        <div class="card-header border-bottom pt-0">
                             <label class="font-weight-bold" v-html="$t('request.discussion._title')"></label>
                         </div>
                         <div class="card-body p-0 pl-3 d-content">
