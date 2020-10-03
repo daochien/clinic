@@ -65,7 +65,7 @@ export default {
             try {
                 let {
                     data
-                } = await axios.get('api/page?type=manual&page=' + page);
+                } = await axios.get('api/page?status=1&type=manual&page=' + page);
                 this.manuals = data.data;
                 this.pagination = data.meta;
 

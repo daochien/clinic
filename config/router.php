@@ -26,7 +26,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['manager.index', 'profile.index', 'manager.roles']
+                    'routes' => ['manager.index', 'profile.index']
                 ],
                 'create' => [
                     'name' => 'Create',

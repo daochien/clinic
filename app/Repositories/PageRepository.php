@@ -94,7 +94,7 @@ class PageRepository
     
     public function latestManual($limit = 8)
     {
-        return $this->model->where('type', Page::PAGE_TYPE['manual'])->orderBy(DB::raw("`views` + `downloads` "), 'desc')->limit($limit)->get();
+        return $this->model->where(['type' => Page::PAGE_TYPE['manual'], 'status' => Page::PAGE_STATUS['active']])->orderBy(DB::raw("`views` + `downloads` "), 'desc')->limit($limit)->get();
         
     }
 
