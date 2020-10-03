@@ -65,7 +65,6 @@ class UserRequest extends FormRequest
         $rules =  [
             'name' => 'sometimes|string|max:50',
             'email' => 'required|string|email|max:255|unique:users,email,' . $this->get('id'),
-            'type_id' => 'required',
 //            'groups' => 'required',
             'clinics' => 'required',
             'role' => 'required',

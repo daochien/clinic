@@ -41,10 +41,27 @@ jQuery(function() {
         ],  // field types that should not be shown
         disabledAttrs: [
             // 'access',
+            'toggle',
+            'inline',
         ],
         typeUserDisabledAttrs: {
+            'checkbox': [
+                'toggle',
+                'inline',
+            ],
+            'textarea': [
+                'subtype',
+            ],
             'file': [
                 'multiple',
+                'subtype',
+            ],
+            'number': [
+                'min',
+                'max',
+                'step',
+            ],
+            'paragraph': [
                 'subtype',
             ],
             'checkbox-group': [

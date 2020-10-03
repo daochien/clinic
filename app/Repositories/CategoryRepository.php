@@ -17,8 +17,13 @@ class CategoryRepository
     }
 
     public function getTemplateByCategory($catType)
-    {        
+    {
         return $this->model->where('type', $catType)->get();
+    }
+
+    public function find($id)
+    {
+        return $this->model->find($id);
     }
 
     public function showClientCategoryBlog($cateType, $withId = '', $getLatest = '', $limit = 10)
@@ -26,16 +31,16 @@ class CategoryRepository
         if (!empty($withId)) {
             $cateIds = $this->model->where('type', $cateType)->where('id', '<>', $withId)->limit($limit - 1)->pluck('id')->toArray();
             array_push($cateIds, $withId);
-           
-            $categorys = $this->model->where('type', $cateType)->whereIn('id', $cateIds);                        
+
+            $categorys = $this->model->where('type', $cateType)->whereIn('id', $cateIds);
             return $categorys->get();
-        } else {            
+        } else {
             $categorys = $this->model->where('type', $cateType);
             if (!empty($getLatest)) {
                 $categorys->with(['latestPage']);
             }
-            return $categorys->get();             
+            return $categorys->get();
         }
     }
-    
+
 }

@@ -201,9 +201,17 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                 this.getResults();
             },
             getCategory() {
-                if(this.requests != null) {
+                if(this.requests.length > 0) {
                     this.category_name = this.requests[0].template.category[0].name ?? '';
+                    return;
                 }
+                this.loadCategory();
+            },
+            loadCategory() {
+                axios.get("/api/category/"  + this.$route.params.id)
+                    .then(( response ) => {
+                        this.category_name = response.data.data['name'];
+                    });
             },
             getResults(page = 1) {
                 this.$Progress.start();

@@ -69,7 +69,6 @@ class UserController extends BaseController
      *
      * @param $id
      *
-     * @return \Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(UserRequest $request)
@@ -90,16 +89,15 @@ class UserController extends BaseController
      * @param  \App\Http\Requests\Users\UserRequest  $request
      * @param $id
      *
-     * @return \Illuminate\Http\Response
      * @throws \Illuminate\Validation\ValidationException
      */
     public function update(UserRequest $request, $id)
     {
         try {
             $attributes = $request->validated();
-            $user = $this->service->updateUser($id, $attributes);
+            $this->service->updateUser($id, $attributes);
 
-            return $this->sendSuccessResponse($user, __('staff.info.messages._edit_success'));
+            return $this->sendSuccessResponse([], __('staff.info.messages._edit_success'));
         } catch (\Exception $exception) {
             return $this->sendErrorResponse($exception->getMessage());
         }
@@ -108,12 +106,12 @@ class UserController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {
-//        $this->authorize('isAdmin');
         $user = User::findOrFail($id);
         // delete the user
         $user->delete();

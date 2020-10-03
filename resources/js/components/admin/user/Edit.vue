@@ -67,9 +67,12 @@
                                             <div class="form-group">
                                                 <label>{{ $t('staff.attr._position')}}</label>
                                                 <span class="text-danger">*</span>
-                                                <select class="form-control" id="types" v-model="form.type_id" :class="{ 'is-invalid': form.errors.has('type_id') }">
+                                                <select class="form-control" id="types"
+                                                        v-model="form.type_id"
+                                                        :disabled="form.role.id == 3">
+                                                        :class="{ 'is-invalid': form.errors.has('type_id') }">
                                                     <option value="">{{ $t('staff.info.form._position_df') }}</option>
-                                                    <option v-for="type in types" :selected="type.id === form.type_id" :key="'type_' +type.id" :value="type.id" >{{ type.name }}</option>
+                                                    <option v-for="type in types" :key="'type_' +type.id" :value="type.id" >{{ type.name }}</option>
                                                 </select>
                                                 <has-error :form="form" field="type_id"></has-error>
                                             </div>
@@ -109,8 +112,9 @@
                                                 <div>
                                                     <template v-for="role in roles">
                                                         <div class="col-3 float-left">
-                                                            <div class="custom-control custom-radio mb-1 col-1">
+                                                            <div class="custom-control custom-radio">
                                                                 <input type="radio" class="custom-control-input"
+                                                                       @click="checkPositionValue(role.id)"
                                                                        name="role" v-bind:id="role.id + '-user'"
                                                                        v-bind:value="{id: role.id, name: role.name}"
                                                                        v-model="form.role"
@@ -165,7 +169,7 @@
                     id: '',
                     name: '',
                     email: '',
-                    role: [],
+                    role: {},
                     clinics: [],
                     // groups: [],
                     // level_id: '',
@@ -208,6 +212,11 @@
             //         this.groups = response.data.data;
             //     });
             // },
+            checkPositionValue(roleId){
+                if(roleId === 3) {
+                    this.form.type_id = "";
+                }
+            },
             loadClinic() {
                 axios.get("/api/clinic/all").then((response) => {
                     this.clinics = response.data.data;
@@ -228,6 +237,7 @@
                     this.user = response.data.data;
                     this.form.fill(this.user);
 
+                    this.form.role = this.user.role;
                     if(this.user.type[0].id !== 'undefined') {
                         this.form.type_id = this.user.type[0].id
                     }

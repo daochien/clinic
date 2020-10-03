@@ -84,6 +84,10 @@ i#operatingAction {
   transform: translate3d(-214px, 15px, 0px) !important;
 }
 
+.form-wrap.form-builder .frmb .form-elements input[type=text].option-value {
+  display: none !important;
+}
+
 .select2-container {
   box-sizing: border-box;
   display: inline-block;
