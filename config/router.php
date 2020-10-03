@@ -152,16 +152,19 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['api.setting.type', 'api.setting.level', 'api.setting.user.role', 's3.store', 'api.group.all', 'api.clinic.all', 'category.list.by.type', 'category.store']
+                    'routes' => ['api.setting.type', 'api.setting.level', 'api.setting.user.role', 's3.store', 'api.group.all',
+                        'api.clinic.all', 'category.list.by.type', 'category.store', 'manager.roles','profile.index',
+                        'category.show',
+                    ]
                 ],
                 'create' => [
                     'name' => 'Create',
                     'routes' => ['category.store'],
                 ],
-//                'update' => [
-//                    'name' => 'Update',
-//                    'routes' => []
-//                ],
+                'update' => [
+                    'name' => 'Update',
+                    'routes' => ['profile.update, profile.change.my.password']
+                ],
 //                'delete' => [
 //                    'name' => 'Delete',
 //                    'routes' => []

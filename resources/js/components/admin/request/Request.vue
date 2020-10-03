@@ -90,8 +90,8 @@
                                 </ul>
                                 <div v-else class="col-10" v-html="submission.content[value.name]"></div>
                             </div>
-                            <button class="btn btn-primary float-right mr-3" @click="approve()" :disabled="!can_change">{{ $t('request.info.others._btn_approve')}}</button>
-                            <button type="button" class="btn btn-danger mr-3 float-right" @click="reject()" :disabled="!can_change">{{ $t('request.info.others._btn_reject')}}</button>
+                            <button v-if="can_update" class="btn btn-primary float-right mr-3" @click="approve()" :disabled="!can_change">{{ $t('request.info.others._btn_approve')}}</button>
+                            <button v-if="can_update" type="button" class="btn btn-danger mr-3 float-right" @click="reject()" :disabled="!can_change">{{ $t('request.info.others._btn_reject')}}</button>
                         </div>
                     </div>
 
@@ -164,6 +164,7 @@
                 status_label: '',
                 status_text: '',
                 can_change: false,
+                can_update: false,
                 discussion: {
                     message: '',
                     file: null
@@ -175,6 +176,9 @@
         methods: {
             preUploadFile(event){
                 this.discussion.file = event.target.files[0]
+            },
+            canUpdateRequest(request) {
+                this.can_update = _.findIndex(request.template.approvers, ['id', window.user.id]) >= 0;
             },
             onSubmit(evt) {
                 this.$Progress.start();
@@ -286,6 +290,7 @@
                     this.submission = response.data.data.submission;
                     this.form_headers = response.data.data.form_headers;
                     this.status = this.getStatus();
+                    this.canUpdateRequest(this.submission);
                 });
                 this.$Progress.finish();
             },

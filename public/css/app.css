@@ -81,7 +81,7 @@ i#operatingAction {
 }
 
 .content .dropdown-menu.show {
-  transform: translate3d(-214px, 15px, 0px) !important;
+  transform: translate3d(-15px, 15px, 0px) !important;
 }
 
 .form-wrap.form-builder .frmb .form-elements input[type=text].option-value {
