@@ -126,10 +126,10 @@
                                                    :to="'/admin/request/' + request.id">
                                                     {{ $t('request.list.data_table.actions._act_show_details')}}
                                                 </router-link>
-                                                <a class="dropdown-item text-primary" href="#" @click="approve(request.id)">
+                                                <a class="dropdown-item text-primary" v-if="canUpdateRequest(request)" href="#" @click="approve(request.id)">
                                                     {{$t('request.list.data_table.actions._act_approve')}}
                                                 </a>
-                                                <a class="dropdown-item text-danger" href="#" @click="reject(request.id)">
+                                                <a class="dropdown-item text-danger" v-if="canUpdateRequest(request)" href="#" @click="reject(request.id)">
                                                     {{$t('request.list.data_table.actions._act_reject')}}
                                                 </a>
                                             </div>
@@ -230,6 +230,9 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                     });
                 this.$Progress.finish();
             },
+            canUpdateRequest(request) {
+                return _.findIndex(request.template.approvers, ['id', window.user.id]) >= 0;
+            },
             approve(id) {
                 this.$Progress.start();
                 axios.post("/api/request/" + id + "/status", {
@@ -320,8 +323,17 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                         self.status_label = 'btn-secondary';
                         return '<span class="text-secondary">' + self.$t('request').attr.status._rejected + '</span>'
                     }
-                    approvedCount++;
+
+                    let valid_approver = _.findIndex(object.template.approvers, ['id', log.id]) >= 0;
+                    if (valid_approver){
+                        approvedCount++;
+                    }
                 });
+
+                if (approvedCount === 0) {
+                    this.status_label = 'btn-warning';
+                    return '<span class="text-warning">' + this.$t('request').attr.status._open + '</span>'
+                }
 
                 if (approvedCount === object.template.approvers.length) {
                     this.status_label = 'btn-info';

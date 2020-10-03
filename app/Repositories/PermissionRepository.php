@@ -40,6 +40,8 @@ class PermissionRepository
             ->join('model_has_roles as mr', 'mr.role_id', 'rp.role_id')
             ->join('users as u', 'u.id', 'mr.model_id')
             ->where('p.name', 'like', "%{$permission}%")
+            //not get root admin
+            ->where('mr.model_id', '>', 1)
             ->distinct()
             ->select('u.*')
             ->get();
