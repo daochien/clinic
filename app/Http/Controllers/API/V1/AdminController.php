@@ -7,6 +7,7 @@ use App\Http\Resources\AdminResource;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admins\AdminRequest;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use App\Repositories\UserRepository;
 use App\Repositories\RoleRepository;
 use App\Services\AdminServices;
@@ -18,14 +19,16 @@ class AdminController extends BaseController
     protected $user;
     protected $userRepo;
     protected $roleRepo;
+    protected $role;
     protected $service = '';
 
-    public function __construct(User $user, UserRepository $userRepo, RoleRepository $roleRepo, AdminServices $service)
+    public function __construct(User $user, UserRepository $userRepo, RoleRepository $roleRepo, AdminServices $service, Role $role)
     {
         $this->user = $user;
         $this->userRepo = $userRepo;
         $this->roleRepo = $roleRepo;
         $this->service = $service;
+        $this->role = $role;
     }
 
     public function index(Request $request)
@@ -86,5 +89,22 @@ class AdminController extends BaseController
         $admin->delete();
 
         return $this->sendSuccessResponse($admin, 'Admin has been Deleted');
+    }
+
+    public function roles(Request $request)
+    {
+        $user = Auth::user();
+
+        if ( in_array($user->email, User::ROOT_EMAIL_ADMIN) || $user->hasRole(1) || $user->hasRole(2)) {
+            $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->select('name', 'id')->get();
+        } else {
+            $roles = $this->role->whereNotIn('id', [User::ROLE_ROOT, User::ROLE_ADMIN, User::ROLE_STAFF_WEB, User::ROLE_STAFF_MOBILE])->select('name', 'id')->get();
+        }
+
+        if (!$request->get('re-format')) {
+            $roles = $roles->pluck('name', 'id');
+        }
+
+        return $this->sendSuccessResponse($roles, 'Role list');
     }
 }
