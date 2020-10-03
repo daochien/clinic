@@ -157,17 +157,18 @@ class UserServices
      */
     public function deleteOldGroupHaveSaveType($user, $attribute): void
     {
-        $currentTypeUser = TypeUser::where('user_id', $user->id)->first();
+        $currentType = $user->type()->first();
 
-        if ($currentTypeUser->type_id != $attribute['type_id']) {
-            $currentType = Type::find($currentTypeUser->type_id);
-            $currentTypeGroup = Group::where(['name' => $currentType->name])->first();
+        if (!empty($currentType)) {
+            $currentGroup = Group::where(['name' => $currentType->name])->first();
 
-            if (!empty($currentTypeGroup)) {
-                GroupUser::where(['user_id' => $user->id, 'group_id' => $currentTypeGroup->id])->delete();
-                TypeUser::where(['user_id' => $user->id, 'type_id' => $currentType->id])->delete();
+            if (!empty($currentGroup)) {
+                GroupUser::where(['user_id' => $user->id, 'group_id' => $currentGroup->id])->delete();
             }
+            TypeUser::where(['user_id' => $user->id])->delete();
+        }
 
+        if ($attribute['type_id'] ?? null){
             TypeUser::insertOrIgnore([
                 'type_id' => $attribute['type_id'],
                 'user_id' => $user->id
@@ -179,5 +180,6 @@ class UserServices
                 'user_id' => $user->id
             ]);
         }
+
     }
 }
