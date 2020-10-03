@@ -115,7 +115,7 @@ export default {
             try {
                 let {
                     data
-                } = await axios.get('api/page?type=blog&page=' + page);
+                } = await axios.get('api/page?status=1&type=blog&page=' + page);
                 this.blogs = this.blogs.concat(data.data);
                 this.pagination = data.meta;
                  let currIndex = this.$refs.slick.currentSlide()
