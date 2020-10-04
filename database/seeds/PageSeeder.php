@@ -39,7 +39,7 @@ class PageSeeder extends Seeder
             ]);
         }
 
-        $file = 'https://s3.us-east-2.amazonaws.com/clinic.dev/pages/files/2020091323d0eef3cf15afe5babfc2c7263b3f768e/2AcsQaeJBP67z7efS1j90Q4MHrXs2VmjgA71NrTr.docx';
+        $file = 'https://s3.us-east-2.amazonaws.com/clinic.dev/pages/files/2020100322e762389774ff21899ecf910d5e685c29/VknGWJXiqqhEfM28iZjUfg9YB33eLWvwVJgQrT4D.pdf';
 
         for ($i = 0; $i < $limit; $i++) {
 
@@ -51,10 +51,10 @@ class PageSeeder extends Seeder
                 'status' => rand(0,1),
                 'url' => $domain,
                 'files' => json_encode([
-                    'name' => 'docs api',
+                    'name' => 'Yuushingai.pdf',
                     'path' => $file,
-                    'size' => '1024KB',
-                    'extension' => 'docs'
+                    'size' => '7.54 MB',
+                    'extension' => 'pdf'
                 ]),
                 'owner_id' => 1
             ]);
