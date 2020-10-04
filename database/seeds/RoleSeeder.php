@@ -43,7 +43,7 @@ class RoleSeeder extends Seeder
         //create role operator
         $roleWeb = Role::create([
             'id' => 3,
-            'name' => 'staff_web',
+            'name' => '拠点ユーザーdr/dh',
             'guard_name' => 'web'
         ]);
 
@@ -53,7 +53,7 @@ class RoleSeeder extends Seeder
          //create role operator
         $roleMobile = Role::create([
             'id' => 4,
-            'name' => 'staff_mobile',
+            'name' => '医院アカウント',
             'guard_name' => 'web'
         ]);
 

@@ -14,6 +14,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
 
     Route::group(['name' => 'api.', 'middleware' => 'check.permission'], function () {
         Route::namespace('API\V1')
@@ -39,7 +40,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('change-my-password', 'API\V1\ProfileController@changeMyPassword')->name('profile.change.my.password');
         Route::get('category/type/{type}', 'API\V1\CategoryController@getByType')->name('category.list.by.type');
         Route::get('category/{id}', 'API\V1\CategoryController@show')->name('category.show');
-        Route::get('/logout', 'API\V1\Auth\LogoutController@logout')->name('api.logout');
         Route::get('/user/search', 'API\V1\UserController@search')->name('api.user.search');
         Route::get('role/list', 'API\V1\RoleController@list')->name('role.list');
 

@@ -30,7 +30,7 @@ class UpdateRoleOperatorSeeder extends Seeder
             'category.list.by.type',
             'profile.index',
             'profile.change.my.password',
-            'api.logout'
+//            'api.logout'
         ]);
 
         $roleMobile = Role::find(4);
@@ -43,7 +43,7 @@ class UpdateRoleOperatorSeeder extends Seeder
             'user.index',
             'profile.index',
             'profile.change.my.password',
-            'api.logout',
+//            'api.logout',
             'category.list.by.type',
             'template.index',
             'api.template.show',
