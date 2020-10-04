@@ -2,7 +2,7 @@
 <aside>
     <div class="side-panel" v-if="showCategoryBlog">
         <div class="side-header">
-            <h3><img src="/front-end/images/menu-icon.png" alt="Categories"> Blog Categories</h3>
+            <h3><img src="/front-end/images/menu-icon.png" alt="Categories">{{ $t('page.web.sidemenu._blog_category') }}</h3>
         </div>
         <div class="side-content">
             <ul>
@@ -16,7 +16,7 @@
     </div>
     <div class="side-panel">
         <div class="side-header">
-            <h3><img src="/front-end/images/question-icon.png" alt=""> よくある質問</h3>
+            <h3><img src="/front-end/images/question-icon.png" alt="">{{ $t('page.web.sidemenu._faq') }}</h3>
         </div>
         <div class="side-content">
             <div :class="['faq-block', {'active': item.id == withCateId}]" class="faq-block" v-for="(item, index) in categories" :key="index">
@@ -29,8 +29,8 @@
     </div>
     <div class="side-panel">
         <div class="side-header">
-            <h3><img src="/front-end/images/download-icon.png" alt=""> マニュアル</h3>
-            <a href="/manual">もっと見る</a>
+            <h3><img src="/front-end/images/download-icon.png" alt="">{{ $t('page.web.sidemenu._manual') }}</h3>
+            <a href="/manual">{{ $t('page.web.sidemenu.others._show_more') }}</a>
         </div>
         <div class="side-content">
             <ul>

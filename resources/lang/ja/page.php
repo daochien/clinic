@@ -93,6 +93,28 @@ return [
             ]
         ]
     ],
+    'web' => [
+        'sidemenu' => [
+            '_blog_category' => '記事カテゴリー',
+            '_faq' => 'よくある質問',
+            '_manual' => 'マニュアル',
+            'others' => [
+                '_show_more' => 'もっと見る...',
+            ],
+        ],
+        'blog' => [
+            '_og_title' => '友伸會ポータル管理画面｜記事',
+            '_page_title' => '記事',
+            'list' => [
+                '_latest_blogs' => '最新ニュース',
+                '_show_more' => 'もっと見る...',
+            ],
+        ],
+        'manual' => [
+            '_og_title' => '友伸會ポータル管理画面｜マニュアル一覧',
+            '_page_title' => 'マニュアル一覧',
+        ],
+    ],
     'others' => [
         '_remove_modal_yes' => 'はい',
         '_remove_modal_no' => 'いいえ',

@@ -69,6 +69,25 @@ return [
             '_btn_remove' => '削除する',
         ],
     ],
+    'my_account' => [
+        '_page_title' => 'マイアカウント',
+        'form' => [
+            '_cur_password' => '現在のパスワード',
+            '_cur_password_pl' => '現在のパスワードを入力してください',
+            '_new_password' => '新しいパスワード',
+            '_new_password_pl' => '新しいパスワードを入力してください',
+            '_confirm_password' => '新しいパスワード（確認用）',
+            '_confirm_password_pl' => '確認用パスワードを入力してください',
+        ],
+        'messages' => [
+            '_current_pwd_not_match' => '現在のパスワードは古いパスワードと一致しません。',
+            '_pwd_update_success' => 'パスワード再設定が成功しました。',
+            '_pwd_update_failed' => 'パスワード再設定に失敗しました。',
+        ],
+        'others' => [
+            '_btn_update_pwd' => '再設定する',
+        ],
+    ],
     'others' => [
         '_remove_modal_yes' => 'はい',
         '_remove_modal_no' => 'いいえ',

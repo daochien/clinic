@@ -3,15 +3,14 @@
 
     <div class="page-title">
         <div class="container">
-            記事
+            {{ $t('page.web.blog._page_title') }}
         </div>
     </div>
     <div class="page-content">
         <div class="latest-news">
             <div class="container">
                 <div class="col col-left">
-                    <h2>最新ニュース</h2>
-                    <p>私たちはインフォームドコンセントを重視し、歯の悩みをお気軽に相談してもらえる歯医者を目指しています。</p>
+                    <h2>{{ $t('page.web.blog.list._latest_blogs') }}</h2>
                 </div>
                 <div class="col col-right">
                     <!-- <div class="news-slider" ref="slick" > -->
@@ -49,13 +48,13 @@
                             </p>
                             <div class="blog-meta">
                                 <span>{{ $moment(blog.created_at).format('DD/MM/YYYY') }}</span>
-                                <span>|</span>
-                                <span>記事</span>
+                                <span>｜</span>
+                                <span>{{ blog.category }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-loading" @click="showMore()" v-show="pagination.current_page == 1 || pagination.current_page < pagination.last_page">もっと見る...</button>
+                <button class="btn btn-loading" @click="showMore()" v-show="pagination.current_page == 1 || pagination.current_page < pagination.last_page">{{ $t('page.web.blog.list._show_more') }}</button>
             </div>
         </div>
     </div>

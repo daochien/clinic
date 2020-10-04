@@ -101,6 +101,15 @@ return [
             '_no_search_result' => '該当するユーザー情報が存在しません。',
         ],
     ],
+    'web' => [
+        '_og_title' => '友伸會ポータル管理画面｜お知らせ一覧',
+        '_page_title' => 'お知らせ一覧',
+        'data_table' => [
+            '_tab_all' => 'すべて',
+            '_tab_bod' => '理事長から',
+            '_tab_hr' => '事務局から',
+        ],
+    ],
     'others' => [
         '_remove_modal_yes' => 'はい',
         '_remove_modal_no' => 'いいえ',
