@@ -48,11 +48,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('setting/user-role', 'API\V1\SettingController@getUserRoles')->name('api.setting.user.role');
 
         Route::get('/group/list', 'API\V1\GroupController@all')->name('api.group.list');
-        Route::get('group/members/{id}', 'API\V1\GroupController@users');
-        Route::get('group/members/filter/{id}/{value}', 'API\V1\GroupController@filter');
-        Route::post('group/members/add', 'API\V1\GroupController@addUsers');
-        Route::get('group/members/group-users/{id}', 'API\V1\GroupController@getGroupUsersByGroup');
-        Route::post('group/members/remove', 'API\V1\GroupController@removeUsers');
+        Route::get('group/members/{id}', 'API\V1\GroupController@users')->name('api.group.users');
+        Route::get('group/members/filter/{id}/{value}', 'API\V1\GroupController@filter')->name('api.group.filter');
+        Route::post('group/members/add', 'API\V1\GroupController@addUsers')->name('api.group.addUsers');
+        Route::get('group/members/group-users/{id}', 'API\V1\GroupController@getGroupUsersByGroup')->name('api.group.getGroupUsersByGroup');
+        Route::post('group/members/remove', 'API\V1\GroupController@removeUsers')->name('api.group.removeUsers');
         Route::get('/group/all', 'API\V1\UserController@getAllGroup')->name('api.group.all');
         Route::get('/group/default', 'API\V1\UserController@getAllGroupDefault')->name('api.group.default');
 
