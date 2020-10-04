@@ -11,20 +11,11 @@ function handleAjaxError(error) {
 			errMsg = ''
 			Object.keys(json.errors).forEach(function(key) {
 				var messages = json.errors[key]
-				console.log(key, messages)
-				messages.forEach(function(message) {
-					errMsg += key + ': ' + message + '\r\n'
-				})
+                $('#' + key).addClass('is-invalid');
+                $('.input-error.' + key).text(messages);
 			})
 		}
 	}
-
-	swal.fire({
-	    // title: errTitle,
-	    text: errMsg,
-	    // icon: 'error',
-	})
-
 	return errMsg
 }
 

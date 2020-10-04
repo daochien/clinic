@@ -134,6 +134,8 @@ jQuery(function() {
     });
 
     fbSaveBtn.click(function(e) {
+        $(".input-error").text('');
+        $('.form-control').removeClass('is-invalid');
         e.preventDefault()
 
         var form = $('#createFormForm')

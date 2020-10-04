@@ -30,14 +30,9 @@
                                     </div>
                                 </div>
                                 <div class="col-10">
-                                    <input type="text" name="name" id="name" class="form-control
-                                           @error('name') is-invalid @enderror"
+                                    <input type="text" name="name" id="name" class="form-control"
                                            placeholder="{{__('request.template.info.basic_form._title_pl')}}">
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <span class="invalid-feedback input-error name" role="alert"></span>
                                 </div>
                             </div>
                             <div class="row">
@@ -50,8 +45,7 @@
                                     </div>
                                 </div>
                                 <div class="col-5">
-                                    <select name="category[]" id="category" class="form-control
-                                           @error('category') is-invalid @enderror" >
+                                    <select name="category[]" id="category" class="form-control">
                                         <option value="">{{ __('request.template.info.basic_form._category_df') }}</option>
                                         @foreach($category as $cat)
                                             <option value="{{ $cat['id'] }}">
@@ -59,12 +53,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-
-                                    @error('category')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <span class="invalid-feedback input-error category" role="alert"></span>
                                 </div>
                             </div>
                             <div class="row">
@@ -78,18 +67,14 @@
                                 </div>
                                 <div class="col-10">
                                     <select type="text" name="approver[]" id="approver" class="js-example-basic-multiple form-control
-                                           @error('approver') is-invalid @enderror" multiple="multiple">
+                                       is-invalid" multiple="multiple">
                                         @foreach($adminList as $admin)
                                             <option value="{{ $admin['id'] }}">
                                                 {{ $admin['name'] }}
                                             </option>
                                         @endforeach
                                     </select>
-                                    @error('approver')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                    <span class="invalid-feedback input-error approver" role="alert"></span>
                                 </div>
                             </div>
                             <div class="row">
