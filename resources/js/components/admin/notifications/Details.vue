@@ -153,7 +153,7 @@
                                             >{{ $t('notification.noti_users.others._unconfirm') }}</span>
                                             <span
                                                 v-if="status(entity, 3)"
-                                            >{{ $moment(status(entity, 3).created_at).format('YYYY-MM-DD HH:mm:ss') }}</span>
+                                            >{{ entity.schedule_date | myDate }}</span>
                                         </div>
                                         <div v-else>-</div>
                                     </td>

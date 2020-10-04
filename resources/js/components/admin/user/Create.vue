@@ -98,7 +98,7 @@
                                                 <div>{{ $t('staff.attr._user_type')}}<span class="text-danger">*</span></div>
                                                 <div>
                                                     <template v-for="role in roles">
-                                                        <div class="col-5 float-left">
+                                                        <div class="col-6 float-left">
                                                             <div class="custom-control custom-radio">
                                                                 <input @click="checkPositionValue(role.id)" type="radio" class="custom-control-input"
                                                                        name="role" v-bind:id="role.id + '-user'"

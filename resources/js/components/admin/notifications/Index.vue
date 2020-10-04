@@ -147,8 +147,7 @@
                                         <label v-else> -- </label>
                                     </td>
                                     <td>
-                                        <span v-if="!entity.schedule_date"> -- </span>
-                                        <span v-else>{{ $moment(entity.schedule_date).format('YYYY-MM-DD hh:mm:ss') }}</span>
+                                        <span> {{entity.schedule_date|myDate}} </span>
                                     </td>
                                     <td>
                                         <label class="text-secondary" v-if="entity.draft">{{ $t('notification.attr.status._private')}}</label>
