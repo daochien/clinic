@@ -12,8 +12,8 @@ return [
         '_summary' => '概要'
     ],
     'list' => [
-        '_og_title' => '友伸會ポータル管理画面｜管理者アカウント管理・管理者一覧',
-        '_page_title' => '記事一覧',
+        '_og_title' => '友伸會ポータル管理画面｜ページ管理・ページ一覧',
+        '_page_title' => 'ページ一覧',
         'search_box' => [
             '_type' => '書類',
             '_type_pl' => 'すべての書類',
@@ -39,44 +39,44 @@ return [
             ],
         ],
         'messages' => [
-            '_remove_success' => '管理者情報の削除が成功しました。',
-            '_remove_failed' => '管理者情報の削除に失敗しました。',
+            '_remove_success' => 'ページの削除が成功しました。',
+            '_remove_failed' => 'ページの削除に失敗しました。',
         ],
         'others' => [
-            '_btn_create' => '新規作成',
-            '_no_data' => '管理者アカウントが存在しません。',
-            '_no_search_result' => '該当する管理者情報が存在しません。',
+            '_btn_create' => '新規ページ作成',
+            '_no_data' => 'ページデータが存在しません。',
+            '_no_search_result' => '該当するページが存在しません。',
         ],
     ],
     'info' => [
-        '_og_title_create' => '友伸會ポータル管理画面｜管理者アカウント管理・新規アカウント登録',
-        '_og_title_edit' => '友伸會ポータル管理画面｜管理者アカウント管理・管理者情報編集',
-        '_page_title_create' => '記事作成',
-        '_page_title_edit' => '投稿を編集',
+        '_og_title_create' => '友伸會ポータル管理画面｜ページ管理・新規ページ作成',
+        '_og_title_edit' => '友伸會ポータル管理画面｜ページ管理・ページ編集',
+        '_page_title_create' => '新規ページ作成',
+        '_page_title_edit' => 'ページ編集',
         '_basic_info' => '基本情報',
-        '_article_content' => '記事内容',
+        '_article_content' => 'ページ内容',
         'tabs' => [
             '_manual' => 'マニュアル設定',
             '_file' => 'ファイルアップロード'
         ],
         'form' => [
             '_title_pl' => 'タイトルを入力してください',
-            '_url_pl' => '公開先を指定してください',
+            '_url_pl' => '公開先URLを指定してください',
             '_category_pl' => 'カテゴリーを指定してください',
             '_title_upload' => 'ファイルを選択してください',
             '_content_upload' => 'ドキュメント（pdf）、画像ファイル（png, jpg）または動画（mp4）をアップロードしてくだい',
             '_btn_upload' => 'ファイルを選択',
-            '_btn_remove' => '記事を削除する'
+            '_btn_remove' => '削除する'
         ],
         'messages' => [
-            '_create_success' => '管理者アカウントの登録が成功しました。',
-            '_create_failed' => '管理者アカウントの登録に失敗しました。',
-            '_edit_success' => '管理者情報の編集が成功しました。',
-            '_edit_failed' => '管理者情報の編集に失敗しました。',
-            '_change_status_success' => 'ステータス変更成功',
-            '_change_status_failed' => 'ステータスの変更に失敗しました',            
-            '_create_category_success' => 'カテゴリの作成成功',
-            '_create_category_failed' => 'カテゴリの作成に失敗しました',
+            '_create_success' => 'ページ作成が成功しました。',
+            '_create_failed' => 'ページ作成に失敗しました。',
+            '_edit_success' => 'ページ内容の編集が成功しました。',
+            '_edit_failed' => 'ページ内容の編集に失敗しました。',
+            '_change_status_success' => 'ページのステータス変更が成功しました。',
+            '_change_status_failed' => 'ページのステータス変更に失敗しました。',            
+            '_create_category_success' => 'カテゴリの作成が成功しました。',
+            '_create_category_failed' => 'カテゴリの作成に失敗しました。',
         ],
         'others' => [
             '_btn_create' => '登録する',
@@ -84,12 +84,12 @@ return [
             '_btn_remove' => '削除する',
         ],
         'popup' => [
-            '_create_title' => 'ディレクトリを作成する',
-            '_btn_create' => '新しく作る',
+            '_create_title' => 'ページカテゴリー登録',
+            '_btn_create' => '登録する',
             '_btn_close' => 'キャンセル',
             '_btn_show_popup_category' => '新しいカテゴリーを追加',
             'attr' => [
-                '_name' => '種別名'
+                '_name' => 'カテゴリー名'
             ]
         ]
     ],

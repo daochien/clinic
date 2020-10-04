@@ -43,7 +43,7 @@ return [
     'info' => [
         '_og_title_create' => '友伸會ポータル管理画面｜スタッフ管理・新規スタッフ情報登録',
         '_og_title_edit' => '友伸會ポータル管理画面｜スタッフ管理・スタッフ情報編集',
-        '_page_title_create' => '新規スタッフ情報登録',
+        '_page_title_create' => '新規スタッフ登録',
         '_page_title_edit' => 'スタッフ情報編集',
         'form' => [
             '_form_title' => 'スタッフ情報',

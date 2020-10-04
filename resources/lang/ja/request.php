@@ -98,7 +98,7 @@ return [
                 '_remove_failed' => '申請テンプレートの削除に失敗しました。',
             ],
             'others' => [
-                '_btn_draft_save' => '下書きとして保存',
+                '_btn_draft_save' => '下書きとして保存する',
                 '_btn_create' => '新規テンプレート作成',
                 '_no_data' => '申請テンプレートが存在しません。',
             ],
@@ -126,8 +126,8 @@ return [
                 '_edit_failed' => '新規申請テンプレートの編集に失敗しました。',
                 '_draft_save_success' => '申請テンプレートのの下書き保存が成功しました。',
                 '_draft_save_failed' => '申請テンプレートのの下書き保存に失敗しました。',
-                '_delete_success' => 'Delete success。',
-                '_delete_failed' => 'Delete failed。',
+                '_delete_success' => '申請テンプレートの削除が成功しました。',
+                '_delete_failed' => '申請テンプレートの削除に失敗しました。',
             ],
             'others' => [
                 '_btn_draft_save' => '下書きとして保存',
@@ -139,18 +139,13 @@ return [
     ],
     'others' => [
         '_modal_no' => 'キャンセル',
-        '_reject_modal_yes' => '承認する',
-        '_reject_modal_title' => '申請を承認',
-        '_reject_modal_description' => 'この申請を承認してもよろしいですか？',
-        '_approve_modal_yes' => '却下する',
-        '_approve_modal_title' => '申請を却下',
+        '_modal_yes' => 'はい',
+        '_reject_modal_title' => '申請をリジェクト',
+        '_reject_modal_description' => 'この申請をリジェクトしてもよろしいですか？',
+        '_approve_modal_title' => '申請を承認',
         '_approve_modal_description' => 'この申請を却下してもよろしいですか？',
-        '_remove_modal_yes' => 'はい',
-        '_remove_modal_no' => 'いいえ',
-        '_remove_modal_title' => '申請テンプレートを削除',
-        '_remove_modal_description' => 'このテンプレートを削除してもよろしいですか？一度削除された情報は復旧することはできません。',
     ],
     'common' => [
-        'number_file_upload_greater_than' => '5以下のファイルのアップロード数',
+        'number_file_upload_greater_than' => 'ファイルは５つまでアップロードしてください。',
     ]
 ];
