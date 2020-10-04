@@ -35,21 +35,33 @@ return [
         '_page_title' => 'マイアカウント',
         'basic_info' => [
             '_title' => 'アカウント情報',
-            '_subtitle' => 'アカウント情報',
+            'messages' => [
+                '_acc_update_success' => '管理者情報の編集が成功しました。',
+                '_acc_update_failed' => '管理者情報の編集に失敗しました。',
+            ],
+            'others' => [
+              '_btn_update' => '更新する',
+            ],
         ],
-        'change_password' => [
+        'change_pwd' => [
             '_title' => 'パスワード再設定',
-            '_current_pass' => '現在のパスワード',
-            '_current_pass_place_holder' => '現在のパスワードを入力してください',
-            '_new_pass_place_holder' => '新しいパスワードを入力してください',
-            '_verify_pass_place_holder' => '確認用パスワードを入力してください',
-            '_new_pass' => '新しいパスワード',
-            '_verify_pass' => '新しいパスワード（確認用）',
-            '_password_changed' => '管理者情報の編集が成功しました。',
-            '_password_update_failed' => '管理者情報の編集に失敗しました。',
-            '_current_pass_not_match' => '現在のパスワードは古いパスワードと一致しません。',
+            'form' => [
+                '_cur_password' => '現在のパスワード',
+                '_cur_password_pl' => '現在のパスワードを入力してください',
+                '_new_password' => '新しいパスワード',
+                '_new_password_pl' => '新しいパスワードを入力してください',
+                '_confirm_password' => '新しいパスワード（確認用）',
+                '_confirm_password_pl' => '確認用パスワードを入力してください',
+            ],
+            'messages' => [
+                '_current_pwd_not_match' => '現在のパスワードは古いパスワードと一致しません。',
+                '_pwd_update_success' => 'パスワード再設定が成功しました。',
+                '_pwd_update_failed' => 'パスワード再設定に失敗しました。',
+            ],
+            'others' => [
+              '_btn_update_pwd' => '再設定する',
+            ],
         ],
-        '_btn_update' => '保存',
     ],
     'info' => [
         '_og_title_create' => '友伸會ポータル管理画面｜管理者アカウント管理・新規アカウント登録',
@@ -57,7 +69,7 @@ return [
         '_page_title_create' => '新規アカウント登録',
         '_page_title_edit' => '管理者情報編集',
         'form' => [
-            '_subtitle' => '管理者情報',
+            '_form_title' => '管理者情報',
             '_username_pl' => 'アカウント名を入力してください',
             '_mail_address_pl' => 'メールアドレスを入力してください',
             '_position_df' => 'ポジションを選択してください',
@@ -74,8 +86,8 @@ return [
             '_edit_failed' => '管理者情報の編集に失敗しました。',
         ],
         'others' => [
-            '_btn_create' => '登録',
-            '_btn_edit' => '更新',
+            '_btn_create' => '登録する',
+            '_btn_edit' => '更新する',
             '_btn_remove' => '削除する',
         ],
     ],
@@ -84,7 +96,5 @@ return [
         '_remove_modal_no' => 'いいえ',
         '_remove_modal_title' => '管理者情報を削除',
         '_remove_modal_description' => 'この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。',
-        '_remove_modal_deleted' => '仕上げ',
-        '_your_item_has_been_deleted' => '管理者が削除しました'
     ],
 ];

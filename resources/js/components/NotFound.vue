@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row justify-content-center">
                 <div class="col-md-10">
-                    <h2 class="text-center">Not found!</h2>
+                    <h2 class="text-center">404 Not found!</h2>
                 </div>
             </div>
         </div>

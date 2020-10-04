@@ -2,16 +2,16 @@
     <div class="main-wrapper">
         <div class="page-title">
             <div class="container">
-                お知らせ
+                {{ $t('notification.web._page_title') }}
             </div>
         </div>
         <div class="page-content">
             <div class="container">
                 <aside>
                     <div class="list-group list-group-horizontal" id="sideTab" role="tablist">
-                        <a class="list-group-item list-group-item-action active" id="list-all" data-toggle="list" href="#all" role="tab" @click="from = 0">All</a>
-                        <a class="list-group-item list-group-item-action" id="list-director" data-toggle="list" href="#director" role="tab" @click="from = 1">理事長から</a>
-                        <a class="list-group-item list-group-item-action" id="list-hr" data-toggle="list" href="#hr" role="tab" @click="from = 2">事務局から</a>
+                        <a class="list-group-item list-group-item-action active" id="list-all" data-toggle="list" href="#all" role="tab" @click="from = 0">{{ $t('notification.web.data_table._tab_all') }}</a>
+                        <a class="list-group-item list-group-item-action" id="list-director" data-toggle="list" href="#director" role="tab" @click="from = 1">{{ $t('notification.web.data_table._tab_bod') }}</a>
+                        <a class="list-group-item list-group-item-action" id="list-hr" data-toggle="list" href="#hr" role="tab" @click="from = 2">{{ $t('notification.web.data_table._tab_hr') }}</a>
                     </div>
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="all" role="tabpanel">
@@ -107,7 +107,7 @@
                 .catch(()=>{
                     Toast.fire({
                         icon: 'error',
-                        title: 'Some error occured! Please try again'
+                        title: this.$t('common.messages._system_err'),
                     });
                 })
             },
@@ -120,7 +120,7 @@
                     .catch(()=>{
                         Toast.fire({
                             icon: 'error',
-                            title: 'Some error occured! Please try again'
+                            title: this.$t('common.messages._system_err'),
                         });
                     })
             },

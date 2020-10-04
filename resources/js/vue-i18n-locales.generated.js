@@ -958,21 +958,33 @@ export default {
                 "_page_title": "マイアカウント",
                 "basic_info": {
                     "_title": "アカウント情報",
-                    "_subtitle": "アカウント情報"
+                    "messages": {
+                        "_acc_update_success": "管理者情報の編集が成功しました。",
+                        "_acc_update_failed": "管理者情報の編集に失敗しました。"
+                    },
+                    "others": {
+                        "_btn_update": "更新する"
+                    }
                 },
-                "change_password": {
+                "change_pwd": {
                     "_title": "パスワード再設定",
-                    "_current_pass": "現在のパスワード",
-                    "_current_pass_place_holder": "現在のパスワードを入力してください",
-                    "_new_pass_place_holder": "新しいパスワードを入力してください",
-                    "_verify_pass_place_holder": "確認用パスワードを入力してください",
-                    "_new_pass": "新しいパスワード",
-                    "_verify_pass": "新しいパスワード（確認用）",
-                    "_password_changed": "管理者情報の編集が成功しました。",
-                    "_password_update_failed": "管理者情報の編集に失敗しました。",
-                    "_current_pass_not_match": "現在のパスワードは古いパスワードと一致しません。"
-                },
-                "_btn_update": "保存"
+                    "form": {
+                        "_cur_password": "現在のパスワード",
+                        "_cur_password_pl": "現在のパスワードを入力してください",
+                        "_new_password": "新しいパスワード",
+                        "_new_password_pl": "新しいパスワードを入力してください",
+                        "_confirm_password": "新しいパスワード（確認用）",
+                        "_confirm_password_pl": "確認用パスワードを入力してください"
+                    },
+                    "messages": {
+                        "_current_pwd_not_match": "現在のパスワードは古いパスワードと一致しません。",
+                        "_pwd_update_success": "パスワード再設定が成功しました。",
+                        "_pwd_update_failed": "パスワード再設定に失敗しました。"
+                    },
+                    "others": {
+                        "_btn_update_pwd": "再設定する"
+                    }
+                }
             },
             "info": {
                 "_og_title_create": "友伸會ポータル管理画面｜管理者アカウント管理・新規アカウント登録",
@@ -980,7 +992,7 @@ export default {
                 "_page_title_create": "新規アカウント登録",
                 "_page_title_edit": "管理者情報編集",
                 "form": {
-                    "_subtitle": "管理者情報",
+                    "_form_title": "管理者情報",
                     "_username_pl": "アカウント名を入力してください",
                     "_mail_address_pl": "メールアドレスを入力してください",
                     "_position_df": "ポジションを選択してください",
@@ -997,8 +1009,8 @@ export default {
                     "_edit_failed": "管理者情報の編集に失敗しました。"
                 },
                 "others": {
-                    "_btn_create": "登録",
-                    "_btn_edit": "更新",
+                    "_btn_create": "登録する",
+                    "_btn_edit": "更新する",
                     "_btn_remove": "削除する"
                 }
             },
@@ -1006,9 +1018,7 @@ export default {
                 "_remove_modal_yes": "はい",
                 "_remove_modal_no": "いいえ",
                 "_remove_modal_title": "管理者情報を削除",
-                "_remove_modal_description": "この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。",
-                "_remove_modal_deleted": "仕上げ",
-                "_your_item_has_been_deleted": "管理者が削除しました"
+                "_remove_modal_description": "この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
             }
         },
         "app": {
@@ -1047,54 +1057,57 @@ export default {
             }
         },
         "auth": {
+            "attr": {
+                "_mail_address": "メールアドレス",
+                "_password": "パスワード",
+                "_new_password": "新しいパスワード",
+                "_confirm_password": "新しいパスワード（確認用）"
+            },
             "login": {
                 "_og_title": "友伸會ポータル管理画面",
                 "_page_title": "友伸會ポータル管理画面",
                 "form": {
-                    "_subtitle": "ログイン",
-                    "_mail_address": "メールアドレス",
-                    "_mail_address_pl": "メールアドレスを入力してください",
-                    "_password": "パスワード",
-                    "_password_pl": "パスワードを入力してください"
+                    "_form_title": "ログイン"
                 },
                 "messages": {
-                    "_login_failed": "ログインに失敗しました。"
+                    "_login_failed": "ログインに失敗しました。",
+                    "_login_banned": "ログインの試行回数が多すぎます。{seconds} 秒後にお試しください。"
                 },
                 "others": {
-                    "_btn_login": "ログイン",
+                    "_btn_login": "ログインする",
                     "_link_forgot_password": "パスワードを忘れた方はこちら"
                 }
             },
-            "reset_pwd": {
+            "forgot_pwd": {
                 "_og_title": "友伸會ポータル管理画面｜パスワード再設定",
                 "_page_title": "友伸會ポータル管理画面",
                 "form": {
-                    "_subtitle": "パスワード再設定",
-                    "_mail_address": "メールアドレス",
-                    "_mail_address_pl": "メールアドレスを入力してください"
+                    "_form_title": "パスワード再設定メール送信"
                 },
                 "messages": {
                     "_send_mail_success": "パスワード再設定のメールを送信しました。",
                     "_send_mail_failed": "パスワード再設定のメール送信に失敗しました。"
                 },
                 "others": {
-                    "_btn_login": "パスワードを再設定",
+                    "_btn_send": "メールを送信する",
                     "_link_back_to_login": "ログイン画面へ戻す"
                 }
             },
-            "title_form": "社内ポータルサイト",
-            "email_title": "メールアドレス",
-            "email_holder": "メールアドレスを入力してください",
-            "password_title": "パスワード",
-            "password_holder": "パスワードを入力してください",
-            "btn_login": "ログイン",
-            "title_login": "ログイン",
-            "forgot_password": "パスワードを忘れた方はこちら?",
-            "title_reset": "パスワードを忘れた方はこちら?",
-            "confirm_password": "パスワードを認証する",
-            "reset_btn": "リセット",
-            "failed": "ログインに失敗しました。",
-            "throttle": "ログインの試行回数が多すぎます。{seconds} 秒後にお試しください。"
+            "reset_pwd": {
+                "_og_title": "友伸會ポータル管理画面｜パスワード再設定",
+                "_page_title": "友伸會ポータル管理画面",
+                "form": {
+                    "_form_title": "パスワード再設定"
+                },
+                "messages": {
+                    "_send_mail_success": "パスワード再設定のメールを送信しました。",
+                    "_send_mail_failed": "パスワード再設定のメール送信に失敗しました。"
+                },
+                "others": {
+                    "_btn_reset": "パスワードを再設定する",
+                    "_link_back_to_login": "ログイン画面へ戻す"
+                }
+            }
         },
         "clinic": {
             "attr": {
@@ -1256,12 +1269,6 @@ export default {
                     "_no_search_result": "該当するユーザー情報が存在しません。"
                 }
             },
-            "form": {
-                "_name": "名前"
-            },
-            "popup": {
-                "_cannot_do_this_action": "このアクションは実行できません"
-            },
             "others": {
                 "_remove_modal_yes": "はい",
                 "_remove_modal_no": "いいえ",
@@ -1287,8 +1294,8 @@ export default {
                 }
             },
             "list": {
-                "_og_title": "友伸會ポータル管理画面｜申請管理・申請一覧",
-                "_page_title": "申請一覧",
+                "_og_title": "友伸會ポータル管理画面｜問合せ管理・問合せ一覧",
+                "_page_title": "問合せ一覧",
                 "search_box": {
                     "_status_df": "すべてのステータス"
                 },
@@ -1305,12 +1312,12 @@ export default {
                     }
                 },
                 "messages": {
-                    "_close_success": "近い成功。",
-                    "_close_failed": "クローズに失敗しました。"
+                    "_close_success": "問合せをクローズしました。",
+                    "_close_failed": "問合せのステータス変更に失敗しました。"
                 },
                 "others": {
-                    "_no_data": "申請データが存在しません。",
-                    "_no_search_result": "該当する申請データが存在しません。"
+                    "_no_data": "問合せが存在しません。",
+                    "_no_search_result": "該当する問合せが存在しません。"
                 },
                 "search": {
                     "_status": "ステータス",
@@ -1320,11 +1327,10 @@ export default {
                 }
             },
             "info": {
-                "_og_title": "友伸會ポータル管理画面｜申請管理・申請詳細情報",
+                "_og_title": "友伸會ポータル管理画面｜問合せ管理・問合せ詳細情報",
                 "_page_title": "問合せ詳細情報",
                 "basic_info": {
-                    "_subtitle": "基本情報",
-                    "_approval_comment_pl": "例）精算額など"
+                    "_subtitle": "基本情報"
                 },
                 "form": {
                     "_subtitle": "問合せ内容",
@@ -1347,17 +1353,10 @@ export default {
                 "_comment_success": "Comment success"
             },
             "others": {
-                "_modal_no": "キャンセル",
-                "_reject_modal_yes": "承認する",
-                "_reject_modal_title": "申請を承認",
-                "_reject_modal_description": "この申請を承認してもよろしいですか？",
-                "_approve_modal_yes": "却下する",
-                "_approve_modal_title": "申請を却下",
-                "_approve_modal_description": "この申請を却下してもよろしいですか？",
-                "_remove_modal_yes": "はい",
-                "_remove_modal_no": "いいえ",
-                "_remove_modal_title": "申請テンプレートを削除",
-                "_remove_modal_description": "このテンプレートを削除してもよろしいですか？一度削除された情報は復旧することはできません。"
+                "_close_modal_yes": "はい",
+                "_close_modal_no": "いいえ",
+                "_close_modal_title": "問合せをクローズ",
+                "_close_modal_description": "この問合せをクローズしてもよろしいですか？"
             }
         },
         "notification": {
@@ -1377,7 +1376,6 @@ export default {
             "list": {
                 "_og_title": "友伸會ポータル管理画面｜お知らせ管理・お知らせ一覧",
                 "_page_title": "お知らせ一覧",
-                "_page_title_edit": "お知らせ編集",
                 "search_box": {
                     "_target_users_df": "すべてのスタッフ",
                     "_public_date": "公開日付",
@@ -1403,7 +1401,7 @@ export default {
                     "_stt_update_failed": "お知らせステータスの更新に失敗しました。"
                 },
                 "others": {
-                    "_btn_create": "新規作成",
+                    "_btn_create": "新規お知らせ作成",
                     "_no_data": "お知らせデータが存在しません。",
                     "_no_search_result": "該当するお知らせデータが存在しません。"
                 }
@@ -1411,6 +1409,7 @@ export default {
             "info": {
                 "_og_title": "友伸會ポータル管理画面｜お知らせ管理・お知らせ作成",
                 "_page_title": "お知らせ作成",
+                "_page_title_edit": "お知らせ編集",
                 "form": {
                     "_subtitle": "お知らせ情報",
                     "_title_pl": "タイトルを入力してください",
@@ -1426,10 +1425,14 @@ export default {
                     "_create_success": "お知らせ作成が成功しました。",
                     "_create_failed": "お知らせ作成に失敗しました。",
                     "_draft_save_success": "お知らせの下書き保存が成功しました。",
-                    "_draft_save_failed": "お知らせの下書き保存に失敗しました。"
+                    "_draft_save_failed": "お知らせの下書き保存に失敗しました。",
+                    "_err_title_required": "タイトルを必ず必ず入力してください。",
+                    "_err_target_required": "送信対象者を必ず指定してください。",
+                    "_err_content_required": "お知らせ本文を必ず入力してください。",
+                    "_err_schedule_lt_now": "公開日時を正しく指定してください。"
                 },
                 "others": {
-                    "_btn_draft_save": "下書きとして保存",
+                    "_btn_draft_save": "下書きとして保存する",
                     "_btn_create": "公開する",
                     "_btn_remove": "削除する"
                 }
@@ -1442,8 +1445,8 @@ export default {
                     "status": {
                         "_unread": "未読",
                         "_read": "既読",
-                        "_unconfirmed": "Unconfirmed",
-                        "_confirmed": "Confirmed"
+                        "_unconfirmed": "未確認",
+                        "_confirmed": "確認済"
                     }
                 },
                 "search_box": {
@@ -1458,15 +1461,20 @@ export default {
                     "_no_search_result": "該当するユーザー情報が存在しません。"
                 }
             },
+            "web": {
+                "_og_title": "友伸會ポータル管理画面｜お知らせ一覧",
+                "_page_title": "お知らせ一覧",
+                "data_table": {
+                    "_tab_all": "すべて",
+                    "_tab_bod": "理事長から",
+                    "_tab_hr": "事務局から"
+                }
+            },
             "others": {
                 "_remove_modal_yes": "はい",
                 "_remove_modal_no": "いいえ",
                 "_remove_modal_title": "お知らせを削除",
-                "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。",
-                "require_title": "Title is required",
-                "require_group": "Group is required",
-                "require_content": "Content is required",
-                "schedule_date_lte_now": "Schedule date must be greater than now"
+                "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。"
             }
         },
         "page": {
@@ -1482,8 +1490,8 @@ export default {
                 "_summary": "概要"
             },
             "list": {
-                "_og_title": "友伸會ポータル管理画面｜管理者アカウント管理・管理者一覧",
-                "_page_title": "記事一覧",
+                "_og_title": "友伸會ポータル管理画面｜ページ管理・ページ一覧",
+                "_page_title": "ページ一覧",
                 "search_box": {
                     "_type": "書類",
                     "_type_pl": "すべての書類",
@@ -1509,44 +1517,44 @@ export default {
                     }
                 },
                 "messages": {
-                    "_remove_success": "管理者情報の削除が成功しました。",
-                    "_remove_failed": "管理者情報の削除に失敗しました。"
+                    "_remove_success": "ページの削除が成功しました。",
+                    "_remove_failed": "ページの削除に失敗しました。"
                 },
                 "others": {
-                    "_btn_create": "新規作成",
-                    "_no_data": "管理者アカウントが存在しません。",
-                    "_no_search_result": "該当する管理者情報が存在しません。"
+                    "_btn_create": "新規ページ作成",
+                    "_no_data": "ページデータが存在しません。",
+                    "_no_search_result": "該当するページが存在しません。"
                 }
             },
             "info": {
-                "_og_title_create": "友伸會ポータル管理画面｜管理者アカウント管理・新規アカウント登録",
-                "_og_title_edit": "友伸會ポータル管理画面｜管理者アカウント管理・管理者情報編集",
-                "_page_title_create": "記事作成",
-                "_page_title_edit": "投稿を編集",
+                "_og_title_create": "友伸會ポータル管理画面｜ページ管理・新規ページ作成",
+                "_og_title_edit": "友伸會ポータル管理画面｜ページ管理・ページ編集",
+                "_page_title_create": "新規ページ作成",
+                "_page_title_edit": "ページ編集",
                 "_basic_info": "基本情報",
-                "_article_content": "記事内容",
+                "_article_content": "ページ内容",
                 "tabs": {
                     "_manual": "マニュアル設定",
                     "_file": "ファイルアップロード"
                 },
                 "form": {
                     "_title_pl": "タイトルを入力してください",
-                    "_url_pl": "公開先を指定してください",
+                    "_url_pl": "公開先URLを指定してください",
                     "_category_pl": "カテゴリーを指定してください",
                     "_title_upload": "ファイルを選択してください",
                     "_content_upload": "ドキュメント（pdf）、画像ファイル（png, jpg）または動画（mp4）をアップロードしてくだい",
                     "_btn_upload": "ファイルを選択",
-                    "_btn_remove": "記事を削除する"
+                    "_btn_remove": "削除する"
                 },
                 "messages": {
-                    "_create_success": "管理者アカウントの登録が成功しました。",
-                    "_create_failed": "管理者アカウントの登録に失敗しました。",
-                    "_edit_success": "管理者情報の編集が成功しました。",
-                    "_edit_failed": "管理者情報の編集に失敗しました。",
-                    "_change_status_success": "ステータス変更成功",
-                    "_change_status_failed": "ステータスの変更に失敗しました",
-                    "_create_category_success": "カテゴリの作成成功",
-                    "_create_category_failed": "カテゴリの作成に失敗しました"
+                    "_create_success": "ページ作成が成功しました。",
+                    "_create_failed": "ページ作成に失敗しました。",
+                    "_edit_success": "ページ内容の編集が成功しました。",
+                    "_edit_failed": "ページ内容の編集に失敗しました。",
+                    "_change_status_success": "ページのステータス変更が成功しました。",
+                    "_change_status_failed": "ページのステータス変更に失敗しました。",
+                    "_create_category_success": "カテゴリの作成が成功しました。",
+                    "_create_category_failed": "カテゴリの作成に失敗しました。"
                 },
                 "others": {
                     "_btn_create": "登録する",
@@ -1554,13 +1562,35 @@ export default {
                     "_btn_remove": "削除する"
                 },
                 "popup": {
-                    "_create_title": "ディレクトリを作成する",
-                    "_btn_create": "新しく作る",
+                    "_create_title": "ページカテゴリー登録",
+                    "_btn_create": "登録する",
                     "_btn_close": "キャンセル",
                     "_btn_show_popup_category": "新しいカテゴリーを追加",
                     "attr": {
-                        "_name": "種別名"
+                        "_name": "カテゴリー名"
                     }
+                }
+            },
+            "web": {
+                "sidemenu": {
+                    "_blog_category": "記事カテゴリー",
+                    "_faq": "よくある質問",
+                    "_manual": "マニュアル",
+                    "others": {
+                        "_show_more": "もっと見る..."
+                    }
+                },
+                "blog": {
+                    "_og_title": "友伸會ポータル管理画面｜記事",
+                    "_page_title": "記事",
+                    "list": {
+                        "_latest_blogs": "最新ニュース",
+                        "_show_more": "もっと見る..."
+                    }
+                },
+                "manual": {
+                    "_og_title": "友伸會ポータル管理画面｜マニュアル一覧",
+                    "_page_title": "マニュアル一覧"
                 }
             },
             "others": {
@@ -1680,7 +1710,7 @@ export default {
                         "_remove_failed": "申請テンプレートの削除に失敗しました。"
                     },
                     "others": {
-                        "_btn_draft_save": "下書きとして保存",
+                        "_btn_draft_save": "下書きとして保存する",
                         "_btn_create": "新規テンプレート作成",
                         "_no_data": "申請テンプレートが存在しません。"
                     }
@@ -1707,8 +1737,8 @@ export default {
                         "_edit_failed": "新規申請テンプレートの編集に失敗しました。",
                         "_draft_save_success": "申請テンプレートのの下書き保存が成功しました。",
                         "_draft_save_failed": "申請テンプレートのの下書き保存に失敗しました。",
-                        "_delete_success": "Delete success。",
-                        "_delete_failed": "Delete failed。"
+                        "_delete_success": "申請テンプレートの削除が成功しました。",
+                        "_delete_failed": "申請テンプレートの削除に失敗しました。"
                     },
                     "others": {
                         "_btn_draft_save": "下書きとして保存",
@@ -1720,19 +1750,14 @@ export default {
             },
             "others": {
                 "_modal_no": "キャンセル",
-                "_reject_modal_yes": "承認する",
-                "_reject_modal_title": "申請を承認",
-                "_reject_modal_description": "この申請を承認してもよろしいですか？",
-                "_approve_modal_yes": "却下する",
-                "_approve_modal_title": "申請を却下",
-                "_approve_modal_description": "この申請を却下してもよろしいですか？",
-                "_remove_modal_yes": "はい",
-                "_remove_modal_no": "いいえ",
-                "_remove_modal_title": "申請テンプレートを削除",
-                "_remove_modal_description": "このテンプレートを削除してもよろしいですか？一度削除された情報は復旧することはできません。"
+                "_modal_yes": "はい",
+                "_reject_modal_title": "申請をリジェクト",
+                "_reject_modal_description": "この申請をリジェクトしてもよろしいですか？",
+                "_approve_modal_title": "申請を承認",
+                "_approve_modal_description": "この申請を却下してもよろしいですか？"
             },
             "common": {
-                "number_file_upload_greater_than": "5以下のファイルのアップロード数"
+                "number_file_upload_greater_than": "ファイルは５つまでアップロードしてください。"
             }
         },
         "role": {
@@ -1851,7 +1876,7 @@ export default {
             "info": {
                 "_og_title_create": "友伸會ポータル管理画面｜スタッフ管理・新規スタッフ情報登録",
                 "_og_title_edit": "友伸會ポータル管理画面｜スタッフ管理・スタッフ情報編集",
-                "_page_title_create": "新規スタッフ情報登録",
+                "_page_title_create": "新規スタッフ登録",
                 "_page_title_edit": "スタッフ情報編集",
                 "form": {
                     "_form_title": "スタッフ情報",
@@ -1875,6 +1900,25 @@ export default {
                     "_btn_create": "登録する",
                     "_btn_edit": "編集する",
                     "_btn_remove": "削除する"
+                }
+            },
+            "my_account": {
+                "_page_title": "マイアカウント",
+                "form": {
+                    "_cur_password": "現在のパスワード",
+                    "_cur_password_pl": "現在のパスワードを入力してください",
+                    "_new_password": "新しいパスワード",
+                    "_new_password_pl": "新しいパスワードを入力してください",
+                    "_confirm_password": "新しいパスワード（確認用）",
+                    "_confirm_password_pl": "確認用パスワードを入力してください"
+                },
+                "messages": {
+                    "_current_pwd_not_match": "現在のパスワードは古いパスワードと一致しません。",
+                    "_pwd_update_success": "パスワード再設定が成功しました。",
+                    "_pwd_update_failed": "パスワード再設定に失敗しました。"
+                },
+                "others": {
+                    "_btn_update_pwd": "再設定する"
                 }
             },
             "others": {

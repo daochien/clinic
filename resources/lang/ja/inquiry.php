@@ -17,8 +17,8 @@ return [
         ],
     ],
     'list' => [
-        '_og_title' => '友伸會ポータル管理画面｜申請管理・申請一覧',
-        '_page_title' => '申請一覧',
+        '_og_title' => '友伸會ポータル管理画面｜問合せ管理・問合せ一覧',
+        '_page_title' => '問合せ一覧',
         'search_box' => [
             '_status_df' => 'すべてのステータス',
         ],
@@ -35,12 +35,12 @@ return [
             ],
         ],
         'messages' => [
-            '_close_success' => '近い成功。',
-            '_close_failed' => 'クローズに失敗しました。',
+            '_close_success' => '問合せをクローズしました。',
+            '_close_failed' => '問合せのステータス変更に失敗しました。',
         ],
         'others' => [
-            '_no_data' => '申請データが存在しません。',
-            '_no_search_result' => '該当する申請データが存在しません。',
+            '_no_data' => '問合せが存在しません。',
+            '_no_search_result' => '該当する問合せが存在しません。',
         ],
         'search' => [
             '_status' => 'ステータス',
@@ -50,11 +50,10 @@ return [
         ]
     ],
     'info' => [
-        '_og_title' => '友伸會ポータル管理画面｜申請管理・申請詳細情報',
+        '_og_title' => '友伸會ポータル管理画面｜問合せ管理・問合せ詳細情報',
         '_page_title' => '問合せ詳細情報',
         'basic_info' => [
             '_subtitle' => '基本情報',
-            '_approval_comment_pl' => '例）精算額など'
         ],
         'form' => [
             '_subtitle' => '問合せ内容',
@@ -77,16 +76,9 @@ return [
         '_comment_success' => 'Comment success'
     ],
     'others' => [
-        '_modal_no' => 'キャンセル',
-        '_reject_modal_yes' => '承認する',
-        '_reject_modal_title' => '申請を承認',
-        '_reject_modal_description' => 'この申請を承認してもよろしいですか？',
-        '_approve_modal_yes' => '却下する',
-        '_approve_modal_title' => '申請を却下',
-        '_approve_modal_description' => 'この申請を却下してもよろしいですか？',
-        '_remove_modal_yes' => 'はい',
-        '_remove_modal_no' => 'いいえ',
-        '_remove_modal_title' => '申請テンプレートを削除',
-        '_remove_modal_description' => 'このテンプレートを削除してもよろしいですか？一度削除された情報は復旧することはできません。',
+        '_close_modal_yes' => 'はい',
+        '_close_modal_no' => 'いいえ',
+        '_close_modal_title' => '問合せをクローズ',
+        '_close_modal_description' => 'この問合せをクローズしてもよろしいですか？',
     ],
 ];

@@ -195,13 +195,13 @@
             },
             close() {
                 Swal.fire({
-                    title: this.$t('inquiry').others._reject_modal_title,
-                    text: this.$t('inquiry').others._reject_modal_description,
+                    title: this.$t('inquiry').others._close_modal_title,
+                    text: this.$t('inquiry').others._close_modal_description,
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('inquiry').others._reject_modal_yes,
-                    cancelButtonText: this.$t('inquiry').others._modal_no,
+                    confirmButtonText: this.$t('inquiry').others._close_modal_yes,
+                    cancelButtonText: this.$t('inquiry').others._close_modal_no,
                 }).then((result) => {
                     // Send request to the server
                     if (result.value) {
@@ -227,7 +227,7 @@
                             .catch(() => {
                                 Toast.fire({
                                     icon: 'error',
-                                    title: this.$t('inquiry').list.messages._close_failed,
+                                    title: this.$t('common').messages._system_err,
                                 });
                             })
                     }
