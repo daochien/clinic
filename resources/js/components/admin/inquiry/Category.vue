@@ -265,7 +265,6 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                     .then((response) => {
                         this.inquirys = response.data.data;
                         this.paginator = response.data.meta;
-                        this.getCategory();
                     });
             },
             getStatus(inquiry) {
@@ -280,7 +279,8 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
         },
         created() {
             this.$Progress.start();
-            this.loadInquiry();
+            this.searchData();
+            this.getCategory();
             this.$Progress.finish();
         }
     }

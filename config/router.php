@@ -198,7 +198,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['api.inquiry.list', 'inquiry.show', 'api.inquiry.attachment.download', 'api.inquiry.search']
+                    'routes' => ['inquiry.list','api.inquiry.list', 'inquiry.show', 'api.inquiry.attachment.download', 'api.inquiry.search']
                 ],
                 'create' => [
                     'name' => 'Create',
