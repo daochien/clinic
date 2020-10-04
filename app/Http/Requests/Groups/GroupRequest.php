@@ -53,7 +53,7 @@ class GroupRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:191|unique:groups',
-            'description' => 'required|max:500',
+            'description' => 'max:500',
             'forced' => 'required|integer'
         ];
     }

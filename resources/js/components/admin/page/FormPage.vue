@@ -132,7 +132,7 @@
                                 </div>
                                 <label v-if="page.type != 'faq'" @click="showModalCategory()" class="col-sm-4 col-form-label" style="color:#007BFF; cursor:pointer;">+ {{ $t('page.info.popup._btn_show_popup_category') }}</label>
                             </div>
-                            <div v-show="showMore && page.type != 'faq'" class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <div v-show="showMore || page.type == 'faq'" class="form-group row border-bottom" style="padding-bottom: 10px;">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._image') }}</label>
                                 <div class="col-sm-4" v-show="previewImage">
                                     <img :src="previewImage" style="width:100%;">
