@@ -112,7 +112,7 @@
                         axios.delete('/api/group/'+id).then(()=>{
                             Toast.fire({
                                 icon:"success",
-                                title: this.$t('group.messages._update_success'),
+                                title: this.$t('group.list.messages._remove_success'),
                             });
                             // Fire.$emit('AfterCreate');
                             this.loadGroup();
@@ -126,7 +126,7 @@
                 })
               }else{
                   Toast.fire({
-                      title:this.$t(group.popup._cannot_do_this_action),
+                      title: this.$t('common.messages._system_err'),
                       icon:"error"
                   });
               }

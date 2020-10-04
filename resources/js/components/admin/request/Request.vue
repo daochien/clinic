@@ -218,30 +218,43 @@
                 };
             },
             approve() {
-                axios.post("/api/request/" + this.submission.id + "/status", {
-                    status: 1,
-                })
-                .then((data) => {
-                    if (data.data.status) {
-                        Toast.fire({
-                            icon: "success",
-                            title: this.$t('request').list.messages._approve_success,
-                        });
-                        this.$router.push("/admin/request/category/" + this.submission.template.category[0].id)
-                        this.$Progress.finish();
-                    } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: this.$t('request').list.messages._approve_failed,
-                        });
-                        this.$Progress.failed();
+                Swal.fire({
+                    title: this.$t('request').others._approve_modal_title,
+                    text: this.$t('request').others._approve_modal_description,
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: this.$t('request').others._modal_yes,
+                    cancelButtonText: this.$t('request').others._modal_no,
+                }).then((result) => {
+                    // Send request to the server
+                    if (result.value) {
+                        axios.post("/api/request/" + this.submission.id + "/status", {
+                            status: 1,
+                        })
+                        .then((data) => {
+                            if (data.data.status) {
+                                Toast.fire({
+                                    icon: "success",
+                                    title: this.$t('request').list.messages._approve_success,
+                                });
+                                this.$router.push("/admin/request/category/" + this.submission.template.category[0].id)
+                                this.$Progress.finish();
+                            } else {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: this.$t('request').list.messages._approve_failed,
+                                });
+                                this.$Progress.failed();
+                            }
+                        })
+                        .catch(() => {
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('common').messages._system_err,
+                            });
+                        })
                     }
-                })
-                .catch(() => {
-                    Toast.fire({
-                        icon: 'error',
-                        title: this.$t('request').list.messages._approve_failed,
-                    });
                 })
             },
             reject() {
@@ -251,7 +264,7 @@
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('request').others._reject_modal_yes,
+                    confirmButtonText: this.$t('request').others._modal_yes,
                     cancelButtonText: this.$t('request').others._modal_no,
                 }).then((result) => {
                     // Send request to the server
@@ -278,7 +291,7 @@
                         .catch(() => {
                             Toast.fire({
                                 icon: 'error',
-                                title: this.$t('request').list.messages._reject_failed,
+                                title: this.$t('common').messages._system_err,
                             });
                         })
                     }

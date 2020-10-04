@@ -13,7 +13,7 @@
         <div class="col-10 offset-1 col-sm-10 offset-sm-1">
             <div class="card card-small mb-3">
                 <div class="card-header border-bottom">
-                    <h6 class="m-0">{{ $t('admin.info.form._subtitle') }}</h6>
+                    <h6 class="m-0">{{ $t('admin.info.form._form_title') }}</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -64,21 +64,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-6">
-                            <div class="form-group">
-                                <label>{{ $t('app.user.level')}}</label>
-                                <select class="form-control" id="levels" v-model="manager.level_id">
-                                    <option value="" selected>{{ $t('app.user.place_holder.level') }}</option>
-                                    <option v-for="level in levels" :key="'level_' + level.id" :value="level.id">{{ level.name }}</option>
-                                </select>
-                            </div>
-                        </div> -->
                     </div>
                     <div class="row">
                         <div class="form-group col-12">
                             <label for="feInputTitle">{{ $t('admin.attr._memo') }}</label>
                             <textarea
-                            :placeholder="$t('admin.info.form._mail_address_pl')"
+                            :placeholder="$t('admin.info.form._memo_pl')"
                             :class="['form-control', {'is-invalid': manager.errors.has('description')}]"
                             v-model="manager.description"
                             class="form-control"
@@ -267,7 +258,7 @@ export default {
                     axios.delete('/api/manager/'+id).then(() => {
                         Toast.fire({
                             icon: 'success',
-                            title: this.$t('admin.others._remove_modal_deleted')
+                            title: this.$t('admin.list.messages._remove_success')
                         });
 
                         // Fire.$emit('AfterCreate');

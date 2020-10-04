@@ -16,7 +16,6 @@ return [
     'list' => [
         '_og_title' => '友伸會ポータル管理画面｜お知らせ管理・お知らせ一覧',
         '_page_title' => 'お知らせ一覧',
-        '_page_title_edit' => 'お知らせ編集',
         'search_box' => [
             '_target_users_df' => 'すべてのスタッフ',
             '_public_date' => '公開日付',
@@ -42,7 +41,7 @@ return [
             '_stt_update_failed' => 'お知らせステータスの更新に失敗しました。',
         ],
         'others' => [
-            '_btn_create' => '新規作成',
+            '_btn_create' => '新規お知らせ作成',
             '_no_data' => 'お知らせデータが存在しません。',
             '_no_search_result' => '該当するお知らせデータが存在しません。',
         ],
@@ -50,6 +49,7 @@ return [
     'info' => [
         '_og_title' => '友伸會ポータル管理画面｜お知らせ管理・お知らせ作成',
         '_page_title' => 'お知らせ作成',
+        '_page_title_edit' => 'お知らせ編集',
         'form' => [
             '_subtitle' => 'お知らせ情報',
             '_title_pl' => 'タイトルを入力してください',
@@ -66,9 +66,13 @@ return [
             '_create_failed' => 'お知らせ作成に失敗しました。',
             '_draft_save_success' => 'お知らせの下書き保存が成功しました。',
             '_draft_save_failed' => 'お知らせの下書き保存に失敗しました。',
+            '_err_title_required' => 'タイトルを必ず必ず入力してください。',
+            '_err_target_required' => '送信対象者を必ず指定してください。',
+            '_err_content_required' => 'お知らせ本文を必ず入力してください。',
+            '_err_schedule_lt_now' => '公開日時を正しく指定してください。',
         ],
         'others' => [
-            '_btn_draft_save' => '下書きとして保存',
+            '_btn_draft_save' => '下書きとして保存する',
             '_btn_create' => '公開する',
             '_btn_remove' => '削除する',
         ],
@@ -81,8 +85,8 @@ return [
             'status' => [
                 '_unread' => '未読',
                 '_read' => '既読',
-                '_unconfirmed' => 'Unconfirmed',
-                '_confirmed' => 'Confirmed',
+                '_unconfirmed' => '未確認',
+                '_confirmed' => '確認済',
             ],
         ],
         'search_box' => [
@@ -97,14 +101,19 @@ return [
             '_no_search_result' => '該当するユーザー情報が存在しません。',
         ],
     ],
+    'web' => [
+        '_og_title' => '友伸會ポータル管理画面｜お知らせ一覧',
+        '_page_title' => 'お知らせ一覧',
+        'data_table' => [
+            '_tab_all' => 'すべて',
+            '_tab_bod' => '理事長から',
+            '_tab_hr' => '事務局から',
+        ],
+    ],
     'others' => [
         '_remove_modal_yes' => 'はい',
         '_remove_modal_no' => 'いいえ',
         '_remove_modal_title' => 'お知らせを削除',
         '_remove_modal_description' => 'このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。',
-        'require_title' => 'Title is required',
-        'require_group' => 'Group is required',
-        'require_content' => 'Content is required',
-        'schedule_date_lte_now' => 'Schedule date must be greater than now',
     ],
 ];

@@ -526,7 +526,7 @@ export default {
                 })
                 .catch(error => {
                     console.log(error);
-                    return this.$alert(this.$t('ugc.system_error'), {confirmButtonText: 'OK'});
+                    return this.$alert(this.$t('common.messages._system_err'), {confirmButtonText: 'OK'});
                 });
         },
         loadCategory () {

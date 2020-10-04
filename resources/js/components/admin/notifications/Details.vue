@@ -232,7 +232,7 @@
                         console.log(error);
                         Toast.fire({
                             icon: "error",
-                            title: this.$t("app").notification.some_error,
+                            title: this.$t('common').messages._system_err,
                         });
                     });
                 this.$Progress.finish();

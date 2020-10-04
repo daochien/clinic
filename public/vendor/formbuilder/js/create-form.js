@@ -147,11 +147,9 @@ jQuery(function() {
         if (! formBuilder.actions.getData().length) {
             swal.fire({
                 title: "エラー",
-                text: "テンプレートを空にすることはできません",
-                // showCancelButton: true,
+                text: "申請フォーム項目を必ず指定してください。",
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'はい',
-                // cancelButtonText: 'キャンセル',
             })
             return
         }
@@ -221,7 +219,7 @@ jQuery(function() {
         if (! formBuilder.actions.getData().length) {
             swal.fire({
                 title: "エラー",
-                text: "テンプレートを空にすることはできません",
+                text: "申請フォーム項目を必ず指定してください。",
                 // showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',

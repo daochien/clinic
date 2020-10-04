@@ -3,7 +3,7 @@
     <div class="page-title center">
         <div class="container">
             <h1><a href="#"><img src="/front-end/images/logo.png" alt=""></a></h1>
-            {{ __('auth.login.form._subtitle') }}
+            {{ __('auth.login.form._form_title') }}
         </div>
     </div>
     <div class="page-content white-content">
@@ -11,7 +11,7 @@
             <form method="POST" action="{{ route('login') }}" class="login-form">
                 @csrf
                 <div class="form-group">
-                    <label for="exampleInputEmail1">{{ __('auth.login.form._mail_address') }}</label>
+                    <label for="exampleInputEmail1">{{ __('auth.attr._mail_address') }}</label>
                     <input type="email" class="form-control email @error('email') is-invalid @enderror" name="email"
                            value="{{ old('email') }}" required autocomplete="email" autofocus id="exampleInputEmail1"
                            aria-describedby="emailHelp">
@@ -22,7 +22,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">{{ __('auth.login.form._password') }}</label>
+                    <label for="exampleInputPassword1">{{ __('auth.attr._password') }}</label>
                     <input type="password" class="form-control password @error('password') is-invalid @enderror"
                            name="password" required autocomplete="current-password" id="exampleInputPassword1">
                 </div>

@@ -2,7 +2,7 @@
 <div class="main-wrapper">
     <div class="page-title center">
       <div class="container">
-        マニュアルリスト
+        {{ $t('page.web.manual._page_title') }}
       </div>
     </div>
     <div class="page-content white-content">

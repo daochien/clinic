@@ -26,6 +26,6 @@ class MatchOldPassword implements Rule
      */
     public function message()
     {
-        return __('admin.my_account.change_password._current_pass_not_match');
+        return __('admin.my_account.change_pwd.messages._current_pwd_not_match');
     }
 }
