@@ -82,7 +82,7 @@ class UserRepository extends BaseRepository
     {
         $query = User::from('users as u')
             ->join('model_has_roles as mhr', 'mhr.model_id', 'u.id')
-            ->whereIn('mhr.role_id', array_values(User::USER_ROLE));
+            ->where('mhr.role_id', User::ROLE_STAFF_MOBILE);
 
         if (isset($param['keyword'])) {
             $query->where('name', 'LIKE', "%{$param['keyword']}%")

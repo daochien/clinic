@@ -126,10 +126,10 @@
                                                    :to="'/admin/request/' + request.id">
                                                     {{ $t('request.list.data_table.actions._act_show_details')}}
                                                 </router-link>
-                                                <a class="dropdown-item text-primary" v-if="canUpdateRequest(request)" href="#" @click="approve(request.id)">
+                                                <a class="dropdown-item text-primary" v-if="canUpdateRequest(request) & canChangeStatus(request)" href="#" @click="approve(request.id)">
                                                     {{$t('request.list.data_table.actions._act_approve')}}
                                                 </a>
-                                                <a class="dropdown-item text-danger" v-if="canUpdateRequest(request)" href="#" @click="reject(request.id)">
+                                                <a class="dropdown-item text-danger" v-if="canUpdateRequest(request) & canChangeStatus(request)" href="#" @click="reject(request.id)">
                                                     {{$t('request.list.data_table.actions._act_reject')}}
                                                 </a>
                                             </div>
@@ -310,6 +310,34 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                         this.getCategory();
                     });
             },
+            canChangeStatus(object){
+                self = this;
+                if (object.request_logs.length === 0) {
+                    return true;
+                }
+
+                let approvedCount = 0;
+                _.forEach(object.request_logs, function (log, logKey) {
+                    if (log.status === 2) {
+                        return false;
+                    }
+
+                    let valid_approver = _.findIndex(object.template.approvers, ['id', log.approver_id]) >= 0;
+                    if (valid_approver){
+                        approvedCount++;
+                    }
+                });
+
+                if (approvedCount === 0) {
+                    return true;
+                }
+
+                if (approvedCount === object.template.approvers.length) {
+                    return false;
+                }
+
+                return true;
+            },
             getStatus(object) {
                 self = this;
                 if (object.request_logs.length === 0) {
@@ -319,13 +347,12 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 
                 let approvedCount = 0;
                 _.forEach(object.request_logs, function (log, logKey) {
-                    if (log.status === 2) {
-                        self.status_label = 'btn-secondary';
-                        return '<span class="text-secondary">' + self.$t('request').attr.status._rejected + '</span>'
-                    }
-
-                    let valid_approver = _.findIndex(object.template.approvers, ['id', log.id]) >= 0;
+                    let valid_approver = _.findIndex(object.template.approvers, ['id', log.approver_id]) >= 0;
                     if (valid_approver){
+                        if (log.status === 2) {
+                            self.status_label = 'btn-secondary';
+                            return '<span class="text-secondary">' + self.$t('request').attr.status._rejected + '</span>'
+                        }
                         approvedCount++;
                     }
                 });
