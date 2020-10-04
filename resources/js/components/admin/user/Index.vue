@@ -110,7 +110,7 @@
                                         </div>
                                         <div v-else>-</div>
                                     </td>
-                                    <td>{{user.last_login|myDate}}</td>
+                                    <td>{{user.last_login|myDate}} </td>
                                     <td>
                                         <div class="dropdown">
                                             <i
