@@ -21,6 +21,11 @@ class RoleRepository
         return $this->model->pluck('name')->toArray();
     }
 
+    public function pluckId()
+    {
+        return $this->model->pluck('id')->toArray();
+    }
+
     public function get()
     {
         return $this->model->with(['permissions' => function ($q) {
