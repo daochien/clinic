@@ -9,8 +9,8 @@
                 </h2>
                 <div class="blog-meta">
                     <a href="#">{{ page.categorys ? page.categorys.name : '' }}</a>
-                    <span class="date">{{ $moment(page.created_at).format('DD/MM/YYYY') }}</span>
-                </div>                
+                    <span class="date">{{ page.created_at | myDateShort }}</span>
+                </div>
                 <div class="blog-main-img" v-show="page.image">
                     <img :src="page.image" alt="news detail">
                 </div>
@@ -34,19 +34,23 @@ export default {
             categories: [],
             page: {}
         }
-    },    
-    created() {
-        
     },
-    mounted() {        
+    created() {
+
+    },
+    mounted() {
         this.loadPage();
     },
-    methods: {        
+    methods: {
         loadPage() {
-            
-            axios.get("/api/page/" + this.$route.params.id)
+
+            axios.get("/api/page/" + this.$route.params.id, {
+                params: {
+                    show_client: 1
+                }
+            })
                 .then(({data}) => {
-                    if (data.data) {                        
+                    if (data.data) {
                         this.page = data.data;
                     }
                 })
@@ -54,7 +58,7 @@ export default {
                     console.log(error);
                 });
         },
-                
+
     }
 }
 </script>

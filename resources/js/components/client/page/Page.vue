@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="page-content">
-        <div class="latest-news">
+        <div class="latest-news" v-if="blogs.length > 0">
             <div class="container">
                 <div class="col col-left">
                     <h2>{{ $t('page.web.blog.list._latest_blogs') }}</h2>
@@ -15,13 +15,13 @@
                 <div class="col col-right">
                     <!-- <div class="news-slider" ref="slick" > -->
                         <slick class="news-slider" ref="slick" :options="slickOptions">
-                            
+
                             <div class="news-slider-item" v-for="(blog, index) in blogs" :key="index" v-if="index < 5">
                                 <router-link :to="'blogs/'+blog.id">
                                     <img v-if="blog.image" :src="blog.image" alt="">
-                                    <img v-else src="/front-end/images/news-slider-img.png" alt="">
+                                    <img v-else src="/front-end/images/default-image.png" alt="">
                                     <span class="title">{{ blog.title }}</span>
-                                    <span class="date">{{ $moment(blog.created_at).format('DD/MM/YYYY') }}</span>
+                                    <span class="date">{{ blog.created_at | myDateShort }}</span>
                                 </router-link>
                             </div>
                         </slick>
@@ -31,7 +31,7 @@
         </div>
         <div class="container">
             <SideBar />
-            <div class="blog-content content-wrapper">
+            <div class="blog-content content-wrapper" v-if="blogs.length > 0">
                 <div class="blogs-list">
                     <div class="blog-item" v-for="(blog, index) in blogs" :key="index" v-if="index > 4">
                         <div class="blog-img">
@@ -47,14 +47,17 @@
                                 {{ blog.summary }}
                             </p>
                             <div class="blog-meta">
-                                <span>{{ $moment(blog.created_at).format('DD/MM/YYYY') }}</span>
+                                <span>{{ blog.created_at | myDateShort }}</span>
                                 <span>｜</span>
-                                <span>{{ blog.category }}</span>
+                                <span>{{ blog.category_name }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <button class="btn btn-loading" @click="showMore()" v-show="pagination.current_page == 1 || pagination.current_page < pagination.last_page">{{ $t('page.web.blog.list._show_more') }}</button>
+            </div>
+            <div class="blog-content content-wrapper" v-else>
+                表示する記事はまだありません。
             </div>
         </div>
     </div>
@@ -71,7 +74,7 @@ export default {
         Slick
     },
     data() {
-        return {            
+        return {
             blogsLatest: [],
             manuals: [],
             faqs: [],
@@ -98,9 +101,9 @@ export default {
     created() {
         this.loadBlogs();
     },
-    
+
     mounted() {
-                 
+
         //this.reloadSlick();
     },
     updated () {
@@ -108,7 +111,7 @@ export default {
         //this.reloadSlick();
     },
     methods: {
-        
+
         async loadBlogs(page = 1) {
             this.$Progress.start();
             try {
@@ -129,13 +132,13 @@ export default {
             }
             this.$Progress.finish();
         },
-        
+
         showMore() {
             this.pagination.current_page++;
             if (this.pagination.current_page <= this.pagination.last_page) {
                 this.loadBlogs(this.pagination.current_page);
             }
-        },                
+        },
     }
 }
 </script>

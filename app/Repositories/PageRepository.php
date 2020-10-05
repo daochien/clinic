@@ -58,7 +58,7 @@ class PageRepository
      * @return mixed
      */
     public function create(array $attributes)
-    {        
+    {
         return $this->model->create([
             'title' => $attributes['title'],
             'content' => $attributes['content'],
@@ -82,20 +82,24 @@ class PageRepository
         return $page;
     }
 
-    public function show($id)
+    public function show($id, $params = [])
     {
-        return $this->model->with('groups', 'categorys')->find($id);
+        $query = $this->model->with('groups', 'categorys');
+        if (!empty($params['show_client'])) {
+            $query->whereStatus($params['show_client']);
+        }
+        return $query->find($id);
     }
 
     public function latestPage($type = 'blog', $limit = 5)
     {
         return $this->model->where('type', $type)->orderBy('id', 'desc')->paginate($limit);
     }
-    
+
     public function latestManual($limit = 8)
     {
         return $this->model->where(['type' => Page::PAGE_TYPE['manual'], 'status' => Page::PAGE_STATUS['active']])->orderBy(DB::raw("`views` + `downloads` "), 'desc')->limit($limit)->get();
-        
+
     }
 
     /**
