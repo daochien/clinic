@@ -100,13 +100,7 @@
                             </div>
                             <div v-show="showMore && page.type != 'faq' && !page.status" class="form-group row border-bottom" style="padding-bottom: 10px;">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._url') }}</label>
-                                <div class="col-sm-10">
-                                    <!-- <input
-                                    v-model="page.url"
-                                    type="text"
-                                    :class="['form-control', {'is-invalid': pageFormErrors.errors.has('url')}]"
-                                    :placeholder="$t('page.info.form._url_pl')">
-                                    <has-error :form="pageFormErrors" field="url"></has-error> -->
+                                <div class="col-sm-10">                                    
                                     <multiselect
                                         v-model="page.groups"
                                         :options="groups"
@@ -118,7 +112,7 @@
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._category') }} <span style="color:#c4183c;">*</span></label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._category') }} <span style="color:#c4183c;" v-show="page.type != 'manual'"> *</span></label>
                                 <div class="col-sm-4">
                                     <select
                                     :class="['form-control', {'is-invalid': pageFormErrors.errors.has('category_id')}]"
@@ -749,6 +743,9 @@ export default {
 .dropzone .dz-preview .dz-image {
     max-width: 170px;
     margin-right: unset;
+}
+.dz-preview .dz-progress {
+    opacity: 0 !important;
 }
 </style>
 <style>
