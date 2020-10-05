@@ -303,6 +303,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                 })
             },
             loadRequests(){
+                console.log(this.$route.params);
                 axios.get("/api/request?category_id="  + this.$route.params.id)
                     .then(( response ) => {
                         this.requests = response.data.data;
