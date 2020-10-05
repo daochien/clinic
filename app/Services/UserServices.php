@@ -64,7 +64,12 @@ class UserServices
             DB::beginTransaction();
             $attribute['password'] = PasswordHelper::randomPassword();
             $user = $this->userRepository->createUser($attribute);
-            event(new CreateUserEvent($user, $attribute['password']));
+            try {
+                event(new CreateUserEvent($user, $attribute['password']));
+            } catch (\Exception $e) {
+
+            }
+            
             $user->assignRole($attribute['role']['name']);
 
             if( !empty($attribute['type_id'] ?? null)) {
