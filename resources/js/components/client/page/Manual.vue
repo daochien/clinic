@@ -7,15 +7,15 @@
     </div>
     <div class="page-content white-content">
       <div class="container">
-        <div class="manual-guide-wrapper">
+        <div class="manual-guide-wrapper" v-if="manuals.length > 0">
           <ul class="manual-list">
             <li v-for="(item, index) in manuals" :key="index">
                 <img src="/front-end/images/png-icon.png" alt="">
                 <div class="info">
                     <span class="title">{{ item.title }}</span>
-                    <p> {{ item.content }} </p>
+                    <p> {{ item.content ? item.content : '---' }} </p>
                 </div>
-                <a :href="item.files.path" download="" @click="forceFileDownload(item)">
+                <a :href="`/manual/downloadUrl?path=${item.files.path}`" target="_blank" @click="forceFileDownload(item)">
                 <button class="download" >{{ item.files ? item.files.size : '' }}
                      <img src="/front-end/images/download-icon-2.png" alt="">
                 </button>
@@ -39,6 +39,13 @@
                 </li>
             </ul>
           </nav>
+        </div>
+        <div class="manual-guide-wrapper" v-else>
+            <ul class="manual-list">
+                <li>
+                <span class="title">マニュアル情報は存在しません。</span>
+                </li>
+            </ul>
         </div>
       </div>
     </div>
@@ -70,18 +77,18 @@ export default {
                 this.pagination = data.meta;
 
             } catch (error) {
-                console.log(error);
+
             }
             this.$Progress.finish();
         },
         async forceFileDownload(manual) {
             if (manual.files) {
                 try {
-                    let { data } = await axios.put(`/api/page/${manual.id}/rating`, {
+                    await axios.put(`/api/page/${manual.id}/rating`, {
                         type: 'download'
                     });
                 } catch (error) {
-                    console.log(error);
+
                 }
             }
 

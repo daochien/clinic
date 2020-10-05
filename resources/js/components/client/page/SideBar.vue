@@ -1,17 +1,18 @@
 <template>
 <aside>
-    <div class="side-panel" v-if="showCategoryBlog">
+    <div class="side-panel" v-if="showCategoryBlog && blogCategorys.length > 0">
         <div class="side-header">
             <h3><img src="/front-end/images/menu-icon.png" alt="Categories">{{ $t('page.web.sidemenu._blog_category') }}</h3>
         </div>
         <div class="side-content">
             <ul>
-                <li :class="[{'active': item.id == withCateId}]" v-for="(item, index) in blogCategorys" :key="index">
+                <li :class="[{'active': item.id == withCateId}]" v-for="(item, index) in blogCategorys" :key="index" >
                     <a href="/0311_blog-details.html">
                     <span class="title">{{item.name}}</span>
                     </a>
                 </li>
             </ul>
+
         </div>
     </div>
     <div class="side-panel">
@@ -19,23 +20,26 @@
             <h3><img src="/front-end/images/question-icon.png" alt="">{{ $t('page.web.sidemenu._faq') }}</h3>
         </div>
         <div class="side-content">
-            <div :class="['faq-block', {'active': item.id == withCateId}]" class="faq-block" v-for="(item, index) in categories" :key="index">
-                <a href="javascript:void(0)" @click="showDetailFAQ(item.latest_page)">
-                    <img :src="`/front-end/images/icon${index + 1}.png`" alt="">
-                    {{ item.name }}
-                </a>
+            <div v-if="canShowFAQ">
+                <div :class="['faq-block', {'active': item.id == withCateId}]" class="faq-block" v-for="(item, index) in categories" :key="index" v-show="item.latest_page">
+                    <a href="javascript:void(0)" @click="showDetailFAQ(item.latest_page)">
+                        <img :src="`/front-end/images/icon${index + 1}.png`" alt="">
+                        {{ item.name }}
+                    </a>
+                </div>
             </div>
+            <span v-else>よくある質問情報は存在しません。</span>
         </div>
     </div>
     <div class="side-panel">
         <div class="side-header">
             <h3><img src="/front-end/images/download-icon.png" alt="">{{ $t('page.web.sidemenu._manual') }}</h3>
-            <a href="/manual">{{ $t('page.web.sidemenu.others._show_more') }}</a>
+            <a href="/manual" v-if="manuals.length > 0">{{ $t('page.web.sidemenu.others._show_more') }}</a>
         </div>
         <div class="side-content">
-            <ul>
+            <ul v-if="canShowManual">
                 <li v-for="(manual, index) in manuals" :key="index">
-                    <a :href="manual.files.path" download="" @click="downloadManual(manual)">
+                    <a :href="`/manual/downloadUrl?path=${manual.files.path}`" target="_blank"  @click="downloadManual(manual)">
                         <span class="title">{{ manual.title}}</span>
                         <span class="info">
                             {{ manual.files.size }}
@@ -44,6 +48,12 @@
                     </a>
                 </li>
             </ul>
+            <ul v-else>
+                <li>
+                    <span>マニュアル情報は存在しません。</span>
+                </li>
+            </ul>
+
         </div>
     </div>
 </aside>
@@ -62,6 +72,24 @@ export default {
     computed: {
         showCategoryBlog () {
             if (this.$route.name === 'client.blogDetail') {
+                return true;
+            }
+            return false;
+        },
+        canShowFAQ () {
+            if (this.categories.length > 0) {
+                let show = false;
+                this.categories.forEach ((item) => {
+                    if (item.latest_page) {
+                        show = true;
+                    }
+                })
+                return show;
+            }
+            return false;
+        },
+        canShowManual () {
+            if (this.manuals.length > 0) {
                 return true;
             }
             return false;
@@ -125,17 +153,12 @@ export default {
         async downloadManual(manual) {
             if (manual.files.path) {
                 try {
-                    let { data } = await axios.put(`/api/page/${manual.id}/rating`, {
+                    await axios.put(`/api/page/${manual.id}/rating`, {
                         type: 'download'
                     });
-                    if (data.status) {
-                        // window.open(
-                        //     manual.files.path,
-                        //     '_blank' // <- This is what makes it open in a new window.
-                        // );
-                    }
+
                 } catch (error) {
-                    console.log(error);
+                    // console.log(error);
                 }
             }
         }

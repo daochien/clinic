@@ -1,8 +1,8 @@
 <template>
     <div class="page-form-create">
-         <loading :active.sync="isLoading" 
-        :can-cancel="true" 
-        
+         <loading :active.sync="isLoading"
+        :can-cancel="true"
+
         :is-full-page="fullPage"></loading>
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
@@ -365,10 +365,10 @@ export default {
                 type = 'faq';
             }
             if (!this.isEdit) {
-                
+
                 this.page.category_id = '';
                 this.formCategory.type = type;
-            }            
+            }
             this.loadCategory();
         },
         pageStatus (newVal, oldVal) {
@@ -455,7 +455,6 @@ export default {
                 }
 
             } catch (error) {
-                console.log(error);
                 Toast.fire({
                     icon: 'error',
                     title: 'Some error occured! Please try again'
@@ -598,7 +597,7 @@ export default {
             this.page.summary = data.summary;
             this.page.category_id = data.category_id;
             this.previewImage = data.image;
-            console.log(data.category_i, this.page.ca);
+
             if (data.groups.length > 0) {
                 data.groups.forEach((item) => {
                     this.page.groups.push({
@@ -610,9 +609,10 @@ export default {
 
             if (data.files) {
                 let objFile = JSON.parse(data.files);
+
                 this.$refs.myVueDropzone.manuallyAddFile({
                     name: objFile.name,
-                    size: objFile.size,
+                    size: parseFloat(objFile.size.replace("MB", "")) * (1024*1024),
                     type: objFile.type
                 }, objFile.path);
             }

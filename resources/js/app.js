@@ -34,12 +34,18 @@ const dateTimeFormats = {
         long: {
             year: 'numeric', month: 'short', day: 'numeric',
             hour: 'numeric', minute: 'numeric'
+        },
+        short: {
+            year: 'numeric', month: 'short', day: 'numeric'
         }
     },
     'ja': {
         long: {
             year: 'numeric', month: 'short', day: 'numeric',
             hour: 'numeric', minute: 'numeric'
+        },
+        short: {
+            year: 'numeric', month: 'short', day: 'numeric'
         }
     }
 }
@@ -137,6 +143,13 @@ Vue.filter('myDate', function (created) {
     if (created) {
         return i18n.d(new Date(created), 'long', i18n.locale);
         // return moment(created).format('YYYY-MM-DD HH:mm:ss');
+    }
+    return "-";
+});
+
+Vue.filter('myDateShort', function (created) {
+    if (created) {
+        return i18n.d(new Date(created), 'short', i18n.locale);
     }
     return "-";
 });
