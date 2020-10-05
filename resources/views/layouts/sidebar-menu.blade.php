@@ -1,4 +1,6 @@
-<aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
+
+
+<!-- <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
     <div class="main-navbar">
         <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
             <a class="navbar-brand w-100 mr-0" href="/admin/profile" style="line-height: 25px;">
@@ -50,10 +52,10 @@
                     <i class="far fa-address-book"></i>
                     <span>{{ __('app.menu.sidebar.staff_management._main') }}</span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-small" id="notClose">
+                <div class="dropdown-menu dropdown-menu-small" id="notClose" x-placement="bottom-start">
 
                     @can('clinic.index')
-                        <router-link to="/admin/clinic" class="dropdown-item " onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
+                        <router-link to="/admin/clinic" class="dropdown-item " onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');$(this).parent().addClass('alwShow')">
                             {{ __('app.menu.sidebar.staff_management._clinic_list') }}
                         </router-link>
                     @endcan
@@ -137,4 +139,57 @@
             @endcan
         </ul>
     </div>
+</aside> -->
+
+
+
+<aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
+    <div class="main-navbar">
+        <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
+            <a class="navbar-brand w-100 mr-0" href="/admin/profile" style="line-height: 25px;">
+                <div class="d-table m-auto">
+                   <span class="d-none d-md-inline ml-1">{{ __('app.name') }}</span>
+                </div>
+            </a>
+            <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
+                <i class="material-icons"></i>
+            </a>
+        </nav>
+    </div>
+    <form action="#" class="main-sidebar__search w-100 border-right d-sm-flex d-md-none d-lg-none">
+        <div class="input-group input-group-seamless ml-3">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            <input class="navbar-search form-control" type="text" placeholder="Search for something..." aria-label="Search">
+        </div>
+    </form>
+    <div class="nav-wrapper" style="overflow-y: auto;" id="accordion">
+        <ul class="nav nav--no-borders flex-column">
+            @canany(['manager.index', 'role.index'])
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle " data-target="#collapseOne" data-toggle="collapse" href="#" role="button" aria-haspopup="true" aria-expanded="true" >
+                    <i class="fa fa-users nav-icon blue"></i>
+                    <span>{{ __('app.menu.sidebar.admin_management._main') }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-small" id="collapseOne" data-parent="#accordion">
+                    @can('manager.index')
+                        <router-link to="/admin/manager" class="dropdown-item" onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
+                            <span>{{ __('app.menu.sidebar.admin_management._admin_list') }}</span>
+                        </router-link>
+                    @endcan
+                    @can(['role.index','role.store', 'role.update'])
+                        <router-link to="/admin/manager/roles" class="dropdown-item" onclick="$('.dropdown').removeClass('active');$(this).parent().parent().addClass('active');">
+                            <span>{{ __('app.menu.sidebar.admin_management._role_list') }}</span>
+                        </router-link>
+                    @endcan
+                </div>
+            </li>
+            @endcanany
+
+        </ul>
+    </div>
 </aside>
+
