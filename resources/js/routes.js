@@ -50,7 +50,22 @@ export default [
         meta: {breadcrumb: `申請管理`},
         children: [
             { path: '', component: require('./components/admin/request/Index.vue').default,meta: {breadcrumb: `申請一覧`}},
-            { path: 'category/:id', component: require('./components/admin/request/Category.vue').default,meta: {breadcrumb: `申請一覧`}},
+            { path: 'category/:id', component: require('./components/admin/request/Category.vue').default,meta: {
+                    breadcrumb() {
+                        if (this.$route.params.id == 1) {
+                            return 'スタッフ管理担当の申請一覧'
+                        } else if (this.$route.params.id == 2) {
+                            return '問い合わせ担当の申請一覧'
+                        } else if (this.$route.params.id == 3) {
+                            return '支払系承認担当の申請一覧'
+                        } else if (this.$route.params.id == 4) {
+                            return '労務管理系承認担当の申請一覧'
+                        } else {
+                            return '申請一覧';
+                        }
+                    }
+                }
+            },
             { path: ':id', component: require('./components/admin/request/Request.vue').default, meta: {breadcrumb: `申請詳細情報`} },
 
         ]
@@ -61,7 +76,22 @@ export default [
         component: {template: '<router-view/>'},
         meta: {breadcrumb: `問合せ管理`},
         children: [
-            { path: 'category/:id', component: require('./components/admin/inquiry/Category.vue').default,meta: {breadcrumb: `問合せ一覧`}},
+            { path: 'category/:id', component: require('./components/admin/inquiry/Category.vue').default,meta: {
+                    breadcrumb() {
+                        if (this.$route.params.id == 5) {
+                            return '労務関係の問い合わせ一覧'
+                        } else if (this.$route.params.id == 6) {
+                            return '給与関係の問い合わせ一覧'
+                        } else if (this.$route.params.id == 7) {
+                            return '福利厚生の問い合わせ一覧'
+                        } else if (this.$route.params.id == 8) {
+                            return 'その他の問い合わせ一覧'
+                        } else {
+                            return '問合せ一覧';
+                        }
+                    }
+                }
+            },
             { path: ':id', component: require('./components/admin/inquiry/Inquiry.vue').default, meta: {breadcrumb: `問合せ詳細情報`} },
 
         ]
