@@ -92,6 +92,16 @@ class NotificationController extends BaseController
         }
     }
 
+    public function remove(Request $request, $id)
+    {
+        try {
+            $result = $this->service->remove($id);
+            return $this->sendSuccessResponse($result);
+        } catch (\Exception $exception) {
+            return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
+        }
+    }
+
     public function members($id)
     {
         $datas = $this->service->getMembers(['id' => $id]);

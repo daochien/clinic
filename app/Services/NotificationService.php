@@ -75,6 +75,19 @@ class NotificationService
         return $entity;
     }
 
+    public function remove($id)
+    {
+        try {
+            DB::beginTransaction();
+            NotificationUser::where('notification_id', $id)->delete();
+            NotificationGroup::where('notification_id', $id)->delete();
+            Notification::where('id', $id)->delete();
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+        }
+    }
+
     public function getMembers($filter = [])
     {
         $members = NotificationUser::where('notification_id', $filter['id'])
