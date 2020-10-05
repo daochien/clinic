@@ -99,7 +99,7 @@ return [
             '_faq' => 'よくある質問',
             '_manual' => 'マニュアル',
             'others' => [
-                '_show_more' => 'もっと見る...',
+                '_show_more' => 'もっと見る',
             ],
         ],
         'blog' => [
