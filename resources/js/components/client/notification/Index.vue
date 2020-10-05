@@ -26,7 +26,7 @@
                                         <span class="title">{{ item.title }}</span>
                                         <p>{{ getTruncateContent(item) }}</p>
                                     </div>
-                                    <div :class="'status ' + getStatusClass(item)"></div>
+<!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
                                 </div>
                                 <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
                                     <span>表示するお知らせはまだありません。</span>
@@ -45,7 +45,7 @@
                                         <span class="title">{{ item.title }}</span>
                                         <p v-html="getTruncateContent(item)"></p>
                                     </div>
-                                    <div :class="'status ' + getStatusClass(item)"></div>
+<!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
                                 </div>
                                 <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
                                     <span>表示するお知らせはまだありません。</span>
@@ -64,7 +64,7 @@
                                         <span class="title">{{ item.title }}</span>
                                         <p>{{ getTruncateContent(item) }}</p>
                                     </div>
-                                    <div :class="'status ' + getStatusClass(item)"></div>
+<!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
                                 </div>
                                 <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
                                     <span>表示するお知らせはまだありません。</span>
