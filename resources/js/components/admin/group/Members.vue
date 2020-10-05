@@ -180,7 +180,6 @@
             filter(){
                 if(this.$gate.canPermission('group.index')){
                     this.$Progress.start();
-                    console.log(this.id +'- '+ this.value);
                     axios.get('/api/group/members/filter/'+this.id +'/'+this.value)
                             .then((data)=>{
                                 this.members = data.data
@@ -314,7 +313,6 @@
         created() {
             this.$Progress.start();
             this.loadData();
-            console.log(Object.keys(this.members).length);
             this.$Progress.finish();
         }
     }
