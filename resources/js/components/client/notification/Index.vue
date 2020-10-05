@@ -28,6 +28,9 @@
                                     </div>
                                     <div :class="'status ' + getStatusClass(item)"></div>
                                 </div>
+                                <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
+                                    <span>表示するお知らせはまだありません。</span>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="director" role="tabpanel">
@@ -43,6 +46,9 @@
                                         <p v-html="getTruncateContent(item)"></p>
                                     </div>
                                     <div :class="'status ' + getStatusClass(item)"></div>
+                                </div>
+                                <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
+                                    <span>表示するお知らせはまだありません。</span>
                                 </div>
                             </div>
                         </div>
@@ -60,6 +66,9 @@
                                     </div>
                                     <div :class="'status ' + getStatusClass(item)"></div>
                                 </div>
+                                <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
+                                    <span>表示するお知らせはまだありません。</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -71,6 +80,9 @@
                         <p v-html="selection.content">
                         </p>
                     </div>
+                </div>
+                <div class="content-wrapper" v-else>
+                    <span>表示するお知らせはまだありません。</span>
                 </div>
             </div>
         </div>
@@ -168,6 +180,9 @@
                 let temporalDivElement = document.createElement("div");
                 temporalDivElement.innerHTML = html;
                 return temporalDivElement.textContent || temporalDivElement.innerText || "";
+            },
+            isEmpty(data) {
+                return _.isEmpty(data);
             }
         }
     }
