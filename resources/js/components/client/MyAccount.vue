@@ -96,7 +96,7 @@ export default {
 
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('common.messages._system_err')
+                        title: this.$t('common.messages._system_err'),
                     });
                 });
         },
