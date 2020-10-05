@@ -106,7 +106,6 @@
                     confirmButtonText: this.$t('group.others._remove_modal_yes'),
                     cancelButtonText: this.$t('group.others._remove_modal_no'),
                 }).then((result) => {
-                  console.log(result);
                     // Send request to the server
                     if (result.value) {
                         axios.delete('/api/group/'+id).then(()=>{
