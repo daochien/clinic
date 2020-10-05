@@ -33,7 +33,7 @@ class AdminController extends BaseController
 
     public function index(Request $request)
     {
-        $roles = $this->roleRepo->pluckId();
+        $roles = $this->roleRepo->pluckName();
         $admins = $this->userRepo->listAdmin($roles, $request->only('role', 'keyword'));
 
         return new AdminCollection($admins);
