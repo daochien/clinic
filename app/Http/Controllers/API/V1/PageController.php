@@ -31,17 +31,17 @@ class PageController extends BaseController
     public function index(Request $request)
     {
         try {
-            $pages = $this->pageRepo->getAll($request->all());            
+            $pages = $this->pageRepo->getAll($request->all());
             return new PageCollection($pages);
         } catch (\Exception $exception) {
             return $this->sendErrorResponse($exception->getMessage());
-        }        
+        }
     }
 
     public function store(PageRequest $request)
     {
         try {
-            $page = $this->pageService->createPage($request->all());            
+            $page = $this->pageService->createPage($request->all());
             return $this->sendSuccessResponse($page, 'Page Created Successfully');
         } catch (\Exception $exception) {
             return $this->sendErrorResponse($exception->getMessage());
@@ -54,15 +54,15 @@ class PageController extends BaseController
         return $this->sendSuccessResponse($pathFile, 'Image Created Successfully');
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         try {
-            $page = $this->pageRepo->show($id);            
+            $page = $this->pageRepo->show($id, $request->only('show_client'));
             return $this->sendSuccessResponse($page, 'Page Details');
         } catch (\Exception $exception) {
             return $this->sendErrorResponse($exception->getMessage());
         }
-        
+
     }
 
     public function update(PageEditRequest $request, $id)
@@ -102,19 +102,19 @@ class PageController extends BaseController
             $result = $this->pageService->rating($id, $request->only('type'));
             return $this->sendSuccessResponse($result, 'Update rating Successfully');
         } catch (\Exception $exception) {
-            return $this->sendErrorResponse($exception->getMessage()); 
+            return $this->sendErrorResponse($exception->getMessage());
         }
     }
-    
+
     public function manualLatest()
     {
         try {
-            $manuals = $this->pageRepo->latestManual();            
-            return new ManualCollection($manuals);            
+            $manuals = $this->pageRepo->latestManual();
+            return new ManualCollection($manuals);
         } catch (\Exception $exception) {
             return $this->sendErrorResponse($exception->getMessage());
         }
-        
+
     }
-    
+
 }

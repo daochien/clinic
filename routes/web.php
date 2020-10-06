@@ -23,7 +23,7 @@ Route::prefix('/blogs/')
     ->name('blog.')
     ->group(function () {
         Route::get('/', 'PageController@index')->name('index');
-        Route::get('/{id}', 'PageController@index')->name('detail');
+        Route::get('/{id}', 'PageController@index')->name('detail')->middleware('check.page.active');
     });
 
 Route::prefix('/manual/')
@@ -32,6 +32,7 @@ Route::prefix('/manual/')
     ->name('qa.')
     ->group(function () {
         Route::get('/', 'PageController@index')->name('index');
+        Route::get('/downloadUrl', 'PageController@downloadUrl')->name('downloadUrl');
     });
 
 

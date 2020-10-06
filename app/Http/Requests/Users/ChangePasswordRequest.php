@@ -37,7 +37,7 @@ class ChangePasswordRequest extends FormRequest
         return [
             'current_password' => '現在のパスワード',
             'new_password' => '新しいパスワード',
-            'confirm_password' => '新しいパスワード',
+            'confirm_password' => '確認用のパスワード',
             'device_name' => '装置名',
         ];
     }

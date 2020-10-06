@@ -27,12 +27,15 @@ class PageEditRequest extends FormRequest
     {
         $rules = [
             'title' => 'required|string|max:100',
-            'type' => 'required',
-            'category_id' => 'required',
+            'type' => 'required',            
             'public' => 'required|boolean',
             'status' => 'required|boolean',
             'summary' => 'max:500'
         ];
+
+        if ($this->type != 'manual') {
+            $rules['category_id'] = 'required';            
+        }
 
         if (!empty($this->files) && count($this->files) && !empty($this->is_remove_file)) {
             $rules['files.*'] = 'mimes:jpeg,png,jpg,pdf,gif,webm,mp4,mpeg|max:51200';

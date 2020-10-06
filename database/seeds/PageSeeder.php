@@ -53,7 +53,7 @@ class PageSeeder extends Seeder
                 'files' => json_encode([
                     'name' => 'Yuushingai.pdf',
                     'path' => $file,
-                    'size' => '7.54 MB',
+                    'size' => '7.54MB',
                     'extension' => 'pdf'
                 ]),
                 'owner_id' => 1

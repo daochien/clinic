@@ -1,8 +1,8 @@
 <template>
     <div class="page-form-create">
-         <loading :active.sync="isLoading" 
-        :can-cancel="true" 
-        
+         <loading :active.sync="isLoading"
+        :can-cancel="true"
+
         :is-full-page="fullPage"></loading>
         <div class="page-header row no-gutters py-4">
             <div class="col-12 col-sm-4 text-center text-sm-left mb-0">
@@ -100,13 +100,7 @@
                             </div>
                             <div v-show="showMore && page.type != 'faq' && !page.status" class="form-group row border-bottom" style="padding-bottom: 10px;">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._url') }}</label>
-                                <div class="col-sm-10">
-                                    <!-- <input
-                                    v-model="page.url"
-                                    type="text"
-                                    :class="['form-control', {'is-invalid': pageFormErrors.errors.has('url')}]"
-                                    :placeholder="$t('page.info.form._url_pl')">
-                                    <has-error :form="pageFormErrors" field="url"></has-error> -->
+                                <div class="col-sm-10">                                    
                                     <multiselect
                                         v-model="page.groups"
                                         :options="groups"
@@ -118,7 +112,7 @@
                                 </div>
                             </div>
                             <div class="form-group row border-bottom" style="padding-bottom: 10px;">
-                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._category') }} <span style="color:#c4183c;">*</span></label>
+                                <label class="col-sm-2 col-form-label">{{ $t('page.attr._category') }} <span style="color:#c4183c;" v-show="page.type != 'manual'"> *</span></label>
                                 <div class="col-sm-4">
                                     <select
                                     :class="['form-control', {'is-invalid': pageFormErrors.errors.has('category_id')}]"
@@ -365,10 +359,10 @@ export default {
                 type = 'faq';
             }
             if (!this.isEdit) {
-                
+
                 this.page.category_id = '';
                 this.formCategory.type = type;
-            }            
+            }
             this.loadCategory();
         },
         pageStatus (newVal, oldVal) {
@@ -455,7 +449,6 @@ export default {
                 }
 
             } catch (error) {
-                console.log(error);
                 Toast.fire({
                     icon: 'error',
                     title: 'Some error occured! Please try again'
@@ -598,7 +591,7 @@ export default {
             this.page.summary = data.summary;
             this.page.category_id = data.category_id;
             this.previewImage = data.image;
-            console.log(data.category_i, this.page.ca);
+
             if (data.groups.length > 0) {
                 data.groups.forEach((item) => {
                     this.page.groups.push({
@@ -610,9 +603,10 @@ export default {
 
             if (data.files) {
                 let objFile = JSON.parse(data.files);
+
                 this.$refs.myVueDropzone.manuallyAddFile({
                     name: objFile.name,
-                    size: objFile.size,
+                    size: parseFloat(objFile.size.replace("MB", "")) * (1024*1024),
                     type: objFile.type
                 }, objFile.path);
             }
@@ -749,6 +743,9 @@ export default {
 .dropzone .dz-preview .dz-image {
     max-width: 170px;
     margin-right: unset;
+}
+.dz-preview .dz-progress {
+    opacity: 0 !important;
 }
 </style>
 <style>

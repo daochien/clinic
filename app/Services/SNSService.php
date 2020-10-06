@@ -27,6 +27,8 @@ class SNSService
     {
         if (isset($data['platform']) && $data['platform'] == 'android') {
             $platformApplicationArn = env('ANDROID_APPLICATION_ARN');
+        } elseif (isset($data['platform']) && $data['platform'] == 'ios') {
+            $platformApplicationArn = env('IOS_APPLICATION_ARN');
         }
 
         $result = $this->client->createPlatformEndpoint([
@@ -47,30 +49,53 @@ class SNSService
         $endpointAtt = $this->client->getEndpointAttributes([
             'EndpointArn' => $data['arn'],
         ]);
-        if ($endpointAtt != 'failed' && $endpointAtt['Attributes']['Enabled']) {
-            if ($data['platform'] == 'android') {
-                $fcmPayload = json_encode(
-                    [
-                        'notification' =>
-                            [
-                                'title' => $data['title'],
-                                "body" => $data['content'],
-                                'sound' => 'default'
-                            ],
-                        'data' => $data
-                    ]
-                );
+        if ($endpointAtt == 'failed' || !$endpointAtt['Attributes']['Enabled']) {
+            return Log::error('not found endPointArn of device arn = ' . $data['arn']);
+        }
 
-                $message = json_encode([
-                    'default' => $data['content'],
-                    'GCM' => $fcmPayload
-                ]);
-                return $this->client->publish([
-                    'TargetArn' => $data['arn'],
-                    'Message' => $message,
-                    'MessageStructure' => 'json'
-                ]);
-            }
+        if ($data['platform'] == 'android') {
+            $fcmPayload = json_encode(
+                [
+                    'notification' =>
+                        [
+                            'title' => $data['title'],
+                            "body" => $data['content'],
+                            'sound' => 'default'
+                        ],
+                    'data' => $data
+                ]
+            );
+
+            $message = json_encode([
+                'default' => $data['content'],
+                'GCM' => $fcmPayload
+            ]);
+
+            return $this->client->publish([
+                'TargetArn' => $data['arn'],
+                'Message' => $message,
+                'MessageStructure' => 'json'
+            ]);
+        } else if ($data['platform'] == 'ios') {
+            $payload = [
+                'aps' => [
+                    'alert' => $data['content'],
+                    'badge' => 1,
+                    'sound' => 'default'
+                ],
+                'order_id' => 'test',
+            ];
+
+            $message = json_encode([
+                'default' => $data['content'],
+                'APNS' => json_encode($payload)
+            ]);
+
+            return $this->client->publish([
+                'TargetArn' => $data['arn'],
+                'Message' => $message,
+                'MessageStructure' => 'json'
+            ]);
         }
     }
 }

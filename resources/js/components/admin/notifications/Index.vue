@@ -183,8 +183,9 @@
                                                 >{{ $t('notification.list.data_table.actions._act_edit')}}
                                                 </router-link>
                                                 <button
+                                                    v-if="entity.draft"
                                                     class="dropdown-item text-danger"
-                                                    @click="deleteNotification()"
+                                                    @click="deleteNotification(entity)"
                                                 >{{ $t('notification.list.data_table.actions._act_remove')}}
                                                 </button>
                                             </div>
@@ -279,7 +280,7 @@
                     path: "/admin/notification/edit",
                 });
             },
-            deleteNotification() {
+            deleteNotification(entity) {
                 Swal.fire({
                     title: this.$t("notification.others._remove_modal_title"),
                     text: this.$t("notification.others._remove_modal_description"),
@@ -290,6 +291,16 @@
                     cancelButtonText: this.$t("notification.others._remove_modal_no"),
                 }).then((result) => {
                     if (result.value) {
+                        axios.delete(`/api/notification/delete/${entity.id}`)
+                            .then((data) => {
+                                return this.loadNotification();
+                            })
+                            .catch(() => {
+                                Toast.fire({
+                                    icon: "error",
+                                    title: this.$t("common.messages._system_err"),
+                                });
+                            });
                     }
                 });
             },
@@ -343,7 +354,6 @@
             }
         },
         mounted() {
-            console.log("Notification Component mounted.");
         },
         created() {
             this.$Progress.start();

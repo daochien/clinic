@@ -30,6 +30,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                 Route::get('/{id}/members', 'NotificationController@members')->name('members');
                 Route::get('/{id}/show', 'NotificationController@show')->name('show');
                 Route::post('/store', 'NotificationController@store')->name('store');
+                Route::delete('/delete/{id}', 'NotificationController@remove')->name('remove');
                 Route::post('/search', 'NotificationController@search')->name('search');
                 Route::post('/detailSearch', 'NotificationController@detailSearch')->name('search.detail');
             });
