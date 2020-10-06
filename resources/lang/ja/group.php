@@ -66,6 +66,7 @@ return [
     ],
     'form' =>[
         '_name' => '名前',
+        '_unique' => '指定の名前は既に使用されています',
     ],
     'popup' =>[
         '_cannot_do_this_action' => 'このアクションは実行できません',
