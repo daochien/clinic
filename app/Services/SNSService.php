@@ -25,23 +25,35 @@ class SNSService
 
     public function getDeviceArn($data)
     {
-        if (isset($data['platform']) && $data['platform'] == 'android') {
-            $platformApplicationArn = env('ANDROID_APPLICATION_ARN');
-        } elseif (isset($data['platform']) && $data['platform'] == 'ios') {
-            $platformApplicationArn = env('IOS_APPLICATION_ARN');
+        try {
+            if (isset($data['platform']) && $data['platform'] == 'android') {
+                $platformApplicationArn = env('ANDROID_APPLICATION_ARN');
+            } elseif (isset($data['platform']) && $data['platform'] == 'ios') {
+                $platformApplicationArn = env('IOS_APPLICATION_ARN');
+            }
+
+            $result = $this->client->createPlatformEndpoint([
+                'PlatformApplicationArn' => $platformApplicationArn,
+                'Token' => $data['device_token'],
+            ]);
+
+            return [
+                'status' => true,
+                'data' => [
+                    'platform' => $data['platform'],
+                    'device_token' => $data['device_token'],
+                    'arn' => $result['EndpointArn'] ?? '',
+                ]
+            ];
+        } catch (\Exception $ex) {
+            return  [
+                'status' => false,
+                'data' => [
+                    'message' => $ex->getMessage(),
+                    'code' => $ex->getCode()
+                ]
+            ];
         }
-
-        $result = $this->client->createPlatformEndpoint([
-            'PlatformApplicationArn' => $platformApplicationArn,
-            'Token' => $data['device_token'],
-        ]);
-
-        $endPointArn = isset($result['EndpointArn']) ? $result['EndpointArn'] : '';
-        return [
-            'platform' => $data['platform'],
-            'device_token' => $data['device_token'],
-            'arn' => $endPointArn,
-        ];
     }
 
     public function publish($data)
