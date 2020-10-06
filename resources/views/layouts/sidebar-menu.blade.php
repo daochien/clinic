@@ -256,7 +256,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle " data-target="#inquiry" data-toggle="collapse" href="#" role="button" aria-haspopup="true" aria-expanded="true" >
                         <i class="far fa-question-circle"></i>
-                        <span>{{ __('app.menu.sidebar.inquiry_management._main') }}1 233</span>
+                        <span>{{ __('app.menu.sidebar.inquiry_management._main') }}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-small" id="inquiry" data-parent="#accordion">
                         @can('inquiry.list')

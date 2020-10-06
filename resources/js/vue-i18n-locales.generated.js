@@ -1,458 +1,81 @@
 export default {
     "en": {
-        "request": {
+        "group": {
             "attr": {
-                "_title": "タイトル",
-                "_category": "申請項目",
-                "_sender": "申請者",
-                "_approver": "承認担当者",
-                "_status": "ステータス",
-                "status": {
-                    "_open": "承認待ち",
-                    "_in_progress": "承認中",
-                    "_approved": "承認済み",
-                    "_rejected": "却下"
-                },
-                "_all_approval": "全員承認",
-                "_approval_comment": "承認欄",
-                "approval_comment": {
-                    "_yes": "あり",
-                    "_no": "なし"
-                },
+                "_name": "グループ名",
                 "_memo": "メモ"
             },
             "list": {
-                "_og_title": "友伸會ポータル管理画面｜申請管理・申請一覧",
-                "_page_title": "申請一覧",
-                "search_box": {
-                    "_status_df": "すべてのステータス"
-                },
+                "_og_title": "友伸會ポータル管理画面｜スタッフ管理・グループ一覧",
+                "_page_title": "グループ一覧",
                 "data_table": {
-                    "_request_at": "申請日時",
-                    "_last_approved_at": "最終承認日時",
+                    "_staff_count": "ユーザー数",
                     "actions": {
-                        "_act_show_details": "詳細を確認する",
-                        "_act_approve": "承認する",
-                        "_act_reject": "却下する"
+                        "_act_add_user": "グループユーザーを更新する",
+                        "_act_edit": "グループ情報を編集する",
+                        "_act_remove": "グループを削除する"
                     }
                 },
                 "messages": {
-                    "_approve_success": "申請承認が成功しました。",
-                    "_approve_failed": "申請承認に失敗しました。",
-                    "_reject_success": "申請ステータスの更新が成功しました。",
-                    "_reject_failed": "申請ステータスの更新に失敗しました。"
+                    "_remove_success": "グループ削除が成功しました。",
+                    "_remove_failed": "グループ削除に失敗しました。"
                 },
                 "others": {
-                    "_no_data": "申請データが存在しません。",
-                    "_no_search_result": "該当する申請データが存在しません。"
+                    "_btn_create": "新規グループ登録",
+                    "_no_data": "グループが存在しません。"
                 }
             },
             "info": {
-                "_og_title": "友伸會ポータル管理画面｜申請管理・申請詳細情報",
-                "_page_title": "申請詳細情報",
-                "basic_info": {
-                    "_subtitle": "基本情報",
-                    "_approval_comment_pl": "例）精算額など"
-                },
+                "_og_title_create": "友伸會ポータル管理画面｜スタッフ管理・新規グループ登録",
+                "_og_title_edit": "友伸會ポータル管理画面｜スタッフ管理・グループ情報編集",
+                "_page_title_create": "新規グループ登録",
+                "_page_title_edit": "グループ情報編集",
                 "form": {
-                    "_subtitle": "申請情報"
-                },
-                "reply_form": {
-                    "_comment_pl": "コメントを入力してください"
-                },
-                "messages": {
-                    "_approve_success": "申請承認が成功しました。",
-                    "_approve_failed": "申請承認に失敗しました。",
-                    "_reject_success": "申請ステータスの更新が成功しました。",
-                    "_reject_failed": "申請ステータスの更新に失敗しました。",
-                    "_reply_success": "返信が成功しました。",
-                    "_reply_failed": "返信に失敗しました。"
-                },
-                "others": {
-                    "_btn_approve": "承認する",
-                    "_btn_reject": "却下する",
-                    "_btn_reply": "返信する"
-                }
-            },
-            "template": {
-                "list": {
-                    "_og_title_": "友伸會ポータル管理画面｜申請管理・申請テンプレート一覧",
-                    "_page_title": "申請テンプレート一覧",
-                    "data_table": {
-                        "_created_at": "作成日時",
-                        "actions": {
-                            "_act_edit": "編集する",
-                            "_act_remove": "削除する"
-                        }
-                    },
-                    "messages": {
-                        "_remove_success": "申請テンプレートの削除が成功しました。",
-                        "_remove_failed": "申請テンプレートの削除に失敗しました。"
-                    },
-                    "others": {
-                        "_btn_draft_save": "下書きとして保存",
-                        "_btn_create": "新規テンプレート作成",
-                        "_no_data": "申請テンプレートが存在しません。"
-                    }
-                },
-                "info": {
-                    "_og_title_create": "友伸會ポータル管理画面｜申請管理・申請テンプレート編集",
-                    "_page_title_create": "新規テンプレート作成",
-                    "_page_title_edit": "申請テンプレート編集",
-                    "basic_form": {
-                        "_subtitle": "基本情報",
-                        "_title_pl": "申請テンプレートのタイトルを入力してください",
-                        "_approver_pl": "承認担当者のアカウント名を指定してください",
-                        "_category_df": "カテゴリーを選択してください",
-                        "_memo_pl": "メモを入力してください"
-                    },
-                    "question_form": {
-                        "_subtitle": "申請情報",
-                        "_description": "※右側の設問テンプレートから申請項目ゾーンにドラッグ・ドロップし、設問の詳細を定義してください。"
-                    },
-                    "messages": {
-                        "_create_success": "新規申請テンプレートの作成が成功しました。",
-                        "_create_failed": "新規申請テンプレートの作成に失敗しました。",
-                        "_edit_success": "新規申請テンプレートの編集が成功しました。",
-                        "_edit_failed": "新規申請テンプレートの編集に失敗しました。",
-                        "_draft_save_success": "申請テンプレートのの下書き保存が成功しました。",
-                        "_draft_save_failed": "申請テンプレートのの下書き保存に失敗しました。"
-                    },
-                    "others": {
-                        "_btn_draft_save": "下書きとして保存",
-                        "_btn_create": "作成する",
-                        "_btn_edit": "編集する",
-                        "_no_data": "申請テンプレートが存在しません。"
-                    }
-                }
-            },
-            "others": {
-                "_modal_no": "キャンセル",
-                "_reject_modal_yes": "承認する",
-                "_reject_modal_title": "申請を承認",
-                "_reject_modal_description": "この申請を承認してもよろしいですか？",
-                "_approve_modal_yes": "却下する",
-                "_approve_modal_title": "申請を却下",
-                "_approve_modal_description": "この申請を却下してもよろしいですか？",
-                "_remove_modal_yes": "はい",
-                "_remove_modal_no": "いいえ",
-                "_remove_modal_title": "申請テンプレートを削除",
-                "_remove_modal_description": "このテンプレートを削除してもよろしいですか？一度削除された情報は復旧することはできません。"
-            }
-        },
-        "app": {
-            "name": "友伸會ポータル管理画面",
-            "menu": {
-                "top": {
-                    "_logout": "ログアウト"
-                },
-                "sidebar": {
-                    "admin_management": {
-                        "_main": "管理者アカウント管理",
-                        "_admin_list": "管理者一覧",
-                        "_role_list": "管理者役割一覧"
-                    },
-                    "staff_management": {
-                        "_main": "スタッフ管理",
-                        "_clinic_list": "クリニック一覧",
-                        "_staff_list": "スタッフ一覧",
-                        "_group_list": "グループ一覧"
-                    },
-                    "notification_management": {
-                        "_main": "お知らせ管理"
-                    },
-                    "request_management": {
-                        "_main": "申請管理",
-                        "_request_template_list": "申請テンプレート一覧"
-                    },
-                    "inquiry_management": {
-                        "_main": "問合せ管理"
-                    },
-                    "page_management": {
-                        "_main": "ページ管理"
-                    }
-                }
-            }
-        },
-        "staff": {
-            "attr": {
-                "_username": "ユーザー名",
-                "_mail_address": "メールアドレス",
-                "_position": "職業",
-                "positions": {
-                    "_dr": "DR",
-                    "_dh": "DH",
-                    "_others": "その他"
-                },
-                "_clinic": "クリニック",
-                "_user_type": "ユーザータイプ",
-                "_memo": "メモ"
-            },
-            "list": {
-                "_og_title": "友伸會ポータル管理画面｜スタッフ管理・スタッフ一覧",
-                "_page_title": "スタッフ一覧",
-                "search_box": {
-                    "_position_df": "すべての職業",
-                    "_clinic_df": "すべてのクリニック",
-                    "_keyword": "キーワード",
-                    "_keyword_pl": "キーワードを入力してください"
-                },
-                "data_table": {
-                    "_registered_at": "登録日時",
-                    "_last_login_at": "最終ログイン日時",
-                    "actions": {
-                        "_act_edit": "スタッフ情報を編集する",
-                        "_act_remove": "スタッフ情報を削除する"
-                    }
-                },
-                "messages": {
-                    "_remove_success": "スタッフ情報の削除が成功しました。",
-                    "_remove_failed": "スタッフ情報の削除に失敗しました。"
-                },
-                "others": {
-                    "_btn_create": "新規スタッフ登録",
-                    "_no_data": "スタッフが存在しません。",
-                    "_no_search_result": "該当するスタッフ情報が存在しません。"
-                }
-            },
-            "info": {
-                "_og_title_create": "友伸會ポータル管理画面｜スタッフ管理・新規スタッフ情報登録",
-                "_og_title_edit": "友伸會ポータル管理画面｜スタッフ管理・スタッフ情報編集",
-                "_page_title_create": "新規スタッフ情報登録",
-                "_page_title_edit": "スタッフ情報編集",
-                "form": {
-                    "_form_title": "スタッフ情報",
-                    "_username_pl": "ユーザー名を入力してください",
-                    "_mail_address_pl": "メールアドレスを入力してください",
-                    "_position_df": "職業を選択してください",
-                    "_clinic_df": "クリニックを指定してください",
-                    "user_type_opt": {
-                        "_staff_web": "ウェブユーザー",
-                        "_staff_mobile": "スマホアプリユーザー"
-                    },
+                    "_subtitle": "グループ情報",
+                    "_name_pl": "グループ名を入力してください",
                     "_memo_pl": "メモを入力してください"
                 },
                 "messages": {
-                    "_create_success": "新規スタッフの登録が成功しました。",
-                    "_create_failed": "新規スタッフの登録に失敗しました。",
-                    "_edit_success": "スタッフ情報の編集が成功しました。",
-                    "_edit_failed": "スタッフ情報の編集に失敗しました。"
+                    "_create_success": "グループ情報の登録が成功しました。",
+                    "_create_failed": "グループ情報の登録に失敗しました。",
+                    "_edit_success": "グループ情報の編集が成功しました。",
+                    "_edit_failed": "グループ情報の編集に失敗しました。"
                 },
                 "others": {
-                    "_btn_create": "編集する",
+                    "_btn_create": "登録する",
+                    "_btn_edit": "編集する",
                     "_btn_remove": "削除する"
                 }
             },
-            "others": {
-                "_remove_modal_yes": "はい",
-                "_remove_modal_no": "いいえ",
-                "_remove_modal_title": "スタッフ情報を削除",
-                "_remove_modal_description": "このスタッフの情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
-            }
-        },
-        "passwords": {
-            "reset": "パスワードをリセットしました。",
-            "sent": "パスワードリマインダーを送信しました。",
-            "throttled": "時間を置いて再度お試しください。",
-            "token": "このパスワードリセットトークンは無効です。",
-            "user": "このメールアドレスに一致するユーザーを見つけることが出来ませんでした。"
-        },
-        "admin": {
-            "attr": {
-                "_username": "アカウント名",
-                "_mail_address": "メールアドレス",
-                "_position": "ポジション",
-                "_role": "管理者役割",
-                "_memo": "メモ"
-            },
-            "list": {
-                "_og_title": "友伸會ポータル管理画面｜管理者アカウント管理・管理者一覧",
-                "_page_title": "管理者一覧",
-                "search_box": {
-                    "_role_df": "すべての役割"
-                },
+            "group_users": {
+                "_og_title": "友伸會ポータル管理画面｜スタッフ管理・グループユーザー登録",
+                "_page_title": "グループユーザー登録",
+                "_not_found_user": "ユーザーが見つかりません",
                 "data_table": {
-                    "_registered_at": "登録日時",
-                    "_last_login_at": "最終ログイン日時",
-                    "actions": {
-                        "_act_edit": "管理者情報を編集する",
-                        "_act_remove": "管理者情報を削除する"
-                    }
+                    "_cur_staff_count": "現在のスタッフ数"
                 },
                 "messages": {
-                    "_remove_success": "管理者情報の削除が成功しました。",
-                    "_remove_failed": "管理者情報の削除に失敗しました。"
+                    "_update_success": "グループユーザーの更新が成功しました。",
+                    "_update_failed": "グループユーザーの更新に失敗しました。"
                 },
                 "others": {
-                    "_btn_create": "新規アカウント登録",
-                    "_no_data": "管理者アカウントが存在しません。",
-                    "_no_search_result": "該当する管理者情報が存在しません。"
-                }
-            },
-            "my_account": {
-                "_page_title": "マイアカウント",
-                "basic_info": {
-                    "_title": "アカウント情報",
-                    "_subtitle": "アカウント情報"
-                },
-                "change_password": {
-                    "_title": "パスワード再設定",
-                    "_current_pass": "現在のパスワード",
-                    "_current_pass_place_holder": "現在のパスワードを入力してください",
-                    "_new_pass_place_holder": "新しいパスワードを入力してください",
-                    "_verify_pass_place_holder": "確認用パスワードを入力してください",
-                    "_new_pass": "新しいパスワード",
-                    "_verify_pass": "新しいパスワード",
-                    "_password_changed": "管理者情報の編集が成功しました。",
-                    "_password_update_failed": "管理者情報の編集に失敗しました。",
-                    "_current_pass_not_match": "The current password is not match with old password."
-                },
-                "_btn_update": "保存"
-            },
-            "info": {
-                "_og_title_create": "友伸會ポータル管理画面｜管理者アカウント管理・新規アカウント登録",
-                "_og_title_edit": "友伸會ポータル管理画面｜管理者アカウント管理・管理者情報編集",
-                "_page_title_create": "新規アカウント登録",
-                "_page_title_edit": "管理者情報編集",
-                "form": {
-                    "_subtitle": "管理者情報",
-                    "_username_pl": "アカウント名を入力してください",
-                    "_mail_address_pl": "メールアドレスを入力してください",
-                    "_position_df": "ポジションを選択してください",
-                    "position_opt": {
-                        "_bod": "理事長",
-                        "_hr": "事務局"
-                    },
-                    "_memo_pl": "メモを入力してください"
-                },
-                "messages": {
-                    "_create_success": "管理者アカウントの登録が成功しました。",
-                    "_create_failed": "管理者アカウントの登録に失敗しました。",
-                    "_edit_success": "管理者情報の編集が成功しました。",
-                    "_edit_failed": "管理者情報の編集に失敗しました。"
-                },
-                "others": {
-                    "_btn_create": "登録",
-                    "_btn_edit": "更新",
-                    "_btn_remove": "削除する"
-                }
-            },
-            "others": {
-                "_remove_modal_yes": "はい",
-                "_remove_modal_no": "いいえ",
-                "_remove_modal_title": "管理者情報を削除",
-                "_remove_modal_description": "この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。",
-                "_remove_modal_deleted": "仕上げ",
-                "_your_item_has_been_deleted": "管理者が削除しました"
-            }
-        },
-        "notification": {
-            "attr": {
-                "_title": "タイトル",
-                "_target_users": "送信対象者",
-                "_confirm_required": "承認必須",
-                "_content": "本文",
-                "_public_at": "公開日時",
-                "_status": "ステータス",
-                "status": {
-                    "_draft": "下書き",
-                    "_private": "非公開",
-                    "_public": "公開"
-                }
-            },
-            "list": {
-                "_og_title": "友伸會ポータル管理画面｜お知らせ管理・お知らせ一覧",
-                "_page_title": "お知らせ一覧",
-                "search_box": {
-                    "_target_users_df": "すべてのスタッフ",
-                    "_public_date": "公開日付",
-                    "_status": "公開ステータス",
-                    "_status_df": "すべてのステータス"
-                },
-                "data_table": {
-                    "_sent_count": "配送総数",
-                    "_read_count": "既読数",
-                    "_confirmed_count": "確認済人数",
-                    "actions": {
-                        "_act_public": "お知らせを公開する",
-                        "_act_edit": "編集する",
-                        "_act_remove": "削除する",
-                        "_act_show_details": "詳細を確認んする",
-                        "_act_show_list_user": "送信対象者一覧を確認する"
-                    }
-                },
-                "messages": {
-                    "_remove_success": "お知らせ削除が成功しました。",
-                    "_remove_failed": "お知らせ削除に失敗しました。",
-                    "_stt_update_success": "お知らせステータスの更新が成功しました。",
-                    "_stt_update_failed": "お知らせステータスの更新に失敗しました。"
-                },
-                "others": {
-                    "_btn_create": "新規作成",
-                    "_no_data": "お知らせデータが存在しません。",
-                    "_no_search_result": "該当するお知らせデータが存在しません。"
-                }
-            },
-            "info": {
-                "_og_title": "友伸會ポータル管理画面｜お知らせ管理・お知らせ作成",
-                "_page_title": "お知らせ作成",
-                "_page_title_edit": "お知らせ編集",
-                "form": {
-                    "_subtitle": "お知らせ情報",
-                    "_title_pl": "タイトルを入力してください",
-                    "_target_users_des": "※拠点名、職業、及びユーザー名で入力することは可能です。",
-                    "target_user_opt": {
-                        "_dr": "DR",
-                        "_dh": "DH",
-                        "_manual": "対象者を指定する",
-                        "_manual_pl": "送信対象者のユーザー名を入力してください"
-                    }
-                },
-                "messages": {
-                    "_create_success": "お知らせ作成が成功しました。",
-                    "_create_failed": "お知らせ作成に失敗しました。",
-                    "_draft_save_success": "お知らせの下書き保存が成功しました。",
-                    "_draft_save_failed": "お知らせの下書き保存に失敗しました。"
-                },
-                "others": {
-                    "_btn_draft_save": "下書きとして保存",
-                    "_btn_create": "公開する",
-                    "_btn_remove": "削除する"
-                }
-            },
-            "noti_users": {
-                "_og_title": "友伸會ポータル管理画面｜お知らせ管理・送信対象者一覧",
-                "_page_title": "送信対象者一覧",
-                "attr": {
-                    "_status": "ステータス",
-                    "status": {
-                        "_unread": "未読",
-                        "_read": "既読",
-                        "_unconfirmed": "Unconfirmed",
-                        "_confirmed": "Confirmed"
-                    }
-                },
-                "search_box": {
-                    "_status_df": "すべてのステータス"
-                },
-                "data_table": {
-                    "_confirmed_at": "確認日時"
-                },
-                "others": {
-                    "_unconfirm": "---",
-                    "_no_data": "送信対象者が存在しません。",
+                    "_data_result": "データ結果",
+                    "_btn_update": "更新する",
+                    "_no_data": "ユーザーが存在しません。",
                     "_no_search_result": "該当するユーザー情報が存在しません。"
                 }
             },
+            "form": {
+                "_name": "名前"
+            },
+            "popup": {
+                "_cannot_do_this_action": "このアクションは実行できません"
+            },
             "others": {
                 "_remove_modal_yes": "はい",
                 "_remove_modal_no": "いいえ",
-                "_remove_modal_title": "お知らせを削除",
-                "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。",
-                "require_title": "Title is required",
-                "require_group": "Group is required",
-                "require_content": "Content is required",
-                "schedule_date_lte_now": "Schedule date must be greater than now"
+                "_remove_modal_title": "グループを削除",
+                "_remove_modal_description": "このグループを削除してもよろしいですか？一度削除された情報は復旧することはできません。"
             }
         },
         "role": {
@@ -712,87 +335,304 @@ export default {
             }
         },
         "common": [],
-        "group": {
+        "request": {
             "attr": {
-                "_name": "グループ名",
+                "_title": "タイトル",
+                "_category": "申請項目",
+                "_sender": "申請者",
+                "_approver": "承認担当者",
+                "_status": "ステータス",
+                "status": {
+                    "_open": "承認待ち",
+                    "_in_progress": "承認中",
+                    "_approved": "承認済み",
+                    "_rejected": "却下"
+                },
+                "_all_approval": "全員承認",
+                "_approval_comment": "承認欄",
+                "approval_comment": {
+                    "_yes": "あり",
+                    "_no": "なし"
+                },
                 "_memo": "メモ"
             },
             "list": {
-                "_og_title": "友伸會ポータル管理画面｜スタッフ管理・グループ一覧",
-                "_page_title": "グループ一覧",
+                "_og_title": "友伸會ポータル管理画面｜申請管理・申請一覧",
+                "_page_title": "申請一覧",
+                "search_box": {
+                    "_status_df": "すべてのステータス"
+                },
                 "data_table": {
-                    "_staff_count": "ユーザー数",
+                    "_request_at": "申請日時",
+                    "_last_approved_at": "最終承認日時",
                     "actions": {
-                        "_act_add_user": "グループユーザーを更新する",
-                        "_act_edit": "グループ情報を編集する",
-                        "_act_remove": "グループを削除する"
+                        "_act_show_details": "詳細を確認する",
+                        "_act_approve": "承認する",
+                        "_act_reject": "却下する"
                     }
                 },
                 "messages": {
-                    "_remove_success": "グループ削除が成功しました。",
-                    "_remove_failed": "グループ削除に失敗しました。"
+                    "_approve_success": "申請承認が成功しました。",
+                    "_approve_failed": "申請承認に失敗しました。",
+                    "_reject_success": "申請ステータスの更新が成功しました。",
+                    "_reject_failed": "申請ステータスの更新に失敗しました。"
                 },
                 "others": {
-                    "_btn_create": "新規グループ登録",
-                    "_no_data": "グループが存在しません。"
+                    "_no_data": "申請データが存在しません。",
+                    "_no_search_result": "該当する申請データが存在しません。"
                 }
             },
             "info": {
-                "_og_title_create": "友伸會ポータル管理画面｜スタッフ管理・新規グループ登録",
-                "_og_title_edit": "友伸會ポータル管理画面｜スタッフ管理・グループ情報編集",
-                "_page_title_create": "新規グループ登録",
-                "_page_title_edit": "グループ情報編集",
+                "_og_title": "友伸會ポータル管理画面｜申請管理・申請詳細情報",
+                "_page_title": "申請詳細情報",
+                "basic_info": {
+                    "_subtitle": "基本情報",
+                    "_approval_comment_pl": "例）精算額など"
+                },
                 "form": {
-                    "_subtitle": "グループ情報",
-                    "_name_pl": "グループ名を入力してください",
+                    "_subtitle": "申請情報"
+                },
+                "reply_form": {
+                    "_comment_pl": "コメントを入力してください"
+                },
+                "messages": {
+                    "_approve_success": "申請承認が成功しました。",
+                    "_approve_failed": "申請承認に失敗しました。",
+                    "_reject_success": "申請ステータスの更新が成功しました。",
+                    "_reject_failed": "申請ステータスの更新に失敗しました。",
+                    "_reply_success": "返信が成功しました。",
+                    "_reply_failed": "返信に失敗しました。"
+                },
+                "others": {
+                    "_btn_approve": "承認する",
+                    "_btn_reject": "却下する",
+                    "_btn_reply": "返信する"
+                }
+            },
+            "template": {
+                "list": {
+                    "_og_title_": "友伸會ポータル管理画面｜申請管理・申請テンプレート一覧",
+                    "_page_title": "申請テンプレート一覧",
+                    "data_table": {
+                        "_created_at": "作成日時",
+                        "actions": {
+                            "_act_edit": "編集する",
+                            "_act_remove": "削除する"
+                        }
+                    },
+                    "messages": {
+                        "_remove_success": "申請テンプレートの削除が成功しました。",
+                        "_remove_failed": "申請テンプレートの削除に失敗しました。"
+                    },
+                    "others": {
+                        "_btn_draft_save": "下書きとして保存",
+                        "_btn_create": "新規テンプレート作成",
+                        "_no_data": "申請テンプレートが存在しません。"
+                    }
+                },
+                "info": {
+                    "_og_title_create": "友伸會ポータル管理画面｜申請管理・申請テンプレート編集",
+                    "_page_title_create": "新規テンプレート作成",
+                    "_page_title_edit": "申請テンプレート編集",
+                    "basic_form": {
+                        "_subtitle": "基本情報",
+                        "_title_pl": "申請テンプレートのタイトルを入力してください",
+                        "_approver_pl": "承認担当者のアカウント名を指定してください",
+                        "_category_df": "カテゴリーを選択してください",
+                        "_memo_pl": "メモを入力してください"
+                    },
+                    "question_form": {
+                        "_subtitle": "申請情報",
+                        "_description": "※右側の設問テンプレートから申請項目ゾーンにドラッグ・ドロップし、設問の詳細を定義してください。"
+                    },
+                    "messages": {
+                        "_create_success": "新規申請テンプレートの作成が成功しました。",
+                        "_create_failed": "新規申請テンプレートの作成に失敗しました。",
+                        "_edit_success": "新規申請テンプレートの編集が成功しました。",
+                        "_edit_failed": "新規申請テンプレートの編集に失敗しました。",
+                        "_draft_save_success": "申請テンプレートのの下書き保存が成功しました。",
+                        "_draft_save_failed": "申請テンプレートのの下書き保存に失敗しました。"
+                    },
+                    "others": {
+                        "_btn_draft_save": "下書きとして保存",
+                        "_btn_create": "作成する",
+                        "_btn_edit": "編集する",
+                        "_no_data": "申請テンプレートが存在しません。"
+                    }
+                }
+            },
+            "others": {
+                "_modal_no": "キャンセル",
+                "_reject_modal_yes": "承認する",
+                "_reject_modal_title": "申請を承認",
+                "_reject_modal_description": "この申請を承認してもよろしいですか？",
+                "_approve_modal_yes": "却下する",
+                "_approve_modal_title": "申請を却下",
+                "_approve_modal_description": "この申請を却下してもよろしいですか？",
+                "_remove_modal_yes": "はい",
+                "_remove_modal_no": "いいえ",
+                "_remove_modal_title": "申請テンプレートを削除",
+                "_remove_modal_description": "このテンプレートを削除してもよろしいですか？一度削除された情報は復旧することはできません。"
+            }
+        },
+        "auth": {
+            "login": {
+                "_og_title": "友伸會ポータル管理画面",
+                "_page_title": "友伸會ポータル管理画面",
+                "form": {
+                    "_subtitle": "ログイン",
+                    "_mail_address": "メールアドレス",
+                    "_mail_address_pl": "メールアドレスを入力してください",
+                    "_password": "パスワード",
+                    "_password_pl": "パスワードを入力してください"
+                },
+                "messages": {
+                    "_login_failed": "ログインに失敗しました。"
+                },
+                "others": {
+                    "_btn_login": "ログイン",
+                    "_link_forgot_password": "パスワードを忘れた方はこちら"
+                }
+            },
+            "reset_pwd": {
+                "_og_title": "友伸會ポータル管理画面｜パスワード再設定",
+                "_page_title": "友伸會ポータル管理画面",
+                "form": {
+                    "_subtitle": "パスワード再設定",
+                    "_mail_address": "メールアドレス",
+                    "_mail_address_pl": "メールアドレスを入力してください"
+                },
+                "messages": {
+                    "_send_mail_success": "パスワード再設定のメールを送信しました。",
+                    "_send_mail_failed": "パスワード再設定のメール送信に失敗しました。"
+                },
+                "others": {
+                    "_btn_login": "パスワードを再設定",
+                    "_link_back_to_login": "ログイン画面へ戻す"
+                }
+            },
+            "title_form": "社内ポータルサイト",
+            "email_title": "メールアドレス",
+            "email_holder": "メールアドレスを入力してください",
+            "password_title": "パスワード",
+            "password_holder": "パスワードを入力してください",
+            "btn_login": "ログイン",
+            "title_login": "ログイン",
+            "forgot_password": "パスワードを忘れた方はこちら?",
+            "title_reset": "パスワードを忘れた方はこちら?",
+            "confirm_password": "パスワードを認証する",
+            "reset_btn": "リセット",
+            "failed": "ログインに失敗しました。"
+        },
+        "app": {
+            "name": "友伸會ポータル管理画面",
+            "menu": {
+                "top": {
+                    "_logout": "ログアウト"
+                },
+                "sidebar": {
+                    "admin_management": {
+                        "_main": "管理者アカウント管理",
+                        "_admin_list": "管理者一覧",
+                        "_role_list": "管理者役割一覧"
+                    },
+                    "staff_management": {
+                        "_main": "スタッフ管理",
+                        "_clinic_list": "クリニック一覧",
+                        "_staff_list": "スタッフ一覧",
+                        "_group_list": "グループ一覧"
+                    },
+                    "notification_management": {
+                        "_main": "お知らせ管理"
+                    },
+                    "request_management": {
+                        "_main": "申請管理",
+                        "_request_template_list": "申請テンプレート一覧"
+                    },
+                    "inquiry_management": {
+                        "_main": "問合せ管理"
+                    },
+                    "page_management": {
+                        "_main": "ページ管理"
+                    }
+                }
+            }
+        },
+        "staff": {
+            "attr": {
+                "_username": "ユーザー名",
+                "_mail_address": "メールアドレス",
+                "_position": "職業",
+                "positions": {
+                    "_dr": "DR",
+                    "_dh": "DH",
+                    "_others": "その他"
+                },
+                "_clinic": "クリニック",
+                "_user_type": "ユーザータイプ",
+                "_memo": "メモ"
+            },
+            "list": {
+                "_og_title": "友伸會ポータル管理画面｜スタッフ管理・スタッフ一覧",
+                "_page_title": "スタッフ一覧",
+                "search_box": {
+                    "_position_df": "すべての職業",
+                    "_clinic_df": "すべてのクリニック",
+                    "_keyword": "キーワード",
+                    "_keyword_pl": "キーワードを入力してください"
+                },
+                "data_table": {
+                    "_registered_at": "登録日時",
+                    "_last_login_at": "最終ログイン日時",
+                    "actions": {
+                        "_act_edit": "スタッフ情報を編集する",
+                        "_act_remove": "スタッフ情報を削除する"
+                    }
+                },
+                "messages": {
+                    "_remove_success": "スタッフ情報の削除が成功しました。",
+                    "_remove_failed": "スタッフ情報の削除に失敗しました。"
+                },
+                "others": {
+                    "_btn_create": "新規スタッフ登録",
+                    "_no_data": "スタッフが存在しません。",
+                    "_no_search_result": "該当するスタッフ情報が存在しません。"
+                }
+            },
+            "info": {
+                "_og_title_create": "友伸會ポータル管理画面｜スタッフ管理・新規スタッフ情報登録",
+                "_og_title_edit": "友伸會ポータル管理画面｜スタッフ管理・スタッフ情報編集",
+                "_page_title_create": "新規スタッフ情報登録",
+                "_page_title_edit": "スタッフ情報編集",
+                "form": {
+                    "_form_title": "スタッフ情報",
+                    "_username_pl": "ユーザー名を入力してください",
+                    "_mail_address_pl": "メールアドレスを入力してください",
+                    "_position_df": "職業を選択してください",
+                    "_clinic_df": "クリニックを指定してください",
+                    "user_type_opt": {
+                        "_staff_web": "ウェブユーザー",
+                        "_staff_mobile": "スマホアプリユーザー"
+                    },
                     "_memo_pl": "メモを入力してください"
                 },
                 "messages": {
-                    "_create_success": "グループ情報の登録が成功しました。",
-                    "_create_failed": "グループ情報の登録に失敗しました。",
-                    "_edit_success": "グループ情報の編集が成功しました。",
-                    "_edit_failed": "グループ情報の編集に失敗しました。"
+                    "_create_success": "新規スタッフの登録が成功しました。",
+                    "_create_failed": "新規スタッフの登録に失敗しました。",
+                    "_edit_success": "スタッフ情報の編集が成功しました。",
+                    "_edit_failed": "スタッフ情報の編集に失敗しました。"
                 },
                 "others": {
-                    "_btn_create": "登録する",
-                    "_btn_edit": "編集する",
+                    "_btn_create": "編集する",
                     "_btn_remove": "削除する"
                 }
-            },
-            "group_users": {
-                "_og_title": "友伸會ポータル管理画面｜スタッフ管理・グループユーザー登録",
-                "_page_title": "グループユーザー登録",
-                "_not_found_user": "ユーザーが見つかりません",
-                "data_table": {
-                    "_cur_staff_count": "現在のスタッフ数"
-                },
-                "messages": {
-                    "_update_success": "グループユーザーの更新が成功しました。",
-                    "_update_failed": "グループユーザーの更新に失敗しました。"
-                },
-                "others": {
-                    "_data_result": "データ結果",
-                    "_btn_update": "更新する",
-                    "_no_data": "ユーザーが存在しません。",
-                    "_no_search_result": "該当するユーザー情報が存在しません。"
-                }
-            },
-            "form": {
-                "_name": "名前"
-            },
-            "popup": {
-                "_cannot_do_this_action": "このアクションは実行できません"
             },
             "others": {
                 "_remove_modal_yes": "はい",
                 "_remove_modal_no": "いいえ",
-                "_remove_modal_title": "グループを削除",
-                "_remove_modal_description": "このグループを削除してもよろしいですか？一度削除された情報は復旧することはできません。"
+                "_remove_modal_title": "スタッフ情報を削除",
+                "_remove_modal_description": "このスタッフの情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
             }
-        },
-        "pagination": {
-            "previous": "&laquo; 前へ",
-            "next": "次へ &raquo;"
         },
         "clinic": {
             "attr": {
@@ -871,344 +711,6 @@ export default {
                 "_remove_modal_description": "このクリニックの情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
             }
         },
-        "auth": {
-            "login": {
-                "_og_title": "友伸會ポータル管理画面",
-                "_page_title": "友伸會ポータル管理画面",
-                "form": {
-                    "_subtitle": "ログイン",
-                    "_mail_address": "メールアドレス",
-                    "_mail_address_pl": "メールアドレスを入力してください",
-                    "_password": "パスワード",
-                    "_password_pl": "パスワードを入力してください"
-                },
-                "messages": {
-                    "_login_failed": "ログインに失敗しました。"
-                },
-                "others": {
-                    "_btn_login": "ログイン",
-                    "_link_forgot_password": "パスワードを忘れた方はこちら"
-                }
-            },
-            "reset_pwd": {
-                "_og_title": "友伸會ポータル管理画面｜パスワード再設定",
-                "_page_title": "友伸會ポータル管理画面",
-                "form": {
-                    "_subtitle": "パスワード再設定",
-                    "_mail_address": "メールアドレス",
-                    "_mail_address_pl": "メールアドレスを入力してください"
-                },
-                "messages": {
-                    "_send_mail_success": "パスワード再設定のメールを送信しました。",
-                    "_send_mail_failed": "パスワード再設定のメール送信に失敗しました。"
-                },
-                "others": {
-                    "_btn_login": "パスワードを再設定",
-                    "_link_back_to_login": "ログイン画面へ戻す"
-                }
-            },
-            "title_form": "社内ポータルサイト",
-            "email_title": "メールアドレス",
-            "email_holder": "メールアドレスを入力してください",
-            "password_title": "パスワード",
-            "password_holder": "パスワードを入力してください",
-            "btn_login": "ログイン",
-            "title_login": "ログイン",
-            "forgot_password": "パスワードを忘れた方はこちら?",
-            "title_reset": "パスワードを忘れた方はこちら?",
-            "confirm_password": "パスワードを認証する",
-            "reset_btn": "リセット",
-            "failed": "ログインに失敗しました。"
-        }
-    },
-    "ja": {
-        "request": {
-            "attr": {
-                "_title": "タイトル",
-                "_category": "申請項目",
-                "_sender": "申請者",
-                "_approver": "承認担当者",
-                "_status": "ステータス",
-                "status": {
-                    "_open": "承認待ち",
-                    "_in_progress": "承認中",
-                    "_approved": "承認済み",
-                    "_rejected": "却下"
-                },
-                "_all_approval": "全員承認",
-                "_approval_comment": "承認欄",
-                "approval_comment": {
-                    "_yes": "あり",
-                    "_no": "なし"
-                },
-                "_memo": "メモ"
-            },
-            "list": {
-                "_og_title": "友伸會ポータル管理画面｜申請管理・申請一覧",
-                "_page_title": "申請一覧",
-                "search_box": {
-                    "_status_df": "すべてのステータス"
-                },
-                "data_table": {
-                    "_request_at": "申請日時",
-                    "_last_approved_at": "最終承認日時",
-                    "_action": "操作",
-                    "actions": {
-                        "_act_show_details": "詳細を確認する",
-                        "_act_approve": "承認する",
-                        "_act_reject": "却下する"
-                    }
-                },
-                "messages": {
-                    "_approve_success": "申請承認が成功しました。",
-                    "_approve_failed": "申請承認に失敗しました。",
-                    "_reject_success": "申請ステータスの更新が成功しました。",
-                    "_reject_failed": "申請ステータスの更新に失敗しました。"
-                },
-                "others": {
-                    "_no_data": "申請データが存在しません。",
-                    "_no_search_result": "該当する申請データが存在しません。"
-                }
-            },
-            "info": {
-                "_og_title": "友伸會ポータル管理画面｜申請管理・申請詳細情報",
-                "_page_title": "申請詳細情報",
-                "basic_info": {
-                    "_subtitle": "基本情報",
-                    "_approval_comment_pl": "例）精算額など"
-                },
-                "form": {
-                    "_subtitle": "申請情報"
-                },
-                "reply_form": {
-                    "_comment_pl": "コメントを入力してください"
-                },
-                "messages": {
-                    "_approve_success": "申請承認が成功しました。",
-                    "_approve_failed": "申請承認に失敗しました。",
-                    "_reject_success": "申請ステータスの更新が成功しました。",
-                    "_reject_failed": "申請ステータスの更新に失敗しました。",
-                    "_reply_success": "返信が成功しました。",
-                    "_reply_failed": "返信に失敗しました。"
-                },
-                "others": {
-                    "_btn_approve": "承認する",
-                    "_btn_reject": "却下する",
-                    "_btn_reply": "返信する"
-                }
-            },
-            "discussion": {
-                "_title": "Discussion",
-                "_comment_here": "ここにメッセージ",
-                "_send": "送信する",
-                "_upload_placeholder": "Choose a file or drop it here...",
-                "_upload_drop_placeholder": "Drop file here...",
-                "_comment_success": "Comment success"
-            },
-            "template": {
-                "list": {
-                    "_og_title_": "友伸會ポータル管理画面｜申請管理・申請テンプレート一覧",
-                    "_page_title": "申請テンプレート一覧",
-                    "data_table": {
-                        "_created_at": "作成日時",
-                        "actions": {
-                            "_act_edit": "編集する",
-                            "_act_remove": "削除する"
-                        }
-                    },
-                    "messages": {
-                        "_remove_success": "申請テンプレートの削除が成功しました。",
-                        "_remove_failed": "申請テンプレートの削除に失敗しました。"
-                    },
-                    "others": {
-                        "_btn_draft_save": "下書きとして保存する",
-                        "_btn_create": "新規テンプレート作成",
-                        "_no_data": "申請テンプレートが存在しません。"
-                    }
-                },
-                "info": {
-                    "_og_title_create": "友伸會ポータル管理画面｜申請管理・申請テンプレート編集",
-                    "_page_title_create": "新規テンプレート作成",
-                    "_page_title_edit": "申請テンプレート編集",
-                    "basic_form": {
-                        "_subtitle": "基本情報",
-                        "_title_pl": "申請テンプレートのタイトルを入力してください",
-                        "_approver_pl": "承認担当者のアカウント名を指定してください",
-                        "_category_df": "カテゴリーを選択してください",
-                        "_memo_pl": "メモを入力してください"
-                    },
-                    "question_form": {
-                        "_subtitle": "申請情報",
-                        "_description": "※右側の設問テンプレートから申請項目ゾーンにドラッグ・ドロップし、設問の詳細を定義してください。"
-                    },
-                    "messages": {
-                        "_create_success": "新規申請テンプレートの作成が成功しました。",
-                        "_create_failed": "新規申請テンプレートの作成に失敗しました。",
-                        "_edit_success": "新規申請テンプレートの編集が成功しました。",
-                        "_edit_failed": "新規申請テンプレートの編集に失敗しました。",
-                        "_draft_save_success": "申請テンプレートのの下書き保存が成功しました。",
-                        "_draft_save_failed": "申請テンプレートのの下書き保存に失敗しました。",
-                        "_delete_success": "申請テンプレートの削除が成功しました。",
-                        "_delete_failed": "申請テンプレートの削除に失敗しました。"
-                    },
-                    "others": {
-                        "_btn_draft_save": "下書きとして保存",
-                        "_btn_create": "作成する",
-                        "_btn_edit": "編集する",
-                        "_no_data": "申請テンプレートが存在しません。"
-                    }
-                }
-            },
-            "others": {
-                "_modal_no": "キャンセル",
-                "_modal_yes": "はい",
-                "_reject_modal_title": "申請をリジェクト",
-                "_reject_modal_description": "この申請をリジェクトしてもよろしいですか？",
-                "_approve_modal_title": "申請を承認",
-                "_approve_modal_description": "この申請を却下してもよろしいですか？"
-            },
-            "common": {
-                "number_file_upload_greater_than": "ファイルは５つまでアップロードしてください。"
-            }
-        },
-        "app": {
-            "name": "友伸會ポータル管理画面",
-            "menu": {
-                "top": {
-                    "_logout": "ログアウト",
-                    "_profile": "マイアカウント"
-                },
-                "sidebar": {
-                    "admin_management": {
-                        "_main": "管理者アカウント管理",
-                        "_admin_list": "管理者一覧",
-                        "_role_list": "管理者役割一覧"
-                    },
-                    "staff_management": {
-                        "_main": "スタッフ管理",
-                        "_clinic_list": "クリニック一覧",
-                        "_staff_list": "スタッフ一覧",
-                        "_group_list": "グループ一覧"
-                    },
-                    "notification_management": {
-                        "_main": "お知らせ管理"
-                    },
-                    "request_management": {
-                        "_main": "申請管理",
-                        "_request_template_list": "申請テンプレート一覧"
-                    },
-                    "inquiry_management": {
-                        "_main": "問合せ管理"
-                    },
-                    "page_management": {
-                        "_main": "ページ管理"
-                    }
-                }
-            }
-        },
-        "staff": {
-            "attr": {
-                "_username": "ユーザー名",
-                "_mail_address": "メールアドレス",
-                "_position": "職業",
-                "positions": {
-                    "_dr": "DR",
-                    "_dh": "DH",
-                    "_others": "その他"
-                },
-                "_clinic": "クリニック",
-                "_user_type": "ユーザータイプ",
-                "_memo": "メモ"
-            },
-            "list": {
-                "_og_title": "友伸會ポータル管理画面｜スタッフ管理・スタッフ一覧",
-                "_page_title": "スタッフ一覧",
-                "search_box": {
-                    "_position_df": "すべての職業",
-                    "_clinic_df": "すべてのクリニック",
-                    "_keyword": "キーワード",
-                    "_keyword_pl": "キーワードを入力してください"
-                },
-                "data_table": {
-                    "_registered_at": "登録日時",
-                    "_last_login_at": "最終ログイン日時",
-                    "actions": {
-                        "_act_edit": "スタッフ情報を編集する",
-                        "_act_remove": "スタッフ情報を削除する"
-                    }
-                },
-                "messages": {
-                    "_remove_success": "スタッフ情報の削除が成功しました。",
-                    "_remove_failed": "スタッフ情報の削除に失敗しました。"
-                },
-                "others": {
-                    "_btn_create": "新規スタッフ登録",
-                    "_no_data": "スタッフが存在しません。",
-                    "_no_search_result": "該当するスタッフ情報が存在しません。"
-                }
-            },
-            "info": {
-                "_og_title_create": "友伸會ポータル管理画面｜スタッフ管理・新規スタッフ情報登録",
-                "_og_title_edit": "友伸會ポータル管理画面｜スタッフ管理・スタッフ情報編集",
-                "_page_title_create": "新規スタッフ登録",
-                "_page_title_edit": "スタッフ情報編集",
-                "form": {
-                    "_form_title": "スタッフ情報",
-                    "_username_pl": "ユーザー名を入力してください",
-                    "_mail_address_pl": "メールアドレスを入力してください",
-                    "_position_df": "職業を選択してください",
-                    "_clinic_df": "クリニックを指定してください",
-                    "user_type_opt": {
-                        "_staff_web": "ウェブユーザー",
-                        "_staff_mobile": "スマホアプリユーザー"
-                    },
-                    "_memo_pl": "メモを入力してください"
-                },
-                "messages": {
-                    "_create_success": "新規スタッフの登録が成功しました。",
-                    "_create_failed": "新規スタッフの登録に失敗しました。",
-                    "_edit_success": "スタッフ情報の編集が成功しました。",
-                    "_edit_failed": "スタッフ情報の編集に失敗しました。"
-                },
-                "others": {
-                    "_btn_create": "登録する",
-                    "_btn_edit": "編集する",
-                    "_btn_remove": "削除する"
-                }
-            },
-            "my_account": {
-                "_page_title": "マイアカウント",
-                "form": {
-                    "_cur_password": "現在のパスワード",
-                    "_cur_password_pl": "現在のパスワードを入力してください",
-                    "_new_password": "新しいパスワード",
-                    "_new_password_pl": "新しいパスワードを入力してください",
-                    "_confirm_password": "新しいパスワード（確認用）",
-                    "_confirm_password_pl": "確認用パスワードを入力してください"
-                },
-                "messages": {
-                    "_current_pwd_not_match": "現在のパスワードは古いパスワードと一致しません。",
-                    "_pwd_update_success": "パスワード再設定が成功しました。",
-                    "_pwd_update_failed": "パスワード再設定に失敗しました。"
-                },
-                "others": {
-                    "_btn_update_pwd": "再設定する"
-                }
-            },
-            "others": {
-                "_remove_modal_yes": "はい",
-                "_remove_modal_no": "いいえ",
-                "_remove_modal_title": "スタッフ情報を削除",
-                "_remove_modal_description": "このスタッフの情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
-            }
-        },
-        "passwords": {
-            "reset": "パスワードをリセットしました。",
-            "sent": "パスワードリマインダーを送信しました。",
-            "throttled": "時間を置いて再度お試しください。",
-            "token": "このパスワードリセットトークンは無効です。",
-            "user": "このメールアドレスに一致するユーザーを見つけることが出来ませんでした。"
-        },
         "admin": {
             "attr": {
                 "_username": "アカウント名",
@@ -1245,33 +747,21 @@ export default {
                 "_page_title": "マイアカウント",
                 "basic_info": {
                     "_title": "アカウント情報",
-                    "messages": {
-                        "_acc_update_success": "管理者情報の編集が成功しました。",
-                        "_acc_update_failed": "管理者情報の編集に失敗しました。"
-                    },
-                    "others": {
-                        "_btn_update": "更新する"
-                    }
+                    "_subtitle": "アカウント情報"
                 },
-                "change_pwd": {
+                "change_password": {
                     "_title": "パスワード再設定",
-                    "form": {
-                        "_cur_password": "現在のパスワード",
-                        "_cur_password_pl": "現在のパスワードを入力してください",
-                        "_new_password": "新しいパスワード",
-                        "_new_password_pl": "新しいパスワードを入力してください",
-                        "_confirm_password": "新しいパスワード（確認用）",
-                        "_confirm_password_pl": "確認用パスワードを入力してください"
-                    },
-                    "messages": {
-                        "_current_pwd_not_match": "現在のパスワードは古いパスワードと一致しません。",
-                        "_pwd_update_success": "パスワード再設定が成功しました。",
-                        "_pwd_update_failed": "パスワード再設定に失敗しました。"
-                    },
-                    "others": {
-                        "_btn_update_pwd": "再設定する"
-                    }
-                }
+                    "_current_pass": "現在のパスワード",
+                    "_current_pass_place_holder": "現在のパスワードを入力してください",
+                    "_new_pass_place_holder": "新しいパスワードを入力してください",
+                    "_verify_pass_place_holder": "確認用パスワードを入力してください",
+                    "_new_pass": "新しいパスワード",
+                    "_verify_pass": "新しいパスワード",
+                    "_password_changed": "管理者情報の編集が成功しました。",
+                    "_password_update_failed": "管理者情報の編集に失敗しました。",
+                    "_current_pass_not_match": "The current password is not match with old password."
+                },
+                "_btn_update": "保存"
             },
             "info": {
                 "_og_title_create": "友伸會ポータル管理画面｜管理者アカウント管理・新規アカウント登録",
@@ -1279,7 +769,7 @@ export default {
                 "_page_title_create": "新規アカウント登録",
                 "_page_title_edit": "管理者情報編集",
                 "form": {
-                    "_form_title": "管理者情報",
+                    "_subtitle": "管理者情報",
                     "_username_pl": "アカウント名を入力してください",
                     "_mail_address_pl": "メールアドレスを入力してください",
                     "_position_df": "ポジションを選択してください",
@@ -1296,8 +786,8 @@ export default {
                     "_edit_failed": "管理者情報の編集に失敗しました。"
                 },
                 "others": {
-                    "_btn_create": "登録する",
-                    "_btn_edit": "更新する",
+                    "_btn_create": "登録",
+                    "_btn_edit": "更新",
                     "_btn_remove": "削除する"
                 }
             },
@@ -1305,8 +795,17 @@ export default {
                 "_remove_modal_yes": "はい",
                 "_remove_modal_no": "いいえ",
                 "_remove_modal_title": "管理者情報を削除",
-                "_remove_modal_description": "この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
+                "_remove_modal_description": "この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。",
+                "_remove_modal_deleted": "仕上げ",
+                "_your_item_has_been_deleted": "管理者が削除しました"
             }
+        },
+        "passwords": {
+            "reset": "パスワードをリセットしました。",
+            "sent": "パスワードリマインダーを送信しました。",
+            "throttled": "時間を置いて再度お試しください。",
+            "token": "このパスワードリセットトークンは無効です。",
+            "user": "このメールアドレスに一致するユーザーを見つけることが出来ませんでした。"
         },
         "notification": {
             "attr": {
@@ -1350,7 +849,7 @@ export default {
                     "_stt_update_failed": "お知らせステータスの更新に失敗しました。"
                 },
                 "others": {
-                    "_btn_create": "新規お知らせ作成",
+                    "_btn_create": "新規作成",
                     "_no_data": "お知らせデータが存在しません。",
                     "_no_search_result": "該当するお知らせデータが存在しません。"
                 }
@@ -1374,14 +873,10 @@ export default {
                     "_create_success": "お知らせ作成が成功しました。",
                     "_create_failed": "お知らせ作成に失敗しました。",
                     "_draft_save_success": "お知らせの下書き保存が成功しました。",
-                    "_draft_save_failed": "お知らせの下書き保存に失敗しました。",
-                    "_err_title_required": "タイトルを必ず必ず入力してください。",
-                    "_err_target_required": "送信対象者を必ず指定してください。",
-                    "_err_content_required": "お知らせ本文を必ず入力してください。",
-                    "_err_schedule_lt_now": "公開日時を正しく指定してください。"
+                    "_draft_save_failed": "お知らせの下書き保存に失敗しました。"
                 },
                 "others": {
-                    "_btn_draft_save": "下書きとして保存する",
+                    "_btn_draft_save": "下書きとして保存",
                     "_btn_create": "公開する",
                     "_btn_remove": "削除する"
                 }
@@ -1394,8 +889,8 @@ export default {
                     "status": {
                         "_unread": "未読",
                         "_read": "既読",
-                        "_unconfirmed": "未確認",
-                        "_confirmed": "確認済"
+                        "_unconfirmed": "Unconfirmed",
+                        "_confirmed": "Confirmed"
                     }
                 },
                 "search_box": {
@@ -1410,79 +905,63 @@ export default {
                     "_no_search_result": "該当するユーザー情報が存在しません。"
                 }
             },
-            "web": {
-                "_og_title": "友伸會ポータル管理画面｜お知らせ一覧",
-                "_page_title": "お知らせ一覧",
-                "data_table": {
-                    "_tab_all": "すべて",
-                    "_tab_bod": "理事長から",
-                    "_tab_hr": "事務局から"
-                }
-            },
             "others": {
                 "_remove_modal_yes": "はい",
                 "_remove_modal_no": "いいえ",
                 "_remove_modal_title": "お知らせを削除",
-                "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。"
+                "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。",
+                "require_title": "Title is required",
+                "require_group": "Group is required",
+                "require_content": "Content is required",
+                "schedule_date_lte_now": "Schedule date must be greater than now"
             }
         },
-        "role": {
+        "pagination": {
+            "previous": "&laquo; 前へ",
+            "next": "次へ &raquo;"
+        }
+    },
+    "ja": {
+        "group": {
             "attr": {
-                "_name": "役割",
-                "_permission": "権限"
+                "_name": "グループ名",
+                "_memo": "メモ"
             },
             "list": {
-                "_og_title": "友伸會ポータル管理画面｜管理者アカウント管理・管理者役割一覧",
-                "_page_title": "管理者役割一覧",
+                "_og_title": "友伸會ポータル管理画面｜スタッフ管理・グループ一覧",
+                "_page_title": "グループ一覧",
                 "data_table": {
+                    "_staff_count": "ユーザー数",
                     "actions": {
-                        "_act_edit": "編集する",
-                        "_act_remove": "削除する"
+                        "_act_add_user": "グループユーザーを更新する",
+                        "_act_edit": "グループ情報を編集する",
+                        "_act_remove": "グループを削除する"
                     }
                 },
                 "messages": {
-                    "_remove_success": "管理者役割の削除が成功しました。",
-                    "_remove_failed": "管理者役割の削除に失敗しました。"
+                    "_remove_success": "グループ削除が成功しました。",
+                    "_remove_failed": "グループ削除に失敗しました。"
                 },
                 "others": {
-                    "_btn_create": "新規役割登録",
-                    "_no_data": "管理者役割が存在しません。"
+                    "_btn_create": "新規グループ登録",
+                    "_no_data": "グループが存在しません。"
                 }
             },
             "info": {
-                "_og_title_create": "友伸會ポータル管理画面｜管理者アカウント管理・新規役割登録",
-                "_og_title_edit": "友伸會ポータル管理画面｜管理者アカウント管理・管理者役割編集",
-                "_page_title_create": "新規役割登録",
-                "_page_title_edit": "管理者役割編集",
+                "_og_title_create": "友伸會ポータル管理画面｜スタッフ管理・新規グループ登録",
+                "_og_title_edit": "友伸會ポータル管理画面｜スタッフ管理・グループ情報編集",
+                "_page_title_create": "新規グループ登録",
+                "_page_title_edit": "グループ情報編集",
                 "form": {
-                    "_form_title": "管理者役割情報",
-                    "_name_pl": "管理者役割の名前を入力してください",
-                    "permission_data": {
-                        "_feature_list": "機能一覧",
-                        "_all_permission": "すべての権限",
-                        "_read": "読み取り",
-                        "_create": "作成",
-                        "_update": "更新",
-                        "_remove": "削除",
-                        "features": {
-                            "_admin_management": "管理者アカウント管理",
-                            "_role_management": "管理者役割管理",
-                            "_clinic_management": "クリニック管理",
-                            "_group_management": "グループ管理",
-                            "_staff_management": "スタッフ管理",
-                            "_notification_management": "お知らせ管理",
-                            "_request_management": "申請管理",
-                            "_request_template_management": "申請テンプレート管理",
-                            "_inquiry_management": "問合せ管理",
-                            "_page_management": "ページ管理"
-                        }
-                    }
+                    "_subtitle": "グループ情報",
+                    "_name_pl": "グループ名を入力してください",
+                    "_memo_pl": "メモを入力してください"
                 },
                 "messages": {
-                    "_create_success": "管理者役割の登録が成功しました。",
-                    "_create_failed": "管理者役割の登録に失敗しました。",
-                    "_edit_success": "管理者役割の編集が成功しました。",
-                    "_edit_failed": "管理者役割の編集に失敗しました。"
+                    "_create_success": "グループ情報の登録が成功しました。",
+                    "_create_failed": "グループ情報の登録に失敗しました。",
+                    "_edit_success": "グループ情報の編集が成功しました。",
+                    "_edit_failed": "グループ情報の編集に失敗しました。"
                 },
                 "others": {
                     "_btn_create": "登録する",
@@ -1490,12 +969,29 @@ export default {
                     "_btn_remove": "削除する"
                 }
             },
+            "group_users": {
+                "_og_title": "友伸會ポータル管理画面｜スタッフ管理・グループユーザー登録",
+                "_page_title": "グループユーザー登録",
+                "_not_found_user": "ユーザーが見つかりません",
+                "data_table": {
+                    "_cur_staff_count": "現在のスタッフ数"
+                },
+                "messages": {
+                    "_update_success": "グループユーザーの更新が成功しました。",
+                    "_update_failed": "グループユーザーの更新に失敗しました。"
+                },
+                "others": {
+                    "_data_result": "データ結果",
+                    "_btn_update": "更新する",
+                    "_no_data": "ユーザーが存在しません。",
+                    "_no_search_result": "該当するユーザー情報が存在しません。"
+                }
+            },
             "others": {
                 "_remove_modal_yes": "はい",
                 "_remove_modal_no": "いいえ",
-                "_remove_modal_title": "管理者役割を削除",
-                "_remove_modal_description": "この管理者役割を削除してもよろしいですか？一度削除された情報は復旧することはできません。",
-                "_remove_success": "役割を削除しました"
+                "_remove_modal_title": "グループを削除",
+                "_remove_modal_description": "このグループを削除してもよろしいですか？一度削除された情報は復旧することはできません。"
             }
         },
         "inquiry": {
@@ -1579,6 +1075,78 @@ export default {
                 "_close_modal_no": "いいえ",
                 "_close_modal_title": "問合せをクローズ",
                 "_close_modal_description": "この問合せをクローズしてもよろしいですか？"
+            }
+        },
+        "role": {
+            "attr": {
+                "_name": "役割",
+                "_permission": "権限"
+            },
+            "list": {
+                "_og_title": "友伸會ポータル管理画面｜管理者アカウント管理・管理者役割一覧",
+                "_page_title": "管理者役割一覧",
+                "data_table": {
+                    "actions": {
+                        "_act_edit": "編集する",
+                        "_act_remove": "削除する"
+                    }
+                },
+                "messages": {
+                    "_remove_success": "管理者役割の削除が成功しました。",
+                    "_remove_failed": "管理者役割の削除に失敗しました。"
+                },
+                "others": {
+                    "_btn_create": "新規役割登録",
+                    "_no_data": "管理者役割が存在しません。"
+                }
+            },
+            "info": {
+                "_og_title_create": "友伸會ポータル管理画面｜管理者アカウント管理・新規役割登録",
+                "_og_title_edit": "友伸會ポータル管理画面｜管理者アカウント管理・管理者役割編集",
+                "_page_title_create": "新規役割登録",
+                "_page_title_edit": "管理者役割編集",
+                "form": {
+                    "_form_title": "管理者役割情報",
+                    "_name_pl": "管理者役割の名前を入力してください",
+                    "permission_data": {
+                        "_feature_list": "機能一覧",
+                        "_all_permission": "すべての権限",
+                        "_read": "読み取り",
+                        "_create": "作成",
+                        "_update": "更新",
+                        "_remove": "削除",
+                        "features": {
+                            "_admin_management": "管理者アカウント管理",
+                            "_role_management": "管理者役割管理",
+                            "_clinic_management": "クリニック管理",
+                            "_group_management": "グループ管理",
+                            "_staff_management": "スタッフ管理",
+                            "_notification_management": "お知らせ管理",
+                            "_request_management": "申請管理",
+                            "_request_template_management": "申請テンプレート管理",
+                            "_inquiry_management": "問合せ管理",
+                            "_page_management": "ページ管理"
+                        }
+                    }
+                },
+                "messages": {
+                    "_create_success": "管理者役割の登録が成功しました。",
+                    "_create_failed": "管理者役割の登録に失敗しました。",
+                    "_edit_success": "管理者役割の編集が成功しました。",
+                    "_edit_failed": "管理者役割の編集に失敗しました。"
+                },
+                "others": {
+                    "_btn_create": "登録する",
+                    "_btn_edit": "編集する",
+                    "_btn_remove": "削除する"
+                }
+            },
+            "others": {
+                "_remove_modal_yes": "はい",
+                "_remove_modal_no": "いいえ",
+                "_remove_modal_title": "管理者役割を削除",
+                "_remove_modal_description": "この管理者役割を削除してもよろしいですか？一度削除された情報は復旧することはできません。",
+                "_remove_success": "役割を削除しました"
             }
         },
         "validation": {
@@ -1805,46 +1373,306 @@ export default {
                 "_not_found": "Not Found。"
             }
         },
-        "group": {
+        "request": {
             "attr": {
-                "_name": "グループ名",
+                "_title": "タイトル",
+                "_category": "申請項目",
+                "_sender": "申請者",
+                "_approver": "承認担当者",
+                "_status": "ステータス",
+                "status": {
+                    "_open": "承認待ち",
+                    "_in_progress": "承認中",
+                    "_approved": "承認済み",
+                    "_rejected": "却下"
+                },
+                "_all_approval": "全員承認",
+                "_approval_comment": "承認欄",
+                "approval_comment": {
+                    "_yes": "あり",
+                    "_no": "なし"
+                },
                 "_memo": "メモ"
             },
             "list": {
-                "_og_title": "友伸會ポータル管理画面｜スタッフ管理・グループ一覧",
-                "_page_title": "グループ一覧",
+                "_og_title": "友伸會ポータル管理画面｜申請管理・申請一覧",
+                "_page_title": "申請一覧",
+                "search_box": {
+                    "_status_df": "すべてのステータス"
+                },
                 "data_table": {
-                    "_staff_count": "ユーザー数",
+                    "_request_at": "申請日時",
+                    "_last_approved_at": "最終承認日時",
+                    "_action": "操作",
                     "actions": {
-                        "_act_add_user": "グループユーザーを更新する",
-                        "_act_edit": "グループ情報を編集する",
-                        "_act_remove": "グループを削除する"
+                        "_act_show_details": "詳細を確認する",
+                        "_act_approve": "承認する",
+                        "_act_reject": "却下する"
                     }
                 },
                 "messages": {
-                    "_remove_success": "グループ削除が成功しました。",
-                    "_remove_failed": "グループ削除に失敗しました。"
+                    "_approve_success": "申請承認が成功しました。",
+                    "_approve_failed": "申請承認に失敗しました。",
+                    "_reject_success": "申請ステータスの更新が成功しました。",
+                    "_reject_failed": "申請ステータスの更新に失敗しました。"
                 },
                 "others": {
-                    "_btn_create": "新規グループ登録",
-                    "_no_data": "グループが存在しません。"
+                    "_no_data": "申請データが存在しません。",
+                    "_no_search_result": "該当する申請データが存在しません。"
                 }
             },
             "info": {
-                "_og_title_create": "友伸會ポータル管理画面｜スタッフ管理・新規グループ登録",
-                "_og_title_edit": "友伸會ポータル管理画面｜スタッフ管理・グループ情報編集",
-                "_page_title_create": "新規グループ登録",
-                "_page_title_edit": "グループ情報編集",
+                "_og_title": "友伸會ポータル管理画面｜申請管理・申請詳細情報",
+                "_page_title": "申請詳細情報",
+                "basic_info": {
+                    "_subtitle": "基本情報",
+                    "_approval_comment_pl": "例）精算額など"
+                },
                 "form": {
-                    "_subtitle": "グループ情報",
-                    "_name_pl": "グループ名を入力してください",
+                    "_subtitle": "申請情報"
+                },
+                "reply_form": {
+                    "_comment_pl": "コメントを入力してください"
+                },
+                "messages": {
+                    "_approve_success": "申請承認が成功しました。",
+                    "_approve_failed": "申請承認に失敗しました。",
+                    "_reject_success": "申請ステータスの更新が成功しました。",
+                    "_reject_failed": "申請ステータスの更新に失敗しました。",
+                    "_reply_success": "返信が成功しました。",
+                    "_reply_failed": "返信に失敗しました。"
+                },
+                "others": {
+                    "_btn_approve": "承認する",
+                    "_btn_reject": "却下する",
+                    "_btn_reply": "返信する"
+                }
+            },
+            "discussion": {
+                "_title": "Discussion",
+                "_comment_here": "ここにメッセージ",
+                "_send": "送信する",
+                "_upload_placeholder": "Choose a file or drop it here...",
+                "_upload_drop_placeholder": "Drop file here...",
+                "_comment_success": "Comment success"
+            },
+            "template": {
+                "list": {
+                    "_og_title_": "友伸會ポータル管理画面｜申請管理・申請テンプレート一覧",
+                    "_page_title": "申請テンプレート一覧",
+                    "data_table": {
+                        "_created_at": "作成日時",
+                        "actions": {
+                            "_act_edit": "編集する",
+                            "_act_remove": "削除する"
+                        }
+                    },
+                    "messages": {
+                        "_remove_success": "申請テンプレートの削除が成功しました。",
+                        "_remove_failed": "申請テンプレートの削除に失敗しました。"
+                    },
+                    "others": {
+                        "_btn_draft_save": "下書きとして保存する",
+                        "_btn_create": "新規テンプレート作成",
+                        "_no_data": "申請テンプレートが存在しません。"
+                    }
+                },
+                "info": {
+                    "_og_title_create": "友伸會ポータル管理画面｜申請管理・申請テンプレート編集",
+                    "_page_title_create": "新規テンプレート作成",
+                    "_page_title_edit": "申請テンプレート編集",
+                    "basic_form": {
+                        "_subtitle": "基本情報",
+                        "_title_pl": "申請テンプレートのタイトルを入力してください",
+                        "_approver_pl": "承認担当者のアカウント名を指定してください",
+                        "_category_df": "カテゴリーを選択してください",
+                        "_memo_pl": "メモを入力してください"
+                    },
+                    "question_form": {
+                        "_subtitle": "申請情報",
+                        "_description": "※右側の設問テンプレートから申請項目ゾーンにドラッグ・ドロップし、設問の詳細を定義してください。"
+                    },
+                    "messages": {
+                        "_create_success": "新規申請テンプレートの作成が成功しました。",
+                        "_create_failed": "新規申請テンプレートの作成に失敗しました。",
+                        "_edit_success": "新規申請テンプレートの編集が成功しました。",
+                        "_edit_failed": "新規申請テンプレートの編集に失敗しました。",
+                        "_draft_save_success": "申請テンプレートのの下書き保存が成功しました。",
+                        "_draft_save_failed": "申請テンプレートのの下書き保存に失敗しました。",
+                        "_delete_success": "申請テンプレートの削除が成功しました。",
+                        "_delete_failed": "申請テンプレートの削除に失敗しました。"
+                    },
+                    "others": {
+                        "_btn_draft_save": "下書きとして保存",
+                        "_btn_create": "作成する",
+                        "_btn_edit": "編集する",
+                        "_no_data": "申請テンプレートが存在しません。"
+                    }
+                }
+            },
+            "others": {
+                "_modal_no": "キャンセル",
+                "_modal_yes": "はい",
+                "_reject_modal_title": "申請をリジェクト",
+                "_reject_modal_description": "この申請をリジェクトしてもよろしいですか？",
+                "_approve_modal_title": "申請を承認",
+                "_approve_modal_description": "この申請を却下してもよろしいですか？"
+            },
+            "common": {
+                "number_file_upload_greater_than": "ファイルは５つまでアップロードしてください。"
+            }
+        },
+        "auth": {
+            "attr": {
+                "_mail_address": "メールアドレス",
+                "_password": "パスワード",
+                "_new_password": "新しいパスワード",
+                "_confirm_password": "新しいパスワード（確認用）"
+            },
+            "login": {
+                "_og_title": "友伸會ポータル管理画面",
+                "_page_title": "友伸會ポータル管理画面",
+                "form": {
+                    "_form_title": "ログイン"
+                },
+                "messages": {
+                    "_login_failed": "ログインに失敗しました。",
+                    "_login_banned": "ログインの試行回数が多すぎます。{seconds} 秒後にお試しください。"
+                },
+                "others": {
+                    "_btn_login": "ログインする",
+                    "_link_forgot_password": "パスワードを忘れた方はこちら"
+                }
+            },
+            "forgot_pwd": {
+                "_og_title": "友伸會ポータル管理画面｜パスワード再設定",
+                "_page_title": "友伸會ポータル管理画面",
+                "form": {
+                    "_form_title": "パスワード再設定メール送信"
+                },
+                "messages": {
+                    "_send_mail_success": "パスワード再設定のメールを送信しました。",
+                    "_send_mail_failed": "パスワード再設定のメール送信に失敗しました。"
+                },
+                "others": {
+                    "_btn_send": "メールを送信する",
+                    "_link_back_to_login": "ログイン画面へ戻す"
+                }
+            },
+            "reset_pwd": {
+                "_og_title": "友伸會ポータル管理画面｜パスワード再設定",
+                "_page_title": "友伸會ポータル管理画面",
+                "form": {
+                    "_form_title": "パスワード再設定"
+                },
+                "messages": {
+                    "_send_mail_success": "パスワード再設定のメールを送信しました。",
+                    "_send_mail_failed": "パスワード再設定のメール送信に失敗しました。"
+                },
+                "others": {
+                    "_btn_reset": "パスワードを再設定する",
+                    "_link_back_to_login": "ログイン画面へ戻す"
+                }
+            }
+        },
+        "app": {
+            "name": "友伸會ポータル管理画面",
+            "menu": {
+                "top": {
+                    "_logout": "ログアウト",
+                    "_profile": "マイアカウント"
+                },
+                "sidebar": {
+                    "admin_management": {
+                        "_main": "管理者アカウント管理",
+                        "_admin_list": "管理者一覧",
+                        "_role_list": "管理者役割一覧"
+                    },
+                    "staff_management": {
+                        "_main": "スタッフ管理",
+                        "_clinic_list": "クリニック一覧",
+                        "_staff_list": "スタッフ一覧",
+                        "_group_list": "グループ一覧"
+                    },
+                    "notification_management": {
+                        "_main": "お知らせ管理"
+                    },
+                    "request_management": {
+                        "_main": "申請管理",
+                        "_request_template_list": "申請テンプレート一覧"
+                    },
+                    "inquiry_management": {
+                        "_main": "問合せ管理"
+                    },
+                    "page_management": {
+                        "_main": "ページ管理"
+                    }
+                }
+            }
+        },
+        "staff": {
+            "attr": {
+                "_username": "ユーザー名",
+                "_mail_address": "メールアドレス",
+                "_position": "職業",
+                "positions": {
+                    "_dr": "DR",
+                    "_dh": "DH",
+                    "_others": "その他"
+                },
+                "_clinic": "クリニック",
+                "_user_type": "ユーザータイプ",
+                "_memo": "メモ"
+            },
+            "list": {
+                "_og_title": "友伸會ポータル管理画面｜スタッフ管理・スタッフ一覧",
+                "_page_title": "スタッフ一覧",
+                "search_box": {
+                    "_position_df": "すべての職業",
+                    "_clinic_df": "すべてのクリニック",
+                    "_keyword": "キーワード",
+                    "_keyword_pl": "キーワードを入力してください"
+                },
+                "data_table": {
+                    "_registered_at": "登録日時",
+                    "_last_login_at": "最終ログイン日時",
+                    "actions": {
+                        "_act_edit": "スタッフ情報を編集する",
+                        "_act_remove": "スタッフ情報を削除する"
+                    }
+                },
+                "messages": {
+                    "_remove_success": "スタッフ情報の削除が成功しました。",
+                    "_remove_failed": "スタッフ情報の削除に失敗しました。"
+                },
+                "others": {
+                    "_btn_create": "新規スタッフ登録",
+                    "_no_data": "スタッフが存在しません。",
+                    "_no_search_result": "該当するスタッフ情報が存在しません。"
+                }
+            },
+            "info": {
+                "_og_title_create": "友伸會ポータル管理画面｜スタッフ管理・新規スタッフ情報登録",
+                "_og_title_edit": "友伸會ポータル管理画面｜スタッフ管理・スタッフ情報編集",
+                "_page_title_create": "新規スタッフ登録",
+                "_page_title_edit": "スタッフ情報編集",
+                "form": {
+                    "_form_title": "スタッフ情報",
+                    "_username_pl": "ユーザー名を入力してください",
+                    "_mail_address_pl": "メールアドレスを入力してください",
+                    "_position_df": "職業を選択してください",
+                    "_clinic_df": "クリニックを指定してください",
+                    "user_type_opt": {
+                        "_staff_web": "ウェブユーザー",
+                        "_staff_mobile": "スマホアプリユーザー"
+                    },
                     "_memo_pl": "メモを入力してください"
                 },
                 "messages": {
-                    "_create_success": "グループ情報の登録が成功しました。",
-                    "_create_failed": "グループ情報の登録に失敗しました。",
-                    "_edit_success": "グループ情報の編集が成功しました。",
-                    "_edit_failed": "グループ情報の編集に失敗しました。"
+                    "_create_success": "新規スタッフの登録が成功しました。",
+                    "_create_failed": "新規スタッフの登録に失敗しました。",
+                    "_edit_success": "スタッフ情報の編集が成功しました。",
+                    "_edit_failed": "スタッフ情報の編集に失敗しました。"
                 },
                 "others": {
                     "_btn_create": "登録する",
@@ -1852,34 +1680,31 @@ export default {
                     "_btn_remove": "削除する"
                 }
             },
-            "group_users": {
-                "_og_title": "友伸會ポータル管理画面｜スタッフ管理・グループユーザー登録",
-                "_page_title": "グループユーザー登録",
-                "_not_found_user": "ユーザーが見つかりません",
-                "data_table": {
-                    "_cur_staff_count": "現在のスタッフ数"
+            "my_account": {
+                "_page_title": "マイアカウント",
+                "form": {
+                    "_cur_password": "現在のパスワード",
+                    "_cur_password_pl": "現在のパスワードを入力してください",
+                    "_new_password": "新しいパスワード",
+                    "_new_password_pl": "新しいパスワードを入力してください",
+                    "_confirm_password": "新しいパスワード（確認用）",
+                    "_confirm_password_pl": "確認用パスワードを入力してください"
                 },
                 "messages": {
-                    "_update_success": "グループユーザーの更新が成功しました。",
-                    "_update_failed": "グループユーザーの更新に失敗しました。"
+                    "_current_pwd_not_match": "現在のパスワードは古いパスワードと一致しません。",
+                    "_pwd_update_success": "パスワード再設定が成功しました。",
+                    "_pwd_update_failed": "パスワード再設定に失敗しました。"
                 },
                 "others": {
-                    "_data_result": "データ結果",
-                    "_btn_update": "更新する",
-                    "_no_data": "ユーザーが存在しません。",
-                    "_no_search_result": "該当するユーザー情報が存在しません。"
+                    "_btn_update_pwd": "再設定する"
                 }
             },
             "others": {
                 "_remove_modal_yes": "はい",
                 "_remove_modal_no": "いいえ",
-                "_remove_modal_title": "グループを削除",
-                "_remove_modal_description": "このグループを削除してもよろしいですか？一度削除された情報は復旧することはできません。"
+                "_remove_modal_title": "スタッフ情報を削除",
+                "_remove_modal_description": "このスタッフの情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
             }
-        },
-        "pagination": {
-            "previous": "&laquo; 前へ",
-            "next": "次へ &raquo;"
         },
         "clinic": {
             "attr": {
@@ -1958,58 +1783,233 @@ export default {
                 "_remove_modal_description": "このクリニックの情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
             }
         },
-        "auth": {
+        "admin": {
             "attr": {
+                "_username": "アカウント名",
                 "_mail_address": "メールアドレス",
-                "_password": "パスワード",
-                "_new_password": "新しいパスワード",
-                "_confirm_password": "新しいパスワード（確認用）"
+                "_position": "ポジション",
+                "_role": "管理者役割",
+                "_memo": "メモ"
             },
-            "login": {
-                "_og_title": "友伸會ポータル管理画面",
-                "_page_title": "友伸會ポータル管理画面",
-                "form": {
-                    "_form_title": "ログイン"
+            "list": {
+                "_og_title": "友伸會ポータル管理画面｜管理者アカウント管理・管理者一覧",
+                "_page_title": "管理者一覧",
+                "search_box": {
+                    "_role_df": "すべての役割"
+                },
+                "data_table": {
+                    "_registered_at": "登録日時",
+                    "_last_login_at": "最終ログイン日時",
+                    "actions": {
+                        "_act_edit": "管理者情報を編集する",
+                        "_act_remove": "管理者情報を削除する"
+                    }
                 },
                 "messages": {
-                    "_login_failed": "ログインに失敗しました。",
-                    "_login_banned": "ログインの試行回数が多すぎます。{seconds} 秒後にお試しください。"
+                    "_remove_success": "管理者情報の削除が成功しました。",
+                    "_remove_failed": "管理者情報の削除に失敗しました。"
                 },
                 "others": {
-                    "_btn_login": "ログインする",
-                    "_link_forgot_password": "パスワードを忘れた方はこちら"
+                    "_btn_create": "新規アカウント登録",
+                    "_no_data": "管理者アカウントが存在しません。",
+                    "_no_search_result": "該当する管理者情報が存在しません。"
                 }
             },
-            "forgot_pwd": {
-                "_og_title": "友伸會ポータル管理画面｜パスワード再設定",
-                "_page_title": "友伸會ポータル管理画面",
-                "form": {
-                    "_form_title": "パスワード再設定メール送信"
+            "my_account": {
+                "_page_title": "マイアカウント",
+                "basic_info": {
+                    "_title": "アカウント情報",
+                    "messages": {
+                        "_acc_update_success": "管理者情報の編集が成功しました。",
+                        "_acc_update_failed": "管理者情報の編集に失敗しました。"
+                    },
+                    "others": {
+                        "_btn_update": "更新する"
+                    }
                 },
-                "messages": {
-                    "_send_mail_success": "パスワード再設定のメールを送信しました。",
-                    "_send_mail_failed": "パスワード再設定のメール送信に失敗しました。"
-                },
-                "others": {
-                    "_btn_send": "メールを送信する",
-                    "_link_back_to_login": "ログイン画面へ戻す"
+                "change_pwd": {
+                    "_title": "パスワード再設定",
+                    "form": {
+                        "_cur_password": "現在のパスワード",
+                        "_cur_password_pl": "現在のパスワードを入力してください",
+                        "_new_password": "新しいパスワード",
+                        "_new_password_pl": "新しいパスワードを入力してください",
+                        "_confirm_password": "新しいパスワード（確認用）",
+                        "_confirm_password_pl": "確認用パスワードを入力してください"
+                    },
+                    "messages": {
+                        "_current_pwd_not_match": "現在のパスワードは古いパスワードと一致しません。",
+                        "_pwd_update_success": "パスワード再設定が成功しました。",
+                        "_pwd_update_failed": "パスワード再設定に失敗しました。"
+                    },
+                    "others": {
+                        "_btn_update_pwd": "再設定する"
+                    }
                 }
             },
-            "reset_pwd": {
-                "_og_title": "友伸會ポータル管理画面｜パスワード再設定",
-                "_page_title": "友伸會ポータル管理画面",
+            "info": {
+                "_og_title_create": "友伸會ポータル管理画面｜管理者アカウント管理・新規アカウント登録",
+                "_og_title_edit": "友伸會ポータル管理画面｜管理者アカウント管理・管理者情報編集",
+                "_page_title_create": "新規アカウント登録",
+                "_page_title_edit": "管理者情報編集",
                 "form": {
-                    "_form_title": "パスワード再設定"
+                    "_form_title": "管理者情報",
+                    "_username_pl": "アカウント名を入力してください",
+                    "_mail_address_pl": "メールアドレスを入力してください",
+                    "_position_df": "ポジションを選択してください",
+                    "position_opt": {
+                        "_bod": "理事長",
+                        "_hr": "事務局"
+                    },
+                    "_memo_pl": "メモを入力してください"
                 },
                 "messages": {
-                    "_send_mail_success": "パスワード再設定のメールを送信しました。",
-                    "_send_mail_failed": "パスワード再設定のメール送信に失敗しました。"
+                    "_create_success": "管理者アカウントの登録が成功しました。",
+                    "_create_failed": "管理者アカウントの登録に失敗しました。",
+                    "_edit_success": "管理者情報の編集が成功しました。",
+                    "_edit_failed": "管理者情報の編集に失敗しました。"
                 },
                 "others": {
-                    "_btn_reset": "パスワードを再設定する",
-                    "_link_back_to_login": "ログイン画面へ戻す"
+                    "_btn_create": "登録する",
+                    "_btn_edit": "更新する",
+                    "_btn_remove": "削除する"
                 }
+            },
+            "others": {
+                "_remove_modal_yes": "はい",
+                "_remove_modal_no": "いいえ",
+                "_remove_modal_title": "管理者情報を削除",
+                "_remove_modal_description": "この管理者の情報を削除してもよろしいですか？一度削除された情報は復旧することはできません。"
             }
+        },
+        "passwords": {
+            "reset": "パスワードをリセットしました。",
+            "sent": "パスワードリマインダーを送信しました。",
+            "throttled": "時間を置いて再度お試しください。",
+            "token": "このパスワードリセットトークンは無効です。",
+            "user": "このメールアドレスに一致するユーザーを見つけることが出来ませんでした。"
+        },
+        "notification": {
+            "attr": {
+                "_title": "タイトル",
+                "_target_users": "送信対象者",
+                "_confirm_required": "承認必須",
+                "_content": "本文",
+                "_public_at": "公開日時",
+                "_status": "ステータス",
+                "status": {
+                    "_draft": "下書き",
+                    "_private": "非公開",
+                    "_public": "公開"
+                }
+            },
+            "list": {
+                "_og_title": "友伸會ポータル管理画面｜お知らせ管理・お知らせ一覧",
+                "_page_title": "お知らせ一覧",
+                "search_box": {
+                    "_target_users_df": "すべてのスタッフ",
+                    "_public_date": "公開日付",
+                    "_status": "公開ステータス",
+                    "_status_df": "すべてのステータス"
+                },
+                "data_table": {
+                    "_sent_count": "配送総数",
+                    "_read_count": "既読数",
+                    "_confirmed_count": "確認済人数",
+                    "actions": {
+                        "_act_public": "お知らせを公開する",
+                        "_act_edit": "編集する",
+                        "_act_remove": "削除する",
+                        "_act_show_details": "詳細を確認んする",
+                        "_act_show_list_user": "送信対象者一覧を確認する"
+                    }
+                },
+                "messages": {
+                    "_remove_success": "お知らせ削除が成功しました。",
+                    "_remove_failed": "お知らせ削除に失敗しました。",
+                    "_stt_update_success": "お知らせステータスの更新が成功しました。",
+                    "_stt_update_failed": "お知らせステータスの更新に失敗しました。"
+                },
+                "others": {
+                    "_btn_create": "新規お知らせ作成",
+                    "_no_data": "お知らせデータが存在しません。",
+                    "_no_search_result": "該当するお知らせデータが存在しません。"
+                }
+            },
+            "info": {
+                "_og_title": "友伸會ポータル管理画面｜お知らせ管理・お知らせ作成",
+                "_page_title": "お知らせ作成",
+                "_page_title_edit": "お知らせ編集",
+                "form": {
+                    "_subtitle": "お知らせ情報",
+                    "_title_pl": "タイトルを入力してください",
+                    "_target_users_des": "※拠点名、職業、及びユーザー名で入力することは可能です。",
+                    "target_user_opt": {
+                        "_dr": "DR",
+                        "_dh": "DH",
+                        "_manual": "対象者を指定する",
+                        "_manual_pl": "送信対象者のユーザー名を入力してください"
+                    }
+                },
+                "messages": {
+                    "_create_success": "お知らせ作成が成功しました。",
+                    "_create_failed": "お知らせ作成に失敗しました。",
+                    "_draft_save_success": "お知らせの下書き保存が成功しました。",
+                    "_draft_save_failed": "お知らせの下書き保存に失敗しました。",
+                    "_err_title_required": "タイトルを必ず必ず入力してください。",
+                    "_err_target_required": "送信対象者を必ず指定してください。",
+                    "_err_content_required": "お知らせ本文を必ず入力してください。",
+                    "_err_schedule_lt_now": "公開日時を正しく指定してください。"
+                },
+                "others": {
+                    "_btn_draft_save": "下書きとして保存する",
+                    "_btn_create": "公開する",
+                    "_btn_remove": "削除する"
+                }
+            },
+            "noti_users": {
+                "_og_title": "友伸會ポータル管理画面｜お知らせ管理・送信対象者一覧",
+                "_page_title": "送信対象者一覧",
+                "attr": {
+                    "_status": "ステータス",
+                    "status": {
+                        "_unread": "未読",
+                        "_read": "既読",
+                        "_unconfirmed": "未確認",
+                        "_confirmed": "確認済"
+                    }
+                },
+                "search_box": {
+                    "_status_df": "すべてのステータス"
+                },
+                "data_table": {
+                    "_confirmed_at": "確認日時"
+                },
+                "others": {
+                    "_unconfirm": "---",
+                    "_no_data": "送信対象者が存在しません。",
+                    "_no_search_result": "該当するユーザー情報が存在しません。"
+                }
+            },
+            "web": {
+                "_og_title": "友伸會ポータル管理画面｜お知らせ一覧",
+                "_page_title": "お知らせ一覧",
+                "data_table": {
+                    "_tab_all": "すべて",
+                    "_tab_bod": "理事長から",
+                    "_tab_hr": "事務局から"
+                }
+            },
+            "others": {
+                "_remove_modal_yes": "はい",
+                "_remove_modal_no": "いいえ",
+                "_remove_modal_title": "お知らせを削除",
+                "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。"
+            }
+        },
+        "pagination": {
+            "previous": "&laquo; 前へ",
+            "next": "次へ &raquo;"
         }
     }
 }

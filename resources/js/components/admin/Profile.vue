@@ -141,7 +141,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <button @click.prevent="updatePassword" type="submit" class="btn btn-primary float-right">{{ $t('admin.my_account.change_pwd.others._btn_update') }}</button>
+                                        <button @click.prevent="updatePassword" type="submit" class="btn btn-primary float-right">{{ $t('admin.my_account.change_pwd.others._btn_update_pwd') }}</button>
                                     </div>
                                 </form>
                             </div>
