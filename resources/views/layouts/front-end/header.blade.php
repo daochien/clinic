@@ -18,9 +18,9 @@
           </a>
         </li>
         <li class="{{ request()->routeIs('notification*') ? 'active' : '' }}">
-          <router-link to="/notification" class="btn">
+          <a href="/notification" class="btn">
             <img src="/front-end/images/notification-icon.png" alt="Notification"> お知らせ
-          </router-link>
+          </a>
         </li>
         <li class="user">
             <div class="dropdown">
