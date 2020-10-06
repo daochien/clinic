@@ -36,9 +36,9 @@ class InquiryRequest extends FormRequest
     public function attributes()
     {
         return [
-            'title' => '題名',
+            'title' => 'タイトル',
             'category_id' => 'カテゴリ',
-            'question' => '内容 ',
+            'question' => '本文',
         ];
     }
 }

@@ -11,7 +11,7 @@
                         <input type="email" name="email" id="email" class="form-control email" disabled="disabled" :value="manager.email">
                     </div>
                     <div class="form-group">
-                        <label for="current_password" class="control-label">{{ $t('staff.my_account._cur_password') }}<span style="color:#c4183c;">*</span>
+                        <label for="current_password" class="control-label">{{ $t('staff.my_account.form._cur_password') }}<span style="color:#c4183c;">　*</span>
                         </label>
                         <input type="password"
                                v-model="manager.current_password"
@@ -22,7 +22,7 @@
                         <has-error :form="manager" field="current_password"></has-error>
                     </div>
                     <div class="form-group">
-                        <label for="new_password" class="control-label">{{ $t('staff.my_account._new_password') }}<span style="color:#c4183c;">*</span>
+                        <label for="new_password" class="control-label">{{ $t('staff.my_account.form._new_password') }}<span style="color:#c4183c;">　*</span>
                         </label>
                         <input type="password"
                                v-model="manager.new_password"
@@ -33,7 +33,7 @@
                         <has-error :form="manager" field="new_password"></has-error>
                     </div>
                     <div class="form-group">
-                        <label for="confirm_password" class="control-label">{{ $t('staff.my_account._confirm_password') }}<span style="color:#c4183c;">*</span>
+                        <label for="confirm_password" class="control-label">{{ $t('staff.my_account.form._confirm_password') }}<span style="color:#c4183c;">　*</span>
                         </label>
                         <input type="password"
                                v-model="manager.confirm_password"
@@ -43,7 +43,7 @@
                         >
                         <has-error :form="manager" field="confirm_password"></has-error>
                     </div>
-                    <button @click.prevent="updatePassword" type="submit" class="btn btn-login">{{ $t('staff.my_account._btn_update_pwd') }}</button>
+                    <button @click.prevent="updatePassword" type="submit" class="btn btn-login">{{ $t('staff.my_account.others._btn_update_pwd') }}</button>
 
                 </form>
             </div>
@@ -96,7 +96,7 @@ export default {
 
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('common.messages._system_err'),
+                        title: this.$t('common.messages.messages._pwd_update_failed'),
                     });
                 });
         },
