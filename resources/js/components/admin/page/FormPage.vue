@@ -297,7 +297,7 @@ export default {
                 autoProcessQueue: false,
                 url: 'https://httpbin.org/post',
                 thumbnailWidth: 170,
-                maxFilesize: 50,
+                maxFilesize: 200,
                 addRemoveLinks: true,
                 duplicateCheck: true,
                 maxFiles: 1,

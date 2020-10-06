@@ -15,7 +15,7 @@
                     <span class="title">{{ item.title }}</span>
                     <p> {{ item.content ? item.content : '---' }} </p>
                 </div>
-                <a :href="`/manual/downloadUrl?path=${item.files.path}`" target="_blank" @click="forceFileDownload(item)">
+                <a :href="`/manual/downloadUrl?page_id=${item.id}`" target="_blank" @click="forceFileDownload(item)">
                 <button class="download" >{{ item.files ? item.files.size : '' }}
                      <img src="/front-end/images/download-icon-2.png" alt="">
                 </button>

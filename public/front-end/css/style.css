@@ -390,8 +390,11 @@ header .header-menu ul li.active a img {
 header .header-menu .dropdown-item {
   font-size: 14px;
   text-align: right;
-  display: block;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   padding-right: 5px !important;
+  padding: 5px 10px;
 }
 header .header-menu .dropdown-item img {
   margin-left: 10px;
@@ -801,13 +804,19 @@ aside {
 .news-slider .news-slider-item a .title {
   position: absolute;
   display: block;
-  bottom: 20px;
+  bottom: 30px;
   left: 10px;
   right: 10px;
   color: #fff;
   z-index: 1;
   font-size: 13px;
   font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 58px;
 }
 .news-slider .news-slider-item a .date {
   position: absolute;
