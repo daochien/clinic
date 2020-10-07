@@ -39,7 +39,7 @@
         <div class="side-content">
             <ul v-if="canShowManual">
                 <li v-for="(manual, index) in manuals" :key="index">
-                    <a :href="`/manual/downloadUrl?path=${manual.files.path}`" target="_blank"  @click="downloadManual(manual)">
+                    <a :href="`/manual/downloadUrl?page_id=${manual.id}`" target="_blank"  @click="downloadManual(manual)">
                         <span class="title">{{ manual.title}}</span>
                         <span class="info">
                             {{ manual.files.size }}

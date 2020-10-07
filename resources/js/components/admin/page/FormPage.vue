@@ -65,11 +65,11 @@
                                     <has-error :form="pageFormErrors" field="title"></has-error>
                                 </div>
                             </div>
-                            <div class="form-group row border-bottom">
+                            <div class="form-group row border-bottom" >
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._public') }} </label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="switchToggle">
-                                        <input type="checkbox" id="switch1" v-model="page.public">
+                                        <input type="checkbox" id="switch1" v-model="page.status">
                                         <label for="switch1">Toggle</label>
                                     </div>
                                     <has-error :form="pageFormErrors" field="public"></has-error>
@@ -92,15 +92,15 @@
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._status') }}</label>
                                 <div class="col-sm-10 col-form-label">
                                     <div class="switchToggle">
-                                        <input type="checkbox" id="switch2" v-model="page.status">
+                                        <input type="checkbox" id="switch2" v-model="page.public">
                                         <label for="switch2">Toggle</label>
                                     </div>
                                     <has-error :form="pageFormErrors" field="status"></has-error>
                                 </div>
                             </div>
-                            <div v-show="showMore && page.type != 'faq' && !page.status" class="form-group row border-bottom" style="padding-bottom: 10px;">
+                            <div v-show="showMore && page.type != 'faq' && !page.public" class="form-group row border-bottom" style="padding-bottom: 10px;">
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._url') }}</label>
-                                <div class="col-sm-10">                                    
+                                <div class="col-sm-10">
                                     <multiselect
                                         v-model="page.groups"
                                         :options="groups"
@@ -297,7 +297,7 @@ export default {
                 autoProcessQueue: false,
                 url: 'https://httpbin.org/post',
                 thumbnailWidth: 170,
-                maxFilesize: 50,
+                maxFilesize: 200,
                 addRemoveLinks: true,
                 duplicateCheck: true,
                 maxFiles: 1,
@@ -365,11 +365,11 @@ export default {
             }
             this.loadCategory();
         },
-        pageStatus (newVal, oldVal) {
-            if (newVal == false) {
-                this.showMore = true;
-            }
-        }
+        // pageStatus (newVal, oldVal) {
+        //     if (newVal == false) {
+        //         this.showMore = true;
+        //     }
+        // }
     },
     methods: {
         showModalCategory () {
@@ -468,7 +468,7 @@ export default {
             data.append('minute', this.page.minute);
             data.append('status', this.page.status == true ? 1 : 0);
             data.append('url', this.page.url);
-            data.append('category_id', this.page.category_id);
+            data.append('category_id', this.page.category_id ? this.page.category_id: '');
             data.append('content', this.page.content ? this.page.content : '');
             data.append('summary', this.page.summary ? this.page.summary : '');
             if (this.page.groups.length > 0) {

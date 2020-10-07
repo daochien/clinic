@@ -3,7 +3,7 @@
       <span>Menu</span>
     </button>
     <div class="col-left">
-      <h1><router-link to="/notification"><img src="/front-end/images/logo.png" alt=""> Portal</router-link></h1>
+      <h1><a href="/notification"><img src="/front-end/images/logo.png" alt=""> Portal</a></h1>
     </div>
     <div class="header-menu">
       <ul>
@@ -18,9 +18,9 @@
           </a>
         </li>
         <li class="{{ request()->routeIs('notification*') ? 'active' : '' }}">
-          <router-link to="/notification" class="btn">
+          <a href="/notification" class="btn">
             <img src="/front-end/images/notification-icon.png" alt="Notification"> お知らせ
-          </router-link>
+          </a>
         </li>
         <li class="user">
             <div class="dropdown">
