@@ -104,7 +104,7 @@
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="col-12">
+                <div class="col-10 offset-1">
                     <div class="card" v-if="$gate.isAdmin()">
                         <div class="card-body p-0">
                             <table class="table table-hover">
