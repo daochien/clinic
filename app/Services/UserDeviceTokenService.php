@@ -22,7 +22,7 @@ class UserDeviceTokenService
 
     public function saveArnToThisDevice($user, $data)
     {
-        $deviceToken = UserDeviceToken::whereDeviceToke($data['device_token'])->first();
+        $deviceToken = UserDeviceToken::whereDeviceToken($data['device_token'])->first();
         if (!empty($deviceToken)) {
             return true;
         }
