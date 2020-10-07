@@ -35,7 +35,7 @@ class UserDeviceTokenService
                 'arn' => $arnInfo['arn'],
             ]);
         } else {
-            Log::error($arnInfo['message'], $arnInfo);
+            Log::error($arnInfo['data']['message'], $arnInfo);
         }
     }
 }
