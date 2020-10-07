@@ -151,7 +151,7 @@
             },
             getFromTitle(item) {
                 if (!_.isEmpty(item) && !_.isEmpty(item.creator)) {
-                    return  item.creator.posittion == 1 ? '理事長から' : '理事長から'
+                    return  item.creator.posittion == 1 ? '理事長から' : '事務局から'
                 }
 
                 return '理事長から';

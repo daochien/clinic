@@ -90,6 +90,15 @@
                                                         >{{ $t('notification.info.form.target_user_opt._dh')}}
                                                         </b-form-checkbox>
                                                     </div>
+                                                    <div class="col-1">
+                                                        <b-form-checkbox
+                                                            v-model="checkedAll"
+                                                            name="check-button"
+                                                            @change="changeCheckedAll"
+                                                            :disabled="disableForm"
+                                                        >{{ $t('notification.info.form.target_user_opt._all')}}
+                                                        </b-form-checkbox>
+                                                    </div>
                                                     <div class="col-4">
                                                         <b-form-checkbox
                                                             v-model="manual"
@@ -224,6 +233,7 @@
                 manual: false,
                 checkedDR: false,
                 checkedDH: false,
+                checkedAll: false,
                 disableForm: false,
             };
         },
@@ -394,6 +404,13 @@
                     }]);
                 } else {
                     this.form.groups = _.filter(this.form.groups, ({id}) => id != 2);
+                }
+            },
+            changeCheckedAll(value) {
+                if (value) {
+                    this.form.groups = this.groups;
+                } else {
+                    this.form.groups = [];
                 }
             },
             imageHandler() {
