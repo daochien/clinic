@@ -22,7 +22,10 @@ class Clinic extends Model
 
     public function usersCount()
     {
-        return $this->hasMany(ClinicUser::class)->count();
+        return $this->hasMany(ClinicUser::class)
+            ->join('model_has_roles as mr', 'mr.model_id', 'clinic_users.user_id')
+            ->where('mr.role_id', 3)
+            ->count();
     }
 
     public function users()

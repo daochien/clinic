@@ -230,7 +230,7 @@
         },
         created() {
             this.$Progress.start();
-            this.loadUsers();
+            this.getResults();
             this.loadType();
             this.loadClinic();
             this.$Progress.finish();

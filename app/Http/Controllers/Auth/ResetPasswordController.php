@@ -41,7 +41,7 @@ class ResetPasswordController extends Controller
         return [
             'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|confirmed|min:6|max:50',
+            'password' => 'required|confirmed|min:6|max:20',
         ];
     }
 
@@ -52,7 +52,13 @@ class ResetPasswordController extends Controller
      */
     protected function validationErrorMessages()
     {
-        return [];
+        return [
+            'email' => __('auth.email_title'),
+            'password' => __('auth.password_title'),
+            'password.min' => __('auth.reset_pwd.validate.min_6'),
+            'password.max' => __('auth.reset_pwd.validate.max_20'),
+            'password.confirmed' => __('auth.reset_pwd.confirmed'),
+        ];
     }
 
     public function resetPasswordByApp(Request $request, $token)
