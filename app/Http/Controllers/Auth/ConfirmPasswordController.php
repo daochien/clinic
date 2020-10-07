@@ -36,4 +36,30 @@ class ConfirmPasswordController extends Controller
     {
         $this->middleware('auth');
     }
+
+    /**
+     * Get the password confirmation validation rules.
+     *
+     * @return array
+     */
+    protected function rules()
+    {
+        return [
+            'password' => 'required|password|min:6|max:20',
+        ];
+    }
+
+    /**
+     * Get the password confirmation validation error messages.
+     *
+     * @return array
+     */
+    protected function validationErrorMessages()
+    {
+        return [
+            'password' => __('auth.password_title'),
+            'password.min' => __('auth.confirm_pwd.validate.min_6'),
+            'password.max' => __('auth.confirm_pwd.validate.max_20')
+        ];
+    }
 }
