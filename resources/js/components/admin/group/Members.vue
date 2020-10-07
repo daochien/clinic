@@ -1,6 +1,6 @@
 <template>
     <section class="content">
-        <div class="container-fluid" v-if="$gate.canPermission('group.index')">
+        <div class="container-fluid" v-if="$gate.canPermission('group.addUsers')">
 
             <div class="page-header row no-gutters py-4">
                 <div class="col-6 text-center text-sm-left mb-0">
@@ -163,7 +163,7 @@
             },
 
             loadMembers(){
-                if(this.$gate.canPermission('group.index')){
+                if(this.$gate.canPermission('group.addUsers')){
                     axios.get("/api/group/members/"+this.id).then(({ data }) => {
                         this.members = data.data
                     });
@@ -178,7 +178,7 @@
             },
 
             filter(){
-                if(this.$gate.canPermission('group.index')){
+                if(this.$gate.canPermission('group.addUsers')){
                     this.$Progress.start();
                     axios.get('/api/group/members/filter/'+this.id +'/'+this.value)
                             .then((data)=>{
@@ -206,7 +206,7 @@
             },
 
             addToGroup(){
-                if(this.$gate.canPermission('group.index')) {
+                if(this.$gate.canPermission('group.addUsers')) {
                     var count_success = 0;
                     var count_error = 0;
                     if (this.selected.length) {
@@ -245,7 +245,7 @@
 
 
             removeToGroup(){
-                if(this.$gate.canPermission('group.index')) {
+                if(this.$gate.canPermission('group.addUsers')) {
 
                     if (this.selected.length) {
                         let idSelected = [];
@@ -287,7 +287,7 @@
             },
 
             loadData(){
-                if(this.$gate.canPermission('group.index')) {
+                if(this.$gate.canPermission('group.addUsers')) {
                     this.removeAllow = true;
                     if (this.id) {
                         this.loadMembers();
