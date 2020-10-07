@@ -39,7 +39,8 @@ class SendNotificationCommand extends Command
      */
     public function handle()
     {
-        $notifications = Notification::where('schedule_date', '<=', now())->where('schedule_date', '>', now()->subMinutes(1))->where('draft', 0)->get();
+        $notifications = Notification::where('schedule_date', '<=', now())->where('schedule_date', '>', now()->subMinutes(100))->where('draft', 0)->get();
+        var_dump($notifications->toArray());
         foreach ($notifications as $notification) {
             SendNotificationJob::dispatch([
                 'notification_id' => $notification->id,
