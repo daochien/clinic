@@ -70,8 +70,8 @@
                                             <td>{{item.name}}</td>
                                             <td>{{item.email}}</td>
                                             <td>{{group}}</td>
-                                            <td>{{item.created_at}}</td>
-                                            <td>{{item.last_login}}</td>
+                                            <td>{{item.created_at|myDate}}</td>
+                                            <td>{{item.last_login|myDate}}</td>
                                         </tr>
 
                                 </tbody>

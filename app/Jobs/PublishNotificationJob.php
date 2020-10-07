@@ -38,7 +38,11 @@ class PublishNotificationJob implements ShouldQueue
      */
     public function handle()
     {
-        $userDevices = UserDeviceToken::where('user_id', $this->userId)->whereNotNull('arn')->get();
+        $userDevices = UserDeviceToken::from('user_device_tokens as ut')
+            ->join('users as u', 'u.id', 'ut.user_id')
+            ->where('ut.user_id', $this->userId)
+            ->whereNull('u.deleted_at')
+            ->whereNotNull('ut.arn')->get();
         $SNSService = app(SNSService::class);
         foreach ($userDevices as $userDevice) {
             try {

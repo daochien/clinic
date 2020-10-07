@@ -69,7 +69,7 @@
                                                 <span class="text-danger">*</span>
                                                 <select class="form-control" id="types"
                                                         v-model="form.type_id"
-                                                        :disabled="form.role.id == 3">
+                                                        :disabled="form.role.id == 3"
                                                         :class="{ 'is-invalid': form.errors.has('type_id') }">
                                                     <option value="">{{ $t('staff.info.form._position_df') }}</option>
                                                     <option v-for="type in types" :key="'type_' +type.id" :value="type.id" >{{ type.name }}</option>
@@ -111,9 +111,9 @@
                                                 <div>{{ $t('staff.attr._user_type')}}<span class="text-danger">*</span></div>
                                                 <div>
                                                     <template v-for="role in roles">
-                                                        <div class="col-3 float-left">
+                                                        <div class="col-6 float-left">
                                                             <div class="custom-control custom-radio">
-                                                                <input type="radio" class="custom-control-input"
+                                                                <input type="radio" class="custom-control-input" :required="form.role.id == 4"
                                                                        @click="checkPositionValue(role.id)"
                                                                        name="role" v-bind:id="role.id + '-user'"
                                                                        v-bind:value="{id: role.id, name: role.name}"

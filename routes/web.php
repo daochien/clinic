@@ -23,7 +23,7 @@ Route::prefix('/blogs/')
     ->name('blog.')
     ->group(function () {
         Route::get('/', 'PageController@index')->name('index');
-        Route::get('/{id}', 'PageController@index')->name('detail');
+        Route::get('/{id}', 'PageController@index')->name('detail')->middleware('check.page.active');
     });
 
 Route::prefix('/manual/')
@@ -32,6 +32,7 @@ Route::prefix('/manual/')
     ->name('qa.')
     ->group(function () {
         Route::get('/', 'PageController@index')->name('index');
+        Route::get('/downloadUrl', 'PageController@downloadUrl')->name('downloadUrl');
     });
 
 
@@ -60,9 +61,7 @@ Route::prefix('/admin/template')
     });
 
 Route::prefix('admin')->group(function() {
-    Route::get('/{vue_capture?}', function () {
-        return view('home');
-    })->where('vue_capture', '[\/\w\.-]*')->middleware(['auth', 'check.notAdministrator']);
+    Route::get('/{vue_capture?}', 'HomeController@index')->where('vue_capture', '[\/\w\.-]*')->middleware(['auth', 'check.notAdministrator']);
 });
 
 

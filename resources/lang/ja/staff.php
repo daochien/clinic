@@ -43,7 +43,7 @@ return [
     'info' => [
         '_og_title_create' => '友伸會ポータル管理画面｜スタッフ管理・新規スタッフ情報登録',
         '_og_title_edit' => '友伸會ポータル管理画面｜スタッフ管理・スタッフ情報編集',
-        '_page_title_create' => '新規スタッフ情報登録',
+        '_page_title_create' => '新規スタッフ登録',
         '_page_title_edit' => 'スタッフ情報編集',
         'form' => [
             '_form_title' => 'スタッフ情報',
@@ -67,6 +67,25 @@ return [
             '_btn_create' => '登録する',
             '_btn_edit' => '編集する',
             '_btn_remove' => '削除する',
+        ],
+    ],
+    'my_account' => [
+        '_page_title' => 'マイアカウント',
+        'form' => [
+            '_cur_password' => '現在のパスワード',
+            '_cur_password_pl' => '現在のパスワードを入力してください',
+            '_new_password' => '新しいパスワード',
+            '_new_password_pl' => '新しいパスワードを入力してください',
+            '_confirm_password' => '新しいパスワード（確認用）',
+            '_confirm_password_pl' => '確認用パスワードを入力してください',
+        ],
+        'messages' => [
+            '_current_pwd_not_match' => '現在のパスワードは古いパスワードと一致しません。',
+            '_pwd_update_success' => 'パスワード再設定が成功しました。',
+            '_pwd_update_failed' => 'パスワード再設定に失敗しました。',
+        ],
+        'others' => [
+            '_btn_update_pwd' => '再設定する',
         ],
     ],
     'others' => [

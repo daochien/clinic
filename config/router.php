@@ -26,7 +26,7 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['manager.index', 'profile.index']
+                    'routes' => ['manager.index']
                 ],
                 'create' => [
                     'name' => 'Create',
@@ -34,7 +34,7 @@
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['manager.update', 'manager.show', 'profile.update', 'profile.change.password', 'profile.change.my.password']
+                    'routes' => ['manager.update', 'manager.show']
                 ],
                 'delete' => [
                     'name' => 'Delete',
@@ -89,11 +89,11 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['group.index']
+                    'routes' => ['group.index', 'api.group.list', 'api.group.users', 'api.group.filter', 'api.group.getGroupUsersByGroup', 'api.group.default']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['group.store'],
+                    'routes' => ['group.store', 'api.group.addUsers'],
                 ],
                 'update' => [
                     'name' => 'Update',
@@ -101,7 +101,7 @@
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'routes' => ['group.destroy']
+                    'routes' => ['group.destroy', 'api.group.removeUsers']
                 ]
             ]
         ],
@@ -154,7 +154,7 @@
                     'name' => 'View list',
                     'routes' => ['api.setting.type', 'api.setting.level', 'api.setting.user.role', 's3.store', 'api.group.all',
                         'api.clinic.all', 'category.list.by.type', 'category.store', 'manager.roles','profile.index',
-                        'category.show',
+                        'category.show'
                     ]
                 ],
                 'create' => [
@@ -163,7 +163,7 @@
                 ],
                 'update' => [
                     'name' => 'Update',
-                    'routes' => ['profile.update, profile.change.my.password']
+                    'routes' => ['profile.update', 'profile.change.my.password']
                 ],
 //                'delete' => [
 //                    'name' => 'Delete',
@@ -198,11 +198,11 @@
             'groups' => [
                 'view' => [
                     'name' => 'View list',
-                    'routes' => ['api.inquiry.list', 'api.inquiry.show', 'api.inquiry.attachment.download']
+                    'routes' => ['inquiry.list','api.inquiry.list', 'inquiry.show', 'api.inquiry.attachment.download', 'api.inquiry.search']
                 ],
                 'create' => [
                     'name' => 'Create',
-                    'routes' => ['api.inquiry.store'],
+                    'routes' => ['inquiry.store'],
                 ],
                 'update' => [
                     'name' => 'Update',

@@ -110,7 +110,7 @@
                                         </div>
                                         <div v-else>-</div>
                                     </td>
-                                    <td>{{user.last_login|myDate}}</td>
+                                    <td>{{user.last_login|myDate}} </td>
                                     <td>
                                         <div class="dropdown">
                                             <i
@@ -230,7 +230,7 @@
         },
         created() {
             this.$Progress.start();
-            this.loadUsers();
+            this.getResults();
             this.loadType();
             this.loadClinic();
             this.$Progress.finish();

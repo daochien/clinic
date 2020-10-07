@@ -320,35 +320,35 @@
 
                 this.isValidate = true;
                 if (this.form.title.length <= 0) {
-                    this.errors.title = this.$t('notification').others.require_title;
+                    this.errors.title = this.$t('notification').info.messages._err_title_required;
                     Toast.fire({
                         icon: "error",
-                        title: this.$t('notification').others.require_title,
+                        title: this.$t('notification').info.messages._err_title_required,
                     });
                     this.isValidate = false;
                 }
                 if (this.form.groups.length <= 0) {
-                    this.errors.group = this.$t('notification').others.require_group;
+                    this.errors.group = this.$t('notification').info.messages._err_target_required;
                     Toast.fire({
                         icon: "error",
-                        title: this.$t('notification').others.require_group,
+                        title: this.$t('notification').info.messages._err_target_required,
                     });
                     this.isValidate = false;
                 }
                 if (this.form.content.length <= 0) {
-                    this.errors.content = this.$t('notification').others.require_content;
+                    this.errors.content = this.$t('notification').info.messages._err_content_required;
                     Toast.fire({
                         icon: "error",
-                        title: this.$t('notification').others.require_content,
+                        title: this.$t('notification').info.messages._err_content_required,
                     });
                     this.isValidate = false;
                 }
 
                 if (this.form.schedule_date && new Date(this.form.schedule_date) <= new Date()) {
-                    this.errors.schedule_date = this.$t('notification').others.schedule_date_lte_now;
+                    this.errors.schedule_date = this.$t('notification').info.messages._err_schedule_lt_now;
                     Toast.fire({
                         icon: "error",
-                        title: this.$t('notification').others.schedule_date_lte_now,
+                        title: this.$t('notification').info.messages._err_schedule_lt_now,
                     });
                     this.isValidate = false;
                 }
@@ -372,7 +372,7 @@
                     .catch(() => {
                         Toast.fire({
                             icon: "error",
-                            title: this.$t('app').notification.some_error,
+                            title: this.$t('common').messages._system_err,
                         });
                     });
             },
@@ -430,7 +430,7 @@
                     })
                     .catch(error => {
                         console.log(error);
-                        return this.$alert(this.$t('ugc.system_error'), {confirmButtonText: 'OK'});
+                        return this.$alert(this.$t('common.messages._system_err'), {confirmButtonText: 'OK'});
                     });
             }
         },

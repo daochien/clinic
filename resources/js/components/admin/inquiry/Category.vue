@@ -221,13 +221,13 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
             },
             close(id) {
                 Swal.fire({
-                    title: this.$t('inquiry').others._reject_modal_title,
-                    text: this.$t('inquiry').others._reject_modal_description,
+                    title: this.$t('inquiry').others._close_modal_title,
+                    text: this.$t('inquiry').others._close_modal_description,
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('inquiry').others._reject_modal_yes,
-                    cancelButtonText: this.$t('inquiry').others._modal_no,
+                    confirmButtonText: this.$t('inquiry').others._close_modal_yes,
+                    cancelButtonText: this.$t('inquiry').others._close_modal_no,
                 }).then((result) => {
                     // Send request to the server
                     if (result.value) {
@@ -265,7 +265,6 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                     .then((response) => {
                         this.inquirys = response.data.data;
                         this.paginator = response.data.meta;
-                        this.getCategory();
                     });
             },
             getStatus(inquiry) {
@@ -280,7 +279,8 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
         },
         created() {
             this.$Progress.start();
-            this.loadInquiry();
+            this.searchData();
+            this.getCategory();
             this.$Progress.finish();
         }
     }

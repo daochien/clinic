@@ -24,7 +24,7 @@ class PageServices
     public function createPage($attribute)
     {
         DB::beginTransaction();
-        try {                        
+        try {
             $page = $this->pageRepo->create($attribute);
 
             if (isset($attribute['groups'])) {
@@ -73,7 +73,7 @@ class PageServices
     {
         DB::beginTransaction();
         try {
-            
+
             $page = $this->page->findOrFail($id);
             $page->update($this->_buildDataUpdate($attribute->all()));
 
@@ -90,17 +90,17 @@ class PageServices
                     }
                 }
             }
-            
+
             if (!empty($attribute['image'])) {
                 $image = $this->s3Service->store($attribute['image'], 'pages/images');
                 $page->image = $image;
                 $page->save();
             } else {
                 if (!empty($attribute['is_remove_image'])) {
-                    
+
                     $page->image = null;
                     $page->save();
-                }                
+                }
             }
 
             if ($attribute->hasFile('files')) {
@@ -133,11 +133,11 @@ class PageServices
     }
 
     protected function _buildDataUpdate($attribute)
-    {        
+    {
         $update = [
             'type' => $attribute['type'],
             'title' => $attribute['title'],
-            'public' => $attribute['public'],            
+            'public' => $attribute['public'],
             'status' => $attribute['status'],
             'url' => $attribute['url'],
             'category_id' => $attribute['category_id'],
@@ -150,13 +150,20 @@ class PageServices
         return $update;
     }
 
+    public function downloadPath($path)
+    {
+        $strReplace = 'https://s3.us-east-2.amazonaws.com/'.config('filesystems.disks.s3.bucket');
+        $newPath = str_replace($strReplace,'',$path);
+        return $this->s3Service->download($newPath);
+    }
+
     public function rating($id, $params)
     {
         if (!empty($params['type'])) {
             if ($params['type'] == 'download') {
                 $update = $this->page::where('id', $id)->update([
                     'downloads' => DB::raw("`downloads`+1")
-                ]);                
+                ]);
             }
             if ($params['type'] == 'view') {
                 $this->page::where('id', $id)->update([
@@ -167,14 +174,14 @@ class PageServices
         }
         return false;
     }
-    
+
     protected function _convertSizeToMB($size)
     {
         try {
-            $size = number_format($size / 1048576, 2);            
-            return $size . ' MB';
+            $size = number_format($size / 1048576, 2);
+            return $size . 'MB';
         } catch (\Exception $e) {
-            return '0 MB';
+            return '0MB';
         }
     }
 }

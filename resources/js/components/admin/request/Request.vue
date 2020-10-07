@@ -26,7 +26,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-10" v-html="submission.template.name"></div>
+                                <div v-if="submission.template" class="col-10" v-html="submission.template.name"></div>
                             </div>
                             <div class="row">
                                 <div class="col-2">
@@ -36,7 +36,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-5" v-html="submission.template.category[0].name">
+                                <div class="col-5" v-if="submission.template" v-html="submission.template.category[0].name">
                                 </div>
                             </div>
                             <div class="row">
@@ -48,7 +48,7 @@
                                     </div>
                                 </div>
                                 <div class="col-10">
-                                    <div v-if="submission.template.approvers.length !== 0">
+                                    <div v-if="submission.template && submission.template.approvers.length !== 0">
                                         <span class="badge badge-info ml-1" v-for="approver in submission.template.approvers" :key="'sc_' + approver.id">
                                             {{ approver.name}}
                                         </span>
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                                 <div class="col-10">
-                                    <div class="form-group" v-html="submission.template.description"></div>
+                                    <div class="form-group" v-if="submission.template" v-html="submission.template.description"></div>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card mb-5" v-if="can_change">
+                    <div class="card mb-5" v-if="can_change & can_update">
                         <div class="card-body">
                             <b-form @submit="onSubmit" >
                                 <b-form-textarea
@@ -218,30 +218,43 @@
                 };
             },
             approve() {
-                axios.post("/api/request/" + this.submission.id + "/status", {
-                    status: 1,
-                })
-                .then((data) => {
-                    if (data.data.status) {
-                        Toast.fire({
-                            icon: "success",
-                            title: this.$t('request').list.messages._approve_success,
-                        });
-                        this.$router.push("/admin/request/category/" + this.submission.template.category[0].id)
-                        this.$Progress.finish();
-                    } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: this.$t('request').list.messages._approve_failed,
-                        });
-                        this.$Progress.failed();
+                Swal.fire({
+                    title: this.$t('request').others._approve_modal_title,
+                    text: this.$t('request').others._approve_modal_description,
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: this.$t('request').others._modal_yes,
+                    cancelButtonText: this.$t('request').others._modal_no,
+                }).then((result) => {
+                    // Send request to the server
+                    if (result.value) {
+                        axios.post("/api/request/" + this.submission.id + "/status", {
+                            status: 1,
+                        })
+                        .then((data) => {
+                            if (data.data.status) {
+                                Toast.fire({
+                                    icon: "success",
+                                    title: this.$t('request').list.messages._approve_success,
+                                });
+                                this.$router.push("/admin/request/category/" + this.submission.template.category[0].id)
+                                this.$Progress.finish();
+                            } else {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: this.$t('request').list.messages._approve_failed,
+                                });
+                                this.$Progress.failed();
+                            }
+                        })
+                        .catch(() => {
+                            Toast.fire({
+                                icon: 'error',
+                                title: this.$t('common').messages._system_err,
+                            });
+                        })
                     }
-                })
-                .catch(() => {
-                    Toast.fire({
-                        icon: 'error',
-                        title: this.$t('request').list.messages._approve_failed,
-                    });
                 })
             },
             reject() {
@@ -251,7 +264,7 @@
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('request').others._reject_modal_yes,
+                    confirmButtonText: this.$t('request').others._modal_yes,
                     cancelButtonText: this.$t('request').others._modal_no,
                 }).then((result) => {
                     // Send request to the server
@@ -278,7 +291,7 @@
                         .catch(() => {
                             Toast.fire({
                                 icon: 'error',
-                                title: this.$t('request').list.messages._reject_failed,
+                                title: this.$t('common').messages._system_err,
                             });
                         })
                     }
@@ -313,14 +326,18 @@
                 let approvedCount = 0;
                 let reject = false;
                 _.forEach(this.submission.request_logs, function (log, logKey) {
-                    if (log.status === 2) {
-                        self.status_label = 'btn-secondary';
-                        self.status_text = self.$t('request').attr.status._rejected;
-                        reject = true;
-                        this.can_change = false;
-                        return false;
+
+                    let valid_approver = _.findIndex(self.submission.template.approvers, ['id', log.approver_id]) >= 0;
+                    if (valid_approver){
+                        if (log.status === 2) {
+                            self.status_label = 'btn-secondary';
+                            self.status_text = self.$t('request').attr.status._rejected;
+                            reject = true;
+                            this.can_change = false;
+                            return false;
+                        }
+                        approvedCount++;
                     }
-                    approvedCount++;
                 });
                 if (reject) {
                     return ;

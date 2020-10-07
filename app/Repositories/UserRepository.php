@@ -35,24 +35,12 @@ class UserRepository extends BaseRepository
         });
 
         if (!empty($params['keyword'])) {
-            $query->where('name', 'like', '%' . $params['keyword'] . '%');
-            $query->orWhere('email', 'like', '%' . $params['keyword'] . '%');
+            $query->where('email', 'like', '%' . $params['keyword'] . '%');
+            $query->orWhere('name', 'like', '%' . $params['keyword'] . '%');            
         }
 
         return $query->whereNotIn('id', User::ID_USER_ROOT)->with('roles')->latest()->paginate($limit);
-
-        // if (!empty($params['role'])) {
-        //     $roles = is_array($params['role']) ? $params['role'] : [$params['role']];
-        // }
-
-        // $query = $this->model->role($roles);
-
-        // if (!empty($params['keyword'])) {
-        //     $query->where('name', 'like', '%' . $params['keyword'] . '%');
-        // }
-
-        return $query->with('roles')->latest()->paginate($limit);
-
+        
     }
 
     public function listUser()
@@ -82,7 +70,7 @@ class UserRepository extends BaseRepository
     {
         $query = User::from('users as u')
             ->join('model_has_roles as mhr', 'mhr.model_id', 'u.id')
-            ->whereIn('mhr.role_id', array_values(User::USER_ROLE));
+            ->where('mhr.role_id', User::ROLE_STAFF_MOBILE);
 
         if (isset($param['keyword'])) {
             $query->where('name', 'LIKE', "%{$param['keyword']}%")

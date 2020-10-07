@@ -29,9 +29,31 @@ import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';
 
 Vue.use(VueInternationalization);
+const dateTimeFormats = {
+    'en': {
+        long: {
+            year: 'numeric', month: 'short', day: 'numeric',
+            hour: 'numeric', minute: 'numeric'
+        },
+        short: {
+            year: 'numeric', month: 'short', day: 'numeric'
+        }
+    },
+    'ja': {
+        long: {
+            year: 'numeric', month: 'short', day: 'numeric',
+            hour: 'numeric', minute: 'numeric'
+        },
+        short: {
+            year: 'numeric', month: 'short', day: 'numeric'
+        }
+    }
+}
+
 const i18n = new VueInternationalization({
     locale: document.head.querySelector('meta[name="locale"]').content,
-    messages: Locale
+    messages: Locale,
+    dateTimeFormats
 });
 
 import { Form, HasError, AlertError } from 'vform';
@@ -119,7 +141,15 @@ Vue.use(Vue2Editor);
 
 Vue.filter('myDate', function (created) {
     if (created) {
-        return moment(created).format('YYYY-MM-DD HH:mm:ss');
+        return i18n.d(new Date(created), 'long', i18n.locale);
+        // return moment(created).format('YYYY-MM-DD HH:mm:ss');
+    }
+    return "-";
+});
+
+Vue.filter('myDateShort', function (created) {
+    if (created) {
+        return i18n.d(new Date(created), 'short', i18n.locale);
     }
     return "-";
 });

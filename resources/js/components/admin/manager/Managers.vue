@@ -185,7 +185,7 @@ export default {
                     axios.delete('/api/manager/'+id).then(() => {
                         Toast.fire({
                             icon: 'success',
-                            title: this.$t('admin.others._remove_modal_deleted')
+                            title: this.$t('admin.list.messages._remove_success')
                         });
                         // Fire.$emit('AfterCreate');
                         this.loadListAdmin();

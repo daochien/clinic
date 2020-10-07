@@ -26,7 +26,7 @@ class ChangePasswordRequest extends FormRequest
     {
         return [
             'current_password' => ['required', new MatchOldPassword],
-            'new_password' => 'required|min:6',
+            'new_password' => 'required|min:6|max:20',
             'confirm_password' => 'required|same:new_password',
             'device_name' => 'required',
         ];
@@ -37,7 +37,7 @@ class ChangePasswordRequest extends FormRequest
         return [
             'current_password' => '現在のパスワード',
             'new_password' => '新しいパスワード',
-            'confirm_password' => '新しいパスワード',
+            'confirm_password' => '確認用のパスワード',
             'device_name' => '装置名',
         ];
     }

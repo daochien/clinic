@@ -15,7 +15,7 @@
                                 <a class="nav-link active show" href="#settings" data-toggle="tab">{{ $t('admin.my_account.basic_info._title') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#change-password" data-toggle="tab">{{ $t('admin.my_account.change_password._title') }}</a>
+                                <a class="nav-link" href="#change-password" data-toggle="tab">{{ $t('admin.my_account.change_pwd._title') }}</a>
                             </li>
                         </ul>
                     </div>
@@ -90,7 +90,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <button @click.prevent="updateInfo" type="submit" class="btn btn-primary float-right">{{ $t('admin.my_account._btn_update') }}</button>
+                                        <button @click.prevent="updateInfo" type="submit" class="btn btn-primary float-right">{{ $t('admin.my_account.basic_info.others._btn_update') }}</button>
                                     </div>
                                 </form>
                             </div>
@@ -100,27 +100,27 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label for="current_password" class="control-label">
-                                                {{ $t('admin.my_account.change_password._current_pass') }}<span style="color:#c4183c;">*</span>
+                                                {{ $t('admin.my_account.change_pwd.form._cur_password') }}<span style="color:#c4183c;">*</span>
                                             </label>
                                                 <input type="password"
                                                        v-model="manager.current_password"
                                                        class="form-control"
                                                        id="current_password"
-                                                       :placeholder="$t('admin.my_account.change_password._current_pass_place_holder')"
+                                                       :placeholder="$t('admin.my_account.change_pwd.form._cur_password_pl')"
                                                        :class="{ 'is-invalid': manager.errors.has('current_password') }"
                                                 >
                                                 <has-error :form="manager" field="current_password"></has-error>
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label for="new_password" class="control-label">
-                                                {{ $t('admin.my_account.change_password._new_pass') }}
+                                                {{ $t('admin.my_account.change_pwd.form._new_password') }}
                                                 <span style="color:#c4183c;">*</span>
                                             </label>
                                             <input type="password"
                                                    v-model="manager.new_password"
                                                    class="form-control"
                                                    id="new_password"
-                                                   :placeholder="$t('admin.my_account.change_password._new_pass_place_holder')"
+                                                   :placeholder="$t('admin.my_account.change_pwd.form._new_password_pl')"
                                                    :class="{ 'is-invalid': manager.errors.has('new_password') }"
                                             >
                                             <has-error :form="manager" field="new_password"></has-error>
@@ -128,20 +128,20 @@
 
                                         <div class="form-group col-md-4">
                                             <label for="confirm_password" class="control-label">
-                                                {{ $t('admin.my_account.change_password._verify_pass') }}<span style="color:#c4183c;">*</span>
+                                                {{ $t('admin.my_account.change_pwd.form._confirm_password') }}<span style="color:#c4183c;">*</span>
                                             </label>
                                             <input type="password"
                                                    v-model="manager.confirm_password"
                                                    class="form-control"
                                                    id="confirm_password"
-                                                   :placeholder="$t('admin.my_account.change_password._verify_pass_place_holder')"
+                                                   :placeholder="$t('admin.my_account.change_pwd.form._confirm_password_pl')"
                                                    :class="{ 'is-invalid': manager.errors.has('confirm_password') }"
                                             >
                                             <has-error :form="manager" field="confirm_password"></has-error>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <button @click.prevent="updatePassword" type="submit" class="btn btn-primary float-right">{{ $t('admin.my_account._btn_update') }}</button>
+                                        <button @click.prevent="updatePassword" type="submit" class="btn btn-primary float-right">{{ $t('admin.my_account.change_pwd.others._btn_update_pwd') }}</button>
                                     </div>
                                 </form>
                             </div>
@@ -188,7 +188,7 @@
                     this.$Progress.finish();
                     Toast.fire({
                         icon: 'success',
-                        title: this.$t('admin.info.messages._edit_success')
+                        title: this.$t('admin.my_account.basic_info.messages._acc_update_success')
                     });
                 })
                 .catch((data) => {
@@ -196,7 +196,7 @@
 
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('admin.info.messages._edit_failed')
+                        title: this.$t('admin.my_account.basic_info.messages._acc_update_failed')
                     });
                 });
             },
@@ -212,7 +212,7 @@
 
                     Toast.fire({
                         icon: 'success',
-                        title: this.$t('admin.my_account.change_password._password_changed')
+                        title: this.$t('admin.my_account.change_pwd.messages._pwd_update_success')
                     });
                 })
                 .catch(() => {
@@ -220,7 +220,7 @@
 
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('admin.my_account.change_password._password_update_failed')
+                        title: this.$t('admin.my_account.change_pwd.messages._pwd_update_failed')
                     });
                 });
             },

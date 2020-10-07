@@ -65,7 +65,8 @@
                                     </th>
                                     <th scope="col">{{ $t('staff.attr._username')}}</th>
                                     <th scope="col">{{ $t('staff.attr._mail_address')}}</th>
-                                    <th scope="col">{{ $t('staff.attr._position')}}</th>
+                                    <th>{{ $t('staff.attr._position') }}</th>
+                                    <th>{{ $t('staff.attr._clinic') }}</th>
                                     <th scope="col">{{ $t('staff.list.data_table._registered_at')}}</th>
                                     <th scope="col">{{ $t('staff.list.data_table._last_login_at')}}</th>
                                 </tr>
@@ -78,12 +79,20 @@
                                     <td>{{ user.name }}</td>
                                     <td>{{ user.email }}</td>
                                     <td>
-                                        <template v-if="user.groups.length !== 0">
-                                             <span class="badge badge-info ml-1" v-for="target in user.groups" :key="target.id">
-                                                {{ target.name}}
-                                             </span>
+                                        <template v-if="user.type.length !== 0">
+                                             <span class="badge badge-info ml-1" v-for="type in user.type" :key="'tp_' + type.id">
+                                                {{ type.name}}
+                                            </span>
                                         </template>
-                                        <div v-else> - </div>
+                                        <div v-else> -</div>
+                                    </td>
+                                    <td>
+                                        <div v-if="user.clinics.length !== 0">
+                                            <span class="badge badge-info ml-1" v-for="clinic in user.clinics" :key="'sc_' + clinic.id">
+                                                {{ clinic.name}}
+                                            </span>
+                                        </div>
+                                        <div v-else>-</div>
                                     </td>
                                     <td>{{user.created_at|myDate}}</td>
                                     <td>{{user.last_login|myDate}}</td>
