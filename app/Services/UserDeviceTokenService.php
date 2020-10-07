@@ -32,10 +32,10 @@ class UserDeviceTokenService
                 'user_id' => $user->id,
                 'platform' => $data['platform'],
                 'device_token' => $data['device_token'],
-                'arn' => $arnInfo['arn'],
+                'arn' => $arnInfo['data']['arn'],
             ]);
         } else {
-            Log::error($arnInfo['data']['message'], $arnInfo);
+            Log::error($arnInfo['data']['message'], $arnInfo['data']);
         }
     }
 }
