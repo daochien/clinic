@@ -10,7 +10,7 @@ Route::namespace('API\V1')
         Route::put('/status', 'NotificationController@updateStatus');
     });
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', 'auth'])->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
