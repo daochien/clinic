@@ -122,7 +122,7 @@
                 ],
                 'delete' => [
                     'name' => 'Delete',
-                    'routes' => ['notification.destroy']
+                    'routes' => ['notification.remove']
                 ],
             ]
         ],
