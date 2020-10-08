@@ -107,5 +107,6 @@ return [
         'require_group' => 'Group is required',
         'require_content' => 'Content is required',
         'schedule_date_lte_now' => 'Schedule date must be greater than now',
+        '_err_schedule_is_empty' => 'Schedule date is required',
     ],
 ];
