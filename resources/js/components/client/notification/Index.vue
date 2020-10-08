@@ -143,15 +143,15 @@
                 // }
             },
             getFromLabel(item) {
-                if (!_.isEmpty(item.notification) && !_.isEmpty(item.creator)) {
-                    return item.creator.posittion == 1 ? '理事長' : '事務局'
+                if (!_.isEmpty(item) && !_.isEmpty(item.creator)) {
+                    return item.creator.position == 1 ? '理事長' : '事務局'
                 }
 
                 return '事務局';
             },
             getFromTitle(item) {
                 if (!_.isEmpty(item) && !_.isEmpty(item.creator)) {
-                    return  item.creator.posittion == 1 ? '理事長から' : '事務局から'
+                    return  item.creator.position == 1 ? '理事長から' : '事務局から'
                 }
 
                 return '理事長から';
