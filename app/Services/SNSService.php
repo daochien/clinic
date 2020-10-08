@@ -73,7 +73,7 @@ class SNSService
                         'notification' =>
                             [
                                 'title' => $data['title'],
-                                "body" => $data['content'],
+                                "body" => strip_tags($data['content']),
                                 'sound' => 'default'
                             ],
                         'data' => $data
@@ -85,15 +85,17 @@ class SNSService
                     'GCM' => $fcmPayload
                 ]);
 
-                return $this->client->publish([
+                $result = $this->client->publish([
                     'TargetArn' => $data['arn'],
                     'Message' => $message,
                     'MessageStructure' => 'json'
                 ]);
+                Log::channel('notification')->info(json_encode($result));
+                return $result;
             } else if ($data['platform'] == 'ios') {
                 $payload = [
                     'aps' => [
-                        'alert' => $data['content'],
+                        'alert' => strip_tags($data['content']),
                         'badge' => 1,
                         'sound' => 'default'
                     ],
@@ -101,15 +103,18 @@ class SNSService
                 ];
 
                 $message = json_encode([
-                    'default' => $data['content'],
+                    'default' => strip_tags($data['content']),
                     'APNS' => json_encode($payload)
                 ]);
 
-                return $this->client->publish([
+                $result = $this->client->publish([
                     'TargetArn' => $data['arn'],
                     'Message' => $message,
                     'MessageStructure' => 'json'
                 ]);
+
+                Log::channel('notification')->info(json_encode($result));
+                return $result;
             }
         } catch (\Exception $exception) {
             Log::channel('notification')->info("Publish Notification Error : {$exception->getMessage()}");
