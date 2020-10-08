@@ -134,6 +134,7 @@
                                                     <datetime
                                                         ref="datetime"
                                                         :required="true"
+                                                        :readonly="true"
                                                         format="YYYY-MM-DD h:i:s"
                                                         v-model='form.schedule_date'
                                                         name="datetime"
@@ -271,7 +272,6 @@
             },
             getResults(page = 1) {
                 this.$Progress.start();
-                console.log("get Results");
                 axios
                     .get("/api/notification?page=" + page)
                     .then(({data}) => (this.notifications = data.data));
