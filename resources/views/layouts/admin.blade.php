@@ -143,7 +143,13 @@
 <script>
 $(function() {
   $('.link-active').parent().parent().addClass('active');
-  $('.link-active').parent().addClass('show');
+  if($('.link-active').parent().hasClass('collapse')){
+    $('.link-active').parent().parent().addClass('active');
+    $('.link-active').parent().addClass('show');
+  }else{
+    $('.link-active').parent().addClass('active');
+  }
+  
 });
 </script>
 {{--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

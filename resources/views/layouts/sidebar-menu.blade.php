@@ -248,6 +248,7 @@
                             $('.dropdown-item').removeClass('active');
                             $('.custorm-item').removeClass('active');
                             $(this).parent().addClass('active');
+                            $('.collapse').removeClass('show');
                 ">
                     <i class="far fa-bell"></i>
                     <span>{{ __('app.menu.sidebar.notification_management._main') }}</span>
@@ -312,6 +313,7 @@
             <li class="custorm-item">
                 <router-link to="/admin/page" class="nav-link" onclick="
                             $('.dropdown-item').removeClass('active');
+                            $('.collapse').removeClass('show');
                             $('.custorm-item').removeClass('active');
                             $(this).parent().addClass('active');
                 ">
