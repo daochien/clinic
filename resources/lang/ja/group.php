@@ -64,6 +64,13 @@ return [
             '_no_search_result' => '該当するユーザー情報が存在しません。',
         ],
     ],
+    'form' =>[
+        '_name' => '名前',
+        '_unique' => '指定の名前は既に使用されています',
+    ],
+    'popup' =>[
+        '_cannot_do_this_action' => 'このアクションは実行できません',
+    ],
     'others' => [
         '_remove_modal_yes' => 'はい',
         '_remove_modal_no' => 'いいえ',

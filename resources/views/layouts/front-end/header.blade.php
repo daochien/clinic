@@ -3,7 +3,7 @@
       <span>Menu</span>
     </button>
     <div class="col-left">
-      <h1><router-link to="/notification"><img src="/front-end/images/logo.png" alt=""> Portal</router-link></h1>
+      <h1><a href="/notification"><img src="/front-end/images/logo.png" alt=""> Portal</a></h1>
     </div>
     <div class="header-menu">
       <ul>

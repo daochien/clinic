@@ -104,7 +104,7 @@
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="col-12">
+                <div class="col-10 offset-1">
                     <div class="card" v-if="$gate.isAdmin()">
                         <div class="card-body p-0">
                             <table class="table table-hover">
@@ -118,7 +118,7 @@
                                     <th scope="col">{{ $t('notification.list.data_table._confirmed_count')}}</th>
                                     <th scope="col">{{ $t('notification.attr._public_at')}}</th>
                                     <th scope="col">{{ $t('notification.attr._status')}}</th>
-                                    <th scope="col">{{ $t('common.list.data_table._actions') }}</th>
+                                    <th scope="col" style="width:100px">{{ $t('common.list.data_table._actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -156,22 +156,22 @@
                                     <td>
                                         <div class="dropdown">
                                             <i
-                                                class="fa fa-ellipsis-v fa-fw"
+                                                class="fa fa-ellipsis-v"
                                                 id="operatingAction"
                                                 data-toggle="dropdown"
                                                 aria-haspopup="true"
                                                 aria-expanded="false"
                                             ></i>
                                             <div
-                                                class="dropdown-menu dropdown-menu-right"
+                                                class="dropdown-menu dropdown-menu-left"
                                                 aria-labelledby="operatingAction"
                                             >
-                                                <button
+                                                <a
                                                     v-if="new Date(entity.schedule_date) >= new Date() && !entity.draft"
                                                     class="dropdown-item text-primary"
                                                     @click="publishAnnouncement(entity)"
                                                 >{{ $t('notification.list.data_table.actions._act_public')}}
-                                                </button>
+                                                </a>
                                                 <router-link
                                                     :class="'dropdown-item text-primary'"
                                                     :to="{ name: 'details_notification', params: { id: entity.id }}"
@@ -182,12 +182,12 @@
                                                     :to="{ name: 'edit_notification', params: { id: entity.id }}"
                                                 >{{ $t('notification.list.data_table.actions._act_edit')}}
                                                 </router-link>
-                                                <button
+                                                <a
                                                     v-if="entity.draft"
                                                     class="dropdown-item text-danger"
                                                     @click="deleteNotification(entity)"
                                                 >{{ $t('notification.list.data_table.actions._act_remove')}}
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                     </td>

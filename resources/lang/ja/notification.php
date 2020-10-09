@@ -57,6 +57,7 @@ return [
             'target_user_opt' => [
                 '_dr' => 'DR',
                 '_dh' => 'DH',
+                '_all' => '全クリニック',
                 '_manual' => '対象者を指定する',
                 '_manual_pl' => '送信対象者のユーザー名を入力してください',
             ],
@@ -115,5 +116,7 @@ return [
         '_remove_modal_no' => 'いいえ',
         '_remove_modal_title' => 'お知らせを削除',
         '_remove_modal_description' => 'このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。',
+        '_schedule_date_lte_now' => 'Schedule date must be greater than now',
+        '_err_schedule_is_empty' => 'Schedule date is required'
     ],
 ];

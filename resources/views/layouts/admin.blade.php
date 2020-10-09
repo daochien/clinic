@@ -14,6 +14,51 @@
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/shards-dashboards.1.3.1.css') }}" rel="stylesheet">
+    <style>
+        .custorm-item{
+            border-left:4px solid #FFFFFF;
+        }
+
+        .dropdown-item.active, .dropdown-item:active{
+            color:#3D5170 !important;
+            background:#FFFFFF !important;
+            border-left:4px solid #FFFFFF !important;
+        }
+
+        .collapse .active{
+            border-left:4px solid #FFFFFF !important; 
+        }
+
+        .dropdown-item{
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .nav .active{
+            border-left:4px solid #007BFF; 
+        }
+
+        .custorm-item a{
+            font-weight: 400;
+            color: #3D5170;
+            padding: 0.9375rem 1.5625rem;
+        }
+
+        .custorm-item i{
+            min-width: 1.25rem;
+            font-size: 90%;
+            text-align: center;
+            vertical-align: middle;
+            will-change: color;
+            color: #CACEDB;
+            transition: color 200ms ease;
+            margin-right: 0.375rem;
+        }
+
+        .custorm-item:hover{
+            background:#FBFBFB;
+            border-left:4px solid #007BFF;
+        }
+    </style>
 </head>
 <body class="h-100">
 <div class="container-fluid" id="app">
@@ -91,6 +136,11 @@
 <script src="{{ mix('/js/app.js') }}"></script>
 <script src="{{ ('/js/toastr.min.js') }}"></script>
 <script src='https://cdn.polyfill.io/v2/polyfill.min.js'></script>
+<script>
+$(function() {
+  $('.link-active').parent().addClass('active');
+});
+</script>
 {{--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sharrre/2.0.1/jquery.sharrre.min.js"></script>

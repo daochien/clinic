@@ -45,8 +45,10 @@ class PublishNotificationJob implements ShouldQueue
             ->whereNotNull('ut.arn')->get();
         $SNSService = app(SNSService::class);
         foreach ($userDevices as $userDevice) {
+            Log::info(json_encode($userDevice));
             try {
                 $SNSService->publish([
+                    'platform' => $userDevice->platform,
                     'arn' => $userDevice->arn,
                     'title' => $this->message['title'],
                     'content' => $this->message['content'],

@@ -57,6 +57,7 @@ return [
             'target_user_opt' => [
                 '_dr' => 'DR',
                 '_dh' => 'DH',
+                '_all' => '全クリニック',
                 '_manual' => '対象者を指定する',
                 '_manual_pl' => '送信対象者のユーザー名を入力してください',
             ],
@@ -106,5 +107,6 @@ return [
         'require_group' => 'Group is required',
         'require_content' => 'Content is required',
         'schedule_date_lte_now' => 'Schedule date must be greater than now',
+        '_err_schedule_is_empty' => 'Schedule date is required',
     ],
 ];
