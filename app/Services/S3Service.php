@@ -12,6 +12,9 @@ namespace App\Services;
 
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Facades\Storage;
+use Aws\S3\S3Client;
+use League\Flysystem\AwsS3v3\AwsS3Adapter;
+use League\Flysystem\Filesystem;
 
 class S3Service
 {
@@ -23,6 +26,29 @@ class S3Service
     public function __construct(FilesystemManager $filesystemManager)
     {
         $this->s3Adapter = $filesystemManager->drive('s3')->getDriver()->getAdapter();
+    }
+
+    public function streamUpload($file, $path, $overWrite = true)
+    {
+        $fileName = $this->uniqueId(32, now()->format('YmdH'));
+
+        $resource = fopen($file->getRealPath(), 'r+');
+        $config = config('filesystems.disks.s3');
+
+        $client = new S3Client([
+            'credentials' => [
+                'key'    => $config['key'],
+                'secret' => $config['secret'],
+            ],
+            'region' => $config['region'],
+            'version' => 'latest',
+        ]);
+
+        $adapter = new AwsS3Adapter($client, $config['AWS_S3_BUCKET'], $path);
+
+        $filesystem = new Filesystem($adapter);
+
+        return $overWrite ? $filesystem->putStream($fileName, $resource) : $filesystem->writeStream($fileName, $resource);
     }
 
     /**
