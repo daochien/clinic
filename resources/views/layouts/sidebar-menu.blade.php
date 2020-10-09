@@ -183,6 +183,7 @@
                             $('.dropdown-item').removeClass('active');
                             $('.custorm-item').removeClass('active');
                             $(this).parent().parent().addClass('active');
+                            
                         ">
                             <span>{{ __('app.menu.sidebar.admin_management._admin_list') }}</span>
                         </router-link>

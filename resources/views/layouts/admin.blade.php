@@ -58,6 +58,10 @@
             background:#FBFBFB;
             border-left:4px solid #007BFF;
         }
+
+        .link-active{
+            color:#007bff !important
+        }
     </style>
 </head>
 <body class="h-100">
@@ -138,7 +142,8 @@
 <script src='https://cdn.polyfill.io/v2/polyfill.min.js'></script>
 <script>
 $(function() {
-  $('.link-active').parent().addClass('active');
+  $('.link-active').parent().parent().addClass('active');
+  $('.link-active').parent().addClass('show');
 });
 </script>
 {{--<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
