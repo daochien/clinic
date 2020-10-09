@@ -63,7 +63,7 @@ class UpdateRoleOperatorSeeder extends Seeder
             'page.manualLatest',
             'page.faqLatest',
             'page.show',
-            'api.inquiry.list',
+            'inquiry.index',
             'inquiry.store',
             'inquiry.show',
             'api.inquiry.change_status',
