@@ -7,7 +7,7 @@
         <div class="side-content">
             <ul>
                 <li :class="[{'active': item.id == withCateId}]" v-for="(item, index) in blogCategorys" :key="index" >
-                    <a href="/0311_blog-details.html">
+                    <a href="javascript:void(0)">
                     <span class="title">{{item.name}}</span>
                     </a>
                 </li>
