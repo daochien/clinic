@@ -134,6 +134,7 @@
                                                     <datetime
                                                         ref="datetime"
                                                         :required="true"
+                                                        :readonly="true"
                                                         format="YYYY-MM-DD h:i:s"
                                                         v-model='form.schedule_date'
                                                         name="datetime"
@@ -271,7 +272,6 @@
             },
             getResults(page = 1) {
                 this.$Progress.start();
-                console.log("get Results");
                 axios
                     .get("/api/notification?page=" + page)
                     .then(({data}) => (this.notifications = data.data));
@@ -355,10 +355,17 @@
                 }
 
                 if (this.form.schedule_date && new Date(this.form.schedule_date) <= new Date()) {
-                    this.errors.schedule_date = this.$t('notification').info.messages._err_schedule_lt_now;
+                    this.errors.schedule_date = this.$t('notification').others._schedule_date_lte_now;
                     Toast.fire({
                         icon: "error",
-                        title: this.$t('notification').info.messages._err_schedule_lt_now,
+                        title: this.$t('notification').others._schedule_date_lte_now,
+                    });
+                    this.isValidate = false;
+                } else if (_.isEmpty(this.form.schedule_date)) {
+                    this.errors.schedule_date = this.$t('notification').others._err_schedule_is_empty;
+                    Toast.fire({
+                        icon: "error",
+                        title: this.$t('notification').others._err_schedule_is_empty,
                     });
                     this.isValidate = false;
                 }

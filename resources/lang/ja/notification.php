@@ -116,5 +116,7 @@ return [
         '_remove_modal_no' => 'いいえ',
         '_remove_modal_title' => 'お知らせを削除',
         '_remove_modal_description' => 'このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。',
+        '_schedule_date_lte_now' => 'Schedule date must be greater than now',
+        '_err_schedule_is_empty' => 'Schedule date is required'
     ],
 ];
