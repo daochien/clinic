@@ -25,12 +25,18 @@
             border-left:4px solid #FFFFFF !important;
         }
 
+        .collapse{
+            
+        }
+
         .collapse .active{
             border-left:4px solid #FFFFFF !important; 
         }
 
         .dropdown-item{
             border-bottom: 1px solid #f0f2f5;
+            font-size:0.8rem !important;
+            padding-left:3.45rem !important
         }
 
         .nav .active{
