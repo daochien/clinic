@@ -55,7 +55,10 @@ export default {
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    Toast.fire({
+                        icon: 'error',
+                        title: this.$t('common.messages._system_err'),
+                    });
                 });
         },
 

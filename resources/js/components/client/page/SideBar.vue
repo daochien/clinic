@@ -28,7 +28,7 @@
                     </a>
                 </div>
             </div>
-            <span v-else>よくある質問情報は存在しません。</span>
+            <span v-else>{{ $t('page.web.faq.others._no_data') }}</span>
         </div>
     </div>
     <div class="side-panel">
@@ -50,7 +50,7 @@
             </ul>
             <ul v-else>
                 <li>
-                    <span>マニュアル情報は存在しません。</span>
+                    <span>{{ $t('page.web.manual.others._no_data') }}</span>
                 </li>
             </ul>
 
@@ -125,7 +125,10 @@ export default {
                 let { data } = await axios.get('/api/page/manual-latest');
                 this.manuals = data.data;
             } catch (error) {
-                console.log(error);
+                Toast.fire({
+                    icon: 'error',
+                    title: this.$t('common.messages._system_err'),
+                });
             }
         },
 
@@ -158,7 +161,10 @@ export default {
                     });
 
                 } catch (error) {
-                    // console.log(error);
+                    Toast.fire({
+                        icon: 'error',
+                        title: this.$t('common.messages._system_err'),
+                    });
                 }
             }
         }

@@ -29,7 +29,7 @@
 <!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
                                 </div>
                                 <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
-                                    <span>表示するお知らせはまだありません。</span>
+                                    <span>{{ $t('notification.web.others._no_data') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
 <!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
                                 </div>
                                 <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
-                                    <span>表示するお知らせはまだありません。</span>
+                                    <span>{{ $t('notification.web.others._no_data') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
 <!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
                                 </div>
                                 <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
-                                    <span>表示するお知らせはまだありません。</span>
+                                    <span>{{ $t('notification.web.others._no_data') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="content-wrapper" v-else>
-                    <span>表示するお知らせはまだありません。</span>
+                    <span>{{ $t('notification.web.others._no_data') }}</span>
                 </div>
             </div>
         </div>

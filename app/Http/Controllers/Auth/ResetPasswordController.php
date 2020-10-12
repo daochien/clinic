@@ -57,7 +57,7 @@ class ResetPasswordController extends Controller
             'password' => __('auth.password_title'),
             'password.min' => __('auth.reset_pwd.validate.min_6'),
             'password.max' => __('auth.reset_pwd.validate.max_20'),
-            'password.confirmed' => __('auth.reset_pwd.confirmed'),
+            'password.confirmed' => __('auth.reset_pwd.validate.confirmed'),
         ];
     }
 
