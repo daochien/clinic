@@ -35,6 +35,7 @@
                     @can('manager.index')
                         <router-link to="/admin/manager" class="dropdown-item"
                         onclick="
+                        
                             $('.dropdown-item').removeClass('active');
                             $('.custorm-item').removeClass('active');
                             $(this).parent().parent().addClass('active');
