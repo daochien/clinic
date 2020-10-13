@@ -141,6 +141,7 @@ Vue.use(Vue2Editor);
 
 Vue.filter('myDate', function (created) {
     if (created) {
+        console.log(created)
         return i18n.d(new Date(created), 'long', i18n.locale);
         // return moment(created).format('YYYY-MM-DD HH:mm:ss');
     }

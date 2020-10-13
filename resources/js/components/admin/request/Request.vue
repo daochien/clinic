@@ -88,6 +88,7 @@
                                         </a>
                                     </li>
                                 </ul>
+                                <div v-else-if="value.type === 'date'" class="col-10" >{{submission.content[value.name]|myDate}}</div>
                                 <div v-else class="col-10" v-html="submission.content[value.name]"></div>
                             </div>
                             <button v-if="can_update" class="btn btn-primary float-right mr-3" @click="approve()" :disabled="!can_change">{{ $t('request.info.others._btn_approve')}}</button>
@@ -105,7 +106,7 @@
                                     {{ comment.user.name }}
                                 </div>
                                 <div class="col-2 text-right d-created_at">
-                                    {{ comment.created_at | myDate }}
+                                    {{ comment.created_at|myDate }}
                                 </div>
                                 <div class="col-12 mt-3 d-message" v-html="comment.message"></div>
                                 <div class="col-12 mt-3" v-for="(attachment, index) in comment.attachments" :key="'att_' + index">
