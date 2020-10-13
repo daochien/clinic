@@ -60,6 +60,7 @@ Route::prefix('/admin/template')
 
     });
 
+Route::get('/my-account', 'Admin\UserController@myAccount')->name('my-account');
 Route::prefix('admin')->group(function() {
     Route::get('/{vue_capture?}', 'HomeController@index')->where('vue_capture', '[\/\w\.-]*')->middleware(['auth', 'check.notAdministrator']);
 });
