@@ -17,7 +17,7 @@ class NotificationRepository extends BaseRepository
         return $this->model->latest()
             ->with(['notificationGroups.group'])
             ->withCount(['notificationUsers', 'usersRead', 'usersConfirmed'])
-            ->paginate(10);
+            ->paginate(config('app.item_per_request'));
     }
 
     public function getAll()
@@ -27,7 +27,7 @@ class NotificationRepository extends BaseRepository
 
     public function search(SearchNotificationRequest $request)
     {
-        return $this->model->latest()->with('notificationGroups.group')->paginate(10);
+        return $this->model->latest()->with('notificationGroups.group')->paginate(config('app.item_per_request'));
     }
 
     public function show($id)

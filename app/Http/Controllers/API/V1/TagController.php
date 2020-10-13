@@ -27,7 +27,7 @@ class TagController extends BaseController
      */
     public function index()
     {
-        $tags = $this->tag->latest()->paginate(10);
+        $tags = $this->tag->latest()->paginate(config('app.item_per_request'));
 
         return $this->sendSuccessResponse($tags, 'Tags list');
     }

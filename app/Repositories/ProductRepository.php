@@ -17,7 +17,7 @@ class ProductRepository
 
     public function get()
     {
-        return $this->model->latest()->with('category', 'tags')->paginate(10);
+        return $this->model->latest()->with('category', 'tags')->paginate(config('app.item_per_request'));
     }
 
     /**

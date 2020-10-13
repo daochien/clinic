@@ -139,6 +139,8 @@ return [
     |
     */
 
+    'item_per_request' => env('ITEM_PER_REQUEST', 20),
+
     'providers' => [
 
         /*

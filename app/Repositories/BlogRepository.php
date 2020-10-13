@@ -19,7 +19,7 @@ class BlogRepository
 
     public function get()
     {
-        return $this->model->latest()->with('category', 'tags')->paginate(10);
+        return $this->model->latest()->with('category', 'tags')->paginate(config('app.item_per_request'));
     }
 
     /**
@@ -46,9 +46,9 @@ class BlogRepository
 
             $attributes['owner_id'] = Auth::user()->id;
             $pathImage = $this->uploadImage($attributes['image']);
-            
+
             $attributes['image'] = $pathImage;
-            
+
             $blog = $this->model->create($attributes);
 
             // update pivot table
@@ -63,10 +63,10 @@ class BlogRepository
 
             return $blog;
         } catch (\Exception $e) {
-            DB::rollback();            
+            DB::rollback();
             return false;
         }
-        
+
     }
 
     /**

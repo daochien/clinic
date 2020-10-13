@@ -23,7 +23,7 @@ abstract class BaseRepository
 
     public function get()
     {
-        return $this->model->latest()->paginate(10);
+        return $this->model->latest()->paginate(config('app.item_per_request'));
     }
 
     /**

@@ -112,7 +112,7 @@ class ClinicController extends BaseController
     {
         $clinic = $this->repository->find($clinicId);
 
-        return new UserCollection($clinic->users()->paginate(10));
+        return new UserCollection($clinic->users()->paginate(config('app.item_per_request')));
     }
 
     /**

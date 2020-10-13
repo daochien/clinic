@@ -35,7 +35,7 @@ class CategoryController extends BaseController
      */
     public function index()
     {
-        $categories = $this->category->latest()->paginate(10);
+        $categories = $this->category->latest()->paginate(config('app.item_per_request'));
 
         return $this->sendSuccessResponse($categories, 'Category list');
     }
