@@ -31,7 +31,7 @@ class PageController extends BaseController
     public function index(Request $request)
     {
         try {
-            $pages = $this->pageRepo->getAll($request->all());
+            $pages = $this->pageRepo->getAll($request->all(), 20);
             return new PageCollection($pages);
         } catch (\Exception $exception) {
             return $this->sendErrorResponse($exception->getMessage());
