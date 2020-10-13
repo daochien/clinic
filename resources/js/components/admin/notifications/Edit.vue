@@ -361,14 +361,15 @@
                         title: this.$t('notification').info.messages._err_schedule_lt_now,
                     });
                     this.isValidate = false;
-                } else if (_.isEmpty(this.form.schedule_date)) {
-                    this.errors.schedule_date = this.$t('notification').info.messages._err_schedule_required;
-                    Toast.fire({
-                        icon: "error",
-                        title: this.$t('notification').info.messages._err_schedule_required,
-                    });
-                    this.isValidate = false;
                 }
+                // else if (_.isEmpty(this.form.schedule_date)) {
+                //     this.errors.schedule_date = this.$t('notification').info.messages._err_schedule_required;
+                //     Toast.fire({
+                //         icon: "error",
+                //         title: this.$t('notification').info.messages._err_schedule_required,
+                //     });
+                //     this.isValidate = false;
+                // }
             },
             saveNotification(draft = 1) {
                 this.validateForm();
@@ -414,10 +415,17 @@
                 }
             },
             changeCheckedAll(value) {
+                let self = this;
                 if (value) {
-                    this.form.groups = this.groups;
+                    _.forEach(self.groups, function(value, key) {
+                        if (value.id !== 1 && value.id !== 2) {
+                            self.form.groups.push(value);
+                        }
+                    });
                 } else {
-                    this.form.groups = [];
+                    this.form.groups = _.filter(this.form.groups, function (obj) {
+                        return obj.id == 2 || obj.id == 1;
+                    });
                 }
             },
             imageHandler() {
