@@ -36,7 +36,8 @@
                     <div class="blog-item" v-for="(blog, index) in blogs" :key="index" v-if="index > 4">
                         <div class="blog-img">
                             <a :href="'blogs/'+blog.id">
-                                <img :src="blog.image" alt="">
+                                <img v-if="blog.image" :src="blog.image" alt="">
+                                <img v-else src="/front-end/images/default-image.png" alt="">
                             </a>
                         </div>
                         <div class="blog-info">
@@ -120,12 +121,12 @@ export default {
                 } = await axios.get('api/page?status=1&type=blog&page=' + page);
                 this.blogs = this.blogs.concat(data.data);
                 this.pagination = data.meta;
-                 let currIndex = this.$refs.slick.currentSlide()
-                this.$refs.slick.destroy()
-                this.$nextTick(() => {
-                    this.$refs.slick.create()
-                    this.$refs.slick.goTo(currIndex, true)
-                })
+                //  let currIndex = this.$refs.slick.currentSlide()
+                // this.$refs.slick.destroy()
+                // this.$nextTick(() => {
+                //     this.$refs.slick.create()
+                //     this.$refs.slick.goTo(currIndex, true)
+                // })
 
             } catch (error) {
                 Toast.fire({
