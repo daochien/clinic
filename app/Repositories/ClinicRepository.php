@@ -18,7 +18,7 @@ class ClinicRepository
 
     public function get()
     {
-        return $this->model->latest()->withCount('clinicUsers')->paginate(10);
+        return $this->model->latest()->withCount('clinicUsers')->paginate(config('app.item_per_request'));
     }
 
     public function getAll()

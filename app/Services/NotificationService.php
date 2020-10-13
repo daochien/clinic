@@ -131,7 +131,7 @@ class NotificationService
             );
         }
 
-        return $members->paginate(10);
+        return $members->paginate(config('app.item_per_request'));
     }
 
     public function delete($id)
@@ -253,7 +253,7 @@ class NotificationService
             );
         }
 
-        return $query->paginate(10);
+        return $query->paginate(config('app.item_per_request'));
     }
 
     public function fetch($filters)

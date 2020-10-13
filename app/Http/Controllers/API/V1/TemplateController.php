@@ -29,7 +29,7 @@ class TemplateController extends BaseController
      */
     public function index()
     {
-        $templates = Form::with(['approvers', 'category'])->paginate(10);
+        $templates = Form::with(['approvers', 'category'])->paginate(config('app.item_per_request'));
 
         return $this->sendSuccessResponse($templates, 'Templates list');
     }

@@ -37,7 +37,7 @@ class InquiryService
         return $query->with('inquiryComments.user', 'createdBy', 'closedBy', 'category')
             ->latest('i.created_at')
             ->select('i.*', 'l.created_at as closed_at')
-            ->paginate(10);
+            ->paginate(config('app.item_per_request'));
     }
 
     /**
@@ -53,7 +53,7 @@ class InquiryService
             ->with('inquiryComments.user', 'createdBy', 'closedBy', 'category')
             ->latest('i.created_at')
             ->select('i.*', 'l.created_at as closed_at')
-            ->paginate(10);
+            ->paginate(config('app.item_per_request'));
     }
 
     /**
@@ -101,7 +101,7 @@ class InquiryService
             ->with('inquiryComments.user', 'createdBy', 'closedBy', 'category')
             ->latest('i.created_at')
             ->select('i.*', 'l.created_at as closed_at')
-            ->paginate(10);
+            ->paginate(config('app.item_per_request'));
     }
 
     public function storage($params)

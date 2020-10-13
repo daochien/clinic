@@ -91,7 +91,7 @@ class RequestService
         return $query->with(['requestLogs', 'requestComments', 'user', 'form.approvers', 'form.category'])
             ->select(['s.*'])
             ->orderByDesc('s.created_at')
-            ->paginate(10);
+            ->paginate(config('app.item_per_request'));
     }
 
     /**
@@ -105,7 +105,7 @@ class RequestService
             ->where('tc.category_id', $categoryId)
             ->with(['requestLogs', 'requestComments', 'user', 'form.approvers'])
             ->latest()
-            ->paginate(10);
+            ->paginate(config('app.item_per_request'));
     }
 
     /**

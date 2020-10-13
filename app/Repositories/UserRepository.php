@@ -36,11 +36,11 @@ class UserRepository extends BaseRepository
 
         if (!empty($params['keyword'])) {
             $query->where('email', 'like', '%' . $params['keyword'] . '%');
-            $query->orWhere('name', 'like', '%' . $params['keyword'] . '%');            
+            $query->orWhere('name', 'like', '%' . $params['keyword'] . '%');
         }
 
         return $query->whereNotIn('id', User::ID_USER_ROOT)->with('roles')->latest()->paginate($limit);
-        
+
     }
 
     public function listUser()
@@ -48,12 +48,12 @@ class UserRepository extends BaseRepository
         return User::from('users as u')
             ->join('model_has_roles as mhr', 'mhr.model_id', 'u.id')
             ->whereIn('mhr.role_id', array_values(User::USER_ROLE))
-            ->with(['role', 'group', 'clinic', 'type'])->paginate(10);
+            ->with(['role', 'group', 'clinic', 'type'])->paginate(config('app.item_per_request'));
     }
 
     public function get()
     {
-        return $this->model->latest()->paginate(10);
+        return $this->model->latest()->paginate(config('app.item_per_request'));
     }
 
     /**
@@ -94,7 +94,7 @@ class UserRepository extends BaseRepository
             });
         }
 
-        return $query->distinct()->with(['role', 'type','clinic'])->select('u.*')->paginate(10);
+        return $query->distinct()->with(['role', 'type','clinic'])->select('u.*')->paginate(config('app.item_per_request'));
     }
 
     /**

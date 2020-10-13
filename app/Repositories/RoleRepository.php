@@ -30,7 +30,7 @@ class RoleRepository
     {
         return $this->model->with(['permissions' => function ($q) {
             $q->select('name', 'id');
-        }])->latest()->paginate(10);
+        }])->latest()->paginate(config('app.item_per_request'));
     }
 
     public function show($id)
@@ -48,26 +48,26 @@ class RoleRepository
         foreach ($pemissions as $permission) {
             if (!empty($permission['pers'])) {
                 foreach ($permission['pers'] as $routes) {
-                    $names = config('router.'.$routes);                    
+                    $names = config('router.'.$routes);
                     if (!empty($names)) {
                         $pers = array_merge($pers, $names['routes']);
                     }
                 }
             }
         }
-        
+
         if (!empty($pers) && !in_array($roleId, [ModelsRole::ROLE_DEFAULT['web'], ModelsRole::ROLE_DEFAULT['mobile']])) {
             $settingRole = config('router.setting.groups');
             $settingPers = array();
             foreach ($settingRole as $item) {
                 if (!empty($item['routes'])) {
                     $settingPers = array_merge($settingPers, $item['routes']);
-                }            
+                }
             }
-            
+
             $pers = array_unique(array_merge($pers, $settingPers));
-        }        
-            
+        }
+
         return $pers;
     }
 }

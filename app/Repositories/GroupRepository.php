@@ -18,7 +18,7 @@ class GroupRepository
 
     public function get()
     {
-        return $this->model->latest()->withCount('group_users')->paginate(10);
+        return $this->model->latest()->withCount('group_users')->paginate(config('app.item_per_request'));
     }
 
     public function getAll()
@@ -184,7 +184,7 @@ class GroupRepository
             })
             ->get()
             ->toArray();
-            
+
             $array  = array_column($temp, 'id');
 
             $users = DB::table('users')

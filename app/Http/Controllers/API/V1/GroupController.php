@@ -40,7 +40,7 @@ class GroupController extends BaseController
      */
     public function index()
     {
-        //$group = $this->group->latest()->withCount('users')->orderBy('id', 'desc')->paginate(10);
+        //$group = $this->group->latest()->withCount('users')->orderBy('id', 'desc')->paginate(config('app.item_per_request'));
         //return $this->sendSuccessResponse($group, 'Group list');
           $groups = $this->repository->get();
           return new GroupCollection($groups);
@@ -134,7 +134,7 @@ class GroupController extends BaseController
     {
         try{
             $group = $this->repository->find($id);
-            return new UserCollection($group->users()->paginate(10));
+            return new UserCollection($group->users()->paginate(config('app.item_per_request')));
         } catch (\Exception $exception) {
             return $this->sendErrorResponse($exception->getCode(), $exception->getMessage());
         }
@@ -145,7 +145,7 @@ class GroupController extends BaseController
         try{
             $users_id = GroupUser::where('group_id', $id)->pluck('user_id');
             if(count($users_id)){
-                $users = DB::table('users')->whereIn('id', $users_id)->paginate(10);
+                $users = DB::table('users')->whereIn('id', $users_id)->paginate(config('app.item_per_request'));
                 return $this->sendSuccessResponse($users, __('group.infor.others._data_result'));
             }
             return response()->json(['data' => ['data' => []]]);
@@ -174,7 +174,7 @@ class GroupController extends BaseController
             // $query = "SELECT users.id, users.name, users.email, users.created_at from users WHERE id in (select DISTINCT(users.id) from users LEFT JOIN group_users on users.id = group_users.user_id where users.id not in (select users.id from users JOIN group_users on group_users.user_id = users.id where group_users.group_id = $id)) and users.name like '%$value%'";
 
             // $users = DB::select( DB::raw($query));
-            
+
             $result = $this->repository->filter($id, $value);
             if(count($result)){
                 return $this->sendSuccessResponse($result,  __('group.group_users.others._data_result'));

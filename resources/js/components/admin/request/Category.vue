@@ -268,7 +268,7 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                     showCancelButton: true,
                     confirmButtonColor: '#d33',
                     cancelButtonColor: '#3085d6',
-                    confirmButtonText: this.$t('request').others._reject_modal_yes,
+                    confirmButtonText: this.$t('request').others._modal_yes,
                     cancelButtonText: this.$t('request').others._modal_no,
                 }).then((result) => {
                     // Send request to the server
