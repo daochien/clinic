@@ -1072,12 +1072,20 @@ export default {
                 }
             },
             "discussion": {
-                "_title": "Discussion",
-                "_comment_here": "ここにメッセージ",
-                "_send": "送信する",
-                "_upload_placeholder": "Choose a file or drop it here...",
-                "_upload_drop_placeholder": "Drop file here...",
-                "_comment_success": "Comment success"
+                "_title": "コメント",
+                "form": {
+                    "_input_comment_pl": "メッセージを入力してください",
+                    "_input_select_file_pl": "アップロードするファイルを選択、またはファイルをドラッグ＆ドロップします",
+                    "_input_drop_file_pl": "ここにファイルをドロップします。"
+                },
+                "messages": {
+                    "_comment_success": "コメント投稿が成功しました。",
+                    "_comment_failed": "コメント投稿に失敗しました。"
+                },
+                "others": {
+                    "_btn_comment": "送信する",
+                    "_no_data": "表示されるコメントはまだありません。"
+                }
             },
             "others": {
                 "_close_modal_yes": "はい",
@@ -1244,6 +1252,12 @@ export default {
         "page": {
             "attr": {
                 "_type": "書類",
+                "type": {
+                    "_blog": "記事",
+                    "_faq": "よくある質問",
+                    "_manual": "マニュアル",
+                    "_other": "---"
+                },
                 "_title": "タイトル",
                 "_public": "公開",
                 "_public_date": "公開日時",
@@ -1251,7 +1265,11 @@ export default {
                 "_url": "公開先",
                 "_category": "カテゴリ",
                 "_image": "アイキャッチ画像",
-                "_summary": "概要"
+                "_summary": "概要",
+                "status": {
+                    "_public": "公開",
+                    "_private": "非公開"
+                }
             },
             "list": {
                 "_og_title": "友伸會ポータル管理画面｜ページ管理・ページ一覧",
@@ -1307,6 +1325,8 @@ export default {
                     "_category_pl": "カテゴリーを指定してください",
                     "_title_upload": "ファイルを選択してください",
                     "_content_upload": "ドキュメント（pdf）、画像ファイル（png, jpg）または動画（mp4）をアップロードしてくだい",
+                    "_input_file_desc": "ファイルを選択",
+                    "_btn_remove_thumbnail": "アイキャッチ画像を削除する",
                     "_btn_upload": "ファイルを選択",
                     "_btn_remove": "削除する"
                 },
@@ -1323,7 +1343,9 @@ export default {
                 "others": {
                     "_btn_create": "登録する",
                     "_btn_edit": "編集する",
-                    "_btn_remove": "削除する"
+                    "_btn_remove": "削除する",
+                    "_show_more": "すべての設定を表示",
+                    "_show_less": "主な設定だけ表示"
                 },
                 "popup": {
                     "_create_title": "ページカテゴリー登録",
@@ -1341,7 +1363,13 @@ export default {
                     "_faq": "よくある質問",
                     "_manual": "マニュアル",
                     "others": {
-                        "_show_more": "もっと見る"
+                        "_show_more": "もっと見る",
+                        "_no_data": "表示する記事はまだありません。"
+                    }
+                },
+                "faq": {
+                    "others": {
+                        "_no_data": "よくある質問情報は存在しません。"
                     }
                 },
                 "blog": {
@@ -1350,11 +1378,17 @@ export default {
                     "list": {
                         "_latest_blogs": "最新ニュース",
                         "_show_more": "もっと見る..."
+                    },
+                    "others": {
+                        "_no_data": "表示する記事はまだありません。"
                     }
                 },
                 "manual": {
                     "_og_title": "友伸會ポータル管理画面｜マニュアル一覧",
-                    "_page_title": "マニュアル一覧"
+                    "_page_title": "マニュアル一覧",
+                    "others": {
+                        "_no_data": "マニュアル情報は存在しません。"
+                    }
                 }
             },
             "others": {
@@ -1458,12 +1492,20 @@ export default {
                 }
             },
             "discussion": {
-                "_title": "Discussion",
-                "_comment_here": "ここにメッセージ",
-                "_send": "送信する",
-                "_upload_placeholder": "Choose a file or drop it here...",
-                "_upload_drop_placeholder": "Drop file here...",
-                "_comment_success": "Comment success"
+                "_title": "コメント",
+                "form": {
+                    "_input_comment_pl": "メッセージを入力してください",
+                    "_input_select_file_pl": "アップロードするファイルを選択、またはファイルをドラッグ＆ドロップします",
+                    "_input_drop_file_pl": "ここにファイルをドロップします。"
+                },
+                "messages": {
+                    "_comment_success": "コメント投稿が成功しました。",
+                    "_comment_failed": "コメント投稿に失敗しました。"
+                },
+                "others": {
+                    "_btn_comment": "送信する",
+                    "_no_data": "表示されるコメントはまだありません。"
+                }
             },
             "template": {
                 "list": {
@@ -1906,7 +1948,7 @@ export default {
             "reset": "パスワードをリセットしました。",
             "sent": "パスワードリマインダーを送信しました。",
             "throttled": "時間を置いて再度お試しください。",
-            "token": "このパスワードリセットトークンは無効です。",
+            "token": "パスワード再設定トークンの有効期限が切れました。",
             "user": "このメールアドレスに一致するユーザーを見つけることが出来ませんでした。"
         },
         "notification": {
@@ -1980,6 +2022,7 @@ export default {
                     "_err_title_required": "タイトルを必ず必ず入力してください。",
                     "_err_target_required": "送信対象者を必ず指定してください。",
                     "_err_content_required": "お知らせ本文を必ず入力してください。",
+                    "_err_schedule_required": "公開日時を必ず指定してください。",
                     "_err_schedule_lt_now": "公開日時を正しく指定してください。"
                 },
                 "others": {
@@ -2019,15 +2062,16 @@ export default {
                     "_tab_all": "すべて",
                     "_tab_bod": "理事長から",
                     "_tab_hr": "事務局から"
+                },
+                "others": {
+                    "_no_data": "表示するお知らせはまだありません。"
                 }
             },
             "others": {
                 "_remove_modal_yes": "はい",
                 "_remove_modal_no": "いいえ",
                 "_remove_modal_title": "お知らせを削除",
-                "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。",
-                "_schedule_date_lte_now": "Schedule date must be greater than now",
-                "_err_schedule_is_empty": "Schedule date is required"
+                "_remove_modal_description": "このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。"
             }
         },
         "pagination": {
