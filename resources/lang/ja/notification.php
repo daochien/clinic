@@ -70,6 +70,7 @@ return [
             '_err_title_required' => 'タイトルを必ず必ず入力してください。',
             '_err_target_required' => '送信対象者を必ず指定してください。',
             '_err_content_required' => 'お知らせ本文を必ず入力してください。',
+            '_err_schedule_required' => '公開日時を必ず指定してください。',
             '_err_schedule_lt_now' => '公開日時を正しく指定してください。',
         ],
         'others' => [
@@ -109,6 +110,9 @@ return [
             '_tab_all' => 'すべて',
             '_tab_bod' => '理事長から',
             '_tab_hr' => '事務局から',
+        ],
+        'others' => [
+            '_no_data' => '表示するお知らせはまだありません。',
         ],
     ],
     'others' => [

@@ -68,12 +68,20 @@ return [
         ],
     ],
     'discussion' => [
-        '_title' => 'Discussion',
-        '_comment_here' => 'ここにメッセージ',
-        '_send' => '送信する',
-        '_upload_placeholder' => 'Choose a file or drop it here...',
-        '_upload_drop_placeholder' => 'Drop file here...',
-        '_comment_success' => 'Comment success'
+        '_title' => 'コメント',
+        'form' => [
+            '_input_comment_pl' => 'メッセージを入力してください',
+            '_input_select_file_pl' => 'アップロードするファイルを選択、またはファイルをドラッグ＆ドロップします',
+            '_input_drop_file_pl' => 'ここにファイルをドロップします。',
+        ],
+        'messages' => [
+            '_comment_success' => 'コメント投稿が成功しました。',
+            '_comment_failed' => 'コメント投稿に失敗しました。',
+        ],
+        'others' => [
+            '_btn_comment' => '送信する',
+            '_no_data' => '表示されるコメントはまだありません。',
+        ],
     ],
     'others' => [
         '_close_modal_yes' => 'はい',

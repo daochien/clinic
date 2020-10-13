@@ -134,6 +134,7 @@
                                                     <datetime
                                                         ref="datetime"
                                                         :required="true"
+                                                        :readonly="true"
                                                         format="YYYY-MM-DD h:i:s"
                                                         v-model='form.schedule_date'
                                                         name="datetime"
@@ -271,7 +272,6 @@
             },
             getResults(page = 1) {
                 this.$Progress.start();
-                console.log("get Results");
                 axios
                     .get("/api/notification?page=" + page)
                     .then(({data}) => (this.notifications = data.data));
@@ -362,6 +362,14 @@
                     });
                     this.isValidate = false;
                 }
+                // else if (_.isEmpty(this.form.schedule_date)) {
+                //     this.errors.schedule_date = this.$t('notification').info.messages._err_schedule_required;
+                //     Toast.fire({
+                //         icon: "error",
+                //         title: this.$t('notification').info.messages._err_schedule_required,
+                //     });
+                //     this.isValidate = false;
+                // }
             },
             saveNotification(draft = 1) {
                 this.validateForm();
@@ -382,7 +390,7 @@
                     .catch(() => {
                         Toast.fire({
                             icon: "error",
-                            title: this.$t('common').messages._system_err,
+                            title: this.$t('notification').info.messages._create_failed,
                         });
                     });
             },
@@ -407,10 +415,17 @@
                 }
             },
             changeCheckedAll(value) {
+                let self = this;
                 if (value) {
-                    this.form.groups = this.groups;
+                    _.forEach(self.groups, function(value, key) {
+                        if (value.id !== 1 && value.id !== 2) {
+                            self.form.groups.push(value);
+                        }
+                    });
                 } else {
-                    this.form.groups = [];
+                    this.form.groups = _.filter(this.form.groups, function (obj) {
+                        return obj.id == 2 || obj.id == 1;
+                    });
                 }
             },
             imageHandler() {
@@ -446,8 +461,10 @@
                         this.$refs.quill.quill.insertEmbed(range.index, 'image', imageUrl)
                     })
                     .catch(error => {
-                        console.log(error);
-                        return this.$alert(this.$t('common.messages._system_err'), {confirmButtonText: 'OK'});
+                        Toast.fire({
+                            icon: "error",
+                            title: this.$t('common.messages._system_err'),
+                        });
                     });
             }
         },

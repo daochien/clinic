@@ -22,9 +22,9 @@
                                     <label for="feInputTitle">{{ $t('page.list.search_box._type') }}</label>
                                     <select class="form-control" v-model="form_filter.type">
                                         <option value="">{{ $t('page.list.search_box._type_pl') }}</option>
-                                        <option value="blog">記事</option>
-                                        <option value="manual">マニュアル</option>
-                                        <option value="faq">よくある質問</option>
+                                        <option value="blog">{{ $t('page.attr.type._blog') }}</option>
+                                        <option value="manual">{{ $t('page.attr.type._manual') }}</option>
+                                        <option value="faq">{{ $t('page.attr.type._faq') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -33,8 +33,8 @@
                                     <label for="feInputTitle">{{ $t('page.list.search_box._status') }}</label>
                                     <select class="form-control" v-model="form_filter.status">
                                         <option value="">{{ $t('page.list.search_box._status_pl') }}</option>
-                                        <option value="1">公開</option>
-                                        <option value="0">非公開</option>
+                                        <option value="1">{{ $t('page.attr.status._public') }}</option>
+                                        <option value="0">{{ $t('page.attr.status._private') }}</option>
                                     </select>
                                 </div>
                             </div>
@@ -101,10 +101,10 @@
                                     <td>{{ item.created_at | myDate }}</td>
                                     <td>
                                         <span class="badge badge-info ml-1" v-if="item.status">
-                                            公開
+                                            {{ $t('page.attr.status._public') }}
                                         </span>
                                         <span class="badge badge-secondary ml-1" v-else>
-                                            非公開
+                                            {{ $t('page.attr.status._private') }}
                                         </span>
                                         <!-- <div class="switchToggle">
                                             <input type="checkbox" :id="'switch'+item.id" :checked="item.status" @change="changeStatus(item.id)">
@@ -184,13 +184,13 @@ export default {
 
         getLableType (type) {
             if (type == 'blog') {
-                return '記事';
+                return this.$t('page.attr.type._blog');
             } else if (type == 'manual') {
-                return 'マニュアル';
+                return this.$t('page.attr.type._manual');
             } else if (type == 'faq') {
-                return 'よくある質問';
+                return this.$t('page.attr.type._faq');
             } else {
-                return '-';
+                return this.$t('page.attr.type._other');
             }
         },
 

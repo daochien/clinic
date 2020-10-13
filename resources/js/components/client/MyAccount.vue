@@ -96,7 +96,7 @@ export default {
 
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('common.messages.messages._pwd_update_failed'),
+                        title: this.$t('staff.my_account.messages._pwd_update_failed'),
                     });
                 });
         },

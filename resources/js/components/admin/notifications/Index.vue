@@ -118,7 +118,7 @@
                                     <th scope="col">{{ $t('notification.list.data_table._confirmed_count')}}</th>
                                     <th scope="col">{{ $t('notification.attr._public_at')}}</th>
                                     <th scope="col">{{ $t('notification.attr._status')}}</th>
-                                    <th scope="col">{{ $t('common.list.data_table._actions') }}</th>
+                                    <th scope="col" style="width:100px">{{ $t('common.list.data_table._actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -298,7 +298,7 @@
                             .catch(() => {
                                 Toast.fire({
                                     icon: "error",
-                                    title: this.$t("common.messages._system_err"),
+                                    title: this.$t("notification.list.messages._remove_failed"),
                                 });
                             });
                     }
@@ -321,7 +321,7 @@
                     .catch(() => {
                         Toast.fire({
                             icon: "error",
-                            title: this.$t("common.messages._system_err"),
+                            title: this.$t("notification.list.messages._stt_update_failed"),
                         });
                     }).finally(() => {
                         notification.groups = groups;

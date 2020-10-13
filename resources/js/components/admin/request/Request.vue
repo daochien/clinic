@@ -124,7 +124,7 @@
                                     id="textarea"
                                     required
                                     v-model="discussion.message"
-                                    :placeholder="$t('request.discussion._comment_here')"
+                                    :placeholder="$t('request.discussion.form._input_comment_pl')"
                                     rows="3"
                                     max-rows="6"
                                 ></b-form-textarea>
@@ -133,10 +133,10 @@
                                     ref="fileInput"
                                     class="mb-3"
                                     accept="image/*,.doc,.docx,.xls,xlsx,.mp4,.mpeg,.txt,.csv"
-                                    :placeholder="$t('request.discussion._upload_placeholder') "
-                                    :drop-placeholder="$t('request.discussion._upload_drop_placeholder')"
+                                    :placeholder="$t('request.discussion.form._input_select_file_pl') "
+                                    :drop-placeholder="$t('request.discussion.form._input_drop_file_pl')"
                                 ></b-form-file>
-                                <b-button type="submit" variant="primary" class="float-right">{{$t('request.discussion._send')}}</b-button>
+                                <b-button type="submit" variant="primary" class="float-right">{{$t('request.discussion.others._btn_comment')}}</b-button>
                             </b-form>
                         </div>
                     </div>
@@ -196,7 +196,7 @@
                     if(response.data.status){
                         Toast.fire({
                             icon: "success",
-                            title: this.$t('request').discussion._comment_success,
+                            title: this.$t('request').discussion.messages._comment_success,
                         });
                         this.submission.request_comments = response.data.data;
                         this.resetChat();
@@ -204,7 +204,7 @@
                     } else {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('common').messsages._system_err,
+                            title: this.$t('request').discussion.messages._comment_failed,
                         });
                         this.$Progress.finish();
                     }
@@ -251,7 +251,7 @@
                         .catch(() => {
                             Toast.fire({
                                 icon: 'error',
-                                title: this.$t('common').messages._system_err,
+                                title: this.$t('request').list.messages._approve_failed,
                             });
                         })
                     }
@@ -291,7 +291,7 @@
                         .catch(() => {
                             Toast.fire({
                                 icon: 'error',
-                                title: this.$t('common').messages._system_err,
+                                title: this.$t('request').list.messages._reject_failed,
                             });
                         })
                     }

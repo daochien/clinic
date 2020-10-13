@@ -117,7 +117,7 @@
                                 } else {
                                     Toast.fire({
                                         icon: 'error',
-                                        title: this.$t('request').list.messages._approve_failed,
+                                        title: this.$t('request').template.info.messages._remove_failed,
                                     });
                                     this.$Progress.failed();
                                 }
@@ -127,7 +127,7 @@
                         .catch(() => {
                             Toast.fire({
                                 icon: 'error',
-                                title: this.$t('request').list.messages._approve_failed,
+                                title: this.$t('request').template.info.messages._remove_failed,
                             });
                         })
                     }

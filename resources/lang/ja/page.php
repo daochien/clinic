@@ -2,6 +2,12 @@
 return [
     'attr' => [
         '_type' => '書類',
+        'type' => [
+            '_blog' => '記事',
+            '_faq' => 'よくある質問',
+            '_manual' => 'マニュアル',
+            '_other' => '---',
+        ],
         '_title' => 'タイトル',
         '_public' => '公開',
         '_public_date' => '公開日時',
@@ -9,7 +15,11 @@ return [
         '_url' => '公開先',
         '_category' => 'カテゴリ',
         '_image' => 'アイキャッチ画像',
-        '_summary' => '概要'
+        '_summary' => '概要',
+        'status' => [
+            '_public' => '公開',
+            '_private' => '非公開',
+        ],
     ],
     'list' => [
         '_og_title' => '友伸會ポータル管理画面｜ページ管理・ページ一覧',
@@ -65,8 +75,10 @@ return [
             '_category_pl' => 'カテゴリーを指定してください',
             '_title_upload' => 'ファイルを選択してください',
             '_content_upload' => 'ドキュメント（pdf）、画像ファイル（png, jpg）または動画（mp4）をアップロードしてくだい',
+            '_input_file_desc' => 'ファイルを選択',
+            '_btn_remove_thumbnail' => 'アイキャッチ画像を削除する',
             '_btn_upload' => 'ファイルを選択',
-            '_btn_remove' => '削除する'
+            '_btn_remove' => '削除する',
         ],
         'messages' => [
             '_create_success' => 'ページ作成が成功しました。',
@@ -82,6 +94,8 @@ return [
             '_btn_create' => '登録する',
             '_btn_edit' => '編集する',
             '_btn_remove' => '削除する',
+            '_show_more' => 'すべての設定を表示',
+            '_show_less' => '主な設定だけ表示',
         ],
         'popup' => [
             '_create_title' => 'ページカテゴリー登録',
@@ -100,6 +114,12 @@ return [
             '_manual' => 'マニュアル',
             'others' => [
                 '_show_more' => 'もっと見る',
+                '_no_data' => '表示する記事はまだありません。',
+            ],
+        ],
+        'faq' => [
+            'others' => [
+                '_no_data' => 'よくある質問情報は存在しません。',
             ],
         ],
         'blog' => [
@@ -109,10 +129,16 @@ return [
                 '_latest_blogs' => '最新ニュース',
                 '_show_more' => 'もっと見る...',
             ],
+            'others' => [
+                '_no_data' => '表示する記事はまだありません。',
+            ],
         ],
         'manual' => [
             '_og_title' => '友伸會ポータル管理画面｜マニュアル一覧',
             '_page_title' => 'マニュアル一覧',
+            'others' => [
+                '_no_data' => 'マニュアル情報は存在しません。',
+            ],
         ],
     ],
     'others' => [

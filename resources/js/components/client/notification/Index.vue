@@ -29,7 +29,7 @@
 <!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
                                 </div>
                                 <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
-                                    <span>表示するお知らせはまだありません。</span>
+                                    <span>{{ $t('notification.web.others._no_data') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
 <!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
                                 </div>
                                 <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
-                                    <span>表示するお知らせはまだありません。</span>
+                                    <span>{{ $t('notification.web.others._no_data') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
 <!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
                                 </div>
                                 <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
-                                    <span>表示するお知らせはまだありません。</span>
+                                    <span>{{ $t('notification.web.others._no_data') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="content-wrapper" v-else>
-                    <span>表示するお知らせはまだありません。</span>
+                    <span>{{ $t('notification.web.others._no_data') }}</span>
                 </div>
             </div>
         </div>
@@ -143,15 +143,15 @@
                 // }
             },
             getFromLabel(item) {
-                if (!_.isEmpty(item.notification) && !_.isEmpty(item.creator)) {
-                    return item.creator.posittion == 1 ? '理事長' : '事務局'
+                if (!_.isEmpty(item) && !_.isEmpty(item.creator)) {
+                    return item.creator.position == 1 ? '理事長' : '事務局'
                 }
 
                 return '事務局';
             },
             getFromTitle(item) {
                 if (!_.isEmpty(item) && !_.isEmpty(item.creator)) {
-                    return  item.creator.posittion == 1 ? '理事長から' : '事務局から'
+                    return  item.creator.position == 1 ? '理事長から' : '事務局から'
                 }
 
                 return '理事長から';

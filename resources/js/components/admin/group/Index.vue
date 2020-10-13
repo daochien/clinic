@@ -125,8 +125,8 @@
                 })
               }else{
                   Toast.fire({
-                      title: this.$t('common.messages._system_err'),
-                      icon:"error"
+                      icon:"error",
+                      title: this.$t('group.list.messages._remove_failed'),
                   });
               }
             },
