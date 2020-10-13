@@ -155,7 +155,6 @@
         });
     });
     window.FormBuilder = window.FormBuilder || {}
-    window.FormBuilder.form_roles = @json($form_roles);
 </script>
 {!! Toastr::message() !!}
 @stop

@@ -51,12 +51,10 @@ class FormController extends Controller
         $category = $this->categoryRepository->getTemplateByCategory(Category::TYPE['template']);
 
         $saveURL = route('template.store');
-        // get the roles to use to populate the make the 'Access' section of the form builder work
-        $form_roles = FormBuilderHelper::getConfiguredRoles();
 
         $adminList = $this->permissionRepository->getUserByPermission('template');
 
-        return view('template.forms.create', compact('category', 'adminList', 'pageTitle', 'breadCrumbTitle', 'saveURL', 'form_roles'));
+        return view('template.forms.create', compact('category', 'adminList', 'pageTitle', 'breadCrumbTitle', 'saveURL'));
     }
 
     public function store(SaveFormRequest $request)
@@ -128,10 +126,7 @@ class FormController extends Controller
 
         $saveURL = route('template.update', $form);
 
-        // get the roles to use to populate the make the 'Access' section of the form builder work
-        $form_roles = FormBuilderHelper::getConfiguredRoles();
-
-        return view('template.forms.edit', compact('form', 'category', 'adminList', 'pageTitle', 'breadCrumbTitle', 'saveURL', 'form_roles'));
+        return view('template.forms.edit', compact('form', 'category', 'adminList', 'pageTitle', 'breadCrumbTitle', 'saveURL'));
     }
 
     public function update(SaveFormRequest $request, $id)

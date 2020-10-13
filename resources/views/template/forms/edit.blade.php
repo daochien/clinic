@@ -171,8 +171,6 @@
             });
         });
         window.FormBuilder = window.FormBuilder || {}
-        window.FormBuilder.form_roles = @json($form_roles);
-
         window._form_builder_content = {!! json_encode($form->form_builder_json) !!}
     </script>
 @stop
