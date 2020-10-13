@@ -303,7 +303,6 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                 })
             },
             loadRequests(){
-                console.log(this.$route.params);
                 axios.get("/api/request?category_id="  + this.$route.params.id)
                     .then(( response ) => {
                         this.requests = response.data.data;
@@ -347,28 +346,28 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                 }
 
                 let approvedCount = 0;
-                _.forEach(object.request_logs, function (log, logKey) {
+                for (let i = 0; i < object.request_logs.length; i++) {
+                    let log = object.request_logs[i];
                     let valid_approver = _.findIndex(object.template.approvers, ['id', log.approver_id]) >= 0;
                     if (valid_approver){
+                        if (log.status === 1 && !object.template.multi_approve) {
+                            return '<span class="text-info">' + self.$t('request').attr.status._approved + '</span>'
+                        }
                         if (log.status === 2) {
-                            self.status_label = 'btn-secondary';
                             return '<span class="text-secondary">' + self.$t('request').attr.status._rejected + '</span>'
                         }
                         approvedCount++;
                     }
-                });
+                }
 
                 if (approvedCount === 0) {
-                    this.status_label = 'btn-warning';
                     return '<span class="text-warning">' + this.$t('request').attr.status._open + '</span>'
                 }
 
                 if (approvedCount === object.template.approvers.length) {
-                    this.status_label = 'btn-info';
                     return '<span class="text-info">' + this.$t('request').attr.status._approved + '</span>'
                 }
 
-                this.status_label = 'btn-primary';
                 return '<span class="text-primary">' + this.$t('request').attr.status._in_progress + '</span>'
             },
             getLastRequestLog(object) {
