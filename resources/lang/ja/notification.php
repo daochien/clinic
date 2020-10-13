@@ -110,6 +110,9 @@ return [
             '_tab_bod' => '理事長から',
             '_tab_hr' => '事務局から',
         ],
+        'others' => [
+            '_no_data' => '表示するお知らせはまだありません。',
+        ],
     ],
     'others' => [
         '_remove_modal_yes' => 'はい',

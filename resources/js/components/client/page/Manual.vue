@@ -43,7 +43,7 @@
         <div class="manual-guide-wrapper" v-else>
             <ul class="manual-list">
                 <li>
-                <span class="title">マニュアル情報は存在しません。</span>
+                <span class="title">{{ $t('page.web.manual.others._no_data') }}</span>
                 </li>
             </ul>
         </div>
@@ -77,7 +77,10 @@ export default {
                 this.pagination = data.meta;
 
             } catch (error) {
-
+                Toast.fire({
+                    icon: 'error',
+                    title: this.$t('common.messages._system_err'),
+                });
             }
             this.$Progress.finish();
         },
@@ -88,7 +91,10 @@ export default {
                         type: 'download'
                     });
                 } catch (error) {
-
+                    Toast.fire({
+                        icon: 'error',
+                        title: this.$t('common.messages._system_err'),
+                    });
                 }
             }
 

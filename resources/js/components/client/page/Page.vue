@@ -57,7 +57,7 @@
                 <button class="btn btn-loading" @click="showMore()" v-show="pagination.current_page == 1 || pagination.current_page < pagination.last_page">{{ $t('page.web.blog.list._show_more') }}</button>
             </div>
             <div class="blog-content content-wrapper" v-else>
-                表示する記事はまだありません。
+                {{ $t('page.web.blog.others._no_data') }}
             </div>
         </div>
     </div>
@@ -128,7 +128,10 @@ export default {
                 })
 
             } catch (error) {
-                console.log(error);
+                Toast.fire({
+                    icon: 'error',
+                    title: this.$t('common.messages._system_err'),
+                });
             }
             this.$Progress.finish();
         },
