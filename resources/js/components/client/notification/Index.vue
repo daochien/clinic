@@ -19,14 +19,14 @@
                                 <div v-for="item in notifications.data" :class="`notification-item list-group-item ` + isActive(item)" @click="onSelect(item)">
                                     <div class="col-left">
                                         <span class="source bod">{{ getFromLabel(item) }}</span>
-                                        <span class="date">{{ $moment(item.created_at).format('DD/MM/YYYY') }}</span>
+                                        <span class="date">{{ $moment(item.created_at).format('YYYY/MM/DD') }}</span>
                                     </div>
                                     <div class="col-right">
                                         <span class="sub">{{ getFromTitle(item) }}</span>
                                         <span class="title">{{ item.title }}</span>
                                         <p>{{ getTruncateContent(item) }}</p>
                                     </div>
-<!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
+                                    <!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
                                 </div>
                                 <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
                                     <span>{{ $t('notification.web.others._no_data') }}</span>
@@ -38,14 +38,14 @@
                                 <div v-for="item in notifications.data" :class="`notification-item list-group-item ` + isActive(item)" @click="onSelect(item)">
                                     <div class="col-left">
                                         <span class="source bod">{{ getFromLabel(item) }}</span>
-                                        <span class="date">{{ $moment(item.created_at).format('DD/MM/YYYY') }}</span>
+                                        <span class="date">{{ $moment(item.created_at).format('YYYY/MM/DD') }}</span>
                                     </div>
                                     <div class="col-right">
                                         <span class="sub">{{ getFromTitle(item) }}</span>
                                         <span class="title">{{ item.title }}</span>
                                         <p v-html="getTruncateContent(item)"></p>
                                     </div>
-<!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
+                                    <!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
                                 </div>
                                 <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
                                     <span>{{ $t('notification.web.others._no_data') }}</span>
@@ -57,14 +57,14 @@
                                 <div v-for="item in notifications.data" :class="`notification-item list-group-item ` + isActive(item)" @click="onSelect(item)">
                                     <div class="col-left">
                                         <span class="source bod">{{ getFromLabel(item) }}</span>
-                                        <span class="date">{{ $moment(item.created_at).format('DD/MM/YYYY') }}</span>
+                                        <span class="date">{{ $moment(item.created_at).format('YYYY/MM/DD') }}</span>
                                     </div>
                                     <div class="col-right">
                                         <span class="sub">{{ getFromTitle(item) }}</span>
                                         <span class="title">{{ item.title }}</span>
                                         <p>{{ getTruncateContent(item) }}</p>
                                     </div>
-<!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
+                                    <!--                                    <div :class="'status ' + getStatusClass(item)"></div>-->
                                 </div>
                                 <div v-if="isEmpty(notifications.data)" class="notification-item list-group-item">
                                     <span>{{ $t('notification.web.others._no_data') }}</span>
@@ -74,7 +74,7 @@
                     </div>
                 </aside>
                 <div class="content-wrapper" v-if="selection">
-                    <span class="date">{{ $moment(selection.created_at).format('DD/MM/YYYY') }}</span>
+                    <span class="date">{{ $moment(selection.created_at).format('YYYY/MM/DD') }}</span>
                     <h3 class="title">{{ selection.title }}</h3>
                     <div class="context">
                         <p v-html="selection.content">
@@ -116,12 +116,12 @@
                     self.notifications = response.data;
                     self.selection = self.notifications.data[0];
                 })
-                .catch(()=>{
-                    Toast.fire({
-                        icon: 'error',
-                        title: this.$t('common.messages._system_err'),
-                    });
-                })
+                    .catch(()=>{
+                        Toast.fire({
+                            icon: 'error',
+                            title: this.$t('common.messages._system_err'),
+                        });
+                    })
             },
             updateStatus(item) {
                 let self = this;
