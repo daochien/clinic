@@ -128,14 +128,14 @@ export default {
                         this.role.delete('/api/role/'+id).then(()=>{
                             Toast.fire({
                                 icon: 'success',
-                                title: this.$t('role.others._remove_success')
+                                title: this.$t('role.list.messages._remove_success')
                             });
                             // Fire.$emit('AfterCreate');
                             this.getResults(1);
                         }).catch((data)=> {
                             Toast.fire({
                                 icon: 'error',
-                                title: this.$t('common.messages._system_err')
+                                title: this.$t('role.list.messages._remove_failed')
                             });
                         });
                     }

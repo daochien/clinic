@@ -133,7 +133,7 @@ export default {
             .catch(()=>{
                 Toast.fire({
                     icon: 'error',
-                    title: this.$t('common.messages._system_err')
+                    title: this.$t('admin.info.messages._create_failed')
                 });
                 this.$Progress.failed();
             })
@@ -146,7 +146,7 @@ export default {
                 // success
                 Toast.fire({
                     icon: 'success',
-                    title: this.$t('admin.info.messages._create_success')
+                    title: this.$t('admin.info.messages._edit_success')
                 });
                 this.$Progress.finish();
                 this.$router.push({path: '/admin/manager/roles'});
@@ -154,7 +154,7 @@ export default {
             .catch(() => {
                 Toast.fire({
                     icon: 'error',
-                    title: this.$t('common.messages._system_err')
+                    title: this.$t('admin.info.messages._edit_failed')
                 });
                 this.$Progress.fail();
             });
@@ -170,7 +170,10 @@ export default {
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                Toast.fire({
+                    icon: 'error',
+                    title: this.$t('common.messages._system_err')
+                });
                 });
                 this.$Progress.finish();
             }

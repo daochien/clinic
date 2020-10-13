@@ -355,17 +355,17 @@
                 }
 
                 if (this.form.schedule_date && new Date(this.form.schedule_date) <= new Date()) {
-                    this.errors.schedule_date = this.$t('notification').others._schedule_date_lte_now;
+                    this.errors.schedule_date = this.$t('notification').info.messages._err_schedule_lt_now;
                     Toast.fire({
                         icon: "error",
-                        title: this.$t('notification').others._schedule_date_lte_now,
+                        title: this.$t('notification').info.messages._err_schedule_lt_now,
                     });
                     this.isValidate = false;
                 } else if (_.isEmpty(this.form.schedule_date)) {
-                    this.errors.schedule_date = this.$t('notification').others._err_schedule_is_empty;
+                    this.errors.schedule_date = this.$t('notification').info.messages._err_schedule_required;
                     Toast.fire({
                         icon: "error",
-                        title: this.$t('notification').others._err_schedule_is_empty,
+                        title: this.$t('notification').info.messages._err_schedule_required,
                     });
                     this.isValidate = false;
                 }
@@ -389,7 +389,7 @@
                     .catch(() => {
                         Toast.fire({
                             icon: "error",
-                            title: this.$t('common').messages._system_err,
+                            title: this.$t('notification').info.messages._create_failed,
                         });
                     });
             },
@@ -453,8 +453,10 @@
                         this.$refs.quill.quill.insertEmbed(range.index, 'image', imageUrl)
                     })
                     .catch(error => {
-                        console.log(error);
-                        return this.$alert(this.$t('common.messages._system_err'), {confirmButtonText: 'OK'});
+                        Toast.fire({
+                            icon: "error",
+                            title: this.$t('common.messages._system_err'),
+                        });
                     });
             }
         },

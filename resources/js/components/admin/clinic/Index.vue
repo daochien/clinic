@@ -116,11 +116,11 @@
                                 // Fire.$emit('AfterCreate');
                                 this.loadClinics();
                             }).catch((data)=> {
-                            Toast.fire({
-                                icon: 'error',
-                                title: this.$t('clinic').list.messages._remove_failed,
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: this.$t('clinic').list.messages._remove_failed,
+                                });
                             });
-                        });
                     }
                 })
             },
