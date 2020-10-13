@@ -113,7 +113,7 @@
                     .catch(() => {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('common.messages._system_err')
+                            title: this.$t('clinic.clinic_users.messages._update_failed')
                         });
                     })
             },

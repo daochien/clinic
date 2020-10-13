@@ -298,7 +298,7 @@
                             .catch(() => {
                                 Toast.fire({
                                     icon: "error",
-                                    title: this.$t("common.messages._system_err"),
+                                    title: this.$t("notification.list.messages._remove_failed"),
                                 });
                             });
                     }
@@ -321,7 +321,7 @@
                     .catch(() => {
                         Toast.fire({
                             icon: "error",
-                            title: this.$t("common.messages._system_err"),
+                            title: this.$t("notification.list.messages._stt_update_failed"),
                         });
                     }).finally(() => {
                         notification.groups = groups;

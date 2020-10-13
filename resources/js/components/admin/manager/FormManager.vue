@@ -182,7 +182,7 @@ export default {
                 .catch(()=>{
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('common.messages._system_err')
+                        title: this.$t('admin.info.messages._create_failed')
                     });
                 })
             //}
@@ -197,7 +197,10 @@ export default {
                     }
                 })
                 .catch((error) => {
-                    console.log(error);
+                    Toast.fire({
+                        icon: 'error',
+                        title: this.$t('common.messages._system_err')
+                    });
                 });
             }
         },
@@ -237,7 +240,7 @@ export default {
             .catch(()=>{
                 Toast.fire({
                     icon: 'error',
-                    title: this.$t('common.messages._system_err')
+                    title: this.$t('admin.info.messages._edit_failed')
                 });
             })
 
@@ -266,7 +269,7 @@ export default {
                     }).catch((data) => {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('common.messages._system_err')
+                            title: this.$t('admin.list.messages._remove_failed')
                         });
                     });
                 }

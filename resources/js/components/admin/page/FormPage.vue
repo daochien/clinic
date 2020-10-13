@@ -42,15 +42,15 @@
                                 <div class="col-sm-10 col-form-label">
                                     <div class="custom-control custom-radio form-check-inline float-left">
                                         <input class="custom-control-input" :disabled="isEdit && page.type !='blog' " type="radio" id="inlineArticle" v-model="page.type" :value="'blog'">
-                                        <label class="custom-control-label" for="inlineArticle">記事</label>
+                                        <label class="custom-control-label" for="inlineArticle">{{ $t('page.attr.type._blog') }}</label>
                                     </div>
                                     <div class="custom-control custom-radio form-check-inline float-left">
                                         <input class="custom-control-input" :disabled="isEdit && page.type !='manual' " type="radio" id="inlineManual" v-model="page.type" :value="'manual'">
-                                        <label class="custom-control-label" for="inlineManual">マニュアル</label>
+                                        <label class="custom-control-label" for="inlineManual">{{ $t('page.attr.type._manual') }}</label>
                                     </div>
                                     <div class="custom-control custom-radio form-check-inline float-left">
                                         <input class="custom-control-input" :disabled="isEdit  && page.type !='faq'" type="radio" id="inlineFAQ" v-model="page.type" :value="'faq'">
-                                        <label class="custom-control-label" for="inlineFAQ">よくある質問</label>
+                                        <label class="custom-control-label" for="inlineFAQ">{{ $t('page.attr.type._faq') }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                                 <label class="col-sm-2 col-form-label">{{ $t('page.attr._image') }}</label>
                                 <div class="col-sm-4" v-show="previewImage">
                                     <img :src="previewImage" style="width:100%;">
-                                    <span @click="removeImage()" style="color: #EB5757; font-size: 10px; cursor: pointer;">アイキャッチ画像を削除する</span>
+                                    <span @click="removeImage()" style="color: #EB5757; font-size: 10px; cursor: pointer;">{{ $t('page.info.form._btn_remove_thumbnail') }}</span>
                                 </div>
                                 <div class="col-sm-4">
                                     <div class="custom-file">
@@ -142,7 +142,7 @@
                                         id="uploadImage"
                                         style="display: none;"
                                         @change="onImageChange">
-                                        <button @click.prevent="$refs.file.click()" type="button" class="mb-2 btn btn-sm btn-white mr-1">ファイルを選択</button>
+                                        <button @click.prevent="$refs.file.click()" type="button" class="mb-2 btn btn-sm btn-white mr-1">{{ $t('page.info.form._input_file_desc') }}</button>
                                     </div>
                                     <has-error :form="pageFormErrors" field="image"></has-error>
                                 </div>
@@ -157,7 +157,7 @@
                             <div class="form-group row" style="text-align: right;" v-if="page.type != 'faq'">
                                 <div class="col-sm-12">
                                     <span v-if="!showMore" @click="showMore = !showMore" style="cursor:pointer;">
-                                        すべての設定を表示
+                                        {{ $t('page.info.others._show_more') }}
                                         <span>
                                             <svg width="19" height="11" viewBox="0 0 19 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M2.38615 0.394216L0.837402 1.95172L9.4999 10.6055L18.1624 1.94297L16.6137 0.394216L9.4999 7.50797L2.38615 0.394216Z" fill="#3D5170"/>
@@ -165,7 +165,7 @@
                                         </span>
                                     </span>
                                     <span v-if="showMore" @click="showMore = !showMore" style="cursor:pointer;">
-                                        主な設定だけ表示
+                                        {{ $t('page.info.others._show_less') }}
                                         <span>
                                             <svg width="19" height="11" viewBox="0 0 19 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M16.6138 10.6058L18.1626 9.04828L9.5001 0.394531L0.837597 9.05703L2.38635 10.6058L9.5001 3.49203L16.6138 10.6058Z" fill="#3D5170"/>
@@ -451,7 +451,7 @@ export default {
             } catch (error) {
                 Toast.fire({
                     icon: 'error',
-                    title: 'Some error occured! Please try again'
+                    title: this.$t('page.info.messages._create_failed')
                 });
             }
             this.isLoading = false;
@@ -518,8 +518,10 @@ export default {
                     this.$refs.quill.quill.insertEmbed(range.index, 'image', imageUrl)
                 })
                 .catch(error => {
-                    console.log(error);
-                    return this.$alert(this.$t('common.messages._system_err'), {confirmButtonText: 'OK'});
+                    Toast.fire({
+                        icon: 'error',
+                        title: this.$t('common.messages._system_err'),
+                    });
                 });
         },
         loadCategory () {
@@ -559,7 +561,7 @@ export default {
                 .catch(()=>{
                     Toast.fire({
                         icon: 'error',
-                        title: this.$t('common.messages._system_err')
+                        title: this.$t('page.info.messages._create_category_failed')
                     });
                 })
         },
@@ -649,7 +651,7 @@ export default {
                 console.log(error);
                 Toast.fire({
                     icon: 'error',
-                    title: 'Some error occured! Please try again'
+                    title: this.$t('page.info.messages._edit_failed')
                 });
             }
             this.isLoading = false;
@@ -680,7 +682,7 @@ export default {
                     }).catch((data) => {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('common.messages._system_err')
+                            title: this.$t('page.list.messages._remove_failed')
                         });
                     });
                 }

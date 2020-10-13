@@ -90,7 +90,7 @@
               .catch(()=>{
                   Toast.fire({
                       icon: 'error',
-                      title: this.$t('common.messages._system_err')
+                      title: this.$t('group.info.messages._create_failed')
                   });
               })
           }

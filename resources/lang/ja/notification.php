@@ -70,6 +70,7 @@ return [
             '_err_title_required' => 'タイトルを必ず必ず入力してください。',
             '_err_target_required' => '送信対象者を必ず指定してください。',
             '_err_content_required' => 'お知らせ本文を必ず入力してください。',
+            '_err_schedule_required' => '公開日時を必ず指定してください。',
             '_err_schedule_lt_now' => '公開日時を正しく指定してください。',
         ],
         'others' => [
@@ -116,7 +117,5 @@ return [
         '_remove_modal_no' => 'いいえ',
         '_remove_modal_title' => 'お知らせを削除',
         '_remove_modal_description' => 'このお知らせを削除してもよろしいですか？一度削除されたお知らせは復旧することはできません。',
-        '_schedule_date_lte_now' => 'Schedule date must be greater than now',
-        '_err_schedule_is_empty' => 'Schedule date is required'
     ],
 ];

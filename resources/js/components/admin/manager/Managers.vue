@@ -166,7 +166,10 @@ export default {
                 this.admins = data.data;
             })
             .catch((error) => {
-                console.log(error);
+                Toast.fire({
+                    icon: 'error',
+                    title: this.$t('common.messages._system_err')
+                });
             });
         },
         removeAdmin (id) {
@@ -192,7 +195,7 @@ export default {
                     }).catch((data) => {
                         Toast.fire({
                             icon: 'error',
-                            title: this.$t('common.messages._system_err')
+                            title: this.$t('admin.list.messages._remove_failed')
                         });
                     });
                 }
