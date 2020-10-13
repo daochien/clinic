@@ -147,7 +147,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div v-if="entity.notification.confirm == true">
+                                        <div v-if="entity.notification.confirm">
                                             <span
                                                 v-if="status(entity, 2)"
                                             >{{ $t('notification.noti_users.others._unconfirm') }}</span>
