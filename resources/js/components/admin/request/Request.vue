@@ -89,6 +89,7 @@
                                     </li>
                                 </ul>
                                 <div v-else-if="value.type === 'date'" class="col-10" >{{submission.content[value.name]|myDate}}</div>
+                                <div v-else-if="value.type === 'number'" class="col-10" >{{Number(submission.content[value.name]).toLocaleString()}}</div>
                                 <div v-else class="col-10" v-html="submission.content[value.name]"></div>
                             </div>
                             <button v-if="can_update" class="btn btn-primary float-right mr-3" @click="approve()" :disabled="!can_change">{{ $t('request.info.others._btn_approve')}}</button>
@@ -97,7 +98,7 @@
                     </div>
 
                     <div class="card mb-5" v-if="submission.request_comments.length > 0"  id="request-discussion">
-                        <div class="card-header border-bottom pt-0">
+                        <div class="card-header border-bottom pt-4">
                             <label class="font-weight-bold" v-html="$t('request.discussion._title')"></label>
                         </div>
                         <div class="card-body p-0 pl-3 d-content">

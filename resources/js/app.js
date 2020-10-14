@@ -129,10 +129,8 @@ import filter from './filter';
 Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.component('admin-dashboard', require('./components/admin/Dashboard.vue'));
 
-Vue.component(
-    'not-found',
-    require('./components/NotFound.vue').default
-);
+Vue.component('not-found', require('./components/NotFound.vue').default);
+Vue.component('my-account', require('./components/client/MyAccount').default);
 
 import Vue2Editor from "vue2-editor";
 Vue.use(Vue2Editor);

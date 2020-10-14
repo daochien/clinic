@@ -155,7 +155,7 @@ jQuery(function() {
         }
 
         // ask for confirmation
-        sConfirm("このテンプレート定義を保存します?", function() {
+        // sConfirm("このテンプレート定義を保存します?asdf s", function() {
             fbSaveBtn.attr('disabled', 'disabled');
             fbClearBtn.attr('disabled', 'disabled');
 
@@ -203,7 +203,7 @@ jQuery(function() {
                 fbSaveBtn.removeAttr('disabled')
                 fbClearBtn.removeAttr('disabled')
             })
-        })
+        // })
 
     })
 

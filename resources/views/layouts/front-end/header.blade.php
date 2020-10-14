@@ -28,9 +28,9 @@
                     <img src="/front-end/images/user-icon.png" alt="拠点ユーザー"> 拠点ユーザー
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <router-link to="/my-account"  class="dropdown-item pb-2">
-                        マイ・アカウント
-                    </router-link>
+                    <a href="/my-account"  class="dropdown-item pb-2">
+                        マイアカウント<img src="/images/user-profile-icon.png" alt="マイアカウント">
+                    </a>
                     <a class="dropdown-item" href="#"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         ログアウト
                         <img src="/front-end/images/logout.png">
