@@ -232,7 +232,7 @@
                 axios.get("/api/setting/user-role").then((response) => {
                     this.roles = response.data.data;
                     // let staff_role = _.indexOf(this.roles, 3);
-                    this.form.role = this.roles[0];
+                    this.form.role = this.roles[1];
                 });
             },
         },

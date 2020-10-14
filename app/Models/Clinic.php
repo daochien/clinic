@@ -24,7 +24,7 @@ class Clinic extends Model
     {
         return $this->hasMany(ClinicUser::class)
             ->join('model_has_roles as mr', 'mr.model_id', 'clinic_users.user_id')
-            ->where('mr.role_id', 3)
+            ->where('mr.role_id', 4)
             ->count();
     }
 
