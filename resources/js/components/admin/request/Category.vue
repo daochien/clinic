@@ -339,36 +339,18 @@ import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
                 return true;
             },
             getStatus(object) {
-                self = this;
-                if (object.request_logs.length === 0) {
-                    this.status_label = 'btn-warning';
+                if (object.status === 1) {
                     return '<span class="text-warning">' + this.$t('request').attr.status._open + '</span>'
                 }
-
-                let approvedCount = 0;
-                for (let i = 0; i < object.request_logs.length; i++) {
-                    let log = object.request_logs[i];
-                    let valid_approver = _.findIndex(object.template.approvers, ['id', log.approver_id]) >= 0;
-                    if (valid_approver){
-                        if (log.status === 1 && !object.template.multi_approve) {
-                            return '<span class="text-info">' + self.$t('request').attr.status._approved + '</span>'
-                        }
-                        if (log.status === 2) {
-                            return '<span class="text-secondary">' + self.$t('request').attr.status._rejected + '</span>'
-                        }
-                        approvedCount++;
-                    }
+                if (object.status === 2) {
+                    return '<span class="text-primary">' + this.$t('request').attr.status._in_progress + '</span>'
                 }
-
-                if (approvedCount === 0) {
-                    return '<span class="text-warning">' + this.$t('request').attr.status._open + '</span>'
-                }
-
-                if (approvedCount === object.template.approvers.length) {
+                if (object.status === 3) {
                     return '<span class="text-info">' + this.$t('request').attr.status._approved + '</span>'
                 }
-
-                return '<span class="text-primary">' + this.$t('request').attr.status._in_progress + '</span>'
+                if (object.status === 4) {
+                    return '<span class="text-secondary">' + this.$t('request').attr.status._rejected + '</span>'
+                }
             },
             getLastRequestLog(object) {
                 self = this;

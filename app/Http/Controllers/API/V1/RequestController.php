@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Events\ChangeRequestStatusEvent;
+use App\Events\Form\FormCreated;
 use App\Helper\FormBuilderHelper as Helper;
 use App\Http\Resources\RequestCollection;
 use App\Http\Resources\RequestResource;
@@ -67,6 +69,8 @@ class RequestController extends BaseController
             }
             $user = auth()->user();
             $this->requestLogService->createLog($id, $user->id, $status);
+
+            event(new ChangeRequestStatusEvent($id));
 
             return $this->sendSuccessResponse(__('app.popup.update_success'));
         } catch (\Exception $exception) {

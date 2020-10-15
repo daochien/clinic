@@ -19,6 +19,7 @@ class RequestResource extends JsonResource
             'template_id' => $this->form_id,
             "content" => (object) $this->content,
             "request_logs" => $this->requestLogs,
+            "status" => $this->status,
             "request_comments" => $this->requestComments,
             "template" => $this->form,
             "created_at" => $this->created_at,
