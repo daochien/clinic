@@ -317,43 +317,30 @@
                 this.$Progress.finish();
             },
             getStatus() {
-                self = this;
-                if (this.submission.request_logs.length === 0) {
+                if (object.status === 1) {
                     this.status_label = 'btn-warning';
                     this.status_text = this.$t('request').attr.status._open;
                     this.can_change = true;
                     return;
                 }
-
-                let approvedCount = 0;
-                let reject = false;
-                _.forEach(this.submission.request_logs, function (log, logKey) {
-
-                    let valid_approver = _.findIndex(self.submission.template.approvers, ['id', log.approver_id]) >= 0;
-                    if (valid_approver){
-                        if (log.status === 2) {
-                            self.status_label = 'btn-secondary';
-                            self.status_text = self.$t('request').attr.status._rejected;
-                            reject = true;
-                            this.can_change = false;
-                            return false;
-                        }
-                        approvedCount++;
-                    }
-                });
-                if (reject) {
-                    return ;
+                if (object.status === 2) {
+                    this.can_change = true;
+                    this.status_label = 'btn-primary';
+                    this.status_text = this.$t('request').attr.status._in_progress;
+                    return;
                 }
-                if (approvedCount === this.submission.template.approvers.length) {
+                if (object.status === 3) {
                     this.status_label = 'btn-info'
                     this.status_text = this.$t('request').attr.status._approved;
                     this.can_change = false;
                     return;
                 }
-
-                this.can_change = true;
-                this.status_label = 'btn-primary';
-                this.status_text = this.$t('request').attr.status._in_progress;
+                if (object.status === 4) {
+                    this.status_label = 'btn-secondary';
+                    this.status_text = self.$t('request').attr.status._rejected;
+                    this.can_change = false;
+                    return;
+                }
             },
             isArray(value){
                 return _.isArray(value);

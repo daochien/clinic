@@ -45,47 +45,7 @@ class RequestService
         }
 
         if (!empty($param['status'])) {
-            switch ($param['status']) {
-                //rejected request
-                case "4":
-                    $query->join('request_logs as rl', function ($join) {
-                        $join->on('rl.request_id', 's.id');
-                        $join->where('rl.status', RequestLog::STATUS['reject']);
-                    })
-                        ->groupBy('s.id')
-                        ->addSelect(['rl.approver_id', 'rl.status', 'rl.created_at']);
-                    break;
-                //open request
-                case "1":
-                    $query->leftJoin('request_logs as rl', function ($join) {
-                        $join->on('rl.request_id', 's.id');
-                    });
-                    $query->whereNull('rl.status')
-                        ->groupBy('s.id')
-                        ->addSelect(['rl.approver_id', 'rl.status', 'rl.created_at']);
-                    break;
-                // processing request
-                //TODO: remove open request in this filter
-                case "2":
-                    $query->join('template_approvers as ta', 'ta.form_id', 's.form_id');
-                    $query->leftJoin('request_logs as rl', function ($join) {
-                        $join->on('ta.user_id', 'rl.approver_id');
-                        $join->on('rl.request_id', 's.id');
-                    });
-                    $query->whereNull('rl.status')
-                        ->groupBy('s.id')
-                        ->addSelect(['rl.approver_id', 'rl.status', 'rl.created_at']);
-                    break;
-                // approved request
-                case "3":
-                    $query->join('template_approvers as ta', 'ta.form_id', 's.form_id');
-                    $query->join('request_logs as rl', function ($join) {
-                        $join->on('ta.user_id', 'rl.approver_id');
-                        $join->on('rl.request_id', 's.id');
-                        $join->where('rl.status', RequestLog::STATUS['approve']);
-                    })->groupBy('s.id')->addSelect(['rl.approver_id', 'rl.status', 'rl.created_at']);
-                    break;
-            }
+            $query->where('s.status', $param['status']);
         }
 
         return $query->with(['requestLogs', 'requestComments', 'user', 'form.approvers', 'form.category'])

@@ -9,6 +9,7 @@ use Illuminate\Support\HtmlString;
 
 class Submission extends Model
 {
+    const STATUS = ['open' => 1, 'processing' => 2, 'approved' => 3, 'rejected' => 4];
 	/**
 	 * The table name
 	 *
