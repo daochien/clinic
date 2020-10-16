@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-loading" @click="showMore()" v-show="pagination.current_page == 1 || pagination.current_page < pagination.last_page">{{ $t('page.web.blog.list._show_more') }}</button>
+                <button class="btn btn-loading" @click="showMore()" v-show="pagination.current_page < pagination.last_page">{{ $t('page.web.blog.list._show_more') }}</button>
             </div>
             <div class="blog-content content-wrapper" v-else>
                 {{ $t('page.web.blog.others._no_data') }}
@@ -118,7 +118,7 @@ export default {
             try {
                 let {
                     data
-                } = await axios.get('api/page?status=1&type=blog&page=' + page);
+                } = await axios.get('api/page?status=1&type=blog&limit=15&page=' + page);
                 this.blogs = this.blogs.concat(data.data);
                 this.pagination = data.meta;
                 //  let currIndex = this.$refs.slick.currentSlide()

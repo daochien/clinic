@@ -22,7 +22,7 @@ class PageRepository
     {
 
         $limit = !empty($params['limit']) ? $params['limit'] : $limit;
-
+        
         $query = $this->model->orderBy('id', 'desc');
         if (!empty($params['type'])) {
             $query->where('type', $params['type']);
