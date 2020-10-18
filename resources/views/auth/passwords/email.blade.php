@@ -4,7 +4,7 @@
     <div class="page-title center">
         <div class="container">
             <a href="/login" class="back">← {{ __('auth.forgot_pwd.others._link_back_to_login') }}</a>
-            <h1><img src="/front-end/images/logo.png" alt=""></h1>
+            <h1><a href="#"><img src="/images/logo/apple-icon-120x120.png" alt=""></a></h1>
             {{ __('auth.forgot_pwd.form._form_title') }}
         </div>
     </div>

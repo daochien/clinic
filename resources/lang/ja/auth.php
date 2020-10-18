@@ -19,6 +19,7 @@ return [
         'others' => [
             '_btn_login' => 'ログインする',
             '_link_forgot_password' => 'パスワードを忘れた方はこちら',
+            '_staff_mobile_user_cant_login' => 'ログインに失敗しました。',
         ],
     ],
     'forgot_pwd' => [

@@ -34,7 +34,7 @@ class UpdateRequestStatus
             }
         }
 
-        if ($approvedCount > 0) {
+        if ($approvedCount > 0 && $approvedCount < $approverList->count()) {
             $event->submission->update(['status' => Submission::STATUS['processing']]);
         }
     }

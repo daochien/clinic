@@ -9,7 +9,7 @@
 
     <title>{{ __('app.name') }}</title>
 
-    <link rel="icon" type="image/png" href="/front-end/images/logo.png">
+    <link rel="icon" type="image/png" href="/images/logo/favicon-32x32.png">
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link href="{{ asset('css/shards-dashboards.1.3.1.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('vendor/formbuilder/js/footable/css/footable.standalone.min.css') }}">
@@ -25,9 +25,9 @@
         <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
             <div class="main-navbar">
                 <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
-                    <a class="navbar-brand w-100 mr-0" href="/admin/profile" style="line-height: 25px;">
+                    <a class="navbar-brand w-100 mr-0 pt-0" href="/admin/profile" style="line-height: 25px;">
                         <div class="d-table m-auto">
-                            <span class="d-none d-md-inline ml-1">{{ __('app.name') }}</span>
+                            <img src="/images/logo/yuushinkai-forum_logo.jpg" style="max-width: 303px" alt="{{ __('app.name') }}">
                         </div>
                     </a>
                     <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
