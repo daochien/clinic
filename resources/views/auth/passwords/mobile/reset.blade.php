@@ -1,14 +1,10 @@
 @extends('layouts.app')
 @section('content')
-    <div class="center">
-        <button type="button" onclick="openApp()">Open App</button>
-    </div>
 @endsection
 <script>
-    function openApp()
-    {
+    var tid = setInterval(function() {
+        if (document.readyState !== 'complete') return;
+        clearInterval(tid);
         window.open("{{$resetUrl}}");
-    }
-    {{--sleep(1000);--}}
-    {{--window.open("{{$resetUrl}}");--}}
+    }, 100);
 </script>

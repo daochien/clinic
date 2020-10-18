@@ -1,9 +1,10 @@
 <aside class="main-sidebar col-12 col-md-3 col-lg-2 px-0">
     <div class="main-navbar">
         <nav class="navbar align-items-stretch navbar-light bg-white flex-md-nowrap border-bottom p-0">
-            <a class="navbar-brand w-100 mr-0" href="/admin/profile" style="line-height: 25px;">
+            <a class="navbar-brand w-100 mr-0 pt-0" href="/admin/profile" style="line-height: 25px;">
                 <div class="d-table m-auto">
-                   <span class="d-none d-md-inline ml-1">{{ __('app.name') }}</span>
+{{--                   <span class="d-none d-md-inline ml-1">{{ __('app.name') }}</span>--}}
+                    <img src="/images/logo/yuushinkai-forum_logo.jpg" style="max-width: 303px" alt="{{ __('app.name') }}">
                 </div>
             </a>
             <a class="toggle-sidebar d-sm-inline d-md-none d-lg-none">
@@ -35,7 +36,7 @@
                     @can('manager.index')
                         <router-link to="/admin/manager" class="dropdown-item"
                         onclick="
-                        
+
                             $('.dropdown-item').removeClass('active');
                             $('.custorm-item').removeClass('active');
                             $(this).parent().parent().addClass('active');

@@ -2,7 +2,7 @@
 @section('content')
     <div class="page-title center">
         <div class="container">
-            <h1><a href="#"><img src="/front-end/images/logo.png" alt=""></a></h1>
+            <h1><a href="#"><img src="/images/logo/apple-icon-120x120.png" alt=""></a></h1>
             {{ __('auth.login.form._form_title') }}
         </div>
     </div>

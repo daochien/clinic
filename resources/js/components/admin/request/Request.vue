@@ -304,7 +304,7 @@
                 axios.get("/api/request/"  + this.$route.params.id).then((response ) => {
                     this.submission = response.data.data.submission;
                     this.form_headers = response.data.data.form_headers;
-                    this.status = this.getStatus();
+                    this.getStatus();
                     this.canUpdateRequest(this.submission);
                 });
                 this.$Progress.finish();
@@ -317,25 +317,25 @@
                 this.$Progress.finish();
             },
             getStatus() {
-                if (object.status === 1) {
+                if (this.submission.status === 1) {
                     this.status_label = 'btn-warning';
                     this.status_text = this.$t('request').attr.status._open;
                     this.can_change = true;
                     return;
                 }
-                if (object.status === 2) {
+                if (this.submission.status === 2) {
                     this.can_change = true;
                     this.status_label = 'btn-primary';
                     this.status_text = this.$t('request').attr.status._in_progress;
                     return;
                 }
-                if (object.status === 3) {
+                if (this.submission.status === 3) {
                     this.status_label = 'btn-info'
                     this.status_text = this.$t('request').attr.status._approved;
                     this.can_change = false;
                     return;
                 }
-                if (object.status === 4) {
+                if (this.submission.status === 4) {
                     this.status_label = 'btn-secondary';
                     this.status_text = self.$t('request').attr.status._rejected;
                     this.can_change = false;

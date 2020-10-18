@@ -3,7 +3,7 @@
       <span>Menu</span>
     </button>
     <div class="col-left">
-      <h1><a href="/notification"><img src="/front-end/images/logo.png" alt=""> Portal</a></h1>
+      <h1><a class="pl-0" href="/notification"><img src="/images/logo/yuushinkai-forum_logo.jpg" style="max-height: 79px" alt=""> Portal</a></h1>
     </div>
     <div class="header-menu">
       <ul>
