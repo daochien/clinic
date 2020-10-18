@@ -147,7 +147,10 @@
                                         <div class="row mt-3">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label>{{ $t('notification.attr._content')}}</label>
+                                                    <label>
+                                                        {{ $t('notification.attr._content')}}
+                                                        <span class="text-danger">*</span>
+                                                    </label>
                                                     <quill-editor
                                                         ref="quill"
                                                         :content="form.content"

@@ -149,11 +149,11 @@
                                     <td>
                                         <div v-if="entity.notification.confirm">
                                             <span
-                                                v-if="status(entity, 2)"
-                                            >{{ $t('notification.noti_users.others._unconfirm') }}</span>
-                                            <span
                                                 v-if="status(entity, 3)"
-                                            >{{ entity.schedule_date | myDate }}</span>
+                                            >{{ $moment(status(entity, 3).updated_at).format('YYYY-MM-DD HH:mm:ss') }}</span>
+                                            <span
+                                                v-else
+                                            >{{ $t('notification.noti_users.others._unconfirm') }}</span>
                                         </div>
                                         <div v-else>-</div>
                                     </td>
@@ -241,6 +241,9 @@
             status(notificationUser, status) {
                 if (!_.isEmpty(notificationUser.status)) {
                     for(let i = 0; i< notificationUser.status.length; i++) {
+                        if (status == 3) {
+                            console.log(notificationUser.status[i])
+                        }
                         if (notificationUser.status[i].status == status) {
                             return notificationUser.status[i];
                         }

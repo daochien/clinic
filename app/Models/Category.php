@@ -21,7 +21,7 @@ class Category extends Model
 
     public function latestPage()
     {
-        return $this->hasOne(Page::class, 'category_id')->latest();
+        return $this->hasOne(Page::class, 'category_id')->where('pages.status', Page::PAGE_STATUS['active'])->latest();
     }
 
     public function countRequestNeedProcess($catId)

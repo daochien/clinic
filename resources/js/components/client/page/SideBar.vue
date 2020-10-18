@@ -6,7 +6,7 @@
         </div>
         <div class="side-content">
             <ul>
-                <li :class="[{'active': item.id == withCateId}]" v-for="(item, index) in blogCategorys" :key="index" >
+                <li :class="[{'active': item.id == withCateId}]" v-for="(item, index) in blogCategorys" :key="index" v-show="item.latest_page" >
                     <a href="javascript:void(0)">
                     <span class="title">{{item.name}}</span>
                     </a>
@@ -137,12 +137,12 @@ export default {
             this.$Progress.start();
             axios.get("/api/category/type/blog", {
                 params : {
+                    latest_page: 1,
                     show_client: 1,
                     with_id: cateId
                 }
             }).then(({ data }) => {
                 this.blogCategorys = data.data;
-                console.log(this.blogCategorys);
             });
             this.$Progress.finish();
         },

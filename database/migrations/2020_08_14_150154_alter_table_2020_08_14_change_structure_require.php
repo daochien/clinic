@@ -57,7 +57,7 @@ class AlterTable20200814ChangeStructureRequire extends Migration
             $table->text('post_code')->change();
         });
         Schema::table('users', function (Blueprint $table) {
-            $table->drop('description');
+            $table->dropColumn('description');
         });
     }
 }
