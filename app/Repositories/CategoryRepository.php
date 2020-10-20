@@ -33,7 +33,7 @@ class CategoryRepository
             array_push($cateIds, $withId);
 
             $categorys = $this->model->where('type', $cateType)->whereIn('id', $cateIds);
-            return $categorys->get();
+            return $categorys->with(['latestPage'])->get();
         } else {
             $categorys = $this->model->where('type', $cateType);
             if (!empty($getLatest)) {
