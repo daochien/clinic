@@ -72,7 +72,7 @@ class LoginController extends Controller
 
         if ($authUser->isMobileUser()) {
             Auth::guard('web')->logout();
-            Toastr::error(__('auth.login.other._staff_mobile_user_cant_login'));
+            Toastr::error(__('auth.login.others._staff_mobile_user_cant_login'));
             return redirect('/login');
         } elseif ($authUser->isWebUser()) {
             LoginLog::create(['user_id' => $authUser->id]);
