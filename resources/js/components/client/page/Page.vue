@@ -19,7 +19,7 @@
                             <div class="news-slider-item" v-for="(blog, index) in blogs" :key="index" v-if="index < 5">
                                 <router-link :to="'blogs/'+blog.id">
                                     <img v-if="blog.image" :src="blog.image" alt="">
-                                    <img v-else src="/front-end/images/default-image.png" alt="">
+                                    <img v-else src="/front-end/images/default-img-portrait.png" alt="">
                                     <span class="title">{{ blog.title }}</span>
                                     <span class="date">{{ blog.created_at | myDateShort }}</span>
                                 </router-link>
@@ -37,7 +37,7 @@
                         <div class="blog-img">
                             <a :href="'blogs/'+blog.id">
                                 <img v-if="blog.image" :src="blog.image" alt="">
-                                <img v-else src="/front-end/images/default-image.png" alt="">
+                                <img v-else src="/front-end/images/default-img-horizontal.png" alt="">
                             </a>
                         </div>
                         <div class="blog-info">
