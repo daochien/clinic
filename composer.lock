@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e076645a324cf90728198bef7415a27",
+    "content-hash": "484feef34558e05538bfc0902148ac6d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -60,16 +60,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.154.0",
+            "version": "3.158.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "370d1a58004fbeb3896ec48489677e90e653b12f"
+                "reference": "cdf3c097a606087654ac90ea1ffb8f3e86c423be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/370d1a58004fbeb3896ec48489677e90e653b12f",
-                "reference": "370d1a58004fbeb3896ec48489677e90e653b12f",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/cdf3c097a606087654ac90ea1ffb8f3e86c423be",
+                "reference": "cdf3c097a606087654ac90ea1ffb8f3e86c423be",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +141,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-09-10T18:12:09+00:00"
+            "time": "2020-10-21T18:12:19+00:00"
         },
         {
             "name": "aws/aws-sdk-php-laravel",
@@ -6037,6 +6037,7 @@
                 "laravel",
                 "vue-i18n"
             ],
+            "abandoned": true,
             "time": "2020-03-10T18:55:52+00:00"
         },
         {
@@ -6779,6 +6780,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
