@@ -19,7 +19,7 @@
                                 <div v-for="item in notifications.data" :class="`notification-item list-group-item ` + isActive(item)" @click="onSelect(item)">
                                     <div class="col-left">
                                         <span class="source bod">{{ getFromLabel(item) }}</span>
-                                        <span class="date">{{ $moment(item.created_at).format('YYYY/MM/DD') }}</span>
+                                        <span class="date">{{ $moment(item.created_at).format('YYYY年MM月DD日') }}</span>
                                     </div>
                                     <div class="col-right">
                                         <span class="sub">{{ getFromTitle(item) }}</span>
@@ -38,7 +38,7 @@
                                 <div v-for="item in notifications.data" :class="`notification-item list-group-item ` + isActive(item)" @click="onSelect(item)">
                                     <div class="col-left">
                                         <span class="source bod">{{ getFromLabel(item) }}</span>
-                                        <span class="date">{{ $moment(item.created_at).format('YYYY/MM/DD') }}</span>
+                                        <span class="date">{{ $moment(item.created_at).format('YYYY年MM月DD日') }}</span>
                                     </div>
                                     <div class="col-right">
                                         <span class="sub">{{ getFromTitle(item) }}</span>
@@ -57,7 +57,7 @@
                                 <div v-for="item in notifications.data" :class="`notification-item list-group-item ` + isActive(item)" @click="onSelect(item)">
                                     <div class="col-left">
                                         <span class="source bod">{{ getFromLabel(item) }}</span>
-                                        <span class="date">{{ $moment(item.created_at).format('YYYY/MM/DD') }}</span>
+                                        <span class="date">{{ $moment(item.created_at).format('YYYY年MM月DD日') }}</span>
                                     </div>
                                     <div class="col-right">
                                         <span class="sub">{{ getFromTitle(item) }}</span>
@@ -74,7 +74,7 @@
                     </div>
                 </aside>
                 <div class="content-wrapper" v-if="selection">
-                    <span class="date">{{ $moment(selection.created_at).format('YYYY/MM/DD') }}</span>
+                    <span class="date">{{ $moment(selection.created_at).format('YYYY年MM月DD日') }}</span>
                     <h3 class="title">{{ selection.title }}</h3>
                     <div class="context">
                         <p v-html="selection.content">

@@ -113,6 +113,10 @@
                                     icon: "success",
                                     title: this.$t('clinic').list.messages._remove_success,
                                 });
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: this.$t('clinic').list.messages._remove_success,
+                                });
                                 // Fire.$emit('AfterCreate');
                                 this.loadClinics();
                             }).catch((data)=> {

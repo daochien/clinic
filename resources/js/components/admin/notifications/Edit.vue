@@ -355,6 +355,13 @@
                         title: this.$t('notification').info.messages._err_content_required,
                     });
                     this.isValidate = false;
+                } else if (this.form.content.length > 500) {
+                    this.errors.content = this.$t('notification').info.messages._err_content_gt_500;
+                    Toast.fire({
+                        icon: "error",
+                        title: this.$t('notification').info.messages._err_content_gt_500,
+                    });
+                    this.isValidate = false;
                 }
 
                 if (this.form.schedule_date && new Date(this.form.schedule_date) <= new Date()) {
