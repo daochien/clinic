@@ -54,7 +54,7 @@ class ResetPassword extends Notification implements ShouldQueue
         $resetLink = url($user->isMobileUser() ? route('password.mobile.reset', $params, false) : route('password.reset', $params, false));
 
         return (new MailMessage)
-            ->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'))
+            ->from(env('MAIL_FROM'), env('MAIL_FROM_NAME'))
             ->subject("[" . config('app.name') . "] パスワード再発⾏のお知らせ")
             ->markdown('emails.reset-password', ['resetLink' => $resetLink]);
     }

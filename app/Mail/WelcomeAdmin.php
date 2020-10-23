@@ -34,7 +34,7 @@ class WelcomeAdmin extends Mailable
     public function build()
     {
         return $this
-            ->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'))
+            ->from(env('MAIL_FROM'), env('MAIL_FROM_NAME'))
             ->subject("[{$this->user->name}] Welcome to " . config('app.name'))
             ->markdown('emails.welcome-user');
     }

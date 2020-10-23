@@ -64,7 +64,7 @@ class SNSNotification extends Notification
     public function toSns($notifiable)
     {
         return (new SnsMessage())
-            ->from(env('MAIL_USERNAME'), env('MAIL_FROM_NAME'))
+            ->from(env('MAIL_FROM'), env('MAIL_FROM_NAME'))
             ->message('This is a simple message')
             ->subject('This is subject')
             ->topicArn('arn:aws:sns:us-east-2:113322385737:cinic_sns');
