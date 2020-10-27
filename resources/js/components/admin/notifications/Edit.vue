@@ -135,7 +135,7 @@
                                                         ref="datetime"
                                                         :required="true"
                                                         :readonly="true"
-                                                        format="YYYY-MM-DD h:i:s"
+                                                        format="YYYY-MM-DD H:i:s"
                                                         v-model='form.schedule_date'
                                                         name="datetime"
                                                         :disabled-dates="disabledDates"></datetime>
@@ -308,7 +308,7 @@
                                 $('#tj-datetime-input').prop( "disabled", true );
                             }
                             if (data.data.schedule_date) {
-                                this.form.schedule_date = this.$moment(data.data.schedule_date).format('YYYY-MM-DD hh:mm:ss');
+                                this.form.schedule_date = this.$moment(data.data.schedule_date).format('YYYY-MM-DD H:m:s');
                             }
                             if (data.data.confirm == 1) {
                                 this.form.confirm = true;

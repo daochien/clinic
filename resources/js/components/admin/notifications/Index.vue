@@ -167,6 +167,7 @@
                                                 aria-labelledby="operatingAction"
                                             >
                                                 <a
+                                                    style="cursor: pointer"
                                                     v-if="new Date(entity.schedule_date) >= new Date() && !entity.draft"
                                                     class="dropdown-item text-primary"
                                                     @click="publishAnnouncement(entity)"
@@ -174,11 +175,13 @@
                                                 </a>
                                                 <router-link
                                                     :class="'dropdown-item text-primary'"
+                                                    style="cursor: pointer"
                                                     :to="{ name: 'details_notification', params: { id: entity.id }}"
                                                 >{{ $t('notification.list.data_table.actions._act_show_list_user')}}
                                                 </router-link>
                                                 <router-link
                                                     :class="'dropdown-item text-primary'"
+                                                    style="cursor: pointer"
                                                     :to="{ name: 'edit_notification', params: { id: entity.id }}"
                                                 >{{ $t('notification.list.data_table.actions._act_edit')}}
                                                 </router-link>
@@ -186,6 +189,7 @@
                                                     v-if="entity.draft"
                                                     class="dropdown-item text-danger"
                                                     @click="deleteNotification(entity)"
+                                                    style="cursor: pointer"
                                                 >{{ $t('notification.list.data_table.actions._act_remove')}}
                                                 </a>
                                             </div>
@@ -293,6 +297,10 @@
                     if (result.value) {
                         axios.delete(`/api/notification/delete/${entity.id}`)
                             .then((data) => {
+                                Toast.fire({
+                                    icon: "success",
+                                    title: this.$t("notification.list.messages._remove_success"),
+                                });
                                 return this.loadNotification();
                             })
                             .catch(() => {
