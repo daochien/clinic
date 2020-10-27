@@ -348,6 +348,7 @@
                     });
                     this.isValidate = false;
                 }
+                console.log(this.stripHtml(this.form.content).length);
                 if (this.form.content.length <= 0) {
                     this.errors.content = this.$t('notification').info.messages._err_content_required;
                     Toast.fire({
@@ -355,7 +356,7 @@
                         title: this.$t('notification').info.messages._err_content_required,
                     });
                     this.isValidate = false;
-                } else if (this.form.content.length > 500) {
+                } else if (this.stripHtml(this.form.content).length > 500) {
                     this.errors.content = this.$t('notification').info.messages._err_content_gt_500;
                     Toast.fire({
                         icon: "error",
@@ -380,6 +381,11 @@
                 //     });
                 //     this.isValidate = false;
                 // }
+            },
+            stripHtml(html) {
+                let temporalDivElement = document.createElement("div");
+                temporalDivElement.innerHTML = html;
+                return temporalDivElement.textContent || temporalDivElement.innerText || "";
             },
             saveNotification(draft = 1) {
                 this.validateForm();
