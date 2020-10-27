@@ -161,10 +161,12 @@ class NotificationService
                 'created_by' => Auth::id(),
             ];
 
-            if (!empty($request['schedule_date'])) {
-                $data['schedule_date'] = $request['schedule_date'];
-            } else {
-                $data['schedule_date'] = now()->addMinutes(5);
+            if (!$request['draft']) {
+                if (!empty($request['schedule_date'])) {
+                    $data['schedule_date'] = $request['schedule_date'];
+                } else {
+                    $data['schedule_date'] = now()->addMinutes(5);
+                }
             }
 
             $entity = $this->repository->update($id, $data);

@@ -251,7 +251,7 @@
 <script src="{{ asset('vendor/formbuilder/js/footable/js/footable.min.js') }}" defer></script>
 <script src="{{ asset('vendor/formbuilder/js/script.js') }}{{ jazmy\FormBuilder\Helper::bustCache() }}" defer></script>
 
-<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{{ ('/js/toastr.min.js') }}"></script>
 @stack('fb-scripts')
 @yield('page-js-files')
 @yield('page-js-script')

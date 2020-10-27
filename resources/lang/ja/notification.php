@@ -72,6 +72,7 @@ return [
             '_err_content_required' => 'お知らせ本文を必ず入力してください。',
             '_err_schedule_required' => '公開日時を必ず指定してください。',
             '_err_schedule_lt_now' => '公開日時を正しく指定してください。',
+            '_err_content_gt_500' => 'The length of content less than 500 characters',
         ],
         'others' => [
             '_btn_draft_save' => '下書きとして保存する',

@@ -67,6 +67,7 @@ return [
             '_create_failed' => 'お知らせ作成に失敗しました。',
             '_draft_save_success' => 'お知らせの下書き保存が成功しました。',
             '_draft_save_failed' => 'お知らせの下書き保存に失敗しました。',
+            '_err_content_gt_500' => 'The length of content less than 500 characters',
         ],
         'others' => [
             '_btn_draft_save' => '下書きとして保存',
