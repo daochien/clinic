@@ -13,3 +13,4 @@ yarn-error.log
 .history
 reports/
 .idea
+public/.DS_Store

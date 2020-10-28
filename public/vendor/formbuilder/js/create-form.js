@@ -133,7 +133,15 @@ jQuery(function() {
         formBuilder.actions.showData()
     });
 
+    $('div.fld-label').change(function (){
+        $(this).text($(this).text());
+    })
+
     fbSaveBtn.click(function(e) {
+        $('div.fld-label').each(function (index) {
+            $(this).text($(this).text());
+        })
+
         $(".input-error").text('');
         $('.form-control').removeClass('is-invalid');
         e.preventDefault()

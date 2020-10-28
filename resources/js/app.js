@@ -135,6 +135,9 @@ Vue.component('my-account', require('./components/client/MyAccount').default);
 import Vue2Editor from "vue2-editor";
 Vue.use(Vue2Editor);
 
+import TextareaAutosize from 'vue-textarea-autosize'
+Vue.use(TextareaAutosize)
+
 // Filter Section
 
 Vue.filter('myDate', function (created) {

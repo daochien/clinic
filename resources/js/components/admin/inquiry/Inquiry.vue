@@ -22,31 +22,21 @@
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label>
-                                            {{ $t('inquiry.attr._title')}}
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-10" v-html="inquiry.title"></div>
-                            </div>
-                            <div class="row">
-                                <div class="col-2">
-                                    <div class="form-group">
-                                        <label>
                                             {{ $t('inquiry.attr._category')}}
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-5" v-html="inquiry.category.name"></div>
+                                <div class="col-10" v-html="inquiry.category.name"></div>
                             </div>
                             <div class="row">
                                 <div class="col-2">
                                     <div class="form-group">
                                         <label>
-                                            {{ $t('inquiry.attr._status')}}
+                                            {{ $t('inquiry.attr._sender')}}
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-5" v-html="inquiry.category.name"></div>
+                                <div class="col-5" v-html="inquiry.created_by.name"></div>
                             </div>
                         </div>
                         <div class="card-header">
@@ -66,12 +56,17 @@
                             <div class="row">
                                 <div class="col-2">
                                     <div class="form-group">
-                                        <label>
+                                        <label v-html="">
                                             {{ $t('inquiry.info.form._content')}}
                                         </label>
                                     </div>
                                 </div>
-                                <div class="col-10" v-html="inquiry.question"></div>
+                                <TextareaAutosize ref="myTextarea"
+                                                   autosize="true"
+                                                   class="col-10"
+                                                   v-model="inquiry.question"
+                                                  style="border: 0;color: #5A6169"
+                                />
                             </div>
                             <button class="btn btn-primary float-right mr-3" :disabled="isClosed()" @click="close()">{{ $t('inquiry.info.others._btn_close')}}</button>
                         </div>
@@ -128,6 +123,8 @@
 </template>
 
 <script>
+import { setResizeListeners } from "../../../library/auto-resize";
+
     export default {
         data () {
             return {
